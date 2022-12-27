@@ -44,6 +44,7 @@ class _StudentEditState extends State with StudentValidationMixin{
 
   Widget buildFirstNameField() {
     return TextFormField(
+      initialValue: selectedStudent!.firstName,
       decoration: const InputDecoration(
         labelText: "Öğrenci Adı",
         hintText: "Öğrenci adı giriniz",
@@ -57,6 +58,7 @@ class _StudentEditState extends State with StudentValidationMixin{
 
   Widget buildLastNameField() {
     return TextFormField(
+      initialValue: selectedStudent!.lastName,
       decoration: const InputDecoration(
         labelText: "Öğrenci Soyadı",
         hintText: "Öğrenci soyadı giriniz",
@@ -70,6 +72,7 @@ class _StudentEditState extends State with StudentValidationMixin{
 
   Widget buildGradeField() {
     return TextFormField(
+      initialValue: selectedStudent!.grade.toString(),
       decoration: const InputDecoration(
         labelText: "Aldığı Not",
         hintText: "Öğrenci notunu giriniz",
