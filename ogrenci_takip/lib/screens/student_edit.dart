@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:ogrenci_takip/validation/student_validator.dart';
 import '../models/student.dart';
 
-class StudentAdd extends StatefulWidget{
-  late List<Student> students;
-  StudentAdd(List<Student> students){
-    this.students = students;
+class StudentEdit extends StatefulWidget{
+  Student? selectedStudent;
+  StudentEdit(Student selectedStudent){
+    this.selectedStudent = selectedStudent;
   }
   @override
   State<StatefulWidget> createState() {
-    return _StudentAddState(students);
+    return _StudentEditState(selectedStudent!);
   }
 }
 
-class _StudentAddState extends State with StudentValidationMixin{
-  late List<Student> students;
-  var student = Student.withoutInfo();
+class _StudentEditState extends State with StudentValidationMixin{
+  Student? selectedStudent;
   var formKey = GlobalKey<FormState>();
-  _StudentAddState(List<Student> students){
-    this.students = students;
+  _StudentEditState(Student selectedStudent){
+    this.selectedStudent = selectedStudent;
   }
   @override
   Widget build(BuildContext context) {
@@ -51,7 +50,7 @@ class _StudentAddState extends State with StudentValidationMixin{
       ),
       validator: validateFirstName,
       onSaved: (String? value){
-        student.firstName = value!;
+        selectedStudent!.firstName = value!;
       },
     );
   }
@@ -64,7 +63,7 @@ class _StudentAddState extends State with StudentValidationMixin{
       ),
       validator: validateLastName,
       onSaved: (String? value){
-        student.lastName = value!;
+        selectedStudent!.lastName = value!;
       },
     );
   }
@@ -77,7 +76,7 @@ class _StudentAddState extends State with StudentValidationMixin{
       ),
       validator: validateFirstName,
       onSaved: (String? value){
-        student.grade = int.parse(value!);
+        selectedStudent!.grade = int.parse(value!);
       },
     );
   }
@@ -87,7 +86,6 @@ class _StudentAddState extends State with StudentValidationMixin{
       onPressed: (){
         if(formKey.currentState!.validate()){
           formKey.currentState!.save();
-          students.add(student);
           saveStudent();
           Navigator.pop(context);
         }
@@ -97,9 +95,8 @@ class _StudentAddState extends State with StudentValidationMixin{
   }
 
   void saveStudent() {
-
-    print(student.firstName);
-    print(student.lastName);
-    print(student.grade);
+    print(selectedStudent!.firstName);
+    print(selectedStudent!.lastName);
+    print(selectedStudent!.grade);
   }
 }

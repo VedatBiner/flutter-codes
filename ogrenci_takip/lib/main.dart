@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ogrenci_takip/screens/student_add.dart';
+import 'package:ogrenci_takip/screens/student_edit.dart';
 import 'models/student.dart';
 
 void main() {
@@ -66,7 +67,7 @@ class _MyAppState extends State<MyApp> {
               }
           ),
         ),
-        Text("Seçili öğrenci : ${selectedStudent.firstName}"),
+        Text("Seçili öğrenci : ${selectedStudent.firstName} ${selectedStudent.lastName}"),
         Row(
           children: [
             Flexible(
@@ -98,8 +99,7 @@ class _MyAppState extends State<MyApp> {
                   backgroundColor: Colors.amberAccent,
                 ),
                 onPressed: () {
-                  var mesaj = "Güncellendi";
-                  mesajGoster(context, mesaj);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentEdit(selectedStudent)));
                 },
                 child: Row(
                   children: const [
@@ -136,7 +136,6 @@ class _MyAppState extends State<MyApp> {
             ),
           ],
         ),
-
       ],
     );
   }
