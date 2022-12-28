@@ -6,3 +6,4 @@ https://www.youtube.com/playlist?list=PLlvRDpXh1Se4Ceivpg8KrGvzb8BL9BHwo
 https://github.com/mitchkoko/ModernLoginUI/
 
 İkinci video ile devam edilecek
+Firebase ile ilgili hata veriyor ?
