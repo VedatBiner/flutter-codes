@@ -44,9 +44,10 @@ Hatalı giriş yapılınca validasyon çalışıp hatalarımızı iletiyor.
 <BR>
 ![ScreenShot](screen_shots/img-03.png)
 
-Güncel Liste
+Güncelleme İşlemi
 <BR>
-![ScreenShot](/screen_shots/img-03.png)
+![ScreenShot](screen_shots/img-04.png)
+![ScreenShot](screen_shots/img-05.png)
 
 
 Validation hatası için bir örnek : https://stackoverflow.com/questions/68140451/flutter-form-validation-with-null-safety
