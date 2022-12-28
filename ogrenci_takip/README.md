@@ -40,15 +40,13 @@ Silinme mesajı
 <BR>
 ![ScreenShot](screen_shots/img-02.png)
 
+Hatalı giriş yapılınca validasyon çalışıp hatalarımızı iletiyor.
+<BR>
+![ScreenShot](screen_shots/img-03.png)
+
 Güncel Liste
 <BR>
 ![ScreenShot](/screen_shots/img-03.png)
-
-Hatalı giriş yapılınca validasyon çalışıp hatalarımızı iletiyor.
-<BR>
-![ScreenShot](/screen_shots/img-04.png)
-
-
 
 
 Validation hatası için bir örnek : https://stackoverflow.com/questions/68140451/flutter-form-validation-with-null-safety
