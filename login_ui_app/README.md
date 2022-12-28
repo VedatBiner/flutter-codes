@@ -7,3 +7,4 @@ https://github.com/mitchkoko/ModernLoginUI/
 
 İkinci video ile devam edilecek
 Firebase ile ilgili hata veriyor ?
+Emülatör ile çalışmıyor. Ancak doğrudan tel bağlarsak çalışıyor.
