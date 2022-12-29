@@ -4,17 +4,46 @@ import 'package:login_ui_app/components/my_textfield.dart';
 import '../components/my_button.dart';
 import '../components/square_tile.dart';
 
-class LoginPage extends StatelessWidget{
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget{
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   // Text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   // SignUserIn method
   signUserIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
+    // loading circle
+    showDialog(
+      context: context,
+      builder: (context){
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
     );
+    // try sign in
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch(e){
+      // Wrong e-mail
+        if (e.code == "user-not-found"){
+          wrongEmailMessage();
+          // Wrong password
+        } else if (e.code == "wrong-password"){
+          wrongPasswordMessage();
+        }
+    }
   }
 
   @override
@@ -46,7 +75,7 @@ class LoginPage extends StatelessWidget{
                 // username
                 MyTextField(
                   controller: emailController,
-                  hintText: "Username",
+                  hintText: "email",
                   obscureText: false,
                 ),
                 const SizedBox(height: 10,),
@@ -140,4 +169,34 @@ class LoginPage extends StatelessWidget{
       ),
     );
   }
+
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context){
+        return const AlertDialog(
+          title: Text("Incorrect email"),
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context){
+        return const AlertDialog(
+          title: Text("Incorrect password"),
+        );
+      },
+    );
+  }
 }
+
+
+
+
+
+
+
+

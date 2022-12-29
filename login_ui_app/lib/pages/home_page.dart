@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({super.key});
+  // mevcut kullanıcıyı alalım.
+  final user = FirebaseAuth.instance.currentUser!;
 
   void signUserOut(){
     FirebaseAuth.instance.signOut();
@@ -19,8 +21,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: Text("Logged In"),
+      body: Center(
+        child: Text(
+          "Logged In as${user.email!}",
+          style: const TextStyle(fontSize: 20),
+        ),
       ),
     );
   }
