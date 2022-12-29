@@ -12,6 +12,6 @@ Görülen bazı sorunlar:
 2. Firebase ile ilgili hata veriyor ? bu hatanın sebebi emülatör kullanımından kaynaklı
 Ancak doğrudan tel bağlarsak Vysor yazılımı ile çalışıyor.
 
-1. Video ile oluşturduğumuz ara yüz
+İlk bölümde oluşturduğumuz ara yüz
 <BR>
 ![ScreenShot](screen_shots/img-01.png)
