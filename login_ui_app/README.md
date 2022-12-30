@@ -5,7 +5,7 @@ var. Kodları kendim öğrenme amacı ile kodladım.
 https://www.youtube.com/playlist?list=PLlvRDpXh1Se4Ceivpg8KrGvzb8BL9BHwo
 https://github.com/mitchkoko/ModernLoginUI/
 
-Üçüncü video ile devam edilecek
+Dördüncü video ile devam edilecek
 
 Görülen bazı sorunlar:
 1. Anlatılan Firebase yöntemi ile olmadı. Manual Firebase eklmesi ile oldu.
