@@ -4,9 +4,9 @@ Udemy eğitim çalışmasından alınmıştır.
 
 [https://openweathermap.org/]() sitesindeki **API** ile hava durumu bilgilerini alan uygulama\
 Başlangıç Sayfamız\
-![ScreenShot](/screen_shots/img-01.png)\
+![ScreenShot](screen_shots/img-01.png)\
 Arama Sayfamız\
-![ScreenShot](/screen_shots/img-02.png)\
+![ScreenShot](screen_shots/img-02.png)\
 - **http** kütüphanesi ile **async** - **await** fonksiyonları uygulanarak internetten **JSON** veri çekildi.
 - Verilen şehre göre sıcaklık, kısa bir bekleme süresi ardından otomatik gösterildi.\
 ![ScreenShot](screen_shots/img-03.png)
