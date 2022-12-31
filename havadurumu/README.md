@@ -35,3 +35,7 @@ Arama Sayfamız\
 Gölgelendirme ve buton rengi değişti.\
 ![ScreenShot](/screen_shots/img-17.png)
 ![ScreenShot](/screen_shots/img-18.png)
+
+
+<BR>
+![ScreenShot](screen_shots/img-01.png)
