@@ -9,7 +9,7 @@ Arama Sayfamız\
 ![ScreenShot](/screen_shots/img-02.png)\
 - **http** kütüphanesi ile **async** - **await** fonksiyonları uygulanarak internetten **JSON** veri çekildi.
 - Verilen şehre göre sıcaklık, kısa bir bekleme süresi ardından otomatik gösterildi.\
-![ScreenShot](/screen_shots/img-03.png)
+![ScreenShot](../screen_shots/img-03.png)
 ![ScreenShot](/screen_shots/img-04.png)\
 - Daha sonra şehir seçimi kullanıcı tarafından yapıldı.\
 ![ScreenShot](/screen_shots/img-05.png)
