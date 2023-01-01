@@ -16,9 +16,12 @@ Apple Bilgisayarda deneme şansım olmadığı için Apple ile Sign In in kodda 
 <BR>
 ![ScreenShot](screen_shots/img-01.png)
 <BR>
+Log In ve Register Now arasında geçiş ekranları<BR>
 ![ScreenShot](screen_shots/img-02.png)
 ![ScreenShot](screen_shots/img-03.png)
 <BR>
+Kullanıcı bulunamadı mesajı/
+![ScreenShot](screen_shots/img-06.png)
 ![ScreenShot](screen_shots/img-04.png)
 ![ScreenShot](screen_shots/img-05.png)/
 
