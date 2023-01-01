@@ -20,7 +20,7 @@ Log In ve Register Now arasında geçiş ekranları<BR>
 ![ScreenShot](screen_shots/img-02.png)
 ![ScreenShot](screen_shots/img-03.png)
 <BR>
-Kullanıcı bulunamadı mesajı/
+Kullanıcı bulunamadı mesajı<BR>
 ![ScreenShot](screen_shots/img-06.png)
 ![ScreenShot](screen_shots/img-04.png)
 ![ScreenShot](screen_shots/img-05.png)/
