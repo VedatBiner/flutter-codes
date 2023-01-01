@@ -24,6 +24,12 @@ Kullanıcı bulunamadı mesajı<BR>
 ![ScreenShot](screen_shots/img-06.png)<BR>
 Hatalı mail adresi<BR>
 ![ScreenShot](screen_shots/img-07.png)<BR>
+Zayıf password<BR>
+![ScreenShot](screen_shots/img-08.png)<BR>
+Mail adresi ile erişim<BR>
+![ScreenShot](screen_shots/img-09.png)<BR>
+Google Sign In<BR>
 ![ScreenShot](screen_shots/img-04.png)
-![ScreenShot](screen_shots/img-05.png)/
+![ScreenShot](screen_shots/img-05.png)
+
 
