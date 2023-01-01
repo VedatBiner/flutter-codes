@@ -14,9 +14,11 @@ Apple Bilgisayarda deneme şansım olmadığı için Apple ile Sign In in kodda 
 
 İlk bölümde oluşturduğumuz ara yüz
 <BR>
-![ScreenShot](screen_shots/img-01.png)/
+![ScreenShot](screen_shots/img-01.png)
+<BR>
 ![ScreenShot](screen_shots/img-02.png)
-![ScreenShot](screen_shots/img-03.png)/
+![ScreenShot](screen_shots/img-03.png)
+<BR>
 ![ScreenShot](screen_shots/img-04.png)
 ![ScreenShot](screen_shots/img-05.png)/
 
