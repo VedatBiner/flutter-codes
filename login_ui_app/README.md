@@ -21,7 +21,9 @@ Log In ve Register Now arasında geçiş ekranları<BR>
 ![ScreenShot](screen_shots/img-03.png)
 <BR>
 Kullanıcı bulunamadı mesajı<BR>
-![ScreenShot](screen_shots/img-06.png)
+![ScreenShot](screen_shots/img-06.png)<BR>
+Hatalı mail adresi<BR>
+![ScreenShot](screen_shots/img-07.png)<BR>
 ![ScreenShot](screen_shots/img-04.png)
 ![ScreenShot](screen_shots/img-05.png)/
 
