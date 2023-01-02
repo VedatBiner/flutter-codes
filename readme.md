@@ -6,13 +6,10 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Hava Durumu Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu)Basit bir hava Durumu uygulaması</B><BR>
 
 <B>[Kahveci ara yüzü : ](https://github.com/VedatBiner/flutter-codes/tree/master/kahveci)Basit bir arayüz uygulaması</B><BR>
-<BR>
 
-<B>Kartpostal : </B>Basit bir arayüz uygulaması<BR>
-Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/karpostal
-<BR>
-<B>Öğrenci Takibi: </B>Navigasyon ve Form uygulaması<BR>
-Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip
+<B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
+
+<B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
 <BR>
 
 
