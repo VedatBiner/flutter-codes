@@ -18,6 +18,6 @@ Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/karpost
 Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip
 <BR>
 
-[deneme](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)
 
-<B>[Calculator_ui : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B> Bir hesap makinesi arayüzü.<BR>
+
+-**[Calculator_ui : ]**(https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B> Bir hesap makinesi arayüzü.<BR>
