@@ -3,9 +3,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulmaların kendimce kodlanmış 
 
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
 
-<li><B>Hava Durumu Uygulaması : </B>Basit bir hava Durumu uygulaması<BR>
-Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu
-<BR>
+<B>[Hava Durumu Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu)Basit bir hava Durumu uygulaması</B><BR>
+
 <li><B>Kahve ara yüzü : </B>Basit bir arayüz uygulaması<BR>
 Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/kahveci
 <BR>
