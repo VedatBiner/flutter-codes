@@ -1,6 +1,7 @@
 # yasam_beklentisi
 
-# flutter_yasambeklentisi
+https://www.udemy.com/course/flutter-kodplanet/learn/lecture/22340158#overview <BR>
+Sayfasındaki eğitimin kodları<BR>
 
 Yaşam Beklentisi örneği. Önce kendi widget 'ımız oluşturuluyor.
 Cinsiyet, Spor yapma sıklığı, Sigara kullanım sıklığı,
