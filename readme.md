@@ -18,4 +18,4 @@ Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/karpost
 Erişim Adresi : https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip
 <BR>
 
-[deneme]("https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip")
+[deneme](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)
