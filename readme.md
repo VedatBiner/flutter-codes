@@ -1,4 +1,9 @@
 Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış halleri bulunuyor.<BR>
+
+<B>[Bilgi Testi : ](https://github.com/VedatBiner/flutter-codes/tree/master/bilgitesti)</B>Basit test uygulaması, buton kullanımı<BR>
+
+<B>[Bugün Ne Yesem? : ](https://github.com/VedatBiner/flutter-codes/tree/master/bugun_ne_yesem)</B>Yemek seçim Uygulaması<BR>
+
 <B>[Calculator_ui : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B>Bir hesap makinesi arayüzü.<BR>
 
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
