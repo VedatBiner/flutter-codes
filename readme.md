@@ -9,8 +9,11 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
 
+<B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
+
 <B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
 <BR>
 
-
+<B>[Yaşam Beklentisi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yasam_beklentisi)Gesture Detector, Slider uygulaması</B>
+<BR>
 
