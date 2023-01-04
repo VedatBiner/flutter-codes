@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/item_data.dart';
 import '../widgets/item_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -43,7 +44,10 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: ListView.builder(
                       itemCount: 3,
-                      itemBuilder: (context, index) => const ItemCard(),
+                      itemBuilder: (context, index) => ItemCard(
+                        title: ItemData().items[index].title,
+                        isDone: ItemData().items[index].isDone,
+                      ),
                   ),
                 ),
               ),
