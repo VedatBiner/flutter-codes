@@ -7,3 +7,5 @@ Kartlarımız oluştu. (01-Card Branch)\
 ![ScreenShot](screen_shots/img-02.png)\
 Basit bir veri tabanı görevi görecek liste ile kart maddelerini yazalım. (02-SimpleDB Branch)\
 ![ScreenShot](screen_shots/img-03.png)\
+**Provider** paketi kullanıp, Sayfa başlığı ve liste eleman sayısının otomatik güncellenmesi sağlandı.\
+![ScreenShot](screen_shots/img-04.png)\

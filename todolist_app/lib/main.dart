@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
-import './screens/home_page.dart';
+import '../models/item_data.dart';
+import 'package:provider/provider.dart';
+import '../screens/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    // Provider oluşturuldu.
+    ChangeNotifierProvider<ItemData>(
+      create: (BuildContext context) => ItemData(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
