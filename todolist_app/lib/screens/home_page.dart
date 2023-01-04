@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/item_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,6 +37,13 @@ class HomePage extends StatelessWidget {
                     Radius.circular(
                       30,
                     ),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ListView.builder(
+                      itemCount: 3,
+                      itemBuilder: (context, index) => const ItemCard(),
                   ),
                 ),
               ),
