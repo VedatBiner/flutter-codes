@@ -6,6 +6,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Calculator_ui : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B>Bir hesap makinesi arayüzü.<BR>
 
+<B>[Drum Machine : ](https://github.com/VedatBiner/flutter-codes/tree/master/drum_machine)</B>Basit bir Davul Uygulaması<BR>
+
 <B>[Fal : ](https://github.com/VedatBiner/flutter-codes/tree/master/fal)</B>Eğlencelik Fal Uygulaması<BR>
 
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
