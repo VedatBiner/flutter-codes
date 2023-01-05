@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/item_data.dart';
 import '../widgets/item_card.dart';
 import '../screens/item_adder.dart';
+import '../screens/settings_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,6 +13,25 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.settings,
+                size: 25,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
         title: const Text(
           "Get it Done",
         ),

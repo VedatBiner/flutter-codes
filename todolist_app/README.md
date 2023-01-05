@@ -18,3 +18,9 @@ Seçilen görevin Silinmesi. (06-DeleteTask Branch)\
 Seçilen görev parmak veya mouse ile sola çekiliyor.\
 ![ScreenShot](screen_shots/img-08.png)
 ![ScreenShot](screen_shots/img-09.png)\
+Renk temasını değiştirmek için bir buton eklendi. (07-Settings Branch)\
+Kırmızı yeşil renk değişimi yapıldı. Bu renk değişimi içinde ikinci bir provider kullanıldı. Yani MultiProvider Widget kullanıldı.\
+![ScreenShot](screen_shots/img-10.png)
+![ScreenShot](screen_shots/img-11.png)\
+![ScreenShot](screen_shots/img-12.png)
+![ScreenShot](screen_shots/img-13.png)
