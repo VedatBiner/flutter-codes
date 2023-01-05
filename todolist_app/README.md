@@ -27,3 +27,9 @@ Kırmızı yeşil renk değişimi yapıldı. Bu renk değişimi içinde ikinci b
 Refactoring ile bazı düzeltmeler yapıldı. (08-Refactoring Branch)\
 Shared Preferences ile en son kullanılan tema bilgisi cihazda tutuldu.
 (09-SharedPreferences Branch)<BR>
+Örneğin kırmızı tema ile kapatılan uygulama tekrar başlatıldığında yeşil
+değil, kırmızı tema ile başladı.<BR>
+Listemizi sıfırladık. Uygulama içindeki hazır listeyi iptal ettik. (10-SharedPreferencesList Branch)<BR>
+Kendi bilgilerimizi kaydedip çıktık. Uygulamayı tekrar çalıştırınca kaydettiğimz hali ile geldi. <BR>
+![ScreenShot](screen_shots/img-14.png)
+![ScreenShot](screen_shots/img-15.png)

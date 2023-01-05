@@ -7,6 +7,7 @@ import '../screens/home_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ColorThemeData().createPrefObject();
+  await ItemData().createPrefObject();
   runApp(
     MultiProvider(
       providers: [
@@ -29,8 +30,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // kayıtlı uygulama temasını alıyoruz.
     Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
+
+    // kayıtlı görevler
+    Provider.of<ItemData>(context).loadItemsFromSharedPref();
     return MaterialApp(
       theme: Provider.of<ColorThemeData>(context).selectedThemeData,
       home: const HomePage(),
