@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:splashscreen/splashscreen.dart';
 import '../models/item_data.dart';
 import '../models/color_theme_data.dart';
 import '../screens/home_page.dart';
@@ -41,9 +42,28 @@ class MyApp extends StatelessWidget {
             theme: Provider
                 .of<ColorThemeData>(context)
                 .selectedThemeData,
-            home: const HomePage(),
+            home: const SplashWidget(),
           );
         }
     );
   }
 }
+
+class SplashWidget extends StatelessWidget {
+  const SplashWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SplashScreen(
+      seconds: 10,
+      navigateAfterSeconds: const HomePage(),
+      title: const Text("Welcome"),
+      image: Image.asset("assets/splash.jpg"),
+      backgroundColor: Colors.white,
+      styleTextUnderTheLoader: const TextStyle(),
+      photoSize: 200.0,
+      loaderColor: Colors.red,
+    );
+  }
+}
+
