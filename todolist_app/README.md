@@ -36,3 +36,5 @@ Kendi bilgilerimizi kaydedip çıktık. Uygulamayı tekrar çalıştırınca kay
 Birden çok provider yayını için **Provider2** widget kullanıldı. (11-Provider-EkBugFix Branch)
 Aynı kayıttan çok kez girildiğinde key bilgisinin tek olması sağlandı.<BR>
 Splash Screen eklendi. (12-SplashScreen Branch)
+Burada kullanılan eklenti null safety uyumlu değil bu nedenle hata oluşması halinde \
+komut satırında "flutter run --no-sound-null-safety" şeklinde çalıştırılmalı
