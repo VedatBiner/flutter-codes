@@ -25,3 +25,5 @@ Kırmızı yeşil renk değişimi yapıldı. Bu renk değişimi içinde ikinci b
 ![ScreenShot](screen_shots/img-12.png)
 ![ScreenShot](screen_shots/img-13.png)\
 Refactoring ile bazı düzeltmeler yapıldı. (08-Refactoring Branch)\
+Shared Preferences ile en son kullanılan tema bilgisi cihazda tutuldu.
+(09-SharedPreferences Branch)<BR>

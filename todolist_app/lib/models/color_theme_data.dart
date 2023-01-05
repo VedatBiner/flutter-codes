@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ColorThemeData with ChangeNotifier{
 
@@ -68,14 +69,34 @@ class ColorThemeData with ChangeNotifier{
     ),
   );
 
-  bool isGreen = true;
+  bool _isGreen = true;
+  static late SharedPreferences _sharedPref;
 
   void switchTheme(bool selected){
-    _selectedThemeData = selected ? _greenTheme : _redTheme;
-    isGreen = selected;
+    _isGreen = selected;
+    // her çalıştığında save etsin.
+    saveThemeToSharedPref(selected);
     notifyListeners();
   }
 
-  ThemeData get selectedThemeData => _selectedThemeData;
+  ThemeData get selectedThemeData => _isGreen ? _greenTheme : _redTheme;
+
+  // getter
+  bool get isGreen => _isGreen;
+
+  // obje getirecek metot
+  Future<void> createPrefObject() async{
+    _sharedPref = await SharedPreferences.getInstance();
+  }
+
+  // kayıt metodu
+  void saveThemeToSharedPref(bool value){
+    _sharedPref.setBool("themeData", value);
+  }
+
+  // uygulama ilk açıldığında sharedpref içinde veri çeken metot
+  void loadThemeFromSharedPref(){
+    _isGreen = _sharedPref.getBool("themeData") ?? true;
+  }
 
 }

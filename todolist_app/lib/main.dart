@@ -4,7 +4,9 @@ import '../models/item_data.dart';
 import '../models/color_theme_data.dart';
 import '../screens/home_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ColorThemeData().createPrefObject();
   runApp(
     MultiProvider(
       providers: [
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // kayıtlı uygulama temasını alıyoruz.
+    Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
     return MaterialApp(
       theme: Provider.of<ColorThemeData>(context).selectedThemeData,
       home: const HomePage(),
