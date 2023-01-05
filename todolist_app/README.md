@@ -23,4 +23,5 @@ Kırmızı yeşil renk değişimi yapıldı. Bu renk değişimi içinde ikinci b
 ![ScreenShot](screen_shots/img-10.png)
 ![ScreenShot](screen_shots/img-11.png)\
 ![ScreenShot](screen_shots/img-12.png)
-![ScreenShot](screen_shots/img-13.png)
+![ScreenShot](screen_shots/img-13.png)\
+Refactoring ile bazı düzeltmeler yapıldı. (08-Refactoring Branch)\

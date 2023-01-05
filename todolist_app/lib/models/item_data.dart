@@ -1,27 +1,30 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
-import './item.dart';
+import '../models/item.dart';
 
 class ItemData with ChangeNotifier{
 
-  final List<Item> items = [
+  final List<Item> _items = [
     Item(title: "Peynir Al"),
     Item(title: "Çöpü At"),
     Item(title: "Faturayı Öde"),
   ];
 
   void toggleStatus(int index){
-    items[index].toggleStatus();
+    _items[index].toggleStatus();
     notifyListeners();
   }
 
   void addItem(String title){
-    items.add(Item(title: title));
+    _items.add(Item(title: title));
     notifyListeners();
   }
 
   void deleteItem(int index){
-    items.removeAt(index);
+    _items.removeAt(index);
     notifyListeners();
   }
+
+  UnmodifiableListView<Item> get items => UnmodifiableListView(_items);
 
 }

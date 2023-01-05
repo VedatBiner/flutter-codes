@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorThemeData with ChangeNotifier{
 
-  final ThemeData greenTheme = ThemeData(
+  final ThemeData _greenTheme = ThemeData(
     primaryColor: Colors.green,
     scaffoldBackgroundColor: Colors.green,
     appBarTheme: const AppBarTheme(
@@ -24,7 +24,7 @@ class ColorThemeData with ChangeNotifier{
     ),
   );
 
-  final ThemeData redTheme = ThemeData(
+  final ThemeData _redTheme = ThemeData(
     primaryColor: Colors.red,
     scaffoldBackgroundColor: Colors.red,
     appBarTheme: const AppBarTheme(
@@ -68,8 +68,11 @@ class ColorThemeData with ChangeNotifier{
     ),
   );
 
+  bool isGreen = true;
+
   void switchTheme(bool selected){
-    _selectedThemeData = selected ? greenTheme : redTheme;
+    _selectedThemeData = selected ? _greenTheme : _redTheme;
+    isGreen = selected;
     notifyListeners();
   }
 

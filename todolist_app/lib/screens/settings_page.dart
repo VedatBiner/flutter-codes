@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/color_theme_data.dart';
 import 'package:provider/provider.dart';
+import '../models/color_theme_data.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -18,15 +18,8 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class SwitchCard extends StatefulWidget {
+class SwitchCard extends StatelessWidget {
   const SwitchCard({Key? key}) : super(key: key);
-
-  @override
-  State<SwitchCard> createState() => _SwitchCardState();
-}
-
-class _SwitchCardState extends State<SwitchCard> {
-  bool _value = true;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +35,7 @@ class _SwitchCardState extends State<SwitchCard> {
         color: Colors.red,
       ),
     );
+    bool _value = Provider.of<ColorThemeData>(context).isGreen;
     return Card(
       child: SwitchListTile(
         subtitle: _value ? greenText : redText,
@@ -53,9 +47,6 @@ class _SwitchCardState extends State<SwitchCard> {
         ),
         value: _value,
         onChanged: (bool value) {
-          setState(() {
-            _value = value;
-          });
           Provider.of<ColorThemeData>(context, listen: false)
               .switchTheme(value);
         },
