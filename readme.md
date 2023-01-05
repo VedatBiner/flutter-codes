@@ -18,7 +18,7 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
 
-<B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
+<B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Account ile erişim</B><BR>
 
 <B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
 <BR>
@@ -26,3 +26,5 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Yaşam Beklentisi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yasam_beklentisi)Gesture Detector, Slider uygulaması</B>
 <BR>
 
+<B>[ToDo List Uygulması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulmada, sharedpreferences, provider, splashscreen gibi uygulmalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
+<BR>
