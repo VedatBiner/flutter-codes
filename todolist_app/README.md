@@ -33,3 +33,5 @@ Listemizi sıfırladık. Uygulama içindeki hazır listeyi iptal ettik. (10-Shar
 Kendi bilgilerimizi kaydedip çıktık. Uygulamayı tekrar çalıştırınca kaydettiğimz hali ile geldi. <BR>
 ![ScreenShot](screen_shots/img-14.png)
 ![ScreenShot](screen_shots/img-15.png)
+Birden çok provider yayını için **Provider2** widget kullanıldı. (11-Provider-EkBugFix Branch)
+Aynı kayıttan çok kez girildiğinde key bilgisinin tek olması sağlandı.<BR>

@@ -31,14 +31,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // kayıtlı uygulama temasını alıyoruz.
-    Provider.of<ColorThemeData>(context).loadThemeFromSharedPref();
+    return Consumer2<ItemData, ColorThemeData>(
+        builder: (context, itemData, colorThemeData, child) {
+          // iki provider yayınlıyoruz
+          itemData.loadItemsFromSharedPref();
+          colorThemeData.loadThemeFromSharedPref();
 
-    // kayıtlı görevler
-    Provider.of<ItemData>(context).loadItemsFromSharedPref();
-    return MaterialApp(
-      theme: Provider.of<ColorThemeData>(context).selectedThemeData,
-      home: const HomePage(),
+          return MaterialApp(
+            theme: Provider
+                .of<ColorThemeData>(context)
+                .selectedThemeData,
+            home: const HomePage(),
+          );
+        }
     );
   }
 }

@@ -18,7 +18,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: deleteItem,
-      key: Key(title), // kartları birbirinden ayıran özellik
+      key: UniqueKey(), // kartları birbirinden ayıran özellik
       child: Card(
         // buton rengi değişiyor
         color: isDone ? Colors.green.shade50 : Colors.white,
