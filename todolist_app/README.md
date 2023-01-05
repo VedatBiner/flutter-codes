@@ -13,4 +13,8 @@ Görev tamamlanınca üzeri çizilsin, buton rengi değişsin, basılı görün�
 ![ScreenShot](screen_shots/img-05.png)\
 Yeni görev eklenmesi. (05-AddTask Branch)\
 ![ScreenShot](screen_shots/img-06.png)
-![ScreenShot](screen_shots/img-07.png)
+![ScreenShot](screen_shots/img-07.png)\
+Seçilen görevin Silinmesi. (06-DeleteTask Branch)\
+Seçilen görev parmak veya mouse ile sola çekiliyor.\
+![ScreenShot](screen_shots/img-08.png)
+![ScreenShot](screen_shots/img-09.png)\
