@@ -47,9 +47,14 @@ class HomePage extends StatelessWidget {
                     // listedeki eleman sayısı kadar kart oluştur
                     itemCount: Provider.of<ItemData>(context).items.length,
                     itemBuilder: (context, index) => ItemCard(
-                      title: Provider.of<ItemData>(context).items[index].title,
-                      isDone: Provider.of<ItemData>(context).items[index].isDone,
-                    ),
+                        title:
+                            Provider.of<ItemData>(context).items[index].title,
+                        isDone:
+                            Provider.of<ItemData>(context).items[index].isDone,
+                        toggleStatus: (_) {
+                          // bool değeri hiç kullanmayacağımız için _ yaptık.
+                          Provider.of<ItemData>(context, listen: false).toggleStatus(index);
+                        }),
                   ),
                 ),
               ),
