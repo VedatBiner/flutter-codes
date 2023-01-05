@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/item_data.dart';
 import 'package:provider/provider.dart';
+import '../models/item_data.dart';
 import '../widgets/item_card.dart';
+import '../screens/item_adder.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,7 +54,8 @@ class HomePage extends StatelessWidget {
                             Provider.of<ItemData>(context).items[index].isDone,
                         toggleStatus: (_) {
                           // bool değeri hiç kullanmayacağımız için _ yaptık.
-                          Provider.of<ItemData>(context, listen: false).toggleStatus(index);
+                          Provider.of<ItemData>(context, listen: false)
+                              .toggleStatus(index);
                         }),
                   ),
                 ),
@@ -62,9 +64,17 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: const FloatingActionButton(
-        onPressed: null,
-        child: Icon(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            context: context,
+            builder: (context) => ItemAdder(),
+          );
+        },
+        child: const Icon(
           Icons.add,
         ),
       ),

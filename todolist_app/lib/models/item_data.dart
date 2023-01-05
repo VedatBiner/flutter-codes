@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'item.dart';
+import './item.dart';
 
 class ItemData with ChangeNotifier{
 
@@ -11,6 +11,11 @@ class ItemData with ChangeNotifier{
 
   void toggleStatus(int index){
     items[index].toggleStatus();
+    notifyListeners();
+  }
+
+  void addItem(String title){
+    items.add(Item(title: title));
     notifyListeners();
   }
 
