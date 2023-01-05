@@ -26,5 +26,5 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Yaşam Beklentisi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yasam_beklentisi)Gesture Detector, Slider uygulaması</B>
 <BR>
 
-<B>[ToDo List Uygulması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulmada, sharedpreferences, provider, splashscreen gibi uygulmalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
+<B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulmalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
 <BR>
