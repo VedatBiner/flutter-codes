@@ -1,6 +1,6 @@
 class Adres{
-  late  String il;
-  late String ilce;
+  String il;
+  String ilce;
 
   Adres(this.il, this.ilce); //constructor
 }
