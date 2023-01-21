@@ -43,105 +43,101 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        userAnswer,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "orbitron",
-                        ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      userAnswer,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "orbitron",
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        userQuestion,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontFamily: "orbitron",
-                        ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      userQuestion,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontFamily: "orbitron",
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                child: GridView.builder(
-                    // her sırada dört düğme olsun
-                    itemCount: buttons.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4),
-                    itemBuilder: (BuildContext context, int index) {
-                      // Clear button
-                      if (index == 0) {
-                        return MyButton(
-                          buttonTapped: () {
-                            setState(() {
-                              userQuestion = "0";
-                              userAnswer = "";
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.green,
-                          textColor: Colors.white,
-                        );
-                      }
-                      // Delete button
-                      else if (index == 1) {
-                        return MyButton(
-                          buttonTapped: () {
-                            setState(() {
-                              userQuestion = userQuestion.substring(
-                                  0, userQuestion.length - 1);
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.red,
-                          textColor: Colors.white,
-                        );
-                      }
-                      // = button
-                      else if (index == buttons.length - 1) {
-                        return MyButton(
-                          buttonTapped: () {
-                            setState(() {
-                              equalPressed();
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: Colors.deepPurple,
-                          textColor: Colors.white,
-                        );
-                      } else {
-                        return MyButton(
-                          buttonTapped: () {
-                            setState(() {
-                              userQuestion += buttons[index];
-                            });
-                          },
-                          buttonText: buttons[index],
-                          color: isOperator(buttons[index])
-                              ? Colors.deepPurple
-                              : Colors.deepPurple.shade50,
-                          textColor: isOperator(buttons[index])
-                              ? Colors.white
-                              : Colors.deepPurple,
-                        );
-                      }
-                    }),
-              ),
+              child: GridView.builder(
+                  // her sırada dört düğme olsun
+                  itemCount: buttons.length,
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4),
+                  itemBuilder: (BuildContext context, int index) {
+                    // Clear button
+                    if (index == 0) {
+                      return MyButton(
+                        buttonTapped: () {
+                          setState(() {
+                            userQuestion = "0";
+                            userAnswer = "";
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.green,
+                        textColor: Colors.white,
+                      );
+                    }
+                    // Delete button
+                    else if (index == 1) {
+                      return MyButton(
+                        buttonTapped: () {
+                          setState(() {
+                            userQuestion = userQuestion.substring(
+                                0, userQuestion.length - 1);
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.red,
+                        textColor: Colors.white,
+                      );
+                    }
+                    // = button
+                    else if (index == buttons.length - 1) {
+                      return MyButton(
+                        buttonTapped: () {
+                          setState(() {
+                            equalPressed();
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: Colors.deepPurple,
+                        textColor: Colors.white,
+                      );
+                    } else {
+                      return MyButton(
+                        buttonTapped: () {
+                          setState(() {
+                            userQuestion += buttons[index];
+                          });
+                        },
+                        buttonText: buttons[index],
+                        color: isOperator(buttons[index])
+                            ? Colors.deepPurple
+                            : Colors.deepPurple.shade50,
+                        textColor: isOperator(buttons[index])
+                            ? Colors.white
+                            : Colors.deepPurple,
+                      );
+                    }
+                  }),
             ),
           ],
         ),
