@@ -51,9 +51,11 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(20),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        userQuestion,
+                        userAnswer,
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "orbitron",
                         ),
                       ),
                     ),
@@ -64,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                         userQuestion,
                         style: const TextStyle(
                           fontSize: 20,
+                          fontFamily: "orbitron",
                         ),
                       ),
                     )
@@ -160,6 +163,5 @@ class _HomePageState extends State<HomePage> {
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
     userAnswer = eval.toString();
-    print(userAnswer);
   }
 }

@@ -30,8 +30,9 @@ class MyButton extends StatelessWidget {
                   buttonText,
                   style: TextStyle(
                     color: textColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "russoone",
                   ),
                 ),
               ),
