@@ -62,13 +62,13 @@ class _CalculatorState extends State<Calculator> {
               scrollDirection: Axis.vertical,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children: [
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "0",
+                      text,
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 100,
                       ),
