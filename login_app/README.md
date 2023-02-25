@@ -4,8 +4,8 @@ Ekran boyutlarına göre otomatik ekran boyutlandırma https://www.udemy.com/cou
 ![ScreenShot](screen_shots/img-01.png)\
 Burada Arayüz tasarımı, ekran kontrolü \
 Bazı Widget 'lar\
--SingleChildScrollview
--Center
+* SingleChildScrollview
+* Center
 -Text
 -Column
 -Padding
