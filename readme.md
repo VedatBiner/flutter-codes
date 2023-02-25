@@ -4,7 +4,17 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Bugün Ne Yesem? : ](https://github.com/VedatBiner/flutter-codes/tree/master/bugun_ne_yesem)</B>Yemek seçim Uygulaması<BR>
 
+<B>[Calculator_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_app)</B>Bir hesap makinesi uygulaması<BR>
+
+<B>[Calculator_app2 : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_app2)</B>Bir başka hesap makinesi uygulaması<BR>
+
+<B>[Calculator_tutorial : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_tutorial)</B>Hesap Makinesi Kodlma Eğitimi<BR>
+
 <B>[Calculator_ui : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B>Bir hesap makinesi arayüzü.<BR>
+
+<B>[Chatgpt_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/chatgpt_app)</B>Chat GPT Tutorial<BR>
+
+<B>[Doodl Dash: ](https://github.com/VedatBiner/flutter-codes/tree/master/doodledash)</B>Doodle Dash Oyun uygulaması<BR>
 
 <B>[Drum Machine : ](https://github.com/VedatBiner/flutter-codes/tree/master/drum_machine)</B>Basit bir Davul Uygulaması<BR>
 
@@ -14,16 +24,29 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Hava Durumu Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu)Basit bir hava Durumu uygulaması</B><BR>
 
+<B>[ilham_ver: ](https://github.com/VedatBiner/flutter-codes/tree/master/ilham_ver)Basit bir arayüz tasarımı</B><BR>
+
 <B>[Kahveci ara yüzü : ](https://github.com/VedatBiner/flutter-codes/tree/master/kahveci)Basit bir arayüz uygulaması</B><BR>
 
 <B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
+
+<B>[login_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_app)Basit bir login arayüz uygulaması</B><BR>
 
 <B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
 
 <B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
 <BR>
 
+<B>[rest_api_sample: ](https://github.com/VedatBiner/flutter-codes/tree/master/rest_api_sample)Rest API uygulaması</B>
+<BR>
+
+<B>[rest_api_user: ](https://github.com/VedatBiner/flutter-codes/tree/master/rest_api_users)Rasgele Kullanıcı bilgileri oluşturan Rest API uygulaması</B>
+<BR>
+
 <B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulamalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
+<BR>
+
+<B>[weight_tracker : ](https://github.com/VedatBiner/flutter-codes/tree/master/weight_tracker)Getx ile bir tutorial </B>
 <BR>
 
 <B>[Yaşam Beklentisi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yasam_beklentisi)Gesture Detector, Slider uygulaması</B>
