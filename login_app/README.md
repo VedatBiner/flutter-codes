@@ -6,13 +6,13 @@ Burada Arayüz tasarımı, ekran kontrolü \
 Bazı Widget 'lar\
 * SingleChildScrollview
 * Center
--Text
--Column
--Padding
--TextField
--InputDecoration
--SizedBox
--Color
--ElevatedButton
--TextStyle
--GestureDetector
+* Text
+* Column
+* Padding
+* TextField
+* InputDecoration
+* SizedBox
+* Color
+* ElevatedButton
+* TextStyle
+* GestureDetector
