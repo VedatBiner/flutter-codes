@@ -1,6 +1,6 @@
 # Hava Durumu Uygulamasi
 
-Udemy eğitim çalışmasından alınmıştır.
+https://www.udemy.com/course/flutter-kodplanet/learn/lecture Eğitimindeki uygulamalardandır.
 
 [https://openweathermap.org/]() sitesindeki **API** ile hava durumu bilgilerini alan uygulama\
 Başlangıç Sayfamız\
