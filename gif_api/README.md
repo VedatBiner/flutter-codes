@@ -1,7 +1,6 @@
 # gif_api
 
-https://www.udemy.com/course/flutter-kodplanet/learn/lecture/22340158#overview <BR>
-Sayfasındaki eğitimin kodları<BR>
+https://www.udemy.com/course/flutter-kodplanet/learn/lecture Eğitimindeki uygulamalardandır.
 
 [https://tenor.com ]() sitesinden sekiz adet animasyonlu GIF görüntüyü API yardımı ile çekip, ListView içinde
 görüntüleyen uygulama. Ayrıca aranan konuya göre de arama yapıp listeliyor.<BR>
