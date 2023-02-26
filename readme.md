@@ -52,3 +52,5 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Yaşam Beklentisi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yasam_beklentisi)Gesture Detector, Slider uygulaması</B>
 <BR>
 
+<B>[Yemek Tarifi : ](https://github.com/VedatBiner/flutter-codes/tree/master/yemek_tarifi)Basit Arayüz tasarımı, TextButton, kendi widget 'ımızı oluşturma uygulaması</B>
+<BR>
