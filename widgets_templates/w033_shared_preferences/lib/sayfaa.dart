@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,7 +62,7 @@ class _SayfaAState extends State<SayfaA> {
       appBar: AppBar(
         title: const Text(" Sayfa -A-"),
       ),
-      body: Center(),
+      body: const Center(),
     );
   }
 }

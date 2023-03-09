@@ -47,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
     sp.setStringList("arkadasListe", arkadasListe);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
