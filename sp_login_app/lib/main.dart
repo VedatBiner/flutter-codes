@@ -37,9 +37,7 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             bool? gecisIzni = snapshot.data;
-            return gecisIzni!
-                ? const AnaSayfa()
-                : const LoginEkrani();
+            return gecisIzni! ? const AnaSayfa() : const LoginEkrani();
           } else {
             return Container();
           }
@@ -75,11 +73,18 @@ class _LoginEkraniState extends State<LoginEkrani> {
       sp.setString("kullaniciAdi", ka);
       sp.setString("sifre", s);
       // sayfa geçişi
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => AnaSayfa()));
+      // bu şekilde altını çizmedi
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AnaSayfa(),
+          ),
+        );
+      }
     } else {
       // sorun varsa snack bar ile mesaj verelim
-      // scaffoldKey.currentState.showSnackBar(const SnackBar(content: Text("Giriş Hatalı"),));
+      // bu satır hata vermedi
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Giriş Hatalı"),
       ));

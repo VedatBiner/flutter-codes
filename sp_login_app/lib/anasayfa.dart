@@ -10,7 +10,6 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
-
   // oturum bilgisi okuma
   String? spKullaniciAdi;
   String? spSifre;
@@ -31,9 +30,15 @@ class _AnaSayfaState extends State<AnaSayfa> {
     // Çıkış yaparken kullanıcı adı ve şifreyi sil
     sp.remove("kullaniciAdi");
     sp.remove("sifre");
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginEkrani()));
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginEkrani(),
+        ),
+      );
+    }
   }
-
 
   // ilk çalışmada oturum bilgisini oku
   @override
@@ -50,7 +55,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
-            onPressed: (){
+            onPressed: () {
               cikisYap();
             },
           ),
