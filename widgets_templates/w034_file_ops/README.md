@@ -6,4 +6,5 @@ path_provider paketi kullanılarak bir text dosyası oluşturulması, dosyaya ya
 * getApplicationDocumentsDirectory() - Dosya sistemine erişim
 * File() - Dosyanın okunması
 * .readAsString() - dosyadan veri okunması
-* .delete() - dosyanın silinesi
+* .writeAsString() - dosyaya veri yazılması 
+* .delete() - dosyanın silinmesi
