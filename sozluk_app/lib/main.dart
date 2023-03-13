@@ -88,11 +88,9 @@ class _AnasayfaState extends State<Anasayfa> {
       body: FutureBuilder<List<Kelimeler>>(
         // arama yapılıyorsa aranan kelimeler
         // arama yapılmıyorsa tüm kelimeler görünecek
-        future: aramaYapiliyorMu
-            ? aramaYap(aramaKelimesi)
-            : tumKelimelerGoster(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
+        future:  aramaYapiliyorMu ? aramaYap(aramaKelimesi) : tumKelimelerGoster(),
+        builder: (context,snapshot){
+          if(snapshot.hasData){
             var kelimelerListesi = snapshot.data;
             return ListView.builder(
               itemCount: kelimelerListesi!.length,
