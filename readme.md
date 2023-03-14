@@ -1,5 +1,9 @@
 Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış halleri bulunuyor.<BR>
 
+<B>[Widgets_Templates : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates)</B>Sık kullanılan widget ve Diğer yapıların Şablon olarak kulanılabilecek referans örnekleri<BR>
+
+<B>[Bayrak Quiz App : ](https://github.com/VedatBiner/flutter-codes/tree/master/bayrak_quiz_app)</B>Basit test uygulaması, buton kullanımı<BR>
+
 <B>[Bilgi Testi : ](https://github.com/VedatBiner/flutter-codes/tree/master/bilgitesti)</B>Basit test uygulaması, buton kullanımı<BR>
 
 <B>[Bugün Ne Yesem? : ](https://github.com/VedatBiner/flutter-codes/tree/master/bugun_ne_yesem)</B>Yemek seçim Uygulaması<BR>
@@ -19,6 +23,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Drum Machine : ](https://github.com/VedatBiner/flutter-codes/tree/master/drum_machine)</B>Basit bir Davul Uygulaması<BR>
 
 <B>[Fal : ](https://github.com/VedatBiner/flutter-codes/tree/master/fal)</B>Eğlencelik Fal Uygulaması<BR>
+
+<B>[Film_App : ](https://github.com/VedatBiner/flutter-codes/tree/master/film_app)</B>Film Uygulaması<BR>
 
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
 
@@ -41,6 +47,18 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <BR>
 
 <B>[rest_api_user: ](https://github.com/VedatBiner/flutter-codes/tree/master/rest_api_users)Rasgele Kullanıcı bilgileri oluşturan Rest API uygulaması</B>
+<BR>
+
+<B>[sayi_tahmin: ](https://github.com/VedatBiner/flutter-codes/tree/master/sayi_tahmin)Sayı Tahmin Oyunu</B>
+<BR>
+
+<B>[sozluk_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app)Sözlük Uygulması</B>
+<BR>
+
+<B>[sp_login_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sp_login_app)Login Uygulaması (Shared Preferences)</B>
+<BR>
+
+<B>[sp_sayac: ](https://github.com/VedatBiner/flutter-codes/tree/master/sp_sayac)Sayaç Uygulaması (Shared Preferences)</B>
 <BR>
 
 <B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulamalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
