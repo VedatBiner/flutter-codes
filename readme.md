@@ -26,6 +26,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Film_App : ](https://github.com/VedatBiner/flutter-codes/tree/master/film_app)</B>Film Uygulaması<BR>
 
+<B>[Filmler_Uygulamasi : ](https://github.com/VedatBiner/flutter-codes/tree/master/filmler_uygulamasi)</B>Sqflite ile Filmler Uygulaması<BR>
+
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
 
 <B>[Hava Durumu Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu)Basit bir hava Durumu uygulaması</B><BR>
@@ -39,6 +41,9 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[login_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_app)Basit bir login arayüz uygulaması</B><BR>
 
 <B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
+
+<B>[notlar_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/notlar_app)Sqflite ile Notlar uygulması</B>
+<BR>
 
 <B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
 <BR>
