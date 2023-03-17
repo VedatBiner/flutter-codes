@@ -8,4 +8,4 @@ burada kodu kısaltacak yöntemler uygulanmadı.\
 ![ScreenShot](screen_shots/img-1.png)
 ![ScreenShot](screen_shots/img-2.png)\
 
-<img src="/screenshots/img-1.png" height="300em" /> <img src="/screenshots/img-2.png" height="300em" /> 
+<img src="/screenshots/img-1.png" height="300em" /> <img src="screenshots/img-2.png" height="300em" /> 
