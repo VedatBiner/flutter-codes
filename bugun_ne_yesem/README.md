@@ -8,4 +8,4 @@ burada kodu kısaltacak yöntemler uygulanmadı.\
 ![ScreenShot](screen_shots/img-1.png)
 ![ScreenShot](screen_shots/img-2.png)\
 
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/bugun_ne_yesem/screen_shots/img-1.png" height="300em" /> <img src="screenshots/img-2.png" height="300em" /> 
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/bugun_ne_yesem/screen_shots/img-1.png" height="400em" /> <img src="screenshots/img-2.png" height="300em" /> 
