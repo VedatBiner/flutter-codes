@@ -26,8 +26,8 @@ kopyalanır. <BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-04.png" height="200em"/> <BR>
 7 - <B>id 'com.google.gms.google-services'</B> (bu dosyayı apply plugin: 'com.google.gms.google-services' şeklinde yapıştırabiliriz.) ve <B>implementation platform('com.google.firebase:firebase-bom:31.2.3') </B> 
 satırlarını ilgili yerlere kopyalayalım. <B>Android</B> >> <B>App</B> altındaki <B>build.gradle</B> dosyasına yapıştıracağız. <BR>
-  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-05.png" height="200em"/> <BR>
-  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-06.png" height="200em"/> <BR>
+  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-05.png" height="150em"/> <BR>
+  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-06.png" height="150em"/> <BR>
   
 
 
