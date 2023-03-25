@@ -1,0 +1,2 @@
+w_konum
+Location sample
