@@ -4,7 +4,7 @@
         android:label="harita"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCBLDNjTToz5AT-K2G--KzfwBrvxrxfiis"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="user_API-Key"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
