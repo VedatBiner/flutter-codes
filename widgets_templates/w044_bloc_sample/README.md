@@ -1,3 +1,3 @@
 # w_bloc_sample
 
-Provider - State Management Sample
+Bloc - State Management Sample
