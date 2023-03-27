@@ -43,3 +43,4 @@ class IkinciSayfa extends StatelessWidget {
     );
   }
 }
+
