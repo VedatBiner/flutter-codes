@@ -48,3 +48,4 @@ class _KisiKayitSayfaState extends State<KisiKayitSayfa> {
     );
   }
 }
+

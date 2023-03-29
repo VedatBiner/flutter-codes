@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/anasayfa_cubit.dart';
 import '../models/kisiler.dart';
-import '../screens/kisi_kayit_sayfa.dart';
+import 'kisi_kayit_sayfa.dart';
 import '../screens/kisi_detay_sayfa.dart';
 
 class Anasayfa extends StatefulWidget {
@@ -128,3 +128,4 @@ class _AnasayfaState extends State<Anasayfa> {
     );
   }
 }
+

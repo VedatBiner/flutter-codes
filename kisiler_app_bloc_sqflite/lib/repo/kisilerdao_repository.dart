@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:kisiler_app_2/utilities/dbhelper.dart';
+import '../utilities/dbhelper.dart';
 
 import '../models/kisiler.dart';
 

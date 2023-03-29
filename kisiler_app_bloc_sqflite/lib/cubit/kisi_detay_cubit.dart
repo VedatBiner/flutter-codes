@@ -15,3 +15,4 @@ class KisiDetayCubit extends Cubit<void> {
     await krepo.kisiGuncelle(kisi_id, kisi_ad, kisi_tel);
   }
 }
+

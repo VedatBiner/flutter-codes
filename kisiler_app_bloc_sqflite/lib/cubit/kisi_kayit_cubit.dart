@@ -14,3 +14,4 @@ class KisiKayitCubit extends Cubit<void> {
     await krepo.kisiKayit(kisi_ad, kisi_tel);
   }
 }
+
