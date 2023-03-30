@@ -12,3 +12,4 @@ class KisiKayitCubit extends Cubit<void> {
   }
 
 }
+

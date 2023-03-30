@@ -64,3 +64,4 @@ class KisilerDaoRepository {
     log("Kisi sil : ${cevap.data.toString()}");
   }
 }
+

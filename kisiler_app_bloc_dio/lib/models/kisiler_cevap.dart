@@ -19,4 +19,3 @@ class KisilerCevap {
     return KisilerCevap(kisiler: kisiler, success: json["success"] as int);
   }
 }
-

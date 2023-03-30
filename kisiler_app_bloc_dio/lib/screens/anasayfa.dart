@@ -128,3 +128,4 @@ class _AnasayfaState extends State<Anasayfa> {
     );
   }
 }
+

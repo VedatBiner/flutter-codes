@@ -63,3 +63,4 @@ class _KisiDetaySayfaState extends State<KisiDetaySayfa> {
     );
   }
 }
+
