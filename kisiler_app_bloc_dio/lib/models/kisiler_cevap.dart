@@ -10,6 +10,8 @@ class KisilerCevap {
   });
 
   factory KisilerCevap.fromJson(Map<String, dynamic> json) {
+    // array olarak tüm yapıyı alalım
+    // bu bilgi kişiler sınıfından bir nesne olarak elde edilecek
     var jsonArray = json["kisiler"] as List;
     List<Kisiler> kisiler = jsonArray
         .map((jsonArrayNesnesi) => Kisiler.fromJson(jsonArrayNesnesi))
