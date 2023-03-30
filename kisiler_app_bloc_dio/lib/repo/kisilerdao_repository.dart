@@ -5,6 +5,7 @@ import '../models/kisiler_cevap.dart';
 import '../models/kisiler.dart';
 
 class KisilerDaoRepository {
+
   List<Kisiler> parseKisilerCevap(String cevap) {
     return KisilerCevap.fromJson(json.decode(cevap)).kisiler;
   }
