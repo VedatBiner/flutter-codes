@@ -69,6 +69,6 @@ class KisilerDaoRepository {
   // silme işlemi
   Future<void> kisiSil(int kisi_id) async {
     var db = await DbHelper.veritabaniErisim();
-    await db.delete("kisiler", where: "kisi_id", whereArgs: [kisi_id]);
+    await db.delete("kisiler", where: "kisi_id=?", whereArgs: [kisi_id]);
   }
 }
