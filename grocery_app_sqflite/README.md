@@ -5,4 +5,4 @@ Sorunsuz çalışan ilk sqflite uygulaması
 Basit bir uygulama
 <BR>
 
-![img](screen_shots/img.png)
+![img](screen_shots/img-01.png)
