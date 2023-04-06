@@ -30,7 +30,7 @@ class _AddEditProductPageState extends State<AddEditProductPage> {
         categoryId: -1,
         productDesc: 'deneme',
         price: 10,
-        productPic: 'aa');
+        productPic: '');
     if (widget.isEditMode) {
       model = widget.model!;
     }
@@ -195,6 +195,8 @@ class _AddEditProductPageState extends State<AddEditProductPage> {
                 ),
               ],
             ),
+            const SizedBox(height: 10),
+
             const SizedBox(height: 10),
             FormHelper.inputFieldWidgetWithLabel(
               context,
