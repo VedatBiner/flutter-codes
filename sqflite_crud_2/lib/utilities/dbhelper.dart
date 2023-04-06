@@ -33,6 +33,7 @@ abstract class DBHelper {
     }
   }
 
+  // tablo oluşturma metodu
   static void onCreate(Database db, int version) async {
     String sqlQuery =
         'CREATE TABLE products (id INTEGER PRIMARY KEY AUTOINCREMENT, productName STRING, categoryId INTEGER, productDesc STRING, price REAL, productPic STRING)';
@@ -45,14 +46,17 @@ abstract class DBHelper {
     }
   }
 
+  // SQL tablodan veri çekecek metot
   static Future<List<Map<String, dynamic>>> query(String table) async {
     return _db!.query(table);
   }
 
+  // Veri ekleme metodu
   static Future<int> insert(String table, Model model) async {
     return await _db!.insert(table, model.toJson());
   }
 
+  // veri güncelleme metodu
   static Future<int> update(String table, Model model) async {
     return await _db!.update(
       table,
@@ -62,6 +66,7 @@ abstract class DBHelper {
     );
   }
 
+  // veri silme metodu
   static Future<int> delete(String table, Model model) async {
     return await _db!.delete(
       table,

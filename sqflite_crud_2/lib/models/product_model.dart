@@ -38,6 +38,7 @@ class ProductModel extends Model {
       'id': id,
       'productName': productName,
       'categoryId': categoryId,
+      'productDesc': productDesc,
       'price': price,
       'productPic': productPic,
     };
@@ -48,3 +49,10 @@ class ProductModel extends Model {
   }
 
 }
+
+
+
+
+
+
+
