@@ -1,5 +1,5 @@
-import 'address.dart';
-import 'company.dart';
+import 'models/address.dart';
+import 'models/company.dart';
 
 class User {
   int id;
@@ -28,3 +28,4 @@ class User {
     );
   }
 }
+

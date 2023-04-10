@@ -21,9 +21,10 @@ class HomeState extends State<Home> {
     listUsers = fetchUsers();
   }
 
+  // kullanıcı listesini alan metot
   Future<List<User>> fetchUsers() async {
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/users');
+    final response = await http.get(url);
     if (response.statusCode == 200) {
       var getUsersData = json.decode(response.body) as List;
       var listUsers = getUsersData.map((i) => User.fromJSON(i)).toList();
@@ -89,23 +90,5 @@ class HomeState extends State<Home> {
     ));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
