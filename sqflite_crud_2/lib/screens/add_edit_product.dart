@@ -30,7 +30,8 @@ class _AddEditProductPageState extends State<AddEditProductPage> {
         categoryId: -1,
         productDesc: 'deneme',
         price: 10,
-        productPic: '');
+        productPic: '',
+    );
     if (widget.isEditMode) {
       model = widget.model!;
     }
@@ -259,7 +260,7 @@ class _AddEditProductPageState extends State<AddEditProductPage> {
                 child: Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/%C2%BFel_Caf%C3%A9%3F.png/640px-%C2%BFel_Caf%C3%A9%3F.png',
                   width: 350,
-                  height: 250,
+                  height: 200,
                   fit: BoxFit.scaleDown,
                 ),
               ),
