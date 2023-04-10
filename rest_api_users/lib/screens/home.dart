@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../user.dart';
+import '../models/user.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,14 +22,13 @@ class _HomeState extends State<Home> {
   Future<List<User>> fetchUsers() async {
     // 1000 kullanıcı okuyalım
     List<User> users = [];
-    final response = await http.get(Uri.parse('https://randomuser.me/api/?results=1000'));
+    final url = Uri.parse('https://randomuser.me/api/?results=1000');
+    final response = await http.get(url);
     if (response.statusCode == 200) {
       var getUsersData = json.decode(response.body);
       int index = 0;
       for (var user in getUsersData['results']) {
         User data = User(
-          /*picSmall: user['picture']['small'],
-          picMedium: user['picture']['medium'], */
           firstName: user['name']['first'],
           lastName: user['name']['last'],
           state: user['location']['state'],
