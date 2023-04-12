@@ -66,7 +66,6 @@ class _HomeState extends State<Home> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          //* CircleAvatar(backgroundImage: NetworkImage(user.picSmall),),
                           Row(
                             children: [
                               Container(
