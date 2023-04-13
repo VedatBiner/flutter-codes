@@ -1,13 +1,13 @@
 class Recipe {
   String name;
-  String image;
+  String images;
   double rating;
   String totalTime;
 
   // constructor
   Recipe({
     required this.name,
-    required this.image,
+    required this.images,
     required this.rating,
     required this.totalTime,
   });
@@ -16,12 +16,12 @@ class Recipe {
   factory Recipe.fromJson(dynamic json) {
     return json != null ? Recipe(
       name: json["name"] != null ? json["name"] as String : "",
-      image: json["image"] != null && json["image"][0]["hostedLargeUrl"] != null ? json["image"][0]["hostedLargeUrl"] as String : "",
+      images: json["images"] != null && json["images"][0]["resizableImageUrl"] != null ? json["images"][0]["resizableImageUrl"] as String : "",
       rating: json["rating"] != null ? json["rating"] as double : 0.0,
       totalTime: json["totalTime"] != null ? json["totalTime"] as String : "",
     ) : Recipe(
       name: "",
-      image: "",
+      images: "",
       rating: 0.0,
       totalTime: "",
     );
@@ -39,6 +39,6 @@ class Recipe {
 
   @override
   String toString(){
-    return "Recipe {name: $name, image:$image, rating:$rating, totalTime: $totalTime}";
+    return "Recipe {name: $name, image:$images, rating:$rating, totalTime: $totalTime}";
   }
 }
