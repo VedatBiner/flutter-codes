@@ -26,7 +26,7 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Chatgpt_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/chatgpt_app)</B>Chat GPT Tutorial<BR>
 
-<B>[Doodl Dash: ](https://github.com/VedatBiner/flutter-codes/tree/master/doodledash)</B>Doodle Dash Oyun uygulaması<BR>
+<B>[Doodle Dash: ](https://github.com/VedatBiner/flutter-codes/tree/master/doodledash)</B>Doodle Dash Oyun uygulaması<BR>
 
 <B>[Drum Machine : ](https://github.com/VedatBiner/flutter-codes/tree/master/drum_machine)</B>Basit bir Davul Uygulaması<BR>
 
@@ -34,9 +34,15 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Film_App : ](https://github.com/VedatBiner/flutter-codes/tree/master/film_app)</B>Film Uygulaması<BR>
 
+<B>[Film_App_fbrt : ](https://github.com/VedatBiner/flutter-codes/tree/master/filmler_app_fbrt)</B>Film Uygulaması - Firebase Realtime Databse<BR>
+
 <B>[Filmler_Uygulamasi : ](https://github.com/VedatBiner/flutter-codes/tree/master/filmler_uygulamasi)</B>Sqflite ile Filmler Uygulaması<BR>
 
+<B>[Food Recipe : ](https://github.com/VedatBiner/flutter-codes/tree/master/food_recipe)Yemek Listesi http/json Rest API Uygulaması</B><BR>
+
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
+
+<B>[Grocery App : ](https://github.com/VedatBiner/flutter-codes/tree/master/grocery_app_sqflite)Grocery App Sqflite Uygulaması</B><BR>
 
 <B>[Hava Durumu Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/havadurumu)Basit bir hava Durumu uygulaması</B><BR>
 
@@ -46,11 +52,27 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
 
+<B>[Kişiler (sqflite) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app)Kişler App Sqflite uygulaması</B><BR>
+
+<B>[Kişiler (BloC+Dio) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app_bloc_dio)Kişler App Bloc+Dio Versiyonu</B><BR>
+
+<B>[Kişiler (BloC+fbrt) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app_bloc_fbrt)Kişler App Bloc+Firebase Realtime Database Versiyonu</B><BR>
+
+<B>[Kişiler (BloC+sqflite) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app_bloc_sqflite)Kişler App Bloc+sqflite Versiyonu</B><BR>
+
+<B>[Kişiler (fbrt) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app_fbrt)Kişler App Firebase Realtime Database Versiyonu</B><BR>
+
 <B>[login_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_app)Basit bir login arayüz uygulaması</B><BR>
 
 <B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
 
-<B>[notlar_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/notlar_app)Sqflite ile Notlar uygulması</B>
+<B>[notlar_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/notlar_app)Sqflite ile Notlar uygulaması</B>
+<BR>
+
+<B>[notlar_app_fbrt: ](https://github.com/VedatBiner/flutter-codes/tree/master/notlar_app_fbrt)Firebase Reaştim Database ile Notlar uygulaması</B>
+<BR>
+
+<B>[nba_json_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/nba_json_app)NBA Takımları http json REST API uygulaması</B>
 <BR>
 
 <B>[Öğrenci Takibi: ](https://github.com/VedatBiner/flutter-codes/tree/master/ogrenci_takip)Navigasyon ve Form uygulaması</B>
@@ -65,7 +87,13 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[sayi_tahmin: ](https://github.com/VedatBiner/flutter-codes/tree/master/sayi_tahmin)Sayı Tahmin Oyunu</B>
 <BR>
 
-<B>[sozluk_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app)Sözlük Uygulması</B>
+<B>[sozluk_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app)Sözlük Uygulması (sqflite) </B>
+<BR>
+
+<B>[sozluk_app_fbrt: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_fbrt)Sözlük Uygulması (Firebase Realtine Database) </B>
+<BR>
+
+<B>[sozluk_app_http: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_http)Sözlük Uygulması (http) </B>
 <BR>
 
 <B>[sp_login_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sp_login_app)Login Uygulaması (Shared Preferences)</B>
@@ -75,6 +103,9 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <BR>
 
 <B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulamalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
+<BR>
+
+<B>[user_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/user_card) Rasgele resimli kullanıclar listesi (http+Json)</B>
 <BR>
 
 <B>[weight_tracker : ](https://github.com/VedatBiner/flutter-codes/tree/master/weight_tracker)Getx ile bir tutorial </B>
