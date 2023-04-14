@@ -2,7 +2,15 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Widgets_Templates : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates)</B>Sık kullanılan widget ve Diğer yapıların Şablon olarak kulanılabilecek referans örnekleri<BR>
 
+<B>[Animated FAB Sample : ](https://github.com/VedatBiner/flutter-codes/tree/master/animated_fab)</B>Animated Floating Access Button (FAB) Çalışması<BR>
+
 <B>[Bayrak Quiz App : ](https://github.com/VedatBiner/flutter-codes/tree/master/bayrak_quiz_app)</B>Basit test uygulaması, buton kullanımı<BR>
+
+<B>[BTK BLoc Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/btk_bloc_sample)</B>BTK Akademi Eğitiminden BLoC Uygulaması<BR>
+
+<B>[BTK HTTP/JSON Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/btk_hhtp_json_2)</B>BTK Akademi Eğitiminden http paketi ve JSON ile REST API Uygulaması<BR>
+
+<B>[BTK Sqflite Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/btk_sqflite)</B>BTK Akademi Eğitiminden sqflite Uygulaması<BR>
 
 <B>[Bilgi Testi : ](https://github.com/VedatBiner/flutter-codes/tree/master/bilgitesti)</B>Basit test uygulaması, buton kullanımı<BR>
 
