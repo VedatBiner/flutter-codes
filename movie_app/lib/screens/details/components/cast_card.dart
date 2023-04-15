@@ -18,21 +18,21 @@ class CastCard extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: AssetImage(
-                  cast["image"],
+                  cast["image"]??"",
                 ),
               ),
             ),
           ),
           const SizedBox(height: kDefaultPadding  / 2,),
           Text(
-            cast["originalName"],
+            cast["originalName"]??"",
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
             maxLines: 2,
           ),
           const SizedBox(height: kDefaultPadding / 4,),
           Text(
-            cast["movieName"],
+            cast["movieName"]??"",
             maxLines: 1,
             textAlign: TextAlign.center,
             style: const TextStyle(

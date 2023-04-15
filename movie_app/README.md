@@ -2,6 +2,5 @@
 
 
 https://www.youtube.com/watch?v=OgSLd2lH1FM&t=657s&ab_channel=TheFlutterWay kanalındaki tutorial çalışması.
-Yoğun bir arayüz çalışması var
+Yoğun bir ara yüz çalışması var
 
-İki yerde hata var
