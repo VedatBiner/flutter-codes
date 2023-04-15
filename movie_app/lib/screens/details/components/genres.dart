@@ -4,7 +4,10 @@ import 'package:movie_app/models/movie.dart';
 import '../../../constants.dart';
 
 class Genres extends StatelessWidget {
-  const Genres({Key? key, required this.movie}) : super(key: key);
+  const Genres({
+    Key? key, // burada bir anahtar eklendi
+    required this.movie,
+  }) : super(key: key);
 
   final Movie movie;
 
