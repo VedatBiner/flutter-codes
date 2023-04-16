@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/constants.dart';
-import 'package:movie_app/models/movie.dart';
-import 'package:movie_app/screens/details/components/title_duration_and_fab_btn.dart';
+import '../../../constants.dart';
+import '../../../models/movie.dart';
+import '../../../screens/details/components/title_duration_and_fab_btn.dart';
 import 'backdrop_rating.dart';
 import 'cast_and_crew.dart';
 import 'genres.dart';
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
             ),
             child: Text(
               "Plot Summary",
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           Padding(
