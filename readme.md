@@ -66,7 +66,7 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Login_ui_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/login_ui_app)Firebase Erişim Uygulaması - email, google Accoun ile erişim</B><BR>
   
-<B>[movie_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/movie_app)Movie List Uygulaması - yoğun rayüz kullanımı</B><BR>
+<B>[movie_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/movie_app)Movie List Uygulaması - yoğun arayüz kullanımı</B><BR>
 
 <B>[notlar_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/notlar_app)Sqflite ile Notlar uygulaması</B>
 <BR>
