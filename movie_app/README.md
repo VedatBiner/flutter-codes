@@ -5,8 +5,8 @@ Yoğun bir ara yüz çalışması var.
 <BR>
 **Kullanılan kütüphaneler :**
 <BR>
--Animations<BR>
--flutter_svg<BR>
+- Animations<BR>
+- flutter_svg<BR>
 
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/movie_app/screen_shots/img-01.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/movie_app/screen_shots/img-02.png" height="400em"/>
