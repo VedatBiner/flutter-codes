@@ -23,16 +23,20 @@ class GlobalController extends GetxController {
   getLocation() async {
     bool isServiceEnabled;
     LocationPermission? locationPermission;
+    // bu iki satırı ben koydum.
+    // LocationPermission permission;
+    // permission = await Geolocator.requestPermission();
     // Location servisi aktive edildi mi ?
     isServiceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!isServiceEnabled) {
       return Future.error("Location not enabled");
     }
     // status of permission request
-    await Geolocator.checkPermission();
+    locationPermission = await Geolocator.checkPermission();
     if (locationPermission == LocationPermission.deniedForever) {
       return Future.error("Location permission are denied forever");
-    } else if (locationPermission == LocationPermission.denied) {
+    }
+    else if (locationPermission == LocationPermission.denied) {
       // request permission
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {

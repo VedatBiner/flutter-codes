@@ -25,11 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircularProgressIndicator(),
                 )
               : ListView(
-            scrollDirection: Axis.vertical,
-            children: const [
-              HeaderWidget(),
-            ],
-          ),
+                  scrollDirection: Axis.vertical,
+                  children: const [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    HeaderWidget(),
+                  ],
+                ),
         ),
       ),
     );
