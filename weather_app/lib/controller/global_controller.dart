@@ -1,5 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/model/weather_data.dart';
+import '../api/fetch_weather.dart';
 
 class GlobalController extends GetxController {
   // create various variables
@@ -11,6 +13,12 @@ class GlobalController extends GetxController {
   RxBool checkLoading() => _isLoading;
   RxDouble getLatitude() => _latitude;
   RxDouble getLongitude() => _longitude;
+
+  final weatherData = WeatherData().obs;
+
+  WeatherData getData(){
+    return weatherData.value;
+  }
 
   @override
   void onInit() {
@@ -35,8 +43,7 @@ class GlobalController extends GetxController {
     locationPermission = await Geolocator.checkPermission();
     if (locationPermission == LocationPermission.deniedForever) {
       return Future.error("Location permission are denied forever");
-    }
-    else if (locationPermission == LocationPermission.denied) {
+    } else if (locationPermission == LocationPermission.denied) {
       // request permission
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
@@ -45,21 +52,19 @@ class GlobalController extends GetxController {
     }
     // getting current position
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high)
+            desiredAccuracy: LocationAccuracy.high)
         .then((value) {
-          // update our latitude and longitude
-          _latitude.value = value.latitude;
-          _longitude.value = value.longitude;
-          _isLoading.value = false;
+      // update our latitude and longitude
+      _latitude.value = value.latitude;
+      _longitude.value = value.longitude;
+      // calling our weaather api
+      return FetchWeatherAPI()
+          .processData(value.latitude, value.longitude)
+          .then((value){
+            weatherData.value = value;
+            _isLoading.value = false;
+      });
+
     });
   }
 }
-
-
-
-
-
-
-
-
-
