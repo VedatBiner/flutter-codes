@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controller/global_controller.dart';
 import '../widgets/current_weather_widget.dart';
 import '../widgets/header_widget.dart';
-import '../widgets/hourly_weather_widget.dart';
+import '../widgets/hourly_data_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircularProgressIndicator(),
                 )
               : Center(
-                child: ListView(
+                  child: ListView(
                     scrollDirection: Axis.vertical,
                     children: [
                       const SizedBox(
@@ -37,12 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       // for current temp
                       CurrentWeatherWidget(
                         weatherDataCurrent:
-                        globalController.getData().getCurrentWeather(),
+                            globalController.getData().getCurrentWeather(),
                       ),
-                      HourlyDataWidget(weatherDataHourly: globalController.getData().getHourlyWeather()),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      HourlyDataWidget(
+                        weatherDataHourly:
+                            globalController.getData().getHourlyWeather(),
+                      ),
                     ],
                   ),
-              ),
+                ),
         ),
       ),
     );
