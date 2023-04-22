@@ -77,3 +77,18 @@ class Weather {
         'icon': icon,
       };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

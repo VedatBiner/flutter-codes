@@ -67,7 +67,7 @@ class ComfortLevel extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         const TextSpan(
-                          text: "Feels Like",
+                          text: "Feels Like : ",
                           style: TextStyle(
                             fontSize: 14,
                             height: 0.8,
@@ -100,7 +100,7 @@ class ComfortLevel extends StatelessWidget {
                     text: TextSpan(
                         children: [
                           const TextSpan(
-                            text: "UV Index",
+                            text: "UV Index : ",
                             style: TextStyle(
                               fontSize: 14,
                               height: 0.8,
