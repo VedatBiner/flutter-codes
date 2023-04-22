@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../model/weatrher_data_daily.dart';
+import '../model/weather_data_daily.dart';
 import '../utils/custom_colors.dart';
 
 class DailyDataWidget extends StatelessWidget {
@@ -95,3 +95,11 @@ class DailyDataWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+

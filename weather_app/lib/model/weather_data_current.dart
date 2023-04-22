@@ -1,6 +1,5 @@
 
 // instance for getting api response
-import 'package:weather_app/model/weather_data.dart';
 
 class WeatherDataCurrent{
   final Current current;
@@ -14,6 +13,8 @@ class Current {
   int? temp;
   int? humidity;
   int? clouds;
+  double? uvIndex;
+  double? feelsLike;
   double? windSpeed;
   List<Weather>? weather;
 
@@ -22,6 +23,8 @@ class Current {
     this.temp,
     this.humidity,
     this.clouds,
+    this.uvIndex,
+    this.feelsLike,
     this.windSpeed,
     this.weather,
   });
@@ -29,7 +32,9 @@ class Current {
   // from json
   factory Current.fromJson(Map<String, dynamic> json) => Current(
         temp: (json['temp'] as num?)?.round(),
+        feelsLike: (json['feels_like'] as num?)?.toDouble(),
         humidity: json['humidity'] as int?,
+        uvIndex: (json['uvi'] as num?)?.toDouble(),
         clouds: json['clouds'] as int?,
         windSpeed: (json['wind_speed'] as num?)?.toDouble(),
         weather: (json['weather'] as List<dynamic>?)
@@ -39,6 +44,8 @@ class Current {
 
   Map<String, dynamic> toJson() => {
         'temp': temp,
+        "feels_like": feelsLike,
+        "uvi": uvIndex,
         'humidity': humidity,
         'clouds': clouds,
         'wind_speed': windSpeed,

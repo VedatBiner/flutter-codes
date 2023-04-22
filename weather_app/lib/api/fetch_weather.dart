@@ -3,7 +3,7 @@ import 'package:weather_app/model/weather_data_current.dart';
 import 'package:weather_app/model/weather_data_hourly.dart';
 import '../model/weather_data.dart';
 import 'package:http/http.dart' as http;
-import '../model/weatrher_data_daily.dart';
+import '../model/weather_data_daily.dart';
 import '../utils/api_url.dart';
 
 class FetchWeatherAPI {

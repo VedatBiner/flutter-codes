@@ -1,6 +1,6 @@
 import 'package:weather_app/model/weather_data_current.dart';
 import 'package:weather_app/model/weather_data_hourly.dart';
-import 'package:weather_app/model/weatrher_data_daily.dart';
+import 'package:weather_app/model/weather_data_daily.dart';
 
 class WeatherData {
 
