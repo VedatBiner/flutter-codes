@@ -110,6 +110,9 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[user_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/user_card) Rasgele resimli kullanıclar listesi (http+Json)</B>
 <BR>
 
+<B>[Weather App : ](https://github.com/VedatBiner/flutter-codes/tree/master/weather_app) Hava Durumu Uygulaması (GetX+http+Json)</B>
+<BR>
+
 <B>[weight_tracker : ](https://github.com/VedatBiner/flutter-codes/tree/master/weight_tracker)Getx ile bir tutorial </B>
 <BR>
 
