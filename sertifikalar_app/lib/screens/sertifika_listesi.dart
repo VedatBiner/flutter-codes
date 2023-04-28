@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sertifikalar_app/screens/sertifika_ekle.dart';
+import 'package:sertifikalar_app/screens/sertiika_detay.dart';
 import '../models/sertifikalar.dart';
 import '../utilities/sertifikalardao.dart';
 
@@ -43,47 +44,57 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
               itemCount: sertifikaListesi.length,
               itemBuilder: (context, index) {
                 var sertifika = sertifikaListesi[index];
-                return Card(
-                  child: SizedBox(
-                    height: 50,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SertifikaDetay(sertifika: sertifika),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    child: SizedBox(
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                sertifika.sertKurum,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                    color: Colors.indigo,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
                             child: Text(
-                              sertifika.sertKurum,
+                              sertifika.sertDetay,
                               textAlign: TextAlign.left,
                               style: const TextStyle(
-                                  color: Colors.indigo,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
+                                color: Colors.black54,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            sertifika.sertDetay,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              color: Colors.black54,
-                              fontSize: 14,
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.redAccent,
                             ),
+                            onPressed: () {
+                              sil(sertifika.sertId);
+                            },
+                            alignment: Alignment.centerRight,
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.redAccent,
-                          ),
-                          onPressed: () {
-                            sil(sertifika.sertId);
-                          },
-                          alignment: Alignment.centerRight,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -108,7 +119,6 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
         label: const Text('Sertifika Ekle'),
         icon: const Icon(Icons.add),
       ),
-
     );
   }
 }
