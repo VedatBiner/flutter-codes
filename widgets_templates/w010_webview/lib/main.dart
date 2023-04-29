@@ -40,7 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text(widget.title),
             ),
             body: const WebView(
-              initialUrl: "https://flutter.dev",
+             // initialUrl: "https://flutter.dev",
+              initialUrl: "https://bit.ly/3NCTxIY",
               javascriptMode: JavascriptMode.unrestricted,
             )
         )

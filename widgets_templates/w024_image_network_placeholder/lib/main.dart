@@ -45,10 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FadeInImage.assetNetwork(
-              placeholder: "resimler/placeholder.png",
-              image: "$resimAdi",
-            ),
+            Image.network("$resimAdi"),
             ElevatedButton(
               child: const Text("Resim 1"),
               onPressed: (){
