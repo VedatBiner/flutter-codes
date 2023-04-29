@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/sertifikalar.dart';
 import '../utilities/sertifikalardao.dart';
 import 'anasayfa.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SertifikaDetay extends StatefulWidget {
   final Sertifikalar sertifika;
@@ -46,6 +47,14 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
     }
   }
 
+  // URL ç
+  void urlOpen(String urlAdres){
+    WebView(
+      initialUrl: urlAdres,);
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +87,9 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
                 controller: tfSertLink,
                 decoration: const InputDecoration(hintText: "Sertifika adresi"),
               ),
+              ElevatedButton(onPressed: (){
+                urlOpen(widget.sertifika.sertLink);
+              }, child: const Text("Sertifika görüntüle")),
               const SizedBox(
                 height: 20,
               ),
@@ -94,6 +106,6 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
         label: const Text("Güncelle"),
       ),
 
-      );
+    );
   }
 }
