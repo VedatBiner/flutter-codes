@@ -35,15 +35,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: const WebView(
-          initialUrl: "https://flutter.dev",
-          javascriptMode: JavascriptMode.unrestricted,
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text(widget.title),
+            ),
+            body: const WebView(
+              initialUrl: "https://flutter.dev",
+              javascriptMode: JavascriptMode.unrestricted,
+            )
         )
-      )
     );
   }
 }
+
