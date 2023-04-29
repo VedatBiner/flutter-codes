@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../models/sertifikalar.dart';
 import '../utilities/sertifikalardao.dart';
 import 'anasayfa.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class SertifikaDetay extends StatefulWidget {
   final Sertifikalar sertifika;
@@ -13,7 +12,6 @@ class SertifikaDetay extends StatefulWidget {
 }
 
 class _SertifikaDetayState extends State<SertifikaDetay> {
-
   // text editing controllers oluşturalım
   var tfSertTarih = TextEditingController();
   var tfSertKurum = TextEditingController();
@@ -34,8 +32,10 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
   }
 
   // Sertifika güncelleme metodu
-  Future<void> guncelle(int sertId, String sertTarih, String sertKurum, String sertKonu, String sertDetay, String sertLink) async {
-    await Sertifikalardao().sertfikaGuncelle(sertId, sertTarih, sertKurum, sertKonu, sertDetay, sertLink);
+  Future<void> guncelle(int sertId, String sertTarih, String sertKurum,
+      String sertKonu, String sertDetay, String sertLink) async {
+    await Sertifikalardao().sertfikaGuncelle(
+        sertId, sertTarih, sertKurum, sertKonu, sertDetay, sertLink);
     // kayıt sonrası ana sayfaya geçiş
     if (context.mounted) {
       Navigator.push(
@@ -46,14 +46,6 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
       );
     }
   }
-
-  // URL ç
-  void urlOpen(String urlAdres){
-    WebView(
-      initialUrl: urlAdres,);
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +79,14 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
                 controller: tfSertLink,
                 decoration: const InputDecoration(hintText: "Sertifika adresi"),
               ),
-              ElevatedButton(onPressed: (){
-                urlOpen(widget.sertifika.sertLink);
-              }, child: const Text("Sertifika görüntüle")),
+              ElevatedButton(
+                onPressed: () {
+                  String sertifikaResim = widget.sertifika.sertLink;
+                  print(sertifikaResim);
+                  Image.network(sertifikaResim);
+                },
+                child: const Text("Sertifika görüntüle"),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -99,13 +96,13 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          guncelle(widget.sertifika.sertId, tfSertTarih.text, tfSertKurum.text, tfSertKonu.text,tfSertDetay.text, tfSertLink.text);
+          guncelle(widget.sertifika.sertId, tfSertTarih.text, tfSertKurum.text,
+              tfSertKonu.text, tfSertDetay.text, tfSertLink.text);
         },
         tooltip: 'Sertifika Güncelle',
         icon: const Icon(Icons.update),
         label: const Text("Güncelle"),
       ),
-
     );
   }
 }
