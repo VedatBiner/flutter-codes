@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sertifikalar_app/screens/sertifika_ekle.dart';
+import 'package:sertifikalar_app/screens/sertifika_goster.dart';
 import 'package:sertifikalar_app/screens/sertiika_detay.dart';
 import '../models/sertifikalar.dart';
 import '../utilities/sertifikalardao.dart';
@@ -45,11 +46,12 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
               itemBuilder: (context, index) {
                 var sertifika = sertifikaListesi[index];
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SertifikaDetay(sertifika: sertifika),
+                        builder: (context) =>
+                            SertifikaDetay(sertifika: sertifika),
                       ),
                     );
                   },
@@ -68,7 +70,7 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                                 style: const TextStyle(
                                     color: Colors.indigo,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 14),
+                                    fontSize: 12),
                               ),
                             ),
                           ),
@@ -79,8 +81,23 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 color: Colors.black54,
-                                fontSize: 14,
+                                fontSize: 12,
                               ),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SertifikaGoster(url: sertifika.sertLink),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.remove_red_eye,
+                              color: Colors.lightGreen,
                             ),
                           ),
                           IconButton(
@@ -102,7 +119,7 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
             );
           } else {
             return const Center(
-              child: Text("*** HATA ***"),
+              child: CircularProgressIndicator(),
             );
           }
         },

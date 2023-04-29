@@ -47,6 +47,12 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
     }
   }
 
+  Future<void> sertGoruntule(sertifikaResim) async {
+    await Image.network(sertifikaResim);
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +87,10 @@ class _SertifikaDetayState extends State<SertifikaDetay> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  String sertifikaResim = widget.sertifika.sertLink;
-                  print(sertifikaResim);
-                  Image.network(sertifikaResim);
+                  print(widget.sertifika.sertLink);
+                  setState(() {
+                    sertGoruntule(widget.sertifika.sertLink);
+                  });
                 },
                 child: const Text("Sertifika görüntüle"),
               ),
