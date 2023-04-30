@@ -87,11 +87,12 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                           ),
                           IconButton(
                             onPressed: () {
+                              print(sertifika.sertLink);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      SertifikaGoster(url: sertifika.sertLink),
+                                      SertifikaGoster(imageUrl: sertifika.sertLink),
                                 ),
                               );
                             },

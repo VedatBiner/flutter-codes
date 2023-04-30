@@ -51,8 +51,6 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        // bu satırı ChatGPT önerdi
-        manifestPlaceholders = [io.flutter.app.androidManifest.xmlDefinitonName: "AndroidManifest.xml"]
     }
 
     buildTypes {
