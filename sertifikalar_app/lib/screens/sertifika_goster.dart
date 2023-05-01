@@ -10,12 +10,10 @@ class SertifikaGoster extends StatefulWidget {
 }
 
 class _SertifikaGosterState extends State<SertifikaGoster> {
-  String adres = "assets/images/";
-
 
   @override
   Widget build(BuildContext context) {
-    adres = adres + widget.resim;
+    final adres = "assets/images/${widget.resim}";
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sertifika Göster'),
