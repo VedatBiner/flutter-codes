@@ -13,6 +13,7 @@ class SertifikaListesi extends StatefulWidget {
 }
 
 class _SertifikaListesiState extends State<SertifikaListesi> {
+
   // Tüm sertifikaları listeleyelim
   Future<List<Sertifikalar>> tumSertfikalariGoster() async {
     var kisilerListesi = await Sertifikalardao().tumSertifikalar();
@@ -91,13 +92,14 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                           ),
                           IconButton(
                             onPressed: () {
-                              print(sertifika.sertLink);
-                              print(sertifika.sertResim);
+                              // adres = adres + sertifika.sertResim;
+                              // print(adres);
+                             // print(sertifika.sertResim);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => SertifikaGoster(
-                                    sertResim: sertifika.sertResim,
+                                    resim: sertifika.sertResim,
                                   ),
                                 ),
                               );
