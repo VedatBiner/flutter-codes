@@ -68,9 +68,10 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                                 sertifika.sertKurum,
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
-                                    color: Colors.indigo,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
@@ -95,8 +96,9 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      SertifikaGoster(sertResim: sertifika.sertResim),
+                                  builder: (context) => SertifikaGoster(
+                                    sertResim: sertifika.sertResim,
+                                  ),
                                 ),
                               );
                             },

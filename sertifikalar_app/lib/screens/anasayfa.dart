@@ -14,49 +14,47 @@ class _AnasayfaState extends State<Anasayfa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("Sertifikalarım"),
       ),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset("/assets/images/$resimAdi"),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SertifikaListesi(),
-                  ),
-                );
-              },
-              child: const Text("Sertifika Listele"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SertifikaEkle(),
-                  ),
-                );
-              },
-              child: const Text("Sertifika Ekle"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  resimAdi="btk-blokzincirkriptoparalar.jpg";
-                  print(resimAdi);
-                });
-              },
-              child: const Text("test"),
-            ),
-          ],
+      body: Stack(children: [
+        Positioned.fill(
+          child: Image.asset(
+            "assets/images/00-smurf.jpg",
+            fit: BoxFit.fill,
+          ),
         ),
-      ),
+        Positioned(
+          bottom: 140,
+          left: 10,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SertifikaListesi(),
+                ),
+              );
+            },
+            child: const Text("Sertifika Listele"),
+          ),
+        ),
+        Positioned(
+          bottom: 200,
+          left: 10,
+          child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SertifikaEkle(),
+              ),
+            );
+          },
+          child: const Text("Sertifika Ekle"),
+        ),),
+      ]),
     );
   }
 }
