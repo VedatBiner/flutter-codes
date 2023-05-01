@@ -16,10 +16,11 @@ class _SertifikaEkleState extends State<SertifikaEkle> {
   var tfSertKonu = TextEditingController();
   var tfSertDetay = TextEditingController();
   var tfSertLink = TextEditingController();
+  var tfSertResim = TextEditingController();
 
   // sertifika kayıt metodu
-  Future<void> kayit(String sertTarih, sertKurum, sertKonu, sertDetay, sertLink) async {
-    await Sertifikalardao().sertifikaEkle(sertTarih, sertKurum, sertKonu, sertDetay, sertLink);
+  Future<void> kayit(String sertTarih, sertKurum, sertKonu, sertDetay, sertLink, sertResim) async {
+    await Sertifikalardao().sertifikaEkle(sertTarih, sertKurum, sertKonu, sertDetay, sertLink, sertResim);
     // kayıt sonrası ana sayfaya geçiş
     if (context.mounted) {
       Navigator.push(
@@ -63,6 +64,10 @@ class _SertifikaEkleState extends State<SertifikaEkle> {
                 controller: tfSertLink,
                 decoration: const InputDecoration(hintText: "Sertifika adresi"),
               ),
+              TextField(
+                controller: tfSertResim,
+                decoration: const InputDecoration(hintText: "Sertifika resmi"),
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -80,6 +85,7 @@ class _SertifikaEkleState extends State<SertifikaEkle> {
               tfSertKonu.text,
               tfSertDetay.text,
               tfSertLink.text,
+              tfSertResim.text,
             );
           },
           tooltip: 'Kişi Kayıt',

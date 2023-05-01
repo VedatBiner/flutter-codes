@@ -1,41 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SertifikaGoster extends StatefulWidget {
-  final String imageUrl;
+  final String sertResim;
 
-  const SertifikaGoster({required this.imageUrl});
+  const SertifikaGoster({super.key,  required this.sertResim});
 
   @override
   _SertifikaGosterState createState() => _SertifikaGosterState();
 }
 
 class _SertifikaGosterState extends State<SertifikaGoster> {
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadImage();
-  }
-
-  void _loadImage() async {
-    await Future.delayed(const Duration(seconds: 30)); // Wait time (2 seconds)
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sertifika Goster'),
+        title: const Text('Sertifika Göster'),
       ),
       body: Center(
-        child: isLoading
-            ? const CircularProgressIndicator() // Show the progress indicator
-            : Image.network(widget.imageUrl), // Load the image
+        child: Image.asset("/assets/images/${widget.sertResim}"), // Load the image
       ),
     );
   }

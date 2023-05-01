@@ -10,6 +10,7 @@ class Anasayfa extends StatefulWidget {
 }
 
 class _AnasayfaState extends State<Anasayfa> {
+  String resimAdi = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +22,7 @@ class _AnasayfaState extends State<Anasayfa> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset("/assets/images/$resimAdi"),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -42,6 +44,15 @@ class _AnasayfaState extends State<Anasayfa> {
                 );
               },
               child: const Text("Sertifika Ekle"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  resimAdi="btk-blokzincirkriptoparalar.jpg";
+                  print(resimAdi);
+                });
+              },
+              child: const Text("test"),
             ),
           ],
         ),

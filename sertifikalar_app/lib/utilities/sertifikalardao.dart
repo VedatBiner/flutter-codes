@@ -6,7 +6,7 @@ class Sertifikalardao {
   Future<List<Sertifikalar>> tumSertifikalar() async {
     var db = await DbHelper.veritabaniErisim();
     List<Map<String, dynamic>> maps =
-    await db.rawQuery("SELECT * FROM sertifikalar");
+        await db.rawQuery("SELECT * FROM sertifikalar");
     return List.generate(maps.length, (i) {
       var satir = maps[i];
       return Sertifikalar(
@@ -16,6 +16,7 @@ class Sertifikalardao {
         satir["sertKonu"],
         satir["sertDetay"],
         satir["sertLink"],
+        satir["sertResim"],
       );
     });
   }
@@ -23,8 +24,8 @@ class Sertifikalardao {
   // arama işlemi için metod
   Future<List<Sertifikalar>> konuArama(String aramaKelimesi) async {
     var db = await DbHelper.veritabaniErisim();
-    List<Map<String, dynamic>> maps = await db
-        .rawQuery("SELECT * FROM sertifikalar WHERE sertKonu LIKE '%$aramaKelimesi%'");
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT * FROM sertifikalar WHERE sertKonu LIKE '%$aramaKelimesi%'");
     return List.generate(maps.length, (i) {
       var satir = maps[i];
       return Sertifikalar(
@@ -34,12 +35,14 @@ class Sertifikalardao {
         satir["sertKonu"],
         satir["sertDetay"],
         satir["sertLink"],
+        satir["sertResim"],
       );
     });
   }
 
   // ekleme işlemi için metod
-  Future<void> sertifikaEkle(String sertTarih, sertKurum, sertKonu, sertDetay, sertLink) async {
+  Future<void> sertifikaEkle(String sertTarih, sertKurum, sertKonu, sertDetay,
+      sertLink, sertResim) async {
     var db = await DbHelper.veritabaniErisim();
     var bilgiler = <String, dynamic>{};
     bilgiler["sertTarih"] = sertTarih;
@@ -47,11 +50,13 @@ class Sertifikalardao {
     bilgiler["sertKonu"] = sertKonu;
     bilgiler["sertDetay"] = sertDetay;
     bilgiler["sertLink"] = sertLink;
+    bilgiler["sertResim"] = sertResim;
     await db.insert("sertifikalar", bilgiler);
   }
 
   // güncelleme işlemi için metod
-  Future<void> sertfikaGuncelle(int sertId, String sertTarih, sertKurum, sertKonu, sertDetay, sertLink) async {
+  Future<void> sertfikaGuncelle(int sertId, String sertTarih, sertKurum,
+      sertKonu, sertDetay, sertLink, sertResim) async {
     var db = await DbHelper.veritabaniErisim();
     var bilgiler = <String, dynamic>{};
     bilgiler["sertTarih"] = sertTarih;
@@ -60,8 +65,8 @@ class Sertifikalardao {
     bilgiler["sertDetay"] = sertDetay;
     bilgiler["sertLink"] = sertLink;
 
-    await db
-        .update("sertifikalar", bilgiler, where: "sertId=?", whereArgs: [sertId]);
+    await db.update("sertifikalar", bilgiler,
+        where: "sertId=?", whereArgs: [sertId]);
   }
 
   // silme işlemi için metod
@@ -69,5 +74,4 @@ class Sertifikalardao {
     var db = await DbHelper.veritabaniErisim();
     await db.delete("sertifikalar", where: "sertId=?", whereArgs: [sertId]);
   }
-
 }

@@ -70,29 +70,33 @@ class _SertifikaListesiState extends State<SertifikaListesi> {
                                 style: const TextStyle(
                                     color: Colors.indigo,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                                    fontSize: 14),
                               ),
                             ),
                           ),
                           Expanded(
                             flex: 2,
-                            child: Text(
-                              sertifika.sertDetay,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                color: Colors.black54,
-                                fontSize: 12,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                sertifika.sertDetay,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
                           IconButton(
                             onPressed: () {
                               print(sertifika.sertLink);
+                              print(sertifika.sertResim);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      SertifikaGoster(imageUrl: sertifika.sertLink),
+                                      SertifikaGoster(sertResim: sertifika.sertResim),
                                 ),
                               );
                             },

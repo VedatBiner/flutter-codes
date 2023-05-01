@@ -1,6 +1,6 @@
 class Sertifikalar {
   int sertId;
-  String sertTarih, sertKurum, sertKonu, sertDetay, sertLink;
+  String sertTarih, sertKurum, sertKonu, sertDetay, sertLink, sertResim;
 
   Sertifikalar(
     this.sertId,
@@ -9,6 +9,6 @@ class Sertifikalar {
     this.sertKonu,
     this.sertDetay,
     this.sertLink,
+    this.sertResim,
   );
-
 }
