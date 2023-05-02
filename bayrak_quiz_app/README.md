@@ -1,6 +1,7 @@
 # bayrak_quiz_app
 
 Dünya Bayrakları Quiz App
+<HR>
 Sqflite veri tabanı çalışması
 https://www.udemy.com/course/flutter-ile-uygulama-gelistirme-kursu-android-ios/learn/lecture/23730244 Eğitimindeki örnek uygulama<BR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/bayrak_quiz_app/screen_shots/img-01.png" height="400em"/>
