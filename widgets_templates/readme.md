@@ -26,6 +26,16 @@ Bu dizinde, sık kullanılan Flutter widget ve diğer yapılar ile ilgili şablo
 
 <B>[013 - Time/Date Picker : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w013_time_date_picker)</B>Time/Date Picker Kullanım örneği<BR>
 
-<B>[014 - Gesture Detector : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w014_gesturedetector)</B>GestureDetectorKullanım örneği<BR>
+<B>[014 - Gesture Detector : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w014_gesturedetector)</B>GestureDetector Kullanım örneği<BR>
 
 <B>[015 - Alert Dialog : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w015_alert_dialog)</B>Alert Dialog Kullanım örneği<BR>
+
+<B>[016_snackbar : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w016_snackbar)</B>SnackBar Kullanım örneği<BR>
+
+<B>[017_popup_menu : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w017_popup_menu)</B>PopUp Menu Kullanım örneği<BR>
+
+<B>[018_form : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w018_form)</B>Form Kullanım örneği<BR>
+
+<B>[019_appbar : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w019_appbar)</B>AppBar Kullanım örneği<BR>
+
+<B>[020_appbar_search : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w020_appbar_search)</B>AppBar Search button Kullanım örneği<BR>
