@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadPuan() async {
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _alinanPuan =0;
+      _alinanPuan = 0;
       _toplamPuan = 0;
       _enYuksekPuan = _prefs!.getInt('enYuksekPuan') ?? 0;
     });
@@ -45,9 +45,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Puanlama"),
-      ),
+      appBar: AppBar(title: const Text("Puanlama"), actions: [
+        IconButton(
+          tooltip: "En yüksek puanı sıfırlar",
+          icon: const Icon(Icons.refresh),
+          onPressed: () {
+            silEnYuksekPuan();
+          },
+        ),
+      ]),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -85,9 +91,7 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "${i * 10}",
                                 style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -122,4 +126,30 @@ class _HomePageState extends State<HomePage> {
     puanKontrol();
   }
 
+  void silEnYuksekPuan() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Dikkat !!!"),
+            content: const Text("En yüksek puan silinsin mi?"),
+            actions: [
+              TextButton(
+                child: const Text("İptal"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: const Text("Sil"),
+                onPressed: () {
+                  _enYuksekPuan = 0;
+                  _saveEnYuksekPuan(_enYuksekPuan);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
 }
