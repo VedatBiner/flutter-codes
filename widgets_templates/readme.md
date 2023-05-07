@@ -39,3 +39,13 @@ Bu dizinde, sık kullanılan Flutter widget ve diğer yapılar ile ilgili şablo
 <B>[019_appbar : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w019_appbar)</B>AppBar Kullanım örneği<BR>
 
 <B>[020_appbar_search : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w020_appbar_search)</B>AppBar Search button Kullanım örneği<BR>
+
+<B>[w021_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w021_card)</B>Card Widget Kullanım örneği<BR>
+
+<B>[w022_image_local : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w022_image_local)</B>Local Image Kullanım örneği<BR>
+
+<B>[w023_image_network : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w023_image_network)</B>Network Image Kullanım örneği<BR>
+
+
+
+
