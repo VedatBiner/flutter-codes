@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/butonlar.dart';
 import '../widgets/mycard.dart';
+import '../utils/puan_kontrol.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -73,17 +74,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void puanKontrol() {
-    setState(() {
-      if (_toplamPuan > _enYuksekPuan) {
-        _enYuksekPuan = _toplamPuan;
-      }
-      if (_enYuksekPuan != null) {
-        _saveEnYuksekPuan(_enYuksekPuan);
-      }
-    });
-  }
-
   void handlePuanEkle(int puan) {
     setState(() {
       _alinanPuan = puan;
@@ -91,7 +81,12 @@ class _HomePageState extends State<HomePage> {
       _prefs!.setInt('toplamPuan', _toplamPuan);
       _prefs!.setInt('alinanPuan', _alinanPuan);
     });
-    puanKontrol();
+    puanKontrol(
+      prefs: _prefs!,
+      enYuksekPuan: _enYuksekPuan,
+      toplamPuan: _toplamPuan,
+      saveEnYuksekPuan: _saveEnYuksekPuan,
+    );
   }
 
   void silEnYuksekPuan() {
