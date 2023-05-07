@@ -40,12 +40,21 @@ Bu dizinde, sık kullanılan Flutter widget ve diğer yapılar ile ilgili şablo
 
 <B>[020_appbar_search : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w020_appbar_search)</B>AppBar Search button Kullanım örneği<BR>
 
-<B>[w021_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w021_card)</B>Card Widget Kullanım örneği<BR>
+<B>[021_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w021_card)</B>Card Widget Kullanım örneği<BR>
 
-<B>[w022_image_local : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w022_image_local)</B>Local Image Kullanım örneği<BR>
+<B>[022_image_local : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w022_image_local)</B>Local Image Kullanım örneği<BR>
 
-<B>[w023_image_network : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w023_image_network)</B>Network Image Kullanım örneği<BR>
+<B>[023_image_network : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w023_image_network)</B>Network Image Kullanım örneği<BR>
 
+<B>[024_image_network_placeholder : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w024_image_network_placeholder)</B>Network Image ve Place Holder Kullanım örneği<BR>
+
+<B>[025_sabit_listview : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w025_sabit_listview)</B>Sabit ListView Kullanım örneği<BR>
+
+<B>[026_dynamic_listview : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w026_dynamic_listview)</B>Dinamik ListView Kullanım örneği<BR>
+
+<B>[027_sabit_gridview : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w027_sabit_gridview)</B>Sabit GridView Kullanım örneği<BR>
+
+<B>[028_dynamic_gridview : ](https://github.com/VedatBiner/flutter-codes/tree/master/widgets_templates/w028_dynamic_gridview)</B>Dinamik GridView Kullanım örneği<BR>
 
 
 
