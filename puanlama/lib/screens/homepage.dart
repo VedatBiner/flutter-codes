@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/butonlar.dart';
 import '../widgets/mycard.dart';
 import '../utils/puan_kontrol.dart';
+import '../utils/sil_en_yuksek_puan.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           tooltip: "En yüksek puanı sıfırlar",
           icon: const Icon(Icons.refresh),
           onPressed: () {
-            silEnYuksekPuan();
+            silEnYuksekPuan(context, _saveEnYuksekPuan);
           },
         ),
       ]),
@@ -86,34 +87,6 @@ class _HomePageState extends State<HomePage> {
       enYuksekPuan: _enYuksekPuan,
       toplamPuan: _toplamPuan,
       saveEnYuksekPuan: _saveEnYuksekPuan,
-    );
-  }
-
-  void silEnYuksekPuan() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Dikkat !!!"),
-          content: const Text("En yüksek puan silinsin mi?"),
-          actions: [
-            TextButton(
-              child: const Text("İptal"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            TextButton(
-              child: const Text("Sil"),
-              onPressed: () {
-                _enYuksekPuan = 0;
-                _saveEnYuksekPuan(_enYuksekPuan);
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
