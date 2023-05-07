@@ -30,11 +30,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _savePuan() async {
-    await _prefs!.setInt('alinanPuan', _alinanPuan);
-    await _prefs!.setInt('toplamPuan', _toplamPuan);
-  }
-
   Future<void> _saveEnYuksekPuan(int value) async {
     setState(() {
       _enYuksekPuan = value;
@@ -91,7 +86,9 @@ class _HomePageState extends State<HomePage> {
                               child: Text(
                                 "${i * 10}",
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -107,11 +104,11 @@ class _HomePageState extends State<HomePage> {
 
   void puanKontrol() {
     setState(() {
-      if (_toplamPuan! > _enYuksekPuan!) {
+      if (_toplamPuan> _enYuksekPuan) {
         _enYuksekPuan = _toplamPuan;
       }
       if (_enYuksekPuan != null) {
-        _saveEnYuksekPuan(_enYuksekPuan!);
+        _saveEnYuksekPuan(_enYuksekPuan);
       }
     });
   }
@@ -119,9 +116,9 @@ class _HomePageState extends State<HomePage> {
   void puanEkle(int puan) {
     setState(() {
       _alinanPuan = puan;
-      _toplamPuan = _toplamPuan! + puan;
-      _prefs!.setInt('toplamPuan', _toplamPuan!);
-      _prefs!.setInt('alinanPuan', _alinanPuan!);
+      _toplamPuan = _toplamPuan + puan;
+      _prefs!.setInt('toplamPuan', _toplamPuan);
+      _prefs!.setInt('alinanPuan', _alinanPuan);
     });
     puanKontrol();
   }
