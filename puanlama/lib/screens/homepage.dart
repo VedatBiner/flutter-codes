@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../widgets/butonlar.dart';
 import '../widgets/mycard.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,61 +51,31 @@ class _HomePageState extends State<HomePage> {
         ),
       ]),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MyCard(
-              cardColor: Colors.red,
-              cardText: "En Yüksek Puan",
-              enYuksekPuanText: "$_enYuksekPuan",
-            ),
-            MyCard(
-              cardColor: Colors.green,
-              cardText: "Toplam Puan",
-              enYuksekPuanText: "$_toplamPuan",
-            ),
-            MyCard(
-              cardColor: Colors.indigo,
-              cardText: "Alınan Puan",
-              enYuksekPuanText: "$_alinanPuan",
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int j = 0; j < 5; j++)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = j * 4 + 1; i <= j * 4 + 4; i++)
-                        if (i <= 20)
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                puanEkle(i * 10);
-                              },
-                              child: Text(
-                                "${i * 10}",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                    ],
-                  ),
-              ],
-            ),
-          ],
-        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          MyCard(
+            cardColor: Colors.red,
+            cardText: "En Yüksek Puan",
+            enYuksekPuanText: "$_enYuksekPuan",
+          ),
+          MyCard(
+            cardColor: Colors.green,
+            cardText: "Toplam Puan",
+            enYuksekPuanText: "$_toplamPuan",
+          ),
+          MyCard(
+            cardColor: Colors.indigo,
+            cardText: "Alınan Puan",
+            enYuksekPuanText: "$_alinanPuan",
+          ),
+          Butonlar(handlePuanEkle: handlePuanEkle),
+        ]),
       ),
     );
   }
 
   void puanKontrol() {
     setState(() {
-      if (_toplamPuan> _enYuksekPuan) {
+      if (_toplamPuan > _enYuksekPuan) {
         _enYuksekPuan = _toplamPuan;
       }
       if (_enYuksekPuan != null) {
@@ -113,7 +84,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void puanEkle(int puan) {
+  void handlePuanEkle(int puan) {
     setState(() {
       _alinanPuan = puan;
       _toplamPuan = _toplamPuan + puan;
@@ -125,28 +96,29 @@ class _HomePageState extends State<HomePage> {
 
   void silEnYuksekPuan() {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Dikkat !!!"),
-            content: const Text("En yüksek puan silinsin mi?"),
-            actions: [
-              TextButton(
-                child: const Text("İptal"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              TextButton(
-                child: const Text("Sil"),
-                onPressed: () {
-                  _enYuksekPuan = 0;
-                  _saveEnYuksekPuan(_enYuksekPuan);
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Dikkat !!!"),
+          content: const Text("En yüksek puan silinsin mi?"),
+          actions: [
+            TextButton(
+              child: const Text("İptal"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child: const Text("Sil"),
+              onPressed: () {
+                _enYuksekPuan = 0;
+                _saveEnYuksekPuan(_enYuksekPuan);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
