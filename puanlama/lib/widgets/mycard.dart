@@ -22,8 +22,9 @@ class MyCard extends StatelessWidget {
         shadowColor: Colors.grey,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10)),
+            topLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
           side: BorderSide(
             width: 3,
             color: Colors.amberAccent,
@@ -33,7 +34,7 @@ class MyCard extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   cardText,
                   style: const TextStyle(
