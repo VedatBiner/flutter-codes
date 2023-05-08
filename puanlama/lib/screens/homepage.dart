@@ -40,6 +40,21 @@ class _HomePageState extends State<HomePage> {
     await _prefs!.setInt('enYuksekPuan', value);
   }
 
+  void handlePuanEkle(int puan) {
+    setState(() {
+      _alinanPuan = puan;
+      _toplamPuan = _toplamPuan + puan;
+      _prefs!.setInt('toplamPuan', _toplamPuan);
+      _prefs!.setInt('alinanPuan', _alinanPuan);
+    });
+    puanKontrol(
+      prefs: _prefs!,
+      enYuksekPuan: _enYuksekPuan,
+      toplamPuan: _toplamPuan,
+      saveEnYuksekPuan: _saveEnYuksekPuan,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,18 +90,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void handlePuanEkle(int puan) {
-    setState(() {
-      _alinanPuan = puan;
-      _toplamPuan = _toplamPuan + puan;
-      _prefs!.setInt('toplamPuan', _toplamPuan);
-      _prefs!.setInt('alinanPuan', _alinanPuan);
-    });
-    puanKontrol(
-      prefs: _prefs!,
-      enYuksekPuan: _enYuksekPuan,
-      toplamPuan: _toplamPuan,
-      saveEnYuksekPuan: _saveEnYuksekPuan,
-    );
-  }
 }
