@@ -58,35 +58,43 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Puanlama"), actions: [
-        IconButton(
-          tooltip: "En yüksek puanı sıfırlar",
-          icon: const Icon(Icons.refresh),
-          onPressed: () {
-            silEnYuksekPuan(context, _saveEnYuksekPuan);
-          },
-        ),
-      ]),
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          MyCard(
-            cardColor: Colors.red,
-            cardText: "En Yüksek Puan",
-            enYuksekPuanText: "$_enYuksekPuan",
-          ),
-          MyCard(
-            cardColor: Colors.green,
-            cardText: "Toplam Puan",
-            enYuksekPuanText: "$_toplamPuan",
-          ),
-          MyCard(
-            cardColor: Colors.indigo,
-            cardText: "Alınan Puan",
-            enYuksekPuanText: "$_alinanPuan",
-          ),
-          Butonlar(handlePuanEkle: handlePuanEkle),
-        ]),
+      appBar: buildAppBar(context),
+      body: buildCenter(),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(title: const Text("Puanlama"), actions: [
+      IconButton(
+        tooltip: "En yüksek puanı sıfırlar",
+        icon: const Icon(Icons.refresh),
+        onPressed: () {
+          silEnYuksekPuan(context, _saveEnYuksekPuan);
+        },
       ),
+    ]);
+  }
+
+  Center buildCenter() {
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        MyCard(
+          cardColor: Colors.red,
+          cardText: "En Yüksek Puan",
+          enYuksekPuanText: "$_enYuksekPuan",
+        ),
+        MyCard(
+          cardColor: Colors.green,
+          cardText: "Toplam Puan",
+          enYuksekPuanText: "$_toplamPuan",
+        ),
+        MyCard(
+          cardColor: Colors.indigo,
+          cardText: "Alınan Puan",
+          enYuksekPuanText: "$_alinanPuan",
+        ),
+        Butonlar(handlePuanEkle: handlePuanEkle),
+      ]),
     );
   }
 
