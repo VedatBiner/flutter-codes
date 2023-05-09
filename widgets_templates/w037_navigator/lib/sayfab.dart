@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:sayfa_gecis/main.dart';
+
+import 'main.dart';
+
 
 class SayfaB extends StatefulWidget {
   const SayfaB({Key? key}) : super(key: key);

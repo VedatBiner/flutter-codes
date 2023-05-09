@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sayfa_gecis/sayfab.dart';
+import 'package:w037_navigator/sayfab.dart';
 import 'kisiler.dart';
 
 class SayfaA extends StatefulWidget {
