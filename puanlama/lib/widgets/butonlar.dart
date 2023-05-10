@@ -7,7 +7,7 @@ class Butonlar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         for (int j = 0; j < 5; j++)
           Row(
@@ -15,17 +15,28 @@ class Butonlar extends StatelessWidget {
             children: [
               for (int i = j * 4 + 1; i <= j * 4 + 4; i++)
                 if (i <= 20)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        handlePuanEkle(i * 10);
-                      },
-                      child: Text(
-                        "${i * 10}",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          handlePuanEkle(i * 10);
+                        },
+                        style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all<Size>(
+                            const Size(56.0, 56.0),
+                          ),
+                          shape:
+                              MaterialStateProperty.all<CircleBorder>(
+                            const CircleBorder(),
+                          ),
+                        ),
+                        child: Text(
+                          "${i * 10}",
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

@@ -5,6 +5,13 @@ void silEnYuksekPuan(BuildContext context, Function saveEnYuksekPuan) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          side: const BorderSide(
+            color: Colors.red,
+            width: 2.0,
+          ),
+        ),
         title: const Text("Dikkat !!!"),
         content: const Text("En yüksek puan silinsin mi?"),
         actions: [

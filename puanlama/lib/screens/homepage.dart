@@ -66,11 +66,18 @@ class _HomePageState extends State<HomePage> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(title: const Text("Puanlama"), actions: [
       IconButton(
+        color: Colors.lightGreenAccent,
         tooltip: "En yüksek puanı sıfırlar",
         icon: const Icon(Icons.refresh),
         onPressed: () {
           silEnYuksekPuan(context, _saveEnYuksekPuan);
         },
+      ),
+      IconButton(
+        color: Colors.redAccent,
+        tooltip: "Tüm puanları sileceksiniz",
+        onPressed: () {},
+        icon: const Icon(Icons.delete),
       ),
     ]);
   }
@@ -97,6 +104,4 @@ class _HomePageState extends State<HomePage> {
       ]),
     );
   }
-
 }
-
