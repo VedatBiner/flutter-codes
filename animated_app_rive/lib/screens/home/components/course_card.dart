@@ -67,3 +67,4 @@ class CourseCard extends StatelessWidget {
     );
   }
 }
+

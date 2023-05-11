@@ -124,3 +124,4 @@ Future<Object?> customSigninDialog(BuildContext context,
     ),
   ).then(onCLosed);
 }
+

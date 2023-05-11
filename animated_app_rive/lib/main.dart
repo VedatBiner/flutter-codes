@@ -40,3 +40,4 @@ const defaultInputBorder = OutlineInputBorder(
     width: 1,
   ),
 );
+

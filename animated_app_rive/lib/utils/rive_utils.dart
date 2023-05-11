@@ -9,3 +9,4 @@ class RiveUtils {
     return controller;
   }
 }
+
