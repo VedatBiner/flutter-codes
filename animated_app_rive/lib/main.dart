@@ -1,5 +1,6 @@
-import 'package:animated_app_rive/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'entry_point.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'The Flutter Way',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFEEF1F8),
         primarySwatch: Colors.blue,
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           errorBorder: defaultInputBorder,
         ),
       ),
-      home: const OnboardingScreen(),
+      home: const EntryPoint(),
     );
   }
 }
