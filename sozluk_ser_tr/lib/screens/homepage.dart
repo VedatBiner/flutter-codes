@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../models/kelimeler.dart';
+import '../utils/kelime_sil.dart';
 import '../utils/kelimelerdao.dart';
 import 'detail_page.dart';
 import 'kelime_ekle.dart';
@@ -123,6 +124,14 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              kelimeSil(context);
+                            },
+                            icon: const Icon(Icons.delete),
+                            color: Colors.red,
+                            tooltip: "kelime silinecektir",
                           ),
                         ],
                       ),
