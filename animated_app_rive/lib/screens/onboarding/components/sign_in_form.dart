@@ -54,7 +54,7 @@ class _SignInFormState extends State<SignInForm> {
               confetti.fire();
               // Once all success we will navigate to the Next screen
               Future.delayed(
-                Duration(seconds: 1),
+                const Duration(seconds: 1),
                 () {
                   Navigator.push(
                       context,

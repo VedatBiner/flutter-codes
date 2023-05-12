@@ -48,8 +48,8 @@ Future<Object?> customSigninDialog(BuildContext context,
                     ),
                   ),
                   const SignInForm(),
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Expanded(child: Divider()),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),

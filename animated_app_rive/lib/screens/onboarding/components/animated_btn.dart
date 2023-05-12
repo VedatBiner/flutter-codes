@@ -29,12 +29,12 @@ class AnimatedBtn extends StatelessWidget {
               // Once we restart the app it shows the animation
               controllers: [_btnAnimationColtroller],
             ),
-            Positioned.fill(
+            const Positioned.fill(
               // But it's not center
               top: 8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(CupertinoIcons.arrow_right),
                   SizedBox(width: 8),
                   Text(

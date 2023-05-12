@@ -5,12 +5,10 @@
 // Bye
 
 import 'dart:math';
-
-import 'package:animated_app_rive/screens/home/home_screen.dart';
-import 'package:animated_app_rive/utils/rive_utils.dart';
+import 'package:animated_appbar_app/screens/home/home_screen.dart';
+import 'package:animated_appbar_app/utils/rive_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
-
 import 'components/animated_bar.dart';
 import 'components/side_menu.dart';
 import 'constants.dart';
