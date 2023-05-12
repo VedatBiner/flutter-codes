@@ -5,3 +5,6 @@ ad, soyad, email, ülke, şehir, millet, cinsiyet, yaş ve fotoğraf bilgileri a
 Bu bilgilerden kartvizit şeklinde liste elde edilmesi isteniyor.
 
 not: kullanıcı isimleri ve bilgileri sahte ve rasgele API ile üretilmiş.
+<HR>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/user_card/screen_shots/img-01.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/user_card/screen_shots/img-02.png" height="400em"/>
