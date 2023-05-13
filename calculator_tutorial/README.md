@@ -1,6 +1,7 @@
 # calculator_tutorial
 
 Bir hesap makinesi çalışması
+<HR>
 
 İlk adımda arayüzü oluşturuyoruz.\
 ikinci adım ile kontroller ve tuşların basılması\
