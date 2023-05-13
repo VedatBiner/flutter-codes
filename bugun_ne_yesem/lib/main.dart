@@ -54,7 +54,7 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
               padding: const EdgeInsets.all(12.0),
               child: TextButton(
                 style: TextButton.styleFrom(
-                  primary: Colors.white,
+                  foregroundColor: Colors.white,
                 ),
                 onPressed: yemekDegistir,
                 child: Image.asset(
