@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './state_data.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(Provider<StateData>(
+void main() => runApp(ChangeNotifierProvider<StateData>(
   // state yarattık, provider 'ı yayınladık.
     create: (BuildContext context) => StateData(),
     child: const MyApp()));
@@ -109,6 +109,10 @@ class SagWidgetC extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // callback fonksiyon
+    // Function newCity = Provider.of<StateData>(context).newCity;
+
     return Container(
       color: Colors.white,
       height: 150,
@@ -122,7 +126,12 @@ class SagWidgetC extends StatelessWidget {
           'Şehir: ${Provider.of<StateData>(context).sehir}',
           style: const TextStyle(fontSize: 20),
         ),
-        const TextField(onChanged: null)
+        TextField(onChanged: (input){
+          // kullanıcı tarafından girilen veriyi gönderiyoruz.
+          // burada dinleme yapmasını kapatıyoruz.
+          Provider.of<StateData>(context, listen:false).newCity(input);
+          // newCity(input);
+        })
       ]),
     );
   }
