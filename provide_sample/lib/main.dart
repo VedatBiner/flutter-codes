@@ -50,18 +50,30 @@ class SolWidgetA extends StatelessWidget {
     // String sehir = Provider.of<StateData>(context).sehir;
     return Container(
         color: Colors.yellow,
-        child: Column(
-          children: [
-            const Text(
-              'Sol Widget',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              // aşağıdaki gibi de kullanılabilir.
-              'Sehir: ${Provider.of<StateData>(context).sehir}',
-              style: const TextStyle(fontSize: 20),
-            )
-          ],
+        child: Consumer<StateData>(
+          builder: (context, data, child){
+            return Column(
+              children: [
+                const Text(
+                  'Sol Widget',
+                  style: TextStyle(fontSize: 20),
+                ),
+                Text(
+                  // aşağıdaki gibi de kullanılabilir.
+                  'Şehir : ${data.sehir}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+                Text(
+                  'İlçe : ${data.ilce}',
+                  style: const TextStyle(fontSize: 20),
+                ),
+                Text(
+                  'Mahalle : ${data.mahalle}',
+                  style: const TextStyle(fontSize: 20),
+                )
+              ],
+            );
+          },
         ));
   }
 }
