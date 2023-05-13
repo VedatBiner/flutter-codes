@@ -1,4 +1,4 @@
-# provide_sample
+# provider_sample
 
 Provide paketinin kullanımı ile ilgili demo
 
