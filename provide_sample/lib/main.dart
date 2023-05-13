@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import './state_data.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(Provider<StateData>(
+  // state yarattık, provider 'ı yayınladık.
+    create: (BuildContext context) => StateData(),
+    child: const MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -14,20 +19,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String sehir = "Adana";
-  void changeCity(String newCity){
-    setState(() {
-      sehir = newCity;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +28,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('callback kullanımı'),
       ),
-      body: Center(
+      body: const Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(child: SolWidgetA(sehir: sehir,)),
-            Expanded(child: SagWidgetA(sehir: sehir,callback: changeCity,)) // sadece fonksiyon adı olacak
+            Expanded(child: SolWidgetA()),
+            Expanded(child: SagWidgetA())
           ],
         ),
       ),
@@ -50,11 +43,11 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class SolWidgetA extends StatelessWidget {
-  const SolWidgetA({Key? key, required this.sehir}) : super(key: key);
-  final String sehir;
+  const SolWidgetA({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // String sehir = Provider.of<StateData>(context).sehir;
     return Container(
         color: Colors.yellow,
         child: Column(
@@ -64,7 +57,8 @@ class SolWidgetA extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             Text(
-              'Sehir: $sehir ',
+              // aşağıdaki gibi de kullanılabilir.
+              'Sehir: ${Provider.of<StateData>(context).sehir}',
               style: const TextStyle(fontSize: 20),
             )
           ],
@@ -73,29 +67,25 @@ class SolWidgetA extends StatelessWidget {
 }
 
 class SagWidgetA extends StatelessWidget {
-  final String sehir;
-  final Function callback;
-  const SagWidgetA({Key? key, required this.sehir, required this.callback}) : super(key: key);
+  const SagWidgetA({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.green,
-      child: Column(children: [
-        const Text(
+      child: const Column(children: [
+        Text(
           'SagWidget A',
           style: TextStyle(fontSize: 20),
         ),
-        SagWidgetB(sehir: sehir, callback: callback,)
+        SagWidgetB()
       ]),
     );
   }
 }
 
 class SagWidgetB extends StatelessWidget {
-  final String sehir;
-  final Function callback;
-  const SagWidgetB({Key? key, required this.sehir, required this.callback}) : super(key: key);
+  const SagWidgetB({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,21 +93,19 @@ class SagWidgetB extends StatelessWidget {
       height: 300,
       width: 180,
       color: Colors.purple,
-      child: Column(children: [
-        const Text(
+      child: const Column(children: [
+        Text(
           'SagWidget B',
           style: TextStyle(fontSize: 20),
         ),
-        SagWidgetC(sehir: sehir, callback: callback,)
+        SagWidgetC()
       ]),
     );
   }
 }
 
 class SagWidgetC extends StatelessWidget {
-  final String sehir;
-  final Function callback;
-  const SagWidgetC({Key? key, required this.sehir, required this.callback}) : super(key: key);
+  const SagWidgetC({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -131,16 +119,11 @@ class SagWidgetC extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
         Text(
-          'Şehir: $sehir ',
+          'Şehir: ${Provider.of<StateData>(context).sehir}',
           style: const TextStyle(fontSize: 20),
         ),
-        TextField(
-            onChanged: (input){
-              callback(input);
-            }
-        )
+        const TextField(onChanged: null)
       ]),
     );
   }
 }
-
