@@ -5,8 +5,12 @@ Firebase realtime Database template app
 
 * <B>Firebase setup</B><BR>
 1 - <B>Pubspec.yaml</B> içine aşağıdaki kütüphaneler eklenir. <BR>
+* Zorunlu eklenecek paket : <BR>
   firebase_core: <BR>
+* Realtime Database için : <BR>
   firebase_database: <BR>
+* Cloud Fire store için : <BR>
+  cloud_firestore: >BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-01.png" height="200em"/> <BR>
 2 - <B>main.dart</> dosyasının import bölümü ve en başı aşağıdaki kütüphaneler mutlaka olmalıdır.<BR>
   import 'package:firebase_core/firebase_core.dart'; <BR>
@@ -19,7 +23,7 @@ Firebase realtime Database template app
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-02.png" height="250em"/> <BR>
 3 - https://console.firebase.google.com/ sayfasında proje oluşturma oluşturulur. <BR>
 4 - Android Uygulaması Bağlama<BR>
-<B>Android</B> >> <B>App</B> >> <B>Build.gradle</B> dosyası içinden uygulama addı kopyalanıp, Firebase console sayfasına eklenir. Ayrıca burada <b>minSdkVersion 21 </b> yapılmalıdır. <BR>
+<B>Android</B> >> <B>App</B> >> <B>Build.gradle</B> dosyası içinden uygulama adı kopyalanıp, Firebase console sayfasına eklenir. Ayrıca burada <b>minSdkVersion 21 </b> yapılmalıdır. <BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-03.png" height="300em"/> <BR>
 5 - <B>Console</B> sayfasında <B>Register App</B> ile uygulama kaydedilir. Download <B>google-services.json></B> düğmesi ile dosya indirilip, <B>Android</B> >> <B>App</B> dizinine 
 kopyalanır. <BR>
