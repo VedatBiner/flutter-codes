@@ -10,7 +10,7 @@ Firebase realtime Database template app
 * Realtime Database için : <BR>
   firebase_database: <BR>
 * Cloud Fire store için : <BR>
-  cloud_firestore: >BR>
+  cloud_firestore: <BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-01.png" height="200em"/> <BR>
 2 - <B>main.dart</> dosyasının import bölümü ve en başı aşağıdaki kütüphaneler mutlaka olmalıdır.<BR>
   import 'package:firebase_core/firebase_core.dart'; <BR>
