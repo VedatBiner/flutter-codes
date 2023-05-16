@@ -32,7 +32,7 @@ Başlangıç kurulum Adımları Realtime database ile aynıdır. Kurulum için e
   satırlarını ilgili yerlere kopyalayalım. <B>Android</B> >> <B>App</B> altındaki <B>build.gradle</B> dosyasına yapıştıracağız. <BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-05.png" height="150em"/> <BR>
   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-06.png" height="100em"/> <BR>
-* Firebase Realtime Database CRUD operations
+* Firebase Firestore Database CRUD operations
   **
   <BR>
   
