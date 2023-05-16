@@ -1,7 +1,7 @@
 # w051_firebase_firestore
 
 Firebase Firestore Database template app
-Başlangıç kurulum Adımları Realtime database ile aynıdır.
+Başlangıç kurulum Adımları Realtime database ile aynıdır. Kurulum için ekran görüntüleri de pubspec.yaml dosyası hariç realtime database dizinindekilerdir.
 <HR>
 
 * <B>Firebase setup</B><BR>
@@ -10,7 +10,7 @@ Başlangıç kurulum Adımları Realtime database ile aynıdır.
   firebase_core: <BR>
 * Firestore Database için : <BR>
   cloud_firestore: <BR>
-  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w040_firebase_realtime_database/screen_shots/img-01.png" height="200em"/> <BR>
+  <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w051_firebase_firestore/screen_shots/img-01.png" height="200em"/> <BR>
   2 - <B>main.dart</> dosyasının import bölümü ve en başı aşağıdaki kütüphaneler mutlaka olmalıdır.<BR>
   import 'package:firebase_core/firebase_core.dart'; <BR>
   import 'package:firebase_database/firebase_database.dart'; <BR>
