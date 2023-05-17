@@ -8,19 +8,19 @@ class AnaSayfa extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Anasayfa")),
-      body: const UserInformation(),
+      body: const TumYazilar(),
     );
   }
 }
 
-class UserInformation extends StatefulWidget {
-  const UserInformation({super.key});
+class TumYazilar extends StatefulWidget {
+  const TumYazilar({super.key});
 
   @override
-  _UserInformationState createState() => _UserInformationState();
+  _TumYazilarState createState() => _TumYazilarState();
 }
 
-class _UserInformationState extends State<UserInformation> {
+class _TumYazilarState extends State<TumYazilar> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Yazilar').snapshots();
 
@@ -49,6 +49,7 @@ class _UserInformationState extends State<UserInformation> {
     );
   }
 }
+
 
 
 

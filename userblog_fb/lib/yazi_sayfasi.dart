@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class YaziEkrani extends StatefulWidget {
@@ -15,13 +16,19 @@ class _YaziEkraniState extends State<YaziEkrani> {
   var gelenYaziBasligi = "";
   var gelenYaziIcerigi = "";
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   // Veri ekleme
   yaziEkle() {
     // şablon oluşturduk
     FirebaseFirestore.instance
         .collection("Yazilar") // hangi koleksiyon ?
         .doc(t1.text) // hangi belge ?
-        .set({"baslik": t1.text, "icerik": t2.text}); // eklenecek veri
+        .set({
+      "kullaniciId": auth.currentUser!.uid,
+      "baslik": t1.text,
+      "icerik": t2.text,
+    }); // eklenecek veri
   }
 
   // Veri günceleme
@@ -47,7 +54,8 @@ class _YaziEkraniState extends State<YaziEkrani> {
     FirebaseFirestore.instance
         .collection("Yazilar") // hangi koleksiyon ?
         .doc(t1.text) // hangi belge ?
-        .get().then((gelenVeri){
+        .get()
+        .then((gelenVeri) {
       setState(() {
         gelenYaziBasligi = gelenVeri.data()!["baslik"];
         gelenYaziIcerigi = gelenVeri.data()!["icerik"];
@@ -58,44 +66,46 @@ class _YaziEkraniState extends State<YaziEkrani> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Yazı Ekranı"),),
+      appBar: AppBar(
+        title: const Text("Yazı Ekranı"),
+      ),
       body: Container(
         margin: const EdgeInsets.all(50),
         child: Center(
             child: Column(
+          children: [
+            TextField(
+              controller: t1,
+            ),
+            TextField(
+              controller: t2,
+            ),
+            Row(
               children: [
-                TextField(
-                  controller: t1,
+                ElevatedButton(
+                  onPressed: yaziEkle,
+                  child: const Text("Ekle"),
                 ),
-                TextField(
-                  controller: t2,
+                ElevatedButton(
+                  onPressed: yaziGuncelle,
+                  child: const Text("Güncelle"),
                 ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: yaziEkle,
-                      child: const Text("Ekle"),
-                    ),
-                    ElevatedButton(
-                      onPressed: yaziGuncelle,
-                      child: const Text("Güncelle"),
-                    ),
-                    ElevatedButton(
-                      onPressed: yaziSil,
-                      child: const Text("Sil"),
-                    ),
-                    ElevatedButton(
-                      onPressed: yaziGetir,
-                      child: const Text("Getir"),
-                    ),
-                  ],
+                ElevatedButton(
+                  onPressed: yaziSil,
+                  child: const Text("Sil"),
                 ),
-                ListTile(
-                  title: Text(gelenYaziBasligi),
-                  subtitle: Text(gelenYaziIcerigi),
+                ElevatedButton(
+                  onPressed: yaziGetir,
+                  child: const Text("Getir"),
                 ),
               ],
-            )),
+            ),
+            ListTile(
+              title: Text(gelenYaziBasligi),
+              subtitle: Text(gelenYaziIcerigi),
+            ),
+          ],
+        )),
       ),
     );
   }

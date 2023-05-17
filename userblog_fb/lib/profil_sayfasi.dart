@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:userblog_fb/yazi_sayfasi.dart';
@@ -46,7 +47,51 @@ class ProfilEkrani extends StatelessWidget {
               (Route<dynamic> route) => true);
         },
       ),
-      body: Container(),
+      body: Container(
+        child: KullaniciYazilari(),
+      ),
+    );
+  }
+}
+
+class KullaniciYazilari extends StatefulWidget {
+  const KullaniciYazilari({super.key});
+
+  @override
+  _KullaniciYazilariState createState() => _KullaniciYazilariState();
+}
+
+class _KullaniciYazilariState extends State<KullaniciYazilari> {
+  final Query blogYazilari =
+      FirebaseFirestore.instance
+          .collection('Yazilar')
+          .where(
+            "kullaniciId",
+            isEqualTo: FirebaseAuth.instance.currentUser!.uid,
+          );
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: blogYazilari.snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return ListTile(
+              title: Text(data['baslik']),
+              subtitle: Text(data['icerik']),
+            );
+          }).toList(),
+        );
+      },
     );
   }
 }
