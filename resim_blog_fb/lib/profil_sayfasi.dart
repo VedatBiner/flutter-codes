@@ -18,9 +18,8 @@ class ProfilEkrani extends StatelessWidget {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => null!),
-                      (Route<dynamic> route) => true);
+                  MaterialPageRoute(builder: (_) => null!),
+                  (Route<dynamic> route) => true);
             },
             icon: const Icon(Icons.home),
           ),
@@ -31,7 +30,7 @@ class ProfilEkrani extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (_) => const Iskele()),
-                        (Route<dynamic> route) => false);
+                    (Route<dynamic> route) => false);
               });
             },
           ),
@@ -43,7 +42,7 @@ class ProfilEkrani extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (_) => null!),
-                  (Route<dynamic> route) => true);
+              (Route<dynamic> route) => true);
         },
       ),
       body: const ProfilTasarimi(),
@@ -63,8 +62,7 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
   FirebaseAuth auth = FirebaseAuth.instance;
   String? indirmeBaglantisi;
 
-  kameradanYukle() async {
-    // kameradan resim alalım
+  void kameradanYukle() async {
     var alinanDosya = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
       yuklenecekDosya = File(alinanDosya!.path);
@@ -75,16 +73,23 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
         .child(auth.currentUser!.uid)
         .child("profilResmi.png");
     UploadTask yuklemeGorevi = referansYol.putFile(yuklenecekDosya);
-    TaskSnapshot snapshot = await yuklemeGorevi.whenComplete(() {});
-    String url = await snapshot.ref.getDownloadURL();
+    String url = await (await yuklemeGorevi).ref.getDownloadURL();
     setState(() {
       indirmeBaglantisi = url;
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      child: Row(
+        children: [
+          ElevatedButton(
+            onPressed: kameradanYukle,
+            child: const Text("Resim Yükle"),
+          ),
+        ],
+      ),
+    );
   }
 }
