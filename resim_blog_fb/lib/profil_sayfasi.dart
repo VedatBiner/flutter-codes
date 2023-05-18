@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:resim_blog_fb/vide_resim.dart';
+import 'package:resim_blog_fb/videoplayer.dart';
 import 'main.dart';
 
 class ProfilEkrani extends StatelessWidget {
@@ -18,10 +20,10 @@ class ProfilEkrani extends StatelessWidget {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (_) => null!),
+                  MaterialPageRoute(builder: (_) => VideoApp()),
                   (Route<dynamic> route) => true);
             },
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.videocam),
           ),
           IconButton(
             icon: const Icon(Icons.exit_to_app),
@@ -41,7 +43,7 @@ class ProfilEkrani extends StatelessWidget {
         onPressed: () {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (_) => null!),
+              MaterialPageRoute(builder: (_) => const VideoResim()),
               (Route<dynamic> route) => true);
         },
       ),
@@ -71,7 +73,7 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
   }
 
   void kameradanYukle() async {
-    var alinanDosya = await ImagePicker().getImage(source: ImageSource.camera);
+    var alinanDosya = await ImagePicker().pickImage(source: ImageSource.camera);
     setState(() {
       yuklenecekDosya = File(alinanDosya!.path);
     });
@@ -123,9 +125,3 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
     );
   }
 }
-
-
-
-
-
-
