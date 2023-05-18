@@ -62,6 +62,14 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
   FirebaseAuth auth = FirebaseAuth.instance;
   String? indirmeBaglantisi;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => baglantiAl(),
+    );
+  }
+
   void kameradanYukle() async {
     var alinanDosya = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
@@ -79,17 +87,45 @@ class _ProfilTasarimiState extends State<ProfilTasarimi> {
     });
   }
 
+  baglantiAl() async {
+    String baglanti = await FirebaseStorage.instance
+        .ref()
+        .child("profilresimleri")
+        .child(auth.currentUser!.uid)
+        .child("profilResmi.png")
+        .getDownloadURL();
+    setState(() {
+      indirmeBaglantisi = baglanti;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
         children: [
+          ClipOval(
+            child: indirmeBaglantisi == null
+                ? const Text("Resim yok !!")
+                : Image.network(
+                    indirmeBaglantisi!,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+          ),
           ElevatedButton(
             onPressed: kameradanYukle,
-            child: const Text("Resim Yükle"),
+            child: const Text("Kameradan Resim Yükle"),
           ),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
