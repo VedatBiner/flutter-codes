@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+    MaterialApp(
+      // cihaza göre tema seçimi
+      theme: defaultTargetPlatform == TargetPlatform.iOS
+          ? kIOSTheme
+          : kDefaultTheme,
       title: "FriendlyChat",
-      home: ChatScreen(),
+      debugShowCheckedModeBanner: false,
+      home: const ChatScreen(),
     ),
   );
 }
+
+// IOS ve Android için temalar
+final ThemeData kIOSTheme = ThemeData(
+  primarySwatch: Colors.orange,
+  primaryColor: Colors.grey[100],
+);
+
+final ThemeData kDefaultTheme = ThemeData(
+  colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple).copyWith(
+    secondary: Colors.orangeAccent[400],
+  ),
+);
 
 // text girip, enter basılınca siliyor.
 class ChatScreen extends StatefulWidget {
@@ -69,13 +88,21 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            IconButton(
-              // boşluk kontrolü burada da yapılıyor
-              onPressed: _isComposing
-                  ? () => _handleSubmitted(_textController.text)
-                  : null,
-              icon: const Icon(Icons.send),
-            ),
+            // cihaza göre buton görünümü de değişsin
+            Theme.of(context).platform == TargetPlatform.iOS
+                ? CupertinoButton(
+                    onPressed: _isComposing
+                        ? () => _handleSubmitted(_textController.text)
+                        : null,
+                    child: const Text("Send"),
+                  )
+                : IconButton(
+                    // boşluk kontrolü burada da yapılıyor
+                    onPressed: _isComposing
+                        ? () => _handleSubmitted(_textController.text)
+                        : null,
+                    icon: const Icon(Icons.send),
+                  ),
           ],
         ),
       ),
@@ -96,27 +123,38 @@ class _ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: const Text("FriendlyChat"),
+        // appbar gölgelendirmek için
+        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 8.0,
       ),
-      body: Column(
-        children: [
-          Flexible(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              reverse: true,
-              itemBuilder: (_, int index) => _messages[index],
-              itemCount: _messages.length,
+      body: Container(
+        decoration: Theme.of(context).platform == TargetPlatform.iOS
+        ? BoxDecoration(
+          border: Border(
+            top: BorderSide(color: (Colors.grey[200])!,),
+          )
+        )
+        : null,
+        child: Column(
+          children: [
+            Flexible(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                reverse: true,
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+              ),
             ),
-          ),
-          const Divider(
-            height: 1,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+            const Divider(
+              height: 1,
             ),
-            child: _buildTextComposer(),
-          ),
-        ],
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+              ),
+              child: _buildTextComposer(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -150,18 +188,20 @@ class ChatMessage extends StatelessWidget {
                 child: Text(_name[0]),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _name,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  child: Text(text),
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _name,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    child: Text(text),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -169,10 +209,3 @@ class ChatMessage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
