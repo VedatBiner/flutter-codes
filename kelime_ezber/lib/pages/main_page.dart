@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kelime_ezber/methods.dart';
+import 'package:kelime_ezber/pages/lists.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -73,29 +74,39 @@ class _MainPageState extends State<MainPage> {
                   value: Lang.eng,
                 ),
                 const SizedBox(height: 25),
-                Container(
-                  height: 55,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ListsPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 55,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: const EdgeInsets.only(bottom: 20),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: <Color>[
+                            Color(RenkMetod.HexaColorConverter("#7d20a6")),
+                            Color(RenkMetod.HexaColorConverter("#481183")),
+                          ]),
                     ),
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Color(RenkMetod.HexaColorConverter("#7d20a6")),
-                          Color(RenkMetod.HexaColorConverter("#481183")),
-                        ]),
-                  ),
-                  child: const Text(
-                    "Listelerim",
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontFamily: "Carter",
-                      color: Colors.white,
+                    child: const Text(
+                      "Listelerim",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontFamily: "Carter",
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

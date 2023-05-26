@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'main.dart';
+import 'main_page.dart';
 
 class TemporaryPage extends StatefulWidget {
   const TemporaryPage({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class _TemporaryPageState extends State<TemporaryPage> {
   void initState() {
     super.initState();
     Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 3),
       () {
         Navigator.pushReplacement(
           context,
@@ -71,3 +70,12 @@ class _TemporaryPageState extends State<TemporaryPage> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
