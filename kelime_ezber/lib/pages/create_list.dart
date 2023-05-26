@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/methods.dart';
+import '../widgets/action_btn.dart';
+import '../widgets/textfield_builder.dart';
 
 class CreateList extends StatefulWidget {
   const CreateList({Key? key}) : super(key: key);
@@ -133,71 +135,54 @@ class _CreateListState extends State<CreateList> {
     );
   }
 
-  InkWell actionBtn(Function() click, IconData icon) {
-    return InkWell(
-      onTap: () => click(),
-      child: Container(
-        width: 60,
-        height: 60,
-        margin: const EdgeInsets.only(bottom: 20),
-        decoration: BoxDecoration(
-            color: Color(
-              RenkMetod.HexaColorConverter("#DCD2FF"),
+  // kelime listesine satır ekleme metodu
+  void addRow() {
+    // texteditngController ekleyelim
+    wordTextEditingList.add(TextEditingController());
+    wordTextEditingList.add(TextEditingController());
+    // satır ekleyelim
+    wordListField.add(
+      Row(
+        children: [
+          Expanded(
+            child: textFieldBuilder(
+              textEditingController: wordTextEditingList[wordTextEditingList.length - 2],
             ),
-            shape: BoxShape.circle),
-        child: Icon(
-          icon,
-          size: 32,
-        ),
+          ),
+          Expanded(
+            child: textFieldBuilder(
+              textEditingController: wordTextEditingList[wordTextEditingList.length - 1],
+            ),
+          ),
+        ],
       ),
     );
+    // sayfayı güncelleyelim
+    setState(() => wordListField);
   }
 
-  void addRow(){}
+  void save() {
+    for (int i=0; i<wordTextEditingList.length / 2; i++){
+      String eng = wordTextEditingList[2 * i].text;
+      String tr = wordTextEditingList[2 * i + 1].text;
+      if(eng.isNotEmpty || tr.isNotEmpty){
+        print("$eng <<<->>> $tr");
+      } else {
+        print("boş bırakılan alan");
+      }
+    }
+  }
 
-  void save(){}
-
-  void deleteRow(){}
-
-  Container textFieldBuilder({
-    int height = 40,
-    required TextEditingController textEditingController,
-    Icon? icon,
-    String? hintText,
-    textAlign = TextAlign.center,
-  }) {
-    return Container(
-      height: double.parse(height.toString()),
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.25),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      margin: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 4,
-        bottom: 4,
-      ),
-      child: TextField(
-        keyboardType: TextInputType.name,
-        maxLines: 1,
-        textAlign: textAlign,
-        controller: textEditingController,
-        style: const TextStyle(
-          color: Colors.black,
-          fontFamily: "RobotoMedium",
-          decoration: TextDecoration.none,
-          fontSize: 18,
-        ),
-        decoration: InputDecoration(
-          icon: icon,
-          border: InputBorder.none,
-          hintText: "Liste Adı",
-          fillColor: Colors.transparent,
-          isDense: true,
-        ),
-      ),
-    );
+  // kelime listesinden satır silme metodu
+  void deleteRow() {
+    if(wordListField.length != 1){
+      // iki textEditing controller siliniyor
+      wordTextEditingList.removeAt(wordTextEditingList.length-1);
+      wordTextEditingList.removeAt(wordTextEditingList.length-1);
+      // Son row siliniyor
+      wordListField.removeAt(wordListField.length - 1);
+      // sayfayı güncelleyelim
+      setState(() => wordListField);
+    }
   }
 }
