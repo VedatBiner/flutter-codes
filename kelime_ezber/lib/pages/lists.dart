@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/methods.dart';
 
+import 'create_list.dart';
+
 class ListsPage extends StatefulWidget {
   const ListsPage({Key? key}) : super(key: key);
 
@@ -33,7 +35,7 @@ class _ListsPageState extends State<ListsPage> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
-              child: Image.asset("assets/images/logo_text.png"),
+              child: Image.asset("assets/images/lists.png"),
             ),
             Container(
               alignment: Alignment.centerRight,
@@ -48,7 +50,14 @@ class _ListsPageState extends State<ListsPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const CreateList(),
+            ),
+          );
+        },
         backgroundColor: Colors.purple.withOpacity(0.5),
         child: const Icon(Icons.add),
       ),
@@ -121,7 +130,6 @@ class _ListsPageState extends State<ListsPage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
