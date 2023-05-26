@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Place inside the <queries> element. -->
+
     <application
         android:label="kelime_ezber"
         android:name="${applicationName}"

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kelime_ezber/methods.dart';
 import 'package:kelime_ezber/pages/lists.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -11,10 +13,26 @@ class MainPage extends StatefulWidget {
 }
 
 enum Lang { eng, tr }
+Uri _url = Uri.parse("https://www.udemy.com/");
 
 class _MainPageState extends State<MainPage> {
   Lang _chooseLang = Lang.eng;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  PackageInfo? packageInfo;
+  String version = "";
+
+  @override
+  void initState() {
+    super.initState();
+    packageInfoInit();
+  }
+
+  void packageInfoInit() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = packageInfo.version;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +83,9 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   InkWell(
-                    onTap: (){},
+                    onTap: () async {
+                      await launchUrl(_url) ? await launchUrl(_url) : throw Exception('Could not launch $_url');
+                    },
                     child: Text(
                       "Tıkla",
                       style: TextStyle(
@@ -82,7 +102,7 @@ class _MainPageState extends State<MainPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "v0.9\nvb@gmail.com",
+                  "v$version \nvb@gmail.com",
                   style: TextStyle(
                     fontFamily: "RobotoLight",
                     fontSize: 14,
