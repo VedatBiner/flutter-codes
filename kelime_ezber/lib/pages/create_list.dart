@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kelime_ezber/methods.dart';
 import '../widgets/action_btn.dart';
 import '../widgets/textfield_builder.dart';
 
@@ -186,3 +185,17 @@ class _CreateListState extends State<CreateList> {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -34,10 +34,11 @@ Container textFieldBuilder({
       decoration: InputDecoration(
         icon: icon,
         border: InputBorder.none,
-        hintText: "Liste Adı",
+        hintText: " ",
         fillColor: Colors.transparent,
         isDense: true,
       ),
     ),
   );
 }
+

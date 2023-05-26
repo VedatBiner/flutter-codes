@@ -70,4 +70,14 @@ flutter:
     - family: RobotoRegular
       fonts:
         - asset: assets/fonts/robotoregular.ttf
+    - family: RobotoLight
+      fonts:
+        - asset: assets/fonts/robotolight.ttf
+
+
+
+
+
+
+
 

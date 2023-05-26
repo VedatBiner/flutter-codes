@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/methods.dart';
-
 import 'create_list.dart';
 
 class ListsPage extends StatefulWidget {
