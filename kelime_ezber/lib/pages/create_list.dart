@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_ezber/methods.dart';
 
 class CreateList extends StatefulWidget {
   const CreateList({Key? key}) : super(key: key);
@@ -117,12 +118,46 @@ class _CreateListState extends State<CreateList> {
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  actionBtn(addRow, Icons.add),
+                  actionBtn(save, Icons.save),
+                  actionBtn(deleteRow, Icons.remove),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  InkWell actionBtn(Function() click, IconData icon) {
+    return InkWell(
+      onTap: () => click(),
+      child: Container(
+        width: 60,
+        height: 60,
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+            color: Color(
+              RenkMetod.HexaColorConverter("#DCD2FF"),
+            ),
+            shape: BoxShape.circle),
+        child: Icon(
+          icon,
+          size: 32,
+        ),
+      ),
+    );
+  }
+
+  void addRow(){}
+
+  void save(){}
+
+  void deleteRow(){}
 
   Container textFieldBuilder({
     int height = 40,
