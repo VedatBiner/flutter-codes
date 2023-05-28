@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_ezber/widgets/appbar_page.dart';
 import '../widgets/action_btn.dart';
 import '../widgets/textfield_builder.dart';
 
@@ -39,42 +40,20 @@ class _CreateListState extends State<CreateList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                  size: 22,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Image.asset("assets/images/logo_text.png"),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: Image.asset(
-                "assets/images/logo.png",
-                height: 35,
-                width: 35,
-              ),
-            ),
-          ],
+      appBar: appBar(
+        context,
+        left: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+          size: 22,
         ),
+        center: Image.asset("assets/images/logo_text.png"),
+        right: Image.asset(
+          "assets/images/logo.png",
+          height: 35,
+          width: 35,
+        ),
+        leftWidgetOnClick: () => Navigator.pop(context),
       ),
       body: SafeArea(
         child: Container(
@@ -145,12 +124,14 @@ class _CreateListState extends State<CreateList> {
         children: [
           Expanded(
             child: textFieldBuilder(
-              textEditingController: wordTextEditingList[wordTextEditingList.length - 2],
+              textEditingController:
+                  wordTextEditingList[wordTextEditingList.length - 2],
             ),
           ),
           Expanded(
             child: textFieldBuilder(
-              textEditingController: wordTextEditingList[wordTextEditingList.length - 1],
+              textEditingController:
+                  wordTextEditingList[wordTextEditingList.length - 1],
             ),
           ),
         ],
@@ -161,10 +142,10 @@ class _CreateListState extends State<CreateList> {
   }
 
   void save() {
-    for (int i=0; i<wordTextEditingList.length / 2; i++){
+    for (int i = 0; i < wordTextEditingList.length / 2; i++) {
       String eng = wordTextEditingList[2 * i].text;
       String tr = wordTextEditingList[2 * i + 1].text;
-      if(eng.isNotEmpty || tr.isNotEmpty){
+      if (eng.isNotEmpty || tr.isNotEmpty) {
         print("$eng <<<->>> $tr");
       } else {
         print("boş bırakılan alan");
@@ -174,29 +155,14 @@ class _CreateListState extends State<CreateList> {
 
   // kelime listesinden satır silme metodu
   void deleteRow() {
-    if(wordListField.length != 1){
+    if (wordListField.length != 1) {
       // iki textEditing controller siliniyor
-      wordTextEditingList.removeAt(wordTextEditingList.length-1);
-      wordTextEditingList.removeAt(wordTextEditingList.length-1);
+      wordTextEditingList.removeAt(wordTextEditingList.length - 1);
+      wordTextEditingList.removeAt(wordTextEditingList.length - 1);
       // Son row siliniyor
       wordListField.removeAt(wordListField.length - 1);
       // sayfayı güncelleyelim
       setState(() => wordListField);
     }
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

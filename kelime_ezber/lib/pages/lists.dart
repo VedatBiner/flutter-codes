@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/methods.dart';
+import 'package:kelime_ezber/widgets/appbar_page.dart';
 import 'create_list.dart';
 
 class ListsPage extends StatefulWidget {
@@ -13,40 +14,22 @@ class _ListsPageState extends State<ListsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
-                  size: 22,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.5,
-              child: Image.asset("assets/images/lists.png"),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: Image.asset(
-                "assets/images/logo.png",
-                height: 35,
-                width: 35,
-              ),
-            ),
-          ],
+      appBar: appBar(
+        context,
+        left: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+          size: 22,
         ),
+        center: Image.asset("assets/images/lists.png"),
+        right: Image.asset(
+          "assets/images/logo.png",
+          height: 35,
+          width: 35,
+        ),
+        leftWidgetOnClick: () => {
+          Navigator.pop(context),
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

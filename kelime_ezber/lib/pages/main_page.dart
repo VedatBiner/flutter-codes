@@ -5,6 +5,8 @@ import 'package:kelime_ezber/pages/lists.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../widgets/appbar_page.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 enum Lang { eng, tr }
+
 Uri _url = Uri.parse("https://www.udemy.com/");
 
 class _MainPageState extends State<MainPage> {
@@ -84,7 +87,9 @@ class _MainPageState extends State<MainPage> {
                   ),
                   InkWell(
                     onTap: () async {
-                      await launchUrl(_url) ? await launchUrl(_url) : throw Exception('Could not launch $_url');
+                      await launchUrl(_url)
+                          ? await launchUrl(_url)
+                          : throw Exception('Could not launch $_url');
                     },
                     child: Text(
                       "Tıkla",
@@ -117,38 +122,17 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ),
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.20,
-                child: InkWell(
-                  onTap: () {
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: const FaIcon(
-                    FontAwesomeIcons.bars,
-                    color: Colors.black,
-                    size: 22,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: Image.asset("assets/images/logo_text.png"),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.20,
-              ),
-            ],
-          ),
+      appBar: appBar(
+        context,
+        left: const FaIcon(
+          FontAwesomeIcons.bars,
+          color: Colors.black,
+          size: 22,
         ),
+        center: Image.asset("assets/images/logo_text.png"),
+        leftWidgetOnClick: () => {
+          _scaffoldKey.currentState!.openDrawer(),
+        },
       ),
       body: SafeArea(
         child: Container(
