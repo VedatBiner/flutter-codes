@@ -1,5 +1,7 @@
-const String tableName = "lists";
+// tablomuzun adı
+const String tableNameLists = "lists";
 
+// Liste tablosunun alanları
 class ListsTableFields {
   static final List<String> values = [id, name];
 
@@ -7,13 +9,14 @@ class ListsTableFields {
   static const String name = "name";
 }
 
+// Liste sınıfı
 class Lists {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   Lists({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
   });
 
   Lists copy({int? id, String? name}) {
@@ -24,14 +27,15 @@ class Lists {
   }
 
   // veri tabanına veriyi JSON olarak göndereceğiz
-  Map<String, Object> toJson() => {
+  Map<String, Object?> toJson() => {
     ListsTableFields.id : id,
     ListsTableFields.name : name,
   };
 
   // JSON dan listeye dönüştürme
-  static Lists fromJson(Map<String, Object> json) => Lists(
-    id: json[ListsTableFields.id] as int,
-    name: json[ListsTableFields.name] as String,
+  static Lists fromJson(Map<String, Object?> json) => Lists(
+    id: json[ListsTableFields.id] as int?,
+    name: json[ListsTableFields.name] as String?,
   );
+
 }
