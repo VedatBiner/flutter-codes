@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_ezber/database/db/dbhelper.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
+import 'package:kelime_ezber/widgets/toat_message.dart';
+import '../database/models/lists.dart';
+import '../database/models/words.dart';
 import '../widgets/action_btn.dart';
 import '../widgets/textfield_builder.dart';
 
@@ -141,21 +145,59 @@ class _CreateListState extends State<CreateList> {
     setState(() => wordListField);
   }
 
-  void save() {
-    for (int i = 0; i < wordTextEditingList.length / 2; i++) {
-      String eng = wordTextEditingList[2 * i].text;
-      String tr = wordTextEditingList[2 * i + 1].text;
-      if (eng.isNotEmpty || tr.isNotEmpty) {
-        print("$eng <<<->>> $tr");
-      } else {
-        print("boş bırakılan alan");
+  // kelime ve liste kayıt metodu
+  void save() async {
+    // liste adı dolu mu boş mu?
+    if(_listName.text.isNotEmpty){
+      // dört kelime çifti dolu mu ? kontrol edelim.
+      int counter = 0;
+      bool notEmptyPair = false;
+      for (int i = 0; i < wordTextEditingList.length / 2; i++) {
+        String eng = wordTextEditingList[2 * i].text;
+        String tr = wordTextEditingList[2 * i + 1].text;
+        if (eng.isNotEmpty && tr.isNotEmpty) {
+          counter++;
+        } else {
+          notEmptyPair = true;
+        }
       }
+      if (counter >= 4) {
+        if (!notEmptyPair) {
+          Lists addedList =
+          await DbHelper.instance.insertList(Lists(name: _listName.text));
+          for (int i = 0; i < wordTextEditingList.length / 2; i++) {
+            String eng = wordTextEditingList[2 * i].text;
+            String tr = wordTextEditingList[2 * i + 1].text;
+            Word word = await DbHelper.instance.insertWord(Word(
+                list_id: addedList.id,
+                word_eng: eng,
+                word_tr: tr,
+                status: false));
+            print(
+                "${word.id} ${word.list_id} ${word.word_eng} ${word.word_tr} ${word.status}");
+          }
+          toastMessage("Liste oluşturuldu.");
+          // listeyi boşaltalım.
+          wordTextEditingList.forEach((element) {
+            element.clear();
+          });
+          _listName.clear();
+        } else {
+          toastMessage("Boş alanları doldurun veya silin");
+        }
+      } else {
+        toastMessage("minimum dört çift dolu olmalıdır");
+      }
+    } else {
+      toastMessage("Lütfen liste adını giriniz");
     }
+
   }
 
   // kelime listesinden satır silme metodu
   void deleteRow() {
-    if (wordListField.length != 1) {
+    // varsayılan olarak hep 4 satır kalacak
+    if (wordListField.length != 4) {
       // iki textEditing controller siliniyor
       wordTextEditingList.removeAt(wordTextEditingList.length - 1);
       wordTextEditingList.removeAt(wordTextEditingList.length - 1);
@@ -163,6 +205,8 @@ class _CreateListState extends State<CreateList> {
       wordListField.removeAt(wordListField.length - 1);
       // sayfayı güncelleyelim
       setState(() => wordListField);
+    } else {
+      toastMessage("Minimum dör çift gereklidir.");
     }
   }
 }
