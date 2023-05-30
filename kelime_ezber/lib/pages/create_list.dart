@@ -177,10 +177,10 @@ class _CreateListState extends State<CreateList> {
                 "${word.id} ${word.list_id} ${word.word_eng} ${word.word_tr} ${word.status}");
           }
           toastMessage("Liste oluşturuldu.");
-          // listeyi boşaltalım.
-          wordTextEditingList.forEach((element) {
+          // listeyi boşaltalım. Burada for each for döngüsüne çevrildi
+          for (var element in wordTextEditingList) {
             element.clear();
-          });
+          }
           _listName.clear();
         } else {
           toastMessage("Boş alanları doldurun veya silin");

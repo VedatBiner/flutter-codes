@@ -74,11 +74,22 @@ class DbHelper {
   }
 
   // tüm listeleri getir
-  Future<List<Lists>> readListsAll() async {
+  Future<List<Map<String, Object?>>> readListsAll() async {
     final db = await instance.database;
-    const orderBy = "${ListsTableFields.id} ASC";
-    final result = await db.query(tableNameLists, orderBy: orderBy);
-    return result.map((json) => Lists.fromJson(json)).toList();
+    // listenin id ve name bilgisi var
+    List<Map<String, Object?>> res = [];
+    List<Map<String, Object?>> lists = await db.rawQuery("SELECT id, name FROM lists");
+    await Future.forEach(lists, (element) async{
+      // kelime sayısı ve öğrenilmemiş kelime sayısı bilgileri
+      var wordInfoByList = await db.rawQuery("SELECT (SELECT COUNT (*) FROM words where list_id=${element['id']}) as sum_word, "
+          "(SELECT COUNT(*) FROM words where status=0 and list_id=${element['id']}) as sum_unlearned");
+      Map<String, Object?> temp = Map.of(wordInfoByList[0]);
+      temp["name"] = element["name"];
+      temp["list_id"] = element["id"];
+      res.add(temp);
+    });
+    print(res);
+    return res;
   }
 
   // kelime güncelleme metodu
