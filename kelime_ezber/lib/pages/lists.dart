@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/dbhelper.dart';
-import 'package:kelime_ezber/methods.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
 import '../widgets/list_item.dart';
 import 'create_list.dart';
