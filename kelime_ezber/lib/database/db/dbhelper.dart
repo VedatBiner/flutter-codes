@@ -80,4 +80,61 @@ class DbHelper {
     final result = await db.query(tableNameLists, orderBy: orderBy);
     return result.map((json) => Lists.fromJson(json)).toList();
   }
+
+  // kelime güncelleme metodu
+  Future<int> updateWord(Word word) async {
+    final db = await instance.database;
+    return db.update(
+      tableNameWords,
+      word.toJson(),
+      where: "${WordTableFields.id} = ?",
+      whereArgs: [word.id],
+    );
+  }
+
+  // liste güncelleme metodu
+  Future<int> updateList(Lists lists) async {
+    final db = await instance.database;
+    return db.update(
+      tableNameLists,
+      lists.toJson(),
+      where: "${ListsTableFields.id} = ?",
+      whereArgs: [lists.id],
+    );
+  }
+
+  // kelime silme metodu
+  Future<int> deleteWord(int id) async {
+    final db = await instance.database;
+    return db.delete(
+      tableNameWords,
+      where: "${WordTableFields.id} = ?",
+      whereArgs: [id],
+    );
+  }
+
+  // liste ve altındaki kelimeleri silme metodu
+  Future<int> deleteListsAndWordByList(int id) async {
+    final db = await instance.database;
+    int result = await db.delete(
+      tableNameLists,
+      where: "${ListsTableFields.id} = ?",
+      whereArgs: [id],
+    );
+    if (result == 1) {
+      await db.delete(
+        tableNameWords,
+        where: "${WordTableFields.list_id} = ?",
+        whereArgs: [id],
+      );
+    }
+    return result;
+  }
+
+  // bağlantıyı keselim
+  Future close() async {
+    final db = await instance.database;
+    db.close();
+  }
+
 }

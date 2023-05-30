@@ -60,3 +60,4 @@ class Word {
         status: json[WordTableFields.status] == 1,
       );
 }
+
