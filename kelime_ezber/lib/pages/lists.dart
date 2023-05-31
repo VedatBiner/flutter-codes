@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/dbhelper.dart';
+import 'package:kelime_ezber/pages/word_list.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
 import 'package:kelime_ezber/widgets/toast_message.dart';
 import '../methods.dart';
@@ -139,7 +140,12 @@ class _ListsPageState extends State<ListsPage> {
   }) {
     return InkWell(
       onTap: () {
-        // print(id.toString()); // geçici olarak yorum yapıldı
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WordsPage(id, listName),
+          ),
+        );
       },
       onLongPress: () {
         // değerin değiştiğinin kontrolü için
@@ -149,98 +155,100 @@ class _ListsPageState extends State<ListsPage> {
           deleteIndexList[index] = true;
         });
       },
-      child: SizedBox(
-        width: double.infinity,
-        child: Card(
-          color: Color(
-            RenkMetod.HexaColorConverter("#DCD2FF"),
-          ),
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          margin:
-              const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
-          child: Row(
-            // her listeye bir checkbox eklemek için
-            // column 'u Row ile sardık
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 15, top: 5),
-                    child: Text(
-                      listName!,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: "RobotoMedium",
+      child: Center(
+        child: SizedBox(
+          width: double.infinity,
+          child: Card(
+            color: Color(
+              RenkMetod.HexaColorConverter("#DCD2FF"),
+            ),
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            margin:
+                const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
+            child: Row(
+              // her listeye bir checkbox eklemek için
+              // column 'u Row ile sardık
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(left: 15, top: 5),
+                      child: Text(
+                        listName!,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontFamily: "RobotoMedium",
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: Text(
-                      "${sumWords!} terim",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: "RobotoRegular",
+                    Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        "${sumWords!} terim",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: "RobotoRegular",
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30),
-                    child: Text(
-                      "${int.parse(sumWords) - int.parse(sumUnlearned!)} öğrenildi",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: "RobotoRegular",
+                    Container(
+                      margin: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        "${int.parse(sumWords) - int.parse(sumUnlearned!)} öğrenildi",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: "RobotoRegular",
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 30, bottom: 5),
-                    child: Text(
-                      "$sumUnlearned öğrenilmedi",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: "RobotoRegular",
+                    Container(
+                      margin: const EdgeInsets.only(left: 30, bottom: 5),
+                      child: Text(
+                        "$sumUnlearned öğrenilmedi",
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: "RobotoRegular",
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              pressController == true
-                  // pressController true ise checkbox göster
-                  // basılmadıysa içi boş container göster
-                  ? Checkbox(
-                      checkColor: Colors.white,
-                      activeColor: Colors.deepPurpleAccent,
-                      hoverColor: Colors.blueAccent,
-                      value: deleteIndexList[index],
-                      onChanged: (bool? value) {
-                        setState(() {
-                          deleteIndexList[index] = value!;
-                          bool deleteProcessController = false;
-                          // orijinal koddaki forEach metodu,
-                          // for döngüsüne çevrildi
-                          for (var element in deleteIndexList) {
-                            if (element == true) deleteProcessController = true;
-                          }
-                          // liste eski haline geri dönüyor
-                          if (!deleteProcessController) pressController = false;
-                        });
-                      },
-                    )
-                  : Container(),
-            ],
+                  ],
+                ),
+                pressController == true
+                    // pressController true ise checkbox göster
+                    // basılmadıysa içi boş container göster
+                    ? Checkbox(
+                        checkColor: Colors.white,
+                        activeColor: Colors.deepPurpleAccent,
+                        hoverColor: Colors.blueAccent,
+                        value: deleteIndexList[index],
+                        onChanged: (bool? value) {
+                          setState(() {
+                            deleteIndexList[index] = value!;
+                            bool deleteProcessController = false;
+                            // orijinal koddaki forEach metodu,
+                            // for döngüsüne çevrildi
+                            for (var element in deleteIndexList) {
+                              if (element == true) deleteProcessController = true;
+                            }
+                            // liste eski haline geri dönüyor
+                            if (!deleteProcessController) pressController = false;
+                          });
+                        },
+                      )
+                    : Container(),
+              ],
+            ),
           ),
         ),
       ),
