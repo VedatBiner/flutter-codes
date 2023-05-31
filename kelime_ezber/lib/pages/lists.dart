@@ -28,7 +28,7 @@ class _ListsPageState extends State<ListsPage> {
   void getList() async {
     _lists = await DbHelper.instance.readListsAll();
     // silinecekler listesi kadar eleman atayalım
-    for (int i = 0; i < _lists.length; i++) {
+    for (int i = 0; i < _lists.length; ++i) {
       deleteIndexList.add(false);
     }
     setState(() {
@@ -41,12 +41,12 @@ class _ListsPageState extends State<ListsPage> {
     // silinecek elemanların listesi
     List<int> removeIndexList = [];
 
-    for (int i = 0; i < _lists.length; i++) {
+    for (int i = 0; i < _lists.length; ++i) {
       if (deleteIndexList[i] == true) removeIndexList.add(i);
     }
 
     // silme işlemleri burada yapılıyor
-    for (int i = removeIndexList.length - 1; i >= 0; i--) {
+    for (int i = removeIndexList.length - 1; i >= 0; --i) {
       // veri tabanından silme işlemi
       // silme işlemi en son elemandan başlanır
       DbHelper.instance.deleteListsAndWordByList(
@@ -58,7 +58,7 @@ class _ListsPageState extends State<ListsPage> {
     }
 
     // silme tamamlanınca bütün değerler false olsun
-    for (int i = 0; i < deleteIndexList.length; i++) {
+    for (int i = 0; i < deleteIndexList.length; ++i) {
       deleteIndexList[i] = false;
     }
     // listeyi güncelleyelim
@@ -90,7 +90,7 @@ class _ListsPageState extends State<ListsPage> {
                 )
               : InkWell(
                   onTap: () {
-                    delete;
+                    delete();
                   },
                   child: const Icon(
                     Icons.delete,
