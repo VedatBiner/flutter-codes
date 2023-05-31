@@ -88,7 +88,8 @@ class DbHelper {
       temp["list_id"] = element["id"];
       res.add(temp);
     });
-    print(res);
+    // geçici yorum yapıldı
+    // print(res);
     return res;
   }
 

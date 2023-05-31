@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/dbhelper.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
-import 'package:kelime_ezber/widgets/toat_message.dart';
+import 'package:kelime_ezber/widgets/toast_message.dart';
 import '../database/models/lists.dart';
 import '../database/models/words.dart';
 import '../widgets/action_btn.dart';
@@ -148,7 +148,7 @@ class _CreateListState extends State<CreateList> {
   // kelime ve liste kayıt metodu
   void save() async {
     // liste adı dolu mu boş mu?
-    if(_listName.text.isNotEmpty){
+    if (_listName.text.isNotEmpty) {
       // dört kelime çifti dolu mu ? kontrol edelim.
       int counter = 0;
       bool notEmptyPair = false;
@@ -164,7 +164,7 @@ class _CreateListState extends State<CreateList> {
       if (counter >= 4) {
         if (!notEmptyPair) {
           Lists addedList =
-          await DbHelper.instance.insertList(Lists(name: _listName.text));
+              await DbHelper.instance.insertList(Lists(name: _listName.text));
           for (int i = 0; i < wordTextEditingList.length / 2; i++) {
             String eng = wordTextEditingList[2 * i].text;
             String tr = wordTextEditingList[2 * i + 1].text;
@@ -173,8 +173,9 @@ class _CreateListState extends State<CreateList> {
                 word_eng: eng,
                 word_tr: tr,
                 status: false));
-            print(
-                "${word.id} ${word.list_id} ${word.word_eng} ${word.word_tr} ${word.status}");
+            // geciçi olarak yorum yapıldı
+            // print(
+            //  "${word.id} ${word.list_id} ${word.word_eng} ${word.word_tr} ${word.status}");
           }
           toastMessage("Liste oluşturuldu.");
           // listeyi boşaltalım. Burada for each for döngüsüne çevrildi
@@ -191,7 +192,6 @@ class _CreateListState extends State<CreateList> {
     } else {
       toastMessage("Lütfen liste adını giriniz");
     }
-
   }
 
   // kelime listesinden satır silme metodu

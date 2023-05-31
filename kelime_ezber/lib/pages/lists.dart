@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/dbhelper.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
-import 'package:kelime_ezber/widgets/toat_message.dart';
+import 'package:kelime_ezber/widgets/toast_message.dart';
 import '../methods.dart';
 import 'create_list.dart';
 
@@ -73,34 +73,34 @@ class _ListsPageState extends State<ListsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(context,
-          left: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 22,
-          ),
-          center: Image.asset("assets/images/lists.png"),
-          // henüz silinecek liste seçilmediyse logo göster
-          // basıldı ise çöp kutusu göster
-          right: pressController != true
-              ? Image.asset(
-                  "assets/images/logo.png",
-                  height: 35,
-                  width: 35,
-                )
-              : InkWell(
-                  onTap: () {
-                    delete();
-                  },
-                  child: const Icon(
-                    Icons.delete,
-                    color: Colors.deepPurpleAccent,
-                    size: 24,
-                  ),
+      appBar: appBar(
+        context,
+        left: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+          size: 22,
+        ),
+        center: Image.asset("assets/images/lists.png"),
+        // henüz silinecek liste seçilmediyse logo göster
+        // basıldı ise çöp kutusu göster
+        right: pressController != true
+            ? Image.asset(
+                "assets/images/logo.png",
+                height: 35,
+                width: 35,
+              )
+            : InkWell(
+                onTap: () {
+                  delete();
+                },
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.deepPurpleAccent,
+                  size: 24,
                 ),
-          leftWidgetOnClick: () => {
-                Navigator.pop(context),
-              }),
+              ),
+        leftWidgetOnClick: () => Navigator.pop(context),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -139,7 +139,7 @@ class _ListsPageState extends State<ListsPage> {
   }) {
     return InkWell(
       onTap: () {
-        print(id.toString());
+        // print(id.toString()); // geçici olarak yorum yapıldı
       },
       onLongPress: () {
         // değerin değiştiğinin kontrolü için
