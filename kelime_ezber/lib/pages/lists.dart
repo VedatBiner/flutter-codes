@@ -58,10 +58,6 @@ class _ListsPageState extends State<ListsPage> {
       deleteIndexList.removeAt(removeIndexList[i]);
     }
 
-    // silme tamamlanınca bütün değerler false olsun
-    for (int i = 0; i < deleteIndexList.length; ++i) {
-      deleteIndexList[i] = false;
-    }
     // listeyi güncelleyelim
     setState(() {
       _lists;
@@ -145,7 +141,9 @@ class _ListsPageState extends State<ListsPage> {
           MaterialPageRoute(
             builder: (context) => WordsPage(id, listName),
           ),
-        );
+        ).then((value){
+          getList();
+        });
       },
       onLongPress: () {
         // değerin değiştiğinin kontrolü için

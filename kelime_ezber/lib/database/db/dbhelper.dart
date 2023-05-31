@@ -78,10 +78,12 @@ class DbHelper {
     final db = await instance.database;
     // listenin id ve name bilgisi var
     List<Map<String, Object?>> res = [];
-    List<Map<String, Object?>> lists = await db.rawQuery("SELECT id, name FROM lists");
-    await Future.forEach(lists, (element) async{
+    List<Map<String, Object?>> lists =
+        await db.rawQuery("SELECT id, name FROM lists");
+    await Future.forEach(lists, (element) async {
       // kelime sayısı ve öğrenilmemiş kelime sayısı bilgileri
-      var wordInfoByList = await db.rawQuery("SELECT (SELECT COUNT (*) FROM words where list_id=${element['id']}) as sum_word, "
+      var wordInfoByList = await db.rawQuery(
+          "SELECT (SELECT COUNT (*) FROM words where list_id=${element['id']}) as sum_word, "
           "(SELECT COUNT(*) FROM words where status=0 and list_id=${element['id']}) as sum_unlearned");
       Map<String, Object?> temp = Map.of(wordInfoByList[0]);
       temp["name"] = element["name"];
@@ -125,6 +127,18 @@ class DbHelper {
     );
   }
 
+  // öğrenildi - öğrenilmedi işaretleme
+  Future<int> markAsLearned(bool mark, int id) async {
+    final db = await instance.database;
+    int result = mark == true ? 1 : 0;
+    return db.update(
+      tableNameWords,
+      {WordTableFields.status: result},
+      where: '${WordTableFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
   // liste ve altındaki kelimeleri silme metodu
   Future<int> deleteListsAndWordByList(int id) async {
     final db = await instance.database;
@@ -148,5 +162,4 @@ class DbHelper {
     final db = await instance.database;
     db.close();
   }
-
 }
