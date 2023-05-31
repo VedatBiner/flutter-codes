@@ -14,7 +14,9 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   List<Map<String, Object?>> _lists = [];
+  // basmayı kontrol etmek için
   bool pressController = false;
+  // hangi checkbox 'lar seçildi ?
   List<bool> deleteIndexList = [];
 
   @override
@@ -25,6 +27,7 @@ class _ListsPageState extends State<ListsPage> {
 
   void getList() async {
     _lists = await DbHelper.instance.readListsAll();
+    // silinecekler listesi kadar eleman atayalım
     for (int i = 0; i < _lists.length; i++) {
       deleteIndexList.add(false);
     }
@@ -33,23 +36,32 @@ class _ListsPageState extends State<ListsPage> {
     });
   }
 
+  // silme butonuna basılınca bu metod çalışacak
   void delete() async {
+    // silinecek elemanların listesi
     List<int> removeIndexList = [];
+
     for (int i = 0; i < _lists.length; i++) {
-      if (deleteIndexList[i] == true) {
-        removeIndexList.add(i);
-      }
+      if (deleteIndexList[i] == true) removeIndexList.add(i);
     }
+
+    // silme işlemleri burada yapılıyor
     for (int i = removeIndexList.length - 1; i >= 0; i--) {
       // veri tabanından silme işlemi
+      // silme işlemi en son elemandan başlanır
       DbHelper.instance.deleteListsAndWordByList(
           _lists[removeIndexList[i]]['list_id'] as int);
+      // lists içinde de siliyoruz
       _lists.removeAt(removeIndexList[i]);
+      // deleteIndexList içinde de siliyoruz
       deleteIndexList.removeAt(removeIndexList[i]);
     }
-    for (int i = 0; i > deleteIndexList.length; i++) {
+
+    // silme tamamlanınca bütün değerler false olsun
+    for (int i = 0; i < deleteIndexList.length; i++) {
       deleteIndexList[i] = false;
     }
+    // listeyi güncelleyelim
     setState(() {
       _lists;
       deleteIndexList;
@@ -68,6 +80,8 @@ class _ListsPageState extends State<ListsPage> {
             size: 22,
           ),
           center: Image.asset("assets/images/lists.png"),
+          // henüz silinecek liste seçilmediyse logo göster
+          // basıldı ise çöp kutusu göster
           right: pressController != true
               ? Image.asset(
                   "assets/images/logo.png",
@@ -128,6 +142,8 @@ class _ListsPageState extends State<ListsPage> {
         print(id.toString());
       },
       onLongPress: () {
+        // değerin değiştiğinin kontrolü için
+        // setState içine alıyoruz
         setState(() {
           pressController = true;
           deleteIndexList[index] = true;
@@ -146,6 +162,8 @@ class _ListsPageState extends State<ListsPage> {
           margin:
               const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
           child: Row(
+            // her listeye bir checkbox eklemek için
+            // column 'u Row ile sardık
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -200,6 +218,8 @@ class _ListsPageState extends State<ListsPage> {
                 ],
               ),
               pressController == true
+                  // pressController true ise checkbox göster
+                  // basılmadıysa içi boş container göster
                   ? Checkbox(
                       checkColor: Colors.white,
                       activeColor: Colors.deepPurpleAccent,
@@ -209,15 +229,13 @@ class _ListsPageState extends State<ListsPage> {
                         setState(() {
                           deleteIndexList[index] = value!;
                           bool deleteProcessController = false;
-                          deleteIndexList.forEach((element) {
-                            if (element == true) {
-                              deleteProcessController = true;
-                            }
-                          });
-                          // liste eski haline geri dönüyor
-                          if (!deleteProcessController) {
-                            pressController = false;
+                          // orijinal koddaki forEach metodu,
+                          // for döngüsüne çevrildi
+                          for (var element in deleteIndexList) {
+                            if (element == true) deleteProcessController = true;
                           }
+                          // liste eski haline geri dönüyor
+                          if (!deleteProcessController) pressController = false;
                         });
                       },
                     )
