@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
 import '../database/db/dbhelper.dart';
-import '../widgets/appbar_page.dart';
-import '../widgets/toast_message.dart';
-import '../database/models/lists.dart';
 import '../database/models/words.dart';
 import '../widgets/action_btn.dart';
+import '../widgets/appbar_page.dart';
 import '../widgets/textfield_builder.dart';
+import '../widgets/toast_message.dart';
 
-class CreateList extends StatefulWidget {
-  const CreateList({Key? key}) : super(key: key);
+class AddWordPage extends StatefulWidget {
+  final int? listID;
+  final String? listName;
+  const AddWordPage(this.listID, this.listName, {Key? key}) : super(key: key);
 
   @override
-  State<CreateList> createState() => _CreateListState();
+  State<AddWordPage> createState() =>
+      _AddWordPageState(listID: listID, listName: listName);
 }
 
-class _CreateListState extends State<CreateList> {
-  final _listName = TextEditingController();
+class _AddWordPageState extends State<AddWordPage> {
+  int? listID;
+  final String? listName;
+
+  _AddWordPageState({
+    required this.listID,
+    required this.listName,
+  });
+
   List<TextEditingController> wordTextEditingList = [];
   List<Row> wordListField = [];
 
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 6; i++) {
       wordTextEditingList.add(TextEditingController());
     }
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 3; i++) {
       wordListField.add(Row(
         children: [
           Expanded(
@@ -51,11 +60,18 @@ class _CreateListState extends State<CreateList> {
           color: Colors.black,
           size: 22,
         ),
-        center: Image.asset("assets/images/logo_text.png"),
-        right: Image.asset(
-          "assets/images/logo.png",
-          height: 35,
-          width: 35,
+        center: Text(
+          listName!,
+          style: const TextStyle(
+            fontFamily: "Carter",
+            fontSize: 22,
+            color: Colors.black,
+          ),
+        ),
+        right: const Icon(
+          Icons.add,
+          color: Colors.black,
+          size: 22,
         ),
         leftWidgetOnClick: () => Navigator.pop(context),
       ),
@@ -64,17 +80,8 @@ class _CreateListState extends State<CreateList> {
           color: Colors.white,
           child: Column(
             children: [
-              textFieldBuilder(
-                icon: const Icon(
-                  Icons.list,
-                  size: 18,
-                ),
-                hintText: "Liste Adı",
-                textEditingController: _listName,
-                textAlign: TextAlign.left,
-              ),
               Container(
-                margin: const EdgeInsets.only(top: 20, bottom: 10),
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -147,57 +154,43 @@ class _CreateListState extends State<CreateList> {
 
   // kelime ve liste kayıt metodu
   void save() async {
-    // liste adı dolu mu boş mu?
-    if (_listName.text.isNotEmpty) {
-      // dört kelime çifti dolu mu ? kontrol edelim.
-      int counter = 0;
-      bool notEmptyPair = false;
-      for (int i = 0; i < wordTextEditingList.length / 2; i++) {
-        String eng = wordTextEditingList[2 * i].text;
-        String tr = wordTextEditingList[2 * i + 1].text;
-        if (eng.isNotEmpty && tr.isNotEmpty) {
-          counter++;
-        } else {
-          notEmptyPair = true;
-        }
+    // dört kelime çifti dolu mu ? kontrol edelim.
+    int counter = 0;
+    bool notEmptyPair = false;
+    for (int i = 0; i < wordTextEditingList.length / 2; i++) {
+      String eng = wordTextEditingList[2 * i].text;
+      String tr = wordTextEditingList[2 * i + 1].text;
+      if (eng.isNotEmpty && tr.isNotEmpty) {
+        counter++;
+      } else {
+        notEmptyPair = true;
       }
-      if (counter >= 4) {
-        if (!notEmptyPair) {
-          Lists addedList =
-              await DbHelper.instance.insertList(Lists(name: _listName.text));
-          for (int i = 0; i < wordTextEditingList.length / 2; i++) {
-            String eng = wordTextEditingList[2 * i].text;
-            String tr = wordTextEditingList[2 * i + 1].text;
-            Word word = await DbHelper.instance.insertWord(Word(
-                list_id: addedList.id,
-                word_eng: eng,
-                word_tr: tr,
-                status: false));
-            // geciçi olarak yorum yapıldı
-            // print(
-            //  "${word.id} ${word.list_id} ${word.word_eng} ${word.word_tr} ${word.status}");
-          }
-          toastMessage("Liste oluşturuldu.");
-          // listeyi boşaltalım. Burada for each for döngüsüne çevrildi
-          for (var element in wordTextEditingList) {
-            element.clear();
-          }
-          _listName.clear();
-        } else {
-          toastMessage("Boş alanları doldurun veya silin");
+    }
+    if (counter >= 1) {
+      if (!notEmptyPair) {
+        for (int i = 0; i < wordTextEditingList.length / 2; i++) {
+          String eng = wordTextEditingList[2 * i].text;
+          String tr = wordTextEditingList[2 * i + 1].text;
+          Word word = await DbHelper.instance.insertWord(
+              Word(list_id: listID, word_eng: eng, word_tr: tr, status: false));
+        }
+        toastMessage("Kelimeler eklendi.");
+        // listeyi boşaltalım. Burada for each for döngüsüne çevrildi
+        for (var element in wordTextEditingList) {
+          element.clear();
         }
       } else {
-        toastMessage("minimum dört çift dolu olmalıdır");
+        toastMessage("Boş alanları doldurun veya silin");
       }
     } else {
-      toastMessage("Lütfen liste adını giriniz");
+      toastMessage("minimum bir çift dolu olmalıdır");
     }
   }
 
   // kelime listesinden satır silme metodu
   void deleteRow() {
     // varsayılan olarak hep 4 satır kalacak
-    if (wordListField.length != 4) {
+    if (wordListField.length != 1) {
       // iki textEditing controller siliniyor
       wordTextEditingList.removeAt(wordTextEditingList.length - 1);
       wordTextEditingList.removeAt(wordTextEditingList.length - 1);
@@ -206,7 +199,21 @@ class _CreateListState extends State<CreateList> {
       // sayfayı güncelleyelim
       setState(() => wordListField);
     } else {
-      toastMessage("Minimum dört çift gereklidir.");
+      toastMessage("Minimum bir çift gereklidir.");
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

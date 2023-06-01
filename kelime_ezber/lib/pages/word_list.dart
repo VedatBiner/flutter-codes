@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kelime_ezber/widgets/toast_message.dart';
+import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../database/models/words.dart';
 import '../methods.dart';
 import '../widgets/appbar_page.dart';
+import '../pages/add_word.dart';
 
 class WordsPage extends StatefulWidget {
   // bu sayfaya gelindiğinde seçilen liste adı ve
@@ -126,6 +127,20 @@ class _WordsPageState extends State<WordsPage> {
           itemCount: _wordList.length,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddWordPage(listID, listName),
+            ),
+          ).then((value) {
+            getWordByList();
+          });
+        },
+        backgroundColor: Colors.purple.withOpacity(0.5),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -242,10 +257,3 @@ class _WordsPageState extends State<WordsPage> {
     );
   }
 }
-
-
-
-
-
-
-
