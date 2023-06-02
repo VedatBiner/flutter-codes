@@ -129,13 +129,13 @@ class _CreateListState extends State<CreateList> {
           Expanded(
             child: textFieldBuilder(
               textEditingController:
-                  wordTextEditingList[wordTextEditingList.length - 2],
+              wordTextEditingList[wordTextEditingList.length - 2],
             ),
           ),
           Expanded(
             child: textFieldBuilder(
               textEditingController:
-                  wordTextEditingList[wordTextEditingList.length - 1],
+              wordTextEditingList[wordTextEditingList.length - 1],
             ),
           ),
         ],
@@ -164,7 +164,7 @@ class _CreateListState extends State<CreateList> {
       if (counter >= 4) {
         if (!notEmptyPair) {
           Lists addedList =
-              await DbHelper.instance.insertList(Lists(name: _listName.text));
+          await DbHelper.instance.insertList(Lists(name: _listName.text));
           for (int i = 0; i < wordTextEditingList.length / 2; i++) {
             String eng = wordTextEditingList[2 * i].text;
             String tr = wordTextEditingList[2 * i + 1].text;

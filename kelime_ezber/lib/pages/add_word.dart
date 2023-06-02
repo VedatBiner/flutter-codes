@@ -136,13 +136,13 @@ class _AddWordPageState extends State<AddWordPage> {
           Expanded(
             child: textFieldBuilder(
               textEditingController:
-                  wordTextEditingList[wordTextEditingList.length - 2],
+              wordTextEditingList[wordTextEditingList.length - 2],
             ),
           ),
           Expanded(
             child: textFieldBuilder(
               textEditingController:
-                  wordTextEditingList[wordTextEditingList.length - 1],
+              wordTextEditingList[wordTextEditingList.length - 1],
             ),
           ),
         ],
@@ -203,17 +203,3 @@ class _AddWordPageState extends State<AddWordPage> {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
