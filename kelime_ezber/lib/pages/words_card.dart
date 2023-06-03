@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_ezber/database/db/dbhelper.dart';
 import 'package:kelime_ezber/methods.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
 
@@ -11,8 +12,29 @@ class WordsCardPage extends StatefulWidget {
 
 enum Which { learn, unlearned, all }
 
+enum forWhat { forList, forListMixed }
+
 class _WordsCardPageState extends State<WordsCardPage> {
   Which? _chooseQuestionType = Which.learn;
+  bool listMixed = true;
+  List<Map<String, Object?>> _lists = [];
+  List<bool> selectedListIndex = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getLists();
+  }
+
+  void getLists() async {
+    _lists = await DbHelper.instance.readListsAll();
+    for (int i = 0; i < _lists.length; ++i) {
+      selectedListIndex.add(false);
+    }
+    setState(() {
+      _lists;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +77,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                   text: "Öğrenmediklerimi sor", value: Which.unlearned),
               whichRadiobutton(text: "Öğrendiklerimi sor", value: Which.learn),
               whichRadiobutton(text: "Hepsini sor", value: Which.all),
-              checkBox("Listeyi karıştır"),
+              checkBox(text: "Listeyi karıştır", fWhat: forWhat.forListMixed),
               const SizedBox(height: 20),
               const Divider(
                 color: Colors.black,
@@ -66,9 +88,44 @@ class _WordsCardPageState extends State<WordsCardPage> {
                 child: Text(
                   "Listeler",
                   style: TextStyle(
-                    fontFamily: "RobotoRegular",
-                    fontSize: 18,
-                    color: Colors.black
+                      fontFamily: "RobotoRegular",
+                      fontSize: 18,
+                      color: Colors.black),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    left: 8, right: 8, bottom: 10, top: 10),
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.1),
+                ),
+                child: Scrollbar(
+                  thickness: 5,
+                  thumbVisibility: true,
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return checkBox(
+                        index: index,
+                        text: _lists[index]["name"].toString(),
+                      );
+                    },
+                    itemCount: _lists.length,
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.centerRight,
+                margin: const EdgeInsets.only(right: 20),
+                child: InkWell(
+                  onTap: () {},
+                  child: const Text(
+                    "Başla",
+                    style: TextStyle(
+                      fontFamily: "RobotoRegular",
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -79,6 +136,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
     );
   }
 
+  // radioButton seçimi
   SizedBox whichRadiobutton({required String text, required Which value}) {
     return SizedBox(
       width: 275,
@@ -104,7 +162,14 @@ class _WordsCardPageState extends State<WordsCardPage> {
     );
   }
 
-  SizedBox checkBox(String text) {
+  // Checkbox seçimi
+  // fWhat parameteresi gönderilmezse
+  // bu metod liste için kullanılacaktır.
+  SizedBox checkBox({
+    required String text,
+    int index = 0,
+    forWhat fWhat = forWhat.forList,
+  }) {
     return SizedBox(
       width: 270,
       height: 35,
@@ -120,8 +185,17 @@ class _WordsCardPageState extends State<WordsCardPage> {
           checkColor: Colors.white,
           activeColor: Colors.deepPurpleAccent,
           hoverColor: Colors.blueAccent,
-          value: true,
-          onChanged: (bool? value) {},
+          value:
+              fWhat == forWhat.forList ? selectedListIndex[index] : listMixed,
+          onChanged: (bool? value) {
+            setState(() {
+              if (fWhat == forWhat.forList) {
+                selectedListIndex[index] = value!;
+              } else {
+                listMixed = value!;
+              }
+            });
+          },
         ),
       ),
     );
