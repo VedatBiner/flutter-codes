@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/dbhelper.dart';
 import 'package:kelime_ezber/methods.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
+import 'package:kelime_ezber/widgets/toast_message.dart';
 
 class WordsCardPage extends StatefulWidget {
   const WordsCardPage({Key? key}) : super(key: key);
@@ -118,7 +119,25 @@ class _WordsCardPageState extends State<WordsCardPage> {
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.only(right: 20),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    // hangi indeksteki liste seçildi?
+                    List<int> selectedIndexNoOfList = [];
+                    for (int i = 0; i < selectedListIndex.length; ++i) {
+                      if (selectedListIndex[i] == true) {
+                        selectedIndexNoOfList.add(i);
+                      }
+                    }
+                    List<int> selectedListIdList = [];
+                    for (int i = 0; i > selectedIndexNoOfList.length; ++i) {
+                      selectedListIdList.add(
+                          _lists[selectedIndexNoOfList[i]]["list_id"] as int);
+                    }
+                    if (selectedListIdList.isNotEmpty) {
+                      toastMessage("Listeler getiriliyor ...");
+                    } else {
+                      toastMessage("Lütfen Liste seçiniz");
+                    }
+                  },
                   child: const Text(
                     "Başla",
                     style: TextStyle(
