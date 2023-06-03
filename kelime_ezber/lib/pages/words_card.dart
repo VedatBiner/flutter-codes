@@ -4,6 +4,8 @@ import 'package:kelime_ezber/methods.dart';
 import 'package:kelime_ezber/widgets/appbar_page.dart';
 import 'package:kelime_ezber/widgets/toast_message.dart';
 
+import '../database/models/words.dart';
+
 class WordsCardPage extends StatefulWidget {
   const WordsCardPage({Key? key}) : super(key: key);
 
@@ -11,15 +13,16 @@ class WordsCardPage extends StatefulWidget {
   State<WordsCardPage> createState() => _WordsCardPageState();
 }
 
-enum Which { learn, unlearned, all }
+enum Which { learned, unlearned, all }
 
 enum forWhat { forList, forListMixed }
 
 class _WordsCardPageState extends State<WordsCardPage> {
-  Which? _chooseQuestionType = Which.learn;
+  Which? _chooseQuestionType = Which.learned;
   bool listMixed = true;
   List<Map<String, Object?>> _lists = [];
   List<bool> selectedListIndex = [];
+  List <Word> _words = [];
 
   @override
   void initState() {
@@ -35,6 +38,19 @@ class _WordsCardPageState extends State<WordsCardPage> {
     setState(() {
       _lists;
     });
+  }
+
+  void getSelectedWordsOfLists(List<int> selectedListID) async {
+    // radio buton seçimlerine göre koşullar
+    // öğrenilenler isteniyorsa
+    if (_chooseQuestionType == Which.learned){
+      _words = await DbHelper.instance.readWordByLists(selectedListID, status: true);
+    } else if (_chooseQuestionType == Which.unlearned){
+      // öğrenilmeyenler isteniyorsa
+      _words = await DbHelper.instance.readWordByLists(selectedListID, status: false);
+    } else {
+      _words = await DbHelper.instance.readWordByLists(selectedListID);
+    }
   }
 
   @override
@@ -76,7 +92,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
             children: [
               whichRadiobutton(
                   text: "Öğrenmediklerimi sor", value: Which.unlearned),
-              whichRadiobutton(text: "Öğrendiklerimi sor", value: Which.learn),
+              whichRadiobutton(text: "Öğrendiklerimi sor", value: Which.learned),
               whichRadiobutton(text: "Hepsini sor", value: Which.all),
               checkBox(text: "Listeyi karıştır", fWhat: forWhat.forListMixed),
               const SizedBox(height: 20),
@@ -87,6 +103,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
               const Padding(
                 padding: EdgeInsets.only(left: 16),
                 child: Text(
+                  // Listeler başlık
                   "Listeler",
                   style: TextStyle(
                       fontFamily: "RobotoRegular",
@@ -95,6 +112,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                 ),
               ),
               Container(
+                // Listeler bölümü
                 margin: const EdgeInsets.only(
                     left: 8, right: 8, bottom: 10, top: 10),
                 height: 200,
@@ -116,6 +134,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                 ),
               ),
               Container(
+                // Başla butonu
                 alignment: Alignment.centerRight,
                 margin: const EdgeInsets.only(right: 20),
                 child: InkWell(
@@ -128,12 +147,13 @@ class _WordsCardPageState extends State<WordsCardPage> {
                       }
                     }
                     List<int> selectedListIdList = [];
-                    for (int i = 0; i > selectedIndexNoOfList.length; ++i) {
+                    for (int i = 0; i < selectedIndexNoOfList.length; ++i) {
                       selectedListIdList.add(
                           _lists[selectedIndexNoOfList[i]]["list_id"] as int);
                     }
                     if (selectedListIdList.isNotEmpty) {
                       toastMessage("Listeler getiriliyor ...");
+                      getSelectedWordsOfLists(selectedListIdList);
                     } else {
                       toastMessage("Lütfen Liste seçiniz");
                     }
