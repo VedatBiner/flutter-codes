@@ -224,52 +224,56 @@ class _MainPageState extends State<MainPage> {
   }
 
   // orijinal kod da card olarak metod adı verilmiş
-  Container buildCard(
+  InkWell buildCard(
     BuildContext context, {
     required String startColor,
     required String endColor,
     required String title,
     required Function click,
   }) {
-    return Container(
-      height: 200,
-      width: MediaQuery.of(context).size.width * 0.37,
-      margin: const EdgeInsets.only(bottom: 20),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+    return InkWell(
+      onTap: () => click(),
+      child: Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width * 0.37,
+        margin: const EdgeInsets.only(bottom: 20),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Color(RenkMetod.HexaColorConverter(startColor)),
+                Color(RenkMetod.HexaColorConverter(endColor)),
+              ]),
         ),
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Color(RenkMetod.HexaColorConverter(startColor)),
-              Color(RenkMetod.HexaColorConverter(endColor)),
-            ]),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 32,
-              fontFamily: "Carter",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 32,
+                fontFamily: "Carter",
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const Icon(
+              Icons.file_copy,
+              size: 32,
               color: Colors.white,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const Icon(
-            Icons.file_copy,
-            size: 32,
-            color: Colors.white,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
+  // radio butonlar
   SizedBox langRadioButton({
     required String text,
     required Lang value,

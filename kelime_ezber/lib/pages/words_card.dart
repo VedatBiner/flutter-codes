@@ -45,15 +45,33 @@ class _WordsCardPageState extends State<WordsCardPage> {
           ),
           padding: const EdgeInsets.only(left: 4, top: 4, right: 4),
           decoration: BoxDecoration(
-            color: Color(RenkMetod.HexaColorConverter("#DCD'FF")),
+            color: Color(RenkMetod.HexaColorConverter("#DCDEFF")),
             borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              whichRadiobutton(text: "Öğrenmediklerimi sor", value: Which.unlearned),
+              whichRadiobutton(
+                  text: "Öğrenmediklerimi sor", value: Which.unlearned),
               whichRadiobutton(text: "Öğrendiklerimi sor", value: Which.learn),
               whichRadiobutton(text: "Hepsini sor", value: Which.all),
+              checkBox("Listeyi karıştır"),
+              const SizedBox(height: 20),
+              const Divider(
+                color: Colors.black,
+                thickness: 1,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: Text(
+                  "Listeler",
+                  style: TextStyle(
+                    fontFamily: "RobotoRegular",
+                    fontSize: 18,
+                    color: Colors.black
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -76,11 +94,34 @@ class _WordsCardPageState extends State<WordsCardPage> {
         leading: Radio<Which>(
           value: value,
           groupValue: _chooseQuestionType,
-          onChanged: (Which? value){
+          onChanged: (Which? value) {
             setState(() {
               _chooseQuestionType = value;
             });
           },
+        ),
+      ),
+    );
+  }
+
+  SizedBox checkBox(String text) {
+    return SizedBox(
+      width: 270,
+      height: 35,
+      child: ListTile(
+        title: Text(
+          text,
+          style: const TextStyle(
+            fontFamily: "RobotoRegular",
+            fontSize: 18,
+          ),
+        ),
+        leading: Checkbox(
+          checkColor: Colors.white,
+          activeColor: Colors.deepPurpleAccent,
+          hoverColor: Colors.blueAccent,
+          value: true,
+          onChanged: (bool? value) {},
         ),
       ),
     );
