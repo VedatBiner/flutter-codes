@@ -1,28 +1,25 @@
-// bu kodu ben değiştirdim.
-// orijinal yazılımdaki bu kod değil.
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kelime_ezber/methods.dart';
-import 'package:kelime_ezber/pages/lists.dart';
+import 'package:kelime_ezber/pages/words_card.dart';
+import 'package:kelime_ezber/widgets/appbar_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../methods.dart';
+import 'lists.dart';
 
-import '../widgets/appbar_page.dart';
-
-class MainPageX extends StatefulWidget {
-  const MainPageX({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<MainPageX> createState() => _MainPageXState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 enum Lang { eng, tr }
 
 Uri _url = Uri.parse("https://www.udemy.com/");
 
-class _MainPageXState extends State<MainPageX> {
-  Lang _chooseLang = Lang.eng;
+class _MainPageState extends State<MainPage> {
+  Lang? _chooseLang = Lang.eng;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PackageInfo? packageInfo;
   String version = "";
@@ -33,6 +30,7 @@ class _MainPageXState extends State<MainPageX> {
     packageInfoInit();
   }
 
+  // versiyon bilgisini alıyoruz
   void packageInfoInit() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
@@ -125,18 +123,14 @@ class _MainPageXState extends State<MainPageX> {
           ),
         ),
       ),
-      appBar: appBar(
-        context,
-        left: const FaIcon(
-          FontAwesomeIcons.bars,
-          color: Colors.black,
-          size: 22,
-        ),
-        center: Image.asset("assets/images/logo_text.png"),
-        leftWidgetOnClick: () => {
-          _scaffoldKey.currentState!.openDrawer(),
-        },
-      ),
+      appBar: appBar(context,
+          left: const FaIcon(
+            FontAwesomeIcons.bars,
+            color: Colors.black,
+            size: 22,
+          ),
+          center: Image.asset("assets/images/logo_text.png"),
+          leftWidgetOnClick: () => {_scaffoldKey.currentState!.openDrawer()}),
       body: SafeArea(
         child: Container(
           color: Colors.white,
@@ -145,12 +139,12 @@ class _MainPageXState extends State<MainPageX> {
               children: [
                 langRadioButton(
                   text: "İngilizce - Türkçe",
-                  group: _chooseLang,
+                  group: _chooseLang!,
                   value: Lang.tr,
                 ),
                 langRadioButton(
                   text: "Türkçe - İngilizce",
-                  group: _chooseLang,
+                  group: _chooseLang!,
                   value: Lang.eng,
                 ),
                 const SizedBox(height: 25),
@@ -195,28 +189,28 @@ class _MainPageXState extends State<MainPageX> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildContainer(
+                      buildCard(
                         context,
                         startColor: "#1DACC9",
                         endColor: "#0C33B2",
                         title: "Kelime\nKartları",
-                        iconWidget: const Icon(
-                          Icons.file_copy,
-                          size: 32,
-                          color: Colors.white,
-                        ),
-
+                        click: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const WordsCardPage(),
+                            ),
+                          );
+                        },
                       ),
-                      buildContainer(
+                      buildCard(
                         context,
                         startColor: "#FF3348",
                         endColor: "#B029B9",
                         title: "Çoktan\nSeçmeli",
-                        iconWidget: const Icon(
-                          Icons.check_circle_outline,
-                          size: 32,
-                          color: Colors.white,
-                        ),
+                        click: () {
+
+                        },
                       ),
                     ],
                   ),
@@ -229,47 +223,57 @@ class _MainPageXState extends State<MainPageX> {
     );
   }
 
-  Container buildContainer(
-      BuildContext context, {
-        required String startColor,
-        required String endColor,
-        required String title,
-        required Widget iconWidget,
-      }) {
-    return Container(
-      height: 200,
-      width: MediaQuery.of(context).size.width * 0.37,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+  // orijinal kod da card olarak metod adı verilmiş
+  InkWell buildCard(
+    BuildContext context, {
+    required String startColor,
+    required String endColor,
+    required String title,
+    required Function click,
+  }) {
+    return InkWell(
+      onTap: () => click(),
+      child: Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width * 0.37,
+        margin: const EdgeInsets.only(bottom: 20),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: <Color>[
+                Color(RenkMetod.HexaColorConverter(startColor)),
+                Color(RenkMetod.HexaColorConverter(endColor)),
+              ]),
         ),
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[
-              Color(RenkMetod.HexaColorConverter(startColor)),
-              Color(RenkMetod.HexaColorConverter(endColor)),
-            ]),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 28,
-              fontFamily: "Carter",
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 32,
+                fontFamily: "Carter",
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const Icon(
+              Icons.file_copy,
+              size: 32,
               color: Colors.white,
             ),
-            textAlign: TextAlign.center,
-          ),
-          iconWidget,
-        ],
+          ],
+        ),
       ),
     );
   }
 
+  // radio butonlar
   SizedBox langRadioButton({
     required String text,
     required Lang value,

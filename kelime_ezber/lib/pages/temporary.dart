@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main_page_orj.dart';
+import 'main_page.dart';
 
 class TemporaryPage extends StatefulWidget {
   const TemporaryPage({Key? key}) : super(key: key);
