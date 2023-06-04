@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kelime_ezber/pages/words_card.dart';
-import 'package:kelime_ezber/widgets/appbar_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../pages/multiple_choice.dart';
+import '../pages/words_card.dart';
+import '../widgets/appbar_page.dart';
 import '../methods.dart';
-import 'lists.dart';
+import '../pages/lists.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -209,7 +210,12 @@ class _MainPageState extends State<MainPage> {
                         endColor: "#B029B9",
                         title: "Çoktan\nSeçmeli",
                         click: () {
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MultipleChoicePage(),
+                            ),
+                          );
                         },
                       ),
                     ],
