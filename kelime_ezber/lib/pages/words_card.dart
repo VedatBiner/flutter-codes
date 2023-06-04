@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kelime_ezber/database/db/dbhelper.dart';
-import 'package:kelime_ezber/methods.dart';
-import 'package:kelime_ezber/widgets/appbar_page.dart';
-import 'package:kelime_ezber/widgets/toast_message.dart';
-
+import '../widgets/toast_message.dart';
+import '../database/db/dbhelper.dart';
+import '../methods.dart';
+import '../widgets/appbar_page.dart';
 import '../database/models/words.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class WordsCardPage extends StatefulWidget {
   const WordsCardPage({Key? key}) : super(key: key);
@@ -22,7 +22,9 @@ class _WordsCardPageState extends State<WordsCardPage> {
   bool listMixed = true;
   List<Map<String, Object?>> _lists = [];
   List<bool> selectedListIndex = [];
-  List <Word> _words = [];
+  List<Word> _words = [];
+  bool start = false;
+  List<bool> changeLang = [];
 
   @override
   void initState() {
@@ -43,13 +45,29 @@ class _WordsCardPageState extends State<WordsCardPage> {
   void getSelectedWordsOfLists(List<int> selectedListID) async {
     // radio buton seçimlerine göre koşullar
     // öğrenilenler isteniyorsa
-    if (_chooseQuestionType == Which.learned){
-      _words = await DbHelper.instance.readWordByLists(selectedListID, status: true);
-    } else if (_chooseQuestionType == Which.unlearned){
+    if (_chooseQuestionType == Which.learned) {
+      _words =
+          await DbHelper.instance.readWordByLists(selectedListID, status: true);
+    } else if (_chooseQuestionType == Which.unlearned) {
       // öğrenilmeyenler isteniyorsa
-      _words = await DbHelper.instance.readWordByLists(selectedListID, status: false);
+      _words = await DbHelper.instance
+          .readWordByLists(selectedListID, status: false);
     } else {
       _words = await DbHelper.instance.readWordByLists(selectedListID);
+    }
+    if (_words.isNotEmpty) {
+      for (int i = 0; i < _words.length; ++i) {
+        changeLang.add(true);
+      }
+      // listeyi karıştır
+      if (listMixed) _words.shuffle();
+      start = true;
+      setState(() {
+        _words;
+        start;
+      });
+    } else {
+      toastMessage("Seçilen şartlarda liste boş ...");
     }
   }
 
@@ -74,103 +92,175 @@ class _WordsCardPageState extends State<WordsCardPage> {
         leftWidgetOnClick: () => Navigator.pop(context),
       ),
       body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          margin: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 0,
-            bottom: 16,
-          ),
-          padding: const EdgeInsets.only(left: 4, top: 4, right: 4),
-          decoration: BoxDecoration(
-            color: Color(RenkMetod.HexaColorConverter("#DCDEFF")),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              whichRadiobutton(
-                  text: "Öğrenmediklerimi sor", value: Which.unlearned),
-              whichRadiobutton(text: "Öğrendiklerimi sor", value: Which.learned),
-              whichRadiobutton(text: "Hepsini sor", value: Which.all),
-              checkBox(text: "Listeyi karıştır", fWhat: forWhat.forListMixed),
-              const SizedBox(height: 20),
-              const Divider(
-                color: Colors.black,
-                thickness: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  // Listeler başlık
-                  "Listeler",
-                  style: TextStyle(
-                      fontFamily: "RobotoRegular",
-                      fontSize: 18,
-                      color: Colors.black),
-                ),
-              ),
-              Container(
-                // Listeler bölümü
+        child: start == false
+            ? Container(
+                width: double.infinity,
                 margin: const EdgeInsets.only(
-                    left: 8, right: 8, bottom: 10, top: 10),
-                height: 200,
+                  left: 16,
+                  right: 16,
+                  top: 0,
+                  bottom: 16,
+                ),
+                padding: const EdgeInsets.only(left: 4, top: 4, right: 4),
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.1),
+                  color: Color(RenkMetod.HexaColorConverter("#DCD2FF")),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
-                child: Scrollbar(
-                  thickness: 5,
-                  thumbVisibility: true,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return checkBox(
-                        index: index,
-                        text: _lists[index]["name"].toString(),
-                      );
-                    },
-                    itemCount: _lists.length,
-                  ),
-                ),
-              ),
-              Container(
-                // Başla butonu
-                alignment: Alignment.centerRight,
-                margin: const EdgeInsets.only(right: 20),
-                child: InkWell(
-                  onTap: () {
-                    // hangi indeksteki liste seçildi?
-                    List<int> selectedIndexNoOfList = [];
-                    for (int i = 0; i < selectedListIndex.length; ++i) {
-                      if (selectedListIndex[i] == true) {
-                        selectedIndexNoOfList.add(i);
-                      }
-                    }
-                    List<int> selectedListIdList = [];
-                    for (int i = 0; i < selectedIndexNoOfList.length; ++i) {
-                      selectedListIdList.add(
-                          _lists[selectedIndexNoOfList[i]]["list_id"] as int);
-                    }
-                    if (selectedListIdList.isNotEmpty) {
-                      toastMessage("Listeler getiriliyor ...");
-                      getSelectedWordsOfLists(selectedListIdList);
-                    } else {
-                      toastMessage("Lütfen Liste seçiniz");
-                    }
-                  },
-                  child: const Text(
-                    "Başla",
-                    style: TextStyle(
-                      fontFamily: "RobotoRegular",
-                      fontSize: 18,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    whichRadiobutton(
+                        text: "Öğrenmediklerimi sor", value: Which.unlearned),
+                    whichRadiobutton(
+                        text: "Öğrendiklerimi sor", value: Which.learned),
+                    whichRadiobutton(text: "Hepsini sor", value: Which.all),
+                    checkBox(
+                        text: "Listeyi karıştır", fWhat: forWhat.forListMixed),
+                    const SizedBox(height: 20),
+                    const Divider(
                       color: Colors.black,
+                      thickness: 1,
                     ),
-                  ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Text(
+                        // Listeler başlık
+                        "Listeler",
+                        style: TextStyle(
+                            fontFamily: "RobotoRegular",
+                            fontSize: 18,
+                            color: Colors.black),
+                      ),
+                    ),
+                    Container(
+                      // Listeler bölümü
+                      margin: const EdgeInsets.only(
+                          left: 8, right: 8, bottom: 10, top: 10),
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                      ),
+                      child: Scrollbar(
+                        thickness: 5,
+                        thumbVisibility: true,
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return checkBox(
+                              index: index,
+                              text: _lists[index]["name"].toString(),
+                            );
+                          },
+                          itemCount: _lists.length,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // Başla butonu
+                      alignment: Alignment.centerRight,
+                      margin: const EdgeInsets.only(right: 20),
+                      child: InkWell(
+                        onTap: () {
+                          // hangi indeksteki liste seçildi?
+                          List<int> selectedIndexNoOfList = [];
+                          for (int i = 0; i < selectedListIndex.length; ++i) {
+                            if (selectedListIndex[i] == true) {
+                              selectedIndexNoOfList.add(i);
+                            }
+                          }
+                          List<int> selectedListIdList = [];
+                          for (int i = 0;
+                              i < selectedIndexNoOfList.length;
+                              ++i) {
+                            selectedListIdList.add(
+                                _lists[selectedIndexNoOfList[i]]["list_id"]
+                                    as int);
+                          }
+                          if (selectedListIdList.isNotEmpty) {
+                            toastMessage("Listeler getiriliyor ...");
+                            getSelectedWordsOfLists(selectedListIdList);
+                          } else {
+                            toastMessage("Lütfen Liste seçiniz");
+                          }
+                        },
+                        child: const Text(
+                          "Başla",
+                          style: TextStyle(
+                            fontFamily: "RobotoRegular",
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              )
+            : CarouselSlider.builder(
+                options: CarouselOptions(height: double.infinity),
+                itemCount: _words.length,
+                itemBuilder: (
+                  BuildContext context,
+                  int itemIndex,
+                  int pageViewIndex,
+                ) {
+                  return Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          if (changeLang[itemIndex] == true) {
+                            changeLang[itemIndex] == false;
+                          } else {
+                            changeLang[itemIndex] == true;
+                          }
+                          setState(() {
+                            changeLang[itemIndex];
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          margin: const EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            top: 0,
+                            bottom: 16,
+                          ),
+                          padding:
+                              const EdgeInsets.only(left: 4, top: 4, right: 4),
+                          decoration: BoxDecoration(
+                            color:
+                                Color(RenkMetod.HexaColorConverter("#DCD2FF")),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                          ),
+                          child: Text(
+                            changeLang[itemIndex]
+                                ? _words[itemIndex].word_eng!
+                                : _words[itemIndex].word_tr!,
+                            style: const TextStyle(
+                              fontFamily: "RobotoRegular",
+                              fontSize: 28,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 30,
+                        top: 10,
+                        child: Text(
+                          "${itemIndex + 1}/${_words.length}",
+                          style: const TextStyle(
+                            fontFamily: "RobotoRegular",
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
-            ],
-          ),
-        ),
       ),
     );
   }
