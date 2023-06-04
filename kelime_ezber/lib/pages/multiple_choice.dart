@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../widgets/toast_message.dart';
@@ -24,6 +26,19 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   List<bool> selectedListIndex = [];
   List<Word> _words = [];
   bool start = false;
+  // kelime listesi uzunluğu kadar şık listesi
+  // her şık listesinde 4 kelime olacak
+  List<List<String>> options = [];
+  // her kelime için doğru cevaplar
+  List<String> correctAnswers = [];
+  // kelimeye ait şıklardan herhangi biri işaretlendi mi?
+  List<bool>clickControl = [];
+  // hangi şık işaretlendi
+  List<List<bool>> clickControlList = [];
+  // doğru cevap sayısı
+  int correctCount = 0;
+  // yanlış cevap sayısı
+  int wrongCount = 0;
 
   @override
   void initState() {
@@ -55,13 +70,50 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
       _words = await DbHelper.instance.readWordByLists(selectedListID);
     }
     if (_words.isNotEmpty) {
-      // listeyi karıştır
-      if (listMixed) _words.shuffle();
-      start = true;
-      setState(() {
-        _words;
-        start;
-      });
+      // 4 şık için 4 kelime
+      if (_words.length > 3) {
+        // listeyi karıştır
+        if (listMixed) _words.shuffle();
+        // rasgele sayı üretelim
+        Random random = Random();
+        for (int i = 0; i < _words.length; ++i){
+          // her bir kelime için cevap verilip verilmediğinin kontrolü
+          clickControl.add(false);
+          // her kelime için 4 şık var. 4 şıkkında işarelenmediğini belirten
+          // 4 adet false ile doldurduk
+          clickControlList.add([false, false, false, false]);
+          List<String> tempOptions = [];
+          while (true) {
+            // 0 ile kelime listesi uzunluğu -1 kadar değerler alır.
+            int rand = random.nextInt(_words.length);
+            if (rand != i){
+              bool isThereSame = false;
+              for (var element in tempOptions) {
+                if (element == _words[rand].word_tr!){
+                  isThereSame = true;
+                }
+              }
+              if(!isThereSame){
+                tempOptions.add(_words[rand].word_tr!);
+              }
+            }
+            if (tempOptions.length == 3 ){
+              break; // while döngüsünden çık
+            }
+          }
+          tempOptions.add(_words[i].word_tr!);
+          tempOptions.shuffle();
+          correctAnswers.add(_words[i].word_tr!);
+          options.add(tempOptions);
+        }
+        start = true;
+        setState(() {
+          _words;
+          start;
+        });
+      } else {
+        toastMessage("Minimum dört (4) kelime gereklidir");
+      }
     } else {
       toastMessage("Seçilen şartlarda liste boş ...");
     }
