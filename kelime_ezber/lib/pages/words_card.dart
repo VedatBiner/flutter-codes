@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../methods.dart';
 import '../widgets/appbar_page.dart';
 import '../database/models/words.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class WordsCardPage extends StatefulWidget {
   const WordsCardPage({Key? key}) : super(key: key);
@@ -203,58 +203,86 @@ class _WordsCardPageState extends State<WordsCardPage> {
                   int itemIndex,
                   int pageViewIndex,
                 ) {
-                  return Stack(
+                  return Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          if (changeLang[itemIndex] == true) {
-                            changeLang[itemIndex] == false;
-                          } else {
-                            changeLang[itemIndex] == true;
-                          }
-                          setState(() {
-                            changeLang[itemIndex];
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: double.infinity,
-                          margin: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
-                            top: 0,
-                            bottom: 16,
-                          ),
-                          padding:
-                              const EdgeInsets.only(left: 4, top: 4, right: 4),
-                          decoration: BoxDecoration(
-                            color:
-                                Color(RenkMetod.HexaColorConverter("#DCD2FF")),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                          ),
-                          child: Text(
-                            changeLang[itemIndex]
-                                ? _words[itemIndex].word_eng!
-                                : _words[itemIndex].word_tr!,
-                            style: const TextStyle(
-                              fontFamily: "RobotoRegular",
-                              fontSize: 28,
-                              color: Colors.black,
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                if (changeLang[itemIndex] == true) {
+                                  changeLang[itemIndex] == false;
+                                } else {
+                                  changeLang[itemIndex] == true;
+                                }
+                                setState(() {
+                                  changeLang[itemIndex];
+                                });
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(
+                                  left: 16,
+                                  right: 16,
+                                  top: 0,
+                                  bottom: 16,
+                                ),
+                                padding: const EdgeInsets.only(
+                                    left: 4, top: 4, right: 4),
+                                decoration: BoxDecoration(
+                                  color: Color(
+                                      RenkMetod.HexaColorConverter("#DCD2FF")),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8)),
+                                ),
+                                child: Text(
+                                  changeLang[itemIndex]
+                                      ? _words[itemIndex].word_eng!
+                                      : _words[itemIndex].word_tr!,
+                                  style: const TextStyle(
+                                    fontFamily: "RobotoRegular",
+                                    fontSize: 28,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              left: 30,
+                              top: 10,
+                              child: Text(
+                                "${itemIndex + 1}/${_words.length}",
+                                style: const TextStyle(
+                                  fontFamily: "RobotoRegular",
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Positioned(
-                        left: 30,
-                        top: 10,
-                        child: Text(
-                          "${itemIndex + 1}/${_words.length}",
-                          style: const TextStyle(
-                            fontFamily: "RobotoRegular",
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
+                      SizedBox(
+                        width: 180,
+                        child: CheckboxListTile(
+                          title: const Text("Öğrendim"),
+                          value: _words[itemIndex].status,
+                          onChanged: (value) {
+                            _words[itemIndex] =
+                                _words[itemIndex].copy(status: value);
+                            // kelimenin öğrenildi olarak işaretlenmesi
+                            DbHelper.instance.markAsLearned(
+                                value!, _words[itemIndex].id as int);
+                            toastMessage(
+                              value
+                                  ? "Öğrenildi  olarak işaretlendi"
+                                  : "Öğrenilmedi olarak işaretlendi",
+                            );
+                            setState(() {
+                              _words[itemIndex];
+                            });
+                          },
                         ),
                       ),
                     ],
@@ -268,7 +296,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
   // radioButton seçimi
   SizedBox whichRadiobutton({required String text, required Which value}) {
     return SizedBox(
-      width: 275,
+      width: 290,
       height: 32,
       child: ListTile(
         title: Text(
