@@ -307,6 +307,18 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                                 ),
                               ),
                             ),
+                            Positioned(
+                              left: 210,
+                              top: 10,
+                              child: Text(
+                                "D: $correctCount / Y: $wrongCount",
+                                style: const TextStyle(
+                                  fontFamily: "RobotoRegular",
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -439,7 +451,6 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
       thickness: 1,
       height: 1,
     );
-
     return Column(
       children: [
         dV,
