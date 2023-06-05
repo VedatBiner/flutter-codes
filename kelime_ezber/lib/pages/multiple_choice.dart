@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../widgets/toast_message.dart';
@@ -28,11 +27,11 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   bool start = false;
   // kelime listesi uzunluğu kadar şık listesi
   // her şık listesinde 4 kelime olacak
-  List<List<String>> options = [];
+  List<List<String>> optionsList = [];
   // her kelime için doğru cevaplar
   List<String> correctAnswers = [];
   // kelimeye ait şıklardan herhangi biri işaretlendi mi?
-  List<bool>clickControl = [];
+  List<bool> clickControl = [];
   // hangi şık işaretlendi
   List<List<bool>> clickControlList = [];
   // doğru cevap sayısı
@@ -69,14 +68,17 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
     } else {
       _words = await DbHelper.instance.readWordByLists(selectedListID);
     }
+    // Kelime listesi boş mu ?
     if (_words.isNotEmpty) {
       // 4 şık için 4 kelime
       if (_words.length > 3) {
         // listeyi karıştır
         if (listMixed) _words.shuffle();
         // rasgele sayı üretelim
+        // doğru cevabında aralarında olduğu rasgele listelenecek
+        // bir doğru üç yanlış cevap
         Random random = Random();
-        for (int i = 0; i < _words.length; ++i){
+        for (int i = 0; i < _words.length; ++i) {
           // her bir kelime için cevap verilip verilmediğinin kontrolü
           clickControl.add(false);
           // her kelime için 4 şık var. 4 şıkkında işarelenmediğini belirten
@@ -86,25 +88,25 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
           while (true) {
             // 0 ile kelime listesi uzunluğu -1 kadar değerler alır.
             int rand = random.nextInt(_words.length);
-            if (rand != i){
+            if (rand != i) {
               bool isThereSame = false;
               for (var element in tempOptions) {
-                if (element == _words[rand].word_tr!){
+                if (element == _words[rand].word_tr!) {
                   isThereSame = true;
                 }
               }
-              if(!isThereSame){
+              if (!isThereSame) {
                 tempOptions.add(_words[rand].word_tr!);
               }
             }
-            if (tempOptions.length == 3 ){
+            if (tempOptions.length == 3) {
               break; // while döngüsünden çık
             }
           }
           tempOptions.add(_words[i].word_tr!);
           tempOptions.shuffle();
           correctAnswers.add(_words[i].word_tr!);
-          options.add(tempOptions);
+          optionsList.add(tempOptions);
         }
         start = true;
         setState(() {
@@ -273,13 +275,24 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
                               ),
-                              child: Text(
-                                _words[itemIndex].word_eng!,
-                                style: const TextStyle(
-                                  fontFamily: "RobotoRegular",
-                                  fontSize: 28,
-                                  color: Colors.black,
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    _words[itemIndex].word_eng!,
+                                    style: const TextStyle(
+                                      fontFamily: "RobotoRegular",
+                                      fontSize: 28,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  customRadioButtonList(
+                                    itemIndex,
+                                    optionsList[itemIndex],
+                                    correctAnswers[itemIndex],
+                                  ),
+                                ],
                               ),
                             ),
                             Positioned(
@@ -390,5 +403,89 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
         ),
       ),
     );
+  }
+
+  Container customRadioButton(
+    int index,
+    List<String> options,
+    int order,
+  ) {
+    Icon uncheck = const Icon(
+      Icons.radio_button_off_outlined,
+      size: 16,
+    );
+    Icon check = const Icon(
+      Icons.radio_button_checked_outlined,
+      size: 16,
+    );
+    return Container(
+      margin: const EdgeInsets.all(4),
+      child: Row(
+        children: [
+          clickControlList[index][order] == false ? uncheck : check,
+          const SizedBox(width: 10),
+          Text(
+            options[order],
+            style: const TextStyle(fontSize: 18),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Column customRadioButtonList(
+      int index, List<String> options, String correctAnswer) {
+    Divider dV = const Divider(
+      thickness: 1,
+      height: 1,
+    );
+
+    return Column(
+      children: [
+        dV,
+        InkWell(
+          onTap: () => toastMessage("Seçmek için çift tıklayınız"),
+          onDoubleTap: () => checker(index, 0, options, correctAnswer),
+          child: customRadioButton(index, options, 0),
+        ),
+        dV,
+        InkWell(
+          onTap: () => toastMessage("Seçmek için çift tıklayınız"),
+          onDoubleTap: () => checker(index, 1, options, correctAnswer),
+          child: customRadioButton(index, options, 1),
+        ),
+        dV,
+        InkWell(
+          onTap: () => toastMessage("Seçmek için çift tıklayınız"),
+          onDoubleTap: () => checker(index, 2, options, correctAnswer),
+          child: customRadioButton(index, options, 2),
+        ),
+        dV,
+        InkWell(
+          onTap: () => toastMessage("Seçmek için çift tıklayınız"),
+          onDoubleTap: () => checker(index, 3, options, correctAnswer),
+          child: customRadioButton(index, options, 3),
+        ),
+        dV,
+      ],
+    );
+  }
+
+  void checker(index, order, options, correctAnswer) {
+    if (clickControl[index] == false) {
+      clickControl[index] == true;
+      setState(() {
+        clickControlList[index][order] = true;
+      });
+      // cevap doğru mu ?
+      if (options[order] == correctAnswer) {
+        correctCount++;
+      } else {
+        wrongCount++;
+      }
+      if ((correctCount + wrongCount) == _words.length) {
+        toastMessage("Test bitmiştir");
+      }
+    }
   }
 }
