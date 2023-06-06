@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../global_variables.dart';
 import '../pages/multiple_choice.dart';
 import '../pages/words_card.dart';
 import '../widgets/appbar_page.dart';
@@ -15,12 +16,12 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-enum Lang { eng, tr }
+
 
 Uri _url = Uri.parse("https://www.udemy.com/");
 
 class _MainPageState extends State<MainPage> {
-  Lang? _chooseLang = Lang.eng;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PackageInfo? packageInfo;
   String version = "";
@@ -140,13 +141,13 @@ class _MainPageState extends State<MainPage> {
               children: [
                 langRadioButton(
                   text: "İngilizce - Türkçe",
-                  group: _chooseLang!,
-                  value: Lang.tr,
+                  group: chooseLang!,
+                  value: Lang.eng,
                 ),
                 langRadioButton(
                   text: "Türkçe - İngilizce",
-                  group: _chooseLang!,
-                  value: Lang.eng,
+                  group: chooseLang!,
+                  value: Lang.tr,
                 ),
                 const SizedBox(height: 25),
                 InkWell(
@@ -301,7 +302,7 @@ class _MainPageState extends State<MainPage> {
           groupValue: group,
           onChanged: (Lang? value) {
             setState(() {
-              _chooseLang = value!;
+              chooseLang = value!;
             });
           },
         ),

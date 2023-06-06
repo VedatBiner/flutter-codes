@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kelime_ezber/global_variables.dart';
 import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../methods.dart';
@@ -91,21 +92,33 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
             if (rand != i) {
               bool isThereSame = false;
               for (var element in tempOptions) {
-                if (element == _words[rand].word_tr!) {
-                  isThereSame = true;
+                if (chooseLang == Lang.eng) {
+                  if (element == _words[rand].word_tr!) {
+                    isThereSame = true;
+                  }
+                } else {
+                  if (element == _words[rand].word_eng!) {
+                    isThereSame = true;
+                  }
                 }
               }
               if (!isThereSame) {
-                tempOptions.add(_words[rand].word_tr!);
+                tempOptions.add(chooseLang == Lang.eng
+                    ? _words[rand].word_tr!
+                    : _words[rand].word_eng!);
               }
             }
             if (tempOptions.length == 3) {
               break; // while döngüsünden çık
             }
           }
-          tempOptions.add(_words[i].word_tr!);
+          tempOptions.add(chooseLang == Lang.eng
+              ? _words[i].word_tr!
+              : _words[i].word_eng!);
           tempOptions.shuffle();
-          correctAnswers.add(_words[i].word_tr!);
+          correctAnswers.add(chooseLang == Lang.eng
+              ? _words[i].word_tr!
+              : _words[i].word_eng!);
           optionsList.add(tempOptions);
         }
         start = true;
@@ -279,7 +292,9 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    _words[itemIndex].word_eng!,
+                                    chooseLang == Lang.eng
+                                        ? _words[itemIndex].word_eng!
+                                        : _words[itemIndex].word_tr!,
                                     style: const TextStyle(
                                       fontFamily: "RobotoRegular",
                                       fontSize: 28,

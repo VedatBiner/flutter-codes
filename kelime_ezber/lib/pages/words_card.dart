@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kelime_ezber/global_variables.dart';
 import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../methods.dart';
@@ -203,6 +204,16 @@ class _WordsCardPageState extends State<WordsCardPage> {
                   int itemIndex,
                   int pageViewIndex,
                 ) {
+                  String word = "";
+                  if (chooseLang == Lang.tr){
+                    word = changeLang[itemIndex]
+                        ? _words[itemIndex].word_tr!
+                        : _words[itemIndex].word_eng!;
+                  } else {
+                    word = changeLang[itemIndex]
+                        ? _words[itemIndex].word_eng!
+                        : _words[itemIndex].word_tr!;
+                  }
                   return Column(
                     children: [
                       Expanded(
@@ -229,7 +240,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                                   bottom: 16,
                                 ),
                                 padding: const EdgeInsets.only(
-                                    left: 4, top: 4, right: 4),
+                                    left: 4, top: 10, right: 4),
                                 decoration: BoxDecoration(
                                   color: Color(
                                       RenkMetod.HexaColorConverter("#DCD2FF")),
@@ -237,9 +248,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                                       Radius.circular(8)),
                                 ),
                                 child: Text(
-                                  changeLang[itemIndex]
-                                      ? _words[itemIndex].word_eng!
-                                      : _words[itemIndex].word_tr!,
+                                  word,
                                   style: const TextStyle(
                                     fontFamily: "RobotoRegular",
                                     fontSize: 28,
