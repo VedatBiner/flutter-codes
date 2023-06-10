@@ -27,6 +27,7 @@ class GoogleAds {
         ));
   }
 
+  /// show InterstitialAd
   void showInterstitialAd() {
     if (interstitialAd != null){
       interstitialAd!.show();
