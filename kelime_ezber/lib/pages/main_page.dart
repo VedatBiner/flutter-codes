@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../global_variables.dart';
+import '../google_ads.dart';
 import '../pages/multiple_choice.dart';
 import '../pages/words_card.dart';
 import '../widgets/appbar_page.dart';
@@ -16,8 +17,6 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-
-
 Uri _url = Uri.parse("https://www.udemy.com/");
 
 class _MainPageState extends State<MainPage> {
@@ -25,11 +24,25 @@ class _MainPageState extends State<MainPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PackageInfo? packageInfo;
   String version = "";
+  final GoogleAds _googleAds = GoogleAds();
+
+  Container? adContainer;
 
   @override
   void initState() {
     super.initState();
+    _googleAds.loadBannerAd();
+    adContainer = Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 250,
+      child: _googleAds.showBannerAd(),
+    );
     packageInfoInit();
+
+    setState(() {
+      adContainer;
+    });
   }
 
   // versiyon bilgisini alıyoruz
@@ -222,6 +235,7 @@ class _MainPageState extends State<MainPage> {
                     ],
                   ),
                 ),
+                adContainer!,
               ],
             ),
           ),

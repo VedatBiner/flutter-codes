@@ -9,4 +9,5 @@ Kullanılan Paketler
 •	Sqflite
 •	Path
 •	fluttertoast
-
+•	carousel_slider
+•	google_mobile_ads
