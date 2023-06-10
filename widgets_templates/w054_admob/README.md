@@ -24,5 +24,10 @@ Burada banner ve geçiş reklamı örneği var
    } <BR>
 4. <B>main.dart</B> başlangıcına aşağıdakileri ekliyoruz. <BR>
    <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-04.png" height="240em"/> <BR>
-5. sss
-6. 
+   import 'package:google_mobile_ads/google_mobile_ads.dart'; <BR>
+   void main() { <BR>
+     WidgetsFlutterBinding.ensureInitialized(); <BR>
+     MobileAds.instance.initialize(); <BR>
+     runApp(const MyApp()); <BR>
+   } <BR>
+5. Kullanım kolaylığı olarak reklam kodlarını <B>constants.dart</B> gibi bir dosyada tutmak ve reklam ile ilgili metodları <B>google_ads.dart</B> gibi  ayrı bir dosyada tutmak okunulabilirlik için önerilen bir yöntemdir. <BR>
