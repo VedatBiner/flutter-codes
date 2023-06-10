@@ -23,6 +23,6 @@ Burada banner ve geçiş reklamı örneği var
    preDexLibraries = false <BR>
    } <BR>
 4. <B>main.dart</B> başlangıcına aşağıdakileri ekliyoruz. <BR>
-   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-04.png" height="470em"/> <BR>
+   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-04.png" height="400em"/> <BR>
 5. sss
 6. 
