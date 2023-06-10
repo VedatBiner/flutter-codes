@@ -14,7 +14,14 @@ Burada banner ve geçiş reklamı örneği var
    <meta-data <BR>
        android:name="com.google.android.gms.ads.APPLICATION_ID" <BR>
        android:value="ca-app-pub-3940256099942544~3347511713"/> <BR>
-3. sss
+3. <B>Android >> app</B> altındaki <B>build.gradle</B> içine eklemek gerekebilir.<BR>
+   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-03.png" height="200em"/> <BR>
+   minSdkVersion 19<BR>
+   multiDexEnabled true<BR>
+   dexOptions { <BR>
+   javaMaxHeapSize "4g" <BR>
+   preDexLibraries = false <BR>
+   } <BR>
 4. sss
 5. sss
 6. 
