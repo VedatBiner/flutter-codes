@@ -9,7 +9,11 @@ Burada banner ve geçiş reklamı örneği var
 1. <B>Pubspec.yaml</B> içine <B>google_mobile_ads</B> kütüphanesi eklenir.<BR>
    <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-01.png" height="150em"/> <BR>
 2. <B>Android >> app >> src >> main</B> dizinindeki <B>AndroidManifest.xml</B> dosyasına aşağıdakiler eklenir. <BR>
-   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-02.png" height="150em"/> <BR>
+   <img src="https://github.com/VedatBiner/flutter-codes/blob/master/widgets_templates/w054_admob/screen_shots/img-02.png" height="200em"/> <BR>
+   <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 --> <BR>
+   <meta-data <BR>
+       android:name="com.google.android.gms.ads.APPLICATION_ID" <BR>
+       android:value="ca-app-pub-3940256099942544~3347511713"/> <BR>
 3. sss
 4. sss
 5. sss
