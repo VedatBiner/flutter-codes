@@ -35,6 +35,20 @@ class _TemporaryPageState extends State<TemporaryPage> {
     } else {
       chooseLang = Lang.tr;
     }
+    switch(await SP.read("which")){
+      case 0:
+        chooseQuestionType = Which.learned;
+        break;
+      case 1:
+        chooseQuestionType = Which.unlearned;
+        break;
+      case 2:
+        chooseQuestionType = Which.all;
+        break;
+    }
+    if (await SP.read("mix") == false){
+      listMixed = false;
+    }
   }
 
   @override

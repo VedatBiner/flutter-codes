@@ -16,13 +16,12 @@ class MultipleChoicePage extends StatefulWidget {
   State<MultipleChoicePage> createState() => _MultipleChoiceState();
 }
 
-enum Which { learned, unlearned, all }
+
 
 enum forWhat { forList, forListMixed }
 
 class _MultipleChoiceState extends State<MultipleChoicePage> {
-  Which? _chooseQuestionType = Which.learned;
-  bool listMixed = true;
+
   List<Map<String, Object?>> _lists = [];
   List<bool> selectedListIndex = [];
   List<Word> _words = [];
@@ -62,10 +61,10 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
     /// öğrenilenler isteniyorsa
     List<String> value = selectedListID.map((e) => e.toString()).toList();
     SP.write("selectedList", value);
-    if (_chooseQuestionType == Which.learned) {
+    if (chooseQuestionType == Which.learned) {
       _words =
           await DbHelper.instance.readWordByLists(selectedListID, status: true);
-    } else if (_chooseQuestionType == Which.unlearned) {
+    } else if (chooseQuestionType == Which.unlearned) {
       /// öğrenilmeyenler isteniyorsa
       _words = await DbHelper.instance
           .readWordByLists(selectedListID, status: false);
@@ -388,10 +387,10 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
         ),
         leading: Radio<Which>(
           value: value,
-          groupValue: _chooseQuestionType,
+          groupValue: chooseQuestionType,
           onChanged: (Which? value) {
             setState(() {
-              _chooseQuestionType = value;
+              chooseQuestionType = value;
             });
             /// seçimlerin kaydedilmesi
             switch (value) {
