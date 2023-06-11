@@ -12,3 +12,5 @@ Kullanılan Paketler
 •	carousel_slider
 •	google_mobile_ads
 •	shared_preferences
+•	flutter_launcher_icons
+

@@ -2,9 +2,9 @@
     <!-- Place inside the <queries> element. -->
 
     <application
-        android:label="kelime_ezber"
+        android:label="Queazy"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
