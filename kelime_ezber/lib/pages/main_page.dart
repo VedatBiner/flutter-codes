@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../database/db/shared_preferences.dart';
 import '../global_variables.dart';
 import '../google_ads.dart';
 import '../pages/multiple_choice.dart';
@@ -20,7 +21,6 @@ class MainPage extends StatefulWidget {
 Uri _url = Uri.parse("https://www.udemy.com/");
 
 class _MainPageState extends State<MainPage> {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PackageInfo? packageInfo;
   String version = "";
@@ -32,17 +32,19 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _googleAds.loadBannerAd();
+    packageInfoInit();
     adContainer = Container(
+      margin: const EdgeInsets.only(bottom: 10),
       alignment: Alignment.center,
       width: double.infinity,
       height: 250,
       child: _googleAds.showBannerAd(),
     );
-    packageInfoInit();
 
     setState(() {
       adContainer;
     });
+
   }
 
   // versiyon bilgisini alıyoruz
@@ -151,89 +153,95 @@ class _MainPageState extends State<MainPage> {
           color: Colors.white,
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                langRadioButton(
-                  text: "İngilizce - Türkçe",
-                  group: chooseLang!,
-                  value: Lang.eng,
-                ),
-                langRadioButton(
-                  text: "Türkçe - İngilizce",
-                  group: chooseLang!,
-                  value: Lang.tr,
-                ),
-                const SizedBox(height: 25),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListsPage(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: const EdgeInsets.only(bottom: 20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color(RenkMetod.HexaColorConverter("#7d20a6")),
-                            Color(RenkMetod.HexaColorConverter("#481183")),
-                          ]),
+                Column(
+                  children: [
+                    langRadioButton(
+                      text: "İngilizce - Türkçe",
+                      group: chooseLang!,
+                      value: Lang.eng,
                     ),
-                    child: const Text(
-                      "Listelerim",
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontFamily: "Carter",
-                        color: Colors.white,
+                    langRadioButton(
+                      text: "Türkçe - İngilizce",
+                      group: chooseLang!,
+                      value: Lang.tr,
+                    ),
+                    const SizedBox(height: 25),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListsPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 55,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        margin: const EdgeInsets.only(bottom: 20),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                          gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: <Color>[
+                                Color(RenkMetod.HexaColorConverter("#7d20a6")),
+                                Color(RenkMetod.HexaColorConverter("#481183")),
+                              ]),
+                        ),
+                        child: const Text(
+                          "Listelerim",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontFamily: "Carter",
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildCard(
-                        context,
-                        startColor: "#1DACC9",
-                        endColor: "#0C33B2",
-                        title: "Kelime\nKartları",
-                        click: () {
-                          Navigator.push(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildCard(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const WordsCardPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      buildCard(
-                        context,
-                        startColor: "#FF3348",
-                        endColor: "#B029B9",
-                        title: "Çoktan\nSeçmeli",
-                        click: () {
-                          Navigator.push(
+                            startColor: "#1DACC9",
+                            endColor: "#0C33B2",
+                            title: "Kelime\nKartları",
+                            click: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WordsCardPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          buildCard(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const MultipleChoicePage(),
-                            ),
-                          );
-                        },
+                            startColor: "#FF3348",
+                            endColor: "#B029B9",
+                            title: "Çoktan\nSeçmeli",
+                            click: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MultipleChoicePage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 adContainer!,
               ],
@@ -318,6 +326,13 @@ class _MainPageState extends State<MainPage> {
             setState(() {
               chooseLang = value!;
             });
+            /// TRUE : İngilizce >> Türkçe
+            /// FALSE : Türkçe >> İngilizce
+            if (value == Lang.eng){
+              SP.write("lang", true);
+            } else {
+              SP.write("lang", false);
+            }
           },
         ),
       ),

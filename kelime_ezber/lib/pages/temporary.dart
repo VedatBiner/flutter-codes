@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kelime_ezber/database/db/shared_preferences.dart';
+import '../global_variables.dart';
 import 'main_page.dart';
 
 class TemporaryPage extends StatefulWidget {
@@ -9,6 +11,7 @@ class TemporaryPage extends StatefulWidget {
 }
 
 class _TemporaryPageState extends State<TemporaryPage> {
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +26,15 @@ class _TemporaryPageState extends State<TemporaryPage> {
         );
       },
     );
+    spRead();
+  }
+
+  void spRead() async {
+    if (await SP.read("lang") == true){
+      chooseLang = Lang.eng;
+    } else {
+      chooseLang = Lang.tr;
+    }
   }
 
   @override

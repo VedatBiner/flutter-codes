@@ -11,3 +11,4 @@ Kullanılan Paketler
 •	fluttertoast
 •	carousel_slider
 •	google_mobile_ads
+•	shared_preferences
