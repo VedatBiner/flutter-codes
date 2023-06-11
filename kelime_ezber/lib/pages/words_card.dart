@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kelime_ezber/global_variables.dart';
+import '../database/db/shared_preferences.dart';
 import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../methods.dart';
@@ -44,13 +45,15 @@ class _WordsCardPageState extends State<WordsCardPage> {
   }
 
   void getSelectedWordsOfLists(List<int> selectedListID) async {
-    // radio buton seçimlerine göre koşullar
-    // öğrenilenler isteniyorsa
+    /// radio buton seçimlerine göre koşullar
+    /// öğrenilenler isteniyorsa
+    List<String> value = selectedListID.map((e) => e.toString()).toList();
+    SP.write("selectedList", value);
     if (_chooseQuestionType == Which.learned) {
       _words =
           await DbHelper.instance.readWordByLists(selectedListID, status: true);
     } else if (_chooseQuestionType == Which.unlearned) {
-      // öğrenilmeyenler isteniyorsa
+      /// öğrenilmeyenler isteniyorsa
       _words = await DbHelper.instance
           .readWordByLists(selectedListID, status: false);
     } else {
@@ -60,7 +63,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
       for (int i = 0; i < _words.length; ++i) {
         changeLang.add(true);
       }
-      // listeyi karıştır
+      /// listeyi karıştır
       if (listMixed) _words.shuffle();
       start = true;
       setState(() {
@@ -205,7 +208,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                   int pageViewIndex,
                 ) {
                   String word = "";
-                  if (chooseLang == Lang.tr){
+                  if (chooseLang == Lang.tr) {
                     word = changeLang[itemIndex]
                         ? _words[itemIndex].word_tr!
                         : _words[itemIndex].word_eng!;
@@ -302,8 +305,11 @@ class _WordsCardPageState extends State<WordsCardPage> {
     );
   }
 
-  // radioButton seçimi
-  SizedBox whichRadiobutton({required String text, required Which value}) {
+  /// radioButton seçimi
+  SizedBox whichRadiobutton({
+    required String text,
+    required Which value,
+  }) {
     return SizedBox(
       width: 290,
       height: 32,
@@ -322,15 +328,29 @@ class _WordsCardPageState extends State<WordsCardPage> {
             setState(() {
               _chooseQuestionType = value;
             });
+            /// seçimlerin kaydedilmesi
+            switch (value) {
+              case Which.learned:
+                SP.write("which", 0);
+                break;
+              case Which.unlearned:
+                SP.write("which", 1);
+                break;
+              case Which.all:
+                SP.write("which", 2);
+                break;
+              default:
+                break;
+            }
           },
         ),
       ),
     );
   }
 
-  // Checkbox seçimi
-  // fWhat parameteresi gönderilmezse
-  // bu metod liste için kullanılacaktır.
+  /// Checkbox seçimi
+  /// fWhat parameteresi gönderilmezse
+  /// bu metod liste için kullanılacaktır.
   SizedBox checkBox({
     required String text,
     int index = 0,
@@ -359,6 +379,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                 selectedListIndex[index] = value!;
               } else {
                 listMixed = value!;
+                SP.write("mix", value);
               }
             });
           },

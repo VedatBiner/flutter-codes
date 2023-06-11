@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kelime_ezber/global_variables.dart';
+import '../database/db/shared_preferences.dart';
 import '../widgets/toast_message.dart';
 import '../database/db/dbhelper.dart';
 import '../methods.dart';
@@ -37,7 +38,7 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   List<List<bool>> clickControlList = [];
   // doğru cevap sayısı
   int correctCount = 0;
-  // yanlış cevap sayısı
+  /// yanlış cevap sayısı
   int wrongCount = 0;
 
   @override
@@ -57,37 +58,39 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   }
 
   void getSelectedWordsOfLists(List<int> selectedListID) async {
-    // radio buton seçimlerine göre koşullar
-    // öğrenilenler isteniyorsa
+    /// radio buton seçimlerine göre koşullar
+    /// öğrenilenler isteniyorsa
+    List<String> value = selectedListID.map((e) => e.toString()).toList();
+    SP.write("selectedList", value);
     if (_chooseQuestionType == Which.learned) {
       _words =
           await DbHelper.instance.readWordByLists(selectedListID, status: true);
     } else if (_chooseQuestionType == Which.unlearned) {
-      // öğrenilmeyenler isteniyorsa
+      /// öğrenilmeyenler isteniyorsa
       _words = await DbHelper.instance
           .readWordByLists(selectedListID, status: false);
     } else {
       _words = await DbHelper.instance.readWordByLists(selectedListID);
     }
-    // Kelime listesi boş mu ?
+    /// Kelime listesi boş mu ?
     if (_words.isNotEmpty) {
-      // 4 şık için 4 kelime
+      /// 4 şık için 4 kelime
       if (_words.length > 3) {
-        // listeyi karıştır
+        /// listeyi karıştır
         if (listMixed) _words.shuffle();
-        // rasgele sayı üretelim
-        // doğru cevabında aralarında olduğu rasgele listelenecek
-        // bir doğru üç yanlış cevap
+        /// rasgele sayı üretelim
+        /// doğru cevabında aralarında olduğu rasgele listelenecek
+        /// bir doğru üç yanlış cevap
         Random random = Random();
         for (int i = 0; i < _words.length; ++i) {
-          // her bir kelime için cevap verilip verilmediğinin kontrolü
+          /// her bir kelime için cevap verilip verilmediğinin kontrolü
           clickControl.add(false);
-          // her kelime için 4 şık var. 4 şıkkında işarelenmediğini belirten
-          // 4 adet false ile doldurduk
+          /// her kelime için 4 şık var. 4 şıkkında işarelenmediğini belirten
+          /// 4 adet false ile doldurduk
           clickControlList.add([false, false, false, false]);
           List<String> tempOptions = [];
           while (true) {
-            // 0 ile kelime listesi uzunluğu -1 kadar değerler alır.
+            /// 0 ile kelime listesi uzunluğu -1 kadar değerler alır.
             int rand = random.nextInt(_words.length);
             if (rand != i) {
               bool isThereSame = false;
@@ -368,7 +371,10 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   }
 
   // radioButton seçimi
-  SizedBox whichRadiobutton({required String text, required Which value}) {
+  SizedBox whichRadiobutton({
+    required String text,
+    required Which value,
+  }) {
     return SizedBox(
       width: 290,
       height: 32,
@@ -387,15 +393,29 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
             setState(() {
               _chooseQuestionType = value;
             });
+            /// seçimlerin kaydedilmesi
+            switch (value) {
+              case Which.learned:
+                SP.write("which", 0);
+                break;
+              case Which.unlearned:
+                SP.write("which", 1);
+                break;
+              case Which.all:
+                SP.write("which", 2);
+                break;
+              default:
+                break;
+            }
           },
         ),
       ),
     );
   }
 
-  // Checkbox seçimi
-  // fWhat parameteresi gönderilmezse
-  // bu metod liste için kullanılacaktır.
+  /// Checkbox seçimi
+  /// fWhat parameteresi gönderilmezse
+  /// bu metod liste için kullanılacaktır.
   SizedBox checkBox({
     required String text,
     int index = 0,
@@ -426,6 +446,7 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                 listMixed = value!;
               }
             });
+            SP.write("mix", value!);
           },
         ),
       ),
