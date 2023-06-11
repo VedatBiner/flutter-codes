@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   String version = "";
   final GoogleAds _googleAds = GoogleAds();
 
-  Container? adContainer;
+  Container? adContainer = Container();
 
   @override
   void initState() {

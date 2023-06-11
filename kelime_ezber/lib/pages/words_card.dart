@@ -15,12 +15,7 @@ class WordsCardPage extends StatefulWidget {
   State<WordsCardPage> createState() => _WordsCardPageState();
 }
 
-enum forWhat { forList, forListMixed }
-
 class _WordsCardPageState extends State<WordsCardPage> {
-
-  List<Map<String, Object?>> _lists = [];
-  List<bool> selectedListIndex = [];
   List<Word> _words = [];
   bool start = false;
   List<bool> changeLang = [];
@@ -28,23 +23,13 @@ class _WordsCardPageState extends State<WordsCardPage> {
   @override
   void initState() {
     super.initState();
-    getLists();
-  }
-
-  void getLists() async {
-    _lists = await DbHelper.instance.readListsAll();
-    for (int i = 0; i < _lists.length; ++i) {
-      selectedListIndex.add(false);
-    }
-    setState(() {
-      _lists;
-    });
+    getLists().then((value) => setState(() => lists));
   }
 
   void getSelectedWordsOfLists(List<int> selectedListID) async {
     /// radio buton seçimlerine göre koşullar
     /// öğrenilenler isteniyorsa
-    /// Shared prefernces için ListString dönüşümü yapılıyor.
+    /// Shared preferences için ListString dönüşümü yapılıyor.
     List<String> value = selectedListID.map((e) => e.toString()).toList();
     SP.write("selectedList", value);
     if (chooseQuestionType == Which.learned) {
@@ -61,6 +46,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
       for (int i = 0; i < _words.length; ++i) {
         changeLang.add(true);
       }
+
       /// listeyi karıştır
       if (listMixed) _words.shuffle();
       start = true;
@@ -149,10 +135,10 @@ class _WordsCardPageState extends State<WordsCardPage> {
                           itemBuilder: (context, index) {
                             return checkBox(
                               index: index,
-                              text: _lists[index]["name"].toString(),
+                              text: lists[index]["name"].toString(),
                             );
                           },
-                          itemCount: _lists.length,
+                          itemCount: lists.length,
                         ),
                       ),
                     ),
@@ -174,7 +160,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
                               i < selectedIndexNoOfList.length;
                               ++i) {
                             selectedListIdList.add(
-                                _lists[selectedIndexNoOfList[i]]["list_id"]
+                                lists[selectedIndexNoOfList[i]]["list_id"]
                                     as int);
                           }
                           if (selectedListIdList.isNotEmpty) {
@@ -326,6 +312,7 @@ class _WordsCardPageState extends State<WordsCardPage> {
             setState(() {
               chooseQuestionType = value;
             });
+
             /// seçimlerin kaydedilmesi
             switch (value) {
               case Which.learned:

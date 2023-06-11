@@ -105,7 +105,9 @@ class _ListsPageState extends State<ListsPage> {
             MaterialPageRoute(
               builder: (context) => const CreateList(),
             ),
-          );
+          ).then((value) {
+            getList();
+          });
         },
         backgroundColor: Colors.purple.withOpacity(0.5),
         child: const Icon(Icons.add),
@@ -141,7 +143,7 @@ class _ListsPageState extends State<ListsPage> {
           MaterialPageRoute(
             builder: (context) => WordsPage(id, listName),
           ),
-        ).then((value){
+        ).then((value) {
           getList();
         });
       },
@@ -237,10 +239,12 @@ class _ListsPageState extends State<ListsPage> {
                             // orijinal koddaki forEach metodu,
                             // for döngüsüne çevrildi
                             for (var element in deleteIndexList) {
-                              if (element == true) deleteProcessController = true;
+                              if (element == true)
+                                deleteProcessController = true;
                             }
                             // liste eski haline geri dönüyor
-                            if (!deleteProcessController) pressController = false;
+                            if (!deleteProcessController)
+                              pressController = false;
                           });
                         },
                       )

@@ -16,14 +16,7 @@ class MultipleChoicePage extends StatefulWidget {
   State<MultipleChoicePage> createState() => _MultipleChoiceState();
 }
 
-
-
-enum forWhat { forList, forListMixed }
-
 class _MultipleChoiceState extends State<MultipleChoicePage> {
-
-  List<Map<String, Object?>> _lists = [];
-  List<bool> selectedListIndex = [];
   List<Word> _words = [];
   bool start = false;
   // kelime listesi uzunluğu kadar şık listesi
@@ -37,23 +30,14 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
   List<List<bool>> clickControlList = [];
   // doğru cevap sayısı
   int correctCount = 0;
+
   /// yanlış cevap sayısı
   int wrongCount = 0;
 
   @override
   void initState() {
     super.initState();
-    getLists();
-  }
-
-  void getLists() async {
-    _lists = await DbHelper.instance.readListsAll();
-    for (int i = 0; i < _lists.length; ++i) {
-      selectedListIndex.add(false);
-    }
-    setState(() {
-      _lists;
-    });
+    getLists().then((value) => setState(() => lists));
   }
 
   void getSelectedWordsOfLists(List<int> selectedListID) async {
@@ -71,12 +55,14 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
     } else {
       _words = await DbHelper.instance.readWordByLists(selectedListID);
     }
+
     /// Kelime listesi boş mu ?
     if (_words.isNotEmpty) {
       /// 4 şık için 4 kelime
       if (_words.length > 3) {
         /// listeyi karıştır
         if (listMixed) _words.shuffle();
+
         /// rasgele sayı üretelim
         /// doğru cevabında aralarında olduğu rasgele listelenecek
         /// bir doğru üç yanlış cevap
@@ -84,6 +70,7 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
         for (int i = 0; i < _words.length; ++i) {
           /// her bir kelime için cevap verilip verilmediğinin kontrolü
           clickControl.add(false);
+
           /// her kelime için 4 şık var. 4 şıkkında işarelenmediğini belirten
           /// 4 adet false ile doldurduk
           clickControlList.add([false, false, false, false]);
@@ -212,10 +199,10 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                           itemBuilder: (context, index) {
                             return checkBox(
                               index: index,
-                              text: _lists[index]["name"].toString(),
+                              text: lists[index]["name"].toString(),
                             );
                           },
-                          itemCount: _lists.length,
+                          itemCount: lists.length,
                         ),
                       ),
                     ),
@@ -237,7 +224,7 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
                               i < selectedIndexNoOfList.length;
                               ++i) {
                             selectedListIdList.add(
-                                _lists[selectedIndexNoOfList[i]]["list_id"]
+                                lists[selectedIndexNoOfList[i]]["list_id"]
                                     as int);
                           }
                           if (selectedListIdList.isNotEmpty) {
@@ -392,6 +379,7 @@ class _MultipleChoiceState extends State<MultipleChoicePage> {
             setState(() {
               chooseQuestionType = value;
             });
+
             /// seçimlerin kaydedilmesi
             switch (value) {
               case Which.learned:
