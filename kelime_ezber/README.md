@@ -13,4 +13,8 @@ Kullanılan Paketler
 •	google_mobile_ads
 •	shared_preferences
 •	flutter_launcher_icons
+•	flutter_statusbarcolor_ns
+
+
+
 

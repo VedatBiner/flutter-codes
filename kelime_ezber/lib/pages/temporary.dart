@@ -11,7 +11,6 @@ class TemporaryPage extends StatefulWidget {
 }
 
 class _TemporaryPageState extends State<TemporaryPage> {
-
   @override
   void initState() {
     super.initState();
@@ -30,12 +29,12 @@ class _TemporaryPageState extends State<TemporaryPage> {
   }
 
   void spRead() async {
-    if (await SP.read("lang") == true){
+    if (await SP.read("lang") == true) {
       chooseLang = Lang.eng;
     } else {
       chooseLang = Lang.tr;
     }
-    switch(await SP.read("which")){
+    switch (await SP.read("which")) {
       case 0:
         chooseQuestionType = Which.learned;
         break;
@@ -46,7 +45,7 @@ class _TemporaryPageState extends State<TemporaryPage> {
         chooseQuestionType = Which.all;
         break;
     }
-    if (await SP.read("mix") == false){
+    if (await SP.read("mix") == false) {
       listMixed = false;
     }
   }
@@ -63,7 +62,11 @@ class _TemporaryPageState extends State<TemporaryPage> {
               children: [
                 Column(
                   children: [
-                    Image.asset("assets/images/logo.png"),
+                    Image.asset(
+                      "assets/images/logo.png",
+                      height: 130,
+                      width: 110,
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(15),
                       child: Text(
@@ -96,12 +99,3 @@ class _TemporaryPageState extends State<TemporaryPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-

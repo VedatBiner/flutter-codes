@@ -44,7 +44,6 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       adContainer;
     });
-
   }
 
   // versiyon bilgisini alıyoruz
@@ -146,7 +145,11 @@ class _MainPageState extends State<MainPage> {
             color: Colors.black,
             size: 22,
           ),
-          center: Image.asset("assets/images/logo_text.png"),
+          center: Image.asset(
+            "assets/images/logo_text.png",
+            width: 100,
+            height: 40,
+          ),
           leftWidgetOnClick: () => {_scaffoldKey.currentState!.openDrawer()}),
       body: SafeArea(
         child: Container(
@@ -326,9 +329,10 @@ class _MainPageState extends State<MainPage> {
             setState(() {
               chooseLang = value!;
             });
+
             /// TRUE : İngilizce >> Türkçe
             /// FALSE : Türkçe >> İngilizce
-            if (value == Lang.eng){
+            if (value == Lang.eng) {
               SP.write("lang", true);
             } else {
               SP.write("lang", false);
