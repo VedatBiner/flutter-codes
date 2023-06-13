@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kelime_ezber/database/db/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../global_variables.dart';
 import 'main_page.dart';
 
@@ -11,6 +12,7 @@ class TemporaryPage extends StatefulWidget {
 }
 
 class _TemporaryPageState extends State<TemporaryPage> {
+
   @override
   void initState() {
     super.initState();
@@ -26,6 +28,23 @@ class _TemporaryPageState extends State<TemporaryPage> {
       },
     );
     spRead();
+    setFirebase();
+  }
+
+  /// Firebase messaging
+  void setFirebase() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    print('User granted permission: ${settings.authorizationStatus}');
   }
 
   void spRead() async {

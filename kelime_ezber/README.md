@@ -14,7 +14,7 @@ Kullanılan Paketler
 •	shared_preferences
 •	flutter_launcher_icons
 •	flutter_statusbarcolor_ns
-
-
+•	firebase_core
+•	firebase_messaging
 
 
