@@ -78,9 +78,8 @@ class _ListsPageState extends State<ListsPage> {
           size: 22,
         ),
         center: Image.asset(
-          "assets/images/lists.png",
-          width: 100,
-          height: 45,
+          "assets/images/logo_text.png",
+          height: 40,
         ),
         /// henüz silinecek liste seçilmediyse logo göster
         /// basıldı ise çöp kutusu göster
