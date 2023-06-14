@@ -5,14 +5,18 @@ import '../../size_config.dart';
 
 class RecipeBundleCard extends StatelessWidget {
   final RecipeBundle recipeBundle;
-  const RecipeBundleCard({Key? key, required this.recipeBundle})
-      : super(key: key);
+  final Function press;
+  const RecipeBundleCard({
+    Key? key,
+    required this.recipeBundle,
+    required this.press,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double defaultSize = SizeConfig.defaultSize!;
-    return AspectRatio(
-      aspectRatio: 1.65,
+    return GestureDetector(
+      onTap: press(),
       child: Container(
         decoration: BoxDecoration(
           color: recipeBundle.color,
@@ -65,13 +69,10 @@ class RecipeBundleCard extends StatelessWidget {
             SizedBox(
               width: defaultSize * 0.5,
             ),
-            AspectRatio(
-              aspectRatio: 0.71,
-              child: Image.asset(
-                recipeBundles[0].imageSrc,
-                fit: BoxFit.cover,
-                alignment: Alignment.centerLeft,
-              ),
+            Image.asset(
+              recipeBundles[0].imageSrc,
+              fit: BoxFit.cover,
+              alignment: Alignment.centerLeft,
             ),
           ],
         ),

@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                   childAspectRatio: 1.65,
                 ),
                 itemBuilder: (context, index) =>
-                    RecipeBundleCard(recipeBundle: recipeBundles[index]),
+                    RecipeBundleCard(recipeBundle: recipeBundles[index],press: (){},),
               ),
             ),
           ),

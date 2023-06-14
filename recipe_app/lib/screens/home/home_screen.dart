@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:recipe_app/size_config.dart';
+import '../../components/my_bottom_nav_bar.dart';
 import '../components/body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: const Body(),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 
@@ -30,7 +32,9 @@ class HomeScreen extends StatelessWidget {
             "assets/icons/search.svg",
           ),
         ),
-        SizedBox(width: SizeConfig.defaultSize! * 0.5,),
+        SizedBox(
+          width: SizeConfig.defaultSize! * 0.5,
+        ),
       ],
     );
   }
