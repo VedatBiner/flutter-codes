@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Recipe App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white, )
             .copyWith(background: Colors.white),
