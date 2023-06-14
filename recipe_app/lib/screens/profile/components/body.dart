@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/constants.dart';
 import 'package:recipe_app/size_config.dart';
+import 'info.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -10,42 +10,15 @@ class Body extends StatelessWidget {
     double defaultSize = SizeConfig.defaultSize!;
     return Column(
       children: [
-        SizedBox(
-          height: defaultSize * 24,
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: CustomShape(),
-                child: Container(
-                  height: defaultSize * 15,
-                  color: kPrimaryColor,
-                ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      height: defaultSize * 14,
-                      width: defaultSize * 14,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: defaultSize * 0.8,
-                        ),
-                        image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            "assets/images/pic.png",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+        Info(
+          image: "assets/images/pic.png",
+          name: "John doe",
+          email: "johndoe@gmail.com",
+        ),
+        Row(
+          children: [
+
+          ],
         ),
       ],
     );
@@ -70,3 +43,4 @@ class CustomShape extends CustomClipper<Path> {
     return true;
   }
 }
+
