@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/screens/profile/components/profile_menu_item.dart';
 import 'package:recipe_app/size_config.dart';
 import 'info.dart';
+import 'profile_menu_item.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -11,12 +11,12 @@ class Body extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Info(
+          const Info(
             image: "assets/images/pic.png",
-            name: "John doe",
+            name: "Johns Doe",
             email: "johndoe@gmail.com",
           ),
-          SizedBox(height: SizeConfig.defaultSize! * 2),
+          SizedBox(height: SizeConfig.defaultSize! * 2), //20
           ProfileMenuItem(
             iconSrc: "assets/icons/bookmark_fill.svg",
             title: "Saved Recipes",
@@ -42,4 +42,3 @@ class Body extends StatelessWidget {
     );
   }
 }
-

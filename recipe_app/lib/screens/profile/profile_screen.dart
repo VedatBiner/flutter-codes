@@ -13,8 +13,8 @@ class ProfileScreen extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
-      bottomNavigationBar: MyBottomNavBar(),
+      body: const Body(),
+      bottomNavigationBar: const MyBottomNavBar(),
     );
   }
 
