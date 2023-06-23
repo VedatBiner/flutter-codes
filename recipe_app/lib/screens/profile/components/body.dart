@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/screens/profile/components/profile_menu_item.dart';
 import 'package:recipe_app/size_config.dart';
 import 'info.dart';
 
@@ -7,40 +8,38 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double defaultSize = SizeConfig.defaultSize!;
-    return Column(
-      children: [
-        Info(
-          image: "assets/images/pic.png",
-          name: "John doe",
-          email: "johndoe@gmail.com",
-        ),
-        Row(
-          children: [
-
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Info(
+            image: "assets/images/pic.png",
+            name: "John doe",
+            email: "johndoe@gmail.com",
+          ),
+          SizedBox(height: SizeConfig.defaultSize! * 2),
+          ProfileMenuItem(
+            iconSrc: "assets/icons/bookmark_fill.svg",
+            title: "Saved Recipes",
+            press: () {},
+          ),
+          ProfileMenuItem(
+            iconSrc: "assets/icons/chef_color.svg",
+            title: "Super Plan",
+            press: () {},
+          ),
+          ProfileMenuItem(
+            iconSrc: "assets/icons/language.svg",
+            title: "Change Language",
+            press: () {},
+          ),
+          ProfileMenuItem(
+            iconSrc: "assets/icons/info.svg",
+            title: "Help",
+            press: () {},
+          ),
+        ],
+      ),
     );
-  }
-}
-
-class CustomShape extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    double height = size.height;
-    double width = size.width;
-    path.lineTo(0, height - 100);
-    path.quadraticBezierTo(width / 2, height, width, height - 100);
-    path.lineTo(width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
   }
 }
 
