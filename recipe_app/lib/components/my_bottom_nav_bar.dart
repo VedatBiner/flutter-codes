@@ -16,8 +16,6 @@ class MyBottomNavBar extends StatelessWidget {
     return Consumer<NavItems>(
       builder: (context, navItems, child) => Container(
         padding: EdgeInsets.symmetric(horizontal: defaultSize! * 3), //30
-        // just for demo
-        // height: 80,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -38,9 +36,10 @@ class MyBottomNavBar extends StatelessWidget {
                 icon: navItems.items[index].icon,
                 press: () {
                   navItems.changeNavIndex(index: index);
-                  // maybe destinationChacker is not needed in future because then all of our nav items have destination
-                  // But Now if we click those which dont have destination then it shows error
-                  // And this fix this problem
+                  // maybe destination Checker is not needed in future because
+                  // then all of our nav items have destination
+                  // But Now if we click those which dont have destination
+                  // then it shows error And this fix this problem
                   Widget? destination = navItems.items[index].destination;
                   if (destination != null) {
                     Navigator.push(

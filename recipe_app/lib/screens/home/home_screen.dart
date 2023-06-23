@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(),
       body: const Body(),
-      bottomNavigationBar: MyBottomNavBar(),
+      bottomNavigationBar: const MyBottomNavBar(),
     );
   }
 
@@ -28,9 +28,7 @@ class HomeScreen extends StatelessWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: SvgPicture.asset(
-            "assets/icons/search.svg",
-          ),
+          icon: SvgPicture.asset("assets/icons/search.svg"),
         ),
         SizedBox(
           width: SizeConfig.defaultSize! * 0.5,
