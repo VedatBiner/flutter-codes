@@ -18,6 +18,7 @@ class RecipeBundleCard extends StatelessWidget {
     return GestureDetector(
       onTap: press(),
       child: Container(
+        height: defaultSize * 20,
         decoration: BoxDecoration(
           color: recipeBundle.color,
           borderRadius: BorderRadius.circular(defaultSize * 1.8),
