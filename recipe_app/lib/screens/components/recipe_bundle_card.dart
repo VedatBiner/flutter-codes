@@ -14,69 +14,65 @@ class RecipeBundleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double defaultSize = SizeConfig.defaultSize!;
+    double? defaultSize = SizeConfig.defaultSize;
+    // Now we dont this Aspect ratio
     return GestureDetector(
       onTap: press(),
       child: Container(
-        height: defaultSize * 20,
         decoration: BoxDecoration(
           color: recipeBundle.color,
-          borderRadius: BorderRadius.circular(defaultSize * 1.8),
+          borderRadius: BorderRadius.circular(defaultSize! * 1.8), //18
         ),
         child: Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: Padding(
-                padding: EdgeInsets.all(defaultSize * 2),
+                padding: EdgeInsets.all(defaultSize * 2), //20
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Spacer(),
+                  children: <Widget>[
+                    Spacer(),
                     Text(
                       recipeBundle.title,
                       style: TextStyle(
-                        fontSize: defaultSize * 2.2,
-                        color: Colors.white,
-                      ),
+                          fontSize: defaultSize * 2.2, //22
+                          color: Colors.white),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: defaultSize * 0.5),
+                    SizedBox(height: defaultSize * 0.5), // 5
                     Text(
-                      recipeBundles[0].description,
-                      style: const TextStyle(
-                        color: Colors.white54,
-                      ),
+                      recipeBundle.description,
+                      style: const TextStyle(color: Colors.white54),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const Spacer(flex: 1),
+                    Spacer(),
                     buildInfoRow(
                       defaultSize,
                       iconSrc: "assets/icons/pot.svg",
                       text: "${recipeBundle.recipes} Recipes",
                     ),
-                    SizedBox(height: defaultSize * 0.5),
+                    SizedBox(height: defaultSize * 0.5), //5
                     buildInfoRow(
                       defaultSize,
                       iconSrc: "assets/icons/chef.svg",
-                      text: " ${recipeBundle.chefs} Chefs",
+                      text: "${recipeBundle.chefs} Chefs",
                     ),
-                    const Spacer(flex: 1),
+                    Spacer(),
                   ],
                 ),
               ),
             ),
-            SizedBox(
-              width: defaultSize * 0.5,
-            ),
-            Expanded(
+            SizedBox(width: defaultSize * 0.5), //5
+            AspectRatio(
+              aspectRatio: 0.71,
               child: Image.asset(
-                recipeBundles[0].imageSrc,
+                recipeBundle.imageSrc,
                 fit: BoxFit.cover,
                 alignment: Alignment.centerLeft,
               ),
-            ),
+            )
           ],
         ),
       ),
