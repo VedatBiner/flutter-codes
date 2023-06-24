@@ -13,7 +13,7 @@ class Body extends StatelessWidget {
         children: [
           const Info(
             image: "assets/images/pic.png",
-            name: "Johns Doe",
+            name: "John Doe",
             email: "johndoe@gmail.com",
           ),
           SizedBox(height: SizeConfig.defaultSize! * 2), //20
