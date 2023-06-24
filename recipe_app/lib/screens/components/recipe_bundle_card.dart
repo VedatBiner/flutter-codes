@@ -50,7 +50,7 @@ class RecipeBundleCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const Spacer(),
+                    const Spacer(flex: 1),
                     buildInfoRow(
                       defaultSize,
                       iconSrc: "assets/icons/pot.svg",
@@ -62,7 +62,7 @@ class RecipeBundleCard extends StatelessWidget {
                       iconSrc: "assets/icons/chef.svg",
                       text: " ${recipeBundle.chefs} Chefs",
                     ),
-                    const Spacer(),
+                    const Spacer(flex: 1),
                   ],
                 ),
               ),
@@ -70,10 +70,12 @@ class RecipeBundleCard extends StatelessWidget {
             SizedBox(
               width: defaultSize * 0.5,
             ),
-            Image.asset(
-              recipeBundles[0].imageSrc,
-              fit: BoxFit.cover,
-              alignment: Alignment.centerLeft,
+            Expanded(
+              child: Image.asset(
+                recipeBundles[0].imageSrc,
+                fit: BoxFit.cover,
+                alignment: Alignment.centerLeft,
+              ),
             ),
           ],
         ),
