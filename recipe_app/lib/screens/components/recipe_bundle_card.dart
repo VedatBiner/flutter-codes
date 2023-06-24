@@ -31,7 +31,7 @@ class RecipeBundleCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       recipeBundle.title,
                       style: TextStyle(
@@ -47,7 +47,7 @@ class RecipeBundleCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     buildInfoRow(
                       defaultSize,
                       iconSrc: "assets/icons/pot.svg",
@@ -59,7 +59,7 @@ class RecipeBundleCard extends StatelessWidget {
                       iconSrc: "assets/icons/chef.svg",
                       text: "${recipeBundle.chefs} Chefs",
                     ),
-                    Spacer(),
+                    const Spacer(),
                   ],
                 ),
               ),
