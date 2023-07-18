@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/constants.dart';
 import '../components/logo_blur_box.dart';
+import '../components/menu.dart';
 import '../components/person_pic.dart';
 
 class TopSection extends StatelessWidget {
@@ -30,11 +31,14 @@ class TopSection extends StatelessWidget {
               right: 0,
               child: PersonPic(),
             ),
+            const Positioned(
+              bottom: 0,
+              child: Menu(),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
 
