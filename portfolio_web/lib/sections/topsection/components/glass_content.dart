@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class GlassContent extends StatelessWidget {
   const GlassContent({
@@ -59,4 +59,3 @@ class GlassContent extends StatelessWidget {
     );
   }
 }
-
