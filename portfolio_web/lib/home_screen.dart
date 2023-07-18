@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/constants.dart';
+import 'package:portfolio_web/sections/about/about_section.dart';
 import 'package:portfolio_web/sections/topsection/top_section.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,6 +13,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TopSection(),
+            SizedBox(height: kDefaultPadding * 2),
+            AboutSection(),
             SizedBox(height: 500),
           ],
         ),
