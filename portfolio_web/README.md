@@ -8,4 +8,4 @@ Portoflio Web Site
 
 Programın orijinal kodları burada : https://github.com/abuanwar072/Protfolio-Website-Flutter-Web
 
-
+Flutter güncellemeleri nedeni ile Orijinal kodun üzerinde bazı buton değişiklikleri oldu.

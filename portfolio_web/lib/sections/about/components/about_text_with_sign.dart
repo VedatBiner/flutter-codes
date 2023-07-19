@@ -24,3 +24,4 @@ class AboutTextWithSign extends StatelessWidget {
     );
   }
 }
+
