@@ -15,7 +15,8 @@ class MyOutlineButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
-      child: OutlinedButton(
+      child: OutlinedButton( /// OutlinedButton
+        /*
         padding: const EdgeInsets.symmetric(
           vertical: kDefaultPadding,
           horizontal: kDefaultPadding * 2.5,
@@ -24,7 +25,10 @@ class MyOutlineButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         borderSide: const BorderSide(color: Color(0xFFEDEDED)),
-        onPressed: press,
+        */
+
+        onPressed: (){}, /// press,
+
         child: Row(
           children: [
             Image.asset(

@@ -14,14 +14,18 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton( // FlatButton
-      padding: const EdgeInsets.symmetric(
-        vertical: kDefaultPadding,
-        horizontal: kDefaultPadding * 2.5,
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(
+          vertical: kDefaultPadding,
+          horizontal: kDefaultPadding * 2.5,
+        ),
+        backgroundColor: const Color(0xFFE8F0F9),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      color: const Color(0xFFE8F0F9),
-      onPressed: press,
+      onPressed: (){},/// press,
       child: Row(
         children: [
           Image.asset(imageSrc, height: 40),
