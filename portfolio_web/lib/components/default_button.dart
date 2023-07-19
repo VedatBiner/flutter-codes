@@ -25,7 +25,7 @@ class DefaultButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
       ),
-      onPressed: (){},/// press,
+      onPressed: (){} /*press*/,
       child: Row(
         children: [
           Image.asset(imageSrc, height: 40),

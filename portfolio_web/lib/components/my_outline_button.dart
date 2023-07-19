@@ -26,9 +26,7 @@ class MyOutlineButton extends StatelessWidget {
           ),
           side: const BorderSide(color: Color(0xFFEDEDED)),
         ),
-
-        onPressed: (){}, /// press,
-
+        onPressed: (){} /*press*/,
         child: Row(
           children: [
             Image.asset(
