@@ -10,7 +10,7 @@ class DefaultButton extends StatelessWidget {
   });
 
   final String imageSrc, text;
-  final Function press;
+  final VoidCallback  press;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class DefaultButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
       ),
-      onPressed: (){} /*press*/,
+      onPressed: press,
       child: Row(
         children: [
           Image.asset(imageSrc, height: 40),
