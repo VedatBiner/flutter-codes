@@ -16,16 +16,16 @@ class MyOutlineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FittedBox(
       child: OutlinedButton( /// OutlinedButton
-        /*
-        padding: const EdgeInsets.symmetric(
-          vertical: kDefaultPadding,
-          horizontal: kDefaultPadding * 2.5,
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(
+            vertical: kDefaultPadding,
+            horizontal: kDefaultPadding * 2.5,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          side: const BorderSide(color: Color(0xFFEDEDED)),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
-        borderSide: const BorderSide(color: Color(0xFFEDEDED)),
-        */
 
         onPressed: (){}, /// press,
 
