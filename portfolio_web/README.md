@@ -11,7 +11,7 @@ Programın orijinal kodları burada : https://github.com/abuanwar072/Protfolio-W
 Flutter güncellemeleri nedeni ile Orijinal kodun üzerinde bazı buton değişiklikleri oldu.
 
 <HR>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-01.png" height="500em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-01.png" height="550em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-02.png" height="350em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-03.png" height="400em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-04.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-03.png" height="350em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-04.png" height="300em"/>
