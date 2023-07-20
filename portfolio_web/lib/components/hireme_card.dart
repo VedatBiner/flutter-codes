@@ -60,3 +60,13 @@ class HireMeCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
