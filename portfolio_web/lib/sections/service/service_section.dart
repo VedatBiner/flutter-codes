@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/constants.dart';
+import '../../models/service.dart';
 import 'components/section_title.dart';
+import 'components/service_card.dart';
 
 class ServiceSection extends StatelessWidget {
   const ServiceSection({super.key});
@@ -10,12 +12,21 @@ class ServiceSection extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
       constraints: const BoxConstraints(maxWidth: 1110),
-      child: const Column(
+      child: Column(
         children: [
-          SectionTitle(
+          const SectionTitle(
             color: Color(0xFFFF0000),
             title: "Service Offerings",
             subTitle: "My Strong Arenas",
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              services.length,
+              (index) => ServiceCard(
+                index: index,
+              ),
+            ),
           ),
         ],
       ),
