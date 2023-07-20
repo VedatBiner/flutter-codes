@@ -12,6 +12,6 @@ Flutter güncellemeleri nedeni ile Orijinal kodun üzerinde bazı buton değişi
 
 <HR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-01.png" height="550em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-02.png" height="300em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-03.png" height="350em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-04.png" height="200em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-02.png" height="310em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-03.png" height="360em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/portfolio_web/screen_shots/img-04.png" height="220em"/>
