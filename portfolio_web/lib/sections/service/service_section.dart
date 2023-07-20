@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/constants.dart';
 import '../../models/service.dart';
-import 'components/section_title.dart';
+import '../../components/section_title.dart';
 import 'components/service_card.dart';
 
 class ServiceSection extends StatelessWidget {
