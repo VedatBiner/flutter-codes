@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/components/default_button.dart';
 import 'package:portfolio_web/components/section_title.dart';
 import 'package:portfolio_web/constants.dart';
 import 'components/contact_box.dart';
@@ -11,8 +10,6 @@ class ContactSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-
-      /// height: 500,
       decoration: const BoxDecoration(
         color: Color(0xFFE8F0F9),
         image: DecorationImage(
