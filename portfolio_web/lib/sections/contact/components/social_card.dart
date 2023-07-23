@@ -19,7 +19,6 @@ class SocialCard extends StatefulWidget {
 }
 
 class _SocialCardState extends State<SocialCard> {
-  @override
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
