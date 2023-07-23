@@ -30,9 +30,9 @@ class _VideoAppState extends State<VideoApp> {
         body: Center(
           child: _controller.value.isInitialized
               ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
               : Container(),
         ),
         floatingActionButton: FloatingActionButton(
