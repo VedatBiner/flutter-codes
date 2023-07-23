@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/sections/contact/components/social_card.dart';
 import '../../../constants.dart';
-import '../contact_section.dart';
+import 'contact_form.dart';
 
 class ContactBox extends StatelessWidget {
   const ContactBox({
