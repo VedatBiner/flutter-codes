@@ -54,7 +54,6 @@ class _SocialCardState extends State<SocialCard> {
               Text(widget.name),
             ],
           ),
-
         ),
       ),
     );
