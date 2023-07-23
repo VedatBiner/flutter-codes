@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/sections/contact/components/social_card.dart';
 import '../../../constants.dart';
