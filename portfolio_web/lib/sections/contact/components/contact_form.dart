@@ -60,7 +60,7 @@ class ContactForm extends StatelessWidget {
               onChanged: (value) {},
               decoration: const InputDecoration(
                 labelText: "Description",
-                hintText: "Select Project Budget",
+                hintText: "Write some description",
               ),
               maxLines: 5,
             ),
