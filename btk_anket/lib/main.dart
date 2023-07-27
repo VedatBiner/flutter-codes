@@ -109,7 +109,9 @@ class _SurveyListState extends State<SurveyList> {
         child: ListTile(
           title: Text(row.isim),
           trailing: Text(row.oy.toString()),
-          onTap: () => print(row.isim),
+          onTap: () => row.reference.update({
+            "oy" : row.oy + 1
+          }),
         ),
       ),
     );
