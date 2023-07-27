@@ -32,20 +32,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final sahteSnapshot = [
-  {"isim": "C#", "oy": 3},
-  {"isim": "Java", "oy": 4},
-  {"isim": "Dart", "oy": 5},
-  {"isim": "C++", "oy": 7},
-  {"isim": "Python", "oy": 90},
-  {"isim": "Perl", "oy": 2},
-];
-
 class Anket {
   String isim;
   int oy;
   DocumentReference reference;
-
   Anket({required this.isim, required this.oy, required this.reference});
 
   factory Anket.fromMap(
@@ -75,13 +65,13 @@ class _SurveyListState extends State<SurveyList> {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection("dilanketi").snapshots(),
-        builder: (context, snapshot){
-          if(!snapshot.hasData){
-            return const LinearProgressIndicator();
-          } else {
-            return buildBody(context,snapshot.data!.docs);
-          }
-        },
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const LinearProgressIndicator();
+        } else {
+          return buildBody(context, snapshot.data!.docs);
+        }
+      },
     );
   }
 
@@ -109,49 +99,14 @@ class _SurveyListState extends State<SurveyList> {
         child: ListTile(
           title: Text(row.isim),
           trailing: Text(row.oy.toString()),
-          onTap: () => row.reference.update({
-            "oy" : row.oy + 1
+          onTap: () =>
+              FirebaseFirestore.instance.runTransaction((transaction) async {
+            final freshSnapshot = await transaction.get(row.reference);
+            final fresh = Anket.fromSnapshot(freshSnapshot);
+            transaction.update((row.reference), {"oy": fresh.oy + 1});
           }),
         ),
       ),
     );
   }
 }
-
-
-/*
-class SurveyList extends StatelessWidget {
-  const SurveyList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream:
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text("Error : ${snapshot.error}");
-        }
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return const Text("Loading...");
-          case ConnectionState.active:
-          case ConnectionState.done:
-            if (snapshot.hasData) {
-              return ListView(
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  return ListTile(
-                    title: Text(document["isim"]),
-                    subtitle: Text(document["oy"].toString()),
-                  );
-                }).toList(),
-              );
-            }
-            return const Text("Veri bulunamadı");
-        }
-      },
-    );
-  }
-}
-
- */
