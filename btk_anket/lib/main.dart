@@ -73,10 +73,19 @@ class SurveyList extends StatefulWidget {
 class _SurveyListState extends State<SurveyList> {
   @override
   Widget build(BuildContext context) {
-    return buildBody(context, sahteSnapshot);
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("dilanketi").snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData){
+            return const LinearProgressIndicator();
+          } else {
+            return buildBody(context,snapshot.data!.docs);
+          }
+        },
+    );
   }
 
-  Widget buildBody(BuildContext context, List<Map<dynamic, dynamic>> snapshot) {
+  Widget buildBody(BuildContext context, List<DocumentSnapshot> snapshot) {
     return ListView(
       padding: const EdgeInsets.only(top: 20),
       children: snapshot
@@ -87,10 +96,8 @@ class _SurveyListState extends State<SurveyList> {
     );
   }
 
-  Widget buildListItem(BuildContext context, Map data) {
-    final DocumentReference dummyReference =
-        FirebaseFirestore.instance.collection('dilanketi').doc();
-    final row = Anket.fromMap(data, dummyReference);
+  Widget buildListItem(BuildContext context, DocumentSnapshot data) {
+    final row = Anket.fromSnapshot(data);
     return Padding(
       key: ValueKey(row.isim),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -117,7 +124,7 @@ class SurveyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("dilanketi").snapshots(),
+      stream:
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Text("Error : ${snapshot.error}");
