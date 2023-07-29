@@ -56,6 +56,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Kartpostal : ](https://github.com/VedatBiner/flutter-codes/tree/master/karpostal)Basit bir arayüz uygulaması</B><BR>
 
+<B>[Kelime Ezber: ](https://github.com/VedatBiner/flutter-codes/tree/master/kelime_ezber)İngilizce Türkçe Kelime Ezberleme uygulaması</B><BR>
+
 <B>[Kişiler (sqflite) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app)Kişler App Sqflite uygulaması</B><BR>
 
 <B>[Kişiler (BloC+Dio) : ](https://github.com/VedatBiner/flutter-codes/tree/master/kisiler_app_bloc_dio)Kişler App Bloc+Dio Versiyonu</B><BR>
