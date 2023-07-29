@@ -42,6 +42,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Food Recipe : ](https://github.com/VedatBiner/flutter-codes/tree/master/food_recipe)Yemek Listesi http/json Rest API Uygulaması</B><BR>
 
+<B>[Friendly Chat : ](https://github.com/VedatBiner/flutter-codes/tree/master/friendly_chat)chat App simple Interface Uygulaması</B><BR>
+
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
 
 <B>[Grocery App : ](https://github.com/VedatBiner/flutter-codes/tree/master/grocery_app_sqflite)Grocery App Sqflite Uygulaması</B><BR>
