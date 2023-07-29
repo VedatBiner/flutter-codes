@@ -7,4 +7,4 @@ Firebase güncellemelerini doğru yapınca uygulama düzgün çalışıyor.
 <BR>
 Uygulamanın ekran görüntüleri
 <HR>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/btk_ankaet/screen_shots/img-01.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/btk_ankeet/screen_shots/img-01.png" height="550em"/>
