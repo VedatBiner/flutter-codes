@@ -6,4 +6,6 @@ class AppAssets {
   static String twitter = "assets/images/twitter.png";
   static String medium = "assets/images/medium.png";
   static String telegram = "assets/images/telegram.png";
+  static String profile1 = "assets/images/pro1.png";
+  static String profile2 = "assets/images/pro2.png";
 }

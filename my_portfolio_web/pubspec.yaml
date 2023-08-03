@@ -16,6 +16,7 @@ dependencies:
 
   google_fonts:
   animated_text_kit:
+  animate_do:
 
 dev_dependencies:
   flutter_test:
