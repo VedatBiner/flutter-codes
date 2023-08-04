@@ -20,44 +20,32 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle headingStyles() {
+  static TextStyle headingStyles({
+    double fontSize = 36,
+    Color color = Colors.white,
+  }) {
     return GoogleFonts.rubikMoonrocks(
-      color: Colors.white,
+      color: color,
       fontWeight: FontWeight.bold,
-      fontSize: 36,
+      fontSize: fontSize,
       letterSpacing: 2,
     );
   }
 
-  static TextStyle normalStyle(){
-    return GoogleFonts.signikaNegative(
+  static TextStyle normalStyle() {
+    return const TextStyle(
       fontWeight: FontWeight.w500,
       fontSize: 16,
       color: Colors.white,
-      letterSpacing: 1,
+      letterSpacing: 1.7,
     );
   }
 
+  static TextStyle comfortaaStyle() {
+    return GoogleFonts.comfortaa(
+      fontSize: 18,
+      fontWeight: FontWeight.w800,
+      color: Colors.grey,
+    );
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,7 +5,9 @@ import 'package:my_portfolio_web/globals/app_assets.dart';
 import 'package:my_portfolio_web/globals/app_colors.dart';
 import 'package:my_portfolio_web/globals/app_text_styles.dart';
 import 'package:my_portfolio_web/globals/constants.dart';
+import 'package:my_portfolio_web/views/about_me.dart';
 import 'package:my_portfolio_web/widgets/profile_animation.dart';
+import '../globals/app_buttons.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -45,11 +47,13 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           top: size.height * 0.05,
-          left: size.width * 0.1,
-          right: size.height * 0.1,
+
+          /// left: size.width * 0.1,
+          /// right: size.height * 0.1,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,7 +178,10 @@ class HomePage extends StatelessWidget {
                     Constants.sizedBox(height: 18),
                     FadeInUp(
                       duration: const Duration(milliseconds: 1800),
-                      child: buildMaterialButton(onTap: () {}),
+                      child: AppButtons.buildMaterialButton(
+                        onTap: () {},
+                        buttonName: "Download CV",
+                      ),
                     ),
                   ],
                 ),
@@ -182,36 +189,10 @@ class HomePage extends StatelessWidget {
                 const ProfileAnimation(),
               ],
             ),
-            const SizedBox(height: 400),
+            const SizedBox(height: 220),
+            const AboutMe(),
           ],
         ),
-      ),
-    );
-  }
-
-  MaterialButton buildMaterialButton({
-    required VoidCallback onTap,
-  }) {
-    return MaterialButton(
-      onPressed: onTap,
-      color: AppColors.themeColor,
-      splashColor: AppColors.lawGreen,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 22,
-        vertical: 12,
-      ),
-      shape: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
-        borderSide: BorderSide.none,
-      ),
-      hoverColor: AppColors.aqua,
-      elevation: 6,
-      height: 46,
-      minWidth: 130,
-      focusElevation: 12,
-      child: Text(
-        "Download CV",
-        style: AppTextStyles.headerTextStyle(),
       ),
     );
   }
