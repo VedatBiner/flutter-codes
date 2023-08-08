@@ -13,20 +13,20 @@ class AppButtons {
       splashColor: AppColors.lawGreen,
       padding: const EdgeInsets.symmetric(
         horizontal: 22,
-        vertical: 12,
+        vertical: 10,
       ),
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(30),
         borderSide: BorderSide.none,
       ),
       hoverColor: AppColors.aqua,
-      elevation: 6,
+      elevation: 7,
       height: 46,
       minWidth: 130,
       focusElevation: 12,
       child: Text(
         buttonName,
-        style: AppTextStyles.headerTextStyle(),
+        style: AppTextStyles.headerTextStyle(color:Colors.black),
       ),
     );
   }
