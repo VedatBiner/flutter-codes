@@ -6,6 +6,7 @@ import 'package:my_portfolio_web/globals/app_colors.dart';
 import 'package:my_portfolio_web/globals/app_text_styles.dart';
 import 'package:my_portfolio_web/globals/constants.dart';
 import 'package:my_portfolio_web/views/about_me.dart';
+import 'package:my_portfolio_web/views/my_portfolio.dart';
 import 'package:my_portfolio_web/views/my_services.dart';
 import 'package:my_portfolio_web/widgets/profile_animation.dart';
 import '../globals/app_buttons.dart';
@@ -193,6 +194,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 220),
             const AboutMe(),
             const MyServices(),
+            const MyPortfolio(),
           ],
         ),
       ),

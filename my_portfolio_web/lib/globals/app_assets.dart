@@ -9,4 +9,6 @@ class AppAssets {
   static String profile1 = "assets/images/pro1.png";
   static String profile2 = "assets/images/pro2.png";
   static String code = 'assets/images/coding.png';
+  static String brush = 'assets/images/brush-stroke.png';
+  static String analyst = 'assets/images/analytics.png';
 }
