@@ -77,11 +77,14 @@ class _MyPortfolioState extends State<MyPortfolio> {
                   onHover: (value) {
                     setState(() {
                       if (value) {
-                        hoveredIndex = value;
+                        hoveredIndex = index;
+                      } else {
+                        hoveredIndex = null;
                       }
                     });
                   },
                   child: Stack(
+                    alignment: Alignment.center,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
