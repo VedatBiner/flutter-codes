@@ -106,14 +106,15 @@ class _MyPortfolioState extends State<MyPortfolio> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             gradient: LinearGradient(
-                                colors: [
-                                  AppColors.themeColor.withOpacity(1.0),
-                                  AppColors.themeColor.withOpacity(0.9),
-                                  AppColors.themeColor.withOpacity(0.8),
-                                  AppColors.themeColor.withOpacity(0.8),
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter),
+                              colors: [
+                                AppColors.themeColor.withOpacity(1.0),
+                                AppColors.themeColor.withOpacity(0.9),
+                                AppColors.themeColor.withOpacity(0.8),
+                                AppColors.themeColor.withOpacity(0.8),
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                            ),
                           ),
                           child: Column(
                             children: [
@@ -129,7 +130,8 @@ class _MyPortfolioState extends State<MyPortfolio> {
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing "
                                 "elit, sed do eiusmod tempor incididunt ut labore et ",
                                 style: AppTextStyles.normalStyle(
-                                    color: Colors.black87),
+                                  color: Colors.black87,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               Constants.sizedBox(height: 30.0),
