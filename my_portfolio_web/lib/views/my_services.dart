@@ -23,7 +23,7 @@ class _MyServicesState extends State<MyServices> {
     final Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
-      height: size.height,
+      height: size.height * 0.8,
       color: AppColors.bgColor,
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
@@ -139,24 +139,22 @@ class _MyServicesState extends State<MyServices> {
             title,
             style: AppTextStyles.montserratStyle(color: Colors.white),
           ),
-          Constants.sizedBox(height: 30),
+          Constants.sizedBox(height: 30.0),
           Image.asset(
             asset,
             width: 50,
             height: 50,
             color: AppColors.themeColor,
           ),
-          Constants.sizedBox(height: 12),
+          Constants.sizedBox(height: 12.0),
           Text(
             "Lorem ipsum dolor sit amet, consectetur adipiscing "
             "elit, sed do eiusmod tempor incididunt ut labore et "
-            "dolore magna aliqua. Ut enim ad minim veniam, quis "
-            "nostrud exercitation ullamco laboris nisi ut aliquip "
-            "ex ea commodo consequat. Duis aute irure dolor in",
+            "dolore magna aliqua." ,
             style: AppTextStyles.normalStyle(),
             textAlign: TextAlign.center,
           ),
-          Constants.sizedBox(height: 16),
+          Constants.sizedBox(height: 20.0),
           AppButtons.buildMaterialButton(
             buttonName: "Read More",
             onTap: () {},

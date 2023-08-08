@@ -13,7 +13,7 @@ class AboutMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height,
+      height: size.height * 0.8,
       color: AppColors.bgColor2,
       alignment: Alignment.center,
       child: Row(
