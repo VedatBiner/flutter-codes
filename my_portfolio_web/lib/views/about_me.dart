@@ -16,6 +16,10 @@ class AboutMe extends StatelessWidget {
       height: size.height * 0.8,
       color: AppColors.bgColor2,
       alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(
+        vertical: 30,
+        horizontal: size.width * 0.2,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
