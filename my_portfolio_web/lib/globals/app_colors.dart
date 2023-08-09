@@ -6,5 +6,5 @@ class AppColors{
   static Color aqua = const Color(0xFF007A74);
   static Color lawGreen = const Color(0xFF7CFC00);
   static Color bgColor2 = const Color(0xFF00416A);
-  static Color robbinEdgeBlue = const Color(0xFF0066CC);
+  static Color robinEdgeBlue = const Color(0xFF0066CC);
 }

@@ -42,7 +42,7 @@ class AboutMe extends StatelessWidget {
                           text: "Me",
                           style: AppTextStyles.headingStyles(
                             fontSize: 30,
-                            color: AppColors.robbinEdgeBlue,
+                            color: AppColors.robinEdgeBlue,
                           ),
                         ),
                       ],
