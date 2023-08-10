@@ -5,6 +5,7 @@ import 'package:my_portfolio_web/globals/app_assets.dart';
 import 'package:my_portfolio_web/globals/app_colors.dart';
 import 'package:my_portfolio_web/globals/app_text_styles.dart';
 import 'package:my_portfolio_web/globals/constants.dart';
+import 'package:my_portfolio_web/helperclass/helper_class.dart';
 import 'package:my_portfolio_web/widgets/profile_animation.dart';
 import '../globals/app_buttons.dart';
 
@@ -31,38 +32,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: Container(
-        height: size.height,
-        width: size.width,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(
-          vertical: 30,
-          horizontal: size.width * 0.1,
-        ),
-        child: LayoutBuilder(builder: (context, constraints) {
-          if (constraints.maxWidth < 768) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  buildHomePersonalInfo(size),
-                  Constants.sizedBox(height:25),
-                  const ProfileAnimation(),
-                ],
-              ),
-            );
-          } else {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                buildHomePersonalInfo(size),
-                const ProfileAnimation(),
-              ],
-            );
-          }
-        }),
+    return HelperClass(
+      mobile: Column(
+        children: [
+          buildHomePersonalInfo(size),
+          Constants.sizedBox(height: 25.0),
+          const ProfileAnimation()
+        ],
+      ),
+      tablet: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(child: buildHomePersonalInfo(size)),
+          const ProfileAnimation(),
+        ],
+      ),
+      desktop: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(child: buildHomePersonalInfo(size)),
+          const ProfileAnimation(),
+        ],
       ),
     );
   }
@@ -148,8 +140,7 @@ class _HomePageState extends State<HomePage> {
         Constants.sizedBox(height: 15),
         FadeInDown(
           duration: const Duration(milliseconds: 1600),
-          child: SizedBox(
-            width: size.width * 0.5,
+          child: Expanded(
             child: Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing "
               "elit, sed do eiusmod tempor incididunt ut labore et "
