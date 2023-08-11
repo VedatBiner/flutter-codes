@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio_web/views/about_me.dart';
 import 'package:my_portfolio_web/views/footer_class.dart';
 import 'package:my_portfolio_web/views/home_page.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
@@ -25,6 +26,7 @@ class _MainDashboardState extends State<MainDashboard> {
     "Contact",
   ];
 
+  final ItemScrollController _itemScrollController = ItemScrollController();
   final onMenuHover = Matrix4.identity()..scale(1.0);
   var menuIndex = 0;
 
@@ -37,8 +39,26 @@ class _MainDashboardState extends State<MainDashboard> {
     FooterClass(),
   ];
 
+  /// Future ?
+  void scrollTo({required int index}) {
+    _itemScrollController
+        .scrollTo(
+      index: index,
+      duration: const Duration(seconds: 2),
+      curve: Curves.fastLinearToSlowEaseIn,
+    )
+        .whenComplete(
+      () {
+        setState(() {
+          menuIndex = index;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    /// final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       appBar: AppBar(
@@ -84,7 +104,9 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          scrollTo(index: index);
+                        },
                         borderRadius: BorderRadius.circular(100),
                         child: buildNavBarAnimatedcontainer(
                             index, menuIndex == index ? true : false),
@@ -107,8 +129,9 @@ class _MainDashboardState extends State<MainDashboard> {
           }
         }),
       ),
-      body: ListView.builder(
+      body: ScrollablePositionedList.builder(
           itemCount: screensList.length,
+          itemScrollController: _itemScrollController,
           itemBuilder: (context, index) {
             return screensList[index];
           }),

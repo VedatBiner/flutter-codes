@@ -29,9 +29,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor2,
-      body: HelperClass(
+    return HelperClass(
         mobile: Column(
           children: [
             buildProjectText(),
@@ -55,7 +53,6 @@ class _MyPortfolioState extends State<MyPortfolio> {
         ),
         paddingWidth: size.width * 0.1,
         bgColor: AppColors.bgColor2,
-      ),
     );
   }
 

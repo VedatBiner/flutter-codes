@@ -17,6 +17,7 @@ dependencies:
   google_fonts:
   animated_text_kit:
   animate_do:
+  scrollable_positioned_list:
 
 dev_dependencies:
   flutter_test:
