@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio_web/globals/app_buttons.dart';
 import 'package:my_portfolio_web/globals/app_text_styles.dart';
 import 'package:my_portfolio_web/globals/constants.dart';
-
+import 'package:my_portfolio_web/helperclass/helper_class.dart';
 import '../globals/app_colors.dart';
 
 class ContactUs extends StatelessWidget {
@@ -12,121 +12,209 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: size.height,
-      color: AppColors.bgColor,
-      alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(vertical: 30, horizontal: size.width * 0.2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          FadeInDown(
-            duration: const Duration(milliseconds: 1200),
-            child: RichText(
-              text: TextSpan(
-                text: "Contact ",
-                style: AppTextStyles.headingStyles(fontSize: 30),
-                children: [
-                  TextSpan(
-                    text: "Me",
-                    style: AppTextStyles.headingStyles(
-                      fontSize: 30,
-                      color: AppColors.robinEdgeBlue,
-                    ),
-                  ),
-                ],
+    return Scaffold(
+      backgroundColor: AppColors.bgColor,
+      body: HelperClass(
+        mobile: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            buildContactText(),
+            Constants.sizedBox(height: 40),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+              elevation: 8,
+              child: TextField(
+                cursorColor: AppColors.white,
+                style: AppTextStyles.normalStyle(),
+                decoration: buildInputDecoration(
+                  hintText: "Full Name",
+                ),
               ),
             ),
-          ),
-          Constants.sizedBox(height: 40),
-          Row(
-            children: [
-              Expanded(
-                child: Material(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
-                  elevation: 8,
-                  child: TextField(
-                    cursorColor: AppColors.white,
-                    style: AppTextStyles.normalStyle(),
-                    decoration: buildInputDecoration(
-                      hintText: "Full Name",
-                    ),
-                  ),
+            Constants.sizedBox(height: 20),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+              elevation: 8,
+              child: TextField(
+                cursorColor: AppColors.white,
+                style: AppTextStyles.normalStyle(),
+                decoration: buildInputDecoration(
+                  hintText: "Email Address",
                 ),
-              ),
-              Constants.sizedBox(width: 20),
-              Expanded(
-                child: Material(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
-                  elevation: 8,
-                  child: TextField(
-                    cursorColor: AppColors.white,
-                    style: AppTextStyles.normalStyle(),
-                    decoration: buildInputDecoration(
-                      hintText: "Email Address",
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Constants.sizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Material(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
-                  elevation: 8,
-                  child: TextField(
-                    cursorColor: AppColors.white,
-                    style: AppTextStyles.normalStyle(),
-                    decoration: buildInputDecoration(
-                      hintText: "Mobile Number",
-                    ),
-                  ),
-                ),
-              ),
-              Constants.sizedBox(width: 20),
-              Expanded(
-                child: Material(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
-                  elevation: 8,
-                  child: TextField(
-                    cursorColor: AppColors.white,
-                    style: AppTextStyles.normalStyle(),
-                    decoration: buildInputDecoration(
-                      hintText: "Email Subject",
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Constants.sizedBox(height: 20),
-          Material(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.transparent,
-            elevation: 8,
-            child: TextField(
-              cursorColor: AppColors.white,
-              style: AppTextStyles.normalStyle(),
-              maxLines: 15,
-              decoration: buildInputDecoration(
-                hintText: "Your Message",
               ),
             ),
+            Constants.sizedBox(height: 20),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+              elevation: 8,
+              child: TextField(
+                cursorColor: AppColors.white,
+                style: AppTextStyles.normalStyle(),
+                decoration: buildInputDecoration(
+                  hintText: "Mobile Number",
+                ),
+              ),
+            ),
+            Constants.sizedBox(height: 20),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+              elevation: 8,
+              child: TextField(
+                cursorColor: AppColors.white,
+                style: AppTextStyles.normalStyle(),
+                decoration: buildInputDecoration(
+                  hintText: "Email Subject",
+                ),
+              ),
+            ),
+            Constants.sizedBox(height: 20),
+            Material(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+              elevation: 8,
+              child: TextField(
+                cursorColor: AppColors.white,
+                style: AppTextStyles.normalStyle(),
+                maxLines: 15,
+                decoration: buildInputDecoration(
+                  hintText: "Your Message",
+                ),
+              ),
+            ),
+            Constants.sizedBox(height: 40),
+            AppButtons.buildMaterialButton(
+              buttonName: "Send Message",
+              onTap: () {},
+            ),
+            Constants.sizedBox(height: 30),
+          ],
+        ),
+        tablet: buildForm(),
+        desktop: buildForm(),
+        paddingWidth: size.width * 0.2,
+      ),
+    );
+  }
+
+  Column buildForm() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        buildContactText(),
+        Constants.sizedBox(height: 40),
+        Row(
+          children: [
+            Expanded(
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent,
+                elevation: 8,
+                child: TextField(
+                  cursorColor: AppColors.white,
+                  style: AppTextStyles.normalStyle(),
+                  decoration: buildInputDecoration(
+                    hintText: "Full Name",
+                  ),
+                ),
+              ),
+            ),
+            Constants.sizedBox(width: 20),
+            Expanded(
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent,
+                elevation: 8,
+                child: TextField(
+                  cursorColor: AppColors.white,
+                  style: AppTextStyles.normalStyle(),
+                  decoration: buildInputDecoration(
+                    hintText: "Email Address",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Constants.sizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent,
+                elevation: 8,
+                child: TextField(
+                  cursorColor: AppColors.white,
+                  style: AppTextStyles.normalStyle(),
+                  decoration: buildInputDecoration(
+                    hintText: "Mobile Number",
+                  ),
+                ),
+              ),
+            ),
+            Constants.sizedBox(width: 20),
+            Expanded(
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent,
+                elevation: 8,
+                child: TextField(
+                  cursorColor: AppColors.white,
+                  style: AppTextStyles.normalStyle(),
+                  decoration: buildInputDecoration(
+                    hintText: "Email Subject",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Constants.sizedBox(height: 20),
+        Material(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.transparent,
+          elevation: 8,
+          child: TextField(
+            cursorColor: AppColors.white,
+            style: AppTextStyles.normalStyle(),
+            maxLines: 15,
+            decoration: buildInputDecoration(
+              hintText: "Your Message",
+            ),
           ),
-          Constants.sizedBox(height: 40),
-          AppButtons.buildMaterialButton(
-            buttonName: "Send Message",
-            onTap: () {},
-          ),
-        ],
+        ),
+        Constants.sizedBox(height: 40),
+        AppButtons.buildMaterialButton(
+          buttonName: "Send Message",
+          onTap: () {},
+        ),
+        Constants.sizedBox(height: 30),
+      ],
+    );
+  }
+
+  FadeInDown buildContactText() {
+    return FadeInDown(
+      duration: const Duration(milliseconds: 1200),
+      child: RichText(
+        text: TextSpan(
+          text: "Contact ",
+          style: AppTextStyles.headingStyles(fontSize: 30),
+          children: [
+            TextSpan(
+              text: "Me",
+              style: AppTextStyles.headingStyles(
+                fontSize: 30,
+                color: AppColors.robinEdgeBlue,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
