@@ -4,6 +4,7 @@ import 'package:my_portfolio_web/views/home_page.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
+import 'my_portfolio.dart';
 import 'my_services.dart';
 
 class MainDashboard extends StatefulWidget {
@@ -96,7 +97,7 @@ class _MainDashboardState extends State<MainDashboard> {
           }
         }),
       ),
-      body: const MyServices(),
+      body: const MyPortfolio(),
     );
   }
 
