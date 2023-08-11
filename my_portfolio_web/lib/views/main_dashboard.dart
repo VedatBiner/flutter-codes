@@ -39,14 +39,12 @@ class _MainDashboardState extends State<MainDashboard> {
     FooterClass(),
   ];
 
-  /// Future ?
-  void scrollTo({required int index}) {
+  Future scrollTo({required int index}) async {
     _itemScrollController
         .scrollTo(
-      index: index,
-      duration: const Duration(seconds: 2),
-      curve: Curves.fastLinearToSlowEaseIn,
-    )
+            index: index,
+            duration: const Duration(seconds: 2),
+            curve: Curves.fastLinearToSlowEaseIn)
         .whenComplete(
       () {
         setState(() {
@@ -58,7 +56,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    /// final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.bgColor,
       appBar: AppBar(
@@ -70,18 +68,32 @@ class _MainDashboardState extends State<MainDashboard> {
           if (constraints.maxWidth < 768) {
             return Row(
               children: [
-                Text(
-                  "Portfolio",
-                  style: AppTextStyles.headerTextStyle(),
-                ),
+                const Text("Portfolio"),
                 const Spacer(),
-                IconButton(
-                  onPressed: () {},
+                PopupMenuButton(
                   icon: Icon(
                     Icons.menu_sharp,
                     size: 32,
                     color: AppColors.white,
                   ),
+                  color: AppColors.bgColor2,
+                  position: PopupMenuPosition.under,
+                  constraints: BoxConstraints.tightFor(
+                    width: size.width * 0.9,
+                  ),
+                  itemBuilder: (BuildContext context) => menuItems
+                      .asMap()
+                      .entries
+                      .map(
+                        (e) => PopupMenuItem(
+                          textStyle: AppTextStyles.headerTextStyle(),
+                          onTap: () {
+                            scrollTo(index: e.key);
+                          },
+                          child: Text(e.value),
+                        ),
+                      )
+                      .toList(),
                 ),
               ],
             );
@@ -129,12 +141,16 @@ class _MainDashboardState extends State<MainDashboard> {
           }
         }),
       ),
-      body: ScrollablePositionedList.builder(
-          itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
-          itemBuilder: (context, index) {
-            return screensList[index];
-          }),
+      body: Scrollbar(
+        trackVisibility: true,
+        thumbVisibility: true,
+        child: ScrollablePositionedList.builder(
+            itemCount: screensList.length,
+            itemScrollController: _itemScrollController,
+            itemBuilder: (context, index) {
+              return screensList[index];
+            }),
+      ),
     );
   }
 

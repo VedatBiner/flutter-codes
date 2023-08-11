@@ -180,7 +180,7 @@ class _MyServicesState extends State<MyServices> {
           ],
         ),
         paddingWidth: size.width * 0.1,
-        bgColor: AppColors.bgColor2,
+        bgColor: AppColors.bgColor,
     );
   }
 
