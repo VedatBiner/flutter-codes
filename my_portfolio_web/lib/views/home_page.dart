@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
             const ProfileAnimation(),
           ],
         ),
+        paddingWidth: size.width * 0.1,
       ),
     );
   }

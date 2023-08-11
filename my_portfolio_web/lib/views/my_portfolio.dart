@@ -53,6 +53,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
             buildProjectsGridView(crossAxisCount: 3)
           ],
         ),
+        paddingWidth: size.width * 0.1,
       ),
     );
   }
@@ -86,11 +87,13 @@ class _MyPortfolioState extends State<MyPortfolio> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image(
-                    image: AssetImage(image),
-                    fit: BoxFit.fill,
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: AssetImage(image),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 Visibility(

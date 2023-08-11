@@ -12,6 +12,7 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size  size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.bgColor2,
       body: HelperClass(
@@ -38,6 +39,7 @@ class AboutMe extends StatelessWidget {
             buildAboutMeContents(),
           ],
         ),
+        paddingWidth: size.width * 0.1,
       ),
     );
   }

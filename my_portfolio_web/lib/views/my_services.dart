@@ -181,6 +181,7 @@ class _MyServicesState extends State<MyServices> {
             ),
           ],
         ),
+        paddingWidth: size.width * 0.1,
       ),
     );
   }
