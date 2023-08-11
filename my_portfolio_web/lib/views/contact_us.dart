@@ -12,9 +12,7 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: HelperClass(
+    return HelperClass(
         mobile: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -97,7 +95,7 @@ class ContactUs extends StatelessWidget {
         tablet: buildForm(),
         desktop: buildForm(),
         paddingWidth: size.width * 0.2,
-      ),
+        bgColor: AppColors.bgColor2,
     );
   }
 

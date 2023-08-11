@@ -12,35 +12,33 @@ class AboutMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size  size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor2,
-      body: HelperClass(
-        mobile: Column(
-          children: [
-            buildAboutMeContents(),
-            Constants.sizedBox(width: 25),
-            buildProfilePicture(),
-          ],
-        ),
-        tablet: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            buildProfilePicture(),
-            Constants.sizedBox(width: 25),
-            buildAboutMeContents(),
-          ],
-        ),
-        desktop: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            buildProfilePicture(),
-            Constants.sizedBox(width: 25),
-            buildAboutMeContents(),
-          ],
-        ),
-        paddingWidth: size.width * 0.1,
+    final Size size = MediaQuery.of(context).size;
+    return HelperClass(
+      mobile: Column(
+        children: [
+          buildAboutMeContents(),
+          Constants.sizedBox(height: 32),
+          buildProfilePicture(),
+        ],
       ),
+      tablet: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          buildProfilePicture(),
+          Constants.sizedBox(width: 25),
+          Expanded(child: buildAboutMeContents()),
+        ],
+      ),
+      desktop: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          buildProfilePicture(),
+          Constants.sizedBox(width: 25),
+          Expanded(child: buildAboutMeContents()),
+        ],
+      ),
+      paddingWidth: size.width * 0.1,
+      bgColor: AppColors.bgColor2,
     );
   }
 
@@ -55,62 +53,60 @@ class AboutMe extends StatelessWidget {
     );
   }
 
-  Expanded buildAboutMeContents() {
-    return Expanded(
-      child: Column(
-        children: [
-          FadeInRight(
-            duration: const Duration(milliseconds: 1200),
-            child: RichText(
-              text: TextSpan(
-                text: "About ",
-                style: AppTextStyles.headingStyles(fontSize: 30),
-                children: [
-                  TextSpan(
-                    text: "Me!",
-                    style: AppTextStyles.headingStyles(
-                      fontSize: 30,
-                      color: AppColors.robinEdgeBlue,
-                    ),
+  Column buildAboutMeContents() {
+    return Column(
+      children: [
+        FadeInRight(
+          duration: const Duration(milliseconds: 1200),
+          child: RichText(
+            text: TextSpan(
+              text: "About ",
+              style: AppTextStyles.headingStyles(fontSize: 30),
+              children: [
+                TextSpan(
+                  text: "Me!",
+                  style: AppTextStyles.headingStyles(
+                    fontSize: 30,
+                    color: AppColors.robinEdgeBlue,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          Constants.sizedBox(height: 6),
-          FadeInLeft(
-            duration: const Duration(milliseconds: 1400),
-            child: Text(
-              "Flutter Developer!",
-              style: AppTextStyles.montserratStyle(color: Colors.white),
-            ),
+        ),
+        Constants.sizedBox(height: 6),
+        FadeInLeft(
+          duration: const Duration(milliseconds: 1400),
+          child: Text(
+            "Flutter Developer!",
+            style: AppTextStyles.montserratStyle(color: Colors.white),
           ),
-          Constants.sizedBox(height: 8),
-          FadeInLeft(
-            duration: const Duration(milliseconds: 1600),
-            child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing "
-              "elit, sed do eiusmod tempor incididunt ut labore et "
-              "dolore magna aliqua. Ut enim ad minim veniam, quis "
-              "nostrud exercitation ullamco laboris nisi ut aliquip "
-              "ex ea commodo consequat. Duis aute irure dolor in "
-              "reprehenderit in voluptate velit esse cillum dolore "
-              "eu fugiat nulla pariatur. Excepteur sint occaecat "
-              "cupidatat non proident, sunt in culpa qui officia "
-              "deserunt mollit anim id est laborum.",
-              style: AppTextStyles.normalStyle(),
-            ),
+        ),
+        Constants.sizedBox(height: 8),
+        FadeInLeft(
+          duration: const Duration(milliseconds: 1600),
+          child: Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing "
+            "elit, sed do eiusmod tempor incididunt ut labore et "
+            "dolore magna aliqua. Ut enim ad minim veniam, quis "
+            "nostrud exercitation ullamco laboris nisi ut aliquip "
+            "ex ea commodo consequat. Duis aute irure dolor in "
+            "reprehenderit in voluptate velit esse cillum dolore "
+            "eu fugiat nulla pariatur. Excepteur sint occaecat "
+            "cupidatat non proident, sunt in culpa qui officia "
+            "deserunt mollit anim id est laborum.",
+            style: AppTextStyles.normalStyle(),
           ),
-          Constants.sizedBox(height: 15),
-          FadeInUp(
-            duration: const Duration(milliseconds: 1800),
-            child: AppButtons.buildMaterialButton(
-              onTap: () {},
-              buttonName: "Read More",
-            ),
+        ),
+        Constants.sizedBox(height: 15),
+        FadeInUp(
+          duration: const Duration(milliseconds: 1800),
+          child: AppButtons.buildMaterialButton(
+            onTap: () {},
+            buttonName: "Read More",
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

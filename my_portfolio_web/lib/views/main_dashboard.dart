@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio_web/views/about_me.dart';
+import 'package:my_portfolio_web/views/footer_class.dart';
 import 'package:my_portfolio_web/views/home_page.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
@@ -27,11 +28,19 @@ class _MainDashboardState extends State<MainDashboard> {
   final onMenuHover = Matrix4.identity()..scale(1.0);
   var menuIndex = 0;
 
+  final screensList = const <Widget>[
+    HomePage(),
+    AboutMe(),
+    MyServices(),
+    MyPortfolio(),
+    ContactUs(),
+    FooterClass(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      /// backgroundColor: AppColors.bgColor,
+      backgroundColor: AppColors.bgColor,
       appBar: AppBar(
         backgroundColor: AppColors.bgColor,
         toolbarHeight: 90,
@@ -98,7 +107,11 @@ class _MainDashboardState extends State<MainDashboard> {
           }
         }),
       ),
-      body: const ContactUs(),
+      body: ListView.builder(
+          itemCount: screensList.length,
+          itemBuilder: (context, index) {
+            return screensList[index];
+          }),
     );
   }
 

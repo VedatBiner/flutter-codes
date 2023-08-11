@@ -54,6 +54,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
           ],
         ),
         paddingWidth: size.width * 0.1,
+        bgColor: AppColors.bgColor2,
       ),
     );
   }

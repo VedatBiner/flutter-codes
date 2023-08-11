@@ -22,9 +22,7 @@ class _MyServicesState extends State<MyServices> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: HelperClass(
+    return HelperClass(
         mobile: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -43,7 +41,7 @@ class _MyServicesState extends State<MyServices> {
                 hover: isApp,
               ),
             ),
-            Constants.sizedBox(width: 24),
+            Constants.sizedBox(height: 24),
             InkWell(
               onTap: () {},
               onHover: (value) {
@@ -57,7 +55,7 @@ class _MyServicesState extends State<MyServices> {
                 hover: isGraphic,
               ),
             ),
-            Constants.sizedBox(width: 24),
+            Constants.sizedBox(height: 24),
             InkWell(
               onTap: () {},
               onHover: (value) {
@@ -182,7 +180,7 @@ class _MyServicesState extends State<MyServices> {
           ],
         ),
         paddingWidth: size.width * 0.1,
-      ),
+        bgColor: AppColors.bgColor2,
     );
   }
 

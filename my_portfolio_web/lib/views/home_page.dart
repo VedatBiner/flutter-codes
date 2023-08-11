@@ -32,34 +32,32 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.bgColor,
-      body: HelperClass(
-        mobile: Column(
-          children: [
-            buildHomePersonalInfo(size),
-            Constants.sizedBox(height: 25.0),
-            const ProfileAnimation()
-          ],
-        ),
-        tablet: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(child: buildHomePersonalInfo(size)),
-            const ProfileAnimation(),
-          ],
-        ),
-        desktop: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(child: buildHomePersonalInfo(size)),
-            const ProfileAnimation(),
-          ],
-        ),
-        paddingWidth: size.width * 0.1,
+    return HelperClass(
+      mobile: Column(
+        children: [
+          buildHomePersonalInfo(size),
+          Constants.sizedBox(height: 25.0),
+          const ProfileAnimation()
+        ],
       ),
+      tablet: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(child: buildHomePersonalInfo(size)),
+          const ProfileAnimation(),
+        ],
+      ),
+      desktop: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(child: buildHomePersonalInfo(size)),
+          const ProfileAnimation(),
+        ],
+      ),
+      paddingWidth: size.width * 0.1,
+      bgColor: AppColors.bgColor,
     );
   }
 
