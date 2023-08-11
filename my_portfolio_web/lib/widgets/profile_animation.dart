@@ -23,8 +23,8 @@ class _ProfileAnimationState extends State<ProfileAnimation>
         reverse: true,
       );
     _animation = Tween(
-      begin: const Offset(0, 0.1),
-      end: const Offset(0, 0.2,),
+      begin: const Offset(0, 0.05),
+      end: const Offset(0, 0),
     ).animate(_controller);
   }
 
@@ -40,8 +40,9 @@ class _ProfileAnimationState extends State<ProfileAnimation>
       position: _animation,
       child: Image.asset(
         AppAssets.profile1,
-        width: 360,
-        height: 390,
+        width: 340,
+        height: 450,
+        fit: BoxFit.fill,
       ),
     );
   }
