@@ -22,36 +22,33 @@ class HelperClass extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth < 768) {
           return Container(
-            /// height: size.height,
             width: size.width,
             alignment: Alignment.center,
             color: bgColor,
             padding: EdgeInsets.symmetric(
               horizontal: paddingWidth,
-              vertical: size.height * 0.25,
+              vertical: size.height * 0.05,
             ),
             child: mobile,
           );
         } else if (constraints.maxWidth < 1200) {
           return Container(
-            /// height: size.height,
             width: size.width,
             alignment: Alignment.center,
             color: bgColor,
             padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.25,
+              vertical: size.height * 0.1,
               horizontal: paddingWidth,
             ),
             child: tablet,
           );
         } else {
           return Container(
-            /// height: size.height,
             width: size.width,
             alignment: Alignment.center,
             color: bgColor,
             padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.2,
+              vertical: size.height * 0.18,
               horizontal: paddingWidth,
             ),
             child: desktop,
