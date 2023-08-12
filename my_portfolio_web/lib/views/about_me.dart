@@ -17,7 +17,7 @@ class AboutMe extends StatelessWidget {
       mobile: Column(
         children: [
           buildAboutMeContents(),
-          Constants.sizedBox(height: 32),
+          Constants.sizedBox(height: 35),
           buildProfilePicture(),
         ],
       ),
@@ -55,6 +55,8 @@ class AboutMe extends StatelessWidget {
 
   Column buildAboutMeContents() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         FadeInRight(
           duration: const Duration(milliseconds: 1200),
