@@ -16,7 +16,7 @@ class AppTextStyles {
   }) {
     return GoogleFonts.montserrat(
       color: color,
-      fontWeight: FontWeight.w800,
+      fontWeight: FontWeight.w700,
       fontSize: fontSize,
     );
   }

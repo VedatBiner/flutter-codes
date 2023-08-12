@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Constants.sizedBox(height: 15),
-        FadeInRight(
+        FadeInDownBig(
           duration: const Duration(milliseconds: 1400),
           child: Text(
             "Vedat Biner",
@@ -84,21 +84,23 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Constants.sizedBox(height: 15),
+        FadeInLeftBig(
+          duration: const Duration(milliseconds: 1400),
+          child: Text(
+            "and I'm a,",
+            style: AppTextStyles.montserratStyle(color: Colors.white),
+          ),
+        ),
         FadeInLeft(
           duration: const Duration(milliseconds: 1400),
           child: Row(
             children: [
-              Text(
-                "and I'm a ",
-                style: AppTextStyles.montserratStyle(
-                  color: Colors.white,
-                ),
-              ),
               AnimatedTextKit(
                 animatedTexts: [
                   TyperAnimatedText(
                     "Flutter Developer",
                     textStyle: AppTextStyles.montserratStyle(
+                      /// fontSize: 15,
                       color: Colors.blueAccent,
                     ),
                     speed: const Duration(milliseconds: 100),
@@ -107,6 +109,8 @@ class _HomePageState extends State<HomePage> {
                     "Python Developer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
+
+                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 100),
                   ),
@@ -114,6 +118,8 @@ class _HomePageState extends State<HomePage> {
                     "Frontend Web Developer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
+
+                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 75),
                   ),
@@ -121,6 +127,8 @@ class _HomePageState extends State<HomePage> {
                     "System Administrator",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
+
+                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 75),
                   ),
@@ -128,6 +136,8 @@ class _HomePageState extends State<HomePage> {
                     "Freelancer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
+
+                      ///  fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 100),
                   ),

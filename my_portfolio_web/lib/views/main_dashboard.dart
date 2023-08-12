@@ -37,12 +37,16 @@ class _MainDashboardState extends State<MainDashboard> {
 
   final screensList = const <Widget>[
     HomePage(),
-    AboutMe(),
+
+  ];
+
+  /*
+  AboutMe(),
     MyServices(),
     MyPortfolio(),
     ContactUs(),
     FooterClass(),
-  ];
+   */
 
   Future scrollTo({required int index}) async {
     _itemScrollController
