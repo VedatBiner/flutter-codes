@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Constants.sizedBox(height: 22),
         FadeInUp(
-          duration: const Duration(milliseconds: 1600),
+          duration: const Duration(milliseconds: 1000),
           child: SizedBox(
             height: 48,
             child: ListView.separated(
