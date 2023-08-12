@@ -34,6 +34,8 @@ Desktop Görünümü,
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04-desktop.png" height="400em"/>
 Tablet Görünümü
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04-tablet.png" height="400em"/>
+Mobil Görünüm<BR>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04-mobile.png" height="400em"/>
 Contact Us Page
 Desktop Görünümü,
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-05-desktop.png" height="400em"/>
