@@ -21,6 +21,7 @@ class HelperClass extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 768) {
+          /// mobil görünüm
           return Container(
             width: size.width,
             alignment: Alignment.center,
@@ -32,6 +33,7 @@ class HelperClass extends StatelessWidget {
             child: mobile,
           );
         } else if (constraints.maxWidth < 1200) {
+          /// tablet görünümü
           return Container(
             width: size.width,
             alignment: Alignment.center,
@@ -43,6 +45,7 @@ class HelperClass extends StatelessWidget {
             child: tablet,
           );
         } else {
+          /// Desktop görünümü
           return Container(
             width: size.width,
             alignment: Alignment.center,
@@ -58,3 +61,4 @@ class HelperClass extends StatelessWidget {
     );
   }
 }
+
