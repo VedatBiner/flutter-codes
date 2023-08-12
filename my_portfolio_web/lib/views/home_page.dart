@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       paddingWidth: size.width * 0.1,
-      bgColor: AppColors.bgColor,
+      bgColor: Colors.transparent,
     );
   }
 
