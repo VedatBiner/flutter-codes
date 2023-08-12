@@ -29,9 +29,9 @@ class _MainDashboardState extends State<MainDashboard> {
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ScrollController _scrollController = ScrollController();
   final ItemPositionsListener itemPositionsListener =
-  ItemPositionsListener.create();
+      ItemPositionsListener.create();
   final ScrollOffsetListener scrollOffsetListener =
-  ScrollOffsetListener.create();
+      ScrollOffsetListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
   var menuIndex = 0;
 
@@ -73,7 +73,10 @@ class _MainDashboardState extends State<MainDashboard> {
             return Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Text("Portfolio"),
+                Text(
+                  "Portfolio",
+                  style: AppTextStyles.headerTextStyle(),
+                ),
                 const Spacer(),
                 PopupMenuButton(
                   icon: Icon(
@@ -108,7 +111,7 @@ class _MainDashboardState extends State<MainDashboard> {
               children: [
                 Text(
                   "Portfolio",
-                  style: AppTextStyles.headerTextStyle(), /// olmayabilir
+                  style: AppTextStyles.headerTextStyle(),
                 ),
                 const Spacer(),
                 SizedBox(
@@ -160,7 +163,6 @@ class _MainDashboardState extends State<MainDashboard> {
       ),
     );
   }
-
 
   AnimatedContainer buildNavBarAnimatedcontainer(int index, bool hover) {
     return AnimatedContainer(
