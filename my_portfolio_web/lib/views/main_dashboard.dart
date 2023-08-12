@@ -37,11 +37,11 @@ class _MainDashboardState extends State<MainDashboard> {
 
   final screensList = const <Widget>[
     HomePage(),
-
+    AboutMe(),
   ];
 
   /*
-  AboutMe(),
+
     MyServices(),
     MyPortfolio(),
     ContactUs(),
@@ -155,6 +155,10 @@ class _MainDashboardState extends State<MainDashboard> {
         }),
       ),
       body: Scrollbar(
+        trackVisibility: true,
+        thumbVisibility: true,
+        thickness: 8,
+        interactive: true,
         controller: _scrollController,
         child: ScrollablePositionedList.builder(
           itemCount: screensList.length,
@@ -177,7 +181,7 @@ class _MainDashboardState extends State<MainDashboard> {
       child: Text(
         menuItems[index],
         style: AppTextStyles.headerTextStyle(
-          color: hover ? AppColors.themeColor : AppColors.white,
+          color: hover ? AppColors.robinEdgeBlue : AppColors.white,
         ),
       ),
     );
