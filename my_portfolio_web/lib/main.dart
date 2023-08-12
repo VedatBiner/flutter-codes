@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PageStorageBucket bucket = PageStorageBucket();
     return MaterialApp(
       title: 'My Portfolio',
       debugShowCheckedModeBanner: false,
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MainDashboard(),
+      home: PageStorage(
+        bucket: bucket,
+        child: const MainDashboard(),
+      ),
     );
   }
 }
