@@ -31,6 +31,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
     final Size size = MediaQuery.of(context).size;
     return HelperClass(
         mobile: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildProjectText(),
             Constants.sizedBox(height: 40),
@@ -38,6 +39,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
           ],
         ),
         tablet: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildProjectText(),
             Constants.sizedBox(height: 40),
@@ -45,6 +47,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
           ],
         ),
         desktop: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             buildProjectText(),
             Constants.sizedBox(height: 40),
@@ -97,8 +100,9 @@ class _MyPortfolioState extends State<MyPortfolio> {
                 Visibility(
                   visible: index == hoveredIndex,
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 600),
                     transform: index == hoveredIndex ? onHoverEffect : null,
+                    curve: Curves.easeIn,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 14,
                       vertical: 16,
@@ -110,7 +114,7 @@ class _MyPortfolioState extends State<MyPortfolio> {
                           AppColors.themeColor.withOpacity(1.0),
                           AppColors.themeColor.withOpacity(0.9),
                           AppColors.themeColor.withOpacity(0.8),
-                          AppColors.themeColor.withOpacity(0.8),
+                          AppColors.themeColor.withOpacity(0.6),
                         ],
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
