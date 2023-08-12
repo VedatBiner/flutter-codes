@@ -108,7 +108,7 @@ class _MyServicesState extends State<MyServices> {
                 ),
               ],
             ),
-            Constants.sizedBox(width: 26),
+            Constants.sizedBox(height: 30),
             InkWell(
               onTap: () {},
               onHover: (value) {
