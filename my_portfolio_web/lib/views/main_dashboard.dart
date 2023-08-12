@@ -27,6 +27,11 @@ class _MainDashboardState extends State<MainDashboard> {
   ];
 
   final ItemScrollController _itemScrollController = ItemScrollController();
+  final ScrollController _scrollController = ScrollController();
+  final ItemPositionsListener itemPositionsListener =
+  ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+  ScrollOffsetListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
   var menuIndex = 0;
 
@@ -45,13 +50,11 @@ class _MainDashboardState extends State<MainDashboard> {
             index: index,
             duration: const Duration(seconds: 2),
             curve: Curves.fastLinearToSlowEaseIn)
-        .whenComplete(
-      () {
-        setState(() {
-          menuIndex = index;
-        });
-      },
-    );
+        .whenComplete(() {
+      setState(() {
+        menuIndex = index;
+      });
+    });
   }
 
   @override
@@ -65,8 +68,10 @@ class _MainDashboardState extends State<MainDashboard> {
         titleSpacing: 40,
         elevation: 0,
         title: LayoutBuilder(builder: (context, constraints) {
+          /// mobil ekran
           if (constraints.maxWidth < 768) {
             return Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Text("Portfolio"),
                 const Spacer(),
@@ -99,10 +104,11 @@ class _MainDashboardState extends State<MainDashboard> {
             );
           } else {
             return Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   "Portfolio",
-                  style: AppTextStyles.headerTextStyle(),
+                  style: AppTextStyles.headerTextStyle(), /// olmayabilir
                 ),
                 const Spacer(),
                 SizedBox(
@@ -142,17 +148,19 @@ class _MainDashboardState extends State<MainDashboard> {
         }),
       ),
       body: Scrollbar(
-        trackVisibility: true,
-        thumbVisibility: true,
+        controller: _scrollController,
         child: ScrollablePositionedList.builder(
-            itemCount: screensList.length,
-            itemScrollController: _itemScrollController,
-            itemBuilder: (context, index) {
-              return screensList[index];
-            }),
+          itemCount: screensList.length,
+          itemScrollController: _itemScrollController,
+          itemPositionsListener: itemPositionsListener,
+          itemBuilder: (context, index) {
+            return screensList[index];
+          },
+        ),
       ),
     );
   }
+
 
   AnimatedContainer buildNavBarAnimatedcontainer(int index, bool hover) {
     return AnimatedContainer(
