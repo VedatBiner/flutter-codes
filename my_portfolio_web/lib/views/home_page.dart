@@ -133,7 +133,16 @@ class _HomePageState extends State<HomePage> {
                     speed: const Duration(milliseconds: 75),
                   ),
                   TyperAnimatedText(
-                    "Freelancer",
+                    "Traveller",
+                    textStyle: AppTextStyles.montserratStyle(
+                      color: Colors.blueAccent,
+
+                      ///  fontSize: 15,
+                    ),
+                    speed: const Duration(milliseconds: 100),
+                  ),
+                  TyperAnimatedText(
+                    "Photographer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
 
@@ -152,19 +161,17 @@ class _HomePageState extends State<HomePage> {
         Constants.sizedBox(height: 15),
         FadeInDown(
           duration: const Duration(milliseconds: 1600),
-          child: Expanded(
-            child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing "
-              "elit, sed do eiusmod tempor incididunt ut labore et "
-              "dolore magna aliqua. Ut enim ad minim veniam, quis "
-              "nostrud exercitation ullamco laboris nisi ut aliquip "
-              "ex ea commodo consequat. Duis aute irure dolor in "
-              "reprehenderit in voluptate velit esse cillum dolore "
-              "eu fugiat nulla pariatur. Excepteur sint occaecat "
-              "cupidatat non proident, sunt in culpa qui officia "
-              "deserunt mollit anim id est laborum.",
-              style: AppTextStyles.normalStyle(),
-            ),
+          child: Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing "
+            "elit, sed do eiusmod tempor incididunt ut labore et "
+            "dolore magna aliqua. Ut enim ad minim veniam, quis "
+            "nostrud exercitation ullamco laboris nisi ut aliquip "
+            "ex ea commodo consequat. Duis aute irure dolor in "
+            "reprehenderit in voluptate velit esse cillum dolore "
+            "eu fugiat nulla pariatur. Excepteur sint occaecat "
+            "cupidatat non proident, sunt in culpa qui officia "
+            "deserunt mollit anim id est laborum.",
+            style: AppTextStyles.normalStyle(),
           ),
         ),
         Constants.sizedBox(height: 22),
