@@ -19,17 +19,17 @@ Tablet Görünümü<BR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-02-tablet.png" height="450em"/>
 Services Page<BR>
 Desktop Görünümü<BR>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-03.png" height="550em"/>,
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-03.png-desktop" height="450em"/>,
 Tablet Görünümü<BR>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-03.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-03.png-tablet" height="450em"/>
 Portfolio Page
 Desktop Görünümü,
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04-desktop.png" height="550em"/>
 Tablet Görünümü
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-04-tablet.png" height="550em"/>
 Contact Us Page
 Desktop Görünümü,
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-05.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-05-desktop.png" height="550em"/>
 Tablet Görünümü
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-05.png" height="550em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/my_portfolio_web/screen_shots/img-05-tablet.png" height="550em"/>
 
