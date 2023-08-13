@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: PageStorage(
         bucket: bucket,
-        child: const MainDashboard(),
+        child: const MainDashBoard(),
       ),
     );
   }

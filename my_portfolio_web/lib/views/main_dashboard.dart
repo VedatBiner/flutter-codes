@@ -1,39 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio_web/views/about_me.dart';
-import 'package:my_portfolio_web/views/footer_class.dart';
-import 'package:my_portfolio_web/views/home_page.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
+import 'about_me.dart';
 import 'contact_us.dart';
+import 'footer_class.dart';
+import 'home_page.dart';
 import 'my_portfolio.dart';
 import 'my_services.dart';
 
-class MainDashboard extends StatefulWidget {
-  const MainDashboard({super.key});
+class MainDashBoard extends StatefulWidget {
+  const MainDashBoard({Key? key}) : super(key: key);
 
   @override
-  State<MainDashboard> createState() => _MainDashboardState();
+  _MainDashBoardState createState() => _MainDashBoardState();
 }
 
-class _MainDashboardState extends State<MainDashboard> {
-  final menuItems = <String>[
-    "Home",
-    "About",
-    "Services",
-    "Portfolio",
-    "Contact",
-  ];
-
-  final ItemScrollController _itemScrollController = ItemScrollController();
-  final ScrollController _scrollController = ScrollController();
-  final ItemPositionsListener itemPositionsListener =
-      ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener =
-      ScrollOffsetListener.create();
+class _MainDashBoardState extends State<MainDashBoard> {
   final onMenuHover = Matrix4.identity()..scale(1.0);
-  var menuIndex = 0;
 
   final screensList = const <Widget>[
     HomePage(),
@@ -41,21 +26,19 @@ class _MainDashboardState extends State<MainDashboard> {
     MyServices(),
     MyPortfolio(),
     ContactUs(),
-    FooterClass(),
+    // FooterClass(),
   ];
 
-  Future scrollTo({required int index}) async {
-    _itemScrollController
-        .scrollTo(
-            index: index,
-            duration: const Duration(seconds: 2),
-            curve: Curves.fastLinearToSlowEaseIn)
-        .whenComplete(() {
-      setState(() {
-        menuIndex = index;
-      });
-    });
-  }
+  final List<String> menuItems = [
+    "Home",
+    "About",
+    "Services",
+    "Portfolio",
+    "Contact",
+    // "", // Ekstra bir seçenek olarak eklenmiş.
+  ];
+
+  var menuIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -67,118 +50,115 @@ class _MainDashboardState extends State<MainDashboard> {
         toolbarHeight: 90,
         titleSpacing: 40,
         elevation: 0,
-        title: LayoutBuilder(builder: (context, constraints) {
-          /// mobil ekran
-          if (constraints.maxWidth < 768) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "Portfolio",
-                  style: AppTextStyles.headerTextStyle(),
-                ),
-                const Spacer(),
-                PopupMenuButton(
-                  icon: Icon(
-                    Icons.menu_sharp,
-                    size: 32,
-                    color: AppColors.white,
-                  ),
-                  color: AppColors.bgColor2,
-                  position: PopupMenuPosition.under,
-                  constraints: BoxConstraints.tightFor(
-                    width: size.width * 0.9,
-                  ),
-                  itemBuilder: (BuildContext context) => menuItems
-                      .asMap()
-                      .entries
-                      .map(
-                        (e) => PopupMenuItem(
-                          textStyle: AppTextStyles.headerTextStyle(),
-                          onTap: () {
-                            scrollTo(index: e.key);
-                          },
-                          child: Text(e.value),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
-            );
-          } else {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "Portfolio",
-                  style: AppTextStyles.headerTextStyle(),
-                ),
-                const Spacer(),
-                SizedBox(
-                  height: 30,
-                  child: ListView.separated(
-                    itemCount: menuItems.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, child) => Constants.sizedBox(
-                      width: 8,
+        title: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth < 768) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('Portfolio', style: AppTextStyles.headerTextStyle()),
+                  const Spacer(),
+                  PopupMenuButton<String>(
+                    icon: const Icon(
+                      Icons.menu_sharp,
+                      size: 32,
+                      color: Colors.white,
                     ),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          scrollTo(index: index);
-                        },
-                        borderRadius: BorderRadius.circular(100),
-                        child: buildNavBarAnimatedcontainer(
-                            index, menuIndex == index ? true : false),
-                        onHover: (value) {
-                          setState(() {
-                            if (value) {
-                              menuIndex = index;
-                            } else {
-                              menuIndex = 0;
-                            }
-                          });
-                        },
-                      );
+                    position: PopupMenuPosition.under,
+                    onSelected: (String result) {
+                      setState(() {
+                        // Tıklanan öğeyi belirle ve menuIndex'i güncelle
+                        menuIndex = menuItems.indexOf(result);
+                      });
                     },
+                    itemBuilder: (BuildContext context) {
+                      return menuItems.map((String option) {
+                        return PopupMenuItem<String>(
+                          value: option,
+                          child: Text(
+                            option,
+                            style: AppTextStyles.normalStyle(
+                              color: menuIndex == menuItems.indexOf(option) ? AppColors.themeColor : Colors.black54,
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
+                    elevation: 5,
+                    color: AppColors.robinEdgeBlue,
                   ),
-                ),
-                Constants.sizedBox(width: 30),
-              ],
-            );
-          }
-        }),
-      ),
-      body: Scrollbar(
-        trackVisibility: true,
-        thumbVisibility: true,
-        thickness: 8,
-        interactive: true,
-        controller: _scrollController,
-        child: ScrollablePositionedList.builder(
-          itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
-          itemPositionsListener: itemPositionsListener,
-          itemBuilder: (context, index) {
-            return screensList[index];
+                ],
+              );
+            } else {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'Portfolio',
+                    style: AppTextStyles.headerTextStyle(),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    height: 30,
+                    child: ListView.separated(
+                      itemCount: menuItems.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, child) =>
+                          Constants.sizedBox(width: 8),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            print("Seçenek $index seçildi.");
+                            setState(() {
+                              // Tıklanan öğeyi belirle ve menuIndex'i güncelle
+                              menuIndex = index;
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(100),
+                          onHover: (value) {
+                            setState(() {
+                              if (value) {
+                                menuIndex = index;
+                              } else {
+                                menuIndex = 0;
+                              }
+                            });
+                          },
+                          child: buildNavBarAnimatedContainer(
+                              index, menuIndex == index ? true : false),
+                        );
+                      },
+                    ),
+                  ),
+                  Constants.sizedBox(width: 30),
+                ],
+              );
+            }
           },
         ),
+      ),
+      body: ListView.builder(
+        itemCount: screensList.length,
+        itemBuilder: (context, index) {
+          return menuIndex == index
+              ? screensList[index]
+              : const SizedBox.shrink();
+        },
       ),
     );
   }
 
-  AnimatedContainer buildNavBarAnimatedcontainer(int index, bool hover) {
+  AnimatedContainer buildNavBarAnimatedContainer(int index, bool hover) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
       alignment: Alignment.center,
       width: hover ? 80 : 75,
+      duration: const Duration(milliseconds: 200),
       transform: hover ? onMenuHover : null,
       child: Text(
         menuItems[index],
         style: AppTextStyles.headerTextStyle(
-          color: hover ? AppColors.robinEdgeBlue : AppColors.white,
-        ),
+            color: hover ? AppColors.themeColor : AppColors.white),
       ),
     );
   }

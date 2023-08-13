@@ -4,7 +4,9 @@ Portfolio Web App - 2
 <BR>
 https://www.youtube.com/playlist?list=PLdVIxaXin_7Vdb8renB1OXDs_H9qzrwF5 Bu sitedeki listedeki eğitim.
 Burada HTML/CSS ile oluşturulmuş örnek bir sitenin Flutter ile klonu yapılıyor. 
-Kod üzerinde bazı değişiklikler yaptım.
+Kod üzerinde bazı değişiklikler yaptım. <BR>
+- Orijinal Kodda scrollable_positioned_list kullanılmış. Ancak sürkli hata veriyor çözümü bulamadım.
+- Bu durumda Pop up menü  button ile yaptım am bazı düzensizlikler var . <BR>
 
 Ekran Görüntüleri
 <HR>

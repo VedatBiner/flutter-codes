@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         FadeInDown(
           duration: const Duration(milliseconds: 1200),
           child: Text(
-            "Hello, It\'s Me",
+            "Hello, I\'m ",
             style: AppTextStyles.montserratStyle(
               color: Colors.white,
             ),
@@ -100,7 +100,6 @@ class _HomePageState extends State<HomePage> {
                   TyperAnimatedText(
                     "Flutter Developer",
                     textStyle: AppTextStyles.montserratStyle(
-                      /// fontSize: 15,
                       color: Colors.blueAccent,
                     ),
                     speed: const Duration(milliseconds: 100),
@@ -109,8 +108,6 @@ class _HomePageState extends State<HomePage> {
                     "Python Developer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
-
-                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 100),
                   ),
@@ -118,8 +115,6 @@ class _HomePageState extends State<HomePage> {
                     "Frontend Web Developer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
-
-                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 75),
                   ),
@@ -127,8 +122,6 @@ class _HomePageState extends State<HomePage> {
                     "System Administrator",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
-
-                      /// fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 75),
                   ),
@@ -136,8 +129,6 @@ class _HomePageState extends State<HomePage> {
                     "Traveller",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
-
-                      ///  fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 100),
                   ),
@@ -145,8 +136,6 @@ class _HomePageState extends State<HomePage> {
                     "Photographer",
                     textStyle: AppTextStyles.montserratStyle(
                       color: Colors.blueAccent,
-
-                      ///  fontSize: 15,
                     ),
                     speed: const Duration(milliseconds: 100),
                   ),
