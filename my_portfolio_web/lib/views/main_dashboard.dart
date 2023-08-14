@@ -1,5 +1,7 @@
+/// burada mobil mod çalışıyor. ancak Desktop ve tablet mod
+/// tıklamaları çalışmıyor. Sayfalar hove ile değişiyor ama kalıcı olmuyor.
+///
 import 'package:flutter/material.dart';
-
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
 import '../globals/constants.dart';
@@ -52,6 +54,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
         elevation: 0,
         title: LayoutBuilder(
           builder: (context, constraints) {
+            /// Eğer mobil ekran ise burası çalışacak
             if (constraints.maxWidth < 768) {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -92,6 +95,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                 ],
               );
             } else {
+              /// Eğer tablet veya desktop boyutunda ise burası çalışacak
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -115,7 +119,6 @@ class _MainDashBoardState extends State<MainDashBoard> {
                             setState(() {
                               // Tıklanan öğeyi belirle ve menuIndex'i güncelle
                               menuIndex = index;
-                              screensList[index];
                             });
                           },
                           borderRadius: BorderRadius.circular(100),
