@@ -27,6 +27,8 @@ class MainDashBoardScrollable extends StatefulWidget {
 class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
   _MainDashBoardScrollableState() : super();
   final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
   final onMenuHover = Matrix4.identity()..scale(1.0);
 
   final screensList = const <Widget>[
@@ -96,7 +98,8 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
                           .asMap()
                           .entries
                           .map((e) => PopupMenuItem(
-                                textStyle: AppTextStyles.headerTextStyle(),
+                                textStyle: AppTextStyles.headerTextStyle(
+                                    color: Colors.white),
                                 onTap: () {
                                   scrollTo(index: e.key);
                                 },
@@ -155,9 +158,11 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
         body: Scrollbar(
           trackVisibility: true,
           thumbVisibility: true,
+          thickness: 8,
           child: ScrollablePositionedList.builder(
             itemCount: screensList.length,
             itemScrollController: _itemScrollController,
+            itemPositionsListener: _itemPositionsListener,
             itemBuilder: (context, index) {
               return screensList[index];
             },
