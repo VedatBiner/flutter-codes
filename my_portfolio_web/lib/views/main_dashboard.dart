@@ -78,7 +78,9 @@ class _MainDashBoardState extends State<MainDashBoard> {
                           child: Text(
                             option,
                             style: AppTextStyles.normalStyle(
-                              color: menuIndex == menuItems.indexOf(option) ? AppColors.themeColor : Colors.black54,
+                              color: menuIndex == menuItems.indexOf(option)
+                                  ? AppColors.themeColor
+                                  : Colors.black54,
                             ),
                           ),
                         );
@@ -113,6 +115,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                             setState(() {
                               // Tıklanan öğeyi belirle ve menuIndex'i güncelle
                               menuIndex = index;
+                              screensList[index];
                             });
                           },
                           borderRadius: BorderRadius.circular(100),
