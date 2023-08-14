@@ -1,6 +1,10 @@
-/// burada mobil mod çalışıyor. ancak Desktop ve tablet mod
-/// tıklamaları çalışmıyor. Sayfalar hove ile değişiyor ama kalıcı olmuyor.
+/// burada mobil mod çalışıyor. Sağ üs köşedeki menü
+/// açılınca seçeneklere tıklanınca ilgili sayfa geliyor.
+/// Ancak Desktop ve tablet mod
+/// tıklamaları çalışmıyor. Sayfalar hove ile değişiyor ama
+/// kalıcı olmuyor.
 ///
+
 import 'package:flutter/material.dart';
 import '../globals/app_colors.dart';
 import '../globals/app_text_styles.dart';
