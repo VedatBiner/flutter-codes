@@ -44,12 +44,11 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
     "Services",
     "Portfolio",
     "Contact",
-    // "", // Ekstra bir seçenek olarak eklenmiş.
   ];
 
   var menuIndex = 0;
 
-  void scrollTo({required int index}) {
+  Future scrollTo({required int index}) async {
     _itemScrollController
         .scrollTo(
       index: index,
@@ -82,36 +81,28 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
                   children: [
                     Text('Portfolio', style: AppTextStyles.headerTextStyle()),
                     const Spacer(),
-                    PopupMenuButton<String>(
-                      icon: const Icon(
+                    PopupMenuButton(
+                      icon: Icon(
                         Icons.menu_sharp,
                         size: 32,
-                        color: Colors.white,
+                        color: AppColors.white,
                       ),
+                      color: AppColors.bgColor2,
                       position: PopupMenuPosition.under,
-                      onSelected: (String result) {
-                        setState(() {
-                          // Tıklanan öğeyi belirle ve menuIndex'i güncelle
-                          menuIndex = menuItems.indexOf(result);
-                        });
-                      },
-                      itemBuilder: (BuildContext context) {
-                        return menuItems.map((String option) {
-                          return PopupMenuItem<String>(
-                            value: option,
-                            child: Text(
-                              option,
-                              style: AppTextStyles.normalStyle(
-                                color: menuIndex == menuItems.indexOf(option)
-                                    ? AppColors.themeColor
-                                    : Colors.black54,
-                              ),
-                            ),
-                          );
-                        }).toList();
-                      },
-                      elevation: 5,
-                      color: AppColors.robinEdgeBlue,
+                      constraints: BoxConstraints.tightFor(
+                        width: size.width * 0.9,
+                      ),
+                      itemBuilder: (BuildContext context) => menuItems
+                          .asMap()
+                          .entries
+                          .map((e) => PopupMenuItem(
+                                textStyle: AppTextStyles.headerTextStyle(),
+                                onTap: () {
+                                  scrollTo(index: e.key);
+                                },
+                                child: Text(e.value),
+                              ))
+                          .toList(),
                     ),
                   ],
                 );
@@ -161,12 +152,16 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
             },
           ),
         ),
-        body: ScrollablePositionedList.builder(
-          itemCount: screensList.length,
-          itemScrollController: _itemScrollController,
-          itemBuilder: (context, index) {
-            return screensList[index];
-          },
+        body: Scrollbar(
+          trackVisibility: true,
+          thumbVisibility: true,
+          child: ScrollablePositionedList.builder(
+            itemCount: screensList.length,
+            itemScrollController: _itemScrollController,
+            itemBuilder: (context, index) {
+              return screensList[index];
+            },
+          ),
         ));
   }
 
