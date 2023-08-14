@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio_web/views/main_dashboard.dart';
+import 'package:my_portfolio_web/views/main_dashboard_scrollable.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: PageStorage(
         bucket: bucket,
-        child: const MainDashBoard(),
+        child: const MainDashBoardScrollable(),
       ),
     );
   }

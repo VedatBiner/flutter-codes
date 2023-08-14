@@ -3,7 +3,7 @@
 /// Ancak Desktop ve tablet mod
 /// tıklamaları çalışmıyor. Sayfalar hove ile değişiyor ama
 /// kalıcı olmuyor.
-///
+/// Footer class 'ı çıkardım.
 
 import 'package:flutter/material.dart';
 import '../globals/app_colors.dart';
