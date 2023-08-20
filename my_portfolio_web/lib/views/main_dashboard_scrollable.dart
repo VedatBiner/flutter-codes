@@ -26,6 +26,7 @@ class MainDashBoardScrollable extends StatefulWidget {
 
 class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
   _MainDashBoardScrollableState() : super();
+  final ScrollController _scrollController = ScrollController();
   final ItemScrollController _itemScrollController = ItemScrollController();
   final ItemPositionsListener _itemPositionsListener =
       ItemPositionsListener.create();
@@ -37,7 +38,7 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
     MyServices(),
     MyPortfolio(),
     ContactUs(),
-    // FooterClass(),
+    FooterClass(),
   ];
 
   final List<String> menuItems = [
@@ -155,18 +156,13 @@ class _MainDashBoardScrollableState extends State<MainDashBoardScrollable> {
             },
           ),
         ),
-        body: Scrollbar(
-          trackVisibility: true,
-          thumbVisibility: true,
-          thickness: 8,
-          child: ScrollablePositionedList.builder(
-            itemCount: screensList.length,
-            itemScrollController: _itemScrollController,
-            itemPositionsListener: _itemPositionsListener,
-            itemBuilder: (context, index) {
-              return screensList[index];
-            },
-          ),
+        body: ScrollablePositionedList.builder(
+          itemCount: screensList.length,
+          itemScrollController: _itemScrollController,
+          itemPositionsListener: _itemPositionsListener,
+          itemBuilder: (context, index) {
+            return screensList[index];
+          },
         ));
   }
 

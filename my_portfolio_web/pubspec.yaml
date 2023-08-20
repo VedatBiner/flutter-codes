@@ -18,6 +18,7 @@ dependencies:
   animated_text_kit:
   animate_do:
   scrollable_positioned_list:
+  firebase_core:
 
 dev_dependencies:
   flutter_test:
