@@ -32,10 +32,11 @@ class MainDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: drawerMenuList(controller)
-                            .map((e) => drawerMenuListWidget(e))
-                            .toList()),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: drawerMenuList(controller)
+                          .map((e) => drawerMenuListWidget(e))
+                          .toList(),
+                    ),
                   ],
                 ),
                 const Spacer(flex: 5),

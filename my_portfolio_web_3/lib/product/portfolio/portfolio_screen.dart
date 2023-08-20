@@ -7,6 +7,7 @@ class PortfolioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
+      child: Text("Portfolio"),
     );
   }
 }

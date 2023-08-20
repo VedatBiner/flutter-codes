@@ -7,6 +7,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.yellow,
+      child: Text("About"),
     );
   }
 }
