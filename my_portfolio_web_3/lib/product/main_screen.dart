@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/enum/enum.dart';
 import '../../core/extension/screensize_extension.dart';
 import '../../core/extension/widget_extension.dart';
 import '../product/drawer/main_drawer.dart';
@@ -28,6 +29,25 @@ class _MainScreenState extends State<MainScreen> {
       body: Stack(
         children: [
           mainScreenDrawerPageView(context),
+          Positioned(
+            right: GapEnum.N.value,
+            top: GapEnum.xxL.value,
+            child: Column(
+              children: [
+                const Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                  size: 48,
+                ),
+                GapEnum.N.heightBox,
+                const Icon(
+                  Icons.wb_sunny,
+                  color: Colors.black,
+                  size: 48,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -44,9 +64,6 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-
-
 
 /*
           Positioned(

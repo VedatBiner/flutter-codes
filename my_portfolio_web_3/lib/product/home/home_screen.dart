@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/enum/enum.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,7 +7,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      padding: EdgeInsets.only(
+        left: GapEnum.L.value,
+        right: GapEnum.M.value,
+        bottom: GapEnum.M.value,
+        top: GapEnum.M.value,
+      ),
+      color: Colors.white,
     );
   }
 }
