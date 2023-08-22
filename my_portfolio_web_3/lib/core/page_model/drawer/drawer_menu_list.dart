@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio_web_3/core/constants/duration.dart';
+import '../../../core/constants/duration.dart';
 import 'drawer_menu_model.dart';
 
 Widget drawerMenuListWidget(DrawerMenuModel e) {

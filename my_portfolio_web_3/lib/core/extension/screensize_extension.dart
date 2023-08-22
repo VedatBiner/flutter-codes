@@ -6,3 +6,4 @@ extension BuildContextScreenSizeExtension on BuildContext{
   bool get isTablet => size.width >= 500;
   bool get isMobile => size.width < 500;
 }
+

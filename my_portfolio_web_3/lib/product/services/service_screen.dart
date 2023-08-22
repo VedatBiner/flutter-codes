@@ -7,7 +7,6 @@ class ServiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.brown,
-      child: Text("Services"),
     );
   }
 }

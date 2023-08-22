@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio_web_3/product/home/home_screen.dart';
-import 'package:my_portfolio_web_3/product/portfolio/portfolio_screen.dart';
+import '../../product/home/home_screen.dart';
+import '../../product/portfolio/portfolio_screen.dart';
 import '../about/about_screen.dart';
 import '../contact/contact_screen.dart';
 import '../services/service_screen.dart';

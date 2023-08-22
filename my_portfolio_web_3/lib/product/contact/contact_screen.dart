@@ -7,7 +7,6 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.pink,
-      child: Text("Contact"),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio_web_3/core/extension/screensize_extension.dart';
-import 'package:my_portfolio_web_3/core/extension/widget_extension.dart';
-import 'package:my_portfolio_web_3/product/drawer/main_drawer.dart';
-import 'package:my_portfolio_web_3/product/pageview/main_pageview.dart';
+import '../../core/extension/screensize_extension.dart';
+import '../../core/extension/widget_extension.dart';
+import '../product/drawer/main_drawer.dart';
+import '../product/pageview/main_pageview.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -44,6 +44,9 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+
+
 
 /*
           Positioned(

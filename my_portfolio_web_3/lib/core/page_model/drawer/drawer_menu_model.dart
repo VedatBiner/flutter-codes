@@ -40,3 +40,4 @@ List<DrawerMenuModel> drawerMenuList(PageController controller) => [
         clicked: () => pageAnimatedTo(4, controller),
       ),
     ];
+
