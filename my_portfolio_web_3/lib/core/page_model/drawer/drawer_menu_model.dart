@@ -17,26 +17,26 @@ List<DrawerMenuModel> drawerMenuList(PageController controller) => [
       DrawerMenuModel(
         icon: Icons.home,
         title: "Home",
-        clicked: () => pageAnimatedTo(1, controller),
+        clicked: () => pageAnimatedTo(0, controller),
       ),
       DrawerMenuModel(
         icon: Icons.person,
         title: "About",
-        clicked: () => pageAnimatedTo(2, controller),
+        clicked: () => pageAnimatedTo(1, controller),
       ),
       DrawerMenuModel(
         icon: Icons.menu_book,
         title: "Services",
-        clicked: () => pageAnimatedTo(3, controller),
+        clicked: () => pageAnimatedTo(2, controller),
       ),
       DrawerMenuModel(
         icon: Icons.school,
         title: "Portfolio",
-        clicked: () => pageAnimatedTo(4, controller),
+        clicked: () => pageAnimatedTo(3, controller),
       ),
       DrawerMenuModel(
         icon: Icons.message_outlined,
         title: "Contact",
-        clicked: () => pageAnimatedTo(5, controller),
+        clicked: () => pageAnimatedTo(4, controller),
       ),
     ];
