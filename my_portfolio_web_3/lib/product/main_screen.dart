@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           mainScreenDrawerPageView(context),
           Positioned(
-            right: GapEnum.N.value,
+            right: GapEnum.M.value,
             top: GapEnum.xxL.value,
             child: Column(
               children: [
