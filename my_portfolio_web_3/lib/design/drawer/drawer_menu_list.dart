@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/duration.dart';
-import 'drawer_menu_model.dart';
+import '../../core/page_model/drawer_menu_model.dart';
 
 Widget drawerMenuListWidget(DrawerMenuModel e) {
   return InkWell(

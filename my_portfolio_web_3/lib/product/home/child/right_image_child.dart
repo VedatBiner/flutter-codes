@@ -7,12 +7,14 @@ class HomeRightImageChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.blue,
         image: DecorationImage(
           image: AssetImage("assets/images/home.png"),
         ),
       ),
     ).expanded(4);
+
+    /// ).expanded(4);
   }
 }

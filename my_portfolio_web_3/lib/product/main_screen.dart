@@ -58,8 +58,12 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         context.isDesktop
             ? MainDrawer(controller: controller).expanded(1)
+
+            /// MainDrawer(controller: controller).expanded(1)
             : const SizedBox.shrink(),
         MainPageView(controller: controller).expanded(3),
+
+        /// MainPageView(controller: controller).expanded(3),
       ],
     );
   }

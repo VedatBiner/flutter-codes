@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'drawer_menu_list.dart';
+import '../../design/drawer/drawer_menu_list.dart';
 
 class DrawerMenuModel {
   IconData icon;

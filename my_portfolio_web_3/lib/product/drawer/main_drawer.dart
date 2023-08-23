@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/extension/widget_extension.dart';
-import '../../core/page_model/drawer/drawer_menu_model.dart';
-import '../../core/page_model/drawer/drawer_menu_list.dart';
+import '../../core/page_model/drawer_menu_model.dart';
+import '../../design/drawer/drawer_menu_list.dart';
 
 // ignore: must_be_immutable
 class MainDrawer extends StatelessWidget {
@@ -16,13 +16,13 @@ class MainDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           drawerLogoField(),
-          drawwrControllerPanel(),
+          drawerControllerPanel(),
         ],
       ),
     );
   }
 
-  Widget drawwrControllerPanel() {
+  Widget drawerControllerPanel() {
     return Column(
       children: [
         const Spacer(flex: 1),
@@ -39,13 +39,13 @@ class MainDrawer extends StatelessWidget {
         ),
         const Spacer(flex: 5),
       ],
-    ).expanded(73);
+    ).expanded(73); /// ).expanded(73);
   }
 
   Container drawerLogoField() {
     return Container(
       color: Colors.grey[300],
-      child: const Icon(Icons.home, size: 46).expanded(27),
+      child: const Icon(Icons.home, size: 46).expanded(27), /// child: const Icon(Icons.home, size: 46).expanded(27),
     );
   }
 }

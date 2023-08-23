@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Row homeChildren() {
-    return Row(
+    return const Row(
       children: [
         HomeLetftTextChild(),
         HomeRightImageChild()
