@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/constants/enum/enum.dart';
 import '../../../design/text_styles/google_font_styles.dart';
 import '../../../core/extension/widget_extension.dart';
 
@@ -14,28 +15,35 @@ class HomeLetftTextChild extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           helloText(),
+          GapEnum.N.heightBox,
           jobText(),
+          GapEnum.N.heightBox,
           detailText(),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: const StadiumBorder(),
-              fixedSize: const Size(250, 60),
-            ),
-            child: const FittedBox(
-              child: Text(
-                "More about me ",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-          ).expanded(6),
+          GapEnum.xxL.heightBox,
+          aboutButton(),
         ],
       ),
-    );
+    ).expanded(6);
+  }
+
+  ElevatedButton aboutButton() {
+    return ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            shape: const StadiumBorder(),
+            fixedSize: const Size(250, 60),
+          ),
+          child: const FittedBox(
+            child: Text(
+              "More about me ",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+        );
   }
 
   Text detailText() {

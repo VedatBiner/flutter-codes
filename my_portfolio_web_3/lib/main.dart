@@ -5,6 +5,13 @@ void main() {
   runApp(const MyApp());
 }
 
+MultiProvider provider() => MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeManager),
+      ],
+      child: const MyApp(),
+    );
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,4 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
