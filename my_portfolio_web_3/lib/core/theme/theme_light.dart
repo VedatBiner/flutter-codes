@@ -20,3 +20,4 @@ class ThemeLight implements IAppTheme {
     background: Colors.white,
   );
 }
+

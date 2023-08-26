@@ -13,3 +13,4 @@ abstract class IThemeManager {
 abstract class IAppTheme{
   late ThemeData theme;
 }
+

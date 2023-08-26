@@ -7,3 +7,4 @@ extension ThemeManagerExtension on BuildContext {
   TextTheme get textTheme => currentTheme.textTheme;
   ColorScheme get colorScheme => currentTheme.colorScheme;
 }
+
