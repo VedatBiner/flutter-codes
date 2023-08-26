@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio_web_3/core/extension/theme_extension.dart';
 import '../../core/constants/enum/enum.dart';
 import '../../core/extension/screensize_extension.dart';
 import '../../core/extension/widget_extension.dart';
+import '../core/theme/theme_manager.dart';
 import '../product/drawer/main_drawer.dart';
 import '../product/pageview/main_pageview.dart';
 
@@ -25,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.colorScheme.background,
       drawer: !context.isDesktop ? MainDrawer(controller: controller) : null,
       body: Stack(
         children: [
@@ -40,10 +43,15 @@ class _MainScreenState extends State<MainScreen> {
                   size: 48,
                 ),
                 GapEnum.N.heightBox,
-                const Icon(
-                  Icons.wb_sunny,
+                IconButton(
+                  icon: const Icon(
+                    Icons.wb_sunny,
+                    size: 48,
+                  ),
                   color: Colors.black,
-                  size: 48,
+                  onPressed: () {
+                    ThemeManager.instance.reverseTheme();
+                  },
                 ),
               ],
             ),

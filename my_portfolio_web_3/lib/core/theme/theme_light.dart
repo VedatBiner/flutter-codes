@@ -14,7 +14,9 @@ class ThemeLight implements IAppTheme {
   ThemeData theme = ThemeData.light().copyWith(
     colorScheme: scheme,
   );
+
   static ColorScheme scheme = ColorScheme.fromSeed(
     seedColor: Colors.white,
+    background: Colors.white,
   );
 }

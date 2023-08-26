@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio_web_3/core/theme/theme_light.dart';
 import '../../core/constants/enum/theme_enum.dart';
 import '../../core/theme/theme_interface.dart';
-import '../../core/theme/theme_light.dart';
 
 class ThemeManager extends ChangeNotifier implements IThemeManager {
   static ThemeManager? _instance;
