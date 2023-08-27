@@ -23,7 +23,10 @@ class HomeScreen extends StatelessWidget {
 
   Row homeChildren() {
     return const Row(
-      children: [HomeLetftTextChild(), HomeRightImageChild()],
+      children: [
+        HomeLetftTextChild(),
+        HomeRightImageChild(),
+      ],
     );
   }
 }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/duration.dart';
-import '../../core/controller/main_screen_controller.dart';
 import '../../core/page_model/drawer_menu_model.dart';
 
 Widget drawerMenuListWidget(DrawerMenuModel e) {
@@ -35,6 +33,4 @@ Widget drawerMenuListWidget(DrawerMenuModel e) {
   );
 }
 
-void pageAnimatedTo(int page) {
-  MainScreenController.instance.changePage(page);
-}
+

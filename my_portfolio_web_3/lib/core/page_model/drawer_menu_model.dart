@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../design/drawer/drawer_menu_list.dart';
+
+import 'package:my_portfolio_web_3/core/controller/main_screen_controller.dart';
 
 class DrawerMenuModel {
   IconData icon;
@@ -17,7 +18,7 @@ List<DrawerMenuModel> drawerMenuList() => [
       DrawerMenuModel(
         icon: Icons.home,
         title: "Home",
-        clicked: () => pageAnimatedTo(0,),
+        clicked: () => pageAnimatedTo(0),
       ),
       DrawerMenuModel(
         icon: Icons.person,

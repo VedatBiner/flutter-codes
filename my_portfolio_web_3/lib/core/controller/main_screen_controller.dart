@@ -14,13 +14,18 @@ class MainScreenController extends ChangeNotifier {
   PageController controller = PageController(initialPage: 0);
   int get currentPage => _currentPage;
 
-  void changePage(int page) {
-    MainScreenController.instance.controller.animateToPage(
-      page,
-      duration: PageDuration().durationMs300,
-      curve: Curves.elasticInOut,
-    );
+  void changePage(int page){
     _currentPage = page;
     notifyListeners();
   }
+
+}
+
+Future<void> pageAnimatedTo(int page) async {
+  MainScreenController.instance.changePage(page);
+  return MainScreenController.instance.controller.animateToPage(
+    page,
+    duration: PageDuration().durationMs300,
+    curve: Curves.bounceIn,
+  );
 }

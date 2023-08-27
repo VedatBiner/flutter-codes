@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../core/constants/enum/enum.dart';
+import '../../../core/controller/main_screen_controller.dart';
 import '../../../design/text_styles/google_font_styles.dart';
 import '../../../core/extension/widget_extension.dart';
 
@@ -25,22 +27,24 @@ class HomeLetftTextChild extends StatelessWidget {
 
   ElevatedButton aboutButton() {
     return ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            shape: const StadiumBorder(),
-            fixedSize: const Size(250, 60),
+      onPressed: () {
+        pageAnimatedTo(1);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.red,
+        shape: const StadiumBorder(),
+        fixedSize: const Size(250, 60),
+      ),
+      child: const FittedBox(
+        child: Text(
+          "More about me ",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
           ),
-          child: const FittedBox(
-            child: Text(
-              "More about me ",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
-        );
+        ),
+      ),
+    );
   }
 
   Text detailText() {
