@@ -6,6 +6,11 @@ class HomeRightImageChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Image.asset(
+      "assets/images/home.png",
+    ).expanded(4);
+
+    /*
     return Container(
       decoration: const BoxDecoration(
         color: Colors.blue,
@@ -14,7 +19,7 @@ class HomeRightImageChild extends StatelessWidget {
         ),
       ),
     ).expanded(4);
-
+*/
     /// ).expanded(4);
   }
 }

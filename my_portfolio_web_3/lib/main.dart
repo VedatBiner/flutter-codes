@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio_web_3/core/theme/theme_dark.dart';
 import 'package:provider/provider.dart';
-import '../product/main_screen.dart';
+
+import 'core/controller/main_screen_controller.dart';
+import 'core/theme/theme_dark.dart';
+import 'product/main_screen.dart';
 import 'core/theme/theme_manager.dart';
 
 void main() {
@@ -11,6 +13,7 @@ void main() {
 MultiProvider provider() => MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeManager.instance),
+        ChangeNotifierProvider(create: (_) => MainScreenController.instance),
       ],
       child: const MyApp(),
     );

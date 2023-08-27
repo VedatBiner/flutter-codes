@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio_web_3/core/extension/theme_extension.dart';
 import '../../core/extension/widget_extension.dart';
 import '../../core/page_model/drawer_menu_model.dart';
 import '../../design/drawer/drawer_menu_list.dart';
 
 // ignore: must_be_immutable
 class MainDrawer extends StatelessWidget {
-  MainDrawer({required this.controller, super.key});
+  MainDrawer({super.key});
 
-  PageController controller;
+ // PageController controller;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: context.colorScheme.background,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,7 +33,7 @@ class MainDrawer extends StatelessWidget {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: drawerMenuList(controller)
+              children: drawerMenuList()
                   .map((e) => drawerMenuListWidget(e))
                   .toList(),
             ),

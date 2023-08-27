@@ -18,5 +18,6 @@ class ThemeDark implements IAppTheme {
   static ColorScheme scheme = ColorScheme.fromSeed(
     seedColor: Colors.black87,
     background: Colors.black87,
+    onBackground: Colors.white,
   );
 }

@@ -6,5 +6,6 @@ extension ThemeManagerExtension on BuildContext {
   ThemeData get currentTheme => watch<ThemeManager>().currentTheme;
   TextTheme get textTheme => currentTheme.textTheme;
   ColorScheme get colorScheme => currentTheme.colorScheme;
+  Color get themeBackground => colorScheme.background;
 }
 

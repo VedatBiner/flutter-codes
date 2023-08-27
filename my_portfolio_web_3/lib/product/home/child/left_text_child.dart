@@ -8,21 +8,18 @@ class HomeLetftTextChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          helloText(),
-          GapEnum.N.heightBox,
-          jobText(),
-          GapEnum.N.heightBox,
-          detailText(),
-          GapEnum.xxL.heightBox,
-          aboutButton(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        helloText(),
+        GapEnum.N.heightBox,
+        jobText(),
+        GapEnum.N.heightBox,
+        detailText(),
+        GapEnum.xxL.heightBox,
+        aboutButton(),
+      ],
     ).expanded(6);
   }
 
