@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/enum/enum.dart';
-import '../../../core/controller/main_screen_controller.dart';
+import '../../../core/page_model/drawer_menu_model.dart';
+import '../../../design/drawer/drawer_menu_list.dart';
 import '../../../design/text_styles/google_font_styles.dart';
 import '../../../core/extension/widget_extension.dart';
 

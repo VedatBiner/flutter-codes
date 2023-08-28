@@ -16,8 +16,8 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          drawerLogoField(),
-          drawerControllerPanel(),
+          drawerLogoField().expanded(27),
+          drawerControllerPanel().expanded(73),
         ],
       ),
     );
@@ -32,8 +32,9 @@ class MainDrawer extends StatelessWidget {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  drawerMenuList().map((e) => drawerMenuListWidget(e)).toList(),
+              children: drawerMenuList()
+                  .map<Widget>((e) => DrawerMenuListWidget(e))
+                  .toList(),
             ),
           ],
         ),
@@ -42,7 +43,7 @@ class MainDrawer extends StatelessWidget {
     ).expanded(73);
   }
 
-  Container drawerLogoField() {
+  Widget drawerLogoField() {
     return Container(
       color: Colors.grey[300],
       child: const Icon(Icons.home, size: 46).expanded(27),

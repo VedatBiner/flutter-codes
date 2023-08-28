@@ -18,11 +18,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int number = 0;
-  // late PageController controller;
 
   @override
   void initState() {
-    // controller = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -36,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorScheme.background,
-      drawer: !context.isDesktop ? MainDrawer() : null,
+      drawer: !context.isDesktop ? const MainDrawer() : null,
       body: Stack(
         children: [
           mainScreenDrawerPageView(context),
@@ -63,9 +61,9 @@ class _MainScreenState extends State<MainScreen> {
     return Row(
       children: [
         context.isDesktop
-            ? MainDrawer().expanded(1)
+            ? const MainDrawer().expanded(1)
             : const SizedBox.shrink(),
-        MainPageView().expanded(3),
+        const MainPageView().expanded(3),
       ],
     );
   }
