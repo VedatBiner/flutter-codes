@@ -1,6 +1,8 @@
-import 'package:flutter/widgets.dart';
-import 'package:my_portfolio_web_3/core/constants/enum/enum.dart';
-import 'package:my_portfolio_web_3/product/about/component/red_line_under_aboutme.dart';
+import 'package:flutter/material.dart';
+
+import '../../../core/constants/enum/enum.dart';
+import '../../../product/about/component/red_line_under_aboutme.dart';
+import '../../../core/theme/default_text_theme.dart';
 
 class AboutTitleWidget extends StatelessWidget {
   const AboutTitleWidget({super.key});
@@ -14,27 +16,27 @@ class AboutTitleWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: aboutMeTitle(),
         ),
-        GapEnum.xxL.heightBox,
+        GapEnum.xL.heightBox,
       ],
     );
   }
 
   List<Widget> aboutMeTitle() {
-    double lineWidth = 100;
+
     return [
       Text(
-      "About Me",
-      style:DefaultTextTheme().normalTheme.displayMedium?.copyWith(
-        fontWeight: FontWeight.bold,
+        "About Me",
+        style: DefaultTextTheme.displayMedium(fontSize: 16).copyWith(
+          fontWeight: FontWeight.bold,
       ),
       ),
       GapEnum.N.heightBox,
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          redLineUnderAboutMe(lineWidth),
-          GapEnum.xS.heightBox,
-          redLineUnderAboutMe(lineWidth / 2);
+          redLineUnderAboutMe(),
+          GapEnum.xL.heightBox,
+          redLineUnderAboutMe(isSmall: true),
         ],
       ),
     ];

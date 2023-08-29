@@ -23,6 +23,7 @@ class AboutScreen extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       AboutTitleWidget(),
+
     ],
   );
 }
