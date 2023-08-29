@@ -18,6 +18,7 @@ class ThemeLight implements IAppTheme {
   static ColorScheme scheme = ColorScheme.fromSeed(
     seedColor: Colors.white,
     background: Colors.white,
+    primary: Colors.red,
   );
 }
 

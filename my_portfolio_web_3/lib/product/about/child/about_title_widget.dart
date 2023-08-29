@@ -1,44 +1,59 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/extension/screensize_extension.dart';
 import '../../../core/constants/enum/enum.dart';
 import '../../../product/about/component/red_line_under_aboutme.dart';
 import '../../../core/theme/default_text_theme.dart';
 
-class AboutTitleWidget extends StatelessWidget {
+class AboutTitleWidget extends StatefulWidget {
   const AboutTitleWidget({super.key});
 
   @override
+  State<AboutTitleWidget> createState() => _AboutTitleWidgetState();
+}
+
+class _AboutTitleWidgetState extends State<AboutTitleWidget> {
+  late BuildContext mainContext;
+
+  @override
   Widget build(BuildContext context) {
+    mainContext = context;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: aboutMeTitle(),
-        ),
-        GapEnum.xL.heightBox,
-      ],
+      children: aboutMeTitle(),
     );
   }
 
   List<Widget> aboutMeTitle() {
-
     return [
-      Text(
-        "About Me",
-        style: DefaultTextTheme.displayMedium(fontSize: 16).copyWith(
-          fontWeight: FontWeight.bold,
-      ),
-      ),
+      _title(),
       GapEnum.N.heightBox,
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          redLineUnderAboutMe(),
-          GapEnum.xL.heightBox,
-          redLineUnderAboutMe(isSmall: true),
-        ],
-      ),
+      _line(),
+      GapEnum.xL.heightBox,
     ];
   }
+
+  Column _line() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const RedLineUnderAboutMe(),
+        GapEnum.xS.heightBox,
+        const RedLineUnderAboutMe(isSmall: true),
+      ],
+    );
+  }
+
+  Text _title() {
+    return Text(
+      "About Me",
+      style: titleStyle?.copyWith(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  TextStyle? get titleStyle => mainContext.isDesktop || mainContext.isTablet
+      ? DefaultTextTheme().normalTheme.displayMedium
+      : DefaultTextTheme().normalTheme.displaySmall;
 }

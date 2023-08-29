@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'child/about_subtitle_widget.dart';
 import '../../core/constants/enum/enum.dart';
 import 'child/about_title_widget.dart';
 
@@ -14,16 +15,16 @@ class AboutScreen extends StatelessWidget {
         vertical: GapEnum.xxL.value,
       ),
       child: SingleChildScrollView(
-      child: childreWidget(),
+      child: childrenWidget(),
       ),
     );
   }
 
-  Column childreWidget() => Column(
+  Column childrenWidget() => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      AboutTitleWidget(),
-
+      const AboutTitleWidget(),
+      AboutSubtitleWidget(),
     ],
   );
 }
