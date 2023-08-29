@@ -19,5 +19,6 @@ class ThemeDark implements IAppTheme {
     seedColor: Colors.black87,
     background: Colors.black87,
     onBackground: Colors.white,
+    primary: Colors.red,
   );
 }

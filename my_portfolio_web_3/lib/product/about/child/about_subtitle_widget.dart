@@ -14,12 +14,9 @@ class AboutSubtitleWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        subTitle(),
+        GapEnum.N.heightBox,
         Text(
-          "I'm Flutter Developer",
-          style: titleStyle,
-        ),
-        GapEnum.L.heightBox,
-        const Text(
           "Lorem ipsum dolor sit amet, consectetur adipiscing "
           "elit, sed do eiusmod tempor incididunt ut labore et "
           "dolore magna aliqua. Ut enim ad minim veniam, quis "
@@ -29,13 +26,42 @@ class AboutSubtitleWidget extends StatelessWidget {
           "eu fugiat nulla pariatur. Excepteur sint occaecat "
           "cupidatat non proident, sunt in culpa qui officia "
           "deserunt mollit anim id est laborum.",
-          style: ,
+          style: detailStyle?.copyWith(
+            color: Colors.grey,
+            fontWeight: FontWeight.bold,
+          ),
+          maxLines: 4,
         ),
       ],
     );
   }
 
-  TextStyle? get titleStyle => mainContext.isDesktop || mainContext.isTablet
+  Text subTitle() {
+    return Text.rich(
+      TextSpan(
+        style: subtitleStyle?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+        children: const [
+          TextSpan(
+            text: "I'm Vedat and ",
+          ),
+          TextSpan(
+            text: "Flutter Developer",
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle? get subtitleStyle => mainContext.isDesktop || mainContext.isTablet
       ? DefaultTextTheme().normalTheme.headlineMedium
       : DefaultTextTheme().normalTheme.headlineSmall;
+
+  TextStyle? get detailStyle => mainContext.isDesktop || mainContext.isTablet
+      ? DefaultTextTheme().normalTheme.titleLarge
+      : DefaultTextTheme().normalTheme.titleMedium;
 }

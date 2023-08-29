@@ -29,7 +29,7 @@ class _AboutTitleWidgetState extends State<AboutTitleWidget> {
       _title(),
       GapEnum.N.heightBox,
       _line(),
-      GapEnum.xL.heightBox,
+      GapEnum.L.heightBox,
     ];
   }
 
