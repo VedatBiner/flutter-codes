@@ -1,0 +1,6 @@
+# switch_mode_2
+
+https://github.com/JohannesMilke/theme_example Source kodu burada olan 
+<BR>
+https://www.youtube.com/watch?v=HSAa9yi0OMA&ab_channel=HeyFlutter%E2%80%A4com video eğitimi.
+<HR>
