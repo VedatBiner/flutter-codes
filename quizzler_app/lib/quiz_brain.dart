@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:quizzler_app/question.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
@@ -29,11 +32,30 @@ class QuizBrain {
   ];
 
   /// Bir sonraki soruya geç
-  void nextQuestion() {
+  void nextQuestion(BuildContext context) {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
-      print("Question no : $_questionNumber");
-      print("Total question : ${_questionBank.length}");
+      if (_questionNumber == _questionBank.length - 1) {
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Quiz alert !!!",
+          desc: "quiz Completed...",
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              width: 120,
+              child: const Text(
+                "OK",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            )
+          ],
+        ).show();
+        _questionNumber = 0;
+      }
     }
   }
 

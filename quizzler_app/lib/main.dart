@@ -54,7 +54,13 @@ class _QuizPageState extends State<QuizPage> {
           ),
         );
       }
-      quizBrain.nextQuestion();
+      quizBrain.nextQuestion(context);
+    });
+  }
+
+  void clearScoreKeeper() {
+    setState(() {
+      scoreKeeper.clear();
     });
   }
 
@@ -81,6 +87,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+
         /// Doğru cevap seçim düğmesi
         Expanded(
           child: Padding(
@@ -102,6 +109,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+
         /// Yanlış cevap seçim düğmesi
         Expanded(
           child: Padding(
@@ -123,10 +131,12 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+
         /// işaretlenen seçeneklerin gösterilmesi
         Row(
           children: scoreKeeper,
         ),
+
       ],
     );
   }
