@@ -64,6 +64,7 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        /// Soru sorma bölümü
         Expanded(
           flex: 5,
           child: Padding(
@@ -80,6 +81,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+        /// Doğru cevap seçim düğmesi
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -100,6 +102,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+        /// Yanlış cevap seçim düğmesi
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -120,6 +123,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
+        /// işaretlenen seçeneklerin gösterilmesi
         Row(
           children: scoreKeeper,
         ),
@@ -127,9 +131,3 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
-
-
-
-
-
-
