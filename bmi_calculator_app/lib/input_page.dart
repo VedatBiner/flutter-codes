@@ -36,38 +36,34 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: (){
                       setState(() {
                         selectedGender = Gender.male;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.male
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: const IconContent(
-                        icon: FontAwesomeIcons.mars,
-                        label: "MALE",
-                      ),
+                    color: selectedGender == Gender.male
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: const IconContent(
+                      icon: FontAwesomeIcons.mars,
+                      label: "MALE",
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: (){
                       setState(() {
                         selectedGender = Gender.female;
                       });
                     },
-                    child: ReusableCard(
-                      color: selectedGender == Gender.female
-                          ? activeCardColor
-                          : inactiveCardColor,
-                      cardChild: const IconContent(
-                        icon: FontAwesomeIcons.venus,
-                        label: "FEMALE",
-                      ),
+                    color: selectedGender == Gender.female
+                        ? activeCardColor
+                        : inactiveCardColor,
+                    cardChild: const IconContent(
+                      icon: FontAwesomeIcons.venus,
+                      label: "FEMALE",
                     ),
                   ),
                 ),
@@ -108,14 +104,3 @@ class _InputPageState extends State<InputPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
