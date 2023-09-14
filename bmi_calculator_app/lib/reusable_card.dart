@@ -5,11 +5,11 @@ class ReusableCard extends StatelessWidget {
     Key? key,
     required this.color,
     this.cardChild,
-    required this.onPress,
+    this.onPress,
   }) : super (key : key);
   final Color color;
   final Widget? cardChild;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
 
   @override
   Widget build(BuildContext context) {
