@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const labetTextStyle = TextStyle(
+const labelTextStyle = TextStyle(
   fontSize: 18,
   color: Color(0xFF8D8E98),
 );
@@ -27,7 +27,7 @@ class IconContent extends StatelessWidget {
         const SizedBox(height: 15),
         Text(
           label,
-          style: labetTextStyle,
+          style: labelTextStyle,
         ),
       ],
     );
