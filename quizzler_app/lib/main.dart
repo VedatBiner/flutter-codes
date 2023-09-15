@@ -34,7 +34,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [];
+  static List<Icon> scoreKeeper = [];
 
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
@@ -55,12 +55,6 @@ class _QuizPageState extends State<QuizPage> {
         );
       }
       quizBrain.nextQuestion(context);
-    });
-  }
-
-  void clearScoreKeeper() {
-    setState(() {
-      scoreKeeper.clear();
     });
   }
 
@@ -136,7 +130,6 @@ class _QuizPageState extends State<QuizPage> {
         Row(
           children: scoreKeeper,
         ),
-
       ],
     );
   }
