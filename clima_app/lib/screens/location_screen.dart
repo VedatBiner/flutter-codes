@@ -16,7 +16,9 @@ class _LocationScreenState extends State<LocationScreen> {
             image: const AssetImage('assets/images/location_background.jpg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-                Colors.white.withOpacity(0.8), BlendMode.dstATop),
+              Colors.white.withOpacity(0.8),
+              BlendMode.dstATop,
+            ),
           ),
         ),
         constraints: const BoxConstraints.expand(),
@@ -74,3 +76,7 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+//
+// double temperature = decodedData["current"]["temp"];
+// int condition = decodedData["current"]["weather"][0]["id"];
