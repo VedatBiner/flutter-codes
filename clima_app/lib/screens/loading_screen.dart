@@ -25,17 +25,29 @@ class _LoadingScreenState extends State<LoadingScreen> {
     Location location = Location();
     await location.getCurrentLocation();
 
-    NetworkHelper networkHelper =
-        NetworkHelper("https://api.openweathermap.org/data/3.0/onecall"
-            "?lat=${location.latitude}"
-            "&lon=${location.longitude}"
-            "&units=metric"
-            "&appid=$apiKey");
+    /// Bulunduğumuz lokasyonun hava durumunu al
+    NetworkHelper networkHelper = NetworkHelper(
+      "https://api.openweathermap.org/data/3.0/onecall"
+      "?lat=${location.latitude}"
+      "&lon=${location.longitude}"
+      "&units=metric"
+      "&appid=$apiKey",
+    );
     var weatherData = await networkHelper.getData();
+
+    /// Bulunduğumuz lokasyonun şehir adını al
+    NetworkHelper cityHelper = NetworkHelper(
+      "http://api.openweathermap.org/geo/1.0/reverse"
+      "?lat=${location.latitude}"
+      "&lon=${location.longitude}"
+      "&appid=$apiKey",
+    );
+    var cityData = await cityHelper.getData();
+
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(
         locationWeather: weatherData,
-      );
+        locationCity: cityData,);
     }));
   }
 

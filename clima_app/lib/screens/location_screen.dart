@@ -3,8 +3,13 @@ import '../utilities/constants.dart';
 import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({super.key, this.locationWeather});
+  const LocationScreen({
+    super.key,
+    this.locationWeather,
+    this.locationCity,
+  });
   final locationWeather;
+  final locationCity;
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
@@ -19,17 +24,17 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeather);
+    updateUI(widget.locationWeather, widget.locationCity);
   }
 
-  void updateUI(dynamic weatherData) {
+  void updateUI(dynamic weatherData, dynamic locationCity) {
     setState(() {
       double temp = weatherData["current"]["temp"];
       temperature = temp.toInt();
       var condition = weatherData["current"]["weather"][0]["id"];
       weatherIcon = weather.getWeatherIcon(condition!);
       weatherMessage = weather.getMessage(temperature!);
-      cityName = weatherData["name"];
+      cityName = locationCity[0]["name"].toString();
     });
   }
 
