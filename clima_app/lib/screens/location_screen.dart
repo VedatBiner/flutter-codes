@@ -44,7 +44,9 @@ class _LocationScreenState extends State<LocationScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage('assets/images/location_background.jpg'),
+            image: const AssetImage(
+              'assets/images/location_background.jpg',
+            ),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.white.withOpacity(0.8),
@@ -93,7 +95,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 15.0),
+                padding: const EdgeInsets.only(right: 15.0),
                 child: Text(
                   "$weatherMessage in $cityName",
                   textAlign: TextAlign.right,
@@ -108,5 +110,8 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 }
 
-//
-//
+
+
+
+
+
