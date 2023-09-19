@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
     );
   }
 }
