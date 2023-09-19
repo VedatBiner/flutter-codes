@@ -109,9 +109,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-
-
-
-
-
