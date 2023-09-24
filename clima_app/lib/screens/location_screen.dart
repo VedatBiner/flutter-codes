@@ -31,24 +31,18 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void getLocationData() async {
     var weatherData = await weather.getLocationWeather();
-    updateUI(weatherData, widget.locationCity);
-  }
-
-  void updateUI(dynamic weatherData, dynamic locationCity) {
-    if (weatherData != null &&
-        locationCity != null &&
-        weatherData["weatherData"] != null) {
+    if (weatherData != null && widget.locationCity != null) {
       setState(() {
         var currentWeather = weatherData["weatherData"];
-        temperature = (currentWeather['current']['temp']).toInt(); // temperature 'ı burada tanımlayın
+        temperature = (currentWeather['current']['temp']).toInt();
         var condition = currentWeather["current"]["weather"][0]["id"];
-        cityName = locationCity;
+        cityName = widget.locationCity;
         weatherMessage = weather.getMessage(temperature ?? 0);
         weatherIcon = weather.getWeatherIcon(condition);
 
         print("*** location_screen.dart set state bölümüne geldik. ***");
         print("**************************************************************");
-        print("Location city (location_screen.dart) ===> $locationCity");
+        print("Location city (location_screen.dart) ===> ${widget.locationCity}");
         print("temperature (location_screen.dart) ===> $temperature");
         print("Condition (location_screen.dart) ===> $condition");
         print("Weather Icon (location_screen.dart) ==> $weatherIcon");
@@ -107,7 +101,8 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '${temperature ?? 0}°',
+                     // '${temperature ?? 0}°',
+                      temperature != null ? "$temperature°" : "N/A",
                       style: kTempTextStyle,
                     ),
                     Text(
