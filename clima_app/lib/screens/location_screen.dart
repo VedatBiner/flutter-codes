@@ -1,3 +1,5 @@
+/// bu kodlarda bir null dönüşü var bulamıyorum
+
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../services/weather.dart';
@@ -16,7 +18,7 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
-  int? temperature;
+  int? temperature = 0;
   String? weatherIcon;
   String? cityName;
   String? weatherMessage;
@@ -32,31 +34,30 @@ class _LocationScreenState extends State<LocationScreen> {
     updateUI(weatherData, widget.locationCity);
   }
 
-  /// buraya gelen değerlerde bir sorun var ???
   void updateUI(dynamic weatherData, dynamic locationCity) {
-    if (weatherData != null && locationCity != null) {
+    if (weatherData != null &&
+        locationCity != null &&
+        weatherData["weatherData"] != null) {
       setState(() {
         var currentWeather = weatherData["weatherData"];
-        var temperature = (currentWeather['current']['temp']).toInt();
+        temperature = (currentWeather['current']['temp']).toInt(); // temperature 'ı burada tanımlayın
         var condition = currentWeather["current"]["weather"][0]["id"];
         cityName = locationCity;
         weatherMessage = weather.getMessage(temperature ?? 0);
         weatherIcon = weather.getWeatherIcon(condition);
 
-        ///
         print("*** location_screen.dart set state bölümüne geldik. ***");
         print("**************************************************************");
         print("Location city (location_screen.dart) ===> $locationCity");
         print("temperature (location_screen.dart) ===> $temperature");
         print("Condition (location_screen.dart) ===> $condition");
-        print("Weaather Icon (loction_screen.dart) ==> $weatherIcon");
-
-        /// doğru bilgi geliyor
+        print("Weather Icon (location_screen.dart) ==> $weatherIcon");
         print("Weather Message (location_screen.dart) ===> $weatherMessage");
         print("**************************************************************");
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +86,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () {
-                      getLocationData(); // getLocationData fonksiyonunu çağırdık
+                      getLocationData();
                     },
                     child: const Icon(
                       Icons.near_me,
@@ -105,14 +106,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: <Widget>[
-                    const Text(
-                      '32°',
-                      // temperature.toString(),
-                      //'$temperature°', /// *** burada hata var
+                    Text(
+                      '${temperature ?? 0}°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      // "deneme",
                       weatherIcon!,
                       style: kConditionTextStyle,
                     ),

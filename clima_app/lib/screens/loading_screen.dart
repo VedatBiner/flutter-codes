@@ -1,3 +1,5 @@
+/// bu kodlarda bir null dönüşü var bulamıyorum
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -5,7 +7,7 @@ import '../screens/location_screen.dart';
 import '../services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({super.key});
+  const LoadingScreen({Key? key});
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
@@ -23,22 +25,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
       var data = await WeatherModel().getLocationWeather();
       var weatherData = data["weatherData"];
       var cityData = data["cityData"];
-      var temperature = weatherData["current"]["temp"];
-      print("Temperature (loading_screen.dart) ==> $temperature");
+      var temperature = weatherData["current"]["temp"].toInt();
 
-      if (context.mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return LocationScreen(
-                locationWeather: weatherData,
-                locationCity: cityData.toString(),
-              );
-            },
-          ),
-        );
-      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return LocationScreen(
+              locationWeather: weatherData,
+              locationCity: cityData.toString(),
+            );
+          },
+        ),
+      );
     } catch (e) {
       print("*** HATA *** : $e");
     }
@@ -46,7 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
           color: Colors.white,
