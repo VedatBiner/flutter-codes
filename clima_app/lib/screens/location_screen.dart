@@ -4,7 +4,7 @@ import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({
-    super.key,
+    Key? key,
     this.locationWeather,
     this.locationCity,
   });
@@ -24,18 +24,38 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   void initState() {
     super.initState();
-    updateUI(widget.locationWeather, widget.locationCity);
+    getLocationData();
   }
 
+  void getLocationData() async {
+    var weatherData = await weather.getLocationWeather();
+    updateUI(weatherData, widget.locationCity);
+  }
+
+  /// buraya gelen değerlerde bir sorun var ???
   void updateUI(dynamic weatherData, dynamic locationCity) {
-    setState(() {
-      double temp = weatherData["current"]["temp"];
-      temperature = temp.toInt();
-      var condition = weatherData["current"]["weather"][0]["id"];
-      weatherIcon = weather.getWeatherIcon(condition!);
-      weatherMessage = weather.getMessage(temperature!);
-      cityName = locationCity[0]["name"].toString();
-    });
+    if (weatherData != null && locationCity != null) {
+      setState(() {
+        var currentWeather = weatherData["weatherData"];
+        var temperature = (currentWeather['current']['temp']).toInt();
+        var condition = currentWeather["current"]["weather"][0]["id"];
+        cityName = locationCity;
+        weatherMessage = weather.getMessage(temperature ?? 0);
+        weatherIcon = weather.getWeatherIcon(condition);
+
+        ///
+        print("*** location_screen.dart set state bölümüne geldik. ***");
+        print("**************************************************************");
+        print("Location city (location_screen.dart) ===> $locationCity");
+        print("temperature (location_screen.dart) ===> $temperature");
+        print("Condition (location_screen.dart) ===> $condition");
+        print("Weaather Icon (loction_screen.dart) ==> $weatherIcon");
+
+        /// doğru bilgi geliyor
+        print("Weather Message (location_screen.dart) ===> $weatherMessage");
+        print("**************************************************************");
+      });
+    }
   }
 
   @override
@@ -64,7 +84,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      getLocationData(); // getLocationData fonksiyonunu çağırdık
+                    },
                     child: const Icon(
                       Icons.near_me,
                       size: 50.0,
@@ -83,11 +105,14 @@ class _LocationScreenState extends State<LocationScreen> {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: Row(
                   children: <Widget>[
-                    Text(
-                      '$temperature°',
+                    const Text(
+                      '32°',
+                      // temperature.toString(),
+                      //'$temperature°', /// *** burada hata var
                       style: kTempTextStyle,
                     ),
                     Text(
+                      // "deneme",
                       weatherIcon!,
                       style: kConditionTextStyle,
                     ),
