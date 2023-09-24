@@ -4,8 +4,22 @@ import '../services/networking.dart';
 const apiKey = "9cb4837e8d48dff13f206af1cd41c342";
 const openWeatherMapURL = "https://api.openweathermap.org/data/3.0/onecall";
 const openWeatherMapCityURL = "http://api.openweathermap.org/geo/1.0/reverse";
+const openWeatherMapCityNameURL =
+    "http://api.openweathermap.org/geo/1.0/direct";
 
 class WeatherModel {
+  Future<dynamic> getCityWeather(String cityName) async {
+    /// istediğimiz şehrin hava durumunu al
+    NetworkHelper cityHelper = NetworkHelper(
+      "openWeatherMapCityNameURL"
+      "?q=$cityName"
+      "&units=metric"
+      "&appid=$apiKey",
+    );
+    var weatherData = await cityHelper.getData();
+    return weatherData;
+  }
+
   Future<Map<String, dynamic>> getLocationWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
