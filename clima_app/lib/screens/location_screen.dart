@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 import '../services/weather.dart';
+import '../screens/city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({
@@ -31,27 +32,29 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void getLocationData() async {
     var weatherData = await weather.getLocationWeather();
-    if (weatherData != null && widget.locationCity != null) {
-      setState(() {
-        var currentWeather = weatherData["weatherData"];
-        temperature = (currentWeather['current']['temp']).toInt();
-        var condition = currentWeather["current"]["weather"][0]["id"];
-        cityName = widget.locationCity;
-        weatherMessage = weather.getMessage(temperature ?? 0);
-        weatherIcon = weather.getWeatherIcon(condition);
-
-        print("*** location_screen.dart set state bölümüne geldik. ***");
-        print("**************************************************************");
-        print("Location city (location_screen.dart) ===> ${widget.locationCity}");
-        print("temperature (location_screen.dart) ===> $temperature");
-        print("Condition (location_screen.dart) ===> $condition");
-        print("Weather Icon (location_screen.dart) ==> $weatherIcon");
-        print("Weather Message (location_screen.dart) ===> $weatherMessage");
-        print("**************************************************************");
-      });
-    }
+    updateUI(weatherData, widget.locationCity);
   }
 
+  void updateUI(dynamic weatherData, dynamic locationCity) {
+    if (weatherData != null &&
+        locationCity != null &&
+        weatherData["weatherData"] != null) {
+      setState(() {
+        var currentWeather = weatherData["weatherData"];
+        temperature = (currentWeather['current']['temp'])
+            .toInt(); // temperature 'ı burada tanımlayın
+        var condition = currentWeather["current"]["weather"][0]["id"];
+        cityName = locationCity;
+        weatherMessage = weather.getMessage(temperature ?? 0);
+        weatherIcon = weather.getWeatherIcon(condition);
+      });
+    } else if (weatherData == null) {
+      temperature = 0;
+      weatherIcon = "Error";
+      weatherMessage = "Unable to get weather data";
+      cityName = "";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +82,9 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   TextButton(
-                    onPressed: () {
-                      getLocationData();
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData, widget.locationCity);
                     },
                     child: const Icon(
                       Icons.near_me,
@@ -88,7 +92,16 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                    },
                     child: const Icon(
                       Icons.location_city,
                       size: 50.0,
@@ -101,7 +114,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                     // '${temperature ?? 0}°',
                       temperature != null ? "$temperature°" : "N/A",
                       style: kTempTextStyle,
                     ),
