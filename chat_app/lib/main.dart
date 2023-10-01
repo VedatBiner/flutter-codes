@@ -1,7 +1,7 @@
-import 'package:chat_app/login_page.dart';
 import 'package:flutter/material.dart';
 
-import 'chat_page.dart';
+import '../login_page.dart';
+import '../chat_page.dart';
 
 void main() {
   runApp(const ChatApp());
@@ -23,8 +23,10 @@ class ChatApp extends StatelessWidget {
         ),
       ),
       home: LoginPage(),
+      routes: {
+        "/chat": (context) => const ChatPage(),
+      },
     );
   }
 }
-
 

@@ -1,4 +1,3 @@
-import 'package:chat_app/chat_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -13,13 +12,9 @@ class LoginPage extends StatelessWidget {
     if (_formkey.currentState != null && _formkey.currentState!.validate()) {
       print(userNameController.text);
       print(passwordController.text);
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => ChatPage(
-            username: userNameController.text,
-          ),
-        ),
+        "/chat", arguments: userNameController.text,
       );
       print("Login Successful!");
     } else {
