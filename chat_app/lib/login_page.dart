@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
     if (_formkey.currentState != null && _formkey.currentState!.validate()) {
       print(userNameController.text);
       print(passwordController.text);
-      Navigator.pushNamed(
+      Navigator.pushReplacementNamed(
         context,
         "/chat", arguments: userNameController.text,
       );
@@ -42,6 +42,7 @@ class LoginPage extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
+              const SizedBox(height: 10),
               const Text(
                 "Welcome back ! \nYou've been missed!",
                 textAlign: TextAlign.center,
@@ -51,10 +52,12 @@ class LoginPage extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               ),
+              const SizedBox(height: 10),
               Image.network(
                 "https://picsum.photos/200/300",
                 height: 200,
               ),
+              const SizedBox(height: 10),
               Form(
                 key: _formkey,
                 child: Column(
