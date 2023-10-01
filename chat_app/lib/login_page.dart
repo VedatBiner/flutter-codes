@@ -1,4 +1,8 @@
+import 'package:chat_app/utils/spaces.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/textfield_styles.dart';
+import '../widgets/login_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -14,7 +18,8 @@ class LoginPage extends StatelessWidget {
       print(passwordController.text);
       Navigator.pushReplacementNamed(
         context,
-        "/chat", arguments: userNameController.text,
+        "/chat",
+        arguments: userNameController.text,
       );
       print("Login Successful!");
     } else {
@@ -42,7 +47,7 @@ class LoginPage extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 10),
+              verticalSpacing(10),
               const Text(
                 "Welcome back ! \nYou've been missed!",
                 textAlign: TextAlign.center,
@@ -52,17 +57,18 @@ class LoginPage extends StatelessWidget {
                   color: Colors.blueGrey,
                 ),
               ),
-              const SizedBox(height: 10),
+              verticalSpacing(10),
               Image.network(
                 "https://picsum.photos/200/300",
                 height: 200,
               ),
-              const SizedBox(height: 10),
+              verticalSpacing(10),
               Form(
                 key: _formkey,
                 child: Column(
                   children: [
-                    TextFormField(
+                    LoginTextField(
+                      hintText: "Enter your username",
                       validator: (value) {
                         if (value != null &&
                             value.isNotEmpty &&
@@ -74,26 +80,17 @@ class LoginPage extends StatelessWidget {
                         return null;
                       },
                       controller: userNameController,
-                      decoration: const InputDecoration(
-                        hintText: "Add your user name",
-                        hintStyle: TextStyle(color: Colors.blueGrey),
-                        border: OutlineInputBorder(),
-                      ),
                     ),
-                    const SizedBox(height: 24),
-                    TextFormField(
-                      obscureText: true,
+                    verticalSpacing(24),
+                    LoginTextField(
                       controller: passwordController,
-                      decoration: const InputDecoration(
-                        hintText: "Type your password",
-                        hintStyle: TextStyle(color: Colors.blueGrey),
-                        border: OutlineInputBorder(),
-                      ),
+                      hintText: "Enter your password",
+                      hasAsterisks: true,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 24),
+              verticalSpacing(24),
               ElevatedButton(
                 onPressed: () {
                   loginUser(context);
@@ -106,7 +103,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              verticalSpacing(24),
               GestureDetector(
                 onTap: () {
                   print("Link clicked!");
