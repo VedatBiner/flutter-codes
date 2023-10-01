@@ -1,8 +1,10 @@
-import 'package:chat_app/utils/spaces.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_buttons/social_media_buttons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../utils/textfield_styles.dart';
 import '../widgets/login_text_field.dart';
+import '../utils/spaces.dart';
+import '../widgets/social_media_buttons.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -11,6 +13,7 @@ class LoginPage extends StatelessWidget {
   final passwordController = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
+  final Uri _url = Uri.parse("https://vedatbiner.github.io/");
 
   void loginUser(context) {
     if (_formkey.currentState != null && _formkey.currentState!.validate()) {
@@ -58,8 +61,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               verticalSpacing(10),
-              Image.network(
-                "https://picsum.photos/200/300",
+              Image.asset(
+                "assets/images/illustration.png",
                 height: 200,
               ),
               verticalSpacing(10),
@@ -105,15 +108,33 @@ class LoginPage extends StatelessWidget {
               ),
               verticalSpacing(24),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   print("Link clicked!");
+                  if (!await launchUrl(_url)) {
+                    throw "Could not launch this $_url";
+                  }
                 },
-                child: const Column(
+                child: Column(
                   children: [
-                    Text("Find us on"),
-                    Text("https://vedatbiner.github.io/"),
+                    const Text("Find us on"),
+                    Text("$_url"),
                   ],
                 ),
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SMButton(
+                    socialMedia: "https://www.linkedin.com/in/vedatbiner/",
+                    color: Colors.indigo,
+                    iconData: SocialMediaIcons.linkedin,
+                  ),
+                  SMButton(
+                    socialMedia: "https://www.github.com/vedatbiner",
+                    color: Colors.black,
+                    iconData: SocialMediaIcons.github_circled,
+                  ),
+                ],
               ),
             ],
           ),
