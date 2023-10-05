@@ -14,6 +14,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+
+
   List<ChatMessageEntity> _messages = [];
 
   _loadInitialMessages() async {
@@ -78,9 +80,3 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
-
-
-
-
-
-
