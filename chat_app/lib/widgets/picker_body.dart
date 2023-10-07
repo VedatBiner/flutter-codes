@@ -35,7 +35,11 @@ class NetworkImagePickerBody extends StatelessWidget {
                 maxCrossAxisExtent: MediaQuery.of(context).size.width * 0.5,
               ),
             );
-            // return
+          } else if (snapshot.hasError){
+            return Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Text("This is the error: ${snapshot.error}"),
+            );
           }
           return const Padding(
             padding: EdgeInsets.all(8.0),
