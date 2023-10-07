@@ -1,10 +1,10 @@
-import 'dart:convert';
-import 'package:chat_app/models/image_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+import '../models/image_model.dart';
 import '../models/chat_message_entity.dart';
+import '../repo/image_repository.dart';
 import '../widgets/chat_input.dart';
 import '../widgets/chat_bubble.dart';
 
@@ -36,32 +36,15 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-  Future<List<PixelfordImage>> _getNetworkImages() async {
-    var endPointUrl = Uri.parse("https://pixelford.com/api2/images");
-
-    /// Bu API sayfası artık yok.
-    final response = await http.get(endPointUrl);
-    if (response.statusCode == 200) {
-      final List<dynamic> decodedList = jsonDecode(response.body) as List;
-      final List<PixelfordImage> _imageList = decodedList.map((listItem) {
-        return PixelfordImage.fromJson(listItem);
-      }).toList();
-      print(_imageList[0].urlFullsize);
-      return _imageList;
-    } else {
-      throw Exception("API not successful");
-    }
-  }
+  final ImageRepository _imageRepo = ImageRepository();
 
   @override
   void initState() {
     _loadInitialMessages();
-    _getNetworkImages();
     super.initState();
   }
 
   Widget build(BuildContext context) {
-    _getNetworkImages();
     final username = ModalRoute.of(context)!.settings.arguments as String?;
     return Scaffold(
       appBar: AppBar(
@@ -82,9 +65,12 @@ class _ChatPageState extends State<ChatPage> {
       body: Column(
         children: [
           FutureBuilder<List<PixelfordImage>>(
-              future: _getNetworkImages(),
-              builder: (BuildContext context, AsyncSnapshot<List<PixelfordImage>> snapshot) {
-                if (snapshot.hasData) return Image.network(snapshot.data![0].urlSmallSize);
+              future: _imageRepo.getNetworkImages(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<PixelfordImage>> snapshot) {
+                if (snapshot.hasData) {
+                  return Image.network(snapshot.data![0].urlSmallSize);
+                }
                 return const CircularProgressIndicator();
               }),
           Expanded(
