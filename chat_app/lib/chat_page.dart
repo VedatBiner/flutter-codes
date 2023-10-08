@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
-import '../models/image_model.dart';
 import '../models/chat_message_entity.dart';
-import '../repo/image_repository.dart';
 import '../widgets/chat_input.dart';
 import '../widgets/chat_bubble.dart';
+import '../services/auth_service.dart';
 
 class ChatPage extends StatefulWidget {
   ChatPage({super.key});
@@ -36,14 +36,13 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-
-
   @override
   void initState() {
     _loadInitialMessages();
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     final username = ModalRoute.of(context)!.settings.arguments as String?;
     return Scaffold(
@@ -56,6 +55,7 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           IconButton(
             onPressed: () {
+              context.read<AuthService>().logoutUser();
               Navigator.popAndPushNamed(context, "/");
               print("Icon pressed ...");
             },
@@ -65,14 +65,14 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-
           Expanded(
             child: ListView.builder(
                 itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   return ChatBubble(
                     entity: _messages[index],
-                    alignment: _messages[index].author.userName == "Vedat"
+                    alignment: _messages[index].author.userName ==
+                            context.read<AuthService>().getUserName()
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
                   );
