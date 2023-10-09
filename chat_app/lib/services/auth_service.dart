@@ -1,24 +1,38 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+class AuthService extends ChangeNotifier {
+
+  static init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  static late final SharedPreferences _prefs;
 
   Future<void> loginUser(String userName) async {
     try {
-      SharedPreferences sharedPrefs = await _prefs;
-      sharedPrefs.setString("userName", userName);
+      _prefs.setString("userName", userName);
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> logoutUser() async {
-    SharedPreferences sharedPrefs = await _prefs;
-    sharedPrefs.clear();
+  Future<bool> isLoggedIn() async {
+    String? username = await _prefs.getString("userName");
+    if(username == null) return false;
+    return true;
   }
 
-  Future<String?> getUserName() async {
-    SharedPreferences sharedPrefs = await _prefs;
-    return sharedPrefs.getString("userName") ?? "DefaultValue";
+  void logoutUser() {
+    _prefs.clear();
+  }
+
+  String? getUserName() {
+    return _prefs.getString("userName") ?? "DefaultValue";
+  }
+
+  void updateUserName(String newName){
+    _prefs.setString("userName", newName);
+    notifyListeners();
   }
 }

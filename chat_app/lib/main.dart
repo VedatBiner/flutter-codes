@@ -5,9 +5,11 @@ import 'package:provider/provider.dart';
 import '../login_page.dart';
 import '../chat_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService.init();
   runApp(
-    Provider(
+    ChangeNotifierProvider(
       create: (BuildContext context) => AuthService(),
       child: const ChatApp(),
     ),
@@ -30,7 +32,19 @@ class ChatApp extends StatelessWidget {
           foregroundColor: Colors.black,
         ),
       ),
-      home: LoginPage(),
+      home: FutureBuilder<bool>(
+        builder: (context, AsyncSnapshot<bool> snapshot) {
+          if(snapshot.connectionState == ConnectionState.done){
+            if(snapshot.hasData && snapshot.data!){
+              return ChatPage();
+            } else {
+              return LoginPage();
+            }
+          }
+          return const CircularProgressIndicator();
+        },
+        future: context.read<AuthService>().isLoggedIn(),
+      ),
       routes: {
         "/chat": (context) => ChatPage(),
       },
