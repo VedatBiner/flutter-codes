@@ -14,9 +14,9 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   animated_text_kit:
-  firebase_core:
-  firebase_auth:
-  cloud_firestore:
+  firebase_core: ^2.17.0
+  firebase_auth: ^4.10.1
+  cloud_firestore: ^4.9.3
 
 dev_dependencies:
   flutter_test:
