@@ -18,6 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   late String password;
 
   final _auth = FirebaseAuth.instance;
+  // final progress = ProgressHUD.of(context);
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               title: "Register",
               colour: Colors.blueAccent,
               onPressed: () async {
+
                 /// yeni kullanıcıyı Firebase 'e kaydediyoruz
                 try {
                   final newUser = await _auth.createUserWithEmailAndPassword(
@@ -76,6 +78,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     password: password,
                   );
                   if (newUser != null) {
+
                     Navigator.pushNamed(context, ChatScreen.id);
                   }
                 } catch (e) {
