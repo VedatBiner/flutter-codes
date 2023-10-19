@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
+late User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = "chat_screen";
@@ -18,7 +19,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
   String messageText = "";
 
   @override
@@ -38,14 +38,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void messagesStream() async {
-    await for (var snapshot in _firestore.collection("messages").snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +47,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: const Icon(Icons.close),
             onPressed: () {
-              messagesStream();
+              _auth.signOut();
+              Navigator.pop(context);
             },
           ),
         ],
@@ -72,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
               decoration: kMessageContainerDecoration,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Expanded(
                     child: TextField(
                       controller: messageTextController,
@@ -120,7 +113,7 @@ class MessageStream extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasData) {
-          final messages = snapshot.data!.docs;
+          final messages = snapshot.data!.docs.reversed;
           List<MessageBubble> messageBubbles = [];
           for (var message in messages) {
             final messageData = message.data() as Map<String, dynamic>?;
@@ -129,9 +122,11 @@ class MessageStream extends StatelessWidget {
                 messageData["sender"] != null) {
               final messageText = messageData["text"];
               final messageSender = messageData["sender"];
+              final currentUser = loggedInUser.email;
               final messageBubble = MessageBubble(
                 text: messageText,
                 sender: messageSender,
+                isMe: currentUser == messageSender,
               );
               messageBubbles.add(messageBubble);
             } else {
@@ -140,6 +135,7 @@ class MessageStream extends StatelessWidget {
           }
           return Expanded(
             child: ListView(
+              reverse: true,
               padding: const EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 20,
@@ -165,26 +161,42 @@ class MessageBubble extends StatelessWidget {
     Key? key,
     required this.text,
     required this.sender,
+    required this.isMe,
   }) : super(key: key);
 
   final String text;
   final String sender;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             sender,
-            style: const TextStyle(fontSize: 12, color: Colors.black54),
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.black54,
+            ),
           ),
           Material(
             elevation: 5,
-            color: Colors.lightBlueAccent,
-            borderRadius: BorderRadius.circular(30),
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
+            borderRadius: isMe
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 20,
@@ -192,9 +204,9 @@ class MessageBubble extends StatelessWidget {
               ),
               child: Text(
                 "$text ",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.white,
+                  color: isMe ? Colors.white : Colors.black54,
                 ),
               ),
             ),
@@ -204,3 +216,16 @@ class MessageBubble extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
