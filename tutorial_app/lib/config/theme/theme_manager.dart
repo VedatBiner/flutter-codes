@@ -1,6 +1,8 @@
+// theme_manager.dart
 import 'package:flutter/material.dart';
-import 'package:tutorial_app/config/theme/theme_dark.dart';
-import 'package:tutorial_app/config/theme/theme_light.dart';
+
+import '../../config/theme/theme_dark.dart';
+import '../../config/theme/theme_light.dart';
 
 class ThemeManager extends InheritedWidget {
   final ThemeData theme;
@@ -31,6 +33,8 @@ class ThemeManager extends InheritedWidget {
 
 class ThemeManagerNotifier extends ValueNotifier<ThemeData> {
   ThemeManagerNotifier(ThemeData value) : super(value);
+
+  bool get isDarkMode => value == DarkTheme.theme;
 
   void changeTheme() {
     if (value == LightTheme.theme) {
