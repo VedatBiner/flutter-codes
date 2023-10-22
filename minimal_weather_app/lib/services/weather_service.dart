@@ -6,14 +6,20 @@ import "package:http/http.dart" as http;
 import '../models/weather_model.dart';
 
 class WeatherService {
+  /// Orijinal koddaki API
   static const baseUrl = "http://api.openweathermap.org/data/2.5/weather";
+  /// Yeni API kullandım
+  /// static const baseUrl = "https://api.openweathermap.org/data/3.0/onecall";
   final String apiKey;
 
   WeatherService(this.apiKey);
 
   Future<Weather> getWeather(String cityName) async {
-    final response = await http
-        .get(Uri.parse("$baseUrl?q=$cityName&appid=$apiKey&units=metric"));
+    final response = await http.get(
+      Uri.parse(
+        "$baseUrl?q=$cityName&appid=$apiKey&units=metric",
+      ),
+    );
     if (response.statusCode == 200) {
       return Weather.fromJson(jsonDecode(response.body));
     } else {
@@ -41,21 +47,8 @@ class WeatherService {
     );
 
     /// extract the city name from the first placemark
-    String? city = placemarks[0].locality;
+    String? city = placemarks[0].administrativeArea;
+    /// Eğer şehir boş ise boş başlık yaz
     return city ?? "";
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
