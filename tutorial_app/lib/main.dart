@@ -6,6 +6,7 @@ import '../core/app_const.dart';
 import '../config/route/app_routes.dart';
 import '../config/theme/theme_manager.dart';
 import '../core/main/main_starter.dart';
+import '../core/language_model/language_listener.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,16 +23,25 @@ class MyApp extends StatelessWidget {
           return ThemeManager(
             theme: themeData,
             changeTheme: AppConst.themeNotifier.changeTheme,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              // Routes //
-              title: MainStarter.title,
-              routes: AppRoute.routes,
-              initialRoute: AppRoute.splash,
-              // Theme ///
-              theme: themeData,
-              darkTheme: DarkTheme.theme,
-              themeMode: ThemeMode.system,
+            child: ValueListenableBuilder(
+              valueListenable: AppConst.language,
+              builder: (context, language, child) {
+                return LanguageManager(
+                  changeLang: AppConst.language.changeLang,
+                  value: language,
+                  child: MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    // Routes //
+                    title: MainStarter.title,
+                    routes: AppRoute.routes,
+                    initialRoute: AppRoute.splash,
+                    // Theme ///
+                    theme: themeData,
+                    darkTheme: DarkTheme.theme,
+                    themeMode: ThemeMode.system,
+                  ),
+                );
+              }
             ),
           );
         });

@@ -1,13 +1,20 @@
 // language_listener.dart
 import 'package:flutter/material.dart';
 
-class LanguageListener extends ValueNotifier<bool>{
-  LanguageListener(bool value): super(value);
+class LanguageListener extends ValueNotifier<bool> {
+  LanguageListener(bool value) : super(value);
 
-  void changeLang() => value ? false : true;
+  void changeLang() {
+    if (value) {
+      value = false;
+    } else {
+      value = true;
+    }
+    notifyListeners();
+  }
 }
 
-class LanguageManager extends InheritedWidget{
+class LanguageManager extends InheritedWidget {
   final bool value;
   final VoidCallback changeLang;
 
@@ -18,11 +25,11 @@ class LanguageManager extends InheritedWidget{
     super.key,
   }) : super(child: child);
 
-  static LanguageManager? maybeOf(BuildContext context){
+  static LanguageManager? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<LanguageManager>();
   }
 
-  static bool of(BuildContext context){
+  static bool of(BuildContext context) {
     final values = maybeOf(context);
     assert(values != null, "No languageManager not found in context");
     return values!.value;
@@ -32,6 +39,4 @@ class LanguageManager extends InheritedWidget{
   bool updateShouldNotify(LanguageManager oldWidget) {
     return value != oldWidget.value;
   }
-
 }
-
