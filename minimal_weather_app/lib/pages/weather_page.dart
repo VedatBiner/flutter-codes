@@ -14,7 +14,7 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   /// API Key
-  final _weatherService = WeatherService("9cb4837e8d48dff13f206af1cd41c342");
+  final _weatherService = WeatherService("your_API Key");
   Weather? _weather;
 
   /// Fetch weather
@@ -40,7 +40,7 @@ class _WeatherPageState extends State<WeatherPage> {
     }
     switch (mainCondition.toLowerCase()) {
       case "clouds":
-        return "assets/animations/partly_clouds.json";
+        return "assets/animations/partly_cloudy.json";
       case "mist":
         return "assets/animations/windy.json";
       case "sunny":
@@ -95,3 +95,10 @@ class _WeatherPageState extends State<WeatherPage> {
     );
   }
 }
+
+
+
+
+
+
+
