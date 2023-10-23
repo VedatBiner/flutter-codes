@@ -1,7 +1,7 @@
 import '../services/location.dart';
 import '../services/networking.dart';
 
-const apiKey = "9cb4837e8d48dff13f206af1cd41c342";
+const apiKey = "Your_API Key";
 const openWeatherMapURL = "https://api.openweathermap.org/data/3.0/onecall";
 const openWeatherMapCityURL = "http://api.openweathermap.org/geo/1.0/reverse";
 const openWeatherMapCityNameURL =
