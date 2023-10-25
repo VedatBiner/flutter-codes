@@ -2,19 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 
+import '../widgets/explore_drawer.dart';
 import '../widgets/responsive.dart';
+import '../widgets/top_bar_contents.dart';
+import '../widgets/web_scrollbar.dart';
 
-// import 'package:explore/widgets/web_scrollbar.dart';
 // import 'package:explore/widgets/bottom_bar.dart';
 // import 'package:explore/widgets/carousel.dart';
 // import 'package:explore/widgets/destination_heading.dart';
-// import 'package:explore/widgets/explore_drawer.dart';
 // import 'package:explore/widgets/featured_heading.dart';
 // import 'package:explore/widgets/featured_tiles.dart';
 // import 'package:explore/widgets/floating_quick_access_bar.dart';
-//
-// import 'package:explore/widgets/top_bar_contents.dart';
-
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
@@ -82,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size(screenSize.width, 1000),
         child: TopBarContents(_opacity),
       ),
-      drawer: ExploreDrawer(),
+      drawer: const ExploreDrawer(),
       body: WebScrollbar(
         color: Colors.blueGrey,
         backgroundColor: Colors.blueGrey.withOpacity(0.3),
@@ -91,7 +89,7 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         child: SingleChildScrollView(
           controller: _scrollController,
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               Stack(

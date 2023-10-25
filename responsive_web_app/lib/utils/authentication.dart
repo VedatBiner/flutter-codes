@@ -48,7 +48,7 @@ Future<User?> signInWithGoogle() async {
 
     try {
       final UserCredential userCredential =
-      await _auth.signInWithPopup(authProvider);
+          await _auth.signInWithPopup(authProvider);
 
       user = userCredential.user;
     } catch (e) {
@@ -58,11 +58,11 @@ Future<User?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     final GoogleSignInAccount? googleSignInAccount =
-    await googleSignIn.signIn();
+        await googleSignIn.signIn();
 
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -71,7 +71,7 @@ Future<User?> signInWithGoogle() async {
 
       try {
         final UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
+            await _auth.signInWithCredential(credential);
 
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
