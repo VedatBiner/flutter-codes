@@ -7,7 +7,7 @@ class BottomBarColumn extends StatelessWidget {
   final String s2;
   final String s3;
 
-  BottomBarColumn({
+  const BottomBarColumn({
     super.key,
     required this.heading,
     required this.s1,

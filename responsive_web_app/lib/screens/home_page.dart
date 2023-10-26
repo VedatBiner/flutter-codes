@@ -48,12 +48,19 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      // Bu kodun yerine,
+      // backgroundColor: Theme.of(context).backgroundColor,
+      // artık bu kullanılıyor.
+      backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
               backgroundColor:
-                  Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
+              // Bu kodun yerine,
+              // Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
+              // artık bu kullanılıyor.
+              // *******************************************************
+              Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
               elevation: 0,
               centerTitle: true,
               actions: [
@@ -133,28 +140,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

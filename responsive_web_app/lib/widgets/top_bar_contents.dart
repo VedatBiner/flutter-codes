@@ -9,7 +9,7 @@ import '../widgets/auth_dialog.dart';
 class TopBarContents extends StatefulWidget {
   final double opacity;
 
-  TopBarContents(this.opacity, {super.key});
+  const TopBarContents(this.opacity, {super.key});
 
   @override
   _TopBarContentsState createState() => _TopBarContentsState();
@@ -38,7 +38,7 @@ class _TopBarContentsState extends State<TopBarContents> {
       child: Container(
         color: Theme.of(context).bottomAppBarColor.withOpacity(widget.opacity),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -178,7 +178,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   )
                                 : Container(),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Text(
                             name ?? userEmail!,
                             style: TextStyle(
@@ -187,7 +187,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white70,
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           TextButton(
                             style: TextButton.styleFrom(
                               primary: Colors.blueGrey,
@@ -206,7 +206,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                       Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           fullscreenDialog: true,
-                                          builder: (context) => HomePage(),
+                                          builder: (context) => const HomePage(),
                                         ),
                                       );
                                     }).catchError((error) {

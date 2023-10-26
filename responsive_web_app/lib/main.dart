@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: darkThemeData,
       debugShowCheckedModeBanner: false,
       themeMode: EasyDynamicTheme.of(context).themeMode,
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

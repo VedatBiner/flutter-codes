@@ -35,7 +35,8 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                         // hoverColor: Colors.blueGrey[800],
                         // highlightColor: Colors.blueGrey[700],
                         style: TextButton.styleFrom(
-                          primary: Colors.black,
+                          // primary: Colors.black,
+                          foregroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -114,7 +115,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       fullscreenDialog: true,
-                                      builder: (context) => HomePage(),
+                                      builder: (context) => const HomePage(),
                                     ),
                                   );
                                 }).catchError((error) {

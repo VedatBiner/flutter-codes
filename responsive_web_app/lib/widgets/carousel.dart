@@ -5,6 +5,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../widgets/responsive.dart';
 
 class DestinationCarousel extends StatefulWidget {
+  const DestinationCarousel({super.key});
+
   @override
   _DestinationCarouselState createState() => _DestinationCarouselState();
 }
@@ -14,8 +16,12 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
 
   final CarouselController _controller = CarouselController();
 
-  List _isHovering = [false, false, false, false, false, false, false];
-  List _isSelected = [true, false, false, false, false, false, false];
+  // bu satırlar,
+  // List _isHovering = [false, false, false, false, false, false, false];
+  // List _isSelected = [true, false, false, false, false, false, false];
+  // Aşağıdaki gibi yapıldı
+  final List _isHovering = [false, false, false, false, false, false, false];
+  final List _isSelected = [true, false, false, false, false, false, false];
 
   int _current = 0;
 
@@ -145,11 +151,14 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                             color: _isHovering[i]
                                                 ? Theme.of(context)
                                                     .primaryTextTheme
-                                                    .button!
+                                                    // bu kdd aşağıdaki gibi oldu
+                                                    // .button!
+                                                    .labelLarge!
                                                     .decorationColor
                                                 : Theme.of(context)
                                                     .primaryTextTheme
-                                                    .button!
+                                                    // .button!
+                                                    .labelLarge!
                                                     .color,
                                           ),
                                         ),
