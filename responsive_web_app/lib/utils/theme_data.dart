@@ -11,6 +11,7 @@ var lightThemeData = ThemeData(
     ),
     titleSmall: TextStyle(
       color: Colors.blueGrey[900],
+      fontWeight: FontWeight.bold,
     ),
     titleMedium: const TextStyle(
       color: Colors.black,

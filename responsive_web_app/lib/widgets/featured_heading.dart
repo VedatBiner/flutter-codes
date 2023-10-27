@@ -46,12 +46,14 @@ class FeaturedHeading extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Featured',
                   style: TextStyle(
                     fontSize: 40,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
+                    // ben ekledim
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 Expanded(

@@ -38,13 +38,15 @@ class DestinationHeading extends StatelessWidget {
             ),
             width: screenSize.width,
             // color: Colors.black,
-            child: const Text(
+            child: Text(
               'Destinations diversity',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 40,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.bold,
+                // ben ekledim
+                color: Theme.of(context).primaryColor,
               ),
             ),
           );
