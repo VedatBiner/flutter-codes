@@ -50,6 +50,6 @@ var darkThemeData = ThemeData(
     brightness: Brightness.dark,
   ),
   bottomAppBarTheme: const BottomAppBarTheme(
-    color: Colors.black,
+    color: Colors.black
   ),
 );
