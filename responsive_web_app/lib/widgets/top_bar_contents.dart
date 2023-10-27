@@ -37,7 +37,8 @@ class _TopBarContentsState extends State<TopBarContents> {
     return PreferredSize(
       preferredSize: Size(screenSize.width, 1000),
       child: Container(
-        color: Theme.of(context).bottomAppBarColor.withOpacity(widget.opacity),
+        // color: Theme.of(context).bottomAppBarColor.withOpacity(widget.opacity),
+        color: Theme.of(context).bottomAppBarTheme.color,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Row(
@@ -78,7 +79,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
                             maintainState: true,

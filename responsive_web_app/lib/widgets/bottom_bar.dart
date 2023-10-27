@@ -12,7 +12,8 @@ class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(30),
-      color: Theme.of(context).bottomAppBarColor,
+      // color: Theme.of(context).bottomAppBarColor,
+      color: Theme.of(context).bottomAppBarTheme.color,
       child: ResponsiveWidget.isSmallScreen(context)
           ? Column(
         children: [

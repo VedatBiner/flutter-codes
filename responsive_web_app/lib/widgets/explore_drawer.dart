@@ -19,7 +19,8 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Theme.of(context).bottomAppBarColor,
+        // color: Theme.of(context).bottomAppBarColor,
+        color: Theme.of(context).bottomAppBarTheme.color,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
