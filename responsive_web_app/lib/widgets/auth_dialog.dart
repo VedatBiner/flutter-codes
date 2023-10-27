@@ -89,7 +89,9 @@ class _AuthDialogState extends State<AuthDialog> {
                   child: Text(
                     'EXPLORE',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.displayLarge!.color,
+                      // color: Theme.of(context).textTheme.displayLarge!.color,
+                      // Ben değiştirdim
+                      color: Theme.of(context).primaryColor,
                       fontSize: 24,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -107,7 +109,9 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Email address',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.titleSmall!.color,
+                      // color: Theme.of(context).textTheme.titleSmall!.color,
+                      // Ben değiştirdim
+                      color: Theme.of(context).primaryColor,
                       fontSize: 18,
                       // fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -171,7 +175,9 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Password',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.titleSmall!.color,
+                      // color: Theme.of(context).textTheme.titleSmall!.color,
+                      // Ben değiştirdim
+                      color: Theme.of(context).primaryColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       // letterSpacing: 3,
@@ -313,11 +319,12 @@ class _AuthDialogState extends State<AuthDialog> {
                                         ),
                                       ),
                                     )
-                                  : const Text(
+                                  : Text(
                                       'Log in',
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: Colors.white,
+                                        // ben ekledim
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     ),
                             ),
@@ -382,11 +389,12 @@ class _AuthDialogState extends State<AuthDialog> {
                                         ),
                                       ),
                                     )
-                                  : const Text(
+                                  : Text(
                                       'Sign up',
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: Colors.white,
+                                        // ben ekledim
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                     ),
                             ),
@@ -433,7 +441,9 @@ class _AuthDialogState extends State<AuthDialog> {
                     'By proceeding, you agree to our Terms of Use and confirm you have read our Privacy Policy.',
                     maxLines: 2,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.titleSmall!.color,
+                      // color: Theme.of(context).textTheme.titleSmall!.color,
+                      // Ben değiştirdim
+                      color: Theme.of(context).primaryColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
                       // letterSpacing: 3,
