@@ -1,17 +1,16 @@
 /// ----- explore_drawer.dart -----
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../screens/home_page.dart';
 import '../utils/authentication.dart';
 import '../widgets/auth_dialog.dart';
 
 class ExploreDrawer extends StatefulWidget {
-  const ExploreDrawer({
-    Key? key,
-  }) : super(key: key);
+  const ExploreDrawer({super.key});
 
   @override
-  _ExploreDrawerState createState() => _ExploreDrawerState();
+  State<StatefulWidget> createState() => _ExploreDrawerState();
 }
 
 class _ExploreDrawerState extends State<ExploreDrawer> {
@@ -35,7 +34,6 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                         // hoverColor: Colors.blueGrey[800],
                         // highlightColor: Colors.blueGrey[700],
                         style: TextButton.styleFrom(
-                          // primary: Colors.black,
                           foregroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
@@ -99,7 +97,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                         // hoverColor: Colors.blueGrey[800],
                         // highlightColor: Colors.blueGrey[700],
                         style: TextButton.styleFrom(
-                          primary: Colors.black,
+                          foregroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -111,7 +109,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                                   _isProcessing = true;
                                 });
                                 await signOut().then((result) {
-                                  print(result);
+                                  log(result);
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       fullscreenDialog: true,
@@ -119,7 +117,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                                     ),
                                   );
                                 }).catchError((error) {
-                                  print('Sign Out Error: $error');
+                                  log('Sign Out Error: $error');
                                 });
                                 setState(() {
                                   _isProcessing = false;

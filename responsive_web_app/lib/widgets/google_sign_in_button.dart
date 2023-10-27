@@ -1,5 +1,7 @@
 /// ----- google_sign_in_button.dart -----
+
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../screens/home_page.dart';
 import '../utils/authentication.dart';
@@ -8,7 +10,7 @@ class GoogleButton extends StatefulWidget {
   const GoogleButton({super.key});
 
   @override
-  _GoogleButtonState createState() => _GoogleButtonState();
+  State<StatefulWidget> createState() => _GoogleButtonState();
 }
 
 class _GoogleButtonState extends State<GoogleButton> {
@@ -26,7 +28,7 @@ class _GoogleButtonState extends State<GoogleButton> {
       ),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          primary: Colors.blueGrey.shade100,
+          foregroundColor: Colors.blueGrey.shade100,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
             side: const BorderSide(color: Colors.blueGrey, width: 3),
@@ -38,7 +40,7 @@ class _GoogleButtonState extends State<GoogleButton> {
             _isProcessing = true;
           });
           await signInWithGoogle().then((result) {
-            print(result);
+            log(result.toString());
             if (result != null) {
               Navigator.of(context).pop();
               Navigator.of(context).pushReplacement(
@@ -49,7 +51,7 @@ class _GoogleButtonState extends State<GoogleButton> {
               );
             }
           }).catchError((error) {
-            print('Registration Error: $error');
+            log('Registration Error: $error');
           });
           setState(() {
             _isProcessing = false;

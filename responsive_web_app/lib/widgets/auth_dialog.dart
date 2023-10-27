@@ -1,15 +1,16 @@
 /// ----- auth_dialog.dart -----
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../screens/home_page.dart';
 import '../utils/authentication.dart';
-import '../utils/google_sign_in_button.dart';
+import '../widgets/google_sign_in_button.dart';
 
 class AuthDialog extends StatefulWidget {
   const AuthDialog({super.key});
 
   @override
-  _AuthDialogState createState() => _AuthDialogState();
+  State<StatefulWidget> createState() => _AuthDialogState();
 }
 
 class _AuthDialogState extends State<AuthDialog> {
@@ -70,10 +71,7 @@ class _AuthDialogState extends State<AuthDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      // Bu kodun yerine,
-      // backgroundColor: Theme.of(context).backgroundColor,
-      // artık bu kullanılıyor.
-      backgroundColor:Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -82,9 +80,6 @@ class _AuthDialogState extends State<AuthDialog> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             width: 400,
-            // Bu kodun yerine,
-            // color: Theme.of(context).backgroundColor,
-            // artık bu kullanılıyor.
             color: Theme.of(context).colorScheme.background,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,9 +89,6 @@ class _AuthDialogState extends State<AuthDialog> {
                   child: Text(
                     'EXPLORE',
                     style: TextStyle(
-                      // Bu kodun yerine,
-                      // color: Theme.of(context).textTheme.headline1!.color,
-                      // artık bu kullanılıyor.
                       color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 24,
                       fontFamily: 'Montserrat',
@@ -115,9 +107,6 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Email address',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      // Bu kodun yerine,
-                      // color: Theme.of(context).textTheme.subtitle2!.color,
-                      // artık bu kullanılıyor
                       color: Theme.of(context).textTheme.titleSmall!.color,
                       fontSize: 18,
                       // fontFamily: 'Montserrat',
@@ -182,7 +171,6 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Password',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      // color: Theme.of(context).textTheme.subtitle2!.color,
                       color: Theme.of(context).textTheme.titleSmall!.color,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -249,7 +237,7 @@ class _AuthDialogState extends State<AuthDialog> {
                           width: double.maxFinite,
                           child: TextButton(
                             style: TextButton.styleFrom(
-                              primary: Colors.blueGrey.shade800,
+                              foregroundColor: Colors.blueGrey.shade800,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
@@ -270,16 +258,14 @@ class _AuthDialogState extends State<AuthDialog> {
                                         textControllerPassword.text)
                                     .then((result) {
                                   if (result != null) {
-                                    print(result);
+                                    log(result as String);
                                     setState(() {
                                       loginStatus =
                                           'You have successfully logged in';
                                       loginStringColor = Colors.green;
                                     });
                                     Future.delayed(
-                                        const Duration(
-                                          milliseconds: 500,
-                                        ), () {
+                                        const Duration(milliseconds: 500), () {
                                       Navigator.of(context).pop();
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
@@ -289,7 +275,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                     });
                                   }
                                 }).catchError((error) {
-                                  print('Login Error: $error');
+                                  log('Login Error: $error');
                                   setState(() {
                                     loginStatus =
                                         'Error occured while logging in';
@@ -345,7 +331,7 @@ class _AuthDialogState extends State<AuthDialog> {
                           width: double.maxFinite,
                           child: TextButton(
                             style: TextButton.styleFrom(
-                              primary: Colors.blueGrey.shade800,
+                              foregroundColor: Colors.blueGrey.shade800,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -364,10 +350,10 @@ class _AuthDialogState extends State<AuthDialog> {
                                         'You have registered successfully';
                                     loginStringColor = Colors.green;
                                   });
-                                  print(result);
+                                  log(result as String);
                                 }
                               }).catchError((error) {
-                                print('Registration Error: $error');
+                                log('Registration Error: $error');
                                 setState(() {
                                   loginStatus =
                                       'Error occured while registering';
@@ -447,7 +433,6 @@ class _AuthDialogState extends State<AuthDialog> {
                     'By proceeding, you agree to our Terms of Use and confirm you have read our Privacy Policy.',
                     maxLines: 2,
                     style: TextStyle(
-                      // color: Theme.of(context).textTheme.subtitle2!.color,
                       color: Theme.of(context).textTheme.titleSmall!.color,
                       fontSize: 14,
                       fontWeight: FontWeight.w300,

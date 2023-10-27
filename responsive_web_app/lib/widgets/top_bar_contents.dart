@@ -1,5 +1,6 @@
 /// ----- top_bar_contents.dart -----
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 
 import '../screens/home_page.dart';
@@ -12,7 +13,7 @@ class TopBarContents extends StatefulWidget {
   const TopBarContents(this.opacity, {super.key});
 
   @override
-  _TopBarContentsState createState() => _TopBarContentsState();
+  State<StatefulWidget> createState() => _TopBarContentsState();
 }
 
 class _TopBarContentsState extends State<TopBarContents> {
@@ -77,7 +78,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                                   : Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
                           Visibility(
                             maintainAnimation: true,
                             maintainState: true,
@@ -190,7 +191,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                           const SizedBox(width: 10),
                           TextButton(
                             style: TextButton.styleFrom(
-                              primary: Colors.blueGrey,
+                              foregroundColor: Colors.blueGrey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -202,15 +203,16 @@ class _TopBarContentsState extends State<TopBarContents> {
                                       _isProcessing = true;
                                     });
                                     await signOut().then((result) {
-                                      print(result);
+                                      log(result);
                                       Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           fullscreenDialog: true,
-                                          builder: (context) => const HomePage(),
+                                          builder: (context) =>
+                                              const HomePage(),
                                         ),
                                       );
                                     }).catchError((error) {
-                                      print('Sign Out Error: $error');
+                                      log('Sign Out Error: $error');
                                     });
                                     setState(() {
                                       _isProcessing = false;

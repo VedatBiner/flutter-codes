@@ -11,7 +11,6 @@ import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
-import '../widgets/web_scrollbar.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
@@ -19,7 +18,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -48,19 +47,14 @@ class _HomePageState extends State<HomePage> {
         : 1;
 
     return Scaffold(
-      // Bu kodun yerine,
-      // backgroundColor: Theme.of(context).backgroundColor,
-      // artık bu kullanılıyor.
       backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
-              backgroundColor:
-              // Bu kodun yerine,
-              // Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
-              // artık bu kullanılıyor.
-              // *******************************************************
-              Theme.of(context).bottomAppBarColor.withOpacity(_opacity),
+              backgroundColor: Theme.of(context)
+                  .bottomAppBarTheme
+                  .color
+                  ?.withOpacity(_opacity),
               elevation: 0,
               centerTitle: true,
               actions: [
@@ -89,52 +83,41 @@ class _HomePageState extends State<HomePage> {
               child: TopBarContents(_opacity),
             ),
       drawer: const ExploreDrawer(),
-      body: WebScrollbar(
-        color: Colors.blueGrey,
-        backgroundColor: Colors.blueGrey.withOpacity(0.3),
-        width: 10,
-        heightFraction: 0.3,
+      body: SingleChildScrollView(
         controller: _scrollController,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    child: SizedBox(
-                      height: screenSize.height * 0.45,
-                      width: screenSize.width,
-                      child: Image.asset(
-                        'assets/images/cover.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+        physics: const ClampingScrollPhysics(),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                SizedBox(
+                  height: screenSize.height * 0.45,
+                  width: screenSize.width,
+                  child: Image.asset(
+                    'assets/images/cover.jpg',
+                    fit: BoxFit.cover,
                   ),
-                  Column(
-                    children: [
-                      FloatingQuickAccessBar(screenSize: screenSize),
-                      Container(
-                        child: Column(
-                          children: [
-                            FeaturedHeading(
-                              screenSize: screenSize,
-                            ),
-                            FeaturedTiles(screenSize: screenSize)
-                          ],
+                ),
+                Column(
+                  children: [
+                    FloatingQuickAccessBar(screenSize: screenSize),
+                    Column(
+                      children: [
+                        FeaturedHeading(
+                          screenSize: screenSize,
                         ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              DestinationHeading(screenSize: screenSize),
-              DestinationCarousel(),
-              SizedBox(height: screenSize.height / 10),
-              const BottomBar(),
-            ],
-          ),
+                        FeaturedTiles(screenSize: screenSize)
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+            DestinationHeading(screenSize: screenSize),
+            const DestinationCarousel(),
+            SizedBox(height: screenSize.height / 10),
+            const BottomBar(),
+          ],
         ),
       ),
     );
