@@ -56,6 +56,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                           ),
                           child: Text(
                             'Sign in',
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -146,6 +147,10 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                     )
                   : Container(),
               userEmail != null ? const SizedBox(height: 20) : Container(),
+              Divider(
+                color: Colors.blueGrey[400],
+                thickness: 2,
+              ),
               InkWell(
                 onTap: () {},
                 child: const Text(
@@ -166,6 +171,10 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                   'Contact Us',
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
+              ),
+              Divider(
+                color: Colors.blueGrey[400],
+                thickness: 2,
               ),
               Expanded(
                 child: Align(

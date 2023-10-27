@@ -137,7 +137,8 @@ class _TopBarContentsState extends State<TopBarContents> {
                 icon: const Icon(Icons.brightness_6),
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-                color: Colors.white,
+               // color: Colors.white,
+                color: Theme.of(context).primaryColor,
                 onPressed: () {
                   EasyDynamicTheme.of(context).changeTheme();
                 },

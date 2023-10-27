@@ -31,7 +31,10 @@ class _GoogleButtonState extends State<GoogleButton> {
           foregroundColor: Colors.blueGrey.shade100,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
-            side: const BorderSide(color: Colors.blueGrey, width: 3),
+            side: BorderSide(
+              color: Theme.of(context).primaryColor,
+              width: 3,
+            ),
           ),
           elevation: 0,
         ),

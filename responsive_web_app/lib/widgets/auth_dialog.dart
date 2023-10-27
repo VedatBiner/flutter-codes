@@ -241,8 +241,8 @@ class _AuthDialogState extends State<AuthDialog> {
                         flex: 1,
                         child: Container(
                           width: double.maxFinite,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.blueGrey.shade800,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
@@ -336,8 +336,8 @@ class _AuthDialogState extends State<AuthDialog> {
                         flex: 1,
                         child: Container(
                           width: double.maxFinite,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.blueGrey.shade800,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),

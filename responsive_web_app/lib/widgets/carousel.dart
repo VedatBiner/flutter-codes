@@ -90,7 +90,8 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                 letterSpacing: 8,
                 fontFamily: 'Electrolize',
                 fontSize: screenSize.width / 25,
-                color: Colors.white,
+                // color: Colors.white,
+                color: Theme.of(context).primaryColor
               ),
             ),
           ),
