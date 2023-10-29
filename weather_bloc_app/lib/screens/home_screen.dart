@@ -15,9 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  Widget getWeatherIcon(int code){
-    switch (code){
+  Widget getWeatherIcon(int code) {
+    switch (code) {
       case >= 200 && <= 300:
         return Image.asset("assets/images/1.png");
       case >= 300 && <= 400:
@@ -180,8 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Text(
                                       DateFormat().add_jm().format(
-                                        state.weather.sunrise!,
-                                      ),
+                                            state.weather.sunrise!,
+                                          ),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
@@ -211,8 +210,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Text(
                                       DateFormat().add_jm().format(
-                                        state.weather.sunset!,
-                                      ),
+                                            state.weather.sunset!,
+                                          ),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
