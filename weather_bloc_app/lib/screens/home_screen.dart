@@ -2,12 +2,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'dart:ui';
 
 import '../bloc/weather_bloc_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  Widget getWeatherIcon(int code){
+    switch (code){
+      case >= 200 && <= 300:
+        return Image.asset("assets/images/1.png");
+      case >= 300 && <= 400:
+        return Image.asset("assets/images/2.png");
+      case >= 400 && <= 500:
+        return Image.asset("assets/images/3.png");
+      case >= 500 && <= 600:
+        return Image.asset("assets/images/4.png");
+      case >= 600 && <= 700:
+        return Image.asset("assets/images/5.png");
+      case >= 700 && <= 800:
+        return Image.asset("assets/images/6.png");
+      case >= 800 && <= 804:
+        return Image.asset("assets/images/7.png");
+      default:
+        return Image.asset("assets/images/7.png");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +96,20 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              /// API değerleri burada okunuyor.
               BlocBuilder<WeatherBlocBloc, WeatherBlocState>(
-                builder: (context, state) {
+                  builder: (context, state) {
+                if (state is WeatherBlocSuccess) {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "📍 Ankara",
-                          style: TextStyle(
+                        Text(
+                          "📍 ${state.weather.areaName}",
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
                           ),
@@ -92,22 +123,21 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Image.asset(
-                          "assets/images/1.png",
-                        ),
-                        const Center(
+                        getWeatherIcon(state.weather.weatherConditionCode!),
+                        Center(
                           child: Text(
-                            "21 °C",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 55,
-                                fontWeight: FontWeight.w600,),
+                            "${state.weather.temperature!.celsius!.round()} °C",
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 55,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        const Center(
+                        Center(
                           child: Text(
-                            "Thunderstorm",
-                            style: TextStyle(
+                            "${state.weather.weatherMain}",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 25,
                               fontWeight: FontWeight.w500,
@@ -115,10 +145,12 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        const Center(
+                        Center(
                           child: Text(
-                            "Friday 16 - 09:41 am",
-                            style: TextStyle(
+                            DateFormat("EEEE dd - ").add_jm().format(
+                                  state.weather.date!,
+                                ),
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
@@ -132,13 +164,14 @@ class HomeScreen extends StatelessWidget {
                             Row(
                               children: [
                                 Image.asset(
-                                  "assets/images/11.png",
+                                  'assets/images/11.png',
                                   scale: 8,
                                 ),
                                 const SizedBox(width: 5),
-                                const Column(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Sunrise",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -146,13 +179,15 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "05:34 am",
-                                      style: TextStyle(
+                                      DateFormat().add_jm().format(
+                                        state.weather.sunrise!,
+                                      ),
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    SizedBox(height: 3),
+                                    const SizedBox(height: 3),
                                   ],
                                 ),
                               ],
@@ -164,9 +199,10 @@ class HomeScreen extends StatelessWidget {
                                   scale: 8,
                                 ),
                                 const SizedBox(width: 5),
-                                const Column(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Sunset",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -174,18 +210,19 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "05:34 pm",
-                                      style: TextStyle(
+                                      DateFormat().add_jm().format(
+                                        state.weather.sunset!,
+                                      ),
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    SizedBox(height: 3),
+                                    const SizedBox(height: 3),
                                   ],
                                 ),
                               ],
                             ),
-
                           ],
                         ),
                         const Padding(
@@ -202,9 +239,10 @@ class HomeScreen extends StatelessWidget {
                                   scale: 8,
                                 ),
                                 const SizedBox(width: 5),
-                                const Column(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Temp Max.",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -212,13 +250,13 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "21 °C",
-                                      style: TextStyle(
+                                      "${state.weather.tempMax!.celsius!.round()} °C",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    SizedBox(height: 3),
+                                    const SizedBox(height: 3),
                                   ],
                                 ),
                               ],
@@ -230,9 +268,10 @@ class HomeScreen extends StatelessWidget {
                                   scale: 8,
                                 ),
                                 const SizedBox(width: 5),
-                                const Column(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Temp Min.",
                                       style: TextStyle(
                                         color: Colors.white,
@@ -240,25 +279,25 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      "10 °C",
-                                      style: TextStyle(
+                                      "${state.weather.tempMin!.celsius!.round()} °C",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    SizedBox(height: 3),
                                   ],
                                 ),
                               ],
                             ),
-
                           ],
                         ),
                       ],
                     ),
                   );
+                } else {
+                  return Container();
                 }
-              ),
+              }),
             ],
           ),
         ),
@@ -266,11 +305,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
