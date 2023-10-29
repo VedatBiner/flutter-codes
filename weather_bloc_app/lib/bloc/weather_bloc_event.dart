@@ -16,3 +16,4 @@ class FetchWeather extends WeatherBlocEvent{
   List<Object> get props => [position];
 }
 
+
