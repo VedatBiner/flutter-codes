@@ -125,6 +125,9 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[Weather App : ](https://github.com/VedatBiner/flutter-codes/tree/master/weather_app) Hava Durumu Uygulaması (GetX+http+Json)</B>
 <BR>
 
+<B>[Weather BLoC App : ](https://github.com/VedatBiner/flutter-codes/tree/master/weather_bloc_app) Hava Durumu Uygulaması (BLoC)</B>
+<BR>
+
 <B>[weight_tracker : ](https://github.com/VedatBiner/flutter-codes/tree/master/weight_tracker)Getx ile bir tutorial </B>
 <BR>
 
