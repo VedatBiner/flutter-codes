@@ -7,4 +7,3 @@ API olarak : https://openweathermap.org/ sitesi kullanılıyor.
 Ekran Görüntüsü
 <HR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/weather_bloc_app/screen_shots/img-01.png" height="400em"/>
-<HR>
