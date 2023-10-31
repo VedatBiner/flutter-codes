@@ -16,6 +16,10 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Bilgi Testi : ](https://github.com/VedatBiner/flutter-codes/tree/master/bilgitesti)</B>Basit test uygulaması, buton kullanımı<BR>
 
+<B>[BMI Calculator App : ](https://github.com/VedatBiner/flutter-codes/tree/master/bmi_calculator_app)</B>BMI Calculator App<BR>
+
+<B>[BTC Ticker App : ](https://github.com/VedatBiner/flutter-codes/tree/master/btc_ticker_app)</B>BTC Ticker App<BR>
+
 <B>[Bugün Ne Yesem? : ](https://github.com/VedatBiner/flutter-codes/tree/master/bugun_ne_yesem)</B>Yemek seçim Uygulaması<BR>
 
 <B>[Calculator_app : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_app)</B>Bir hesap makinesi uygulaması<BR>
