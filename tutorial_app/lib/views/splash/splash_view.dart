@@ -1,9 +1,9 @@
-// splash_view.dart
+/// <----- splash_view.dart ----->
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import '../../config/route/app_routes.dart';
-import '../../core/app_const.dart';
+import '../../constant/app_const.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> with _SplashViewMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Splash View"),
+        title: Text(AppConst.splash.appBarTitle),
       ),
       body: const Center(
         child: Column(
@@ -41,7 +41,10 @@ mixin _SplashViewMixin on State<SplashView> {
 
   @override
   void initState() {
-    timer = Timer(AppConst.splashDuration, goToHome,);
+    timer = Timer(
+      AppConst.splash.splashDuration,
+      goToHome,
+    );
     super.initState();
   }
 
