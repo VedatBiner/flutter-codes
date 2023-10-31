@@ -40,6 +40,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Filmler_Uygulamasi : ](https://github.com/VedatBiner/flutter-codes/tree/master/filmler_uygulamasi)</B>Sqflite ile Filmler Uygulaması<BR>
 
+<B>[Flash Chat App : ](https://github.com/VedatBiner/flutter-codes/tree/master/flash_chat_app)</B>Firebase ile bir Chat Uygulaması<BR>
+
 <B>[Food Recipe : ](https://github.com/VedatBiner/flutter-codes/tree/master/food_recipe)Yemek Listesi http/json Rest API Uygulaması</B><BR>
 
 <B>[Friendly Chat : ](https://github.com/VedatBiner/flutter-codes/tree/master/friendly_chat)chat App simple Interface Uygulaması</B><BR>
