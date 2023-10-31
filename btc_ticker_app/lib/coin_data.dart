@@ -1,3 +1,4 @@
+/// <----- coin_data.dart ----->
 const List<String> currenciesList = [
   'AUD',
   'BRL',
