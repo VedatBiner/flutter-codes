@@ -121,6 +121,9 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulamalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
 <BR>
 
+<B>[tutorial App : ](https://github.com/VedatBiner/flutter-codes/tree/master/tutorial_app) Çeşitli Modüller</B>
+<BR>
+
 <B>[user_card : ](https://github.com/VedatBiner/flutter-codes/tree/master/user_card) Rasgele resimli kullanıclar listesi (http+Json)</B>
 <BR>
 
