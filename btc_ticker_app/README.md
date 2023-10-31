@@ -5,4 +5,4 @@ Adresindeki LinkedIn Eğitimi <BR>
 API 'den çekme eklenecek.
 Ekran Görüntüleri
 <HR>
-![ScreenShot](./screen_shots/img-01.png)\
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/btc_ticker_app/screen_shots/img-01.png" height="400em"/>
