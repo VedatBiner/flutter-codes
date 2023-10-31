@@ -5,4 +5,4 @@ Adresindeki LinkedIn Eğitimi <BR>
 API 'den çekme eklenecek.
 Ekran Görüntüleri
 <HR>
-![ScreenShot](screen_shots/img-01.png)\
+![ScreenShot](./screen_shots/img-01.png)\
