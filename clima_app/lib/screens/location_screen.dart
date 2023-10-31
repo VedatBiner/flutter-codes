@@ -6,8 +6,7 @@ import '../services/weather.dart';
 import '../screens/city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({
-    Key? key,
+  const LocationScreen({super.key,
     this.locationWeather,
     this.locationCity,
   });
