@@ -33,7 +33,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Flexible(
               child: Hero(
                 tag: "logo",
-                child: Container(
+                child: SizedBox(
                   height: 200.0,
                   child: Image.asset('assets/images/logo.png'),
                 ),
@@ -79,11 +79,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     email: email,
                     password: password,
                   );
-                  if (newUser != null) {
-
-                    Navigator.pushNamed(context, ChatScreen.id);
-                  }
-                } catch (e) {
+                  Navigator.pushNamed(context, ChatScreen.id);
+                                } catch (e) {
                   print(e);
                 }
               },

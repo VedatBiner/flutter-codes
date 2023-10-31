@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Flexible(
               child: Hero(
                 tag: "logo",
-                child: Container(
+                child: SizedBox(
                   height: 200.0,
                   child: Image.asset('assets/images/logo.png'),
                 ),
@@ -76,13 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     password: password,
                   );
 
-                  if (user != null) {
-                    Navigator.pushNamed(
-                      context,
-                      ChatScreen.id,
-                    );
-                  }
-                } catch (e) {
+                  Navigator.pushNamed(
+                    context,
+                    ChatScreen.id,
+                  );
+                                } catch (e) {
                   print(e);
                 }
               },
