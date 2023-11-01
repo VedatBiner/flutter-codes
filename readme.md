@@ -30,6 +30,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Calculator_ui : ](https://github.com/VedatBiner/flutter-codes/tree/master/calculator_ui)</B>Bir hesap makinesi arayüzü.<BR>
 
+<B>[Chat App : ](https://github.com/VedatBiner/flutter-codes/tree/master/chat_app)</B>Basit Chat App.<BR>
+
 <B>[Chatgpt_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/chatgpt_app)</B>Chat GPT Tutorial<BR>
 
 <B>[Clima App: ](https://github.com/VedatBiner/flutter-codes/tree/master/clima_app)</B>Basit bir hava durumu uygulaması <BR>
