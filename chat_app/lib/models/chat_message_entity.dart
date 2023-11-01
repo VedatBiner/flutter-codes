@@ -33,4 +33,3 @@ class Author {
     return Author(userName: json["username"]);
   }
 }
-

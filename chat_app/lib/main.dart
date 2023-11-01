@@ -36,7 +36,7 @@ class ChatApp extends StatelessWidget {
         builder: (context, AsyncSnapshot<bool> snapshot) {
           if(snapshot.connectionState == ConnectionState.done){
             if(snapshot.hasData && snapshot.data!){
-              return ChatPage();
+              return const ChatPage();
             } else {
               return LoginPage();
             }
@@ -46,7 +46,7 @@ class ChatApp extends StatelessWidget {
         future: context.read<AuthService>().isLoggedIn(),
       ),
       routes: {
-        "/chat": (context) => ChatPage(),
+        "/chat": (context) => const ChatPage(),
       },
     );
   }

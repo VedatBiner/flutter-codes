@@ -24,6 +24,7 @@ class LoginTextField extends StatelessWidget {
         if(validator != null){
           return validator!(value);
         }
+        return null;
       },
       controller: controller,
       decoration: InputDecoration(
