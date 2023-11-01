@@ -28,7 +28,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               userEmail == null
-                  ? Container(
+                  ? SizedBox(
                       width: double.maxFinite,
                       child: TextButton(
                         // color: Colors.black,
@@ -92,7 +92,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                     ),
               const SizedBox(height: 20),
               userEmail != null
-                  ? Container(
+                  ? SizedBox(
                       width: double.maxFinite,
                       child: TextButton(
                         // color: Colors.black,

@@ -239,7 +239,7 @@ class _AuthDialogState extends State<AuthDialog> {
                     children: [
                       Flexible(
                         flex: 1,
-                        child: Container(
+                        child: SizedBox(
                           width: double.maxFinite,
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(
@@ -334,7 +334,7 @@ class _AuthDialogState extends State<AuthDialog> {
                       const SizedBox(width: 20),
                       Flexible(
                         flex: 1,
-                        child: Container(
+                        child: SizedBox(
                           width: double.maxFinite,
                           child: OutlinedButton(
                             style: OutlinedButton.styleFrom(

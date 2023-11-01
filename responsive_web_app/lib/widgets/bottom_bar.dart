@@ -47,12 +47,12 @@ class BottomBar extends StatelessWidget {
             height: 1,
           ),
           const SizedBox(height: 20),
-          InfoText(
+          const InfoText(
             type: 'Email',
             text: 'explore@gmail.com',
           ),
           const SizedBox(height: 5),
-          InfoText(
+          const InfoText(
             type: 'Address',
             text: '128, Trymore Road, Delft, MN - 56124',
           ),
@@ -101,14 +101,14 @@ class BottomBar extends StatelessWidget {
                 width: 2,
                 height: 150,
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoText(
                     type: 'Email',
                     text: 'explore@gmail.com',
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5),
                   InfoText(
                     type: 'Address',
                     text: '128, Trymore Road, Delft, MN - 56124',
