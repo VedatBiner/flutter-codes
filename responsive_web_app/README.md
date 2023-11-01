@@ -13,4 +13,4 @@ Ekran Görüntüleri
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/responsive_web_app/screen_shots/img-05.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/responsive_web_app/screen_shots/img-06.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/responsive_web_app/screen_shots/img-07.png" height="400em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/responsive_web_app/screen_shots/img-07.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/responsive_web_app/screen_shots/img-08.png" height="400em"/>
