@@ -36,6 +36,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Clima App: ](https://github.com/VedatBiner/flutter-codes/tree/master/clima_app)</B>Basit bir hava durumu uygulaması <BR>
 
+<B>[Crypto Currencies App: ](https://github.com/VedatBiner/flutter-codes/tree/master/crypto_currencies_app)</B>Coin List Uygulaması uygulaması <BR>
+
 <B>[Doodle Dash: ](https://github.com/VedatBiner/flutter-codes/tree/master/doodledash)</B>Doodle Dash Oyun uygulaması<BR>
 
 <B>[Drum Machine : ](https://github.com/VedatBiner/flutter-codes/tree/master/drum_machine)</B>Basit bir Davul Uygulaması<BR>
