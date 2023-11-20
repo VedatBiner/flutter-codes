@@ -1,16 +1,10 @@
 # crypto_currencies_app
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Crypto Currencies App
+Coin Gecko API kullanarak, Kriptoların fiyatlarını API 'den çeker.
+Web 'de hatalı çalışıyor. Ancak Mobile de soru yok. 
+<BR>
+Ekran Görüntüleri
+<HR>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/crypto_currencies_app/screen_shots/img-01.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/crypto_currencies_app/screen_shots/img-02.png" height="400em"/>
