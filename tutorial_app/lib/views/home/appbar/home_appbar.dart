@@ -15,6 +15,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
       ),
+      /// Bir önceki ekrana dönüşü engellemek için adım 2.
+      automaticallyImplyLeading: false,
     );
   }
 

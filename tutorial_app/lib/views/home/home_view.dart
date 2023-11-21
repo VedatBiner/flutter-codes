@@ -18,13 +18,14 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = AppConst.listener.themeNotifier;
 
-    /// Bir önceki ekrana dönüşü engellemek için adım 2.
+    /// Bir önceki ekrana dönüşü engellemek için adım 1.
     return PopScope(
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
           ),
+          /// Bir önceki ekrana dönüşü engellemek için adım 2.
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
