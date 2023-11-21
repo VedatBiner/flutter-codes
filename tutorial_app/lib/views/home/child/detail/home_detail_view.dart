@@ -1,9 +1,6 @@
 /// <----- home_detail_view.dart ----->
-library;
 
-import 'package:flutter/material.dart';
-
-import '../../../../core/extension/context_extension.dart';
+part of "../../home_view.dart";
 
 class HomeDetailView extends StatelessWidget {
   const HomeDetailView({super.key});
