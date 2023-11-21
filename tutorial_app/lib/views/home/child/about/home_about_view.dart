@@ -2,8 +2,8 @@
 
 part of "../../home_view.dart";
 
-class HomeAboutView extends StatelessWidget {
-  const HomeAboutView({super.key});
+class _HomeAboutView extends StatelessWidget {
+  const _HomeAboutView({super.key});
 
   @override
   Widget build(BuildContext context) {

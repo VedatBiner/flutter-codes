@@ -10,8 +10,8 @@ class _HomeBody extends StatelessWidget {
     return PageView(
       children: [
         bodyChild(context),
-        const HomeAboutView(),
-        const HomeDetailView(),
+        const _HomeAboutView(),
+        const _HomeDetailView(),
       ],
     );
   }
