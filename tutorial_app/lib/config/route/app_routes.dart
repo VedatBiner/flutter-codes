@@ -1,4 +1,5 @@
 /// <----- app_routes.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 

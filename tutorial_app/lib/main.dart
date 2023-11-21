@@ -1,4 +1,5 @@
 /// <----- main.dart ----->
+library;
 import 'package:flutter/material.dart';
 
 import '../config/theme/theme_dark.dart';

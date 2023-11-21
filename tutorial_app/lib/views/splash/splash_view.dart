@@ -1,4 +1,5 @@
 /// <----- splash_view.dart ----->
+library;
 import 'package:flutter/material.dart';
 import 'dart:async';
 

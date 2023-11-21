@@ -1,4 +1,5 @@
 /// <----- home_view.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ part "body/home_body.dart";
 // part "appbar/home_appbar.dart";
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class HomeView extends StatelessWidget {
           title: Text(
             "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
           ),
+          automaticallyImplyLeading: false,
           actions: [
             IconButton(
               onPressed: () {

@@ -1,4 +1,5 @@
 /// <----- lapp_const.dart ----->
+library;
 
 import '../core/language_model/language_listener.dart';
 import '../config/theme/theme_light.dart';
