@@ -11,7 +11,7 @@ class _HomeDetailView extends StatelessWidget {
       children: [
         Text(
           "Home Detail View",
-          style: context.theme.textTheme.displaySmall,
+          style: context.theme.textTheme.headlineLarge,
         ),
       ],
     );

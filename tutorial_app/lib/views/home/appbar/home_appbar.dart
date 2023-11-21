@@ -8,8 +8,26 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
+      centerTitle: true,
+      title: SizedBox(
+        width: 450,
+        height: 60,
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const SizedBox(width: 8),
+          scrollDirection: Axis.horizontal,
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return ElevatedButton(
+              onPressed: () => AppConst.home.pageController.value.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.elasticInOut,
+              ),
+              child: Text("Page : $index"),
+            );
+          },
+          shrinkWrap: true,
+        ),
       ),
 
       /// Bir önceki ekrana dönüşü engellemek için adım 2.
@@ -45,4 +63,3 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ];
 }
-

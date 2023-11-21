@@ -1,6 +1,9 @@
 /// <----- lapp_const.dart ----->
 library;
 
+import 'package:flutter/cupertino.dart';
+import 'package:tutorial_app/views/home/components/page_controller.dart';
+
 import '../core/language_model/language_listener.dart';
 import '../config/theme/theme_light.dart';
 import '../config/theme/theme_manager.dart';

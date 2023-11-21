@@ -12,4 +12,10 @@ class _HomeConstant {
     tr: "Hoşgeldiniz",
     en: "Welcome",
   );
+  final HomeViewPageController pageController = HomeViewPageController(
+    PageController(
+      initialPage: 0,
+      keepPage: true,
+    ),
+  );
 }

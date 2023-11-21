@@ -7,13 +7,18 @@ class _HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      children: [
-        bodyChild(context),
-        const _HomeAboutView(),
-        const _HomeDetailView(),
-      ],
-    );
+    return ValueListenableBuilder(
+        valueListenable: AppConst.home.pageController,
+        builder: (context, controller, child) {
+          return PageView(
+            controller: controller,
+            children: [
+              bodyChild(context),
+              const _HomeAboutView(),
+              const _HomeDetailView(),
+            ],
+          );
+        });
   }
 }
 
@@ -24,6 +29,16 @@ Center bodyChild(BuildContext context) {
         const Icon(
           Icons.home,
           size: 256,
+        ),
+        const SizedBox(height: 50),
+        ElevatedButton(
+          onPressed: () => AppConst.home.pageController.value.nextPage(
+            duration: const Duration(
+              milliseconds: 200,
+            ),
+            curve: Curves.bounceInOut,
+          ),
+          child: const Text("Next Page"),
         ),
         Container(
           color: context.theme.cardColor,
