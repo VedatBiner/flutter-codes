@@ -18,4 +18,5 @@ class _HomeConstant {
       keepPage: true,
     ),
   );
+  final GlobalKey scaffoldKey = GlobalKey();
 }

@@ -7,28 +7,24 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return AppBar(
       centerTitle: true,
-      title: SizedBox(
-        width: 450,
-        height: 60,
-        child: ListView.separated(
-          separatorBuilder: (context, index) => const SizedBox(width: 8),
-          scrollDirection: Axis.horizontal,
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return ElevatedButton(
-              onPressed: () => AppConst.home.pageController.value.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.elasticInOut,
-              ),
-              child: Text("Page : $index"),
-            );
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+          onPressed: (){
+            if (!AppConst.home.scaffoldKey.currentState!.isDrawerOpen){
+              AppConst.home.scaffoldKey.currentState!.openDrawer();
+            }
           },
-          shrinkWrap: true,
+          icon: const Icon(
+            Icons.menu,
+            size: 48,
+          ),
         ),
       ),
+      title: size.width > 800 ? const _AppTitle() : null,
 
       /// Bir önceki ekrana dönüşü engellemek için adım 2.
       automaticallyImplyLeading: false,
@@ -62,4 +58,34 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ];
+}
+
+class _AppTitle extends StatelessWidget {
+  const _AppTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 450,
+      height: 60,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(width: 8),
+        scrollDirection: Axis.horizontal,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return ElevatedButton(
+            onPressed: () => AppConst.home.pageController.value.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.elasticInOut,
+            ),
+            child: Text("Page : $index"),
+          );
+        },
+        shrinkWrap: true,
+      ),
+    );
+  }
 }
