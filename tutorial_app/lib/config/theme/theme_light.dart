@@ -1,4 +1,5 @@
-// theme_light.dart
+/// <----- theme_light.dart ----->
+
 import 'package:flutter/material.dart';
 
 final class LightTheme {

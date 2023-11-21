@@ -1,8 +1,14 @@
 /// <----- home_view.dart ----->
+
 import 'package:flutter/material.dart';
 
+import '../../config/route/app_routes.dart';
 import '../../constant/app_const.dart';
 import '../../core/extension/context_extension.dart';
+
+/// parts field
+part "body/home_body.dart";
+// part "appbar/home_appbar.dart";
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -11,43 +17,37 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = AppConst.listener.themeNotifier;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              AppConst.listener.language.changeLang();
-            },
-            icon: const Icon(Icons.language),
+    /// Bir önceki ekrana dönüşü engellemek için adım 2.
+    return PopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
           ),
-          const SizedBox(width: 16),
-          IconButton(
-            onPressed: () => AppConst.listener.themeNotifier.changeTheme(),
-            icon: Icon(
-              themeNotifier.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+          actions: [
+            IconButton(
+              onPressed: () {
+                AppConst.listener.language.changeLang();
+              },
+              icon: const Icon(Icons.language),
             ),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const Icon(
-              Icons.home,
-              size: 256,
+            const SizedBox(width: 16),
+            IconButton(
+              onPressed: () => AppConst.listener.themeNotifier.changeTheme(),
+              icon: Icon(
+                themeNotifier.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+              ),
             ),
-            Container(
-              color: context.theme.cardColor,
-              height: 200,
-              width: 200,
+            const SizedBox(width: 8),
+            IconButton(
+              onPressed: () => Navigator.pushNamed(context, AppRoute.splash),
+              icon: const Icon(
+                Icons.arrow_back,
+              ),
             ),
-            Text(
-                "${context.language ? AppConst.home.welcome.tr : AppConst.home.welcome.en}"),
           ],
         ),
+        body: const _HomeBody(),
       ),
     );
   }

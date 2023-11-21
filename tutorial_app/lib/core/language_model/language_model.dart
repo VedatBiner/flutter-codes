@@ -1,4 +1,4 @@
-// language_model.dart
+/// <----- language_model.dart ----->
 class LanguageModel {
   String? tr;
   String? en;

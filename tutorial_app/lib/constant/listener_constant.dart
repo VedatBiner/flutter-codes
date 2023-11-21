@@ -7,4 +7,3 @@ class _ListenerConstant {
 
   final LanguageListener language = LanguageListener(true);
 }
-

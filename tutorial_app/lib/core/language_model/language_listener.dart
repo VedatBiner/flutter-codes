@@ -1,15 +1,11 @@
-// language_listener.dart
+/// <----- language_listener.dart ----->
 import 'package:flutter/material.dart';
 
 class LanguageListener extends ValueNotifier<bool> {
   LanguageListener(bool value) : super(value);
 
   void changeLang() {
-    if (value) {
-      value = false;
-    } else {
-      value = true;
-    }
+    value = !value;
     notifyListeners();
   }
 }

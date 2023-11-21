@@ -1,4 +1,4 @@
-// theme_manager.dart
+/// <----- theme_manager.dart ----->
 import 'package:flutter/material.dart';
 
 import '../../config/theme/theme_dark.dart';
