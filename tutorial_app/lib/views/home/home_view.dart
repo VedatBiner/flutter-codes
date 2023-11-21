@@ -18,9 +18,9 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// Bir önceki ekrana dönüşü engellemek için adım 1.
-    return const PopScope(
+    return PopScope(
       child: Scaffold(
-        body: _HomeBody(),
+        body: const _HomeBody(),
         appBar: _HomeAppBar(),
       ),
     );

@@ -3,11 +3,10 @@
 part of "../home_view.dart";
 
 class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _HomeAppBar({super.key});
+  _HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = AppConst.listener.themeNotifier;
     return AppBar(
       title: Text(
         "${context.language ? AppConst.home.themeText.tr : AppConst.home.themeText.en}",
@@ -15,7 +14,15 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       /// Bir önceki ekrana dönüşü engellemek için adım 2.
       automaticallyImplyLeading: false,
-      actions: [
+      actions: appBarActions(context),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(100);
+  final themeNotifier = AppConst.listener.themeNotifier;
+
+  List<Widget> appBarActions(BuildContext context) => [
         IconButton(
           onPressed: () {
             AppConst.listener.language.changeLang();
@@ -36,20 +43,6 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             Icons.arrow_back,
           ),
         ),
-      ],
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(100);
+      ];
 }
-
-
-
-
-
-
-
-
-
 
