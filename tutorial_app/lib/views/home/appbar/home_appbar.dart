@@ -16,8 +16,6 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             if (!AppConst.home.scaffoldKey.currentState!.isDrawerOpen) {
               AppConst.home.scaffoldKey.currentState!.openDrawer();
-
-              /// 42
             }
           },
           icon: const Icon(
