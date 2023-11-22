@@ -14,7 +14,8 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
           onPressed: () {
-            if (!AppConst.home.scaffoldKey.currentState!.isDrawerOpen) {
+            if (AppConst.home.scaffoldKey.currentState != null &&
+                !AppConst.home.scaffoldKey.currentState!.isDrawerOpen) {
               AppConst.home.scaffoldKey.currentState!.openDrawer();
             }
           },
@@ -69,7 +70,7 @@ class _AppTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 450,
-      height: 60,
+      height: 50,
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(width: 8),
         scrollDirection: Axis.horizontal,
@@ -78,7 +79,7 @@ class _AppTitle extends StatelessWidget {
           return ElevatedButton(
             onPressed: () => AppConst.home.pageController.value.animateToPage(
               index,
-              duration: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 200),
               curve: Curves.elasticInOut,
             ),
             child: Text("Page : $index"),
