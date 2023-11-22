@@ -13,9 +13,10 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: Padding(
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
-          onPressed: (){
-            if (!AppConst.home.scaffoldKey.currentState!.isDrawerOpen){
+          onPressed: () {
+            if (!AppConst.home.scaffoldKey.currentState!.isDrawerOpen) {
               AppConst.home.scaffoldKey.currentState!.openDrawer();
+
               /// 42
             }
           },
@@ -90,12 +91,3 @@ class _AppTitle extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
