@@ -18,5 +18,5 @@ class _HomeConstant {
       keepPage: true,
     ),
   );
-  final GlobalKey scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 }

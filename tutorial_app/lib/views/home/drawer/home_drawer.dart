@@ -3,7 +3,7 @@
 part of "../../home/home_view.dart";
 
 class _HomeDrawer extends StatelessWidget {
-  const _HomeDrawer({super.key});
+  const _HomeDrawer();
 
   @override
   Widget build(BuildContext context) {
