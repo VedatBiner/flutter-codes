@@ -1,4 +1,3 @@
-/// <----- scan_controller.dart ----->
 import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
@@ -6,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ScanController extends GetxController {
-  /// başlangıçta kamera kontrolü yapalım.
   @override
   void onInit() {
     super.onInit();
@@ -14,7 +12,6 @@ class ScanController extends GetxController {
     initTFLite();
   }
 
-  /// CameraController ile  işimiz bitince
   @override
   void dispose() {
     super.dispose();
@@ -23,14 +20,11 @@ class ScanController extends GetxController {
 
   late CameraController cameraController;
   late List<CameraDescription> cameras;
-
-  /// GetX observer ekledik
   var isCameraInitialized = false.obs;
-
-  /// default
   var cameraCount = 0;
+  var x, y, w, h = 0.0;
+  var label = "";
 
-  /// kamera erişim izni isteyen metot
   initCamera() async {
     if (await Permission.camera.request().isGranted) {
       cameras = await availableCameras();
@@ -50,8 +44,6 @@ class ScanController extends GetxController {
         });
       });
       isCameraInitialized(true);
-
-      /// GetBuilder kullandığımız için güncelleme yapalım.
       update();
     } else {
       log("Permission denied ...");
@@ -68,7 +60,6 @@ class ScanController extends GetxController {
     );
   }
 
-  /// nesneleri alıgılayacak metot
   objectDetector(CameraImage image) async {
     var detector = await Tflite.runModelOnFrame(
       bytesList: image.planes.map((e) {
@@ -84,9 +75,16 @@ class ScanController extends GetxController {
       threshold: 0.4,
     );
 
-    /// detector null değilse
-    if (detector != null) {
-      log("Result is $detector");
+    if (detector != null && detector.isNotEmpty) {
+      var ourDetectedObject = detector.first;
+      if (ourDetectedObject["confidenceInClass"] * 100 > 45) {
+        label = detector.first["detectedClass"].toString();
+        h = ourDetectedObject["rect"]["h"];
+        w = ourDetectedObject["rect"]["w"];
+        x = ourDetectedObject["rect"]["x"];
+        y = ourDetectedObject["rect"]["y"];
+      }
+      update();
     }
   }
 }
