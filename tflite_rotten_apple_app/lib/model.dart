@@ -1,8 +1,11 @@
 /// <----- model.dart ----->
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:camera/camera.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
+
+import 'main.dart';
 
 class Model extends StatefulWidget {
   const Model({super.key});
@@ -15,6 +18,9 @@ class _ModelState extends State<Model> {
   late File _image;
   bool selImage = false;
   List result = [];
+  String output = "kh";
+  CameraController? cameraController;
+  CameraImage? cameraImage;
 
   @override
   void initState() {
@@ -22,6 +28,7 @@ class _ModelState extends State<Model> {
     loadModel().then((value) {
       setState(() {});
     });
+    loadCamera();
   }
 
   @override
@@ -40,36 +47,62 @@ class _ModelState extends State<Model> {
         ),
         body: Column(
           children: [
-            Expanded(child: (selImage) ? Image.file(_image) : Container()),
-            const SizedBox(height: 30),
-            (result.isEmpty)
-                ? Container()
-                : Text(
-                    result[0]['label'],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+            ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    width: MediaQuery.of(context).size.width,
+                    child: (cameraController!.value.isInitialized)
+                        ? AspectRatio(
+                            aspectRatio: cameraController!.value.aspectRatio,
+                            child: CameraPreview(cameraController!),
+                          )
+                        : Container(),
+                  ),
+                ),
+                Text(
+                  output,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                /*  (selImage)?Image.file(_image):Container(),
+                ),
+                const SizedBox(height: 30),
+                (result.isEmpty)
+                    ? Container()
+                    : Text(
+                        result[0]['label'],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                InkWell(
+                  onTap: () {
+                    chooseFile();
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.indigoAccent,
+                    ),
+                    child: const Text(
+                      "Pick an Image",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-            InkWell(
-              onTap: () {
-                chooseFile();
-              },
-              child: Container(
-                margin: const EdgeInsets.only(top: 20),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.indigoAccent,
                 ),
-                child: const Text(
-                  "Pick an Image",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
+                ),*/
+              ],
             ),
           ],
         ),
@@ -105,5 +138,44 @@ class _ModelState extends State<Model> {
       result = output!;
     });
     print("result is : $result");
+  }
+
+  loadCamera() {
+    cameraController = CameraController((camera![0]), ResolutionPreset.medium);
+    cameraController!.initialize().then((value) {
+      if (mounted) {
+        return;
+      } else {
+        setState(() {
+          cameraController!.startImageStream((image) {
+            cameraImage = image;
+            runModel();
+          });
+        });
+      }
+    });
+  }
+
+  runModel() async {
+    if (cameraImage != null) {
+      var predictions = await Tflite.runModelOnFrame(
+        bytesList: cameraImage!.planes.map((plane) {
+          return plane.bytes;
+        }).toList(),
+        imageHeight: cameraImage!.height,
+        imageWidth: cameraImage!.width,
+        imageMean: 127.5,
+        imageStd: 127.5,
+        rotation: 90,
+        numResults: 5,
+        threshold: 0.1,
+        asynch: true,
+      );
+      for (var element in predictions!) {
+        setState(() {
+          output = element["label"];
+        });
+      }
+    }
   }
 }
