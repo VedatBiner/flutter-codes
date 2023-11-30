@@ -79,13 +79,11 @@ class _ModelState extends State<Model> {
 
   Future<void> chooseFile() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image!.path != null) {
-      setState(() {
-        selImage = true;
-        _image = File(image.path);
-      });
-    }
-    predictImage(_image);
+    setState(() {
+      selImage = true;
+      _image = File(image!.path);
+    });
+      predictImage(_image);
   }
 
   loadModel() async {
