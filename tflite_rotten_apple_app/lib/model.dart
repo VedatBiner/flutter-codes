@@ -45,7 +45,7 @@ class _ModelState extends State<Model> {
             (result.isEmpty)
                 ? Container()
                 : Text(
-                    result[0]["labels"],
+                    result[0]['label'],
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -83,7 +83,7 @@ class _ModelState extends State<Model> {
       selImage = true;
       _image = File(image!.path);
     });
-      predictImage(_image);
+    predictImage(_image);
   }
 
   loadModel() async {
