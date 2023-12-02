@@ -56,6 +56,8 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 
 <B>[Friendly Chat : ](https://github.com/VedatBiner/flutter-codes/tree/master/friendly_chat)chat App simple Interface Uygulaması</B><BR>
 
+<B>[GraphQL Test: ](https://github.com/VedatBiner/flutter-codes/tree/master/graphql_test_app)GraphQL test Uygulaması</B><BR>
+
 <B>[GIF Api : ](https://github.com/VedatBiner/flutter-codes/tree/master/gif_api)GIF animasyon sitesinden animasyonlu görüntü gösterici</B><BR>
 
 <B>[Grocery App : ](https://github.com/VedatBiner/flutter-codes/tree/master/grocery_app_sqflite)Grocery App Sqflite Uygulaması</B><BR>
@@ -131,6 +133,15 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <BR>
 
 <B>[sp_sayac: ](https://github.com/VedatBiner/flutter-codes/tree/master/sp_sayac)Sayaç Uygulaması (Shared Preferences)</B>
+<BR>
+
+<B>[tf_lite_ai_object_detector: ](https://github.com/VedatBiner/flutter-codes/tree/master/tf_ai_object_detector)TensorFlow Lite with Object Detector</B>
+<BR>
+
+<B>[tf_lite_image_classificationc: ](https://github.com/VedatBiner/flutter-codes/tree/master/tflite_imaga_classification)TensorFlow Lite with Image Classification</B>
+<BR>
+
+<B>[tf_lite_rotten_apple: ](https://github.com/VedatBiner/flutter-codes/tree/master/tflite_rotten_apple_app)TensorFlow Lite with Rotten Apple Detection</B>
 <BR>
 
 <B>[ToDo List Uygulaması : ](https://github.com/VedatBiner/flutter-codes/tree/master/todolist_app)Bu uygulamada, sharedpreferences, provider, splashscreen gibi uygulamalar vs var. Bu nedenle on iki branch halinde izlenmesi daha uygun geldi. </B>
