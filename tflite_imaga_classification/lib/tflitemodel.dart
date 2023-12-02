@@ -97,8 +97,8 @@ class _TfLiteModelState extends State<TfLiteModel> {
   }
 
   Future pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile = await _picker.pickImage(
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
     );
     File image = File(pickedFile!.path);
