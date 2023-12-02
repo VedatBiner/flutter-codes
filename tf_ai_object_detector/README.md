@@ -10,7 +10,7 @@ Bu adresteki : https://www.youtube.com/playlist?list=PL-7EgTNrNHKYrQZCdyB2u9U6GZ
 Ekran görüntüleri
 <HR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/tf_ai_object_detector/screen_shots/img-01.png" height="400em"/>
-<img src="https://github.com/VedatBiner/flutter-codes/blob/master/tf_ai_object_detector/screen_shots/img-02.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/tf_ai_object_detector/screen_shots/img-02.png" height="200em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/tf_ai_object_detector/screen_shots/img-03.png" height="400em"/>
 <BR>
 Uygulama da bu hata var ?
