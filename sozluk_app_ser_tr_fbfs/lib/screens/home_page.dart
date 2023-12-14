@@ -107,59 +107,67 @@ class _HomePageState extends State<HomePage> {
                 String turkceText = data["turkce"] ?? "---";
 
                 /// display as a list tile
-                return ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            sirpcaText,
-                            style: const TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
+                return Card(
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              sirpcaText,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            turkceText,
-                            style: const TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold,
+                        const SizedBox(width: 30),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              turkceText,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      /// update
-                      IconButton(
-                        onPressed: () {
-                          // openWordBox(docId: docId)},
-                          print("Edit buton tıklandı");
-                        },
-                        icon: const Icon(Icons.edit),
-                      ),
+                        const SizedBox(width: 30),
+                      ],
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        /// update
+                        IconButton(
+                          onPressed: () {
+                            // openWordBox(docId: docId)},
+                            print("Edit buton tıklandı");
+                          },
+                          icon: const Icon(Icons.edit),
+                        ),
 
-                      /// delete
-                      IconButton(
-                        onPressed: () {
-                          print("delete buton tıklandı");
-                          firestoreService.deleteWord(docId);
-                        },
-                        icon: const Icon(Icons.delete),
-                      ),
-                    ],
+                        /// delete
+                        IconButton(
+                          onPressed: () {
+                            print("delete buton tıklandı");
+                            firestoreService.deleteWord(docId);
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
