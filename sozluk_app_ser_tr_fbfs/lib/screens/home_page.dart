@@ -15,6 +15,15 @@ class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
+  bool aramaYapiliyorMu = false;
+  String aramaKelimesi = "";
+
+
+  // /// arama yapalım
+  // Future<List<Kelimeler>> aramaYap(String aramaKelimesi) async {
+  //   var kelimelerListesi = await Kelimelerdao().kelimeAra(aramaKelimesi);
+  //   return kelimelerListesi;
+  // }
 
   /// Open dialog box to ad a note
   void openWordBox({String? docId}) {
@@ -75,7 +84,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sırpça-Türkçe Sözlük"),
+        title: aramaYapiliyorMu
+            ? TextField(
+                decoration: const InputDecoration(
+                  hintText: "Arama için bir şey yazın",
+                ),
+                onChanged: (aramaSonucu) {
+                  setState(() {
+                    aramaKelimesi = aramaSonucu;
+                  });
+                },
+              )
+            : const Text("Sırpça-Türkçe Sözlük"),
+        actions: [
+          aramaYapiliyorMu
+              ? IconButton(
+                  icon: const Icon(Icons.cancel),
+                  onPressed: () {
+                    setState(() {
+                      aramaYapiliyorMu = false;
+                      aramaKelimesi = "";
+                    });
+                  },
+                )
+              : IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      aramaYapiliyorMu = true;
+                    });
+                  },
+                ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => openWordBox(),
@@ -104,66 +144,71 @@ class _HomePageState extends State<HomePage> {
                 String turkceText = data["turkce"] ?? "---";
 
                 /// display as a list tile
-                return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Card(
-                    child: ListTile(
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                sirpcaText,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: SizedBox(
+                      height: 80,
+                      child: Card(
+                        child: ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    sirpcaText,
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                turkceText,
-                                textAlign: TextAlign.left,
-                                style: const TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
+                              const SizedBox(width: 10),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    turkceText,
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              const SizedBox(width: 20),
+                            ],
                           ),
-                          const SizedBox(width: 20),
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          /// update
-                          IconButton(
-                            onPressed: () => openWordBox(docId: docId),
-                            icon: const Icon(Icons.edit),
-                            tooltip: "kelime düzelt",
-                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              /// update
+                              IconButton(
+                                onPressed: () => openWordBox(docId: docId),
+                                icon: const Icon(Icons.edit),
+                                tooltip: "kelime düzelt",
+                              ),
 
-                          /// delete
-                          IconButton(
-                            onPressed: () {
-                              firestoreService.deleteWord(docId);
-                            },
-                            icon: const Icon(Icons.delete),
-                            tooltip: "kelime sil",
+                              /// delete
+                              IconButton(
+                                onPressed: () {
+                                  firestoreService.deleteWord(docId);
+                                },
+                                icon: const Icon(Icons.delete),
+                                tooltip: "kelime sil",
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
