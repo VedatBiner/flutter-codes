@@ -78,10 +78,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Sırpça-Türkçe Sözlük"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print("FAB tıklandı");
-          openWordBox();
-        },
+        onPressed: () => openWordBox(),
         child: const Icon(Icons.add),
       ),
       body: StreamBuilder<QuerySnapshot>(
