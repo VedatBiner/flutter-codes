@@ -107,68 +107,71 @@ class _HomePageState extends State<HomePage> {
                 String turkceText = data["turkce"] ?? "---";
 
                 /// display as a list tile
-                return Card(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              sirpcaText,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                return Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Card(
+                    child: ListTile(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                sirpcaText,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 30),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              turkceText,
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                          const SizedBox(width: 10),
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                turkceText,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 30),
-                      ],
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        /// update
-                        IconButton(
-                          onPressed: () {
-                            // openWordBox(docId: docId)},
-                            print("Edit buton tıklandı");
-                          },
-                          icon: const Icon(Icons.edit),
-                          tooltip: "kelime düzelt",
-                        ),
+                          const SizedBox(width: 20),
+                        ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          /// update
+                          IconButton(
+                            onPressed: () {
+                              // openWordBox(docId: docId)},
+                              print("Edit buton tıklandı");
+                            },
+                            icon: const Icon(Icons.edit),
+                            tooltip: "kelime düzelt",
+                          ),
 
-                        /// delete
-                        IconButton(
-                          onPressed: () {
-                            print("delete buton tıklandı");
-                            firestoreService.deleteWord(docId);
-                          },
-                          icon: const Icon(Icons.delete),
-                          tooltip: "kelime sil",
-                        ),
-                      ],
+                          /// delete
+                          IconButton(
+                            onPressed: () {
+                              print("delete buton tıklandı");
+                              firestoreService.deleteWord(docId);
+                            },
+                            icon: const Icon(Icons.delete),
+                            tooltip: "kelime sil",
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
