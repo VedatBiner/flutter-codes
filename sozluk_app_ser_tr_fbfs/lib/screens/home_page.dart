@@ -153,10 +153,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           /// update
                           IconButton(
-                            onPressed: () {
-                              // openWordBox(docId: docId)},
-                              print("Edit buton tıklandı");
-                            },
+                            onPressed: () => openWordBox(docId: docId),
                             icon: const Icon(Icons.edit),
                             tooltip: "kelime düzelt",
                           ),
@@ -164,7 +161,6 @@ class _HomePageState extends State<HomePage> {
                           /// delete
                           IconButton(
                             onPressed: () {
-                              print("delete buton tıklandı");
                               firestoreService.deleteWord(docId);
                             },
                             icon: const Icon(Icons.delete),
