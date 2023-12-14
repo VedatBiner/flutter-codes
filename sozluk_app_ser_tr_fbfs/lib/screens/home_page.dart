@@ -156,6 +156,7 @@ class _HomePageState extends State<HomePage> {
                             print("Edit buton tıklandı");
                           },
                           icon: const Icon(Icons.edit),
+                          tooltip: "kelime düzelt",
                         ),
 
                         /// delete
@@ -165,6 +166,7 @@ class _HomePageState extends State<HomePage> {
                             firestoreService.deleteWord(docId);
                           },
                           icon: const Icon(Icons.delete),
+                          tooltip: "kelime sil",
                         ),
                       ],
                     ),
