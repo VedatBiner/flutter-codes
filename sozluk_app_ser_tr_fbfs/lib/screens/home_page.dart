@@ -2,13 +2,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../models/words.dart';
 import '../services/firestore.dart';
+import '../screens/details_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -18,14 +20,6 @@ class _HomePageState extends State<HomePage> {
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
 
-
-  // /// arama yapalım
-  // Future<List<Kelimeler>> aramaYap(String aramaKelimesi) async {
-  //   var kelimelerListesi = await Kelimelerdao().kelimeAra(aramaKelimesi);
-  //   return kelimelerListesi;
-  // }
-
-  /// Open dialog box to ad a note
   void openWordBox({String? docId}) {
     showDialog(
       context: context,
@@ -33,6 +27,7 @@ class _HomePageState extends State<HomePage> {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
             TextField(
               controller: sirpcaController,
               decoration: const InputDecoration(
@@ -48,17 +43,14 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: [
-          /// button to save
           ElevatedButton(
             onPressed: () {
-              /// add a new note
               if (docId == null) {
                 firestoreService.addWord(
                   sirpcaController.text,
                   turkceController.text,
                 );
               } else {
-                /// update an existing note
                 firestoreService.updateWord(
                   docId,
                   sirpcaController.text,
@@ -66,11 +58,9 @@ class _HomePageState extends State<HomePage> {
                 );
               }
 
-              /// clear text controller
               sirpcaController.clear();
               turkceController.clear();
 
-              /// close the box
               Navigator.pop(context);
             },
             child: const Text("Add"),
@@ -84,6 +74,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        /// burada aram düğmesine basılıp basılmadığını
+        /// kontrol edip sonuca göre işlem yapıyoruz
         title: aramaYapiliyorMu
             ? TextField(
                 decoration: const InputDecoration(
@@ -99,6 +91,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           aramaYapiliyorMu
               ? IconButton(
+                  /// arama iptal düğmesi burada
                   icon: const Icon(Icons.cancel),
                   onPressed: () {
                     setState(() {
@@ -108,6 +101,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 )
               : IconButton(
+                  /// arama düğmesi burada
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     setState(() {
@@ -117,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                 ),
         ],
       ),
+      /// FAB Basılınca uygulanacak metot
       floatingActionButton: FloatingActionButton(
         onPressed: () => openWordBox(),
         child: const Icon(Icons.add),
@@ -125,28 +120,42 @@ class _HomePageState extends State<HomePage> {
         stream: firestoreService.getWordsStream(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-          /// if we have data, get all the docs
           if (snapshot.hasData) {
-            List wordsList = snapshot.data!.docs;
+            List<Words> wordsList = [];
 
-            /// display as a list
+            /// burada for each döngüsü for loop 'a dönüştürüldü
+            for (var document in snapshot.data!.docs) {
+              Map<String, dynamic> data =
+                  document.data() as Map<String, dynamic>;
+              var gelenKelime = Words.fromJson(document.id, data);
+
+              /// burada aradığımız kelimeler listeleniyor.
+              if (!aramaYapiliyorMu ||
+                  gelenKelime.sirpca.contains(aramaKelimesi)) {
+                wordsList.add(gelenKelime);
+              }
+            }
+
             return ListView.builder(
+              /// kelime sayımız kadar listeleme yapılıyor
               itemCount: wordsList.length,
               itemBuilder: (context, index) {
-                /// get each individual doc
-                DocumentSnapshot document = wordsList[index];
-                String docId = document.id;
+                Words word = wordsList[index];
 
-                /// get note from each doc
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                String sirpcaText = data["sirpca"];
-                String turkceText = data["turkce"] ?? "---";
-
-                /// display as a list tile
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                return Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  /// kelime tıklanınca detay sayfası açılıyor
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailsPage(
+                            word: word,
+                          ),
+                        ),
+                      );
+                    },
                     child: SizedBox(
                       height: 80,
                       child: Card(
@@ -159,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    sirpcaText,
+                                    word.sirpca,
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       color: Colors.red,
@@ -175,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    turkceText,
+                                    word.turkce,
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                       color: Colors.blue,
@@ -191,17 +200,15 @@ class _HomePageState extends State<HomePage> {
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              /// update
                               IconButton(
-                                onPressed: () => openWordBox(docId: docId),
+                                onPressed: () =>
+                                    openWordBox(docId: word.wordId),
                                 icon: const Icon(Icons.edit),
                                 tooltip: "kelime düzelt",
                               ),
-
-                              /// delete
                               IconButton(
                                 onPressed: () {
-                                  firestoreService.deleteWord(docId);
+                                  firestoreService.deleteWord(word.wordId);
                                 },
                                 icon: const Icon(Icons.delete),
                                 tooltip: "kelime sil",
@@ -216,7 +223,7 @@ class _HomePageState extends State<HomePage> {
               },
             );
           } else {
-            return const Text("No notes ...");
+            return const Text("No words ...");
           }
         },
       ),
