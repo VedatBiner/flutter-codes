@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return deleteWord(
+                                      return DeleteWord(
                                         word: word,
                                         firestoreService: firestoreService,
                                       );
@@ -242,8 +242,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class deleteWord extends StatelessWidget {
-  const deleteWord({
+class DeleteWord extends StatelessWidget {
+  const DeleteWord({
     super.key,
     required this.word,
     required this.firestoreService,
