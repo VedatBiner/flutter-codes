@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
+import '../widgets/app_bar.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 
@@ -26,89 +27,68 @@ class _HomePageState extends State<HomePage> {
   void openWordBox({String? docId}) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
-            TextEntry(
-              controller: sirpcaController,
-              hintText: "Sırpça kelime giriniz ...",
-            ),
-            TextEntry(
-              controller: turkceController,
-              hintText: "Türkçe karşılığını giriniz ...",
-            ),
-          ],
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              if (docId == null) {
-                firestoreService.addWord(
-                  sirpcaController.text,
-                  turkceController.text,
-                );
-              } else {
-                firestoreService.updateWord(
-                  docId,
-                  sirpcaController.text,
-                  turkceController.text,
-                );
-              }
+      builder: (context) =>
+          AlertDialog(
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
 
-              sirpcaController.clear();
-              turkceController.clear();
+                /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
+                TextEntry(
+                  controller: sirpcaController,
+                  hintText: "Sırpça kelime giriniz ...",
+                ),
+                TextEntry(
+                  controller: turkceController,
+                  hintText: "Türkçe karşılığını giriniz ...",
+                ),
+              ],
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  if (docId == null) {
+                    firestoreService.addWord(
+                      sirpcaController.text,
+                      turkceController.text,
+                    );
+                  } else {
+                    firestoreService.updateWord(
+                      docId,
+                      sirpcaController.text,
+                      turkceController.text,
+                    );
+                  }
 
-              Navigator.pop(context);
-            },
-            child: const Text("Add"),
-          )
-        ],
-      ),
+                  sirpcaController.clear();
+                  turkceController.clear();
+
+                  Navigator.pop(context);
+                },
+                child: const Text("Add"),
+              )
+            ],
+          ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        /// burada arama düğmesine basılıp basılmadığını
-        /// kontrol edip sonuca göre işlem yapıyoruz
-        title: aramaYapiliyorMu
-            ? TextField(
-                decoration: const InputDecoration(
-                  hintText: "Arama için bir şey yazın",
-                ),
-                onChanged: (aramaSonucu) {
-                  setState(() {
-                    aramaKelimesi = aramaSonucu;
-                  });
-                },
-              )
-            : const Text("Sırpça-Türkçe Sözlük"),
-        actions: [
-          aramaYapiliyorMu
-              ? IconButton(
-                  /// arama iptal düğmesi burada
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    setState(() {
-                      aramaYapiliyorMu = false;
-                      aramaKelimesi = "";
-                    });
-                  },
-                )
-              : IconButton(
-                  /// arama düğmesi burada
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    setState(() {
-                      aramaYapiliyorMu = true;
-                    });
-                  },
-                ),
-        ],
+      appBar: CustomAppBar(
+        aramaYapiliyorMu: aramaYapiliyorMu,
+        aramaKelimesi: aramaKelimesi,
+        onSearchChanged: (aramaSonucu) {
+          setState(() {
+            aramaKelimesi = aramaSonucu;
+          });
+        },
+        onSearchCancelled: () {
+          setState(() {
+            aramaYapiliyorMu = false;
+            aramaKelimesi = "";
+          });
+        },
       ),
 
       /// FAB Basılınca uygulanacak metot
@@ -126,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             /// burada for each döngüsü for loop 'a dönüştürüldü
             for (var document in snapshot.data!.docs) {
               Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
+              document.data() as Map<String, dynamic>;
               var gelenKelime = Words.fromJson(document.id, data);
 
               /// burada aradığımız kelimeler listeleniyor.
@@ -137,6 +117,7 @@ class _HomePageState extends State<HomePage> {
             }
 
             return ListView.builder(
+
               /// kelime sayımız kadar listeleme yapılıyor
               itemCount: wordsList.length,
               itemBuilder: (context, index) {
@@ -151,9 +132,10 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailsPage(
-                            word: word,
-                          ),
+                          builder: (context) =>
+                              DetailsPage(
+                                word: word,
+                              ),
                         ),
                       );
                     },
