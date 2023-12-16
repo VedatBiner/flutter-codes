@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
-import '../widgets/app_bar.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 
@@ -27,68 +26,85 @@ class _HomePageState extends State<HomePage> {
   void openWordBox({String? docId}) {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            content: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-
-                /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
-                TextEntry(
-                  controller: sirpcaController,
-                  hintText: "Sırpça kelime giriniz ...",
-                ),
-                TextEntry(
-                  controller: turkceController,
-                  hintText: "Türkçe karşılığını giriniz ...",
-                ),
-              ],
+      builder: (context) => AlertDialog(
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
+            TextEntry(
+              controller: sirpcaController,
+              hintText: "Sırpça kelime giriniz ...",
             ),
-            actions: [
-              ElevatedButton(
-                onPressed: () {
-                  if (docId == null) {
-                    firestoreService.addWord(
-                      sirpcaController.text,
-                      turkceController.text,
-                    );
-                  } else {
-                    firestoreService.updateWord(
-                      docId,
-                      sirpcaController.text,
-                      turkceController.text,
-                    );
-                  }
+            TextEntry(
+              controller: turkceController,
+              hintText: "Türkçe karşılığını giriniz ...",
+            ),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              if (docId == null) {
+                firestoreService.addWord(
+                  sirpcaController.text,
+                  turkceController.text,
+                );
+              } else {
+                firestoreService.updateWord(
+                  docId,
+                  sirpcaController.text,
+                  turkceController.text,
+                );
+              }
 
-                  sirpcaController.clear();
-                  turkceController.clear();
+              sirpcaController.clear();
+              turkceController.clear();
 
-                  Navigator.pop(context);
-                },
-                child: const Text("Add"),
-              )
-            ],
-          ),
+              Navigator.pop(context);
+            },
+            child: const Text("Add"),
+          )
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        aramaYapiliyorMu: aramaYapiliyorMu,
-        aramaKelimesi: aramaKelimesi,
-        onSearchChanged: (aramaSonucu) {
-          setState(() {
-            aramaKelimesi = aramaSonucu;
-          });
-        },
-        onSearchCancelled: () {
-          setState(() {
-            aramaYapiliyorMu = false;
-            aramaKelimesi = "";
-          });
-        },
+      appBar: AppBar(
+        title: aramaYapiliyorMu
+            ? TextField(
+                decoration: const InputDecoration(
+                  hintText: "Aradığınız kelimeyi yazınız ...",
+                ),
+                onChanged: (aramaSonucu) {
+                  setState(() {
+                    aramaKelimesi = aramaSonucu;
+                  });
+                },
+              )
+            : const Text("Sırpça-Türkçe Sözlük"),
+        actions: [
+          aramaYapiliyorMu
+              ? IconButton(
+                  icon: const Icon(Icons.cancel),
+                  onPressed: () {
+                    setState(() {
+                      aramaYapiliyorMu = false;
+                      aramaKelimesi = "";
+                    });
+                  },
+                )
+              : IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      aramaYapiliyorMu = true;
+                    });
+                  },
+                ),
+        ],
       ),
 
       /// FAB Basılınca uygulanacak metot
@@ -106,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             /// burada for each döngüsü for loop 'a dönüştürüldü
             for (var document in snapshot.data!.docs) {
               Map<String, dynamic> data =
-              document.data() as Map<String, dynamic>;
+                  document.data() as Map<String, dynamic>;
               var gelenKelime = Words.fromJson(document.id, data);
 
               /// burada aradığımız kelimeler listeleniyor.
@@ -117,7 +133,6 @@ class _HomePageState extends State<HomePage> {
             }
 
             return ListView.builder(
-
               /// kelime sayımız kadar listeleme yapılıyor
               itemCount: wordsList.length,
               itemBuilder: (context, index) {
@@ -132,10 +147,9 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              DetailsPage(
-                                word: word,
-                              ),
+                          builder: (context) => DetailsPage(
+                            word: word,
+                          ),
                         ),
                       );
                     },
