@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
+import '../widgets/delete_word.dart';
+import '../widgets/text_entry.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,17 +31,13 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
-            TextField(
+            TextEntry(
               controller: sirpcaController,
-              decoration: const InputDecoration(
-                hintText: "Sırpça kelime giriniz ...",
-              ),
+              hintText: "Sırpça kelime giriniz ...",
             ),
-            TextField(
+            TextEntry(
               controller: turkceController,
-              decoration: const InputDecoration(
-                hintText: "Türkçe karşılığını giriniz ...",
-              ),
+              hintText: "Türkçe karşılığını giriniz ...",
             ),
           ],
         ),
@@ -75,7 +73,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /// burada aram düğmesine basılıp basılmadığını
+        /// burada arama düğmesine basılıp basılmadığını
         /// kontrol edip sonuca göre işlem yapıyoruz
         title: aramaYapiliyorMu
             ? TextField(
@@ -238,90 +236,6 @@ class _HomePageState extends State<HomePage> {
           }
         },
       ),
-    );
-  }
-}
-
-class DeleteWord extends StatelessWidget {
-  const DeleteWord({
-    super.key,
-    required this.word,
-    required this.firestoreService,
-  });
-
-  final Words word;
-  final FirestoreService firestoreService;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-        side: const BorderSide(
-          color: Colors.red,
-          width: 2.0,
-        ),
-      ),
-      title: const Text(
-        "Dikkat !!!",
-        style: TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      content: Row(
-        children: [
-          const Text("Bu kelime "),
-          Text(
-            "(${word.sirpca})",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent,
-              fontSize: 16,
-            ),
-          ),
-          const Text(" silinsin mi ?"),
-        ],
-      ),
-      actions: [
-        TextButton(
-          child: const Text("İptal"),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        TextButton(
-          child: const Text(
-            "Tamam",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          onPressed: () {
-            firestoreService.deleteWord(word.wordId);
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  children: [
-                    Text(
-                      "(${word.sirpca})",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Text(
-                      " kelimesi silinmiştir ...",
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ],
     );
   }
 }
