@@ -72,166 +72,192 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: aramaYapiliyorMu
-            ? TextField(
-                decoration: const InputDecoration(
-                  hintText: "Aradığınız kelimeyi yazınız ...",
-                ),
-                onChanged: (aramaSonucu) {
-                  setState(() {
-                    aramaKelimesi = aramaSonucu;
-                  });
-                },
-              )
-            : const Text("Sırpça-Türkçe Sözlük"),
-        actions: [
-          aramaYapiliyorMu
-              ? IconButton(
-                  icon: const Icon(Icons.cancel),
-                  onPressed: () {
-                    setState(() {
-                      aramaYapiliyorMu = false;
-                      aramaKelimesi = "";
-                    });
-                  },
-                )
-              : IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    setState(() {
-                      aramaYapiliyorMu = true;
-                    });
-                  },
-                ),
-        ],
-      ),
+      appBar: buildAppBar(),
 
       /// FAB Basılınca uygulanacak metot
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => openWordBox(),
-        child: const Icon(Icons.add),
-      ),
-      body: StreamBuilder<QuerySnapshot>(
-        stream: firestoreService.getWordsStream(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-          if (snapshot.hasData) {
-            List<Words> wordsList = [];
+      floatingActionButton: buildFloatingActionButton(),
+      body: buildStreamBuilder(),
+    );
+  }
 
-            /// burada for each döngüsü for loop 'a dönüştürüldü
-            for (var document in snapshot.data!.docs) {
-              Map<String, dynamic> data =
-                  document.data() as Map<String, dynamic>;
-              var gelenKelime = Words.fromJson(document.id, data);
+  FloatingActionButton buildFloatingActionButton() {
+    return FloatingActionButton(
+      onPressed: () => openWordBox(),
+      child: const Icon(Icons.add),
+    );
+  }
 
-              /// burada aradığımız kelimeler listeleniyor.
-              if (!aramaYapiliyorMu ||
-                  gelenKelime.sirpca.contains(aramaKelimesi)) {
-                wordsList.add(gelenKelime);
-              }
+  StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilder() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestoreService.getWordsStream(),
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+        if (snapshot.hasData) {
+          List<Words> wordsList = [];
+
+          /// burada for each döngüsü for loop 'a dönüştürüldü
+          for (var document in snapshot.data!.docs) {
+            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+            var gelenKelime = Words.fromJson(document.id, data);
+
+            /// burada aradığımız kelimeler listeleniyor.
+            if (!aramaYapiliyorMu ||
+                gelenKelime.sirpca.contains(aramaKelimesi)) {
+              wordsList.add(gelenKelime);
             }
+          }
 
-            return ListView.builder(
-              /// kelime sayımız kadar listeleme yapılıyor
-              itemCount: wordsList.length,
-              itemBuilder: (context, index) {
-                Words word = wordsList[index];
+          return buildListView(wordsList);
+        } else {
+          return const Text("No words ...");
+        }
+      },
+    );
+  }
 
-                return Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+  ListView buildListView(List<Words> wordsList) {
+    return ListView.builder(
+      /// kelime sayımız kadar listeleme yapılıyor
+      itemCount: wordsList.length,
+      itemBuilder: (context, index) {
+        Words word = wordsList[index];
 
-                  /// kelime tıklanınca detay sayfası açılıyor
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsPage(
-                            word: word,
-                          ),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      height: 80,
-                      child: Card(
-                        child: ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    word.sirpca,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                flex: 2,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    word.turkce,
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      color: Colors.blue,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                            ],
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                onPressed: () =>
-                                    openWordBox(docId: word.wordId),
-                                icon: const Icon(Icons.edit),
-                                tooltip: "kelime düzelt",
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return DeleteWord(
-                                        word: word,
-                                        firestoreService: firestoreService,
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: const Icon(Icons.delete),
-                                tooltip: "kelime sil",
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+        return Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+
+          /// kelime tıklanınca detay sayfası açılıyor
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(
+                    word: word,
                   ),
+                ),
+              );
+            },
+            child: SizedBox(
+              height: 100,
+              child: buildCard(word, context),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// kelime kartlarının oluşturulması
+  Card buildCard(Words word, BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  word.sirpca,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  word.turkce,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+          ],
+        ),
+        trailing: buildRow(word, context),
+      ),
+    );
+  }
+
+  /// edit ve delete butonları
+  Row buildRow(Words word, BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          onPressed: () => openWordBox(docId: word.wordId),
+          icon: const Icon(Icons.edit),
+          tooltip: "kelime düzelt",
+        ),
+        IconButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return DeleteWord(
+                  word: word,
+                  firestoreService: firestoreService,
                 );
               },
             );
-          } else {
-            return const Text("No words ...");
-          }
-        },
-      ),
+          },
+          icon: const Icon(Icons.delete),
+          tooltip: "kelime sil",
+        ),
+      ],
+    );
+  }
+
+  /// AppBar oluşturulması
+  AppBar buildAppBar() {
+    return AppBar(
+      title: aramaYapiliyorMu
+          ? TextField(
+              decoration: const InputDecoration(
+                hintText: "Aradığınız kelimeyi yazınız ...",
+              ),
+              onChanged: (aramaSonucu) {
+                setState(() {
+                  aramaKelimesi = aramaSonucu;
+                });
+              },
+            )
+          : const Text("Sırpça-Türkçe Sözlük"),
+      actions: [
+        aramaYapiliyorMu
+            ? IconButton(
+                icon: const Icon(Icons.cancel),
+                onPressed: () {
+                  setState(() {
+                    aramaYapiliyorMu = false;
+                    aramaKelimesi = "";
+                  });
+                },
+              )
+            : IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  setState(() {
+                    aramaYapiliyorMu = true;
+                  });
+                },
+              ),
+      ],
     );
   }
 }
