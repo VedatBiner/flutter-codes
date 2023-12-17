@@ -72,14 +72,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// AppBar oluşturalım
       appBar: buildAppBar(),
+
+      /// body oluşturalım
+      body: buildStreamBuilder(),
 
       /// FAB Basılınca uygulanacak metot
       floatingActionButton: buildFloatingActionButton(),
-      body: buildStreamBuilder(),
     );
   }
 
+  /// FAB burada oluşturuluyor
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
       onPressed: () => openWordBox(),
@@ -87,6 +91,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Firestore verileri buradan okunuyor
   StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilder() {
     return StreamBuilder<QuerySnapshot>(
       stream: firestoreService.getWordsStream(),
@@ -115,6 +120,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Firebase verileri burada listeleniyor.
   ListView buildListView(List<Words> wordsList) {
     return ListView.builder(
       /// kelime sayımız kadar listeleme yapılıyor
@@ -155,36 +161,14 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  word.sirpca,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
+            ExpandedWord(
+              word: word.sirpca,
+              color: Colors.red,
             ),
             const SizedBox(width: 10),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  word.turkce,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
+            ExpandedWord(
+              word: word.turkce,
+              color: Colors.blueAccent,
             ),
             const SizedBox(width: 20),
           ],
@@ -258,6 +242,37 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
       ],
+    );
+  }
+}
+
+/// kelime ve karşılığı
+class ExpandedWord extends StatelessWidget {
+  const ExpandedWord({
+    super.key,
+    required this.word,
+    required this.color,
+  });
+
+  final color;
+  final word;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          word,
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+      ),
     );
   }
 }
