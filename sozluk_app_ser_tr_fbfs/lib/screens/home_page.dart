@@ -132,6 +132,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          const SizedBox(height: 5),
           StreamBuilder<QuerySnapshot>(
             stream: firestoreService.getWordsStream(),
             builder: (BuildContext context,
@@ -180,6 +181,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          const SizedBox(height: 5),
           StreamBuilder<QuerySnapshot>(
             stream: firestoreService.getWordsStream(),
             builder: (BuildContext context,
@@ -198,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
-                        const Text('Girilen Kelime Sayısı: '),
+                        const Text('Girilen kelime sayısı: '),
                         Text(
                           "$wordCount",
                           style: const TextStyle(
