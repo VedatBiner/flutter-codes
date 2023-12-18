@@ -29,6 +29,13 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+          side: const BorderSide(
+            color: Colors.red,
+            width: 2.0,
+          ),
+        ),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -170,7 +177,11 @@ class _HomePageState extends State<HomePage> {
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
       onPressed: () => openWordBox(),
-      child: const Icon(Icons.add),
+      backgroundColor: Colors.blueAccent,
+      child: const Icon(
+        Icons.add,
+        color: Colors.amberAccent,
+      ),
     );
   }
 
