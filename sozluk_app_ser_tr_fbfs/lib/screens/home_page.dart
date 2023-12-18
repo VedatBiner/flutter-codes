@@ -7,6 +7,7 @@ import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
 import '../widgets/delete_word.dart';
+import '../widgets/flags_widget.dart';
 import '../widgets/text_entry.dart';
 
 class HomePage extends StatefulWidget {
@@ -80,23 +81,45 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
-                    'Sırpça',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 10),
+                      FlagWidget(
+                        countryCode: 'RS',
+                        radius: 8,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        'Sırpça',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
-                  child: Text(
-                    'Türkçe',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent,
-                    ),
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      FlagWidget(
+                        countryCode: 'TR',
+                        radius: 8,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        'Türkçe',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
