@@ -74,53 +74,83 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAppBar(),
       body: Column(
         children: [
-          StreamBuilder<QuerySnapshot>(
-            stream: firestoreService.getWordsStream(),
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-              List<Words> wordsList = [];
-              for (var document in snapshot.data!.docs) {
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                var gelenKelime = Words.fromJson(document.id, data);
-                if (!aramaYapiliyorMu ||
-                    gelenKelime.sirpca.contains(aramaKelimesi)) {
-                  wordsList.add(gelenKelime);
-                }
-              }
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: wordsList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailsPage(
-                                word: wordsList[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: SizedBox(
-                          height: 100,
-                          child: buildCard(wordsList[index], context),
-                        ),
-                      ),
-                    );
-                  },
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Sırpça',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-              );
-            },
+                Expanded(
+                  child: Text(
+                    'Türkçe',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: firestoreService.getWordsStream(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+                List<Words> wordsList = [];
+                for (var document in snapshot.data!.docs) {
+                  Map<String, dynamic> data =
+                      document.data() as Map<String, dynamic>;
+                  var gelenKelime = Words.fromJson(document.id, data);
+                  if (!aramaYapiliyorMu ||
+                      gelenKelime.sirpca.contains(aramaKelimesi)) {
+                    wordsList.add(gelenKelime);
+                  }
+                }
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: wordsList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsPage(
+                                  word: wordsList[index],
+                                ),
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            height: 100,
+                            child: buildCard(wordsList[index], context),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
           ),
           StreamBuilder<QuerySnapshot>(
             stream: firestoreService.getWordsStream(),
