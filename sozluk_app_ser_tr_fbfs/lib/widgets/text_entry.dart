@@ -10,7 +10,7 @@ class TextEntry extends StatelessWidget {
   });
 
   final TextEditingController controller;
-  final hintText;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {

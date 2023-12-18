@@ -8,8 +8,8 @@ import '../services/firestore.dart';
 import '../screens/details_page.dart';
 import '../widgets/delete_word.dart';
 import '../screens/home_page_parts/expanded_word.dart';
+import '../screens/home_page_parts/ana_baslik.dart';
 import '../widgets/text_entry.dart';
-import 'home_page_parts/ana_baslik.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -239,28 +239,28 @@ class _HomePageState extends State<HomePage> {
 
   IconButton kelimeSil(BuildContext context, Words word) {
     return IconButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return DeleteWord(
-                word: word,
-                firestoreService: firestoreService,
-              );
-            },
-          );
-        },
-        icon: const Icon(Icons.delete),
-        tooltip: "kelime sil",
-      );
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return DeleteWord(
+              word: word,
+              firestoreService: firestoreService,
+            );
+          },
+        );
+      },
+      icon: const Icon(Icons.delete),
+      tooltip: "kelime sil",
+    );
   }
 
   IconButton kelimeDuzelt(Words word) {
     return IconButton(
-        onPressed: () => openWordBox(docId: word.wordId),
-        icon: const Icon(Icons.edit),
-        tooltip: "kelime düzelt",
-      );
+      onPressed: () => openWordBox(docId: word.wordId),
+      icon: const Icon(Icons.edit),
+      tooltip: "kelime düzelt",
+    );
   }
 
   AppBar buildAppBar() {
@@ -308,6 +308,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-

@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-///
 /// notes yerine words kullanıyoruz
 /// koleksiyon adı kelimeler
 /// kelime yerine word kullanıyoruz
@@ -13,7 +12,7 @@ class FirestoreService {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
 
-  /// CREATE : Create a new note
+  /// CREATE : Create a new word
   Future<void> addWord(String sirpca, String turkce) {
     return words.add({
       "sirpca": sirpca,
@@ -21,7 +20,7 @@ class FirestoreService {
     });
   }
 
-  /// READ : get notes from database
+  /// READ : get words from database
   Stream<QuerySnapshot> getWordsStream() {
     final wordsStream = words
         .orderBy(
@@ -32,7 +31,7 @@ class FirestoreService {
     return wordsStream;
   }
 
-  /// UPDATE : update notes given a doc id
+  /// UPDATE : update word given a doc id
   Future<void> updateWord(
     String docId,
     String sirpcaKelime,
@@ -44,7 +43,7 @@ class FirestoreService {
     });
   }
 
-  /// DELETE : delete notes given a doc id
+  /// DELETE : delete word given a doc id
   Future<void> deleteWord(String docId) {
     return words.doc(docId).delete();
   }
