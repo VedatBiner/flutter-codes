@@ -32,14 +32,7 @@ class _DetailsPageState extends State<DetailsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flag.fromCode(
-                  FlagsCode.RS,
-                  height: 40,
-                  width: 40,
-                  fit: BoxFit.fill,
-                  flagSize: FlagSize.size_1x1,
-                  borderRadius: 25,
-                ),
+                const FlagWidget(countryCode: 'RS', radius: 25,),
                 const SizedBox(width: 10),
                 Text(
                   widget.word.sirpca,
@@ -56,14 +49,7 @@ class _DetailsPageState extends State<DetailsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flag.fromCode(
-                  FlagsCode.TR,
-                  height: 40,
-                  width: 40,
-                  fit: BoxFit.fill,
-                  flagSize: FlagSize.size_1x1,
-                  borderRadius: 25,
-                ),
+                const FlagWidget(countryCode: 'TR', radius: 25,),
                 const SizedBox(width: 10),
                 Text(
                   widget.word.turkce,
@@ -78,6 +64,29 @@ class _DetailsPageState extends State<DetailsPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FlagWidget extends StatelessWidget {
+  const FlagWidget({
+    super.key,
+    required this.countryCode,
+    required this.radius
+  });
+
+  final String countryCode;
+  final double radius;
+
+  @override
+  Widget build(BuildContext context) {
+    return Flag.fromString(
+      countryCode,
+      height: 40,
+      width: 40,
+      fit: BoxFit.fill,
+      flagSize: FlagSize.size_1x1,
+      borderRadius: radius,
     );
   }
 }
