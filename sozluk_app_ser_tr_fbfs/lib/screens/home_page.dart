@@ -75,54 +75,60 @@ class _HomePageState extends State<HomePage> {
       appBar: buildAppBar(),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 10),
-                      FlagWidget(
-                        countryCode: 'RS',
-                        radius: 8,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Sırpça',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
+          Container(
+            color: Colors.blueAccent,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        FlagWidget(
+                          countryCode: 'RS',
+                          radius: 8,
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Row(
-                    children: [
-                      FlagWidget(
-                        countryCode: 'TR',
-                        radius: 8,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Türkçe',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent,
+                        SizedBox(width: 10),
+                        Text(
+                          'Sırpça',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        FlagWidget(
+                          countryCode: 'TR',
+                          radius: 8,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Türkçe',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(width: 20),
+                  ),
+                ],
+              ),
             ),
           ),
           StreamBuilder<QuerySnapshot>(
@@ -178,13 +184,33 @@ class _HomePageState extends State<HomePage> {
             builder: (BuildContext context,
                 AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               }
               int wordCount = snapshot.data?.size ?? 0;
-              return Text('Girilen Kelime Sayısı: $wordCount');
+              return Container(
+                color: Colors.amber,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        const Text('Girilen Kelime Sayısı: '),
+                        Text(
+                          "$wordCount",
+                          style: const TextStyle(
+                            color: Colors.indigoAccent,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ],
@@ -230,6 +256,7 @@ class _HomePageState extends State<HomePage> {
 
   Card buildCard(Words word, BuildContext context) {
     return Card(
+      color: Colors.grey[200],
       child: ListTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -282,10 +309,15 @@ class _HomePageState extends State<HomePage> {
 
   AppBar buildAppBar() {
     return AppBar(
+      backgroundColor: Colors.black,
       title: aramaYapiliyorMu
           ? TextField(
-              decoration: const InputDecoration(
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
                 hintText: "Aradığınız kelimeyi yazınız ...",
+                hintStyle: TextStyle(
+                  color: Colors.grey.shade300,
+                ),
               ),
               onChanged: (aramaSonucu) {
                 setState(() {
@@ -293,7 +325,10 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             )
-          : const Text("Sırpça-Türkçe Sözlük"),
+          : const Text(
+              "Sırpça-Türkçe Sözlük",
+              style: TextStyle(color: Colors.white),
+            ),
       actions: [
         aramaYapiliyorMu
             ? IconButton(
