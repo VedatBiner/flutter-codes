@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            /// bu bölümde kelime giriş alanlarımızı tanımlıyoruz
             TextEntry(
               controller: sirpcaController,
               hintText: "Sırpça kelime giriniz ...",
@@ -72,18 +71,77 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /// AppBar oluşturalım
       appBar: buildAppBar(),
-
-      /// body oluşturalım
-      body: buildStreamBuilder(),
-
-      /// FAB Basılınca uygulanacak metot
+      body: Column(
+        children: [
+          StreamBuilder<QuerySnapshot>(
+            stream: firestoreService.getWordsStream(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+              List<Words> wordsList = [];
+              for (var document in snapshot.data!.docs) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                var gelenKelime = Words.fromJson(document.id, data);
+                if (!aramaYapiliyorMu ||
+                    gelenKelime.sirpca.contains(aramaKelimesi)) {
+                  wordsList.add(gelenKelime);
+                }
+              }
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: wordsList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsPage(
+                                word: wordsList[index],
+                              ),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 100,
+                          child: buildCard(wordsList[index], context),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream: firestoreService.getWordsStream(),
+            builder: (BuildContext context,
+                AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+              int wordCount = snapshot.data?.size ?? 0;
+              return Text('Girilen Kelime Sayısı: $wordCount');
+            },
+          ),
+        ],
+      ),
       floatingActionButton: buildFloatingActionButton(),
     );
   }
 
-  /// FAB burada oluşturuluyor
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
       onPressed: () => openWordBox(),
@@ -91,47 +149,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Firestore verileri buradan okunuyor
-  StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilder() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: firestoreService.getWordsStream(),
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-        if (snapshot.hasData) {
-          List<Words> wordsList = [];
-
-          /// burada for each döngüsü for loop 'a dönüştürüldü
-          for (var document in snapshot.data!.docs) {
-            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            var gelenKelime = Words.fromJson(document.id, data);
-
-            /// burada aradığımız kelimeler listeleniyor.
-            if (!aramaYapiliyorMu ||
-                gelenKelime.sirpca.contains(aramaKelimesi)) {
-              wordsList.add(gelenKelime);
-            }
-          }
-
-          return buildListView(wordsList);
-        } else {
-          return const Text("No words ...");
-        }
-      },
-    );
-  }
-
-  /// Firebase verileri burada listeleniyor.
   ListView buildListView(List<Words> wordsList) {
     return ListView.builder(
-      /// kelime sayımız kadar listeleme yapılıyor
       itemCount: wordsList.length,
       itemBuilder: (context, index) {
         Words word = wordsList[index];
-
         return Padding(
           padding: const EdgeInsets.only(left: 10, right: 10),
-
-          /// kelime tıklanınca detay sayfası açılıyor
           child: GestureDetector(
             onTap: () {
               Navigator.push(
@@ -153,7 +177,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// kelime kartlarının oluşturulması
   Card buildCard(Words word, BuildContext context) {
     return Card(
       child: ListTile(
@@ -178,7 +201,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// edit ve delete butonları
   Row buildRow(Words word, BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -207,7 +229,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// AppBar oluşturulması
   AppBar buildAppBar() {
     return AppBar(
       title: aramaYapiliyorMu
@@ -246,7 +267,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-/// kelime ve karşılığı
 class ExpandedWord extends StatelessWidget {
   const ExpandedWord({
     super.key,
@@ -254,8 +274,8 @@ class ExpandedWord extends StatelessWidget {
     required this.color,
   });
 
-  final color;
-  final word;
+  final Color color;
+  final String word;
 
   @override
   Widget build(BuildContext context) {
