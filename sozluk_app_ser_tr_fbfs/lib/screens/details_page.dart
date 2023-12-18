@@ -1,7 +1,6 @@
 /// <----- details_page.dart ----->
 
 import 'package:flag/flag.dart';
-import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../models/words.dart';
@@ -34,9 +33,9 @@ class _DetailsPageState extends State<DetailsPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flag.fromCode(
-                  FlagsCode.ME,
-                  height: 50,
-                  width: 50,
+                  FlagsCode.RS,
+                  height: 40,
+                  width: 40,
                   fit: BoxFit.fill,
                   flagSize: FlagSize.size_1x1,
                   borderRadius: 25,
@@ -44,6 +43,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 const SizedBox(width: 10),
                 Text(
                   widget.word.sirpca,
+                  textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 40,
@@ -58,8 +58,8 @@ class _DetailsPageState extends State<DetailsPage> {
               children: [
                 Flag.fromCode(
                   FlagsCode.TR,
-                  height: 50,
-                  width: 50,
+                  height: 40,
+                  width: 40,
                   fit: BoxFit.fill,
                   flagSize: FlagSize.size_1x1,
                   borderRadius: 25,
@@ -67,6 +67,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 const SizedBox(width: 10),
                 Text(
                   widget.word.turkce,
+                  textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontSize: 40,
                     color: Colors.blue,
