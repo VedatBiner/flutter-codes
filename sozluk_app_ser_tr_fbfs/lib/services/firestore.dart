@@ -37,17 +37,6 @@ class FirestoreService {
     String sirpcaKelime,
     String turkceKelime,
   ) async {
-
-    // Kullanımı
-    /// Burada bir düzeltme gerekiyor ?
-    bool kelimeVarMi = await isWordExists(sirpcaKelime);
-
-    if (kelimeVarMi) {
-      print('Sırpça kelime mevcut');
-    } else {
-      print('Sırpça kelime mevcut değil');
-    }
-
     return words.doc(docId).update({
       "sirpca": sirpcaKelime,
       "turkce": turkceKelime,
@@ -58,15 +47,4 @@ class FirestoreService {
   Future<void> deleteWord(String docId) {
     return words.doc(docId).delete();
   }
-
-  Future<bool> isWordExists(String sirpcaKelime) async {
-
-  // Sırpça kelimeye sahip belgeleri getirin
-  QuerySnapshot querySnapshot =
-  await words.where('sirpca', isEqualTo: sirpcaKelime).get();
-
-  // Belirli bir sırpça kelimenin var olup olmadığını kontrol edin
-  return querySnapshot.docs.isNotEmpty;
-  }
-
 }
