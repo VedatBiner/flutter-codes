@@ -32,6 +32,7 @@ class FirestoreService {
   }
 
   /// UPDATE : update word given a doc id
+  /// bu işlem sadece değişen bir alan için kullanılabilir.
   Future<void> updateWord(
     String docId,
     String sirpcaKelime,
