@@ -25,3 +25,4 @@ class FlagWidget extends StatelessWidget {
     );
   }
 }
+

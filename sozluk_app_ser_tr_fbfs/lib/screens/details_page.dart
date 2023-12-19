@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../models/words.dart';
 import '../widgets/flags_widget.dart';
 
@@ -45,11 +46,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 Text(
                   widget.word.sirpca,
                   textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                    color: Colors.red,
-                  ),
+                  style: detailTextRed,
                 ),
               ],
             ),
@@ -65,10 +62,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 Text(
                   widget.word.turkce,
                   textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 40,
-                    color: Colors.blue,
-                  ),
+                  style: detailTextBlue,
                 ),
               ],
             ),
