@@ -13,3 +13,9 @@ const detailTextBlue = TextStyle(
   fontSize: 40,
   color: Colors.blue,
 );
+
+const baslikTextWhite = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);

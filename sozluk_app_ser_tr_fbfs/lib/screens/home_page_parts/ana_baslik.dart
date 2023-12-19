@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../widgets/flags_widget.dart';
+import '../../screens/home_page_parts/showflag_widget.dart';
 
 class AnaBaslik extends StatelessWidget {
   const AnaBaslik({
@@ -18,46 +18,15 @@ class AnaBaslik extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              flex: 2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  FlagWidget(
-                    countryCode: 'RS',
-                    radius: 8,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Sırpça',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+            ShowFlagWidget(
+              code: 'RS',
+              text: 'Sırpça',
+              radius: 8,
             ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  FlagWidget(
-                    countryCode: 'TR',
-                    radius: 8,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Türkçe',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+            ShowFlagWidget(
+              code: 'TR',
+              text: 'Türkçe',
+              radius: 8,
             ),
             Expanded(
               flex: 1,
