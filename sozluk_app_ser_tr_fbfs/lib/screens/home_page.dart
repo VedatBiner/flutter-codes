@@ -299,7 +299,10 @@ class _HomePageState extends State<HomePage> {
       actions: [
         aramaYapiliyorMu
             ? IconButton(
-                icon: const Icon(Icons.cancel),
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   setState(() {
                     aramaYapiliyorMu = false;
@@ -308,7 +311,10 @@ class _HomePageState extends State<HomePage> {
                 },
               )
             : IconButton(
-                icon: const Icon(Icons.search),
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.amberAccent,
+                ),
                 onPressed: () {
                   setState(() {
                     aramaYapiliyorMu = true;
