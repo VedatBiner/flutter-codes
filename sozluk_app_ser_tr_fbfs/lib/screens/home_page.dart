@@ -53,9 +53,12 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
             onPressed: () {
               /// Sırpça ve Türkçe kelime boş ise eklenmesin
-              if (docId == null && sirpcaController.text== "" && turkceController.text == ""){
-                print("sirpca : $sirpcaController.text");
-              } else if (docId == null ) {
+              if (docId == null &&
+                  sirpcaController.text == "" &&
+                  turkceController.text == "") {
+                print("sirpca : ${sirpcaController.text}");
+              } else if (docId == null) {
+                print("Sırpça kelime : $sirpcaController.text");
                 firestoreService.addWord(
                   sirpcaController.text,
                   turkceController.text,
@@ -73,7 +76,10 @@ class _HomePageState extends State<HomePage> {
 
               Navigator.pop(context);
             },
-            child: const Text("Add"),
+            child: const Text(
+              "Add",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),
