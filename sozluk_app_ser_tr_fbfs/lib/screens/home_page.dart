@@ -69,24 +69,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               } else if (docId == null) {
-                print(sirpcaController.text);
-                print("yeni ek yapıldı");
-                var result = await FirebaseFirestore.instance
-                    .collection("kelimeler")
-                    .where("sirpca", isEqualTo: sirpcaController.text)
-                    .get();
-                for (var res in result.docs) {
-                  print("result : ${result.docs}");
-                }
-
                 firestoreService.addWord(
+                  context,
                   sirpcaController.text,
                   turkceController.text,
                 );
               } else {
                 print(sirpcaController.text);
                 firestoreService.updateWord(
-                  docId,
+                  docId!,
                   sirpcaController.text,
                   turkceController.text,
                 );

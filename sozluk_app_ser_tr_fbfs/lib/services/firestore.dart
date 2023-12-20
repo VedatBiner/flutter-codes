@@ -1,5 +1,6 @@
 /// <----- firestore.dart ----->
 
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// notes yerine words kullanıyoruz
@@ -13,11 +14,33 @@ class FirestoreService {
       FirebaseFirestore.instance.collection("kelimeler");
 
   /// CREATE : Create a new word
-  Future<void> addWord(String sirpca, String turkce) {
-    return words.add({
-      "sirpca": sirpca,
-      "turkce": turkce,
-    });
+  // Future<void> addWord(String sirpca, String turkce) {
+  //   return words.add({
+  //     "sirpca": sirpca,
+  //     "turkce": turkce,
+  //   });
+
+  Future<void> addWord(
+      BuildContext context, String sirpca, String turkce) async {
+    var result = await words.where("sirpca", isEqualTo: sirpca).get();
+
+    if (result.docs.isEmpty) {
+      // Sırpça kelime bulunamadı, ekleyebiliriz
+      await FirebaseFirestore.instance.collection("kelimeler").add({
+        "sirpca": sirpca,
+        "turkce": turkce,
+      });
+    } else {
+      // Sırpça kelime zaten var, kullanıcıyı uyar
+      ScaffoldMessenger.of(context.mounted as BuildContext).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Bu sırpça kelime zaten ekli!",
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+      );
+    }
   }
 
   /// READ : get words from database
