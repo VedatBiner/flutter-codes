@@ -20,7 +20,6 @@ class ExpandedWord extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           word,
-          textAlign: TextAlign.left,
           style: TextStyle(
             color: color,
             fontWeight: FontWeight.bold,

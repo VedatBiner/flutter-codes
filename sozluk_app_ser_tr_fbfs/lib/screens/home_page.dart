@@ -51,19 +51,29 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               /// Sırpça ve Türkçe kelime boş ise eklenmesin
               if (docId == null &&
                   sirpcaController.text == "" &&
                   turkceController.text == "") {
                 print("sirpca : ${sirpcaController.text}");
               } else if (docId == null) {
-                print("Sırpça kelime : $sirpcaController.text");
+                print(sirpcaController.text);
+                print("yeni ek yapıldı");
+                var result = await FirebaseFirestore.instance
+                    .collection("kelimeler")
+                    .where("sirpca", isEqualTo: sirpcaController.text)
+                    .get();
+                for (var res in result.docs) {
+                  print("result : ${result.docs}");
+                }
+
                 firestoreService.addWord(
                   sirpcaController.text,
                   turkceController.text,
                 );
               } else {
+                print(sirpcaController.text);
                 firestoreService.updateWord(
                   docId,
                   sirpcaController.text,
@@ -212,10 +222,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
-            child: SizedBox(
-              height: 100,
-              child: buildCard(word, context),
-            ),
+            child: buildCard(word, context),
           ),
         );
       },
@@ -226,20 +233,21 @@ class _HomePageState extends State<HomePage> {
     return Card(
       color: Colors.grey[200],
       child: ListTile(
-        title: Row(
+        title: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
               word: word.sirpca,
               color: Colors.red,
             ),
-            const SizedBox(width: 10),
+            const SizedBox(height: 4),
+            const Divider(color: Colors.black26),
             ExpandedWord(
               word: word.turkce,
               color: Colors.blueAccent,
             ),
-            const SizedBox(width: 20),
+            const SizedBox(height: 4),
           ],
         ),
         trailing: buildRow(word, context),
