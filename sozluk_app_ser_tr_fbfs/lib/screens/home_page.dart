@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
               Navigator.pop(context);
             },
             child: const Text(
-              "Add",
+              "Kelime ekle",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           )
