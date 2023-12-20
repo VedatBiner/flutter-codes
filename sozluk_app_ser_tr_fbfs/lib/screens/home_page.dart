@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
                   turkceController.text,
                 );
               } else {
-                print(sirpcaController.text);
+
                 firestoreService.updateWord(
-                  docId!,
+                  docId,
                   sirpcaController.text,
                   turkceController.text,
                 );

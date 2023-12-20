@@ -17,6 +17,7 @@ dependencies:
   firebase_core:
   cloud_firestore:
   flag:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
