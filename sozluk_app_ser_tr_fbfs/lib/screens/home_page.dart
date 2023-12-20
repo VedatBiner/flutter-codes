@@ -51,6 +51,9 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.indigoAccent,
+            ),
             onPressed: () async {
               /// Sırpça ve Türkçe kelime boş ise eklenmesin
               if (docId == null &&
@@ -58,12 +61,12 @@ class _HomePageState extends State<HomePage> {
                   turkceController.text == "") {
                 print("sirpca : ${sirpcaController.text}");
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "İki kelime satırını da boş ekleyemezsiniz ...",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                  const SnackBar(
+                    content: Text(
+                      "İki kelime satırını da boş ekleyemezsiniz ...",
+                      style: TextStyle(color: Colors.red),
                     ),
+                  ),
                 );
               } else if (docId == null) {
                 print(sirpcaController.text);
@@ -96,7 +99,10 @@ class _HomePageState extends State<HomePage> {
             },
             child: const Text(
               "Kelime ekle",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.amber,
+              ),
             ),
           )
         ],
