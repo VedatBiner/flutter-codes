@@ -7,10 +7,12 @@ class ExpandedWord extends StatelessWidget {
     super.key,
     required this.word,
     required this.color,
+    required this.align,
   });
 
   final Color color;
   final String word;
+  final TextAlign align;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class ExpandedWord extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           word,
+          textAlign: align,
           style: TextStyle(
             color: color,
             fontWeight: FontWeight.bold,

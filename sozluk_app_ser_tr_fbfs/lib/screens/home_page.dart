@@ -57,6 +57,14 @@ class _HomePageState extends State<HomePage> {
                   sirpcaController.text == "" &&
                   turkceController.text == "") {
                 print("sirpca : ${sirpcaController.text}");
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        "İki kelime satırını da boş ekleyemezsiniz ...",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                );
               } else if (docId == null) {
                 print(sirpcaController.text);
                 print("yeni ek yapıldı");
@@ -229,23 +237,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Sözlük kartları burada oluşturuluyor
   Card buildCard(Words word, BuildContext context) {
     return Card(
       color: Colors.grey[200],
       child: ListTile(
         title: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
               word: word.sirpca,
               color: Colors.red,
+              align: TextAlign.left,
             ),
             const SizedBox(height: 4),
             const Divider(color: Colors.black26),
             ExpandedWord(
               word: word.turkce,
               color: Colors.blueAccent,
+              align: TextAlign.right,
             ),
             const SizedBox(height: 4),
           ],
