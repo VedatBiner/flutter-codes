@@ -59,7 +59,6 @@ class _HomePageState extends State<HomePage> {
               if (docId == null &&
                   sirpcaController.text == "" &&
                   turkceController.text == "") {
-                print("sirpca : ${sirpcaController.text}");
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
@@ -75,7 +74,6 @@ class _HomePageState extends State<HomePage> {
                   turkceController.text,
                 );
               } else {
-
                 firestoreService.updateWord(
                   docId,
                   sirpcaController.text,
@@ -88,9 +86,9 @@ class _HomePageState extends State<HomePage> {
 
               Navigator.pop(context);
             },
-            child: const Text(
-              "Kelime ekle",
-              style: TextStyle(
+            child: Text(
+              docId == null ? "Kelime ekle" : "Kelime düzelt",
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.amber,
               ),
