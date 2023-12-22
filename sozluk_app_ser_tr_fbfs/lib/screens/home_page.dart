@@ -2,7 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/constants.dart';
 
+import '../help_pages/sayfa_kiril.dart';
+import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
@@ -24,6 +27,11 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController turkceController = TextEditingController();
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
+  int secilenIndex = 0;
+  var sayfaListe = [
+    const SayfaLatin(),
+    const SayfaKiril(),
+  ];
 
   void openWordBox({String? docId}) {
     showDialog(
@@ -192,6 +200,53 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.deepPurple,
+              ),
+              child: Text(
+                "Yardımcı Bilgiler",
+                style: baslikTextWhite,
+              ),
+            ),
+            ListTile(
+              title: const Text("Alfabe (Latin)"),
+              onTap: () {
+                setState(() {
+                  secilenIndex = 0;
+                });
+                Navigator.pop(context); // drawer kapat
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SayfaLatin(),
+                  ),
+                );
+
+              },
+            ),
+            ListTile(
+              title: const Text("Alfabe (Kril)"),
+              onTap: () {
+                setState(() {
+                  secilenIndex = 1;
+                });
+                Navigator.pop(context); // drawer kapat
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SayfaKiril(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: buildFloatingActionButton(),
     );
   }
@@ -319,6 +374,7 @@ class _HomePageState extends State<HomePage> {
               "Sırpça-Türkçe Sözlük",
               style: TextStyle(color: Colors.white),
             ),
+      iconTheme: const IconThemeData(color: Colors.amberAccent),
       actions: [
         aramaYapiliyorMu
             ? IconButton(
