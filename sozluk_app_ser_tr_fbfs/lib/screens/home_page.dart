@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,142 +116,155 @@ class _HomePageState extends State<HomePage> {
         children: [
           const AnaBaslik(),
           const SizedBox(height: 5),
-          StreamBuilder<QuerySnapshot>(
-            stream: firestoreService.getWordsStream(),
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-              List<Words> wordsList = [];
-              for (var document in snapshot.data!.docs) {
-                Map<String, dynamic> data =
-                    document.data() as Map<String, dynamic>;
-                var gelenKelime = Words.fromJson(document.id, data);
-                if (!aramaYapiliyorMu ||
-                    gelenKelime.sirpca.contains(aramaKelimesi)) {
-                  wordsList.add(gelenKelime);
-                }
-              }
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: wordsList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailsPage(
-                                word: wordsList[index],
-                              ),
-                            ),
-                          );
-                        },
-                        child: SizedBox(
-                          height: 100,
-                          child: buildCard(wordsList[index], context),
+          buildStreamBuilderList(),
+          const SizedBox(height: 5),
+          buildStreamBuilderFooter(),
+        ],
+      ),
+      drawer: buildDrawer(context),
+      floatingActionButton: buildFloatingActionButton(),
+    );
+  }
+
+  /// Burada kelime sayısı için stream builder oluşturduk
+  StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilderFooter() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestoreService.getWordsStream(),
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        int wordCount = snapshot.data?.size ?? 0;
+        return Container(
+          color: Colors.amber,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  const Text('Girilen kelime sayısı: '),
+                  Text(
+                    "$wordCount",
+                    style: const TextStyle(
+                      color: Colors.indigoAccent,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// burada kelime listesi için streamBuilder oluşturuyoruz
+  StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilderList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: firestoreService.getWordsStream(),
+      builder: (BuildContext context,
+          AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        List<Words> wordsList = [];
+        for (var document in snapshot.data!.docs) {
+          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+          var gelenKelime = Words.fromJson(document.id, data);
+          if (!aramaYapiliyorMu || gelenKelime.sirpca.contains(aramaKelimesi)) {
+            wordsList.add(gelenKelime);
+          }
+        }
+        return Expanded(
+          child: ListView.builder(
+            itemCount: wordsList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsPage(
+                          word: wordsList[index],
                         ),
                       ),
                     );
                   },
+                  child: SizedBox(
+                    height: 100,
+                    child: buildCard(wordsList[index], context),
+                  ),
                 ),
               );
             },
           ),
-          const SizedBox(height: 5),
-          StreamBuilder<QuerySnapshot>(
-            stream: firestoreService.getWordsStream(),
-            builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-              int wordCount = snapshot.data?.size ?? 0;
-              return Container(
-                color: Colors.amber,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        const Text('Girilen kelime sayısı: '),
-                        Text(
-                          "$wordCount",
-                          style: const TextStyle(
-                            color: Colors.indigoAccent,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+        );
+      },
+    );
+  }
+
+  /// Burada drawer menü oluşturuyoruz
+  Drawer buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+            ),
+            child: Text(
+              "Yardımcı Bilgiler",
+              style: baslikTextWhite,
+            ),
+          ),
+          ListTile(
+            title: const Text("Alfabe (Latin)"),
+            onTap: () {
+              setState(() {
+                secilenIndex = 0;
+              });
+              Navigator.pop(context); // drawer kapat
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SayfaLatin(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("Alfabe (Kril)"),
+            onTap: () {
+              setState(() {
+                secilenIndex = 1;
+              });
+              Navigator.pop(context); // drawer kapat
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SayfaKiril(),
                 ),
               );
             },
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: Text(
-                "Yardımcı Bilgiler",
-                style: baslikTextWhite,
-              ),
-            ),
-            ListTile(
-              title: const Text("Alfabe (Latin)"),
-              onTap: () {
-                setState(() {
-                  secilenIndex = 0;
-                });
-                Navigator.pop(context); // drawer kapat
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SayfaLatin(),
-                  ),
-                );
-
-              },
-            ),
-            ListTile(
-              title: const Text("Alfabe (Kril)"),
-              onTap: () {
-                setState(() {
-                  secilenIndex = 1;
-                });
-                Navigator.pop(context); // drawer kapat
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SayfaKiril(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: buildFloatingActionButton(),
     );
   }
 
+  /// Burada FAB buton var
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
       onPressed: () => openWordBox(),
@@ -262,6 +276,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Burada kelimeleri listeliyoruz
   ListView buildListView(List<Words> wordsList) {
     return ListView.builder(
       itemCount: wordsList.length,
@@ -316,6 +331,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(Words word, BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -326,6 +342,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(BuildContext context, Words word) {
     return IconButton(
       onPressed: () {
@@ -344,6 +361,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Burada düzeltme butonu için metodumuz var
   IconButton kelimeDuzelt(Words word) {
     return IconButton(
       onPressed: () => openWordBox(docId: word.wordId),
@@ -352,6 +370,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Burada ana sayfamız için appbar oluşturuyoruz
   AppBar buildAppBar() {
     return AppBar(
       backgroundColor: Colors.black,
