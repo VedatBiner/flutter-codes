@@ -1,3 +1,4 @@
+/// <----- sayfa_latin.dart ----->
 /// https://www.kindacode.com/article/working-with-table-in-flutter/
 /// table example
 import 'package:flutter/material.dart';
