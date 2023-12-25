@@ -33,7 +33,27 @@ class _HomePageState extends State<HomePage> {
     const SayfaKiril(),
   ];
 
-  void openWordBox({String? docId}) {
+  Future<void> openWordBox({String? docId}) async {
+    String action = "create";
+    String sirpca = "";
+    String turkce = "";
+
+    if (docId != null) {
+      action = "update";
+      // Fetch the document data from Firestore
+      await for (QuerySnapshot<Object?> snapshot in firestoreService.getWordsStream()) {
+        if (snapshot.docs.isNotEmpty) {
+          var data = snapshot.docs.first.data() as Map<String, dynamic>;
+          sirpca = data["sirpca"];
+          turkce = data["turkce"];
+          break;
+        }
+      }
+    }
+
+    sirpcaController.text = sirpca;
+    turkceController.text = turkce;
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
