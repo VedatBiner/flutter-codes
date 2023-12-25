@@ -2,8 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/constants.dart';
 
+import '../constants.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
@@ -33,7 +33,10 @@ class _HomePageState extends State<HomePage> {
     const SayfaKiril(),
   ];
 
-  Future<void> openWordBox({String? docId}) async {
+  Future<void> openWordBox({
+    String? docId,
+    required BuildContext context,
+  }) async {
     String action = "create";
     String sirpca = "";
     String turkce = "";
@@ -41,20 +44,19 @@ class _HomePageState extends State<HomePage> {
     if (docId != null) {
       action = "update";
       // Fetch the document data from Firestore
-      await for (QuerySnapshot<Object?> snapshot in firestoreService.getWordsStream()) {
-        if (snapshot.docs.isNotEmpty) {
-          var data = snapshot.docs.first.data() as Map<String, dynamic>;
-          sirpca = data["sirpca"];
-          turkce = data["turkce"];
-          break;
-        }
+      var snapshot = await firestoreService.getWordById(docId);
+      if (snapshot.exists) {
+        var data = snapshot.data() as Map<String, dynamic>;
+        sirpca = data["sirpca"];
+        turkce = data["turkce"];
       }
     }
 
     sirpcaController.text = sirpca;
     turkceController.text = turkce;
 
-    showDialog(
+    // showDialog içinde kullanılıyor
+    await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.indigoAccent,
             ),
             onPressed: () async {
-              /// Sırpça ve Türkçe kelime boş ise eklenmesin
+              // Sırpça ve Türkçe kelime boş ise eklenmesin
               if (docId == null &&
                   sirpcaController.text == "" &&
                   turkceController.text == "") {
@@ -125,6 +127,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+
+    // Geri kalan fonksiyon...
   }
 
   /// ana kodumuz bu şekilde
@@ -287,7 +291,7 @@ class _HomePageState extends State<HomePage> {
   /// Burada FAB buton var
   FloatingActionButton buildFloatingActionButton() {
     return FloatingActionButton(
-      onPressed: () => openWordBox(),
+      onPressed: () => openWordBox(context: context),
       backgroundColor: Colors.blueAccent,
       child: const Icon(
         Icons.add,
@@ -352,7 +356,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
-  Row buildRow(Words word, BuildContext context) {
+  Row buildRow(
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -384,7 +391,10 @@ class _HomePageState extends State<HomePage> {
   /// Burada düzeltme butonu için metodumuz var
   IconButton kelimeDuzelt(Words word) {
     return IconButton(
-      onPressed: () => openWordBox(docId: word.wordId),
+      onPressed: () => openWordBox(
+        docId: word.wordId,
+        context: context,
+      ),
       icon: const Icon(Icons.edit),
       tooltip: "kelime düzelt",
     );

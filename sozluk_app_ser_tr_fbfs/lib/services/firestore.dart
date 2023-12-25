@@ -1,10 +1,12 @@
+/// <----- firestore.dart ----->
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FirestoreService {
   final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
+      FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
       BuildContext context, String sirpca, String turkce) async {
@@ -35,18 +37,18 @@ class FirestoreService {
   Stream<QuerySnapshot<Object?>> getWordsStream() {
     final wordsStream = words
         .orderBy(
-      "sirpca",
-      descending: false,
-    )
+          "sirpca",
+          descending: false,
+        )
         .snapshots();
     return wordsStream;
   }
 
   Future<void> updateWord(
-      String docId,
-      String sirpcaKelime,
-      String turkceKelime,
-      ) async {
+    String docId,
+    String sirpcaKelime,
+    String turkceKelime,
+  ) async {
     try {
       await words.doc(docId).update({
         "sirpca": sirpcaKelime,
@@ -64,4 +66,34 @@ class FirestoreService {
       print("Error deleting word: $e");
     }
   }
+
+  Future<DocumentSnapshot<Object?>> getWordById(String docId) async {
+    return await words.doc(docId).get();
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
