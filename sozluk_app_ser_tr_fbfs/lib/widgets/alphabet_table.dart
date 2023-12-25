@@ -11,7 +11,7 @@ class AlphabetTable extends StatelessWidget {
     return SingleChildScrollView(
       child: Table(
         columnWidths: const {
-          0: FlexColumnWidth(20),
+          0: FlexColumnWidth(30),
           1: FlexColumnWidth(50),
         },
         children: alphabet.map((latin) {
