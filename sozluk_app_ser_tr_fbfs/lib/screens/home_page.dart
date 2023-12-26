@@ -10,9 +10,9 @@ import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
 import '../widgets/delete_word.dart';
+import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik.dart';
-import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/app_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: // buildAppBar(),
-      CustomAppBar(
+          CustomAppBar(
         aramaYapiliyorMu: aramaYapiliyorMu,
         aramaKelimesi: aramaKelimesi,
         onAramaKelimesiChanged: (aramaSonucu) {
@@ -421,56 +421,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Burada ana sayfamız için appbar oluşturuyoruz
-  AppBar buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.black,
-      title: aramaYapiliyorMu
-          ? TextField(
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: "Aradığınız kelimeyi yazınız ...",
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade300,
-                ),
-              ),
-              onChanged: (aramaSonucu) {
-                setState(() {
-                  aramaKelimesi = aramaSonucu;
-                });
-              },
-            )
-          : const Text(
-              "Sırpça-Türkçe Sözlük",
-              style: TextStyle(color: Colors.white),
-            ),
-      iconTheme: const IconThemeData(color: Colors.amberAccent),
-      actions: [
-        aramaYapiliyorMu
-            ? IconButton(
-                icon: const Icon(
-                  Icons.cancel,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    aramaYapiliyorMu = false;
-                    aramaKelimesi = "";
-                  });
-                },
-              )
-            : IconButton(
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.amberAccent,
-                ),
-                onPressed: () {
-                  setState(() {
-                    aramaYapiliyorMu = true;
-                  });
-                },
-              ),
-      ],
-    );
-  }
 }
