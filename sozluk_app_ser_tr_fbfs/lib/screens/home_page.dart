@@ -15,6 +15,7 @@ import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik.dart';
 import '../screens/home_page_parts/app_bar.dart';
 import '../screens/home_page_parts/fab_helper.dart';
+import 'home_page_parts/stream_builder_footer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -129,7 +130,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-
   }
 
   /// ana kodumuz bu şekilde
@@ -172,42 +172,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Burada kelime sayısı için stream builder oluşturduk
-  StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilderFooter() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: firestoreService.getWordsStream(),
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        }
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        int wordCount = snapshot.data?.size ?? 0;
-        return Container(
-          color: Colors.amber,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  const Text('Girilen kelime sayısı: '),
-                  Text(
-                    "$wordCount",
-                    style: const TextStyle(
-                      color: Colors.indigoAccent,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  StreamBuilderFooter buildStreamBuilderFooter() {
+    return StreamBuilderFooter(firestoreService: firestoreService);
   }
 
   /// burada kelime listesi için streamBuilder oluşturuyoruz
@@ -409,5 +375,4 @@ class _HomePageState extends State<HomePage> {
       tooltip: "kelime düzelt",
     );
   }
-
 }
