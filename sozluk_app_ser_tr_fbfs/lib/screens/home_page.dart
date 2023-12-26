@@ -13,6 +13,7 @@ import '../widgets/delete_word.dart';
 import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik.dart';
 import '../widgets/text_entry.dart';
+import '../screens/home_page_parts/app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -135,7 +136,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: // buildAppBar(),
+      CustomAppBar(
+        aramaYapiliyorMu: aramaYapiliyorMu,
+        aramaKelimesi: aramaKelimesi,
+        onAramaKelimesiChanged: (aramaSonucu) {
+          setState(() {
+            aramaKelimesi = aramaSonucu;
+          });
+        },
+        onCancelPressed: () {
+          setState(() {
+            aramaYapiliyorMu = false;
+            aramaKelimesi = "";
+          });
+        },
+        onSearchPressed: () {
+          setState(() {
+            aramaYapiliyorMu = true;
+          });
+        },
+      ),
       body: Column(
         children: [
           const AnaBaslik(),

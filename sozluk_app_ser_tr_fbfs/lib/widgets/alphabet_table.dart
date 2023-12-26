@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class AlphabetTable extends StatelessWidget {
   final List<Map> alphabet;
 
-  const AlphabetTable({Key? key, required this.alphabet}) : super(key: key);
+  const AlphabetTable({
+    Key? key,
+    required this.alphabet,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,13 @@ class AlphabetTable extends StatelessWidget {
                 latin['turkce'].toString(),
                 style: alphabet.indexOf(latin) == 0
                     ? const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                )
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      )
                     : const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
-                ),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
               ),
             ),
             Container(
@@ -43,13 +46,13 @@ class AlphabetTable extends StatelessWidget {
                 latin['sirpca'],
                 style: alphabet.indexOf(latin) == 0
                     ? const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                )
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      )
                     : const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
-                ),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
               ),
             )
           ]);
