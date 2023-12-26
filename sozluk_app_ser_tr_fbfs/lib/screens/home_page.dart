@@ -14,6 +14,7 @@ import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik.dart';
 import '../screens/home_page_parts/app_bar.dart';
+import '../screens/home_page_parts/fab_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -129,15 +130,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    // Geri kalan fonksiyon...
   }
 
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: // buildAppBar(),
-          CustomAppBar(
+      appBar: CustomAppBar(
         aramaYapiliyorMu: aramaYapiliyorMu,
         aramaKelimesi: aramaKelimesi,
         onAramaKelimesiChanged: (aramaSonucu) {
@@ -167,7 +166,9 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: buildDrawer(context),
-      floatingActionButton: buildFloatingActionButton(),
+      floatingActionButton: buildFloatingActionButton(
+        onPressed: () => openWordBox(context: context),
+      ),
     );
   }
 
@@ -305,18 +306,6 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ],
-      ),
-    );
-  }
-
-  /// Burada FAB buton var
-  FloatingActionButton buildFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: () => openWordBox(context: context),
-      backgroundColor: Colors.blueAccent,
-      child: const Icon(
-        Icons.add,
-        color: Colors.amberAccent,
       ),
     );
   }
