@@ -19,8 +19,14 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
+      FirebaseFirestore.instance.collection("kelimeler");
   late DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot;
+
+  @override
+  void initState() {
+    super.initState();
+    // _loadNextWord(); // Başlangıçta bir kelime yüklemek için
+  }
 
   Future<void> _loadPreviousWord() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await words
@@ -61,15 +67,6 @@ class _DetailsPageState extends State<DetailsPage> {
   //
   //   setState(() {});
   // }
-
-
-
-
-  @override
-  void initState() {
-    super.initState();
-    // _loadNextWord(); // Başlangıçta bir kelime yüklemek için
-  }
 
   @override
   Widget build(BuildContext context) {
