@@ -20,25 +20,51 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
-  late DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot;
+  late QuerySnapshot<Map<String, dynamic>> _querySnapshot;
+  late int _currentIndex;
 
   @override
   void initState() {
     super.initState();
-    _loadNextWord(); // Başlangıçta bir kelime yüklemek için
+    _loadWordList();
+  }
+
+  Future<void> _loadWordList() async {
+    try {
+      _querySnapshot = await words.orderBy("sirpca").get()
+          as QuerySnapshot<Map<String, dynamic>>;
+      _currentIndex =
+          _querySnapshot.docs.indexWhere((doc) => doc.id == widget.word.wordId);
+    } catch (e) {
+      print("Hata: $e");
+    }
   }
 
   Future<void> _loadPreviousWord() async {
-
-      setState(() {
-        print("önceki kayıt");
-      });
-
+    if (_currentIndex > 0) {
+      _currentIndex--;
+      _updateCurrentWord();
+    } else {
+      print("Bu ilk kelime, önceki kelime yok.");
+    }
   }
 
   Future<void> _loadNextWord() async {
+    if (_currentIndex < _querySnapshot.size - 1) {
+      _currentIndex++;
+      _updateCurrentWord();
+    } else {
+      print("Bu son kelime, sonraki kelime yok.");
+    }
+  }
+
+  Future<void> _updateCurrentWord() async {
     setState(() {
-      print("sonraki kayıt");
+      DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
+          _querySnapshot.docs[_currentIndex];
+      widget.word = Words.fromFirestore(_currentDocumentSnapshot);
+      print("önceki kelime");
+      print(widget.word.sirpca);
     });
   }
 
