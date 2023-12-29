@@ -25,48 +25,22 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    // _loadNextWord(); // Başlangıçta bir kelime yüklemek için
+    _loadNextWord(); // Başlangıçta bir kelime yüklemek için
   }
 
   Future<void> _loadPreviousWord() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await words
-        .startAfterDocument(_currentDocumentSnapshot)
-        .limit(1)
-        .get() as QuerySnapshot<Map<String, dynamic>>;
 
-    if (querySnapshot.docs.isNotEmpty) {
-      _currentDocumentSnapshot = querySnapshot.docs.first;
-    }
+      setState(() {
+        print("önceki kayıt");
+      });
 
-    setState(() {});
   }
 
-  // Future<void> _loadNextWord() async {
-  //   QuerySnapshot<Map<String, dynamic>> querySnapshot = await words
-  //       .endBeforeDocument(_currentDocumentSnapshot)
-  //       .limitToLast(1)
-  //       .get() as QuerySnapshot<Map<String, dynamic>>;
-  //
-  //   if (querySnapshot.docs.isNotEmpty) {
-  //     _currentDocumentSnapshot = querySnapshot.docs.first;
-  //   } else {
-  //     // Eğer doküman yoksa yeni bir doküman ekleyin
-  //     QueryDocumentSnapshot<Map<String, dynamic>> lastDocument =
-  //     await words.orderBy("fieldName").limit(1).get().then(
-  //           (QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-  //         if (querySnapshot.docs.isNotEmpty) {
-  //           return querySnapshot.docs.first;
-  //         } else {
-  //           throw Exception("No documents found");
-  //         }
-  //       },
-  //     );
-  //
-  //     _currentDocumentSnapshot = lastDocument;
-  //   }
-  //
-  //   setState(() {});
-  // }
+  Future<void> _loadNextWord() async {
+    setState(() {
+      print("sonraki kayıt");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +110,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     flex: 2,
                     child: ElevatedButton(
                       onPressed: () {
-                        // _loadNextWord();
+                        _loadNextWord();
                       },
                       child: const Icon(Icons.arrow_right),
                     ),
