@@ -63,7 +63,7 @@ class _DetailsPageState extends State<DetailsPage> {
       DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
           _querySnapshot.docs[_currentIndex];
       widget.word = Words.fromFirestore(_currentDocumentSnapshot);
-      print("önceki kelime");
+      print("kelime");
       print(widget.word.sirpca);
     });
   }
