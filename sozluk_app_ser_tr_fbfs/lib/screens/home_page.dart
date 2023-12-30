@@ -9,6 +9,7 @@ import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
+import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
@@ -92,13 +93,9 @@ class _HomePageState extends State<HomePage> {
               if (docId == null &&
                   sirpcaController.text == "" &&
                   turkceController.text == "") {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      "İki kelime satırını da boş ekleyemezsiniz ...",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
+                MessageHelper.showSnackBar(
+                  context,
+                  message: "İki kelime satırını da boş ekleyemezsiniz ...",
                 );
               } else if (docId == null) {
                 firestoreService.addWord(

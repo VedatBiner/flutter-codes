@@ -63,6 +63,7 @@ class DeleteWord extends StatelessWidget {
           onPressed: () {
             firestoreService.deleteWord(word.wordId);
             Navigator.pop(context);
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Row(
