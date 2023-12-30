@@ -95,3 +95,17 @@ final List<Map> kirilAlphabet = [
 {'turkce': "LY", 'sirpca': 'Љ љ - ly okunur'},
 {'turkce': "NY", 'sirpca': 'Њ њ - ny okunur'},
 ];
+
+final List<Map> cinsiyetSample = [
+  {'erkek': 'erkek', 'dişi': 'dişi', 'nötr': 'nötr'},
+  {
+    'erkek': 'ormar (dolap)',
+    'dişi': 'stolica (sandalye)',
+    'nötr': 'računalo (bilgisayar -Hırvatça)'
+  },
+  {
+    'erkek': 'računar (bilgisayar)',
+    'dişi': 'banana (muz)',
+    'nötr': 'more (deniz)'
+  },
+];

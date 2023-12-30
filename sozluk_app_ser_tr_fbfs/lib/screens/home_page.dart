@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
@@ -16,7 +17,7 @@ import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik.dart';
 import '../screens/home_page_parts/app_bar.dart';
 import '../screens/home_page_parts/fab_helper.dart';
-import 'home_page_parts/stream_builder_footer.dart';
+import '../screens/home_page_parts/stream_builder_footer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -254,7 +255,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           ListTile(
-            title: const Text("Alfabe (Kril)"),
+            title: const Text("Alfabe (Kiril)"),
             onTap: () {
               setState(() {
                 secilenIndex = 1;
@@ -264,6 +265,21 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const SayfaKiril(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("İsimlerde Cinsiyet"),
+            onTap: () {
+              setState(() {
+                secilenIndex = 1;
+              });
+              Navigator.pop(context); // drawer kapat
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SayfaCinsiyet(),
                 ),
               );
             },

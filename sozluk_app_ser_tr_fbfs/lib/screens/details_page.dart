@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 import '../models/words.dart';
-import 'details_page_parts/button_helper.dart';
-import 'details_page_parts/flag_row.dart';
+import '../screens/details_page_parts/button_helper.dart';
+import '../screens/details_page_parts/flag_row.dart';
 import '../utils/mesaj_helper.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -75,9 +75,9 @@ class _DetailsPageState extends State<DetailsPage> {
   /// kelimelerin güncellenmesi
   Future<void> _updateCurrentWord() async {
     setState(() {
-      DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
+      DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
           _querySnapshot.docs[_currentIndex];
-      widget.word = Words.fromFirestore(_currentDocumentSnapshot);
+      widget.word = Words.fromFirestore(currentDocumentSnapshot);
     });
   }
 
