@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 import '../models/words.dart';
+import '../utils/mesaj_helper.dart';
 import '../widgets/flags_widget.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -45,7 +46,10 @@ class _DetailsPageState extends State<DetailsPage> {
       _currentIndex--;
       _updateCurrentWord();
     } else {
-      mesajVer(mesaj: "Bu ilk kelime, önceki kelime yok.");
+      MessageHelper.showSnackBar(
+        context,
+        message: "Bu ilk kelime, önceki kelime yok.",
+      );
     }
   }
 
@@ -54,7 +58,10 @@ class _DetailsPageState extends State<DetailsPage> {
       _currentIndex++;
       _updateCurrentWord();
     } else {
-      mesajVer(mesaj: "Bu son kelime, sonraki kelime yok.");
+      MessageHelper.showSnackBar(
+        context,
+        message: "Bu son kelime, sonraki kelime yok.",
+      );
     }
   }
 
@@ -143,17 +150,6 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  void mesajVer({required String mesaj}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          mesaj,
-          style: const TextStyle(color: Colors.red),
         ),
       ),
     );
