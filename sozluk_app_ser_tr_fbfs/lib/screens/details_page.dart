@@ -12,9 +12,9 @@ class DetailsPage extends StatefulWidget {
   Words word;
 
   DetailsPage({
-    super.key,
+    Key? key,
     required this.word,
-  });
+  }) : super(key: key);
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -132,32 +132,35 @@ class _DetailsPageState extends State<DetailsPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _loadPreviousWord();
-                      },
-                      child: const Icon(Icons.arrow_left),
-                    ),
+                  buildElevatedButton(
+                    onPressed: () => _loadPreviousWord(),
+                    icon: Icons.arrow_left,
                   ),
                   const Expanded(
                     child: SizedBox(width: 100),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _loadNextWord();
-                      },
-                      child: const Icon(Icons.arrow_right),
-                    ),
+                  buildElevatedButton(
+                    onPressed: () => _loadNextWord(),
+                    icon: Icons.arrow_right,
                   ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildElevatedButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+  }) {
+    return Expanded(
+      flex: 2,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Icon(icon),
       ),
     );
   }
