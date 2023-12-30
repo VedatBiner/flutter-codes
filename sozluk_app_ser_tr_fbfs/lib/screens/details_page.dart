@@ -45,7 +45,7 @@ class _DetailsPageState extends State<DetailsPage> {
       _currentIndex--;
       _updateCurrentWord();
     } else {
-      print("Bu ilk kelime, önceki kelime yok.");
+      mesajVer(mesaj: "Bu ilk kelime, önceki kelime yok.");
     }
   }
 
@@ -54,7 +54,7 @@ class _DetailsPageState extends State<DetailsPage> {
       _currentIndex++;
       _updateCurrentWord();
     } else {
-      print("Bu son kelime, sonraki kelime yok.");
+      mesajVer(mesaj: "Bu son kelime, sonraki kelime yok.");
     }
   }
 
@@ -63,8 +63,6 @@ class _DetailsPageState extends State<DetailsPage> {
       DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
           _querySnapshot.docs[_currentIndex];
       widget.word = Words.fromFirestore(_currentDocumentSnapshot);
-      print("kelime");
-      print(widget.word.sirpca);
     });
   }
 
@@ -145,6 +143,17 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void mesajVer({required String mesaj}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          mesaj,
+          style: const TextStyle(color: Colors.red),
         ),
       ),
     );
