@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 import '../models/words.dart';
-import '../utils/button_helper.dart';
-import '../utils/flag_row.dart';
+import 'details_page_parts/button_helper.dart';
+import 'details_page_parts/flag_row.dart';
 import '../utils/mesaj_helper.dart';
 
 class DetailsPage extends StatefulWidget {

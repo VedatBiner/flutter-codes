@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../widgets/flags_widget.dart';
+import '../../widgets/flags_widget.dart';
 
 Row buildFlagRow(
   String countryCode,
