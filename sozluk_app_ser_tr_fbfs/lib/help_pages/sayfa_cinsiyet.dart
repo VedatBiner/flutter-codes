@@ -1,3 +1,5 @@
+/// <----- sayfa_cinsiyet.dart ----->
+
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -60,13 +62,13 @@ class SayfaCinsiyet extends StatelessWidget {
                             user['erkek'],
                             style: cinsiyetSample.indexOf(user) == 0
                                 ? const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                                 : const TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 14,
-                                  ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                         Container(
@@ -78,13 +80,13 @@ class SayfaCinsiyet extends StatelessWidget {
                             user['dişi'],
                             style: cinsiyetSample.indexOf(user) == 0
                                 ? const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                                 : const TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 14,
-                                  ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                         Container(
@@ -96,13 +98,13 @@ class SayfaCinsiyet extends StatelessWidget {
                               user['nötr'],
                               style: cinsiyetSample.indexOf(user) == 0
                                   ? const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    )
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
                                   : const TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 14,
-                                    ),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
                             ))
                       ]);
                     }).toList(),
