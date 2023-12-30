@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 import '../models/words.dart';
+import '../utils/button_helper.dart';
 import '../utils/mesaj_helper.dart';
 import '../widgets/flags_widget.dart';
 
@@ -22,7 +23,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection("kelimeler");
   late QuerySnapshot<Map<String, dynamic>> _querySnapshot;
   late int _currentIndex;
 
@@ -36,9 +37,9 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _loadWordList() async {
     try {
       _querySnapshot = await words.orderBy("sirpca").get()
-          as QuerySnapshot<Map<String, dynamic>>;
+      as QuerySnapshot<Map<String, dynamic>>;
       _currentIndex = _querySnapshot.docs.indexWhere(
-        (doc) => doc.id == widget.word.wordId,
+            (doc) => doc.id == widget.word.wordId,
       );
     } catch (e) {
       print("Hata: $e");
@@ -75,7 +76,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
-          _querySnapshot.docs[_currentIndex];
+      _querySnapshot.docs[_currentIndex];
       widget.word = Words.fromFirestore(_currentDocumentSnapshot);
     });
   }
@@ -148,19 +149,6 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildElevatedButton({
-    required VoidCallback onPressed,
-    required IconData icon,
-  }) {
-    return Expanded(
-      flex: 2,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        child: Icon(icon),
       ),
     );
   }
