@@ -1,3 +1,5 @@
+/// <----- details_page.dart ----->
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -30,17 +32,20 @@ class _DetailsPageState extends State<DetailsPage> {
     _loadWordList();
   }
 
+  /// tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
       _querySnapshot = await words.orderBy("sirpca").get()
           as QuerySnapshot<Map<String, dynamic>>;
-      _currentIndex =
-          _querySnapshot.docs.indexWhere((doc) => doc.id == widget.word.wordId);
+      _currentIndex = _querySnapshot.docs.indexWhere(
+        (doc) => doc.id == widget.word.wordId,
+      );
     } catch (e) {
       print("Hata: $e");
     }
   }
 
+  /// önceki kelime
   Future<void> _loadPreviousWord() async {
     if (_currentIndex > 0) {
       _currentIndex--;
@@ -53,6 +58,7 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+  /// sonraki kelime
   Future<void> _loadNextWord() async {
     if (_currentIndex < _querySnapshot.size - 1) {
       _currentIndex++;
@@ -65,6 +71,7 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
+  /// kelimelerin güncellenmesi
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> _currentDocumentSnapshot =
