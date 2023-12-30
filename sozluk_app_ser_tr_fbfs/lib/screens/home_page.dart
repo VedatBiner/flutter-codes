@@ -302,25 +302,28 @@ class _HomePageState extends State<HomePage> {
   /// Sözlük kartları burada oluşturuluyor
   Card buildCard(Words word, BuildContext context) {
     return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      shadowColor: Colors.blue[200],
       color: Colors.grey[200],
       child: ListTile(
         title: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
               word: word.sirpca,
               color: Colors.red,
-              align: TextAlign.left,
+              align: TextAlign.start,
             ),
-            const SizedBox(height: 4),
             const Divider(color: Colors.black26),
             ExpandedWord(
               word: word.turkce,
               color: Colors.blueAccent,
-              align: TextAlign.right,
+              align: TextAlign.end,
             ),
-            const SizedBox(height: 4),
           ],
         ),
         trailing: buildRow(word, context),
@@ -330,9 +333,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
