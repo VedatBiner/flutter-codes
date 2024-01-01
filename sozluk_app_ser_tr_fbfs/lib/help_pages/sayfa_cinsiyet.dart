@@ -4,8 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
+/// Cinsiyer kurallarının maddeleri burada yazdırılır.
 class SayfaCinsiyet extends StatelessWidget {
   const SayfaCinsiyet({Key? key}) : super(key: key);
+
+  Widget buildCinsiyetRule(String ruleText) {
+    return Text(
+      ruleText,
+      textAlign: TextAlign.start,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +33,14 @@ class SayfaCinsiyet extends StatelessWidget {
                 style: detailTextBlue,
               ),
               const Divider(),
-              const Text("1. Kelime sessiz harf ile bitiyorsa erkek,",
-                  textAlign: TextAlign.start),
-              const Text(
-                "2. -a harfi ile bitiyorsa dişi,",
-                textAlign: TextAlign.start,
+              buildCinsiyetRule(
+                "1. Kelime sessiz harf ile bitiyorsa erkek,",
               ),
-              const Text(
+              buildCinsiyetRule(
+                "2. -a harfi ile bitiyorsa dişi,",
+              ),
+              buildCinsiyetRule(
                 "3. -o veya -e harfi ile bitiyorsa nötr,",
-                textAlign: TextAlign.start,
               ),
               const Divider(),
               const Text(
@@ -62,13 +69,13 @@ class SayfaCinsiyet extends StatelessWidget {
                             user['erkek'],
                             style: cinsiyetSample.indexOf(user) == 0
                                 ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
                                 : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
                           ),
                         ),
                         Container(
@@ -80,13 +87,13 @@ class SayfaCinsiyet extends StatelessWidget {
                             user['dişi'],
                             style: cinsiyetSample.indexOf(user) == 0
                                 ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
                                 : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
                           ),
                         ),
                         Container(
@@ -98,13 +105,13 @@ class SayfaCinsiyet extends StatelessWidget {
                               user['nötr'],
                               style: cinsiyetSample.indexOf(user) == 0
                                   ? const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
                                   : const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
                             ))
                       ]);
                     }).toList(),
