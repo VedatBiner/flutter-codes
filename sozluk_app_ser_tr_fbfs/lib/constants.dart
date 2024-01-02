@@ -116,8 +116,13 @@ final List<Map> cinsiyetSample = [
   },
 ];
 
+/// Çoğul örnekleri - sessiz harfle bitenler
 final List<Map> cogulSampleA = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'jezik (dil)',
+    'çoğul': 'jezici (diller)',
+  },
   {
     'tekil': 'ekran (ekran)',
     'çoğul': 'ekrani (ekranlar)',
@@ -140,3 +145,60 @@ final List<Map> cogulSampleA = [
   },
 ];
 
+/// Çoğul örnekleri - a harfi ile bitenler
+final List<Map> cogulSampleB = [
+  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'jabuka (elma)',
+    'çoğul': 'jabuke (elmalar)',
+  },
+  {
+    'tekil': 'boja (renk)',
+    'çoğul': 'boje (renkler)',
+  },
+  {
+    'tekil': 'škola (okul)',
+    'çoğul': 'škole (okullar)',
+  },
+  {
+    'tekil': 'mačka (kedi)',
+    'çoğul': 'mačke (kediler)',
+  },
+  {
+    'tekil': 'igra (oyun)',
+    'çoğul': 'igre (oyunlar)',
+  },
+  {
+    'tekil': 'lubenica (karpuz)',
+    'çoğul': 'lubenice (karpuzlar)',
+  },
+];
+
+/// Çoğul örnekleri - "o" veya "e" harfi ile bitenler
+final List<Map> cogulSampleC = [
+  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'selo (köy)',
+    'çoğul': 'sela (köyler)',
+  },
+  {
+    'tekil': 'jaje (yumurta)',
+    'çoğul': 'jaja (yumurtalar)',
+  },
+  {
+    'tekil': 'pismo (mektup)',
+    'çoğul': 'pisma (mektuplar)',
+  },
+  {
+    'tekil': 'lice (yüz)',
+    'çoğul': 'lica (yüzler)',
+  },
+  {
+    'tekil': 'staklo (cam)',
+    'çoğul': 'stakla (camlar)',
+  },
+  {
+    'tekil': 'razočaranje (hayal kırıklığı)',
+    'çoğul': 'razočaranja (hayal kırıklıkları)',
+  },
+];

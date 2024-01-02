@@ -51,6 +51,8 @@ class SayfaCogul extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
+              /// sessiz harfle bitenler
               const Text(
                 "- Sessiz Harfle Bitenler",
                 style: TextStyle(
@@ -113,6 +115,8 @@ class SayfaCogul extends StatelessWidget {
                   ),
                 ),
               ),
+
+              /// "a" ile bitenler
               const Text(
                 "- 'a' ile Bitenler",
                 style: TextStyle(
@@ -121,12 +125,122 @@ class SayfaCogul extends StatelessWidget {
                   color: Colors.black87,
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                    },
+                    children: cogulSampleB.map((user) {
+                      return TableRow(
+                        children: [
+                          Container(
+                            color: cogulSampleB.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['tekil'],
+                              style: cogulSampleB.indexOf(user) == 0
+                                  ? const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
+                                  : const TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                            ),
+                          ),
+                          Container(
+                            color: cogulSampleB.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['çoğul'],
+                              style: cogulSampleB.indexOf(user) == 0
+                                  ? const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
+                                  : const TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                    border: TableBorder.all(width: 1, color: Colors.black),
+                  ),
+                ),
+              ),
+
+              /// 'o' veya 'e' ile Bitenler
               const Text(
                 "- 'o' veya 'e' ile Bitenler",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                   color: Colors.black87,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                    },
+                    children: cogulSampleC.map((user) {
+                      return TableRow(
+                        children: [
+                          Container(
+                            color: cogulSampleC.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['tekil'],
+                              style: cogulSampleC.indexOf(user) == 0
+                                  ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
+                                  : const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: cogulSampleC.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['çoğul'],
+                              style: cogulSampleC.indexOf(user) == 0
+                                  ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
+                                  : const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                    border: TableBorder.all(width: 1, color: Colors.black),
+                  ),
                 ),
               ),
             ],
