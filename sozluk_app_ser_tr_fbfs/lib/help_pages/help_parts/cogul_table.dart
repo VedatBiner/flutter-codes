@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 
-Widget buildCogulTable(List<Map<String, String>> pageSample, String baslik) {
+Widget buildCogulTable(
+  List<Map<String, String>> pageSample,
+  String baslik,
+) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SingleChildScrollView(
@@ -30,13 +33,13 @@ Widget buildCogulTable(List<Map<String, String>> pageSample, String baslik) {
                       user['tekil']!,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                           : const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                     ),
                   ),
                   Container(
@@ -48,13 +51,13 @@ Widget buildCogulTable(List<Map<String, String>> pageSample, String baslik) {
                       user['çoğul']!,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                           : const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                     ),
                   ),
                 ],
