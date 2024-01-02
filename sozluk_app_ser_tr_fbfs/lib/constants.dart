@@ -32,7 +32,7 @@ const baslikTextBlack87 =  TextStyle(
   color: Colors.black87,
 );
 
-final List<Map> latinAlphabet = [
+final List<Map<String, String>> latinAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
   {'turkce': "B", 'sirpca': 'B b'},
@@ -70,7 +70,7 @@ final List<Map> latinAlphabet = [
   {'turkce': "NY", 'sirpca': 'NJ nj - ny okunur'},
 ];
 
-final List<Map> kirilAlphabet = [
+final List<Map<String, String>> kirilAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
   {'turkce': "B", 'sirpca': 'Б б'},

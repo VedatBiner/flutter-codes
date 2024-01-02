@@ -1,77 +1,12 @@
-// sayfa_cogul.dart
+/// <----- sayfa_cogul.dart ----->
+
 import 'package:flutter/material.dart';
 import '../constants.dart';
-import '../utils/text_rule.dart'; // text_rule.dart dosyasını içe aktarın
+import '../utils/text_rule.dart';
+import 'help_parts/cogul_table.dart';
 
 class SayfaCogul extends StatelessWidget {
   const SayfaCogul({Key? key}) : super(key: key);
-
-  // Yeni metot
-  Widget buildCogulTable(List<Map<String, String>> cogulSample, String baslik) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text(
-              baslik,
-              style: baslikTextBlack87,
-              textAlign: TextAlign.left,
-            ),
-            Table(
-              columnWidths: const {
-                0: IntrinsicColumnWidth(),
-                1: IntrinsicColumnWidth(),
-              },
-              children: cogulSample.map((user) {
-                return TableRow(
-                  children: [
-                    Container(
-                      color: cogulSample.indexOf(user) % 2 == 0
-                          ? Colors.blue[50]
-                          : Colors.amber[50],
-                      padding: const EdgeInsets.all(15),
-                      child: Text(
-                        user['tekil']!,
-                        style: cogulSample.indexOf(user) == 0
-                            ? const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )
-                            : const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                      ),
-                    ),
-                    Container(
-                      color: cogulSample.indexOf(user) % 2 == 0
-                          ? Colors.blue[50]
-                          : Colors.amber[50],
-                      padding: const EdgeInsets.all(15),
-                      child: Text(
-                        user['çoğul']!,
-                        style: cogulSample.indexOf(user) == 0
-                            ? const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )
-                            : const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
-              border: TableBorder.all(width: 1, color: Colors.black),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +18,7 @@ class SayfaCogul extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
