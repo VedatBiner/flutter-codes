@@ -3,17 +3,11 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../utils/text_rule.dart';
 
-/// Cinsiyer kurallarının maddeleri burada yazdırılır.
+/// Cinsiyet kurallarının maddeleri burada yazdırılır.
 class SayfaCinsiyet extends StatelessWidget {
   const SayfaCinsiyet({Key? key}) : super(key: key);
-
-  Widget buildCinsiyetRule(String ruleText) {
-    return Text(
-      ruleText,
-      textAlign: TextAlign.start,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +22,18 @@ class SayfaCinsiyet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              buildTextRule(
                 "İsimlerde cinsiyette dört kural var",
                 style: detailTextBlue,
               ),
               const Divider(),
-              buildCinsiyetRule(
+              buildTextRule(
                 "1. Kelime sessiz harf ile bitiyorsa erkek,",
               ),
-              buildCinsiyetRule(
+              buildTextRule(
                 "2. -a harfi ile bitiyorsa dişi,",
               ),
-              buildCinsiyetRule(
+              buildTextRule(
                 "3. -o veya -e harfi ile bitiyorsa nötr,",
               ),
               const Divider(),
@@ -119,6 +113,13 @@ class SayfaCinsiyet extends StatelessWidget {
                   ),
                 ),
               ),
+              const Text(
+                "İstisnalar",
+                style: baslikTextBlack,
+              ),
+              const Text("- Sto – stol (Hırvatça) (masa) – erkek"),
+              const Text("- Krv (kan) – Dişi"),
+              const Text("- Kolega (meslekdaş) – erkek"),
             ],
           ),
         ),

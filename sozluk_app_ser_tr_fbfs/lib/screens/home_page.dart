@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../help_pages/sayfa_cinsiyet.dart';
+import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
@@ -279,7 +280,22 @@ class _HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SayfaCinsiyet(),
+                  builder: (context) => const SayfaCinsiyet(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: const Text("İsimlerde Çoğul Kullanım"),
+            onTap: () {
+              setState(() {
+                secilenIndex = 1;
+              });
+              Navigator.pop(context); // drawer kapat
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SayfaCogul(),
                 ),
               );
             },

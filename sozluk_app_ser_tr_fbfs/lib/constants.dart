@@ -20,6 +20,12 @@ const baslikTextWhite = TextStyle(
   color: Colors.white,
 );
 
+const baslikTextBlack = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+);
+
 final List<Map> latinAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
@@ -109,3 +115,28 @@ final List<Map> cinsiyetSample = [
     'nötr': 'more (deniz)'
   },
 ];
+
+final List<Map> cogulSampleA = [
+  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'ekran (ekran)',
+    'çoğul': 'ekrani (ekranlar)',
+  },
+  {
+    'tekil': 'psiholog (psikolog)',
+    'çoğul': 'psiholozi (psikologlar)',
+  },
+  {
+    'tekil': 'prozor (pencere)',
+    'çoğul': 'prozori (pencereler)',
+  },
+  {
+    'tekil': 'neuspjeh (başarısızlık)',
+    'çoğul': 'neuspjesi (başarısızlıklar)',
+  },
+  {
+    'tekil': 'prijately (arkadaş)',
+    'çoğul': 'prijatelji (arkadaşlar)',
+  },
+];
+
