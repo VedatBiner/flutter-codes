@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 Widget buildCogulTable(
-  List<Map<String, String>> pageSample,
-  String baslik,
-) {
+    List<Map<String, String>> pageSample,
+    String baslik,
+    ) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SingleChildScrollView(
@@ -33,13 +33,13 @@ Widget buildCogulTable(
                       user['tekil']!,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      )
                           : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                   Container(
@@ -51,13 +51,13 @@ Widget buildCogulTable(
                       user['çoğul']!,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      )
                           : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                 ],

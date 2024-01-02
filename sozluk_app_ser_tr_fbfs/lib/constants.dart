@@ -225,3 +225,34 @@ final List<Map<String, String>> cogulSampleD = [
     'çoğul': 'Blizanci (ikiz erkekler)',
   },
 ];
+
+/// Çoğul örnekleri - tek heceli erkek cins isimlerde son harfe "
+///                 "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+///                     "bitenlere) eklerinden biri eklenir.
+final List<Map<String, String>> cogulSampleE = [
+  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'Nož (Bıçak)',
+    'çoğul': 'Noževi (Bıçaklar)',
+  },
+  {
+    'tekil': 'Čaj (Çay)',
+    'çoğul': 'Čajevi (Çaylar)',
+  },
+  {
+    'tekil': 'Spoj (Bağlantı)',
+    'çoğul': 'Spojevi (Bağlantılar)',
+  },
+  {
+    'tekil': 'Led (buz)',
+    'çoğul': 'Ledovi (Buzlar)',
+  },
+  {
+    'tekil': 'Slon (Fil)',
+    'çoğul': 'Slonovi (Filler)',
+  },
+  {
+    'tekil': 'Brod (Gemi)',
+    'çoğul': 'Brodovi (Gemiler)',
+  },
+];

@@ -44,7 +44,8 @@ class SayfaCogul extends StatelessWidget {
               ),
               buildTextRule(
                 "6. Genellikle tek heceli erkek cins isimlerde son harfe "
-                "göre -ovi / -evi eklerinden biri eklenir.",
+                "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+                    "bitenlere) eklerinden biri eklenir.",
               ),
               const Divider(),
               const Text(
@@ -76,6 +77,12 @@ class SayfaCogul extends StatelessWidget {
               buildCogulTable(
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
+              ),
+
+              /// 'ovi'  'evi' eklenenler
+              buildCogulTable(
+                cogulSampleE,
+                "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
               ),
             ],
           ),
