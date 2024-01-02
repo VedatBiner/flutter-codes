@@ -11,54 +11,63 @@ class SayfaCogul extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: SingleChildScrollView(
-        child: Table(
-          columnWidths: const {
-            0: IntrinsicColumnWidth(),
-            1: IntrinsicColumnWidth(),
-          },
-          children: cogulSample.map((user) {
-            return TableRow(
-              children: [
-                Container(
-                  color: cogulSample.indexOf(user) % 2 == 0
-                      ? Colors.blue[50]
-                      : Colors.amber[50],
-                  padding: const EdgeInsets.all(15),
-                  child: Text(
-                    user['tekil']!,
-                    style: cogulSample.indexOf(user) == 0
-                        ? const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          )
-                        : const TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14,
-                          ),
-                  ),
-                ),
-                Container(
-                  color: cogulSample.indexOf(user) % 2 == 0
-                      ? Colors.blue[50]
-                      : Colors.amber[50],
-                  padding: const EdgeInsets.all(15),
-                  child: Text(
-                    user['çoğul']!,
-                    style: cogulSample.indexOf(user) == 0
-                        ? const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          )
-                        : const TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 14,
-                          ),
-                  ),
-                ),
-              ],
-            );
-          }).toList(),
-          border: TableBorder.all(width: 1, color: Colors.black),
+        child: Column(
+          children: [
+            Text(
+              baslik,
+              style: baslikTextBlack87,
+              textAlign: TextAlign.left,
+            ),
+            Table(
+              columnWidths: const {
+                0: IntrinsicColumnWidth(),
+                1: IntrinsicColumnWidth(),
+              },
+              children: cogulSample.map((user) {
+                return TableRow(
+                  children: [
+                    Container(
+                      color: cogulSample.indexOf(user) % 2 == 0
+                          ? Colors.blue[50]
+                          : Colors.amber[50],
+                      padding: const EdgeInsets.all(15),
+                      child: Text(
+                        user['tekil']!,
+                        style: cogulSample.indexOf(user) == 0
+                            ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
+                            : const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                      ),
+                    ),
+                    Container(
+                      color: cogulSample.indexOf(user) % 2 == 0
+                          ? Colors.blue[50]
+                          : Colors.amber[50],
+                      padding: const EdgeInsets.all(15),
+                      child: Text(
+                        user['çoğul']!,
+                        style: cogulSample.indexOf(user) == 0
+                            ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
+                            : const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+              border: TableBorder.all(width: 1, color: Colors.black),
+            ),
+          ],
         ),
       ),
     );
@@ -74,7 +83,7 @@ class SayfaCogul extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(25),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
@@ -111,40 +120,24 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// sessiz harfle bitenler
-              const Text(
-                "- Sessiz Harfle Bitenler",
-                style: baslikTextBlack87,
-              ),
               buildCogulTable(
                 cogulSampleA,
-                "sessiz harf ile Bitenler",
+                "Sessiz Harf ile Bitenler",
               ),
 
               /// "a" ile bitenler
-              const Text(
-                "- 'a' ile Bitenler",
-                style: baslikTextBlack87,
-              ),
               buildCogulTable(
                 cogulSampleB,
                 "-a ile Bitenler",
               ),
 
               /// 'o' veya 'e' ile Bitenler
-              const Text(
-                "- 'o' veya 'e' ile Bitenler",
-                style: baslikTextBlack87,
-              ),
               buildCogulTable(
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
               ),
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
-              const Text(
-                "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
-                style: baslikTextBlack87,
-              ),
               buildCogulTable(
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",

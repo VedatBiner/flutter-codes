@@ -28,7 +28,7 @@ const baslikTextBlack = TextStyle(
 
 const baslikTextBlack87 =  TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 12,
+  fontSize: 14,
   color: Colors.black87,
 );
 
