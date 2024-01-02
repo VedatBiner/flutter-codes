@@ -123,7 +123,7 @@ final List<Map> cinsiyetSample = [
 ];
 
 /// Çoğul örnekleri - sessiz harfle bitenler
-final List<Map> cogulSampleA = [
+final List<Map<String, String>> cogulSampleA = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
   {
     'tekil': 'jezik (dil)',
@@ -152,7 +152,7 @@ final List<Map> cogulSampleA = [
 ];
 
 /// Çoğul örnekleri - a harfi ile bitenler
-final List<Map> cogulSampleB = [
+final List<Map<String, String>> cogulSampleB = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
   {
     'tekil': 'jabuka (elma)',
@@ -181,7 +181,7 @@ final List<Map> cogulSampleB = [
 ];
 
 /// Çoğul örnekleri - "o" veya "e" harfi ile bitenler
-final List<Map> cogulSampleC = [
+final List<Map<String, String>> cogulSampleC = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
   {
     'tekil': 'selo (köy)',
@@ -210,7 +210,7 @@ final List<Map> cogulSampleC = [
 ];
 
 /// Çoğul örnekleri - "ac" ile bitip, "a" düşen "i" eklenenler
-final List<Map> cogulSampleD = [
+final List<Map<String, String>> cogulSampleD = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
   {
     'tekil': 'Muškarac (adam)',
