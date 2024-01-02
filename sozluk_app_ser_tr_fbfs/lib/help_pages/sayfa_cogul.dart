@@ -55,11 +55,7 @@ class SayfaCogul extends StatelessWidget {
               /// sessiz harfle bitenler
               const Text(
                 "- Sessiz Harfle Bitenler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: Colors.black87,
-                ),
+                style: baslikTextBlack87,
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -119,11 +115,7 @@ class SayfaCogul extends StatelessWidget {
               /// "a" ile bitenler
               const Text(
                 "- 'a' ile Bitenler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: Colors.black87,
-                ),
+                style: baslikTextBlack87,
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -183,11 +175,7 @@ class SayfaCogul extends StatelessWidget {
               /// 'o' veya 'e' ile Bitenler
               const Text(
                 "- 'o' veya 'e' ile Bitenler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: Colors.black87,
-                ),
+                style: baslikTextBlack87,
               ),
               Padding(
                 padding: const EdgeInsets.all(20),
@@ -209,13 +197,13 @@ class SayfaCogul extends StatelessWidget {
                               user['tekil'],
                               style: cogulSampleC.indexOf(user) == 0
                                   ? const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
                                   : const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
                             ),
                           ),
                           Container(
@@ -226,6 +214,66 @@ class SayfaCogul extends StatelessWidget {
                             child: Text(
                               user['çoğul'],
                               style: cogulSampleC.indexOf(user) == 0
+                                  ? const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
+                                  : const TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                    border: TableBorder.all(width: 1, color: Colors.black),
+                  ),
+                ),
+              ),
+
+              /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
+              const Text(
+                "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
+                style: baslikTextBlack87,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                    },
+                    children: cogulSampleD.map((user) {
+                      return TableRow(
+                        children: [
+                          Container(
+                            color: cogulSampleD.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['tekil'],
+                              style: cogulSampleD.indexOf(user) == 0
+                                  ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              )
+                                  : const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            color: cogulSampleD.indexOf(user) % 2 == 0
+                                ? Colors.blue[50]
+                                : Colors.amber[50],
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              user['çoğul'],
+                              style: cogulSampleD.indexOf(user) == 0
                                   ? const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,

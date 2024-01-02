@@ -26,6 +26,12 @@ const baslikTextBlack = TextStyle(
   color: Colors.black,
 );
 
+const baslikTextBlack87 =  TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 12,
+  color: Colors.black87,
+);
+
 final List<Map> latinAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
@@ -200,5 +206,22 @@ final List<Map> cogulSampleC = [
   {
     'tekil': 'razočaranje (hayal kırıklığı)',
     'çoğul': 'razočaranja (hayal kırıklıkları)',
+  },
+];
+
+/// Çoğul örnekleri - "ac" ile bitip, "a" düşen "i" eklenenler
+final List<Map> cogulSampleD = [
+  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'Muškarac (adam)',
+    'çoğul': 'Muškarci (adamlar)',
+  },
+  {
+    'tekil': 'Bosanac (Boşnak adam)',
+    'çoğul': 'Bosanci (Boşnak Adamlar)',
+  },
+  {
+    'tekil': 'Blizanac (İkiz erkek)',
+    'çoğul': 'Blizanci (ikiz erkekler)',
   },
 ];
