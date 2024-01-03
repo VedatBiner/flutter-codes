@@ -243,72 +243,52 @@ class _HomePageState extends State<HomePage> {
               style: baslikTextWhite,
             ),
           ),
-          ListTile(
-            textColor: Colors.amber,
-            title: const Text("Alfabe (Latin)"),
-            onTap: () {
-              setState(() {
-                secilenIndex = 0;
-              });
-              Navigator.pop(context); // drawer kapat
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SayfaLatin(),
-                ),
-              );
-            },
+          buildListTile(
+            context,
+            "Alfabe (Latin)",
+            const SayfaLatin(),
           ),
-          ListTile(
-            textColor: Colors.amber,
-            title: const Text("Alfabe (Kiril)"),
-            onTap: () {
-              setState(() {
-                secilenIndex = 1;
-              });
-              Navigator.pop(context); // drawer kapat
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SayfaKiril(),
-                ),
-              );
-            },
+          buildListTile(
+            context,
+            "Alfabe (Kiril)",
+            const SayfaKiril(),
           ),
-          ListTile(
-            textColor: Colors.amber,
-            title: const Text("İsimlerde Cinsiyet"),
-            onTap: () {
-              setState(() {
-                secilenIndex = 1;
-              });
-              Navigator.pop(context); // drawer kapat
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SayfaCinsiyet(),
-                ),
-              );
-            },
+          buildListTile(
+            context,
+            "İsimlerde Cinsiyet",
+            const SayfaCinsiyet(),
           ),
-          ListTile(
-            textColor: Colors.amber,
-            title: const Text("İsimlerde Çoğul Kullanım"),
-            onTap: () {
-              setState(() {
-                secilenIndex = 1;
-              });
-              Navigator.pop(context); // drawer kapat
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SayfaCogul(),
-                ),
-              );
-            },
+          buildListTile(
+            context,
+            "İsimlerde Çoğul Kullanım",
+            const SayfaCogul(),
           ),
         ],
       ),
+    );
+  }
+
+  /// Drawer seçeneklerini gösteren metot
+  ListTile buildListTile(
+    BuildContext context,
+    String text,
+    pageRoute,
+  ) {
+    return ListTile(
+      textColor: Colors.amber,
+      title: Text(text),
+      onTap: () {
+        setState(() {
+          secilenIndex = 1;
+        });
+        Navigator.pop(context); // drawer kapat
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => pageRoute,
+          ),
+        );
+      },
     );
   }
 
