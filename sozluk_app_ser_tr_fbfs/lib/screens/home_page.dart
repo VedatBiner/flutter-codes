@@ -229,6 +229,8 @@ class _HomePageState extends State<HomePage> {
   /// Burada drawer menü oluşturuyoruz
   Drawer buildDrawer(BuildContext context) {
     return Drawer(
+      shadowColor: Colors.lightBlue,
+      backgroundColor: drawerColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -242,6 +244,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           ListTile(
+            textColor: Colors.amber,
             title: const Text("Alfabe (Latin)"),
             onTap: () {
               setState(() {
@@ -257,6 +260,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           ListTile(
+            textColor: Colors.amber,
             title: const Text("Alfabe (Kiril)"),
             onTap: () {
               setState(() {
@@ -272,6 +276,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           ListTile(
+            textColor: Colors.amber,
             title: const Text("İsimlerde Cinsiyet"),
             onTap: () {
               setState(() {
@@ -287,6 +292,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           ListTile(
+            textColor: Colors.amber,
             title: const Text("İsimlerde Çoğul Kullanım"),
             onTap: () {
               setState(() {
