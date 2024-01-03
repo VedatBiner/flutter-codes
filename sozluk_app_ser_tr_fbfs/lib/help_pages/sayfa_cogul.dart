@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../utils/text_rule.dart';
-import 'help_parts/cogul_table.dart';
+import 'help_parts/build_table.dart';
 
 class SayfaCogul extends StatelessWidget {
   const SayfaCogul({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// sessiz harfle bitenler
-              buildCogulTable(
+              buildTable(
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
                     (user) => user['tekil']!,
@@ -64,7 +64,7 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// "a" ile bitenler
-              buildCogulTable(
+              buildTable(
                 cogulSampleB,
                 "-a ile Bitenler",
                     (user) => user['tekil']!,
@@ -72,7 +72,7 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// 'o' veya 'e' ile Bitenler
-              buildCogulTable(
+              buildTable(
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
                     (user) => user['tekil']!,
@@ -80,7 +80,7 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
-              buildCogulTable(
+              buildTable(
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
                     (user) => user['tekil']!,
@@ -88,7 +88,7 @@ class SayfaCogul extends StatelessWidget {
               ),
 
               /// 'ovi'  'evi' eklenenler
-              buildCogulTable(
+              buildTable(
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
                     (user) => user['tekil']!,
