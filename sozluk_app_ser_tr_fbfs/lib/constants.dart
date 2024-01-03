@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+Color drawerColor = const Color(0xFF4C3398);
+
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 40,

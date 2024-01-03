@@ -232,11 +232,11 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.deepPurple,
+              color: drawerColor,
             ),
-            child: Text(
+            child: const Text(
               "Yardımcı Bilgiler",
               style: baslikTextWhite,
             ),
