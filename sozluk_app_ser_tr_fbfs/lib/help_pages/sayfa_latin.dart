@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../widgets/alphabet_table.dart';
+import 'help_parts/build_table.dart';
 
 class SayfaLatin extends StatelessWidget {
   const SayfaLatin({Key? key}) : super(key: key);
@@ -15,7 +15,12 @@ class SayfaLatin extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),
-        child: AlphabetTable(alphabet: latinAlphabet),
+        child: buildTable(
+          latinAlphabet,
+          "- Sırpça 'da  Latin Harfleri",
+          (user) => user['turkce']!,
+          (user) => user['sirpca']!,
+        ),
       ),
     );
   }

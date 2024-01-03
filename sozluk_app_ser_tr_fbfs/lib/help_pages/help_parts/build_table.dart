@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 
 Widget buildTable(
-    List<Map<String, String>> pageSample,
-    String baslik,
-    String Function(Map<String, String>) getFirstColumn,
-    String Function(Map<String, String>) getSecondColumn,
-    ) {
+  List<Map<String, String>> pageSample,
+  String baslik,
+  String Function(Map<String, String>) getFirstColumn,
+  String Function(Map<String, String>) getSecondColumn,
+) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SingleChildScrollView(
@@ -24,8 +24,10 @@ Widget buildTable(
               1: IntrinsicColumnWidth(),
             },
             children: pageSample.map((user) {
-              String firstColumn = getFirstColumn(user) ?? ''; // Null kontrolü ekledik
-              String secondColumn = getSecondColumn(user) ?? ''; // Null kontrolü ekledik
+              String firstColumn =
+                  getFirstColumn(user) ?? ''; // Null kontrolü ekledik
+              String secondColumn =
+                  getSecondColumn(user) ?? ''; // Null kontrolü ekledik
               return TableRow(
                 children: [
                   Container(
@@ -37,13 +39,13 @@ Widget buildTable(
                       firstColumn,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                           : const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                     ),
                   ),
                   Container(
@@ -55,13 +57,13 @@ Widget buildTable(
                       secondColumn,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      )
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            )
                           : const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                      ),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                            ),
                     ),
                   ),
                 ],
