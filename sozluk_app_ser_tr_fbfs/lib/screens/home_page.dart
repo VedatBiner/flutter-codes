@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
-import '../help_pages/help_parts/build_table.dart';
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';
@@ -20,6 +19,7 @@ import '../screens/home_page_parts/ana_baslik.dart';
 import '../screens/home_page_parts/app_bar.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
+import 'home_page_parts/drawer_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -172,6 +172,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// girilen kelime sayısını gösterme
   StreamBuilderFooter buildStreamBuilderFooter() {
     return StreamBuilderFooter(firestoreService: firestoreService);
   }
@@ -265,30 +266,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-    );
-  }
-
-  /// Drawer seçeneklerini gösteren metot
-  ListTile buildListTile(
-    BuildContext context,
-    String text,
-    pageRoute,
-  ) {
-    return ListTile(
-      textColor: Colors.amber,
-      title: Text(text),
-      onTap: () {
-        setState(() {
-          secilenIndex = 1;
-        });
-        Navigator.pop(context); // drawer kapat
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => pageRoute,
-          ),
-        );
-      },
     );
   }
 
