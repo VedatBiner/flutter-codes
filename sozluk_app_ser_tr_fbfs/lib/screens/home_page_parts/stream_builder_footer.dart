@@ -29,12 +29,19 @@ class StreamBuilderFooter extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Text('Girilen kelime sayısı: '),
+                  const Text(
+                    'Girilen kelime sayısı: ',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   Text(
                     "$wordCount",
                     style: const TextStyle(
                       color: Colors.indigoAccent,
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
