@@ -5,6 +5,8 @@ import '../../constants.dart';
 Widget buildCogulTable(
     List<Map<String, String>> pageSample,
     String baslik,
+    String Function(Map<String, String>) getTekil,
+    String Function(Map<String, String>) getCogul,
     ) {
   return Padding(
     padding: const EdgeInsets.all(20),
@@ -22,6 +24,8 @@ Widget buildCogulTable(
               1: IntrinsicColumnWidth(),
             },
             children: pageSample.map((user) {
+              String tekil = getTekil(user) ?? ''; // Null kontrolü ekledik
+              String cogul = getCogul(user) ?? ''; // Null kontrolü ekledik
               return TableRow(
                 children: [
                   Container(
@@ -30,7 +34,7 @@ Widget buildCogulTable(
                         : Colors.amber[50],
                     padding: const EdgeInsets.all(15),
                     child: Text(
-                      user['tekil']!,
+                      tekil,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
                         fontWeight: FontWeight.bold,
@@ -48,7 +52,7 @@ Widget buildCogulTable(
                         : Colors.amber[50],
                     padding: const EdgeInsets.all(15),
                     child: Text(
-                      user['çoğul']!,
+                      cogul,
                       style: pageSample.indexOf(user) == 0
                           ? const TextStyle(
                         fontWeight: FontWeight.bold,

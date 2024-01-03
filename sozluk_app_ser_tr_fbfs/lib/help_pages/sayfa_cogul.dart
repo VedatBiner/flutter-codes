@@ -59,30 +59,40 @@ class SayfaCogul extends StatelessWidget {
               buildCogulTable(
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
+                    (user) => user['tekil']!,
+                    (user) => user['çoğul']!,
               ),
 
               /// "a" ile bitenler
               buildCogulTable(
                 cogulSampleB,
                 "-a ile Bitenler",
+                    (user) => user['tekil']!,
+                    (user) => user['çoğul']!,
               ),
 
               /// 'o' veya 'e' ile Bitenler
               buildCogulTable(
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
+                    (user) => user['tekil']!,
+                    (user) => user['çoğul']!,
               ),
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
               buildCogulTable(
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
+                    (user) => user['tekil']!,
+                    (user) => user['çoğul']!,
               ),
 
               /// 'ovi'  'evi' eklenenler
               buildCogulTable(
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
+                    (user) => user['tekil']!,
+                    (user) => user['çoğul']!,
               ),
             ],
           ),

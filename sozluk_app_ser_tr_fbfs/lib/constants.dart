@@ -227,8 +227,8 @@ final List<Map<String, String>> cogulSampleD = [
 ];
 
 /// Çoğul örnekleri - tek heceli erkek cins isimlerde son harfe "
-///                 "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-///                     "bitenlere) eklerinden biri eklenir.
+/// "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+/// "bitenlere) eklerinden biri eklenir.
 final List<Map<String, String>> cogulSampleE = [
   {'tekil': 'tekil', 'çoğul': 'çoğul',},
   {
