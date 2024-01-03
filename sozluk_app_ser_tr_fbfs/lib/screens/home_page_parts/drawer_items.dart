@@ -1,4 +1,4 @@
-/// <----- drawer_helper ----->
+/// <----- drawer_items ----->
 /// Drawer seçeneklerini gösteren metot
 
 import 'package:flutter/material.dart';

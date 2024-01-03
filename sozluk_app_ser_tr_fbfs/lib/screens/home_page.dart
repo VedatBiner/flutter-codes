@@ -19,7 +19,7 @@ import '../screens/home_page_parts/ana_baslik.dart';
 import '../screens/home_page_parts/app_bar.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
-import 'home_page_parts/drawer_helper.dart';
+import 'home_page_parts/drawer_items.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -329,9 +329,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
