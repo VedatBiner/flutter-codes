@@ -228,6 +228,17 @@ class SayfaZamir extends StatelessWidget {
                   ),
                 ),
               ),
+              const Divider(),
+              buildTextRule(
+                "- Vurgusuz (kısa) olmak fiilinin başına 'ni' eklenir ",
+              ),
+              /// Şahıs zamirleri
+              buildTable(
+                zamirlerSampleA,
+                "Şahıs Zamirleri (olumlu / olumsuz",
+                    (user) => user['olumlu']!,
+                    (user) => user['olumsuz']!,
+              ),
             ],
           ),
         ),

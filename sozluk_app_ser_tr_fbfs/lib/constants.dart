@@ -419,3 +419,35 @@ final List<Map<String, String>> olmakSampleSer = [
     'vurgusuz': 'jesu',
   },
 ];
+
+/// Şahıs zamirleri olumlu / olumsuzsuz
+final List<Map<String, String>> zamirlerSampleA = [
+  {
+    'olumlu': 'olumlu',
+    'olumsuz': 'olumsuz',
+  },
+  {
+    'olumlu': 'ja',
+    'olumsuz': 'nisam',
+  },
+  {
+    'olumlu': 'ti',
+    'olumsuz': 'nisi',
+  },
+  {
+    'olumlu': 'on / ona /ono',
+    'olumsuz': 'nije',
+  },
+  {
+    'olumlu': 'mi',
+    'olumsuz': 'nismo',
+  },
+  {
+    'olumlu': 'vi',
+    'olumsuz': 'niste',
+  },
+  {
+    'olumlu': 'oni / one / ona',
+    'olumsuz': 'nisu',
+  },
+];
