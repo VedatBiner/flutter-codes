@@ -380,3 +380,42 @@ final List<Map<String, String>> olmakSampleTr = [
     'soru': 'onlar öğrenci mi?',
   },
 ];
+
+/// Biti - olmak fili - vurgulu / vurgusuz
+final List<Map<String, String>> olmakSampleSer = [
+  {
+    'zamir': 'zamir',
+    'vurgulu': 'vurgulu',
+    'vurgusuz': 'vurgusuz',
+  },
+  {
+    'zamir': 'ja',
+    'vurgulu': 'sam',
+    'vurgusuz': 'jesam',
+  },
+  {
+    'zamir': 'ti',
+    'vurgulu': 'si',
+    'vurgusuz': 'jesi',
+  },
+  {
+    'zamir': 'on / ona / ono',
+    'vurgulu': 'je',
+    'vurgusuz': 'jest(e)',
+  },
+  {
+    'zamir': 'mi',
+    'vurgulu': 'smo',
+    'vurgusuz': 'jesmo',
+  },
+  {
+    'zamir': 'vi',
+    'vurgulu': 'ste',
+    'vurgusuz': 'jeste',
+  },
+  {
+    'zamir': 'oni / one / ona',
+    'vurgulu': 'su',
+    'vurgusuz': 'jesu',
+  },
+];

@@ -55,7 +55,8 @@ class SayfaZamir extends StatelessWidget {
                   "o gül, biz üzgünüz, siz kısasınız, onlar hızlılar."),
               buildTextRule("- Eğer olumsuz olursa değil eklenir. "
                   "Değilim/değilsin/değil/değiliz/değilsiniz/değiller"),
-              buildTextRule("- Örneğin : Ben öğretmen değilim, sen uzun değilsin, "
+              buildTextRule(
+                  "- Örneğin : Ben öğretmen değilim, sen uzun değilsin, "
                   "o güzel değil, biz üzgün değiliz, siz kısa değilsiniz, "
                   "onlar hızlı değiller."),
               const Divider(),
@@ -84,13 +85,13 @@ class SayfaZamir extends StatelessWidget {
                             user['olumlu']!,
                             style: olmakSampleTr.indexOf(user) == 0
                                 ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
                                 : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
                           ),
                         ),
                         Container(
@@ -102,13 +103,13 @@ class SayfaZamir extends StatelessWidget {
                             user['olumsuz']!,
                             style: olmakSampleTr.indexOf(user) == 0
                                 ? const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
                                 : const TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14,
-                            ),
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
                           ),
                         ),
                         Container(
@@ -120,14 +121,107 @@ class SayfaZamir extends StatelessWidget {
                               user['soru']!,
                               style: olmakSampleTr.indexOf(user) == 0
                                   ? const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              )
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    )
                                   : const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
-                              ),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 14,
+                                    ),
                             ))
+                      ]);
+                    }).toList(),
+                    border: TableBorder.all(width: 1, color: Colors.black),
+                  ),
+                ),
+              ),
+              buildTextRule(
+                  "- Sırpça, Boşnakça, Hırvatça dilleri Aşağıdaki cümle yapısına uymaktadır."),
+              buildTextRule("özne + fiil + isim / nesne"),
+              buildTextRule("Ben öğrenciyim : ben + olmak(çekimli) + öğrenci"),
+              const Divider(),
+              const Text(
+                "Biti (olmak) Fiili Sırpça",
+                style: baslikTextBlack,
+              ),
+              buildTextRule(
+                "- Boşnakça / Sırpça : jeste Hırvatça : jest",
+              ),
+              buildTextRule(
+                "- Vurgulu haller genellikle soru kalıplarında kullanılıyor."
+                "Düz cümlelerde ise vurgusuz haller kullanılır.",
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  child: Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                      2: IntrinsicColumnWidth(),
+                    },
+                    children: olmakSampleSer.map((user) {
+                      return TableRow(children: [
+                        Container(
+                          color: user['zamir'] != null
+                              ? olmakSampleSer.indexOf(user) % 2 == 0
+                                  ? Colors.blue[50]
+                                  : Colors.amber[50]
+                              : Colors.transparent,
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            user['zamir'] ?? '',
+                            style: olmakSampleSer.indexOf(user) == 0
+                                ? const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
+                                : const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
+                          ),
+                        ),
+                        Container(
+                          color: user['vurgulu'] != null
+                              ? olmakSampleSer.indexOf(user) % 2 == 0
+                                  ? Colors.blue[50]
+                                  : Colors.amber[50]
+                              : Colors.transparent,
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            user['vurgulu'] ?? '',
+                            style: olmakSampleSer.indexOf(user) == 0
+                                ? const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
+                                : const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
+                          ),
+                        ),
+                        Container(
+                          color: user['vurgusuz'] != null
+                              ? olmakSampleSer.indexOf(user) % 2 == 0
+                                  ? Colors.blue[50]
+                                  : Colors.amber[50]
+                              : Colors.transparent,
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            user['vurgusuz'] ?? '',
+                            style: olmakSampleSer.indexOf(user) == 0
+                                ? const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  )
+                                : const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 14,
+                                  ),
+                          ),
+                        ),
                       ]);
                     }).toList(),
                     border: TableBorder.all(width: 1, color: Colors.black),
