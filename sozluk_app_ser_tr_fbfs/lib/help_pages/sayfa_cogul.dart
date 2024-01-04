@@ -59,48 +59,60 @@ class SayfaCogul extends StatelessWidget {
               buildTable(
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
 
               /// "a" ile bitenler
               buildTable(
                 cogulSampleB,
                 "-a ile Bitenler",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
 
               /// 'o' veya 'e' ile Bitenler
               buildTable(
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
               buildTable(
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
 
               /// 'ovi'  'evi' eklenenler
               buildTable(
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
 
               /// Alıştırmalar
               buildTable(
                 cogulSampleF,
                 "- Alıştırma Kelimeleri",
-                (user) => user['tekil']!,
-                (user) => user['çoğul']!,
+                [
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
+                ],
               ),
             ],
           ),

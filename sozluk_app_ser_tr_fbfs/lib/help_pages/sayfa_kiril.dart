@@ -18,8 +18,11 @@ class SayfaKiril extends StatelessWidget {
         child: buildTable(
           kirilAlphabet,
           "- Sırpça 'da Kiril Harfleri",
-          (user) => user['turkce']!,
-          (user) => user['sirpca']!,
+          [
+                (user) => user['turkce']!,
+                (user) => user['sirpca']!,
+          ]
+
         ),
       ),
     );

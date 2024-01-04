@@ -18,8 +18,11 @@ class SayfaLatin extends StatelessWidget {
         child: buildTable(
           latinAlphabet,
           "- Sırpça 'da  Latin Harfleri",
-          (user) => user['turkce']!,
-          (user) => user['sirpca']!,
+          [
+                (user) => user['turkce']!,
+                (user) => user['sirpca']!,
+          ]
+
         ),
       ),
     );
