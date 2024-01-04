@@ -108,7 +108,6 @@ class SayfaZamir extends StatelessWidget {
                   (user) => user['vurgusuz']!,
                 ],
               ),
-
               const Divider(),
               buildTextRule(
                 "- Vurgusuz (kısa) olmak fiilinin başına 'ni' eklenir ",

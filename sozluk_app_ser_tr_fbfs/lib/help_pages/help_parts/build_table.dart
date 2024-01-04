@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 Widget buildTable(
-    List<Map<String, String>> pageSample,
-    String baslik,
-    List<String Function(Map<String, String>)> getColumnValues,
-    ) {
+  List<Map<String, String>> pageSample,
+  String baslik,
+  List<String Function(Map<String, String>)> getColumnValues,
+) {
   return Padding(
     padding: const EdgeInsets.all(20),
     child: SingleChildScrollView(
@@ -19,11 +19,11 @@ Widget buildTable(
             textAlign: TextAlign.left,
           ),
           Table(
-            columnWidths: Map.fromIterable(
-              List.generate(getColumnValues.length, (index) => index),
-              key: (index) => index,
-              value: (_) => IntrinsicColumnWidth(),
-            ),
+            columnWidths: {
+              for (var index
+                  in List.generate(getColumnValues.length, (index) => index))
+                index: const IntrinsicColumnWidth(),
+            },
             children: pageSample.map((user) {
               List<Widget> columns = getColumnValues.map((getColumnValue) {
                 String columnValue = getColumnValue(user) ?? '';
@@ -36,13 +36,13 @@ Widget buildTable(
                     columnValue,
                     style: pageSample.indexOf(user) == 0
                         ? const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    )
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          )
                         : const TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14,
-                    ),
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                          ),
                   ),
                 );
               }).toList();
