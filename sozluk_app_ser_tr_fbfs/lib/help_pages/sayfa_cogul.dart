@@ -94,6 +94,14 @@ class SayfaCogul extends StatelessWidget {
                 (user) => user['tekil']!,
                 (user) => user['çoğul']!,
               ),
+
+              /// Alıştırmalar
+              buildTable(
+                cogulSampleF,
+                "- Alıştırma Kelimeleri",
+                (user) => user['tekil']!,
+                (user) => user['çoğul']!,
+              ),
             ],
           ),
         ),

@@ -28,7 +28,7 @@ const baslikTextBlack = TextStyle(
   color: Colors.black,
 );
 
-const baslikTextBlack87 =  TextStyle(
+const baslikTextBlack87 = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 14,
   color: Colors.black87,
@@ -126,7 +126,10 @@ final List<Map> cinsiyetSample = [
 
 /// Çoğul örnekleri - sessiz harfle bitenler
 final List<Map<String, String>> cogulSampleA = [
-  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
   {
     'tekil': 'jezik (dil)',
     'çoğul': 'jezici (diller)',
@@ -155,7 +158,10 @@ final List<Map<String, String>> cogulSampleA = [
 
 /// Çoğul örnekleri - a harfi ile bitenler
 final List<Map<String, String>> cogulSampleB = [
-  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
   {
     'tekil': 'jabuka (elma)',
     'çoğul': 'jabuke (elmalar)',
@@ -184,7 +190,10 @@ final List<Map<String, String>> cogulSampleB = [
 
 /// Çoğul örnekleri - "o" veya "e" harfi ile bitenler
 final List<Map<String, String>> cogulSampleC = [
-  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
   {
     'tekil': 'selo (köy)',
     'çoğul': 'sela (köyler)',
@@ -213,7 +222,10 @@ final List<Map<String, String>> cogulSampleC = [
 
 /// Çoğul örnekleri - "ac" ile bitip, "a" düşen "i" eklenenler
 final List<Map<String, String>> cogulSampleD = [
-  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
   {
     'tekil': 'Muškarac (adam)',
     'çoğul': 'Muškarci (adamlar)',
@@ -232,7 +244,10 @@ final List<Map<String, String>> cogulSampleD = [
 /// "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
 /// "bitenlere) eklerinden biri eklenir.
 final List<Map<String, String>> cogulSampleE = [
-  {'tekil': 'tekil', 'çoğul': 'çoğul',},
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
   {
     'tekil': 'Nož (Bıçak)',
     'çoğul': 'Noževi (Bıçaklar)',
@@ -256,5 +271,112 @@ final List<Map<String, String>> cogulSampleE = [
   {
     'tekil': 'Brod (Gemi)',
     'çoğul': 'Brodovi (Gemiler)',
+  },
+];
+
+/// Çoğul Kelime Örnekleri
+final List<Map<String, String>> cogulSampleF = [
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
+  {
+    'tekil': 'Nož (Bıçak)',
+    'çoğul': 'Noževi (Bıçaklar)',
+  },
+  {
+    'tekil': 'Čaj (Çay)',
+    'çoğul': 'Čajevi (Çaylar)',
+  },
+  {
+    'tekil': 'Avion (Uçak)',
+    'çoğul': 'Avioni (Uçaklar)',
+  },
+  {
+    'tekil': 'Voz (Tren)',
+    'çoğul': 'Vozovi (Trenler)',
+  },
+  {
+    'tekil': 'Maslina (Zeytin)',
+    'çoğul': 'Masline (Zeytinler)',
+  },
+  {
+    'tekil': 'Žito (Tahıl)',
+    'çoğul': 'Žita (Tahıllar)',
+  },
+  {
+    'tekil': 'Krompir (Patates)',
+    'çoğul': 'Krompiri (patatesler)',
+  },
+  {
+    'tekil': 'Kapa (Başlık)',
+    'çoğul': 'Kape (başlıklar)',
+  },
+  {
+    'tekil': 'Zvono (Zil)',
+    'çoğul': 'Zvona (ziller)',
+  },
+  {
+    'tekil': 'Ogledalo (Ayna)',
+    'çoğul': 'Ogledala (aynalar)',
+  },
+];
+
+/// Çoğul Kelime Örnekleri
+final List<Map<String, String>> zamirlerSample = [
+  {
+    'tekil': 'tekil',
+    'çoğul': 'çoğul',
+  },
+  {
+    'tekil': 'Ja (ben)',
+    'çoğul': 'Mi (biz)',
+  },
+  {
+    'tekil': 'Ti (sen)',
+    'çoğul': 'Vi (siz)',
+  },
+  {
+    'tekil': 'On (erkek o) / Ona (dişi o) / Ono (Nötr)',
+    'çoğul': 'Oni (Erkek onlar) / One (Dişi onlar) / Ona (Nötr)',
+  },
+];
+
+/// olmak fili - olumlu/ olumsuz /soru kalıbı
+final List<Map<String, String>> olmakSampleTr = [
+  {
+    'olumlu': 'olumlu',
+    'olumsuz': 'olumsuz',
+    'soru': 'soru',
+  },
+  {
+    'olumlu': 'ben öğrenciyim.',
+    'olumsuz': 'ben öğrenci değilim.',
+    'soru': 'ben öğrenci miyim ?',
+  },
+  {
+    'olumlu': 'sen öğrencisin.',
+    'olumsuz': 'sen öğrenci değilsin.',
+    'soru': 'sen öğrenci misin?',
+  },
+  {
+    'olumlu': 'o öğrenci.',
+    'olumsuz': 'o öğrenci değil.',
+    'soru': 'o öğrenci mi?',
+  },
+  {
+    'olumlu': 'biz öğrenciyiz.',
+    'olumsuz': 'biz öğrenci değiliz.',
+    'soru': 'biz öğrenci miyiz ?',
+  },
+  {
+    'olumlu': 'siz öğrencisiniz.',
+    'olumsuz': 'siz öğrenci değilsiniz.',
+    'soru': 'siz öğrenci misiniz?',
+  },
+  {
+    'olumlu': 'onlar öğrenci.',
+    'olumsuz': 'onlar öğrenci değil.',
+    'soru': 'onlar öğrenci mi?',
   },
 ];

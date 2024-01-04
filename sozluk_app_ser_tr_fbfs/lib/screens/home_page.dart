@@ -8,6 +8,7 @@ import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
+import '../help_pages/sayfa_zamir.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
@@ -263,6 +264,11 @@ class _HomePageState extends State<HomePage> {
             context,
             "İsimlerde Çoğul Kullanım",
             const SayfaCogul(),
+          ),
+          buildListTile(
+            context,
+            "Şahıs Zamirleri",
+            const SayfaZamir(),
           ),
         ],
       ),
