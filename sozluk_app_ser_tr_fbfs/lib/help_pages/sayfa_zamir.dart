@@ -122,6 +122,18 @@ class SayfaZamir extends StatelessWidget {
                   (user) => user['olumsuz']!,
                 ],
               ),
+              const Divider(),
+
+              /// Örnek : Student (Erkek öğrenci)
+              buildTable(
+                zamirlerSampleB,
+                "Örnek : Student (Erkek Öğrenci)",
+                [
+                  (user) => user['özne']!,
+                  (user) => user['fiil']!,
+                  (user) => user['isim / nesne']!,
+                ],
+              ),
             ],
           ),
         ),

@@ -420,7 +420,7 @@ final List<Map<String, String>> olmakSampleSer = [
   },
 ];
 
-/// Şahıs zamirleri olumlu / olumsuzsuz
+/// Şahıs zamirleri olumlu / olumsuz
 final List<Map<String, String>> zamirlerSampleA = [
   {
     'olumlu': 'olumlu',
@@ -449,5 +449,44 @@ final List<Map<String, String>> zamirlerSampleA = [
   {
     'olumlu': 'oni / one / ona',
     'olumsuz': 'nisu',
+  },
+];
+
+/// Olmak fiili olumlu ve olumsuz cümleler
+final List<Map<String, String>> zamirlerSampleB = [
+  {
+    'özne': 'özne',
+    'fiil': 'fiil',
+    'isim / nesne' : ' isim / nesne',
+  },
+  {
+    'özne': 'ja',
+    'fiil': 'sam',
+    'isim / nesne' : 'student (öğrenciyim',
+  },
+  {
+    'özne': 'ti',
+    'fiil': 'si',
+    'isim / nesne' : 'student (öğrencisin)',
+  },
+  {
+    'özne': 'on / ona /ono',
+    'fiil': 'je',
+    'isim / nesne' : 'student (öğrenci)',
+  },
+  {
+    'özne': 'mi',
+    'fiil': 'smo',
+    'isim / nesne' : 'studenti (öğrenciyiz)',
+  },
+  {
+    'özne': 'vi',
+    'fiil': 'ste',
+    'isim / nesne' : 'studenti (öğrencisiniz)',
+  },
+  {
+    'özne': 'oni / one / ono',
+    'fiil': 'su',
+    'isim / nesne' : 'studenti (öğrenciler)',
   },
 ];
