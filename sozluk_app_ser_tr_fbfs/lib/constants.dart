@@ -452,7 +452,7 @@ final List<Map<String, String>> zamirlerSampleA = [
   },
 ];
 
-/// Olmak fiili olumlu ve olumsuz cümleler
+/// Olmak fiili olumlu cümleler
 final List<Map<String, String>> zamirlerSampleB = [
   {
     'özne': 'özne',
