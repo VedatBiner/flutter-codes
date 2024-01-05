@@ -105,3 +105,55 @@ final List<Map<String, String>> simdikiGenisZamanSampleC = [
   },
 ];
 
+/// istisnai durum
+final List<Map<String, String>> simdikiGenisZamanSampleD = [
+  {
+    '-uti': '-uti',
+    '-sti': '-sti',
+    '-ći': '-ći',
+  },
+  {
+    '-uti': 'okrenuti (döndürmek)',
+    '-sti': 'jesti (yemek)',
+    '-ći': 'reći (demek)',
+  },
+];
+
+/// örnek
+final List<Map<String, String>> simdikiGenisZamanSampleE = [
+  {
+    'fiil': 'fiil',
+    'da li': 'da li kullanımı',
+    'li': 'li kullanımı',
+  },
+  {
+    'fiil': 'znam (bilmek)',
+    'da li': 'da li znam? / da li ne znam? / biliyor muyum ? / bilmiyor muyum?',
+    'li': 'znam li? / ne znam li?',
+  },
+  {
+    'fiil': 'znaš (bilmek)',
+    'da li': 'da li znaš? / da li ne znaš? / biliyor musun ? / bilmiyor musunu?',
+    'li': 'znaš li? / ne znaš li?',
+  },
+  {
+    'fiil': 'zna (bilmek)',
+    'da li': 'da li zna? / da li ne zna? / biliyor mu ? / bilmiyor mu?',
+    'li': 'zna li? / ne zna li?',
+  },
+  {
+    'fiil': 'znamo (bilmek)',
+    'da li': 'da li znamo? / da li ne znamo? / biliyor muyuz ? / bilmiyor muyuz?',
+    'li': 'znamo li? / ne znamo li?',
+  },
+  {
+    'fiil': 'znate (bilmek)',
+    'da li': 'da li znate? / da li ne znate? / biliyor musunuz ? / bilmiyor musunuz?',
+    'li': 'znate li? / ne znate li?',
+  },
+  {
+    'fiil': 'znaju (bilmek)',
+    'da li': 'da li znaju? / da li ne znaju? / biliyorlar mı? ? / bilmiyorlar mı?',
+    'li': 'znaju li? / ne znaju li?',
+  },
+];

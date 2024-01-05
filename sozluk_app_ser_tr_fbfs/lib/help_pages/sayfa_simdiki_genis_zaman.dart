@@ -49,10 +49,10 @@ class SimdikiGenisZaman extends StatelessWidget {
                 simdikiGenisZamanSampleB,
                 "Şimdiki Geniş Zaman Çekim Grupları",
                 [
-                      (user) => user['zamir']!,
-                      (user) => user['-ati']!,
-                      (user) => user['-eti']!,
-                      (user) => user['-iti']!,
+                  (user) => user['zamir']!,
+                  (user) => user['-ati']!,
+                  (user) => user['-eti']!,
+                  (user) => user['-iti']!,
                 ],
               ),
 
@@ -61,12 +61,45 @@ class SimdikiGenisZaman extends StatelessWidget {
                 simdikiGenisZamanSampleC,
                 "Şimdiki Geniş Zaman Çekim Grupları - Örnek",
                 [
-                      (user) => user['-ati']!,
-                      (user) => user['-eti']!,
-                      (user) => user['-iti']!,
+                  (user) => user['-ati']!,
+                  (user) => user['-eti']!,
+                  (user) => user['-iti']!,
+                ],
+              ),
+              buildTextRule(
+                "Çoğunlukla kullanılan yapı :  -ati, -eti, -iti ile biter. "
+                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",
+              ),
+
+              /// Çekim Grupları - 3
+              buildTable(
+                simdikiGenisZamanSampleD,
+                "İstisnai fiiler",
+                [
+                  (user) => user['-uti']!,
+                  (user) => user['-sti']!,
+                  (user) => user['-ći']!,
                 ],
               ),
 
+              buildTextRule(
+                "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise"
+                " 'da li + fiil + cümle' veya 'fiil + li + cümle'",
+              ),
+              buildTextRule(
+                "bu kuralı znati (bilmek) fiiline uygulayalım.",
+              ),
+
+              /// Çekim Grupları - 4
+              buildTable(
+                simdikiGenisZamanSampleE,
+                "Olumsuz yapma",
+                [
+                      (user) => user['fiil']!,
+                      (user) => user['da li']!,
+                      (user) => user['li']!,
+                ],
+              ),
             ],
           ),
         ),
