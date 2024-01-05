@@ -31,17 +31,42 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Şimdiki Geniş Zaman
               buildTable(
-                simdikiGenisZamanSample,
+                simdikiGenisZamanSampleA,
                 "Şimdiki Geniş Zaman Yapısı",
                 [
-                  (user) => user['Türkçe Fiiler']!,
-                  (user) => user['B/H/S Fiiler']!,
+                  (user) => user['Türkçe Fiiller']!,
+                  (user) => user['B/H/S Fiiller']!,
                 ],
               ),
               buildTextRule(
                 "Fiil çekimleme Kuralı :  ti / ći atılır. Çekim "
                 "grubuna göre ekler eklenir. ",
               ),
+              const Divider(),
+
+              /// Çekim Grupları - 1
+              buildTable(
+                simdikiGenisZamanSampleB,
+                "Şimdiki Geniş Zaman Çekim Grupları",
+                [
+                      (user) => user['zamir']!,
+                      (user) => user['-ati']!,
+                      (user) => user['-eti']!,
+                      (user) => user['-iti']!,
+                ],
+              ),
+
+              /// Çekim Grupları - 2
+              buildTable(
+                simdikiGenisZamanSampleC,
+                "Şimdiki Geniş Zaman Çekim Grupları - Örnek",
+                [
+                      (user) => user['-ati']!,
+                      (user) => user['-eti']!,
+                      (user) => user['-iti']!,
+                ],
+              ),
+
             ],
           ),
         ),

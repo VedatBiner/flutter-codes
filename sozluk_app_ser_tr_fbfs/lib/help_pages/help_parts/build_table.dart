@@ -28,9 +28,11 @@ Widget buildTable(
               List<Widget> columns = getColumnValues.map((getColumnValue) {
                 String columnValue = getColumnValue(user) ?? '';
                 return Container(
-                  color: pageSample.indexOf(user) % 2 == 0
-                      ? Colors.blue[50]
-                      : Colors.amber[50],
+                  color: pageSample.indexOf(user) == 0
+                      ? Colors.indigo
+                      : pageSample.indexOf(user) % 2 == 0
+                          ? Colors.blue[50]
+                          : Colors.amber[50],
                   padding: const EdgeInsets.all(15),
                   child: Text(
                     columnValue,
@@ -38,7 +40,7 @@ Widget buildTable(
                         ? const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.black87,
+                            color: Colors.white,
                           )
                         : const TextStyle(
                             fontWeight: FontWeight.normal,
