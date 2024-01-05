@@ -490,3 +490,122 @@ final List<Map<String, String>> zamirlerSampleB = [
     'isim / nesne' : 'studenti (öğrenciler)',
   },
 ];
+
+/// Olmak fiili olumlu cümleler (kız)
+final List<Map<String, String>> zamirlerSampleC = [
+  {
+    'özne': 'özne',
+    'fiil': 'fiil',
+    'isim / nesne' : ' isim / nesne',
+  },
+  {
+    'özne': 'ja',
+    'fiil': 'sam',
+    'isim / nesne' : 'studentica (öğrenciyim)',
+  },
+  {
+    'özne': 'ti',
+    'fiil': 'si',
+    'isim / nesne' : 'studentica (öğrencisin)',
+  },
+  {
+    'özne': 'on / ona /ono',
+    'fiil': 'je',
+    'isim / nesne' : 'studentica (öğrenci)',
+  },
+  {
+    'özne': 'mi',
+    'fiil': 'smo',
+    'isim / nesne' : 'studentice (öğrenciyiz)',
+  },
+  {
+    'özne': 'vi',
+    'fiil': 'ste',
+    'isim / nesne' : 'studentice (öğrencisiniz)',
+  },
+  {
+    'özne': 'oni / one / ono',
+    'fiil': 'su',
+    'isim / nesne' : 'studentice (öğrenciler)',
+  },
+];
+
+/// kako si olumlu cümleler
+final List<Map<String, String>> zamirlerSampleD = [
+  {
+    'özne': 'özne',
+    'fiil': 'fiil',
+    'isim / nesne' : ' isim / nesne',
+  },
+  {
+    'özne': 'ja',
+    'fiil': 'sam',
+    'isim / nesne' : 'dobro (iyiyim)',
+  },
+  {
+    'özne': 'ti',
+    'fiil': 'si',
+    'isim / nesne' : 'dobro (iyisin)',
+  },
+  {
+    'özne': 'on / ona /ono',
+    'fiil': 'je',
+    'isim / nesne' : 'dobro (iyi)',
+  },
+  {
+    'özne': 'mi',
+    'fiil': 'smo',
+    'isim / nesne' : 'dobro (iyiyiz)',
+  },
+  {
+    'özne': 'vi',
+    'fiil': 'ste',
+    'isim / nesne' : 'dobro (iyisiniz)',
+  },
+  {
+    'özne': 'oni / one / ono',
+    'fiil': 'su',
+    'isim / nesne' : 'dobro (iyiler)',
+  },
+
+];
+
+/// kako si olumsuz cümleler
+final List<Map<String, String>> zamirlerSampleE = [
+  {
+    'özne': 'özne',
+    'fiil': 'fiil',
+    'isim / nesne' : ' isim / nesne',
+  },
+  {
+    'özne': 'ja',
+    'fiil': 'nisam',
+    'isim / nesne' : 'dobro (iyi değilim)',
+  },
+  {
+    'özne': 'ti',
+    'fiil': 'nisi',
+    'isim / nesne' : 'dobro (iyi değilsin)',
+  },
+  {
+    'özne': 'on / ona /ono',
+    'fiil': 'nije',
+    'isim / nesne' : 'dobro (iyi değil)',
+  },
+  {
+    'özne': 'mi',
+    'fiil': 'nismo',
+    'isim / nesne' : 'dobro (iyi değiliz)',
+  },
+  {
+    'özne': 'vi',
+    'fiil': 'niste',
+    'isim / nesne' : 'dobro (iyi değilsiniz)',
+  },
+  {
+    'özne': 'oni / one / ono',
+    'fiil': 'nisu',
+    'isim / nesne' : 'dobro (iyi değiller)',
+  },
+
+];

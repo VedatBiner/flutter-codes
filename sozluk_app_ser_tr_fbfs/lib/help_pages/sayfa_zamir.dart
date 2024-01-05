@@ -110,7 +110,8 @@ class SayfaZamir extends StatelessWidget {
               ),
               const Divider(),
               buildTextRule(
-                "- Vurgusuz (kısa) olmak fiilinin başına 'ni' eklenir ",
+                "- Vurgusuz (kısa) olmak fiilinin başına olumsuz olması "
+                "durumunda 'ni' eklenir ",
               ),
 
               /// Şahıs zamirleri
@@ -134,6 +135,43 @@ class SayfaZamir extends StatelessWidget {
                   (user) => user['isim / nesne']!,
                 ],
               ),
+              const Divider(),
+
+              /// Örnek : Student (kız öğrenci)
+              buildTable(
+                zamirlerSampleC,
+                "Örnek : Studentica (kız Öğrenci)",
+                [
+                  (user) => user['özne']!,
+                  (user) => user['fiil']!,
+                  (user) => user['isim / nesne']!,
+                ],
+              ),
+              const Divider(),
+
+              /// Örnek : kako si?  (olumlu)
+              buildTable(
+                zamirlerSampleD,
+                "Örnek : kako si (olumlu cevap)",
+                [
+                  (user) => user['özne']!,
+                  (user) => user['fiil']!,
+                  (user) => user['isim / nesne']!,
+                ],
+              ),
+              const Divider(),
+
+              /// Örnek : kako si?  (olumsuz)
+              buildTable(
+                zamirlerSampleE,
+                "Örnek : kako si (olumsuz cevap)",
+                [
+                  (user) => user['özne']!,
+                  (user) => user['fiil']!,
+                  (user) => user['isim / nesne']!,
+                ],
+              ),
+              const Divider(),
             ],
           ),
         ),
