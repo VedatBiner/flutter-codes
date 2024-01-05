@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 
@@ -30,9 +30,7 @@ class SayfaSoru extends StatelessWidget {
               const Text(
                 "Türkçe ‘deki soru yapıları – evet hayır şeklinde "
                 "cevap verilemeyenler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: baslikTextBlack,
               ),
               buildTextRule(
                 "- Ne zaman geleceksin ?",
@@ -42,9 +40,7 @@ class SayfaSoru extends StatelessWidget {
               ),
               const Text(
                 "Evet – hayır cevabı verilebilenler.",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: baslikTextBlack,
               ),
               buildTextRule(
                 "- Geldin mi?",
@@ -58,9 +54,7 @@ class SayfaSoru extends StatelessWidget {
               const Divider(),
               const Text(
                 "İki kural var.",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: baslikTextBlack,
               ),
               buildTextRule(
                 "1. Da li + fiil + cümle",
@@ -85,6 +79,9 @@ class SayfaSoru extends StatelessWidget {
                   (user) => user['soru (li)']!,
                   (user) => user['soru (da li)']!,
                 ],
+              ),
+              buildTextRule(
+                "(*) Burada parantez içindekilerin kullanımı zorunlu değildir",
               ),
             ],
           ),

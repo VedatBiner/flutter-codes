@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import '../models/words.dart';
 import '../screens/details_page_parts/button_helper.dart';
 import '../screens/details_page_parts/flag_row.dart';

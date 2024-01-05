@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 

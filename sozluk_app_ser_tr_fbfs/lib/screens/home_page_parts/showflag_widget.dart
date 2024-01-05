@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/flags_widget.dart';
 
-import '../../constants.dart';
+import '../../constants/constants.dart';
 
 class ShowFlagWidget extends StatelessWidget {
   const ShowFlagWidget({

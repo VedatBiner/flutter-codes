@@ -15,9 +15,7 @@ Widget buildTable(
           Text(
             baslik,
             style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
             textAlign: TextAlign.left,
           ),
           Table(
@@ -40,6 +38,7 @@ Widget buildTable(
                         ? const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
+                            color: Colors.black87,
                           )
                         : const TextStyle(
                             fontWeight: FontWeight.normal,

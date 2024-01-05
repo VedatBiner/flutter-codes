@@ -1,7 +1,7 @@
 /// <----- sayfa_latin.dart ----->
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import 'help_parts/build_table.dart';
 
 class SayfaLatin extends StatelessWidget {

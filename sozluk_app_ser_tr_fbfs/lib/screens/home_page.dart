@@ -3,11 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
+import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../models/words.dart';
@@ -275,6 +276,11 @@ class _HomePageState extends State<HomePage> {
             context,
             "Soru Cümleleri",
             const SayfaSoru(),
+          ),
+          buildListTile(
+            context,
+            "Şimdiki Geniş Zaman",
+            const SimdikiGenisZaman(),
           ),
         ],
       ),
