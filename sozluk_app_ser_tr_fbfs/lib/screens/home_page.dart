@@ -8,6 +8,7 @@ import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
+import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
@@ -269,6 +270,11 @@ class _HomePageState extends State<HomePage> {
             context,
             "Şahıs Zamirleri",
             const SayfaZamir(),
+          ),
+          buildListTile(
+            context,
+            "Soru Cümleleri",
+            const SayfaSoru(),
           ),
         ],
       ),

@@ -457,37 +457,37 @@ final List<Map<String, String>> zamirlerSampleB = [
   {
     'özne': 'özne',
     'fiil': 'fiil',
-    'isim / nesne' : ' isim / nesne',
+    'isim / nesne': ' isim / nesne',
   },
   {
     'özne': 'ja',
     'fiil': 'sam',
-    'isim / nesne' : 'student (öğrenciyim',
+    'isim / nesne': 'student (öğrenciyim',
   },
   {
     'özne': 'ti',
     'fiil': 'si',
-    'isim / nesne' : 'student (öğrencisin)',
+    'isim / nesne': 'student (öğrencisin)',
   },
   {
     'özne': 'on / ona /ono',
     'fiil': 'je',
-    'isim / nesne' : 'student (öğrenci)',
+    'isim / nesne': 'student (öğrenci)',
   },
   {
     'özne': 'mi',
     'fiil': 'smo',
-    'isim / nesne' : 'studenti (öğrenciyiz)',
+    'isim / nesne': 'studenti (öğrenciyiz)',
   },
   {
     'özne': 'vi',
     'fiil': 'ste',
-    'isim / nesne' : 'studenti (öğrencisiniz)',
+    'isim / nesne': 'studenti (öğrencisiniz)',
   },
   {
     'özne': 'oni / one / ono',
     'fiil': 'su',
-    'isim / nesne' : 'studenti (öğrenciler)',
+    'isim / nesne': 'studenti (öğrenciler)',
   },
 ];
 
@@ -496,37 +496,37 @@ final List<Map<String, String>> zamirlerSampleC = [
   {
     'özne': 'özne',
     'fiil': 'fiil',
-    'isim / nesne' : ' isim / nesne',
+    'isim / nesne': ' isim / nesne',
   },
   {
     'özne': 'ja',
     'fiil': 'sam',
-    'isim / nesne' : 'studentica (öğrenciyim)',
+    'isim / nesne': 'studentica (öğrenciyim)',
   },
   {
     'özne': 'ti',
     'fiil': 'si',
-    'isim / nesne' : 'studentica (öğrencisin)',
+    'isim / nesne': 'studentica (öğrencisin)',
   },
   {
     'özne': 'on / ona /ono',
     'fiil': 'je',
-    'isim / nesne' : 'studentica (öğrenci)',
+    'isim / nesne': 'studentica (öğrenci)',
   },
   {
     'özne': 'mi',
     'fiil': 'smo',
-    'isim / nesne' : 'studentice (öğrenciyiz)',
+    'isim / nesne': 'studentice (öğrenciyiz)',
   },
   {
     'özne': 'vi',
     'fiil': 'ste',
-    'isim / nesne' : 'studentice (öğrencisiniz)',
+    'isim / nesne': 'studentice (öğrencisiniz)',
   },
   {
     'özne': 'oni / one / ono',
     'fiil': 'su',
-    'isim / nesne' : 'studentice (öğrenciler)',
+    'isim / nesne': 'studentice (öğrenciler)',
   },
 ];
 
@@ -535,39 +535,38 @@ final List<Map<String, String>> zamirlerSampleD = [
   {
     'özne': 'özne',
     'fiil': 'fiil',
-    'isim / nesne' : ' isim / nesne',
+    'isim / nesne': ' isim / nesne',
   },
   {
     'özne': 'ja',
     'fiil': 'sam',
-    'isim / nesne' : 'dobro (iyiyim)',
+    'isim / nesne': 'dobro (iyiyim)',
   },
   {
     'özne': 'ti',
     'fiil': 'si',
-    'isim / nesne' : 'dobro (iyisin)',
+    'isim / nesne': 'dobro (iyisin)',
   },
   {
     'özne': 'on / ona /ono',
     'fiil': 'je',
-    'isim / nesne' : 'dobro (iyi)',
+    'isim / nesne': 'dobro (iyi)',
   },
   {
     'özne': 'mi',
     'fiil': 'smo',
-    'isim / nesne' : 'dobro (iyiyiz)',
+    'isim / nesne': 'dobro (iyiyiz)',
   },
   {
     'özne': 'vi',
     'fiil': 'ste',
-    'isim / nesne' : 'dobro (iyisiniz)',
+    'isim / nesne': 'dobro (iyisiniz)',
   },
   {
     'özne': 'oni / one / ono',
     'fiil': 'su',
-    'isim / nesne' : 'dobro (iyiler)',
+    'isim / nesne': 'dobro (iyiler)',
   },
-
 ];
 
 /// kako si olumsuz cümleler
@@ -575,37 +574,60 @@ final List<Map<String, String>> zamirlerSampleE = [
   {
     'özne': 'özne',
     'fiil': 'fiil',
-    'isim / nesne' : ' isim / nesne',
+    'isim / nesne': ' isim / nesne',
   },
   {
     'özne': 'ja',
     'fiil': 'nisam',
-    'isim / nesne' : 'dobro (iyi değilim)',
+    'isim / nesne': 'dobro (iyi değilim)',
   },
   {
     'özne': 'ti',
     'fiil': 'nisi',
-    'isim / nesne' : 'dobro (iyi değilsin)',
+    'isim / nesne': 'dobro (iyi değilsin)',
   },
   {
     'özne': 'on / ona /ono',
     'fiil': 'nije',
-    'isim / nesne' : 'dobro (iyi değil)',
+    'isim / nesne': 'dobro (iyi değil)',
   },
   {
     'özne': 'mi',
     'fiil': 'nismo',
-    'isim / nesne' : 'dobro (iyi değiliz)',
+    'isim / nesne': 'dobro (iyi değiliz)',
   },
   {
     'özne': 'vi',
     'fiil': 'niste',
-    'isim / nesne' : 'dobro (iyi değilsiniz)',
+    'isim / nesne': 'dobro (iyi değilsiniz)',
   },
   {
     'özne': 'oni / one / ono',
     'fiil': 'nisu',
-    'isim / nesne' : 'dobro (iyi değiller)',
+    'isim / nesne': 'dobro (iyi değiller)',
   },
+];
 
+/// Soru Cümleleri
+final List<Map<String, String>> sorularSample = [
+  {
+    'cümle': 'cümle',
+    'soru (li)': 'soru (li)',
+    'soru (da li)': 'soru (da li)',
+  },
+  {
+    'cümle': 'ja sam student',
+    'soru (li)': 'jesam li (ja) student ?',
+    'soru (da li)': 'da li sam ja student?',
+  },
+  {
+    'cümle': 'ti si student',
+    'soru (li)': 'jesi li (ti) student ?',
+    'soru (da li)': 'da li si ti student?',
+  },
+  {
+    'cümle': 'On / ona je student ',
+    'soru (li)': 'je li (on) student ?',
+    'soru (da li)': 'da li je on student ? ',
+  },
 ];
