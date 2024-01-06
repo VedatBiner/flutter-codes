@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import '../firebase_options.dart';
 
-import '../screens/home_page.dart';
+import '../routes/app_routes.dart';
+import '../theme/theme_dark.dart';
+import '../firebase_options.dart';
+import '../constants/app_const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +21,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return ValueListenableBuilder(
+      valueListenable: AppConst.listener.themeNotifier,
+        builder: (context, themeData, child){
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: AppConst.main.title,
+            routes: AppRoute.routes,
+            initialRoute: AppRoute.splash,
+            theme: themeData,
+            darkTheme: DarkTheme.theme,
+            themeMode: ThemeMode.system,
+          );
+        }
     );
   }
 }
