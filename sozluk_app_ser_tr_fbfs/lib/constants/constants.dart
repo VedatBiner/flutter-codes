@@ -110,7 +110,7 @@ final List<Map<String, String>> kirilAlphabet = [
   {'turkce': "NY", 'sirpca': 'Њ њ - ny okunur'},
 ];
 
-final List<Map> cinsiyetSample = [
+final List<Map<String, String>> cinsiyetSample = [
   {'erkek': 'erkek', 'dişi': 'dişi', 'nötr': 'nötr'},
   {
     'erkek': 'ormar (dolap)',

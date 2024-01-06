@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/constants.dart';
 import '../utils/text_rule.dart';
+import 'help_parts/build_table.dart';
 
 /// Cinsiyet kurallarının maddeleri burada yazdırılır.
 class SayfaCinsiyet extends StatelessWidget {
@@ -39,79 +40,18 @@ class SayfaCinsiyet extends StatelessWidget {
               const Divider(),
               const Text(
                 "Örnekler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: baslikTextBlack,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Table(
-                    columnWidths: const {
-                      0: IntrinsicColumnWidth(),
-                      1: IntrinsicColumnWidth(),
-                      2: IntrinsicColumnWidth(),
-                    },
-                    children: cinsiyetSample.map((user) {
-                      return TableRow(children: [
-                        Container(
-                          color: cinsiyetSample.indexOf(user) % 2 == 0
-                              ? Colors.blue[50]
-                              : Colors.amber[50],
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            user['erkek'],
-                            style: cinsiyetSample.indexOf(user) == 0
-                                ? const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  )
-                                : const TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 14,
-                                  ),
-                          ),
-                        ),
-                        Container(
-                          color: cinsiyetSample.indexOf(user) % 2 == 0
-                              ? Colors.blue[50]
-                              : Colors.amber[50],
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            user['dişi'],
-                            style: cinsiyetSample.indexOf(user) == 0
-                                ? const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  )
-                                : const TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 14,
-                                  ),
-                          ),
-                        ),
-                        Container(
-                            color: cinsiyetSample.indexOf(user) % 2 == 0
-                                ? Colors.blue[50]
-                                : Colors.amber[50],
-                            padding: const EdgeInsets.all(15),
-                            child: Text(
-                              user['nötr'],
-                              style: cinsiyetSample.indexOf(user) == 0
-                                  ? const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    )
-                                  : const TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 14,
-                                    ),
-                            ))
-                      ]);
-                    }).toList(),
-                    border: TableBorder.all(width: 1, color: Colors.black),
-                  ),
-                ),
+
+              /// Kelimlerde Cinsiyet
+              buildTable(
+                cinsiyetSample,
+                "- 'o' veya 'e' ile Bitenler",
+                [
+                  (user) => user['erkek']!,
+                  (user) => user['dişi']!,
+                  (user) => user['nötr']!,
+                ],
               ),
               const Text(
                 "İstisnalar",
