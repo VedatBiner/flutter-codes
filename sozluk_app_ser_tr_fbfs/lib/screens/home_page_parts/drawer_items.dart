@@ -3,13 +3,15 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants/constants.dart';
+
 ListTile buildListTile(
   BuildContext context,
   String text,
   pageRoute,
 ) {
   return ListTile(
-    textColor: Colors.amber,
+    textColor: menuColor,
     title: Text(text),
     onTap: () {
       Navigator.pop(context); // Drawer'ı kapat

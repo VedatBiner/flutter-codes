@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 Color drawerColor = const Color(0xFF4C3398);
+Color menuColor = const Color(0xFFFFD300);
 
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,

@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants/constants.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool aramaYapiliyorMu;
   final String aramaKelimesi;
@@ -37,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               "Sırpça-Türkçe Sözlük",
               style: TextStyle(color: Colors.white),
             ),
-      iconTheme: const IconThemeData(color: Colors.amberAccent),
+      iconTheme: IconThemeData(color: menuColor),
       actions: [
         aramaYapiliyorMu
             ? IconButton(
@@ -48,9 +50,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onCancelPressed,
               )
             : IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.search,
-                  color: Colors.amberAccent,
+                  color: menuColor,
                 ),
                 onPressed: onSearchPressed,
               ),

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/app_const.dart';
 import '../constants/constants.dart';
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
+  final themeNotifier = AppConst.listener.themeNotifier;
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
@@ -281,6 +283,17 @@ class _HomePageState extends State<HomePage> {
             context,
             "Şimdiki Geniş Zaman",
             const SimdikiGenisZaman(),
+          ),
+          IconButton(
+            color: menuColor,
+            onPressed: () {
+              setState(() {
+                AppConst.listener.themeNotifier.changeTheme();
+              });
+            },
+            icon: Icon(
+              themeNotifier.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+            ),
           ),
         ],
       ),
