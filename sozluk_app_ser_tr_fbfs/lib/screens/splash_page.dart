@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
 import '../routes/app_routes.dart';
 
@@ -20,16 +21,21 @@ class _SplashViewState extends State<SplashView> with _SplashViewMixin {
       appBar: AppBar(
         title: Text(AppConst.splash.appBarTitle),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.smart_display_sharp,
-              size: 256,
+            Image.asset(
+              "assets/images/maymuncuk.jpg",
+              width: 300,
+              height: 300,
+              fit: BoxFit.cover,
             ),
-            Text("Welcome My App"),
+            Text(
+              "Welcome My App",
+              style: glutenFontText,
+            ),
           ],
         ),
       ),

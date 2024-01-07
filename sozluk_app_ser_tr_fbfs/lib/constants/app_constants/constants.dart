@@ -1,9 +1,16 @@
 /// <----- constants.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Color drawerColor = const Color(0xFF4C3398);
 Color menuColor = const Color(0xFFFFD300);
+
+TextStyle glutenFontText = TextStyle(
+  fontFamily: GoogleFonts.gluten().fontFamily,
+  fontSize: 24,
+  color: Colors.white,
+);
 
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
@@ -124,7 +131,3 @@ final List<Map<String, String>> cinsiyetSample = [
     'nötr': 'more (deniz)'
   },
 ];
-
-
-
-
