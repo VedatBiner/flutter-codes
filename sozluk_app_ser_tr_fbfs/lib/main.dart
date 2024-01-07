@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import '../routes/app_routes.dart';
 import '../theme/theme_dark.dart';
 import '../firebase_options.dart';
-import '../constants/app_const.dart';
+import 'constants/base_constants/app_const.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: AppConst.listener.themeNotifier,
-        builder: (context, themeData, child){
+        valueListenable: AppConst.listener.themeNotifier,
+        builder: (context, themeData, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: AppConst.main.title,
@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
             darkTheme: DarkTheme.theme,
             themeMode: ThemeMode.system,
           );
-        }
-    );
+        });
   }
 }

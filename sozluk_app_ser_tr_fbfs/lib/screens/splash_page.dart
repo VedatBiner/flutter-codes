@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import '../constants/app_const.dart';
+import '../constants/base_constants/app_const.dart';
 import '../routes/app_routes.dart';
 
 class SplashView extends StatefulWidget {

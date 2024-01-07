@@ -1,6 +1,6 @@
 /// <----- home_constant.dart ----->
 
-part of "../constants/app_const.dart";
+part of 'app_const.dart';
 
 class _HomeConstant {
   _HomeConstant();

@@ -3,8 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/app_const.dart';
-import '../constants/constants.dart';
+import '../constants/base_constants/app_const.dart';
+import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
 import '../help_pages/sayfa_kiril.dart';

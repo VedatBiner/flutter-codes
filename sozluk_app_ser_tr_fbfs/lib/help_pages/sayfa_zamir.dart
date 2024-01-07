@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants/const_zamirler.dart';
-import '../constants/constants.dart';
+import '../constants/app_constants/const_zamirler.dart';
+import '../constants/app_constants/constants.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 

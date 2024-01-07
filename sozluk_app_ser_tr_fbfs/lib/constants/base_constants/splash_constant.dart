@@ -1,6 +1,6 @@
 /// <----- splash_constant.dart ----->
 
-part of "../constants/app_const.dart";
+part of 'app_const.dart';
 
 class _SplashConstant {
   final String appBarTitle = "Splash View Title";

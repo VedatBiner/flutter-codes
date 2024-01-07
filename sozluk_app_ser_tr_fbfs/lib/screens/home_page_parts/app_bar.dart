@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
+import '../../constants/app_constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool aramaYapiliyorMu;
