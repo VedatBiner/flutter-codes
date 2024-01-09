@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/base_constants/app_const.dart';
-import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
@@ -165,7 +164,11 @@ class _HomePageState extends State<HomePage> {
           buildStreamBuilderFooter(),
         ],
       ),
-      drawer: buildDrawer(context),
+      drawer: buildDrawer(context, themeChangeCallback: () {
+        setState(() {
+          AppConst.listener.themeNotifier.changeTheme();
+        });
+      }),
       floatingActionButton: buildFloatingActionButton(
         onPressed: () => openWordBox(context: context),
       ),
@@ -224,50 +227,6 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-    );
-  }
-
-  /// Burada drawer menü oluşturuyoruz
-  Drawer buildDrawer(BuildContext context) {
-    return Drawer(
-      shadowColor: Colors.lightBlue,
-      backgroundColor: drawerColor,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: drawerColor,
-            ),
-            child: const Text(
-              "Yardımcı Bilgiler",
-              style: baslikTextWhite,
-            ),
-          ),
-          for (var item in drawerItems) // Değişen satır
-            buildListTile(context, item["title"], item["page"]),
-          const SizedBox(height: 32),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: IconButton(
-                color: menuColor,
-                onPressed: () {
-                  setState(() {
-                    AppConst.listener.themeNotifier.changeTheme();
-                  });
-                },
-                icon: Icon(
-                  themeNotifier.isDarkMode
-                      ? Icons.wb_sunny
-                      : Icons.brightness_3,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
