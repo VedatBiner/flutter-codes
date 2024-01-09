@@ -24,7 +24,7 @@ class SimdikiGenisZaman extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "Şimdiki Geniş Zaman",
+                "Şimdiki Geniş Zaman", context,
                 style: detailTextBlue,
               ),
               const Divider(),
@@ -40,7 +40,7 @@ class SimdikiGenisZaman extends StatelessWidget {
               ),
               buildTextRule(
                 "Fiil çekimleme Kuralı :  ti / ći atılır. Çekim "
-                "grubuna göre ekler eklenir. ",
+                "grubuna göre ekler eklenir. ", context,
               ),
               const Divider(),
 
@@ -68,7 +68,7 @@ class SimdikiGenisZaman extends StatelessWidget {
               ),
               buildTextRule(
                 "Çoğunlukla kullanılan yapı :  -ati, -eti, -iti ile biter. "
-                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",
+                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",  context,
               ),
 
               /// Çekim Grupları - 3
@@ -84,10 +84,10 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               buildTextRule(
                 "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise"
-                " 'da li + fiil + cümle' veya 'fiil + li + cümle'",
+                " 'da li + fiil + cümle' veya 'fiil + li + cümle'", context,
               ),
               buildTextRule(
-                "bu kuralı znati (bilmek) fiiline uygulayalım.",
+                "bu kuralı znati (bilmek) fiiline uygulayalım.", context,
               ),
 
               /// Çekim Grupları - 4

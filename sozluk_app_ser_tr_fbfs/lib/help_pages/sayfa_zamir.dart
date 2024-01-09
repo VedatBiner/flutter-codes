@@ -25,12 +25,14 @@ class SayfaZamir extends StatelessWidget {
             children: [
               buildTextRule(
                 "Şahıs Zamirleri",
+                context,
                 style: detailTextBlue,
               ),
               const Divider(),
               buildTextRule(
                 "- Eğer onlar demek istediğimiz grupta hem erkek hem de dişi"
                 " cins varsa erkek için kullanılan oni kullanılır.",
+                context,
               ),
               const Divider(),
               buildTable(
@@ -46,24 +48,45 @@ class SayfaZamir extends StatelessWidget {
                 "Türkçede olmak fiili",
                 style: baslikTextBlack,
               ),
-              buildTextRule("- Ben – (y) + ım/im/um/üm "),
-              buildTextRule("- Sen - -sın/sin/sun/sün "),
-              buildTextRule("- O - ek yok"),
-              buildTextRule("- Biz – (y)ız/iz/uz/üz"),
-              buildTextRule("- Siz – sınız/siniz/sunuz/sünüz"),
-              buildTextRule("- Onlar – lar/ler"),
+              buildTextRule(
+                "- Ben – (y) + ım/im/um/üm ",
+                context,
+              ),
+              buildTextRule(
+                "- Sen - -sın/sin/sun/sün ",
+                context,
+              ),
+              buildTextRule(
+                "- O - ek yok",
+                context,
+              ),
+              buildTextRule(
+                "- Biz – (y)ız/iz/uz/üz",
+                context,
+              ),
+              buildTextRule(
+                "- Siz – sınız/siniz/sunuz/sünüz",
+                context,
+              ),
+              buildTextRule(
+                "- Onlar – lar/ler",
+                context,
+              ),
               buildTextRule(
                 "- Örneğin : Ben öğretmenim, sen uzunsun, "
                 "o gül, biz üzgünüz, siz kısasınız, onlar hızlılar.",
+                context,
               ),
               buildTextRule(
                 "- Eğer olumsuz olursa değil eklenir. "
                 "Değilim/değilsin/değil/değiliz/değilsiniz/değiller",
+                context,
               ),
               buildTextRule(
                 "- Örneğin : Ben öğretmen değilim, sen uzun değilsin, "
                 "o güzel değil, biz üzgün değiliz, siz kısa değilsiniz, "
                 "onlar hızlı değiller.",
+                context,
               ),
               const Divider(),
               const Text(
@@ -72,6 +95,7 @@ class SayfaZamir extends StatelessWidget {
               ),
               buildTextRule(
                 "- Örneğin : Öğrenci kelimesi için örnek yapalım.",
+                context,
               ),
               buildTable(
                 olmakSampleTr,
@@ -85,9 +109,16 @@ class SayfaZamir extends StatelessWidget {
               buildTextRule(
                 "- Sırpça, Boşnakça, Hırvatça dilleri Aşağıdaki cümle "
                 "yapısına uymaktadır.",
+                context,
               ),
-              buildTextRule("özne + fiil + isim / nesne"),
-              buildTextRule("Ben öğrenciyim : ben + olmak(çekimli) + öğrenci"),
+              buildTextRule(
+                "özne + fiil + isim / nesne",
+                context,
+              ),
+              buildTextRule(
+                "Ben öğrenciyim : ben + olmak(çekimli) + öğrenci",
+                context,
+              ),
               const Divider(),
               const Text(
                 "Biti (olmak) Fiili Sırpça",
@@ -95,10 +126,12 @@ class SayfaZamir extends StatelessWidget {
               ),
               buildTextRule(
                 "- Boşnakça / Sırpça : jeste Hırvatça : jest",
+                context,
               ),
               buildTextRule(
                 "- Vurgulu haller genellikle soru kalıplarında kullanılıyor."
                 "Düz cümlelerde ise vurgusuz haller kullanılır.",
+                context,
               ),
               buildTable(
                 olmakSampleSer,
@@ -113,6 +146,7 @@ class SayfaZamir extends StatelessWidget {
               buildTextRule(
                 "- Vurgusuz (kısa) olmak fiilinin başına olumsuz olması "
                 "durumunda 'ni' eklenir ",
+                context,
               ),
 
               /// Şahıs zamirleri

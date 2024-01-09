@@ -10,5 +10,13 @@ final class DarkTheme {
     primaryColor: Colors.black87,
     cardColor: Colors.yellow,
     scaffoldBackgroundColor: Colors.black,
+    textTheme: const TextTheme(
+      displayLarge: TextStyle(
+        color: Colors.white,
+      ),
+      displayMedium: TextStyle(
+        color: Colors.white,
+      ),
+    ),
   );
 }

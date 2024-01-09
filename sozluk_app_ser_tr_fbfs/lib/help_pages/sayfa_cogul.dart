@@ -24,29 +24,30 @@ class SayfaCogul extends StatelessWidget {
             children: [
               buildTextRule(
                 "İsimlerin Çoğul Hallerinde Kurallar",
+                context,
                 style: detailTextBlue,
               ),
               const Divider(),
               buildTextRule(
-                "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar",
+                "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar", context,
               ),
               buildTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci', 'g' ile bitenler "
-                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
+                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ", context,
               ),
               buildTextRule(
-                "3. 'a' ile bitenler 'e' ile bitince çoğul olur.",
+                "3. 'a' ile bitenler 'e' ile bitince çoğul olur.", context,
               ),
               buildTextRule(
-                "4. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.",
+                "4. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.", context,
               ),
               buildTextRule(
-                "5. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir.",
+                "5. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir.", context,
               ),
               buildTextRule(
                 "6. Genellikle tek heceli erkek cins isimlerde son harfe "
                 "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                "bitenlere) eklerinden biri eklenir.",
+                "bitenlere) eklerinden biri eklenir.", context,
               ),
               const Divider(),
               const Text(

@@ -24,7 +24,7 @@ class SayfaSoru extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "Soru Cümleleri",
+                "Soru Cümleleri", context,
                 style: detailTextBlue,
               ),
               const Divider(),
@@ -34,23 +34,23 @@ class SayfaSoru extends StatelessWidget {
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "- Ne zaman geleceksin ?",
+                "- Ne zaman geleceksin ?", context,
               ),
               buildTextRule(
-                "- Nasıl gidiyor ?",
+                "- Nasıl gidiyor ?", context,
               ),
               const Text(
                 "Evet – hayır cevabı verilebilenler.",
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "- Geldin mi?",
+                "- Geldin mi?", context,
               ),
               buildTextRule(
-                "- Düşünüyor musun?",
+                "- Düşünüyor musun?", context,
               ),
               buildTextRule(
-                "- Öğrenci misin?",
+                "- Öğrenci misin?", context,
               ),
               const Divider(),
               const Text(
@@ -58,17 +58,17 @@ class SayfaSoru extends StatelessWidget {
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "1. Da li + fiil + cümle",
+                "1. Da li + fiil + cümle", context,
               ),
               buildTextRule(
-                "2.	Uzun fiil + li + cümle",
+                "2.	Uzun fiil + li + cümle", context,
               ),
               buildTextRule(
-                "Genellikle 1. kural uygulanır.",
+                "Genellikle 1. kural uygulanır.", context,
               ),
               const Divider(),
               buildTextRule(
-                "Örneğin student için yapalım.",
+                "Örneğin student için yapalım.", context,
               ),
 
               /// soru cümleleri
@@ -82,7 +82,7 @@ class SayfaSoru extends StatelessWidget {
                 ],
               ),
               buildTextRule(
-                "(*) Burada parantez içindekilerin kullanımı zorunlu değildir",
+                "(*) Burada parantez içindekilerin kullanımı zorunlu değildir", context,
               ),
             ],
           ),

@@ -24,18 +24,18 @@ class SayfaCinsiyet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "İsimlerde cinsiyette dört kural var",
+                "İsimlerde cinsiyette dört kural var", context,
                 style: detailTextBlue,
               ),
               const Divider(),
               buildTextRule(
-                "1. Kelime sessiz harf ile bitiyorsa erkek,",
+                "1. Kelime sessiz harf ile bitiyorsa erkek,", context,
               ),
               buildTextRule(
-                "2. -a harfi ile bitiyorsa dişi,",
+                "2. -a harfi ile bitiyorsa dişi,", context,
               ),
               buildTextRule(
-                "3. -o veya -e harfi ile bitiyorsa nötr,",
+                "3. -o veya -e harfi ile bitiyorsa nötr,", context,
               ),
               const Divider(),
               const Text(
