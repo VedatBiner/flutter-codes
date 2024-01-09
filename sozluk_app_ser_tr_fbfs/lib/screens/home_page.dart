@@ -246,15 +246,22 @@ class _HomePageState extends State<HomePage> {
           ),
           for (var item in drawerItems) // Değişen satır
             buildListTile(context, item["title"], item["page"]),
-          IconButton(
-            color: menuColor,
-            onPressed: () {
-              setState(() {
-                AppConst.listener.themeNotifier.changeTheme();
-              });
-            },
-            icon: Icon(
-              themeNotifier.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+          const SizedBox(height: 32),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: IconButton(
+                color: menuColor,
+                onPressed: () {
+                  setState(() {
+                    AppConst.listener.themeNotifier.changeTheme();
+                  });
+                },
+                icon: Icon(
+                  themeNotifier.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+                ),
+              ),
             ),
           ),
         ],
