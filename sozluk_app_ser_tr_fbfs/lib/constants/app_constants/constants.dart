@@ -3,13 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../help_pages/sayfa_cinsiyet.dart';
-import '../../help_pages/sayfa_cogul.dart';
-import '../../help_pages/sayfa_kiril.dart';
-import '../../help_pages/sayfa_latin.dart';
-import '../../help_pages/sayfa_simdiki_genis_zaman.dart';
-import '../../help_pages/sayfa_soru.dart';
-import '../../help_pages/sayfa_zamir.dart';
+import '../../routes/app_routes.dart';
 
 Color drawerColor = const Color(0xFF4C3398);
 Color menuColor = const Color(0xFFFFD300);
@@ -51,13 +45,13 @@ const baslikTextBlack87 = TextStyle(
 );
 
 final List<Map<String, dynamic>> drawerItems = [
-  {"title": "Alfabe (Latin)", "page": const SayfaLatin()},
-  {"title": "Alfabe (Kiril)", "page": const SayfaKiril()},
-  {"title": "İsimlerde Cinsiyet", "page": const SayfaCinsiyet()},
-  {"title": "İsimlerde Çoğul Kullanım", "page": const SayfaCogul()},
-  {"title": "Şahıs Zamirleri", "page": const SayfaZamir()},
-  {"title": "Soru Cümleleri", "page": const SayfaSoru()},
-  {"title": "Şimdiki Geniş Zaman", "page": const SimdikiGenisZaman()},
+  {"title": "Alfabe (Latin)", "page": AppRoute.latin},
+  {"title": "Alfabe (Kiril)", "page": AppRoute.kiril},
+  {"title": "İsimlerde Cinsiyet", "page": AppRoute.cinsiyet},
+  {"title": "İsimlerde Çoğul Kullanım", "page": AppRoute.cogul},
+  {"title": "Şahıs Zamirleri", "page": AppRoute.zamir},
+  {"title": "Soru Cümleleri", "page": AppRoute.soru},
+  {"title": "Şimdiki Geniş Zaman", "page": AppRoute.simdikiGenisZaman},
 ];
 
 final List<Map<String, String>> latinAlphabet = [

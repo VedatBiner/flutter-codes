@@ -1,10 +1,11 @@
-/// <----- drawer_items ----->
+/// <----- drawer_items.dart ----->
 /// Drawer seçeneklerini gösteren metot
 
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../constants/base_constants/app_const.dart';
+import '../../routes/app_routes.dart'; // AppRoute sınıfını içeri aktardık
 
 Drawer buildDrawer(BuildContext context,
     {required Function themeChangeCallback}) {
@@ -24,7 +25,10 @@ Drawer buildDrawer(BuildContext context,
           ),
         ),
         for (var item in drawerItems)
-          buildListTile(context, item["title"], item["page"]),
+          buildListTile(context, item["title"], (BuildContext context) {
+            final pageRoute = AppRoute.routes[item["page"]];
+            return pageRoute != null ? pageRoute(context) : Container();
+          }),
         const SizedBox(height: 32),
         Align(
           alignment: Alignment.bottomLeft,
@@ -51,7 +55,7 @@ Drawer buildDrawer(BuildContext context,
 ListTile buildListTile(
   BuildContext context,
   String text,
-  pageRoute,
+  Widget Function(BuildContext) pageRouteGetter, // context ekledik
 ) {
   return ListTile(
     textColor: menuColor,
@@ -61,7 +65,7 @@ ListTile buildListTile(
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => pageRoute,
+          builder: (context) => pageRouteGetter(context), // context ekledik
         ),
       );
     },
