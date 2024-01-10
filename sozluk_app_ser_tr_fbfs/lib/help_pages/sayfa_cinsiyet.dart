@@ -21,13 +21,25 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("İsimlerde Cinsiyet"),
+        title: const Text(
+          appBarCinsiyetTitle,
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,
         themeChangeCallback: () {
           setState(
-                () {
+            () {
               AppConst.listener.themeNotifier.changeTheme();
             },
           );
@@ -41,18 +53,22 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "İsimlerde cinsiyette dört kural var", context,
+                "İsimlerde cinsiyette dört kural var",
+                context,
                 style: detailTextBlue,
               ),
               const Divider(),
               buildTextRule(
-                "1. Kelime sessiz harf ile bitiyorsa erkek,", context,
+                "1. Kelime sessiz harf ile bitiyorsa erkek,",
+                context,
               ),
               buildTextRule(
-                "2. -a harfi ile bitiyorsa dişi,", context,
+                "2. -a harfi ile bitiyorsa dişi,",
+                context,
               ),
               buildTextRule(
-                "3. -o veya -e harfi ile bitiyorsa nötr,", context,
+                "3. -o veya -e harfi ile bitiyorsa nötr,",
+                context,
               ),
               const Divider(),
               const Text(

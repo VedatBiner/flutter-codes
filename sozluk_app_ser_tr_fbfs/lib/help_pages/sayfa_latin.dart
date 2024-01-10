@@ -18,7 +18,22 @@ class _SayfaLatinState extends State<SayfaLatin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sırpça 'da Latin Harfleri"),
+        title: Text(
+          appBarLatinTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,

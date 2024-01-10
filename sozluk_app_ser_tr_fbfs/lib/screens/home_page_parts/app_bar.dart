@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onChanged: onAramaKelimesiChanged,
             )
           : Text(
-              "Sırpça-Türkçe Sözlük",
+              appBarMainTitle,
               style: TextStyle(color: menuColor),
             ),
       iconTheme: IconThemeData(color: menuColor),

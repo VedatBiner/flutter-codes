@@ -18,7 +18,22 @@ class _SayfaKirilState extends State<SayfaKiril> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sırpça 'da Kiril Harfleri"),
+        title: Text(
+          appBarKirilTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,

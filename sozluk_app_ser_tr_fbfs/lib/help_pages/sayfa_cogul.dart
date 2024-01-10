@@ -20,13 +20,25 @@ class _SayfaCogulState extends State<SayfaCogul> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("İsimlerin Çoğul Halleri"),
+        title: const Text(
+          appBarCogulTitle,
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,
         themeChangeCallback: () {
           setState(
-                () {
+            () {
               AppConst.listener.themeNotifier.changeTheme();
             },
           );
@@ -46,25 +58,31 @@ class _SayfaCogulState extends State<SayfaCogul> {
               ),
               const Divider(),
               buildTextRule(
-                "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar", context,
+                "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar",
+                context,
               ),
               buildTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci', 'g' ile bitenler "
-                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ", context,
+                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
+                context,
               ),
               buildTextRule(
-                "3. 'a' ile bitenler 'e' ile bitince çoğul olur.", context,
+                "3. 'a' ile bitenler 'e' ile bitince çoğul olur.",
+                context,
               ),
               buildTextRule(
-                "4. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.", context,
+                "4. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.",
+                context,
               ),
               buildTextRule(
-                "5. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir.", context,
+                "5. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir.",
+                context,
               ),
               buildTextRule(
                 "6. Genellikle tek heceli erkek cins isimlerde son harfe "
                 "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                "bitenlere) eklerinden biri eklenir.", context,
+                "bitenlere) eklerinden biri eklenir.",
+                context,
               ),
               const Divider(),
               const Text(

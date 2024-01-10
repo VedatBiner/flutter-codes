@@ -21,13 +21,25 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Şimdiki Geniş Zaman"),
+        title: const Text(
+          appBarSimdikiGenisZamantitle,
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,
         themeChangeCallback: () {
           setState(
-                () {
+            () {
               AppConst.listener.themeNotifier.changeTheme();
             },
           );
@@ -41,7 +53,8 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "Şimdiki Geniş Zaman", context,
+                "Şimdiki Geniş Zaman",
+                context,
                 style: detailTextBlue,
               ),
               const Divider(),
@@ -58,7 +71,8 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               ),
               buildTextRule(
                 "Fiil çekimleme Kuralı :  ti / ći atılır. Çekim "
-                "grubuna göre ekler eklenir. ", context,
+                "grubuna göre ekler eklenir. ",
+                context,
               ),
               const Divider(),
 
@@ -88,7 +102,8 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               ),
               buildTextRule(
                 "Çoğunlukla kullanılan yapı :  -ati, -eti, -iti ile biter. "
-                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",  context,
+                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",
+                context,
               ),
 
               /// Çekim Grupları - 3
@@ -105,10 +120,12 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               buildTextRule(
                 "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise"
-                " 'da li + fiil + cümle' veya 'fiil + li + cümle'", context,
+                " 'da li + fiil + cümle' veya 'fiil + li + cümle'",
+                context,
               ),
               buildTextRule(
-                "bu kuralı znati (bilmek) fiiline uygulayalım.", context,
+                "bu kuralı znati (bilmek) fiiline uygulayalım.",
+                context,
               ),
 
               /// Çekim Grupları - 4
@@ -117,9 +134,9 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleE,
                 "Olumsuz yapma",
                 [
-                      (user) => user['fiil']!,
-                      (user) => user['da li']!,
-                      (user) => user['li']!,
+                  (user) => user['fiil']!,
+                  (user) => user['da li']!,
+                  (user) => user['li']!,
                 ],
               ),
             ],
