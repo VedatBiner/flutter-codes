@@ -4,17 +4,34 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/const_simdiki_genis_zaman.dart';
 import '../constants/app_constants/constants.dart';
+import '../constants/base_constants/app_const.dart';
+import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 
-class SimdikiGenisZaman extends StatelessWidget {
+class SimdikiGenisZaman extends StatefulWidget {
   const SimdikiGenisZaman({super.key});
 
+  @override
+  State<SimdikiGenisZaman> createState() => _SimdikiGenisZamanState();
+}
+
+class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Şimdiki Geniş Zaman"),
+      ),
+      drawer: buildDrawer(
+        context,
+        themeChangeCallback: () {
+          setState(
+                () {
+              AppConst.listener.themeNotifier.changeTheme();
+            },
+          );
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(

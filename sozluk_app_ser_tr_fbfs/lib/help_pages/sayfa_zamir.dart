@@ -4,17 +4,34 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/const_zamirler.dart';
 import '../constants/app_constants/constants.dart';
+import '../constants/base_constants/app_const.dart';
+import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 
-class SayfaZamir extends StatelessWidget {
+class SayfaZamir extends StatefulWidget {
   const SayfaZamir({super.key});
 
+  @override
+  State<SayfaZamir> createState() => _SayfaZamirState();
+}
+
+class _SayfaZamirState extends State<SayfaZamir> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Şahıs Zamirleri"),
+      ),
+      drawer: buildDrawer(
+        context,
+        themeChangeCallback: () {
+          setState(
+                () {
+              AppConst.listener.themeNotifier.changeTheme();
+            },
+          );
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(

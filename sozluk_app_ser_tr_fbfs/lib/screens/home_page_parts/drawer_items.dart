@@ -56,7 +56,7 @@ Drawer buildDrawer(BuildContext context,
 ListTile buildListTile(
   BuildContext context,
   String text,
-  Widget Function(BuildContext) pageRouteGetter, // context ekledik
+  Widget Function(BuildContext) pageRouteGetter,
 ) {
   return ListTile(
     textColor: menuColor,
@@ -66,7 +66,7 @@ ListTile buildListTile(
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => pageRouteGetter(context), // context ekledik
+          builder: (context) => pageRouteGetter(context),
         ),
       );
     },

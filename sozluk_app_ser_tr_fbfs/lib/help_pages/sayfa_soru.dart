@@ -4,17 +4,34 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/const_soru.dart';
 import '../constants/app_constants/constants.dart';
+import '../constants/base_constants/app_const.dart';
+import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 
-class SayfaSoru extends StatelessWidget {
+class SayfaSoru extends StatefulWidget {
   const SayfaSoru({super.key});
 
+  @override
+  State<SayfaSoru> createState() => _SayfaSoruState();
+}
+
+class _SayfaSoruState extends State<SayfaSoru> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Soru Cümleleri"),
+      ),
+      drawer: buildDrawer(
+        context,
+        themeChangeCallback: () {
+          setState(
+                () {
+              AppConst.listener.themeNotifier.changeTheme();
+            },
+          );
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(
