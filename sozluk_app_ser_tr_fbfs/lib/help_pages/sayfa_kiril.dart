@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
-import '../routes/app_routes.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import 'help_parts/custom_appbar.dart';
 import 'help_parts/build_table.dart';
 
 class SayfaKiril extends StatefulWidget {
@@ -18,31 +18,8 @@ class _SayfaKirilState extends State<SayfaKiril> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          appBarKirilTitle,
-          style: TextStyle(
-            color: menuColor,
-          ),
-        ),
-        iconTheme: IconThemeData(color: menuColor),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.home,
-              color: menuColor,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      AppRoute.routes[AppRoute.home]!(context),
-                ),
-              );
-            },
-          )
-        ],
+      appBar: const CustomAppBar(
+        appBarTitle: appBarKirilTitle,
       ),
       drawer: buildDrawer(
         context,
