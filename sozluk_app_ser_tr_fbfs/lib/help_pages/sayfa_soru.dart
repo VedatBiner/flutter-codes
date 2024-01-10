@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/const_soru.dart';
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
+import '../screens/home_page.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
@@ -34,7 +35,14 @@ class _SayfaSoruState extends State<SayfaSoru> {
               Icons.home,
               color: menuColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
           )
         ],
       ),

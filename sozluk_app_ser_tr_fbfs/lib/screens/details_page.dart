@@ -8,6 +8,7 @@ import '../models/words.dart';
 import '../screens/details_page_parts/button_helper.dart';
 import '../screens/details_page_parts/flag_row.dart';
 import '../utils/mesaj_helper.dart';
+import 'home_page.dart';
 
 class DetailsPage extends StatefulWidget {
   Words word;
@@ -86,11 +87,29 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          "Details Page",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          appBarDetailsTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
+          )
+        ],
       ),
       body: Center(
         child: Column(

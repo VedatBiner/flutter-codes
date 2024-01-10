@@ -66,6 +66,7 @@ TextStyle baslikTextDrawer = TextStyle(
 
 const String drawerTitle = "Yardımcı Bilgiler";
 const String appBarMainTitle = "Sırpça-Türkçe Sözlük";
+const String appBarDetailsTitle = "Details Page";
 const String appBarLatinTitle = "Sırpça 'da Latin Harfleri";
 const String appBarKirilTitle = "Sırpça 'da Kiril Harfleri";
 const String appBarCogulTitle = "İsimlerin Çoğul Halleri";
