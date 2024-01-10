@@ -21,8 +21,11 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           appBarCinsiyetTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
         ),
         iconTheme: IconThemeData(color: menuColor),
         actions: [

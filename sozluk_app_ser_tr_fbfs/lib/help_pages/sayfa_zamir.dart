@@ -21,13 +21,28 @@ class _SayfaZamirState extends State<SayfaZamir> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Şahıs Zamirleri"),
+        title: Text(
+          appBarZamirTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,
         themeChangeCallback: () {
           setState(
-                () {
+            () {
               AppConst.listener.themeNotifier.changeTheme();
             },
           );

@@ -70,7 +70,8 @@ const String appBarLatinTitle = "Sırpça 'da Latin Harfleri";
 const String appBarKirilTitle = "Sırpça 'da Kiril Harfleri";
 const String appBarCogulTitle = "İsimlerin Çoğul Halleri";
 const String appBarCinsiyetTitle = "İsimlerde Cinsiyet";
-const String appBarZamirTitle = "";
+const String appBarZamirTitle = "Şahıs Zamirleri";
+const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamantitle = "Şimdiki Geniş Zaman";
 
 final List<Map<String, dynamic>> drawerItems = [

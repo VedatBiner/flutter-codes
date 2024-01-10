@@ -21,8 +21,11 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           appBarSimdikiGenisZamantitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
         ),
         iconTheme: IconThemeData(color: menuColor),
         actions: [

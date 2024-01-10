@@ -21,13 +21,28 @@ class _SayfaSoruState extends State<SayfaSoru> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Soru Cümleleri"),
+        title: Text(
+          appbarSoruTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
+        ),
+        iconTheme: IconThemeData(color: menuColor),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.home,
+              color: menuColor,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       drawer: buildDrawer(
         context,
         themeChangeCallback: () {
           setState(
-                () {
+            () {
               AppConst.listener.themeNotifier.changeTheme();
             },
           );
@@ -41,7 +56,8 @@ class _SayfaSoruState extends State<SayfaSoru> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildTextRule(
-                "Soru Cümleleri", context,
+                "Soru Cümleleri",
+                context,
                 style: detailTextBlue,
               ),
               const Divider(),
@@ -51,23 +67,28 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "- Ne zaman geleceksin ?", context,
+                "- Ne zaman geleceksin ?",
+                context,
               ),
               buildTextRule(
-                "- Nasıl gidiyor ?", context,
+                "- Nasıl gidiyor ?",
+                context,
               ),
               const Text(
                 "Evet – hayır cevabı verilebilenler.",
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "- Geldin mi?", context,
+                "- Geldin mi?",
+                context,
               ),
               buildTextRule(
-                "- Düşünüyor musun?", context,
+                "- Düşünüyor musun?",
+                context,
               ),
               buildTextRule(
-                "- Öğrenci misin?", context,
+                "- Öğrenci misin?",
+                context,
               ),
               const Divider(),
               const Text(
@@ -75,17 +96,21 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 style: baslikTextBlack,
               ),
               buildTextRule(
-                "1. Da li + fiil + cümle", context,
+                "1. Da li + fiil + cümle",
+                context,
               ),
               buildTextRule(
-                "2.	Uzun fiil + li + cümle", context,
+                "2.	Uzun fiil + li + cümle",
+                context,
               ),
               buildTextRule(
-                "Genellikle 1. kural uygulanır.", context,
+                "Genellikle 1. kural uygulanır.",
+                context,
               ),
               const Divider(),
               buildTextRule(
-                "Örneğin student için yapalım.", context,
+                "Örneğin student için yapalım.",
+                context,
               ),
 
               /// soru cümleleri
@@ -100,7 +125,8 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 ],
               ),
               buildTextRule(
-                "(*) Burada parantez içindekilerin kullanımı zorunlu değildir", context,
+                "(*) Burada parantez içindekilerin kullanımı zorunlu değildir",
+                context,
               ),
             ],
           ),

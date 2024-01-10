@@ -20,8 +20,11 @@ class _SayfaCogulState extends State<SayfaCogul> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           appBarCogulTitle,
+          style: TextStyle(
+            color: menuColor,
+          ),
         ),
         iconTheme: IconThemeData(color: menuColor),
         actions: [
