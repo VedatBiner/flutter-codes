@@ -59,6 +59,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// sessiz harfle bitenler
               buildTable(
+                context,
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
                 [
@@ -69,6 +70,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// "a" ile bitenler
               buildTable(
+                context,
                 cogulSampleB,
                 "-a ile Bitenler",
                 [
@@ -79,6 +81,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// 'o' veya 'e' ile Bitenler
               buildTable(
+                context,
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
                 [
@@ -89,6 +92,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
               buildTable(
+                context,
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
                 [
@@ -99,6 +103,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// 'ovi'  'evi' eklenenler
               buildTable(
+                context,
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
                 [
@@ -109,6 +114,7 @@ class SayfaCogul extends StatelessWidget {
 
               /// Alıştırmalar
               buildTable(
+                context,
                 cogulSampleF,
                 "- Alıştırma Kelimeleri",
                 [

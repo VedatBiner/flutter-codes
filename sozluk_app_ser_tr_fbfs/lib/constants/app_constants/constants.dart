@@ -32,6 +32,20 @@ const baslikTextWhite = TextStyle(
   color: Colors.white,
 );
 
+// Android için stil
+const TextStyle androidTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: Colors.black,
+);
+
+// Web için stil
+const TextStyle webTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: Colors.blue,
+);
+
 const baslikTextBlack = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
@@ -43,6 +57,14 @@ const baslikTextBlack87 = TextStyle(
   fontSize: 14,
   color: Colors.black87,
 );
+
+TextStyle baslikTextDrawer = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  color: menuColor,
+);
+
+const String drawerTitle = "Yardımcı Bilgiler";
 
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},

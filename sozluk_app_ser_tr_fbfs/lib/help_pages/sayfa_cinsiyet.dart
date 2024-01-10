@@ -45,6 +45,7 @@ class SayfaCinsiyet extends StatelessWidget {
 
               /// Kelimlerde Cinsiyet
               buildTable(
+                context,
                 cinsiyetSample,
                 "- 'o' veya 'e' ile Bitenler",
                 [

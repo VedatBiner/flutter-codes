@@ -16,13 +16,13 @@ class SayfaKiril extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: buildTable(
+          context,
           kirilAlphabet,
-          "- Sırpça 'da Kiril Harfleri",
+          "Sırpça 'da Kiril Harfleri",
           [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-          ]
-
+            (user) => user['turkce']!,
+            (user) => user['sirpca']!,
+          ],
         ),
       ),
     );

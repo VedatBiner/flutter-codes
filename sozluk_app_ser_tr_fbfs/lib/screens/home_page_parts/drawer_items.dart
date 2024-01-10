@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../constants/base_constants/app_const.dart';
-import '../../routes/app_routes.dart'; // AppRoute sınıfını içeri aktardık
+import '../../routes/app_routes.dart';
 
 Drawer buildDrawer(BuildContext context,
     {required Function themeChangeCallback}) {
+
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,
@@ -19,9 +20,9 @@ Drawer buildDrawer(BuildContext context,
           decoration: BoxDecoration(
             color: drawerColor,
           ),
-          child: const Text(
-            "Yardımcı Bilgiler",
-            style: baslikTextWhite,
+          child: Text(
+            drawerTitle,
+            style: baslikTextDrawer,
           ),
         ),
         for (var item in drawerItems)

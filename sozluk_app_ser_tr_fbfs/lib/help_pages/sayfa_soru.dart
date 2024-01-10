@@ -73,6 +73,7 @@ class SayfaSoru extends StatelessWidget {
 
               /// soru cümleleri
               buildTable(
+                context,
                 sorularSample,
                 "Soru cümleleri",
                 [

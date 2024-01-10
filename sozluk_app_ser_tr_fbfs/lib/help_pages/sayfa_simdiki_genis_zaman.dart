@@ -31,6 +31,7 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Şimdiki Geniş Zaman
               buildTable(
+                context,
                 simdikiGenisZamanSampleA,
                 "Şimdiki Geniş Zaman Yapısı",
                 [
@@ -46,6 +47,7 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Çekim Grupları - 1
               buildTable(
+                context,
                 simdikiGenisZamanSampleB,
                 "Şimdiki Geniş Zaman Çekim Grupları",
                 [
@@ -58,6 +60,7 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Çekim Grupları - 2
               buildTable(
+                context,
                 simdikiGenisZamanSampleC,
                 "Şimdiki Geniş Zaman Çekim Grupları - Örnek",
                 [
@@ -73,6 +76,7 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Çekim Grupları - 3
               buildTable(
+                context,
                 simdikiGenisZamanSampleD,
                 "İstisnai fiiler",
                 [
@@ -92,6 +96,7 @@ class SimdikiGenisZaman extends StatelessWidget {
 
               /// Çekim Grupları - 4
               buildTable(
+                context,
                 simdikiGenisZamanSampleE,
                 "Olumsuz yapma",
                 [

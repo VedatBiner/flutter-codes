@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.black,
+      backgroundColor: drawerColor,
       title: aramaYapiliyorMu
           ? TextField(
               style: const TextStyle(color: Colors.white),
@@ -35,9 +35,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               onChanged: onAramaKelimesiChanged,
             )
-          : const Text(
+          : Text(
               "Sırpça-Türkçe Sözlük",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: menuColor),
             ),
       iconTheme: IconThemeData(color: menuColor),
       actions: [

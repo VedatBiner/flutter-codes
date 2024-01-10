@@ -36,6 +36,7 @@ class SayfaZamir extends StatelessWidget {
               ),
               const Divider(),
               buildTable(
+                context,
                 zamirlerSample,
                 "Şahıs Zamirleri",
                 [
@@ -98,6 +99,7 @@ class SayfaZamir extends StatelessWidget {
                 context,
               ),
               buildTable(
+                context,
                 olmakSampleTr,
                 "Türkçede olmak fiili : Olumlu / Olumsuz / Soru ",
                 [
@@ -134,6 +136,7 @@ class SayfaZamir extends StatelessWidget {
                 context,
               ),
               buildTable(
+                context,
                 olmakSampleSer,
                 "Vurgulu / Vurgusuz Zamirler",
                 [
@@ -151,6 +154,7 @@ class SayfaZamir extends StatelessWidget {
 
               /// Şahıs zamirleri
               buildTable(
+                context,
                 zamirlerSampleA,
                 "Şahıs Zamirleri (olumlu / olumsuz",
                 [
@@ -162,6 +166,7 @@ class SayfaZamir extends StatelessWidget {
 
               /// Örnek : Student (Erkek öğrenci)
               buildTable(
+                context,
                 zamirlerSampleB,
                 "Örnek : Student (Erkek Öğrenci)",
                 [
@@ -174,6 +179,7 @@ class SayfaZamir extends StatelessWidget {
 
               /// Örnek : Student (kız öğrenci)
               buildTable(
+                context,
                 zamirlerSampleC,
                 "Örnek : Studentica (kız Öğrenci)",
                 [
@@ -186,6 +192,7 @@ class SayfaZamir extends StatelessWidget {
 
               /// Örnek : kako si?  (olumlu)
               buildTable(
+                context,
                 zamirlerSampleD,
                 "Örnek : kako si (olumlu cevap)",
                 [
@@ -198,6 +205,7 @@ class SayfaZamir extends StatelessWidget {
 
               /// Örnek : kako si?  (olumsuz)
               buildTable(
+                context,
                 zamirlerSampleE,
                 "Örnek : kako si (olumsuz cevap)",
                 [

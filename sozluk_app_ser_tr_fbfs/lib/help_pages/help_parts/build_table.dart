@@ -2,7 +2,10 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants/app_constants/constants.dart';
+
 Widget buildTable(
+  BuildContext context,
   List<Map<String, String>> pageSample,
   String baslik,
   List<String Function(Map<String, String>)> getColumnValues,
@@ -14,8 +17,9 @@ Widget buildTable(
         children: [
           Text(
             baslik,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
+            style: Theme.of(context).platform == TargetPlatform.android
+                ? androidTextStyle
+                : webTextStyle,
             textAlign: TextAlign.left,
           ),
           Table(

@@ -16,13 +16,13 @@ class SayfaLatin extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: buildTable(
+          context,
           latinAlphabet,
-          "- Sırpça 'da  Latin Harfleri",
+          "Sırpça 'da  Latin Harfleri",
           [
                 (user) => user['turkce']!,
                 (user) => user['sirpca']!,
           ]
-
         ),
       ),
     );
