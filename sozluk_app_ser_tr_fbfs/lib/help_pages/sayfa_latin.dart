@@ -1,9 +1,9 @@
 /// <----- sayfa_latin.dart ----->
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/routes/app_routes.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
-import '../screens/home_page.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 import 'help_parts/build_table.dart';
 
@@ -36,7 +36,8 @@ class _SayfaLatinState extends State<SayfaLatin> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) =>
+                      AppRoute.routes[AppRoute.home]!(context),
                 ),
               );
             },

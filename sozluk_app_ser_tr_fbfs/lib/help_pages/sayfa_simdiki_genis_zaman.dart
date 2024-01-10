@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/const_simdiki_genis_zaman.dart';
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
-import '../screens/home_page.dart';
+import '../routes/app_routes.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
@@ -39,7 +39,8 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomePage(),
+                  builder: (context) =>
+                      AppRoute.routes[AppRoute.home]!(context),
                 ),
               );
             },
