@@ -26,11 +26,10 @@ class _SayfaSoruState extends State<SayfaSoru> {
       ),
       drawer: buildDrawer(
         context,
-        // ThemeManager örneği oluşturuldu
+
         themeChangeCallback: () {
           setState(
                 () {
-              // AppConst.listener.themeNotifier.changeTheme();
             },
           );
         },

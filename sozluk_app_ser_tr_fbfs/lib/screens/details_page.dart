@@ -9,6 +9,7 @@ import '../screens/details_page_parts/button_helper.dart';
 import '../screens/details_page_parts/flag_row.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
+import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
   Words word;
@@ -87,6 +88,16 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       appBar: const CustomAppBar(
         appBarTitle: appBarDetailsTitle,
+      ),
+      drawer: buildDrawer(
+        context,
+
+        themeChangeCallback: () {
+          setState(
+                () {
+            },
+          );
+        },
       ),
       body: Center(
         child: Column(
