@@ -1,5 +1,4 @@
 /// <----- details_page.dart ----->
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -35,7 +34,7 @@ class _DetailsPageState extends State<DetailsPage> {
     _loadWordList();
   }
 
-  /// tüm kelimelerin listesi
+  /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
       _querySnapshot = await words.orderBy("sirpca").get()
@@ -48,7 +47,7 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
-  /// önceki kelime
+  /// Önceki kelime
   Future<void> _loadPreviousWord() async {
     if (_currentIndex > 0) {
       _currentIndex--;
@@ -61,7 +60,7 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
-  /// sonraki kelime
+  /// Sonraki kelime
   Future<void> _loadNextWord() async {
     if (_currentIndex < _querySnapshot.size - 1) {
       _currentIndex++;
@@ -74,7 +73,7 @@ class _DetailsPageState extends State<DetailsPage> {
     }
   }
 
-  /// kelimelerin güncellenmesi
+  /// Kelimelerin güncellenmesi
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
@@ -91,12 +90,10 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       drawer: buildDrawer(
         context,
-
         themeChangeCallback: () {
-          setState(
-                () {
-            },
-          );
+          setState(() {
+            // Tema değişikliği durumunda yapılacak işlemler
+          });
         },
       ),
       body: Center(
@@ -121,6 +118,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   buildElevatedButton(
                     onPressed: () => _loadPreviousWord(),
                     icon: Icons.arrow_left,
+                    iconSize: 50,
                   ),
                   const Expanded(
                     child: SizedBox(width: 100),
@@ -128,6 +126,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   buildElevatedButton(
                     onPressed: () => _loadNextWord(),
                     icon: Icons.arrow_right,
+                    iconSize: 50,
                   ),
                 ],
               ),
