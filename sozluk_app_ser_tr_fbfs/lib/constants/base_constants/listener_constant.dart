@@ -2,6 +2,6 @@
 part of 'app_const.dart';
 
 class _ListenerConstant {
-  final ThemeManagerNotifier themeNotifier =
-  ThemeManagerNotifier(LightTheme.theme);
+  // final ThemeManagerNotifier themeNotifier =
+  // ThemeManagerNotifier(LightTheme.theme);
 }

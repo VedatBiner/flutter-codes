@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../constants/base_constants/app_const.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../theme/theme_manager.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
@@ -23,10 +23,11 @@ class _SayfaLatinState extends State<SayfaLatin> {
       ),
       drawer: buildDrawer(
         context,
+         // ThemeManager örneği oluşturuldu
         themeChangeCallback: () {
           setState(
-            () {
-              AppConst.listener.themeNotifier.changeTheme();
+                () {
+              // AppConst.listener.themeNotifier.changeTheme();
             },
           );
         },

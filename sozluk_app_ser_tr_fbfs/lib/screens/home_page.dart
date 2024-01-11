@@ -3,12 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/base_constants/app_const.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
+import '../theme/theme_manager.dart';
 import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
@@ -30,7 +30,9 @@ class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
-  final themeNotifier = AppConst.listener.themeNotifier;
+  ThemeManager _themeManager = ThemeManager(); // ThemeManager örneği oluşturuldu
+  // final themeNotifier = AppConst.listener.themeNotifier;
+
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
@@ -164,9 +166,9 @@ class _HomePageState extends State<HomePage> {
           buildStreamBuilderFooter(),
         ],
       ),
-      drawer: buildDrawer(context, themeChangeCallback: () {
+      drawer:  buildDrawer(context, themeChangeCallback: () {
         setState(() {
-          AppConst.listener.themeNotifier.changeTheme();
+          // AppConst.listener.themeNotifier.changeTheme();
         });
       }),
       floatingActionButton: buildFloatingActionButton(

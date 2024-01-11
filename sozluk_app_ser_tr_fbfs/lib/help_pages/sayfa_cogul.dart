@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/const_cogul.dart';
 import '../constants/app_constants/constants.dart';
-import '../constants/base_constants/app_const.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../theme/theme_manager.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
@@ -28,8 +28,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
         context,
         themeChangeCallback: () {
           setState(
-            () {
-              AppConst.listener.themeNotifier.changeTheme();
+                () {
+              // AppConst.listener.themeNotifier.changeTheme();
             },
           );
         },
@@ -53,7 +53,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
               ),
               buildTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci', 'g' ile bitenler "
-                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
+                    "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
                 context,
               ),
               buildTextRule(
@@ -70,8 +70,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
               ),
               buildTextRule(
                 "6. Genellikle tek heceli erkek cins isimlerde son harfe "
-                "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                "bitenlere) eklerinden biri eklenir.",
+                    "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+                    "bitenlere) eklerinden biri eklenir.",
                 context,
               ),
               const Divider(),
@@ -88,8 +88,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
 
@@ -99,8 +99,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleB,
                 "-a ile Bitenler",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
 
@@ -110,8 +110,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
 
@@ -121,8 +121,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
 
@@ -132,8 +132,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
 
@@ -143,8 +143,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleF,
                 "- Alıştırma Kelimeleri",
                 [
-                  (user) => user['tekil']!,
-                  (user) => user['çoğul']!,
+                      (user) => user['tekil']!,
+                      (user) => user['çoğul']!,
                 ],
               ),
             ],

@@ -3,13 +3,12 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../constants/base_constants/app_const.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../theme/theme_manager.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
-/// Cinsiyet kurallarının maddeleri burada yazdırılır.
 class SayfaCinsiyet extends StatefulWidget {
   const SayfaCinsiyet({Key? key}) : super(key: key);
 
@@ -26,10 +25,10 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
       ),
       drawer: buildDrawer(
         context,
-        themeChangeCallback: () {
+        themeChangeCallback: (bool isDark) {
           setState(
             () {
-              AppConst.listener.themeNotifier.changeTheme();
+              ThemeManager().toggleTheme(isDark);
             },
           );
         },
@@ -65,7 +64,7 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 style: baslikTextBlack,
               ),
 
-              /// Kelimlerde Cinsiyet
+              /// Kelimelerde Cinsiyet
               buildTable(
                 context,
                 cinsiyetSample,

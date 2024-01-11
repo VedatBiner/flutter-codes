@@ -1,10 +1,9 @@
-/// <----- main.dart ----->
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sozluk_app_ser_tr_fbfs/theme/theme_constants.dart';
+import 'package:sozluk_app_ser_tr_fbfs/theme/theme_manager.dart';
 
 import '../routes/app_routes.dart';
-import '../theme/theme_dark.dart';
 import '../firebase_options.dart';
 import 'constants/base_constants/app_const.dart';
 
@@ -13,26 +12,50 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  ThemeManager themeManager = ThemeManager();
+
+  runApp(MyApp(themeManager: themeManager));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  final ThemeManager themeManager;
+
+  const MyApp({Key? key, required this.themeManager}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    widget.themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    widget.themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: AppConst.listener.themeNotifier,
-        builder: (context, themeData, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: AppConst.main.title,
-            routes: AppRoute.routes,
-            initialRoute: AppRoute.splash,
-            theme: themeData,
-            darkTheme: DarkTheme.theme,
-            themeMode: ThemeMode.system,
-          );
-        });
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: AppConst.main.title,
+      routes: AppRoute.routes,
+      initialRoute: AppRoute.splash,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: widget.themeManager.themeMode,
+    );
   }
 }
