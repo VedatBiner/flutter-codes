@@ -8,8 +8,7 @@ import '../../constants/app_constants/constants.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
 
-Drawer buildDrawer(BuildContext context,
-    {required Function themeChangeCallback}) {
+Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
   return Drawer(
     shadowColor: Colors.lightBlue,
@@ -40,7 +39,7 @@ Drawer buildDrawer(BuildContext context,
               color: menuColor,
               onPressed: () {
                 final provider =
-                    Provider.of<ThemeProvider>(context, listen: false);
+                Provider.of<ThemeProvider>(context, listen: false);
                 provider.toggleTheme(!provider.isDarkMode);
               },
               icon: Icon(
@@ -53,6 +52,7 @@ Drawer buildDrawer(BuildContext context,
     ),
   );
 }
+
 
 ListTile buildListTile(
   BuildContext context,

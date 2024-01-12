@@ -24,17 +24,7 @@ class _SayfaZamirState extends State<SayfaZamir> {
       appBar: const CustomAppBar(
         appBarTitle: appBarZamirTitle,
       ),
-      drawer: buildDrawer(
-        context,
-       // ThemeManager örneği oluşturuldu
-        themeChangeCallback: () {
-          setState(
-            () {
-              // AppConst.listener.themeNotifier.changeTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25),

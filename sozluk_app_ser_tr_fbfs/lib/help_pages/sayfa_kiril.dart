@@ -20,16 +20,7 @@ class _SayfaKirilState extends State<SayfaKiril> {
       appBar: const CustomAppBar(
         appBarTitle: appBarKirilTitle,
       ),
-      drawer: buildDrawer(
-        context,
-        themeChangeCallback: () {
-          setState(
-                () {
-              // AppConst.listener.themeNotifier.changeTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: buildTable(

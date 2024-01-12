@@ -22,16 +22,7 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
       appBar: const CustomAppBar(
         appBarTitle: appBarCinsiyetTitle,
       ),
-      drawer: buildDrawer(
-        context,
-        themeChangeCallback: (bool isDark) {
-          setState(
-            () {
-             // ThemeManager().toggleTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25),
@@ -69,9 +60,9 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 cinsiyetSample,
                 "- 'o' veya 'e' ile Bitenler",
                 [
-                  (user) => user['erkek']!,
-                  (user) => user['dişi']!,
-                  (user) => user['nötr']!,
+                      (user) => user['erkek']!,
+                      (user) => user['dişi']!,
+                      (user) => user['nötr']!,
                 ],
               ),
               const Text(

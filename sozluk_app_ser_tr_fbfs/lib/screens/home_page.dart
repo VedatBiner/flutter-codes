@@ -166,9 +166,7 @@ class _HomePageState extends State<HomePage> {
           buildStreamBuilderFooter(),
         ],
       ),
-      drawer: buildDrawer(context, themeChangeCallback: () {
-        setState(() {});
-      }),
+      drawer: buildDrawer(context),
       floatingActionButton: buildFloatingActionButton(
         onPressed: () => openWordBox(context: context),
       ),

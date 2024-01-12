@@ -23,16 +23,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
       appBar: const CustomAppBar(
         appBarTitle: appBarCogulTitle,
       ),
-      drawer: buildDrawer(
-        context,
-        themeChangeCallback: () {
-          setState(
-                () {
-              // AppConst.listener.themeNotifier.changeTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25),

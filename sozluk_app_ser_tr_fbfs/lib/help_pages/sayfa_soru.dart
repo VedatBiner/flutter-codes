@@ -24,16 +24,7 @@ class _SayfaSoruState extends State<SayfaSoru> {
       appBar: const CustomAppBar(
         appBarTitle: appbarSoruTitle,
       ),
-      drawer: buildDrawer(
-        context,
-
-        themeChangeCallback: () {
-          setState(
-                () {
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25),

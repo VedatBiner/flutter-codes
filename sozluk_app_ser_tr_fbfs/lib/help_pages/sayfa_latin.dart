@@ -20,17 +20,7 @@ class _SayfaLatinState extends State<SayfaLatin> {
       appBar: const CustomAppBar(
         appBarTitle: appBarLatinTitle,
       ),
-      drawer: buildDrawer(
-        context,
-         // ThemeManager örneği oluşturuldu
-        themeChangeCallback: () {
-          setState(
-                () {
-              // AppConst.listener.themeNotifier.changeTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: buildTable(

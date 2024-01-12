@@ -24,17 +24,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
       appBar: const CustomAppBar(
         appBarTitle: appBarSimdikiGenisZamantitle,
       ),
-      drawer: buildDrawer(
-        context,
-         // ThemeManager örneği oluşturuldu
-        themeChangeCallback: () {
-          setState(
-                () {
-              // AppConst.listener.themeNotifier.changeTheme();
-            },
-          );
-        },
-      ),
+      drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(25),

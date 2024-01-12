@@ -88,14 +88,7 @@ class _DetailsPageState extends State<DetailsPage> {
       appBar: const CustomAppBar(
         appBarTitle: appBarDetailsTitle,
       ),
-      drawer: buildDrawer(
-        context,
-        themeChangeCallback: () {
-          setState(() {
-            // Tema değişikliği durumunda yapılacak işlemler
-          });
-        },
-      ),
+      drawer: buildDrawer(context),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
