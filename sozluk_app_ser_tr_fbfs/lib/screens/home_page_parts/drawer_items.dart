@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
-import '../../provider/theme_provider.dart';
-import '../../routes/app_routes.dart';
+import '../../services/theme_provider.dart';
+import '../../services/app_routes.dart';
 
 Drawer buildDrawer(BuildContext context,
     {required Function themeChangeCallback}) {

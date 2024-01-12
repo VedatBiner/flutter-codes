@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../routes/app_routes.dart';
+import '../../services/app_routes.dart';
 
 Color drawerColor = const Color(0xFF4C3398);
 Color menuColor = const Color(0xFFFFD300);

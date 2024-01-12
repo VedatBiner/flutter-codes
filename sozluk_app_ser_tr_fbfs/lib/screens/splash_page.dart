@@ -5,7 +5,7 @@ import 'dart:async';
 
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
-import '../routes/app_routes.dart';
+import '../services/app_routes.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -28,8 +28,8 @@ class _SplashViewState extends State<SplashView> with _SplashViewMixin {
           children: [
             Image.asset(
               "assets/images/maymuncuk.jpg",
-              width: 300,
-              height: 300,
+              width: 400,
+              height: 400,
               fit: BoxFit.cover,
             ),
             Text(

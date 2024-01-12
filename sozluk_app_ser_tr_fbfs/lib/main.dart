@@ -1,9 +1,10 @@
+/// <----- main.dart ----->
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/theme_provider.dart';
-import '../routes/app_routes.dart';
+import 'services/theme_provider.dart';
+import 'services/app_routes.dart';
 import '../firebase_options.dart';
 import 'constants/base_constants/app_const.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../routes/app_routes.dart';
+import '../../services/app_routes.dart';
 import '../../constants/app_constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

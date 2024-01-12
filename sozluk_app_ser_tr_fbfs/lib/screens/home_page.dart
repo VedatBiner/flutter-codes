@@ -3,12 +3,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
+import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
-import '../provider/theme_provider.dart';
+import '../services/theme_provider.dart';
 import '../services/firestore.dart';
 import '../screens/details_page.dart';
 import '../utils/mesaj_helper.dart';
@@ -167,9 +167,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: buildDrawer(context, themeChangeCallback: () {
-        setState(() {
-          // AppConst.listener.themeNotifier.changeTheme();
-        });
+        setState(() {});
       }),
       floatingActionButton: buildFloatingActionButton(
         onPressed: () => openWordBox(context: context),
