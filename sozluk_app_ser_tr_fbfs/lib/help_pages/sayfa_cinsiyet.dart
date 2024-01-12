@@ -28,7 +28,7 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
         themeChangeCallback: (bool isDark) {
           setState(
             () {
-              ThemeManager().toggleTheme(isDark);
+              ThemeManager().toggleTheme();
             },
           );
         },

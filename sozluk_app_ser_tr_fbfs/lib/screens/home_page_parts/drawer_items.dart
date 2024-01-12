@@ -38,8 +38,9 @@ Drawer buildDrawer(BuildContext context,
             child: IconButton(
               color: menuColor,
               onPressed: () {
-                ThemeManager themeManager = ThemeManager(); // ThemeManager örneği oluştur
-                themeChangeCallback(); // Ana sayfadaki tema değişim fonksiyonunu çağır
+                ThemeManager themeManager = ThemeManager();
+                themeManager.toggleTheme();
+                print("seçim : ${themeManager.toggleTheme}");
               },
               icon: Icon(
                 ThemeManager().isDarkMode
