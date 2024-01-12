@@ -2,14 +2,15 @@
 /// Drawer seçeneklerini gösteren metot
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/theme/theme_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../../provider/theme_provider.dart';
 import '../../routes/app_routes.dart';
 
 Drawer buildDrawer(BuildContext context,
     {required Function themeChangeCallback}) {
-
+  final themeProvider = Provider.of<ThemeProvider>(context);
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,
@@ -38,14 +39,12 @@ Drawer buildDrawer(BuildContext context,
             child: IconButton(
               color: menuColor,
               onPressed: () {
-                ThemeManager themeManager = ThemeManager();
-                themeManager.toggleTheme();
-                print("seçim : ${themeManager.toggleTheme}");
+                final provider =
+                    Provider.of<ThemeProvider>(context, listen: false);
+                provider.toggleTheme(!provider.isDarkMode);
               },
               icon: Icon(
-                ThemeManager().isDarkMode
-                    ? Icons.wb_sunny
-                    : Icons.brightness_3,
+                themeProvider.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
               ),
             ),
           ),
@@ -56,10 +55,10 @@ Drawer buildDrawer(BuildContext context,
 }
 
 ListTile buildListTile(
-    BuildContext context,
-    String text,
-    Widget Function(BuildContext) pageRouteGetter,
-    ) {
+  BuildContext context,
+  String text,
+  Widget Function(BuildContext) pageRouteGetter,
+) {
   return ListTile(
     textColor: menuColor,
     title: Text(text),

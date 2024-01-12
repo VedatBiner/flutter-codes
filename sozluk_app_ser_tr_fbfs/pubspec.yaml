@@ -19,6 +19,7 @@ dependencies:
   flag:
   fluttertoast:
   google_fonts:
+  provider:
 
 dev_dependencies:
   flutter_test:
