@@ -32,8 +32,8 @@ class MyThemes {
     colorScheme: const ColorScheme.dark(),
     iconTheme: IconThemeData(color: drawerColor),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.black), // Tablo içeriği için metin rengini siyah yaptık
-      bodyMedium: TextStyle(color: Colors.black), // İsterseniz bodyText2'yi de güncelleyebilirsiniz
+      bodyLarge: TextStyle(color: Colors.black),
+      bodyMedium: TextStyle(color: Colors.black),
     ),
   );
 
@@ -51,7 +51,7 @@ class MyThemes {
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: Colors.black),
       bodyMedium: TextStyle(color: Colors.black),
-      titleLarge: TextStyle(color: Colors.black), // Başlık metni stili için renk ayarı
+      titleLarge: TextStyle(color: Colors.black),
     ),
   );
 }
