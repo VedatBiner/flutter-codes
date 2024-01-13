@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/const_cogul.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
@@ -31,7 +32,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildTextRule(
+              buildTextHeader(
                 "İsimlerin Çoğul Hallerinde Kurallar",
                 context,
                 style: detailTextBlue,

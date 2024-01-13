@@ -5,10 +5,9 @@ Widget buildTextRule(String ruleText, BuildContext context, {TextStyle? style}) 
     ruleText,
     textAlign: TextAlign.start,
     style: style?.copyWith(
-      color: Theme.of(context).platform == TargetPlatform.android
-          ? Colors.black
-          : Colors.white,
+      color: Theme.of(context).brightness == Brightness.dark
+          ? Colors.white // Dark mode için beyaz renk
+          : Colors.black, // Light mode için siyah renk
     ),
   );
 }
-

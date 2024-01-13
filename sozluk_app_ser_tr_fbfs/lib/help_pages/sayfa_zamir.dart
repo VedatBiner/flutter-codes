@@ -6,6 +6,7 @@ import '../constants/app_constants/const_zamirler.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 
+import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
@@ -32,7 +33,7 @@ class _SayfaZamirState extends State<SayfaZamir> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildTextRule(
+              buildTextHeader(
                 "Şahıs Zamirleri",
                 context,
                 style: detailTextBlue,
