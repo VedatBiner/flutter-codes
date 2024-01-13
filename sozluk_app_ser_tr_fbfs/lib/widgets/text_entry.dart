@@ -19,6 +19,7 @@ class TextEntry extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.indigo),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Colors.black54,

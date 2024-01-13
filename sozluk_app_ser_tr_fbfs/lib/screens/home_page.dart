@@ -67,6 +67,9 @@ class _HomePageState extends State<HomePage> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.grey.shade300 // Dark mode için mavi renk
+            : null, // null olması default rengi kullanır
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
           side: const BorderSide(
