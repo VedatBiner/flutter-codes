@@ -283,3 +283,94 @@ final List<Map<String, String>> zamirlerSampleE = [
     'isim / nesne': 'dobro (iyi değiller)',
   },
 ];
+
+/// zar ne yapısı
+final List<Map<String, String>> zamirlerSampleF = [
+  {
+    'da li': '',
+    'şahıs zamiri': '',
+    'normal fiil': '',
+    'info': '',
+  },
+  {
+    'da li': 'da li',
+    'şahıs zamiri': 'şahıs zamiri',
+    'normal fiil': 'normal fiil',
+    'info': '',
+  },
+  {
+    'da li': 'da li',
+    'şahıs zamiri': 'olmak fiili',
+    'normal fiil': 'şahıs zamiri',
+    'info': '',
+  },
+  {
+    'da li': 'ja',
+    'şahıs zamiri': 'vidim',
+    'normal fiil': 'kuću',
+    'info': 'evi görüyorum',
+  },
+  {
+    'da li': 'vidim li',
+    'şahıs zamiri': '(ja)',
+    'normal fiil': 'kuću',
+    'info': 'evi görüyor muyum?',
+  },
+  {
+    'da li': 'da li',
+    'şahıs zamiri': '(ja)',
+    'normal fiil': 'vidim kuću',
+    'info': 'evi görüyor muyum?',
+  },
+];
+
+final List<Map<String, String>> zamirlerSampleG = [
+  {
+    'sırpça': '',
+    'türkçe': '',
+  },
+  {
+    'sırpça': 'mi smo studenti ',
+    'türkçe': 'biz öğrenciyiz',
+  },
+  {
+    'sırpça': 'Jesmo li (mi) studenti ?',
+    'türkçe': 'biz öğrenci miyiz ?',
+  },
+  {
+    'sırpça': 'Da li smo (mi) studenti ?',
+    'türkçe': 'biz öğrenci miyiz ?',
+  },
+];
+
+/// zar ne örnekleri
+final List<Map<String, String>> zamirlerSampleH = [
+  {
+    'sırpça': '',
+    'türkçe': '',
+  },
+  {
+    'sırpça': 'Zar ne dolaziš ?',
+    'türkçe': 'gelmiyor musun?',
+  },
+  {
+    'sırpça': 'Dolaziš, zar ne?',
+    'türkçe': 'geliyorsun değil mi?',
+  },
+  {
+    'sırpça': 'Ne dolaziš, zar ne ? ',
+    'türkçe': 'yürümüyorsun, değil mi?',
+  },
+  {
+    'sırpça': 'Zar ne hodaš? ,',
+    'türkçe': 'yürümüyor musun?',
+  },
+  {
+    'sırpça': 'hodaš, zar ne?',
+    'türkçe': 'yürüyorsun değil mi?',
+  },
+  {
+    'sırpça': 'Ne hodaš, zar ne ?',
+    'türkçe': 'yürümüyorsun, değil mi?',
+  },
+];

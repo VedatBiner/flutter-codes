@@ -228,6 +228,61 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 ],
               ),
               const Divider(),
+
+              /// zar ne Yapısı
+              buildTable(
+                context,
+                zamirlerSampleF,
+                "Örnek",
+                [
+                  (user) => user['da li']!,
+                  (user) => user['şahıs zamiri']!,
+                  (user) => user['normal fiil']!,
+                  (user) => user['info']!,
+                ],
+              ),
+              buildTextRule(
+                "Şahıs zamiri Türkçe'de olduğu gibi cümle içinde "
+                "kullanılmasa da oluyor. Örneğin ben yemek yiyorum "
+                "yerine yemek yiyorum kullanmak gibi. Şahıs zamiri "
+                "normal fiilden önce gelir. Olmak fiilindense sonra "
+                "gelir böyle bir ayrım var. ",
+                context,
+              ),
+              buildTable(
+                context,
+                zamirlerSampleG,
+                "Örnek",
+                [
+                  (user) => user['sırpça']!,
+                  (user) => user['türkçe']!,
+                ],
+              ),
+              const Divider(),
+              buildTextRule(
+                "Zar ne yapısında ise,",
+                context,
+              ),
+              buildTextRule(
+                "cümle + zar ne : cümle + değil mi?",
+                context,
+              ),
+              buildTextRule(
+                "zar ne + olumlu cümle : olumsuz soru olur",
+                context,
+              ),
+              const Divider(),
+              buildTable(
+                context,
+                zamirlerSampleH,
+                "Örnek",
+                [
+                      (user) => user['sırpça']!,
+                      (user) => user['türkçe']!,
+                ],
+              ),
+              const Divider(),
+
             ],
           ),
         ),
