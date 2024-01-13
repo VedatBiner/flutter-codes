@@ -55,8 +55,9 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 ],
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Türkçede olmak fiili",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(
@@ -100,8 +101,9 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 context,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Biti (olmak) fiili Olumlu / olumsuz ve soru kalıpları",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(
@@ -132,8 +134,9 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 context,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Biti (olmak) Fiili Sırpça",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(

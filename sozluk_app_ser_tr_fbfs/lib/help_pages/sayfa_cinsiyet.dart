@@ -50,8 +50,9 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 context,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Örnekler",
+                context,
                 style: baslikTextBlack,
               ),
 
@@ -61,18 +62,28 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 cinsiyetSample,
                 "- 'o' veya 'e' ile Bitenler",
                 [
-                      (user) => user['erkek']!,
-                      (user) => user['dişi']!,
-                      (user) => user['nötr']!,
+                  (user) => user['erkek']!,
+                  (user) => user['dişi']!,
+                  (user) => user['nötr']!,
                 ],
               ),
-              const Text(
+              buildTextRule(
                 "İstisnalar",
+                context,
                 style: baslikTextBlack,
               ),
-              const Text("- Sto – stol (Hırvatça) (masa) – erkek"),
-              const Text("- Krv (kan) – Dişi"),
-              const Text("- Kolega (meslekdaş) – erkek"),
+              buildTextRule(
+                "- Sto – stol (Hırvatça) (masa) – erkek",
+                context,
+              ),
+              buildTextRule(
+                "- Krv (kan) – Dişi",
+                context,
+              ),
+              buildTextRule(
+                "- Kolega (meslekdaş) – erkek",
+                context,
+              ),
             ],
           ),
         ),

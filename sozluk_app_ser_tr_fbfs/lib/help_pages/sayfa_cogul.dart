@@ -44,7 +44,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
               ),
               buildTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci', 'g' ile bitenler "
-                    "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
+                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
                 context,
               ),
               buildTextRule(
@@ -61,16 +61,15 @@ class _SayfaCogulState extends State<SayfaCogul> {
               ),
               buildTextRule(
                 "6. Genellikle tek heceli erkek cins isimlerde son harfe "
-                    "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                    "bitenlere) eklerinden biri eklenir.",
+                "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+                "bitenlere) eklerinden biri eklenir.",
                 context,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Örnekler",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                context,
+                style: baslikTextBlack,
               ),
 
               /// sessiz harfle bitenler
@@ -79,8 +78,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
 
@@ -90,8 +89,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleB,
                 "-a ile Bitenler",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
 
@@ -101,8 +100,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
 
@@ -112,8 +111,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
 
@@ -123,8 +122,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
 
@@ -134,8 +133,8 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 cogulSampleF,
                 "- Alıştırma Kelimeleri",
                 [
-                      (user) => user['tekil']!,
-                      (user) => user['çoğul']!,
+                  (user) => user['tekil']!,
+                  (user) => user['çoğul']!,
                 ],
               ),
             ],

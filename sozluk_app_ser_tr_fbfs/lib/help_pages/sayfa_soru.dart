@@ -39,9 +39,10 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 style: detailTextBlue,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "Türkçe ‘deki soru yapıları – evet hayır şeklinde "
                 "cevap verilemeyenler",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(
@@ -52,8 +53,9 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 "- Nasıl gidiyor ?",
                 context,
               ),
-              const Text(
+              buildTextRule(
                 "Evet – hayır cevabı verilebilenler.",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(
@@ -69,8 +71,9 @@ class _SayfaSoruState extends State<SayfaSoru> {
                 context,
               ),
               const Divider(),
-              const Text(
+              buildTextRule(
                 "İki kural var.",
+                context,
                 style: baslikTextBlack,
               ),
               buildTextRule(
