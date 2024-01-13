@@ -18,6 +18,9 @@ class DeleteWord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.white // Dark mode'dayken arka plan rengi
+          : null, // Light mode'dayken arka plan rengi
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
         side: const BorderSide(
