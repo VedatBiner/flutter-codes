@@ -53,10 +53,12 @@ Widget buildTable(
                   ),
                 );
               }).toList();
-
               return TableRow(children: columns);
             }).toList(),
-            border: TableBorder.all(width: 1, color: Colors.black),
+            border: TableBorder.all(
+              width: 1,
+              color: Colors.black,
+            ),
           ),
         ],
       ),

@@ -177,6 +177,6 @@ final List<Map<String, String>> cinsiyetSample = [
   {
     'erkek': 'računar (bilgisayar)',
     'dişi': 'banana (muz)',
-    'nötr': 'more (deniz)'
+    'nötr': 'more (deniz)',
   },
 ];
