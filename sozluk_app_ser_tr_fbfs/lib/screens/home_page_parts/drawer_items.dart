@@ -39,7 +39,7 @@ Drawer buildDrawer(BuildContext context) {
               color: menuColor,
               onPressed: () {
                 final provider =
-                Provider.of<ThemeProvider>(context, listen: false);
+                    Provider.of<ThemeProvider>(context, listen: false);
                 provider.toggleTheme(!provider.isDarkMode);
               },
               icon: Icon(
@@ -52,7 +52,6 @@ Drawer buildDrawer(BuildContext context) {
     ),
   );
 }
-
 
 ListTile buildListTile(
   BuildContext context,

@@ -120,6 +120,69 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                   (user) => user['li']!,
                 ],
               ),
+              const Divider(),
+
+              /// Geniş zaman örnekleri
+              buildTable(
+                context,
+                simdikiGenisZamanSampleF,
+                "Čekati : Beklemek",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+
+              /// Geniş zaman örnekleri
+              buildTable(
+                context,
+                simdikiGenisZamanSampleG,
+                "Živjeti / Živeti : Yaşamak",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+
+              /// Geniş zaman örnekleri
+              buildTable(
+                context,
+                simdikiGenisZamanSampleH,
+                "Ličiti : Benzemek",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+              const Divider(),
+
+              /// Geniş zaman örnek sorular
+              buildTable(
+                context,
+                simdikiGenisZamanSampleI,
+                "Čekati : Beklemek",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+
+              /// Geniş zaman örnek sorular
+              buildTable(
+                context,
+                simdikiGenisZamanSampleJ,
+                "Živjeti / Živeti : Yaşamak",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+
+              /// Geniş zaman örnek sorular
+              buildTable(
+                context,
+                simdikiGenisZamanSampleK,
+                "Ličiti : Benzemek",
+                [
+                      (user) => user['cümle']!,
+                ],
+              ),
+
             ],
           ),
         ),
