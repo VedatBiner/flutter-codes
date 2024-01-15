@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../utils/rich_text_rule.dart';
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
@@ -37,16 +38,19 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 style: detailTextBlue,
               ),
               const Divider(),
-              buildTextRule(
-                "1. Kelime sessiz harf ile bitiyorsa erkek,",
+              buildRichTextRule(
+                "1. Kelime sessiz harf ile bitiyorsa erkek",
+                "sessiz harf",
                 context,
               ),
-              buildTextRule(
+              buildRichTextRule(
                 "2. -a harfi ile bitiyorsa dişi,",
+                "-a",
                 context,
               ),
-              buildTextRule(
+              buildRichTextRule(
                 "3. -o veya -e harfi ile bitiyorsa nötr,",
+                "-o",
                 context,
               ),
               const Divider(),
