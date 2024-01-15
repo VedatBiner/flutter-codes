@@ -1,10 +1,14 @@
+/// <----- rich_text_rule.dart ----->
+
 import 'package:flutter/material.dart';
 
 Widget buildRichTextRule(
-  String text,
-  String dashTextA,
-  BuildContext context,
-) {
+    String text,
+    String? dashTextA,
+    String? dashTextB,
+    String? dashTextC,
+    BuildContext context,
+    ) {
   TextStyle defaultStyle = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 14,
@@ -18,19 +22,57 @@ Widget buildRichTextRule(
     color: Colors.red,
   );
 
-  int indexOfDashA = text.indexOf(dashTextA);
-  String beforeDashA = text.substring(0, indexOfDashA);
-  String dashA = dashTextA;
-  String afterDashA = text.substring(indexOfDashA + dashTextA.length);
+  List<InlineSpan> children = [];
+  int currentIndex = 0;
+
+  if (dashTextA != null) {
+    int indexOfDashA = text.indexOf(dashTextA);
+    children.add(TextSpan(
+      text: text.substring(currentIndex, indexOfDashA),
+      style: defaultStyle,
+    ));
+    children.add(TextSpan(
+      text: dashTextA,
+      style: boldStyle,
+    ));
+    currentIndex = indexOfDashA + dashTextA.length;
+  }
+
+  if (dashTextB != null) {
+    int indexOfDashB = text.indexOf(dashTextB, currentIndex);
+    children.add(TextSpan(
+      text: text.substring(currentIndex, indexOfDashB),
+      style: defaultStyle,
+    ));
+    children.add(TextSpan(
+      text: dashTextB,
+      style: boldStyle,
+    ));
+    currentIndex = indexOfDashB + dashTextB.length;
+  }
+
+  if (dashTextC != null) {
+    int indexOfDashC = text.indexOf(dashTextC, currentIndex);
+    children.add(TextSpan(
+      text: text.substring(currentIndex, indexOfDashC),
+      style: defaultStyle,
+    ));
+    children.add(TextSpan(
+      text: dashTextC,
+      style: boldStyle,
+    ));
+    currentIndex = indexOfDashC + dashTextC.length;
+  }
+
+  children.add(TextSpan(
+    text: text.substring(currentIndex),
+    style: defaultStyle,
+  ));
 
   return RichText(
     text: TextSpan(
       style: defaultStyle,
-      children: [
-        TextSpan(text: beforeDashA),
-        TextSpan(text: dashA, style: boldStyle),
-        TextSpan(text: afterDashA),
-      ],
+      children: children,
     ),
   );
 }

@@ -41,16 +41,22 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
               buildRichTextRule(
                 "1. Kelime sessiz harf ile bitiyorsa erkek",
                 "sessiz harf",
+                "erkek",
+                "",
                 context,
               ),
               buildRichTextRule(
                 "2. -a harfi ile bitiyorsa dişi,",
                 "-a",
+                "dişi",
+                "",
                 context,
               ),
               buildRichTextRule(
                 "3. -o veya -e harfi ile bitiyorsa nötr,",
                 "-o",
+                "-e",
+                "nötr,",
                 context,
               ),
               const Divider(),
@@ -59,7 +65,6 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
                 context,
                 style: baslikTextBlack,
               ),
-
               /// Kelimelerde Cinsiyet
               buildTable(
                 context,

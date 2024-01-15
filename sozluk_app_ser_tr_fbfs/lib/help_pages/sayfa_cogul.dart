@@ -1,6 +1,7 @@
 /// <----- sayfa_cogul.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_cogul.dart';
 import '../constants/app_constants/constants.dart';
@@ -38,29 +39,57 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 style: detailTextBlue,
               ),
               const Divider(),
-              buildTextRule(
+              buildRichTextRule(
                 "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar",
+                "Sessiz harf",
+                "'i'",
+                "çoğul",
                 context,
               ),
-              buildTextRule(
-                "2. İstisna olarak 'k' ile bitenler 'ci', 'g' ile bitenler "
-                "'zi', 'h' ile bitenler 'si' ile çoğul yapılırlar. ",
+              buildRichTextRule(
+                "2. İstisna olarak 'k' ile bitenler 'ci',",
+                "'k'",
+                "'ci'",
+                "",
                 context,
               ),
-              buildTextRule(
-                "3. 'a' ile bitenler 'e' ile bitince çoğul olur.",
+              buildRichTextRule(
+                "3. 'g' ile bitenler, 'zi',",
+                "'g'",
+                "'zi'",
+                "",
                 context,
               ),
-              buildTextRule(
-                "4. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.",
+              buildRichTextRule(
+                "4. 'h' ile bitenler 'si' ile çoğul yapılırlar.",
+                "'h'",
+                "'si'",
+                "çoğul",
                 context,
               ),
-              buildTextRule(
-                "5. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir.",
+              buildRichTextRule(
+                "5. 'a' ile bitenler 'e' ile bitince çoğul olur.",
+                "'a'",
+                "'e'",
+                "çoğul",
                 context,
               ),
+              buildRichTextRule(
+                "6. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.",
+                "'o' veya 'e'",
+                "'a'",
+                "çoğul",
+                context,
+              ),
+              buildRichTextRule(
+                "7. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir ve çoğul olur.",
+                "'ac'",
+                "'a'",
+                "'i'",
+                context,  /// buraya bir parametre daha eklenecek
+              ),
               buildTextRule(
-                "6. Genellikle tek heceli erkek cins isimlerde son harfe "
+                "8. Genellikle tek heceli erkek cins isimlerde son harfe "
                 "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
                 "bitenlere) eklerinden biri eklenir.",
                 context,
