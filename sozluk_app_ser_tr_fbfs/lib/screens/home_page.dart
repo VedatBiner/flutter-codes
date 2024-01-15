@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sozluk_app_ser_tr_fbfs/constants/base_constants/app_const.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
@@ -139,39 +140,44 @@ class _HomePageState extends State<HomePage> {
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        aramaYapiliyorMu: aramaYapiliyorMu,
-        aramaKelimesi: aramaKelimesi,
-        onAramaKelimesiChanged: (aramaSonucu) {
-          setState(() {
-            aramaKelimesi = aramaSonucu;
-          });
-        },
-        onCancelPressed: () {
-          setState(() {
-            aramaYapiliyorMu = false;
-            aramaKelimesi = "";
-          });
-        },
-        onSearchPressed: () {
-          setState(() {
-            aramaYapiliyorMu = true;
-          });
-        },
-      ),
-      body: Column(
-        children: [
-          const AnaBaslik(),
-          const SizedBox(height: 5),
-          buildStreamBuilderList(),
-          const SizedBox(height: 5),
-          buildStreamBuilderFooter(),
-        ],
-      ),
-      drawer: buildDrawer(context),
-      floatingActionButton: buildFloatingActionButton(
-        onPressed: () => openWordBox(context: context),
+    /// burada Splash_page.dart sayfasına
+    /// geri dönüşü engelledik.
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          aramaYapiliyorMu: aramaYapiliyorMu,
+          aramaKelimesi: aramaKelimesi,
+          onAramaKelimesiChanged: (aramaSonucu) {
+            setState(() {
+              aramaKelimesi = aramaSonucu;
+            });
+          },
+          onCancelPressed: () {
+            setState(() {
+              aramaYapiliyorMu = false;
+              aramaKelimesi = "";
+            });
+          },
+          onSearchPressed: () {
+            setState(() {
+              aramaYapiliyorMu = true;
+            });
+          },
+        ),
+        body: Column(
+          children: [
+            const AnaBaslik(),
+            const SizedBox(height: 5),
+            buildStreamBuilderList(),
+            const SizedBox(height: 5),
+            buildStreamBuilderFooter(),
+          ],
+        ),
+        drawer: buildDrawer(context),
+        floatingActionButton: buildFloatingActionButton(
+          onPressed: () => openWordBox(context: context),
+        ),
       ),
     );
   }
