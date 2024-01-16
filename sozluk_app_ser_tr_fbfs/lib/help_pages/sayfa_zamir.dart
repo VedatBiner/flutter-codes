@@ -1,6 +1,7 @@
 /// <----- sayfa_zamir.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_zamirler.dart';
 import '../constants/app_constants/constants.dart';
@@ -39,11 +40,15 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 style: detailTextBlue,
               ),
               const Divider(),
-              buildTextRule(
-                "- Eğer onlar demek istediğimiz grupta hem erkek hem de dişi"
-                " cins varsa erkek için kullanılan oni kullanılır.",
-                context,
-              ),
+              buildRichTextRule(
+                  "- Eğer 'onlar' demek istediğimiz grupta hem erkek "
+                      "hem de dişi  cins varsa 'erkek' için kullanılan "
+                      "'oni' kullanılır.",
+                  "'onlar'",
+                  "'erkek'",
+                  "'oni'",
+                  "",
+                  context),
               const Divider(),
               buildTable(
                 context,
@@ -55,10 +60,13 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 ],
               ),
               const Divider(),
-              buildTextRule(
+              buildRichTextRule(
                 "Türkçede olmak fiili",
+                "olmak",
+                "",
+                "",
+                "",
                 context,
-                style: baslikTextBlack,
               ),
               buildTextRule(
                 "- Ben – (y) + ım/im/um/üm ",
@@ -277,12 +285,11 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 zamirlerSampleH,
                 "Örnek",
                 [
-                      (user) => user['sırpça']!,
-                      (user) => user['türkçe']!,
+                  (user) => user['sırpça']!,
+                  (user) => user['türkçe']!,
                 ],
               ),
               const Divider(),
-
             ],
           ),
         ),

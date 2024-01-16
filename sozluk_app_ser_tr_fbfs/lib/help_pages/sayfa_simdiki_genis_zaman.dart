@@ -1,6 +1,7 @@
 /// <----- sayfa_soru.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_simdiki_genis_zaman.dart';
 import '../constants/app_constants/constants.dart';
@@ -50,9 +51,13 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                   (user) => user['B/H/S Fiiller']!,
                 ],
               ),
-              buildTextRule(
-                "Fiil çekimleme Kuralı :  ti / ći atılır. Çekim "
-                "grubuna göre ekler eklenir. ",
+              buildRichTextRule(
+                "Fiil çekimleme Kuralı :  'ti / ći' atılır. "
+                    "Çekim grubuna göre ekler eklenir. ",
+                "'ti / ći'",
+                "",
+                "",
+                "",
                 context,
               ),
               const Divider(),
@@ -81,9 +86,14 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                   (user) => user['-iti']!,
                 ],
               ),
-              buildTextRule(
-                "Çoğunlukla kullanılan yapı :  -ati, -eti, -iti ile biter. "
-                "Ancak istisnai olarak, -uti, -sti, -ći ile biten filler de bulunur.",
+              buildRichTextRule(
+                "Çoğunlukla kullanılan yapı :  '-ati, -eti, -iti' ile biter. "
+                    "Ancak istisnai olarak, '-uti, -sti, -ći' ile "
+                    "biten filler de bulunur.",
+                "'-ati, -eti, -iti'",
+                "istisnai ",
+                "'-uti, -sti, -ći'",
+                "",
                 context,
               ),
 
@@ -98,10 +108,13 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                   (user) => user['-ći']!,
                 ],
               ),
-
-              buildTextRule(
-                "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise"
-                " 'da li + fiil + cümle' veya 'fiil + li + cümle'",
+              buildRichTextRule(
+                "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise  "
+                    "'da li + fiil + cümle' veya 'fiil + li + cümle'",
+                "'ne'",
+                "'da li + fiil + cümle'",
+                "'fiil + li + cümle'",
+                "",
                 context,
               ),
               buildTextRule(
@@ -128,7 +141,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleF,
                 "Čekati : Beklemek",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
 
@@ -138,7 +151,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleG,
                 "Živjeti / Živeti : Yaşamak",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
 
@@ -148,7 +161,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleH,
                 "Ličiti : Benzemek",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
               const Divider(),
@@ -159,7 +172,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleI,
                 "Čekati : Beklemek",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
 
@@ -169,7 +182,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleJ,
                 "Živjeti / Živeti : Yaşamak",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
 
@@ -179,10 +192,9 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 simdikiGenisZamanSampleK,
                 "Ličiti : Benzemek",
                 [
-                      (user) => user['cümle']!,
+                  (user) => user['cümle']!,
                 ],
               ),
-
             ],
           ),
         ),
