@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 
 Widget buildRichTextRule(
-    String text,
-    String? dashTextA,
-    String? dashTextB,
-    String? dashTextC,
-    String? dashTextD,
-    BuildContext context,
-    ) {
+  String text,
+  String? dashTextA,
+  String? dashTextB,
+  String? dashTextC,
+  String? dashTextD,
+  BuildContext context,
+) {
   TextStyle defaultStyle = TextStyle(
     fontWeight: FontWeight.normal,
     fontSize: 14,
