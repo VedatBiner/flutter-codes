@@ -44,12 +44,14 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "Sessiz harf",
                 "'i'",
                 "çoğul",
+                "",
                 context,
               ),
               buildRichTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci',",
                 "'k'",
                 "'ci'",
+                "",
                 "",
                 context,
               ),
@@ -58,6 +60,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "'g'",
                 "'zi'",
                 "",
+                "",
                 context,
               ),
               buildRichTextRule(
@@ -65,6 +68,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "'h'",
                 "'si'",
                 "çoğul",
+                "",
                 context,
               ),
               buildRichTextRule(
@@ -72,6 +76,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "'a'",
                 "'e'",
                 "çoğul",
+                "",
                 context,
               ),
               buildRichTextRule(
@@ -79,6 +84,7 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "'o' veya 'e'",
                 "'a'",
                 "çoğul",
+                "",
                 context,
               ),
               buildRichTextRule(
@@ -86,12 +92,17 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 "'ac'",
                 "'a'",
                 "'i'",
-                context,  /// buraya bir parametre daha eklenecek
+                "çoğul",
+                context,
               ),
-              buildTextRule(
-                "8. Genellikle tek heceli erkek cins isimlerde son harfe "
-                "göre -ovi / -evi (-	C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                "bitenlere) eklerinden biri eklenir.",
+              buildRichTextRule(
+                "8. Genellikle tek heceli erkek cins isimlerde son harfe göre "
+                    "'-ovi' / '-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+                    "bitenlere) eklerinden biri eklenir.",
+                "tek heceli erkek",
+                "son harfe",
+                "'-ovi'",
+                "'-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile bitenlere)",
                 context,
               ),
               const Divider(),

@@ -7,6 +7,7 @@ Widget buildRichTextRule(
     String? dashTextA,
     String? dashTextB,
     String? dashTextC,
+    String? dashTextD,
     BuildContext context,
     ) {
   TextStyle defaultStyle = TextStyle(
@@ -62,6 +63,19 @@ Widget buildRichTextRule(
       style: boldStyle,
     ));
     currentIndex = indexOfDashC + dashTextC.length;
+  }
+
+  if (dashTextD != null) {
+    int indexOfDashD = text.indexOf(dashTextD, currentIndex);
+    children.add(TextSpan(
+      text: text.substring(currentIndex, indexOfDashD),
+      style: defaultStyle,
+    ));
+    children.add(TextSpan(
+      text: dashTextD,
+      style: boldStyle,
+    ));
+    currentIndex = indexOfDashD + dashTextD.length;
   }
 
   children.add(TextSpan(
