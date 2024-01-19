@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
+import '../help_pages/sayfa_gecisli_donuslu_fiiller.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../help_pages/sayfa_simdiki_genis_zaman.dart';
@@ -26,6 +27,7 @@ final class AppRoute {
   static String zamir = "/home/zamir";
   static String soru = "/home/soru";
   static String simdikiGenisZaman = "/home/simdikiGenisZaman";
+  static String gecisliDonusluFiller = "/home/gecisliDonusluFiller";
 
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
@@ -37,6 +39,7 @@ final class AppRoute {
     zamir: (context) => _buildSayfaZamir(context),
     soru: (context) => _buildSayfaSoru(context),
     simdikiGenisZaman: (context) => _buildSayfaSimdikiGenisZaman(context),
+    gecisliDonusluFiller: (context) => _buildSayfaGecisliDonusluFiiller(context),
   };
 
   static Widget _buildSayfaLatin(BuildContext context) {
@@ -65,5 +68,9 @@ final class AppRoute {
 
   static Widget _buildSayfaSimdikiGenisZaman(BuildContext context) {
     return const SimdikiGenisZaman();
+  }
+
+  static Widget _buildSayfaGecisliDonusluFiiller(BuildContext context) {
+    return const SayfaGecisliDonusluFiiller();
   }
 }

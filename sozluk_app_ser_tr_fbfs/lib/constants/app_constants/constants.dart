@@ -79,7 +79,8 @@ const String appBarCogulTitle = "İsimlerin Çoğul Halleri";
 const String appBarCinsiyetTitle = "İsimlerde Cinsiyet";
 const String appBarZamirTitle = "Şahıs Zamirleri";
 const String appbarSoruTitle = "Soru Cümleleri";
-const String appBarSimdikiGenisZamantitle = "Şimdiki Geniş Zaman";
+const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
+const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
@@ -89,6 +90,7 @@ final List<Map<String, dynamic>> drawerItems = [
   {"title": "Şahıs Zamirleri", "page": AppRoute.zamir},
   {"title": "Soru Cümleleri", "page": AppRoute.soru},
   {"title": "Şimdiki Geniş Zaman", "page": AppRoute.simdikiGenisZaman},
+  {"title": "Geçişli ve Dönüşlü Fiiller", "page": AppRoute.gecisliDonusluFiller},
 ];
 
 final List<Map<String, String>> latinAlphabet = [

@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../components/page_controller.dart';
-// import '../../theme/theme_light.dart_orj';
-// import '../../theme/theme_manager.dart_orj';
 
 part 'main_constant.dart';
 part 'listener_constant.dart';

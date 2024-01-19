@@ -24,7 +24,7 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        appBarTitle: appBarSimdikiGenisZamantitle,
+        appBarTitle: appBarSimdikiGenisZamanTitle,
       ),
       drawer: buildDrawer(context),
       body: SingleChildScrollView(
