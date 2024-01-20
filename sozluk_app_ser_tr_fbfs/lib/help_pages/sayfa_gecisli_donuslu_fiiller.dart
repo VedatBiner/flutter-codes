@@ -102,6 +102,97 @@ class _SayfaGecisliDonusluFiillerState
                 "",
                 context,
               ),
+              const Divider(),
+
+              /// Evet hayır soruları
+              buildTextRule(
+                "Evet Hayır Soruları ",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildTable(
+                context,
+                gecisliDonusluFiilerSampleB,
+                "Evet / Hayır soru kalıpları",
+                [
+                      (user) => user['kalıp1']!,
+                      (user) => user['kalıp2']!,
+                ],
+              ),
+              buildRichTextRule(
+                "'Da li' kalıbında 'se' dönüşlü fiilden önce gelirse sorun olmaz.",
+                "'Da li'",
+                "'se'",
+                "",
+                "",
+                context,
+              ),
+              buildRichTextRule(
+                "'(fiil) + li' kalıbında ise, fiilin başına 'se' gelemez.",
+                "'(fiil) + li'",
+                "'se'",
+                "",
+                "",
+                context,
+              ),
+              buildRichTextRule(
+                "Bu yüzden 'dönüşlü fiil' başta olup, 'li' ve sonra 'se' ile cümle devam ediyor.",
+                "'dönüşlü fiil'",
+                "'li'",
+                "'se'",
+                "",
+                context,
+              ),
+              buildTextRule(
+                "Örnek :  ",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildTable(
+                context,
+                gecisliDonusluFiilerSampleC,
+                "Evet / Hayır soru kalıpları - Örnek",
+                [
+                      (user) => user['sırpça']!,
+                      (user) => user['türkçe']!,
+                ],
+              ),
+              const Divider(),
+
+              /// sık kullanılan 7 fiil - 1
+              buildTable(
+                context,
+                gecisliDonusluFiilerSampleD,
+                "sık kullanılan 7 fiil - 1",
+                [
+                      (user) => user['şahıs']!,
+                      (user) => user['fiil1']!,
+                      (user) => user['fiil2']!,
+                      (user) => user['fiil3']!,
+                      (user) => user['fiil4']!,
+                ],
+              ),
+
+              /// sık kullanılan 7 fiil - 2
+              buildTable(
+                context,
+                gecisliDonusluFiilerSampleE,
+                "sık kullanılan 7 fiil - 2",
+                [
+                      (user) => user['şahıs']!,
+                      (user) => user['fiil5']!,
+                      (user) => user['fiil6']!,
+                      (user) => user['fiil7']!,
+                ],
+              ),
+              buildRichTextRule(
+                "(*) 'Razumeti' de lehçe farkı var. Sağdakiler Boşnakça ve Hırvatça kalıbı",
+                "'Razumeti'",
+                "",
+                "",
+                "",
+                context,
+              ),
             ],
           ),
         ),

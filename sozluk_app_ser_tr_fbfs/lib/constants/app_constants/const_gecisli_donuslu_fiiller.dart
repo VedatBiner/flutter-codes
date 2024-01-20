@@ -127,3 +127,170 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleA = [
     'Türkçe karşılığı': 'adları ...',
   },
 ];
+
+/// Geçişli ve Dönüşlü Fiiler (evet/hayır)
+final List<Map<String, String>> gecisliDonusluFiilerSampleB = [
+  {
+    'kalıp1': 'kalıp1',
+    'kalıp2': 'kalıp2',
+  },
+  {
+    'kalıp1': 'da li + (fiil) + cümle',
+    'kalıp2': '(fiil) + li + cümle',
+  },
+  {
+    'kalıp1': 'da li + se + (Dönüşlü fiil) + cümle',
+    'kalıp2': '(Dönüşlü fiil) + li + se + cümle',
+  },
+];
+
+/// Geçişli ve Dönüşlü Fiiler (evet/hayır) Örnek
+final List<Map<String, String>> gecisliDonusluFiilerSampleC = [
+  {
+    'sırpça': 'sırpça',
+    'türkçe': 'türkçe',
+  },
+  {
+    'sırpça': 'buditi',
+    'türkçe': 'uyandırmak',
+  },
+  {
+    'sırpça': 'buditi se',
+    'türkçe': 'uyanmak',
+  },
+  {
+    'sırpça': 'da li se budiš',
+    'türkçe': 'uyanıyor musun?',
+  },
+  {
+    'sırpça': 'budiš li se',
+    'türkçe': 'uyanıyor musun?',
+  },
+  {
+    'sırpça': 'da li se zoveš Ayşe',
+    'türkçe': 'adın Ayşe mi?',
+  },
+  {
+    'sırpça': 'zoveš li se Ayşe',
+    'türkçe': 'adın Ayşe mi?',
+  },
+  {
+    'sırpça': 'da li se zovete Ayşe',
+    'türkçe': 'adınız Ayşe mi?',
+  },
+  {
+    'sırpça': 'zovete li se Ayşe',
+    'türkçe': 'adınız Ayşe mi?',
+  },
+  {
+    'sırpça': 'kada se budiš',
+    'türkçe': 'ne zaman uyanıyorsun?',
+  },
+  {
+    'sırpça': 'kako se zoveš?',
+    'türkçe': 'adın ne?',
+  },
+  {
+    'sırpça': 'kako se zovete?',
+    'türkçe': 'adınız ne?',
+  },
+];
+
+/// Sık kullanılan 7 fiil) - 1
+final List<Map<String, String>> gecisliDonusluFiilerSampleD = [
+  {
+    'şahıs': 'şahıs',
+    'fiil1': 'ići (gitmek)',
+    'fiil2': 'dolaziti (gelmek)',
+    'fiil3': 'Doći (gelmek)',
+    'fiil4': 'Pisati (yazmak)',
+  },
+  {
+    'şahıs': 'ja',
+    'fiil1': 'idem',
+    'fiil2': 'dolazim',
+    'fiil3': 'dođem',
+    'fiil4': 'pišem',
+  },
+  {
+    'şahıs': 'ti',
+    'fiil1': 'ideš',
+    'fiil2': 'dolaziš',
+    'fiil3': 'dođeš',
+    'fiil4': 'pišeš',
+  },
+  {
+    'şahıs': 'on / ona',
+    'fiil1': 'ide',
+    'fiil2': 'dolazi',
+    'fiil3': 'dođe',
+    'fiil4': 'piše',
+  },
+  {
+    'şahıs': 'mi',
+    'fiil1': 'idemo',
+    'fiil2': 'dolazimo',
+    'fiil3': 'dođemo',
+    'fiil4': 'pišemo',
+  },
+  {
+    'şahıs': 'vi',
+    'fiil1': 'idete',
+    'fiil2': 'dolazite',
+    'fiil3': 'dođete',
+    'fiil4': 'pišete',
+  },
+  {
+    'şahıs': 'oni / one',
+    'fiil1': 'idu',
+    'fiil2': 'dolaze',
+    'fiil3': 'dođu',
+    'fiil4': 'pišu',
+  },
+];
+
+/// Sık kullanılan 7 fiil) - 2
+final List<Map<String, String>> gecisliDonusluFiilerSampleE = [
+  {
+    'şahıs': 'şahıs',
+    'fiil5': 'jesti (yemek)',
+    'fiil6': 'piti (içmek)',
+    'fiil7': 'razumetı / razumjeti (anlamak)',
+  },
+  {
+    'şahıs': 'ja',
+    'fiil5': 'jedem',
+    'fiil6': 'pijem',
+    'fiil7': 'razumem / razumijem',
+  },
+  {
+    'şahıs': 'ti',
+    'fiil5': 'jedeš',
+    'fiil6': 'piješ',
+    'fiil7': 'razumeš / razumiješ',
+  },
+  {
+    'şahıs': 'on / ona',
+    'fiil5': 'jede',
+    'fiil6': 'pije',
+    'fiil7': 'razume / razumije',
+  },
+  {
+    'şahıs': 'mi',
+    'fiil5': 'jedemo',
+    'fiil6': 'pijemo',
+    'fiil7': 'razumemo / razumijemo',
+  },
+  {
+    'şahıs': 'vi',
+    'fiil5': 'jedete',
+    'fiil6': 'pijete',
+    'fiil7': 'razumete / razumijete',
+  },
+  {
+    'şahıs': 'oni / one',
+    'fiil5': 'jedu',
+    'fiil6': 'piju',
+    'fiil7': 'razumeju / razumiju',
+  },
+];
