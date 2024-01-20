@@ -1,12 +1,11 @@
 /// <----- sayfa_zamir.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_zamirler.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
-
+import '../utils/rich_text_rule.dart';
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
@@ -42,12 +41,12 @@ class _SayfaZamirState extends State<SayfaZamir> {
               const Divider(),
               buildRichTextRule(
                   "- Eğer 'onlar' demek istediğimiz grupta hem erkek "
-                      "hem de dişi  cins varsa 'erkek' için kullanılan "
-                      "'oni' kullanılır.",
-                  "'onlar'",
-                  "'erkek'",
-                  "'oni'",
-                  "",
+                  "hem de dişi  cins varsa 'erkek' için kullanılan "
+                  "'oni' kullanılır.",
+                  dashTextA: "'onlar'",
+                  dashTextB: "'erkek'",
+                  dashTextC: "'oni'",
+                  // "",
                   context),
               const Divider(),
               buildTable(
@@ -62,10 +61,7 @@ class _SayfaZamirState extends State<SayfaZamir> {
               const Divider(),
               buildRichTextRule(
                 "Türkçede olmak fiili",
-                "olmak",
-                "",
-                "",
-                "",
+                dashTextA: "olmak",
                 context,
               ),
               buildTextRule(

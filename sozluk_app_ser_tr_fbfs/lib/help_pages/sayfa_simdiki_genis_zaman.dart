@@ -1,14 +1,13 @@
 /// <----- sayfa_soru.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_simdiki_genis_zaman.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
-
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
+import '../utils/rich_text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
@@ -53,11 +52,8 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               ),
               buildRichTextRule(
                 "Fiil çekimleme Kuralı :  'ti / ći' atılır. "
-                    "Çekim grubuna göre ekler eklenir. ",
-                "'ti / ći'",
-                "",
-                "",
-                "",
+                "Çekim grubuna göre ekler eklenir. ",
+                dashTextA: "'ti / ći'",
                 context,
               ),
               const Divider(),
@@ -88,12 +84,11 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               ),
               buildRichTextRule(
                 "Çoğunlukla kullanılan yapı :  '-ati, -eti, -iti' ile biter. "
-                    "Ancak istisnai olarak, '-uti, -sti, -ći' ile "
-                    "biten filler de bulunur.",
-                "'-ati, -eti, -iti'",
-                "istisnai ",
-                "'-uti, -sti, -ći'",
-                "",
+                "Ancak istisnai olarak, '-uti, -sti, -ći' ile "
+                "biten filler de bulunur.",
+                dashTextA: "'-ati, -eti, -iti'",
+                dashTextB: "istisnai ",
+                dashTextC: "'-uti, -sti, -ći'",
                 context,
               ),
 
@@ -110,11 +105,10 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
               ),
               buildRichTextRule(
                 "Olumsuz durumlarda fiilden önce 'ne' eklenir. Soruları ise  "
-                    "'da li + fiil + cümle' veya 'fiil + li + cümle'",
-                "'ne'",
-                "'da li + fiil + cümle'",
-                "'fiil + li + cümle'",
-                "",
+                "'da li + fiil + cümle' veya 'fiil + li + cümle'",
+                dashTextA: "'ne'",
+                dashTextB: "'da li + fiil + cümle'",
+                dashTextC: "'fiil + li + cümle'",
                 context,
               ),
               buildTextRule(

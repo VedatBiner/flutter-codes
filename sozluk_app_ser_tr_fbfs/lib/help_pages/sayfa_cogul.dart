@@ -1,13 +1,13 @@
 /// <----- sayfa_cogul.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_cogul.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
+import '../utils/rich_text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
@@ -41,68 +41,63 @@ class _SayfaCogulState extends State<SayfaCogul> {
               const Divider(),
               buildRichTextRule(
                 "1. Sessiz harf ile bitenler 'i' eklenince çoğul olurlar",
-                "Sessiz harf",
-                "'i'",
-                "çoğul",
-                "",
+                dashTextA: "Sessiz harf",
+                dashTextB: "'i'",
+                dashTextC: "çoğul",
                 context,
               ),
               buildRichTextRule(
                 "2. İstisna olarak 'k' ile bitenler 'ci',",
-                "'k'",
-                "'ci'",
-                "",
-                "",
+                dashTextA: "'k'",
+                dashTextB: "'ci'",
                 context,
               ),
               buildRichTextRule(
                 "3. 'g' ile bitenler, 'zi',",
-                "'g'",
-                "'zi'",
-                "",
-                "",
+                dashTextA: "'g'",
+                dashTextC: "'zi'",
                 context,
               ),
               buildRichTextRule(
                 "4. 'h' ile bitenler 'si' ile çoğul yapılırlar.",
-                "'h'",
-                "'si'",
-                "çoğul",
-                "",
+                dashTextA: "'h'",
+                dashTextB: "'si'",
+                dashTextC: "çoğul",
                 context,
               ),
               buildRichTextRule(
                 "5. 'a' ile bitenler 'e' ile bitince çoğul olur.",
-                "'a'",
-                "'e'",
-                "çoğul",
-                "",
+                dashTextA: "'a'",
+                dashTextB: "'e'",
+                dashTextC: "çoğul",
+                // "",
                 context,
               ),
               buildRichTextRule(
                 "6. 'o' veya 'e' harfi ile bitenler 'a' ile bitince çoğul olur.",
-                "'o' veya 'e'",
-                "'a'",
-                "çoğul",
-                "",
+                dashTextA: "'o' veya 'e'",
+                dashTextB: "'a'",
+                dashTextC: "çoğul",
+                // "",
                 context,
               ),
               buildRichTextRule(
                 "7. 'ac' ile biten kelimelerde 'a' düşer, 'i' eklenir ve çoğul olur.",
-                "'ac'",
-                "'a'",
-                "'i'",
-                "çoğul",
+                dashTextA: "'ac'",
+                dashTextB: "'a'",
+                dashTextC: "'i'",
+                dashTextD: "çoğul",
                 context,
               ),
               buildRichTextRule(
                 "8. Genellikle tek heceli erkek cins isimlerde son harfe göre "
-                    "'-ovi' / '-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
-                    "bitenlere) eklerinden biri eklenir.",
-                "tek heceli erkek",
-                "son harfe",
-                "'-ovi'",
-                "'-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile bitenlere)",
+                "'-ovi' / '-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile "
+                "bitenlere) eklerinden biri eklenir.",
+                dashTextA: "tek heceli erkek",
+                dashTextB: "son harfe",
+                dashTextC: "'-ovi'",
+                dashTextD:
+                    "'-evi' (C / Č / Ć / Đ / Ž / Š / J / LJ / NJ ile bitenlere)",
                 context,
               ),
               const Divider(),

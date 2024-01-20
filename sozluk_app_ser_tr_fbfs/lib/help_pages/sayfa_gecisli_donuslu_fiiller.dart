@@ -1,12 +1,12 @@
 /// <----- sayfa_gecisli_donuslu_fiiller.drt ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/utils/rich_text_rule.dart';
 
 import '../constants/app_constants/const_gecisli_donuslu_fiiller.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
+import '../utils/rich_text_rule.dart';
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
@@ -74,13 +74,12 @@ class _SayfaGecisliDonusluFiillerState
               ),
               buildRichTextRule(
                 "'se' eklemesi ile geçişli fiil dönüşlü fiile çevriliyor. "
-                    "Şahıs zamiri ile birlikte kullanıyorsak 'se' fiilden "
-                    "önce olmalıdır. Şahıs zamiri kullanılmayınca ise 'se' "
-                    "eklemesi fiilden sonra olacaktır.",
-                "'se'",
-                "'se'",
-                "'se'",
-                "",
+                "Şahıs zamiri ile birlikte kullanıyorsak 'se' fiilden "
+                "önce olmalıdır. Şahıs zamiri kullanılmayınca ise 'se' "
+                "eklemesi fiilden sonra olacaktır.",
+                dashTextA: "'se'",
+                dashTextB: "'se'",
+                dashTextC: "'se'",
                 context,
               ),
               buildTable(
@@ -88,18 +87,16 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleA,
                 "Zvati (çağırmak) => zvati se (çağrılmak)",
                 [
-                      (user) => user['şahıs']!,
-                      (user) => user['fiil']!,
-                      (user) => user['dönüşlü fiil']!,
-                      (user) => user['Türkçe karşılığı']!,
+                  (user) => user['şahıs']!,
+                  (user) => user['fiil']!,
+                  (user) => user['dönüşlü fiil']!,
+                  (user) => user['Türkçe karşılığı']!,
                 ],
               ),
               buildRichTextRule(
                 "'zvati' kelimesi, 'adım ...' şeklinde kullanılıyor.",
-                "'zvati'",
-                "'adım ...'",
-                "",
-                "",
+                dashTextA: "'zvati'",
+                dashTextB: "'adım ...'",
                 context,
               ),
               const Divider(),
@@ -115,32 +112,27 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleB,
                 "Evet / Hayır soru kalıpları",
                 [
-                      (user) => user['kalıp1']!,
-                      (user) => user['kalıp2']!,
+                  (user) => user['kalıp1']!,
+                  (user) => user['kalıp2']!,
                 ],
               ),
               buildRichTextRule(
                 "'Da li' kalıbında 'se' dönüşlü fiilden önce gelirse sorun olmaz.",
-                "'Da li'",
-                "'se'",
-                "",
-                "",
+                dashTextA: "'Da li'",
+                dashTextB: "'se'",
                 context,
               ),
               buildRichTextRule(
                 "'(fiil) + li' kalıbında ise, fiilin başına 'se' gelemez.",
-                "'(fiil) + li'",
-                "'se'",
-                "",
-                "",
+                dashTextA: "'(fiil) + li'",
+                dashTextB: "'se'",
                 context,
               ),
               buildRichTextRule(
                 "Bu yüzden 'dönüşlü fiil' başta olup, 'li' ve sonra 'se' ile cümle devam ediyor.",
-                "'dönüşlü fiil'",
-                "'li'",
-                "'se'",
-                "",
+                dashTextA: "'dönüşlü fiil'",
+                dashTextB: "'li'",
+                dashTextC: "'se'",
                 context,
               ),
               buildTextRule(
@@ -153,8 +145,8 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleC,
                 "Evet / Hayır soru kalıpları - Örnek",
                 [
-                      (user) => user['sırpça']!,
-                      (user) => user['türkçe']!,
+                  (user) => user['sırpça']!,
+                  (user) => user['türkçe']!,
                 ],
               ),
               const Divider(),
@@ -165,11 +157,11 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleD,
                 "sık kullanılan 7 fiil - 1",
                 [
-                      (user) => user['şahıs']!,
-                      (user) => user['fiil1']!,
-                      (user) => user['fiil2']!,
-                      (user) => user['fiil3']!,
-                      (user) => user['fiil4']!,
+                  (user) => user['şahıs']!,
+                  (user) => user['fiil1']!,
+                  (user) => user['fiil2']!,
+                  (user) => user['fiil3']!,
+                  (user) => user['fiil4']!,
                 ],
               ),
 
@@ -179,18 +171,15 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleE,
                 "sık kullanılan 7 fiil - 2",
                 [
-                      (user) => user['şahıs']!,
-                      (user) => user['fiil5']!,
-                      (user) => user['fiil6']!,
-                      (user) => user['fiil7']!,
+                  (user) => user['şahıs']!,
+                  (user) => user['fiil5']!,
+                  (user) => user['fiil6']!,
+                  (user) => user['fiil7']!,
                 ],
               ),
               buildRichTextRule(
                 "(*) 'Razumeti' de lehçe farkı var. Sağdakiler Boşnakça ve Hırvatça kalıbı",
-                "'Razumeti'",
-                "",
-                "",
-                "",
+                dashTextA: "'Razumeti'",
                 context,
               ),
             ],
