@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants/constants.dart';
 
 Widget buildTable(
-    BuildContext context,
-    List<Map<String, String>> pageSample,
-    String baslik,
-    List<String Function(Map<String, String>)> getColumnValues,
-    ) {
+  BuildContext context,
+  List<Map<String, String>> pageSample,
+  String baslik,
+  List<String Function(Map<String, String>)> getColumnValues,
+) {
   return Padding(
     padding: const EdgeInsets.all(12),
     child: SingleChildScrollView(
@@ -25,7 +25,7 @@ Widget buildTable(
           Table(
             columnWidths: {
               for (var index
-              in List.generate(getColumnValues.length, (index) => index))
+                  in List.generate(getColumnValues.length, (index) => index))
                 index: const IntrinsicColumnWidth(),
             },
             children: [
@@ -52,8 +52,8 @@ Widget buildTable(
                 TableRow(
                   decoration: BoxDecoration(
                     color: pageSample.indexOf(user) % 2 == 0
-                        ? Colors.blue[50]
-                        : Colors.amber[50],
+                        ? Colors.lightBlue.shade50
+                        : Colors.amber.shade50,
                   ),
                   children: getColumnValues.map((getColumnValue) {
                     String columnValue = getColumnValue(user) ?? '';
