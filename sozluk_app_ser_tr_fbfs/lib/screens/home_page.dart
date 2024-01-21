@@ -2,8 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:sozluk_app_ser_tr_fbfs/constants/base_constants/app_const.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
@@ -27,20 +27,46 @@ class HomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
+
+  static String getVersion() {
+    return _HomePageState.version;
+  }
 }
 
 class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
-
+  PackageInfo? packageInfo;
+  static String version = "";
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
+
   var sayfaListe = [
     const SayfaLatin(),
     const SayfaKiril(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    packageInfoInit();
+  }
+
+  /// versiyon bilgisini alıyoruz
+  /// Sınıf dışından erişilir olsun
+  static Future<void> packageInfoInit() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version;
+  }
+
+  static Future<String?> getVersion() async {
+    if (version.isEmpty) {
+      await packageInfoInit();
+    }
+    return version;
+  }
 
   Future<void> openWordBox({
     String? docId,

@@ -1,5 +1,6 @@
 /// <----- rich_text_rule.dart ----->
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 Widget buildRichTextRule(

@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
-Widget buildTextRule(String ruleText, BuildContext context, {TextStyle? style}) {
+Widget buildTextRule(String ruleText, BuildContext context,
+    {TextStyle? style}) {
   return Text(
     ruleText,
     textAlign: TextAlign.start,

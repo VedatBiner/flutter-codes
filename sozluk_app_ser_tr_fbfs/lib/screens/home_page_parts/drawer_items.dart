@@ -7,9 +7,15 @@ import 'package:provider/provider.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
+import '../home_page.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
+
+  Future<String?> getVersion() async {
+    return await HomePage.getVersion();
+  }
+
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,
@@ -47,6 +53,25 @@ Drawer buildDrawer(BuildContext context) {
               ),
             ),
           ),
+        ),
+        const Divider(),
+        FutureBuilder<String?>(
+          future: getVersion(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  "v${snapshot.data}\nvbiner@gmail.com",
+                  style: TextStyle(color: menuColor),
+                ),
+              );
+            }
+          },
         ),
       ],
     ),
