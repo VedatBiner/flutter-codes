@@ -1,5 +1,6 @@
 /// <----- details_page.dart ----->
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
-  late QuerySnapshot<Map<String, dynamic>> _querySnapshot;
+  QuerySnapshot<Map<String, dynamic>>? _querySnapshot; // Değişiklik burada
   late int _currentIndex;
   late ThemeProvider themeProvider;
 
@@ -46,21 +47,29 @@ class _DetailsPageState extends State<DetailsPage> {
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
-      _querySnapshot = await words.orderBy("sirpca").get()
-          as QuerySnapshot<Map<String, dynamic>>;
-      _currentIndex = _querySnapshot.docs.indexWhere(
-        (doc) => doc.id == widget.word.wordId,
-      );
+      final querySnapshot = await words.orderBy("sirpca").get()
+          as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
+      setState(() {
+        _querySnapshot = querySnapshot;
+        _currentIndex = _querySnapshot!.docs.indexWhere(
+          (doc) => doc.id == widget.word.wordId,
+        );
+      });
     } catch (e) {
       print("Hata: $e");
+      setState(() {
+        _querySnapshot = null;
+      });
     }
   }
 
   /// Önceki kelime
   Future<void> _loadPreviousWord() async {
     if (_currentIndex > 0) {
-      _currentIndex--;
-      _updateCurrentWord();
+      setState(() {
+        _currentIndex--;
+        _updateCurrentWord();
+      });
     } else {
       MessageHelper.showSnackBar(
         context,
@@ -71,9 +80,11 @@ class _DetailsPageState extends State<DetailsPage> {
 
   /// Sonraki kelime
   Future<void> _loadNextWord() async {
-    if (_currentIndex < _querySnapshot.size - 1) {
-      _currentIndex++;
-      _updateCurrentWord();
+    if (_currentIndex < _querySnapshot!.size - 1) {
+      setState(() {
+        _currentIndex++;
+        _updateCurrentWord();
+      });
     } else {
       MessageHelper.showSnackBar(
         context,
@@ -86,7 +97,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
-          _querySnapshot.docs[_currentIndex];
+          _querySnapshot!.docs[_currentIndex];
       widget.word = Words.fromFirestore(currentDocumentSnapshot);
     });
   }
@@ -102,32 +113,57 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Card(
-              elevation: 10.0,
-              margin: const EdgeInsets.all(16.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 400.0,
+                enlargeCenterPage: true,
+                autoPlay: false, // Otomatik oynatma kapalı
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: false, // Sonsuz kaydırma kapalı
+                onPageChanged: (index, reason) {
+                  if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+                    /// Hata işlemleri
+                    print("Hata: _querySnapshot başlatılmamış.");
+                  } else {
+                    /// Sayfa değişimini dinleyelim
+                    if (index > _currentIndex) {
+                      _loadNextWord();
+                    } else if (index < _currentIndex) {
+                      _loadPreviousWord();
+                    }
+                  }
+                },
               ),
-              shadowColor: Colors.blue[200],
-              color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    buildFlagRow(
-                      'RS',
-                      widget.word.sirpca,
-                      detailTextRed,
+              items: _querySnapshot?.docs.map((doc) {
+                return Card(
+                  elevation: 10.0,
+                  margin: const EdgeInsets.all(16.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  shadowColor: Colors.blue[200],
+                  color:
+                      themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        buildFlagRow(
+                          'RS',
+                          widget.word.sirpca,
+                          detailTextRed,
+                        ),
+                        const SizedBox(height: 40),
+                        buildFlagRow(
+                          'TR',
+                          widget.word.turkce,
+                          detailTextBlue,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 40),
-                    buildFlagRow(
-                      'TR',
-                      widget.word.turkce,
-                      detailTextBlue,
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              }).toList(),
             ),
             Padding(
               padding: const EdgeInsets.all(30),
