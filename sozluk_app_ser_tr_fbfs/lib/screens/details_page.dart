@@ -1,11 +1,13 @@
 /// <----- details_page.dart ----->
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
 import '../screens/details_page_parts/button_helper.dart';
 import '../screens/details_page_parts/flag_row.dart';
+import '../services/theme_provider.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import 'home_page_parts/drawer_items.dart';
@@ -27,6 +29,13 @@ class _DetailsPageState extends State<DetailsPage> {
       FirebaseFirestore.instance.collection("kelimeler");
   late QuerySnapshot<Map<String, dynamic>> _querySnapshot;
   late int _currentIndex;
+  late ThemeProvider themeProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    themeProvider = Provider.of<ThemeProvider>(context);
+  }
 
   @override
   void initState() {
@@ -93,15 +102,32 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            buildFlagRow(
-              'RS',
-              widget.word.sirpca,
-              detailTextRed,
-            ),
-            buildFlagRow(
-              'TR',
-              widget.word.turkce,
-              detailTextBlue,
+            Card(
+              elevation: 10.0,
+              margin: const EdgeInsets.all(16.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              shadowColor: Colors.blue[200],
+              color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    buildFlagRow(
+                      'RS',
+                      widget.word.sirpca,
+                      detailTextRed,
+                    ),
+                    const SizedBox(height: 40),
+                    buildFlagRow(
+                      'TR',
+                      widget.word.turkce,
+                      detailTextBlue,
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(30),

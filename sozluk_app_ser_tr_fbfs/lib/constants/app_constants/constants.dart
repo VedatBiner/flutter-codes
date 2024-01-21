@@ -42,7 +42,7 @@ const baslikTextWhite = TextStyle(
 const TextStyle androidTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18,
-  color: Colors.red,
+  color: Colors.blueAccent,
 );
 
 // Web için stil
