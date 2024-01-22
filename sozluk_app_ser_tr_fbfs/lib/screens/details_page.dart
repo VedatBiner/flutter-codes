@@ -28,7 +28,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
-  QuerySnapshot<Map<String, dynamic>>? _querySnapshot; // Değişiklik burada
+  QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late int _currentIndex;
   late ThemeProvider themeProvider;
 
@@ -113,86 +113,100 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                // height: 400.0,
-                height: MediaQuery.of(context).size.height * 0.65,
-                aspectRatio: 16 / 9,
-                enlargeCenterPage: true,
-                autoPlay: false, // Otomatik oynatma kapalı
-                enableInfiniteScroll: false, // Sonsuz kaydırma kapalı
-                onPageChanged: (index, reason) {
-                  if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-                    /// Hata işlemleri
-                    print("Hata: _querySnapshot başlatılmamış.");
-                  } else {
-                    /// Sayfa değişimini dinleyelim
-                    if (index > _currentIndex) {
-                      _loadNextWord();
-                    } else if (index < _currentIndex) {
-                      _loadPreviousWord();
-                    }
-                  }
-                },
-              ),
-              items: _querySnapshot?.docs.map((doc) {
-                return Card(
-                  elevation: 10.0,
-                  margin: const EdgeInsets.all(8.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  shadowColor: Colors.blue[200],
-                  color:
-                      themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.95,
-                      height: MediaQuery.of(context).size.width * 0.95,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildFlagRow(
-                            'RS',
-                            widget.word.sirpca,
-                            detailTextRed,
-                          ),
-                          const SizedBox(height: 40),
-                          buildFlagRow(
-                            'TR',
-                            widget.word.turkce,
-                            detailTextBlue,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildElevatedButton(
-                    onPressed: () => _loadPreviousWord(),
-                    icon: Icons.arrow_left,
-                    iconSize: 50,
-                  ),
-                  const Expanded(
-                    child: SizedBox(width: 100),
-                  ),
-                  buildElevatedButton(
-                    onPressed: () => _loadNextWord(),
-                    icon: Icons.arrow_right,
-                    iconSize: 50,
-                  ),
-                ],
-              ),
-            ),
+            buildCarouselSlider(context),
+            buildDetailsButton(),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// kelimelerin sağa-sola sürüklenmesi için slider
+  CarouselSlider buildCarouselSlider(BuildContext context) {
+    return CarouselSlider(
+            options: CarouselOptions(
+              height: MediaQuery.of(context).size.height * 0.65,
+              aspectRatio: 16 / 9,
+              enlargeCenterPage: true,
+              autoPlay: false, // Otomatik oynatma kapalı
+              enableInfiniteScroll: false, // Sonsuz kaydırma kapalı
+              onPageChanged: (index, reason) {
+                if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+                  /// Hata işlemleri
+                  print("Hata: _querySnapshot başlatılmamış.");
+                } else {
+                  /// Sayfa değişimini dinleyelim
+                  if (index > _currentIndex) {
+                    _loadNextWord();
+                  } else if (index < _currentIndex) {
+                    _loadPreviousWord();
+                  }
+                }
+              },
+            ),
+            items: _querySnapshot?.docs.map((doc) {
+              return buildDetailsCard(context);
+            }).toList(),
+          );
+  }
+
+  /// önceki-sonraki kelimelere butonlar
+  /// aracılığı ile gidilmesi içindir
+  Padding buildDetailsButton() {
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildElevatedButton(
+            onPressed: () => _loadPreviousWord(),
+            icon: Icons.arrow_left,
+            iconSize: 50,
+          ),
+          const Expanded(
+            child: SizedBox(width: 100),
+          ),
+          buildElevatedButton(
+            onPressed: () => _loadNextWord(),
+            icon: Icons.arrow_right,
+            iconSize: 50,
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Kelime kartı
+  Card buildDetailsCard(BuildContext context) {
+    return Card(
+      elevation: 10.0,
+      margin: const EdgeInsets.all(8.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      shadowColor: Colors.blue[200],
+      color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.95,
+          height: MediaQuery.of(context).size.width * 0.95,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildFlagRow(
+                'RS',
+                widget.word.sirpca,
+                detailTextRed,
+              ),
+              const SizedBox(height: 40),
+              buildFlagRow(
+                'TR',
+                widget.word.turkce,
+                detailTextBlue,
+              ),
+            ],
+          ),
         ),
       ),
     );
