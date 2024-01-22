@@ -22,13 +22,13 @@ TextStyle glutenFontText = TextStyle(
 
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 40,
+  fontSize: 32,
   color: Colors.red,
 );
 
 const detailTextBlue = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 40,
+  fontSize: 32,
   color: Colors.blue,
 );
 

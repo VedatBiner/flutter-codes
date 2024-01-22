@@ -115,10 +115,11 @@ class _DetailsPageState extends State<DetailsPage> {
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                height: 400.0,
+                // height: 400.0,
+                height: MediaQuery.of(context).size.height * 0.65,
+                aspectRatio: 16 / 9,
                 enlargeCenterPage: true,
                 autoPlay: false, // Otomatik oynatma kapalı
-                aspectRatio: 16 / 9,
                 enableInfiniteScroll: false, // Sonsuz kaydırma kapalı
                 onPageChanged: (index, reason) {
                   if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
@@ -137,29 +138,34 @@ class _DetailsPageState extends State<DetailsPage> {
               items: _querySnapshot?.docs.map((doc) {
                 return Card(
                   elevation: 10.0,
-                  margin: const EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.all(8.0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                   shadowColor: Colors.blue[200],
                   color:
                       themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        buildFlagRow(
-                          'RS',
-                          widget.word.sirpca,
-                          detailTextRed,
-                        ),
-                        const SizedBox(height: 40),
-                        buildFlagRow(
-                          'TR',
-                          widget.word.turkce,
-                          detailTextBlue,
-                        ),
-                      ],
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      height: MediaQuery.of(context).size.width * 0.95,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildFlagRow(
+                            'RS',
+                            widget.word.sirpca,
+                            detailTextRed,
+                          ),
+                          const SizedBox(height: 40),
+                          buildFlagRow(
+                            'TR',
+                            widget.word.turkce,
+                            detailTextBlue,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

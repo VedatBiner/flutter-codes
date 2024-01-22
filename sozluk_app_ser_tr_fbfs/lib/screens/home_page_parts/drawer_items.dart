@@ -13,7 +13,7 @@ Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
   Future<String?> getVersion() async {
-    return await HomePage.getVersion();
+    return HomePage.getVersion();
   }
 
   return Drawer(
