@@ -1,4 +1,5 @@
 /// <----- details_page.dart ----->
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,10 +8,10 @@ import 'package:provider/provider.dart';
 import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
 import '../screens/details_page_parts/button_helper.dart';
-import '../screens/details_page_parts/flag_row.dart';
 import '../services/theme_provider.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
+import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late int _currentIndex;
   late ThemeProvider themeProvider;
@@ -48,11 +49,11 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _loadWordList() async {
     try {
       final querySnapshot = await words.orderBy("sirpca").get()
-          as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
+      as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
       setState(() {
         _querySnapshot = querySnapshot;
         _currentIndex = _querySnapshot!.docs.indexWhere(
-          (doc) => doc.id == widget.word.wordId,
+              (doc) => doc.id == widget.word.wordId,
         );
       });
     } catch (e) {
@@ -97,7 +98,7 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
-          _querySnapshot!.docs[_currentIndex];
+      _querySnapshot!.docs[_currentIndex];
       widget.word = Words.fromFirestore(currentDocumentSnapshot);
     });
   }
@@ -125,7 +126,10 @@ class _DetailsPageState extends State<DetailsPage> {
   CarouselSlider buildCarouselSlider(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: MediaQuery.of(context).size.height * 0.65,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.65,
         aspectRatio: 16 / 9,
         enlargeCenterPage: true,
         autoPlay: false, // Otomatik oynatma kapalı
@@ -145,7 +149,10 @@ class _DetailsPageState extends State<DetailsPage> {
         },
       ),
       items: _querySnapshot?.docs.map((doc) {
-        return buildDetailsCard(context);
+        return DetailsCard(
+          word: widget.word,
+          themeProvider: themeProvider,
+        );
       }).toList(),
     );
   }
@@ -172,42 +179,6 @@ class _DetailsPageState extends State<DetailsPage> {
             iconSize: 50,
           ),
         ],
-      ),
-    );
-  }
-
-  /// Kelime kartı
-  Card buildDetailsCard(BuildContext context) {
-    return Card(
-      elevation: 10.0,
-      margin: const EdgeInsets.all(8.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      shadowColor: Colors.blue[200],
-      color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.95,
-          height: MediaQuery.of(context).size.width * 0.95,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildFlagRow(
-                'RS',
-                widget.word.sirpca,
-                detailTextRed,
-              ),
-              const SizedBox(height: 40),
-              buildFlagRow(
-                'TR',
-                widget.word.turkce,
-                detailTextBlue,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
