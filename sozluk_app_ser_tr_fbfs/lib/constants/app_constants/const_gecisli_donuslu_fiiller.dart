@@ -203,49 +203,42 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleD = [
     'fiil1': 'ići (gitmek)',
     'fiil2': 'dolaziti (gelmek)',
     'fiil3': 'Doći (gelmek)',
-    'fiil4': 'Pisati (yazmak)',
   },
   {
     'şahıs': 'ja',
     'fiil1': 'idem',
     'fiil2': 'dolazim',
     'fiil3': 'dođem',
-    'fiil4': 'pišem',
   },
   {
     'şahıs': 'ti',
     'fiil1': 'ideš',
     'fiil2': 'dolaziš',
     'fiil3': 'dođeš',
-    'fiil4': 'pišeš',
   },
   {
     'şahıs': 'on / ona',
     'fiil1': 'ide',
     'fiil2': 'dolazi',
     'fiil3': 'dođe',
-    'fiil4': 'piše',
   },
   {
     'şahıs': 'mi',
     'fiil1': 'idemo',
     'fiil2': 'dolazimo',
     'fiil3': 'dođemo',
-    'fiil4': 'pišemo',
   },
   {
     'şahıs': 'vi',
     'fiil1': 'idete',
     'fiil2': 'dolazite',
     'fiil3': 'dođete',
-    'fiil4': 'pišete',
   },
   {
     'şahıs': 'oni / one',
     'fiil1': 'idu',
     'fiil2': 'dolaze',
     'fiil3': 'dođu',
-    'fiil4': 'pišu',
   },
 ];
 
@@ -253,44 +246,76 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleD = [
 final List<Map<String, String>> gecisliDonusluFiilerSampleE = [
   {
     'şahıs': 'şahıs',
+    'fiil4': 'Pisati (yazmak)',
     'fiil5': 'jesti (yemek)',
     'fiil6': 'piti (içmek)',
+  },
+  {
+    'şahıs': 'ja',
+    'fiil4': 'pišem',
+    'fiil5': 'jedem',
+    'fiil6': 'pijem',
+  },
+  {
+    'şahıs': 'ti',
+    'fiil4': 'pišeš',
+    'fiil5': 'jedeš',
+    'fiil6': 'piješ',
+  },
+  {
+    'şahıs': 'on / ona',
+    'fiil4': 'piše',
+    'fiil5': 'jede',
+    'fiil6': 'pije',
+  },
+  {
+    'şahıs': 'mi',
+    'fiil4': 'pišemo',
+    'fiil5': 'jedemo',
+    'fiil6': 'pijemo',
+  },
+  {
+    'şahıs': 'vi',
+    'fiil4': 'pišete',
+    'fiil5': 'jedete',
+    'fiil6': 'pijete',
+  },
+  {
+    'şahıs': 'oni / one',
+    'fiil4': 'pišu',
+    'fiil5': 'jedu',
+    'fiil6': 'piju',
+  },
+];
+
+/// Sık kullanılan 7 fiil) - 3
+final List<Map<String, String>> gecisliDonusluFiilerSampleF = [
+  {
+    'şahıs': 'şahıs',
     'fiil7': 'razumetı / razumjeti (anlamak)',
   },
   {
     'şahıs': 'ja',
-    'fiil5': 'jedem',
-    'fiil6': 'pijem',
     'fiil7': 'razumem / razumijem',
   },
   {
     'şahıs': 'ti',
-    'fiil5': 'jedeš',
-    'fiil6': 'piješ',
     'fiil7': 'razumeš / razumiješ',
   },
   {
     'şahıs': 'on / ona',
-    'fiil5': 'jede',
-    'fiil6': 'pije',
     'fiil7': 'razume / razumije',
   },
   {
     'şahıs': 'mi',
-    'fiil5': 'jedemo',
-    'fiil6': 'pijemo',
     'fiil7': 'razumemo / razumijemo',
   },
   {
     'şahıs': 'vi',
-    'fiil5': 'jedete',
-    'fiil6': 'pijete',
     'fiil7': 'razumete / razumijete',
   },
   {
     'şahıs': 'oni / one',
-    'fiil5': 'jedu',
-    'fiil6': 'piju',
     'fiil7': 'razumeju / razumiju',
   },
 ];

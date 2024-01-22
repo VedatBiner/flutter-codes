@@ -161,7 +161,6 @@ class _SayfaGecisliDonusluFiillerState
                   (user) => user['fiil1']!,
                   (user) => user['fiil2']!,
                   (user) => user['fiil3']!,
-                  (user) => user['fiil4']!,
                 ],
               ),
 
@@ -172,9 +171,20 @@ class _SayfaGecisliDonusluFiillerState
                 "sık kullanılan 7 fiil - 2",
                 [
                   (user) => user['şahıs']!,
+                  (user) => user['fiil4']!,
                   (user) => user['fiil5']!,
                   (user) => user['fiil6']!,
-                  (user) => user['fiil7']!,
+                ],
+              ),
+
+              /// sık kullanılan 7 fiil - 3
+              buildTable(
+                context,
+                gecisliDonusluFiilerSampleF,
+                "sık kullanılan 7 fiil - 3",
+                [
+                      (user) => user['şahıs']!,
+                      (user) => user['fiil7']!,
                 ],
               ),
               buildRichTextRule(
