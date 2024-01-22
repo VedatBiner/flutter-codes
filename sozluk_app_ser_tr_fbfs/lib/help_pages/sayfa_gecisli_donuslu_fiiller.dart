@@ -52,7 +52,6 @@ class _SayfaGecisliDonusluFiillerState
 
               /// Türkçe geçişli ve dönüşlü fiiller
               buildTable(
-                context,
                 gecisliDonusluFiilerTRSample,
                 "Türkçe Geçişli ve Dönüşlü Fiiller",
                 [
@@ -62,7 +61,6 @@ class _SayfaGecisliDonusluFiillerState
               ),
 
               buildTable(
-                context,
                 gecisliDonusluFiilerSample,
                 "Buditi (uyandırmak) => buditi se (uyanmak)",
                 [
@@ -83,7 +81,6 @@ class _SayfaGecisliDonusluFiillerState
                 context,
               ),
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleA,
                 "Zvati (çağırmak) => zvati se (çağrılmak)",
                 [
@@ -108,7 +105,6 @@ class _SayfaGecisliDonusluFiillerState
                 context,
               ),
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleB,
                 "Evet / Hayır soru kalıpları",
                 [
@@ -141,7 +137,6 @@ class _SayfaGecisliDonusluFiillerState
                 context,
               ),
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleC,
                 "Evet / Hayır soru kalıpları - Örnek",
                 [
@@ -153,7 +148,6 @@ class _SayfaGecisliDonusluFiillerState
 
               /// sık kullanılan 7 fiil - 1
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleD,
                 "sık kullanılan 7 fiil - 1",
                 [
@@ -166,7 +160,6 @@ class _SayfaGecisliDonusluFiillerState
 
               /// sık kullanılan 7 fiil - 2
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleE,
                 "sık kullanılan 7 fiil - 2",
                 [
@@ -179,7 +172,6 @@ class _SayfaGecisliDonusluFiillerState
 
               /// sık kullanılan 7 fiil - 3
               buildTable(
-                context,
                 gecisliDonusluFiilerSampleF,
                 "sık kullanılan 7 fiil - 3",
                 [

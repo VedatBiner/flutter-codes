@@ -66,7 +66,6 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
 
               /// Kelimelerde Cinsiyet
               buildTable(
-                context,
                 cinsiyetSample,
                 "- 'o' veya 'e' ile Bitenler",
                 [

@@ -24,7 +24,6 @@ class _SayfaKirilState extends State<SayfaKiril> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: buildTable(
-          context,
           kirilAlphabet,
           "Sırpça 'da Kiril Harfleri",
           [

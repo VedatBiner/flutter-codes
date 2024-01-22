@@ -96,7 +96,6 @@ class _SayfaSoruState extends State<SayfaSoru> {
 
               /// soru cümleleri
               buildTable(
-                context,
                 sorularSample,
                 "Soru cümleleri",
                 [

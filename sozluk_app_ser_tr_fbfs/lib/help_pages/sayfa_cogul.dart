@@ -70,7 +70,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 dashTextA: "'a'",
                 dashTextB: "'e'",
                 dashTextC: "çoğul",
-                // "",
                 context,
               ),
               buildRichTextRule(
@@ -78,7 +77,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
                 dashTextA: "'o' veya 'e'",
                 dashTextB: "'a'",
                 dashTextC: "çoğul",
-                // "",
                 context,
               ),
               buildRichTextRule(
@@ -109,7 +107,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// sessiz harfle bitenler
               buildTable(
-                context,
                 cogulSampleA,
                 "Sessiz Harf ile Bitenler",
                 [
@@ -120,7 +117,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// "a" ile bitenler
               buildTable(
-                context,
                 cogulSampleB,
                 "-a ile Bitenler",
                 [
@@ -131,7 +127,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// 'o' veya 'e' ile Bitenler
               buildTable(
-                context,
                 cogulSampleC,
                 "- 'o' veya 'e' ile Bitenler",
                 [
@@ -142,7 +137,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// 'ac' ile Bitip, 'a' düşen 'i' eklenenler
               buildTable(
-                context,
                 cogulSampleD,
                 "- 'ac' ile bitip, 'a' düşen 'i' eklenenler",
                 [
@@ -153,7 +147,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// 'ovi'  'evi' eklenenler
               buildTable(
-                context,
                 cogulSampleE,
                 "- Tek heceli erkek isimlerde 'ovi', 'evi' eklenenler",
                 [
@@ -164,7 +157,6 @@ class _SayfaCogulState extends State<SayfaCogul> {
 
               /// Alıştırmalar
               buildTable(
-                context,
                 cogulSampleF,
                 "- Alıştırma Kelimeleri",
                 [

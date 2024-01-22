@@ -42,7 +42,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Şimdiki Geniş Zaman
               buildTable(
-                context,
                 simdikiGenisZamanSampleA,
                 "Şimdiki Geniş Zaman Yapısı",
                 [
@@ -60,7 +59,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Çekim Grupları - 1
               buildTable(
-                context,
                 simdikiGenisZamanSampleB,
                 "Şimdiki Geniş Zaman Çekim Grupları",
                 [
@@ -73,7 +71,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Çekim Grupları - 2
               buildTable(
-                context,
                 simdikiGenisZamanSampleC,
                 "Şimdiki Geniş Zaman Çekim Grupları - Örnek",
                 [
@@ -94,7 +91,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Çekim Grupları - 3
               buildTable(
-                context,
                 simdikiGenisZamanSampleD,
                 "İstisnai fiiler",
                 [
@@ -118,7 +114,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Çekim Grupları - 4
               buildTable(
-                context,
                 simdikiGenisZamanSampleE,
                 "Olumsuz yapma",
                 [
@@ -131,7 +126,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnekleri
               buildTable(
-                context,
                 simdikiGenisZamanSampleF,
                 "Čekati : Beklemek",
                 [
@@ -141,7 +135,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnekleri
               buildTable(
-                context,
                 simdikiGenisZamanSampleG,
                 "Živjeti / Živeti : Yaşamak",
                 [
@@ -151,7 +144,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnekleri
               buildTable(
-                context,
                 simdikiGenisZamanSampleH,
                 "Ličiti : Benzemek",
                 [
@@ -162,7 +154,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnek sorular
               buildTable(
-                context,
                 simdikiGenisZamanSampleI,
                 "Čekati : Beklemek",
                 [
@@ -172,7 +163,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnek sorular
               buildTable(
-                context,
                 simdikiGenisZamanSampleJ,
                 "Živjeti / Živeti : Yaşamak",
                 [
@@ -182,7 +172,6 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
 
               /// Geniş zaman örnek sorular
               buildTable(
-                context,
                 simdikiGenisZamanSampleK,
                 "Ličiti : Benzemek",
                 [

@@ -24,7 +24,6 @@ class _SayfaLatinState extends State<SayfaLatin> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: buildTable(
-          context,
           latinAlphabet,
           "Sırpça 'da  Latin Harfleri",
           [

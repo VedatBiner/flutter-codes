@@ -46,11 +46,9 @@ class _SayfaZamirState extends State<SayfaZamir> {
                   dashTextA: "'onlar'",
                   dashTextB: "'erkek'",
                   dashTextC: "'oni'",
-                  // "",
                   context),
               const Divider(),
               buildTable(
-                context,
                 zamirlerSample,
                 "Şahıs Zamirleri",
                 [
@@ -115,7 +113,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 context,
               ),
               buildTable(
-                context,
                 olmakSampleTr,
                 "Türkçede olmak fiili : Olumlu / Olumsuz / Soru ",
                 [
@@ -153,7 +150,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 context,
               ),
               buildTable(
-                context,
                 olmakSampleSer,
                 "Vurgulu / Vurgusuz Zamirler",
                 [
@@ -171,7 +167,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// Şahıs zamirleri
               buildTable(
-                context,
                 zamirlerSampleA,
                 "Şahıs Zamirleri (olumlu / olumsuz",
                 [
@@ -183,7 +178,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// Örnek : Student (Erkek öğrenci)
               buildTable(
-                context,
                 zamirlerSampleB,
                 "Örnek : Student (Erkek Öğrenci)",
                 [
@@ -196,7 +190,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// Örnek : Student (kız öğrenci)
               buildTable(
-                context,
                 zamirlerSampleC,
                 "Örnek : Studentica (kız Öğrenci)",
                 [
@@ -209,7 +202,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// Örnek : kako si?  (olumlu)
               buildTable(
-                context,
                 zamirlerSampleD,
                 "Örnek : kako si (olumlu cevap)",
                 [
@@ -222,7 +214,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// Örnek : kako si?  (olumsuz)
               buildTable(
-                context,
                 zamirlerSampleE,
                 "Örnek : kako si (olumsuz cevap)",
                 [
@@ -235,7 +226,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
 
               /// zar ne Yapısı
               buildTable(
-                context,
                 zamirlerSampleF,
                 "Örnek",
                 [
@@ -254,7 +244,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
                 context,
               ),
               buildTable(
-                context,
                 zamirlerSampleG,
                 "Örnek",
                 [
@@ -277,7 +266,6 @@ class _SayfaZamirState extends State<SayfaZamir> {
               ),
               const Divider(),
               buildTable(
-                context,
                 zamirlerSampleH,
                 "Örnek",
                 [
