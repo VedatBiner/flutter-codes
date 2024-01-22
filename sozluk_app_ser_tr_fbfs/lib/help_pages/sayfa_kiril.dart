@@ -22,7 +22,7 @@ class _SayfaKirilState extends State<SayfaKiril> {
       ),
       drawer: buildDrawer(context),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(10),
         child: buildTable(
           context,
           kirilAlphabet,

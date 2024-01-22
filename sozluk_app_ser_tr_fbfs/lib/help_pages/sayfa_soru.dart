@@ -28,7 +28,7 @@ class _SayfaSoruState extends State<SayfaSoru> {
       drawer: buildDrawer(context),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

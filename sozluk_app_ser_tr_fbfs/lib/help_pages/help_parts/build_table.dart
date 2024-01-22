@@ -65,6 +65,7 @@ Widget buildTable(
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
                         ),
+                        textAlign: TextAlign.start,
                       ),
                     );
                   }).toList(),
