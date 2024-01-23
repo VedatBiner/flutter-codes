@@ -123,10 +123,10 @@ Bu dizinde çeşitli eğitimlerde anlatılan uygulamaların kendimce kodlanmış
 <B>[sozluk_app: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app)Sözlük Uygulması (sqflite) </B>
 <BR>
 
-<B>[sozluk_app_fbrt: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_fbrt)Sözlük Uygulması (Firebase Realtine Database) </B>
+<B>[sozluk_app_fbrt: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_fbrt)Sözlük Uygulaması (Firebase Realtine Database) </B>
 <BR>
 
-<B>[sozluk_app_ser_tr_fbfs: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_fbrt)Sözlük Uygulması (Firebase Firestore Database) Sırpça-Türkçe </B>
+<B>[sozluk_app_ser_tr_fbfs: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_ser_tr_fbfs)Sözlük Uygulaması (Firebase Firestore Database) Sırpça-Türkçe </B>
 <BR>
 
 <B>[sozluk_app_http: ](https://github.com/VedatBiner/flutter-codes/tree/master/sozluk_app_http)Sözlük Uygulması (http) </B>
