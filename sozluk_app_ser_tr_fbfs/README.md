@@ -33,3 +33,4 @@ Kullanılan Paketler: <BR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-09.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-10.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-11.png" height="400em"/>
+<img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-12.png" height="400em"/>
