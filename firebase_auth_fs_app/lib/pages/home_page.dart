@@ -2,6 +2,8 @@
 ///
 import 'package:flutter/material.dart';
 
+import '../services/auth_services.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -39,6 +41,15 @@ class _HomePageState extends State<HomePage> {
               size: 180,
             ),
 
+            // Firebase'deki kayıtlı maili
+            Text(
+              auth.currentUser!.email!,
+              style: const TextStyle(
+                color: Colors.blue,
+                fontSize: 18,
+              ),
+            ),
+
             /// Telefon numarası doğrulama alanı
             const SizedBox(height: 70),
             Row(
@@ -63,26 +74,22 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-
-                /// Doğrula butonu
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text("Doğrula"),
                 ),
-
-                /// Çıkış butonu
                 const SizedBox(height: 20),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Çıkış Yap",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
               ],
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "Çıkış Yap",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 24,
+                ),
+              ),
             ),
           ],
         ),

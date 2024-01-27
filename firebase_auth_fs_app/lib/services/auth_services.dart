@@ -33,4 +33,26 @@ class MyAuthService {
       print(e);
     }
   }
+
+  /// e-mail  ve şifre ile giriş servisi
+  Future<User?> signInWithMail({
+    required String mail,
+    required String password,
+  }) async {
+    /// burada bize User tipinde bir kimlik dönecek
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: mail,
+        password: password,
+      );
+      return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        print("Kullanıcı bulunamadı.");
+      } else if (e.code == "wrong-password") {
+        print("Yanlış veya hatalı şifre");
+      }
+    }
+    return null;
+  }
 }

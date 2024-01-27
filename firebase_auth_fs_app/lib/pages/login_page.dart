@@ -1,17 +1,19 @@
 /// <----- login_page.dart ----->
 ///
-import 'package:firebase_auth_fs_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
+
+import '../services/auth_services.dart';
+import '../pages/home_page.dart';
+import '../pages/register_page.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
+  final TextEditingController emailController = TextEditingController();
+  String? password;
+
   @override
   Widget build(BuildContext context) {
-    /// TextField 'dan alacağımız mail ve password bilgileri
-    String? email;
-    String? password;
-    String? emailReset;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -24,11 +26,11 @@ class LoginPage extends StatelessWidget {
                   style: FlutterLogoStyle.stacked,
                   textColor: Colors.blue,
                 ),
-
-                /// TextFiled oluşturalım
                 const SizedBox(height: 20),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller:
+                      emailController, // Kontrolcüyü e-posta TextField'ına atayın
+                  decoration: const InputDecoration(
                     hintText: "e-mail adresi",
                     prefixIcon: Icon(Icons.mail_outline),
                   ),
@@ -36,6 +38,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 TextField(
                   obscureText: true,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     hintText: "parola",
                     prefixIcon: Icon(Icons.lock),
@@ -44,9 +47,9 @@ class LoginPage extends StatelessWidget {
                     password = parola;
                   },
                 ),
-                const SizedBox(height: 10),
 
-                /// Giriş butonu
+                /// Giriş Butonu
+                const SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
                   child: RawMaterialButton(
@@ -56,7 +59,27 @@ class LoginPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // TextField 'dan gelen verilerin kontrolü
+                      if (emailController.text.isNotEmpty && password != null) {
+                        MyAuthService()
+                            .signInWithMail(
+                                mail: emailController.text, password: password!)
+                            .then((user) {
+                          try {
+                            print(user!.uid.toString());
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                ),
+                                (route) => false);
+                          } catch (e) { print(e); }
+                        });
+                      } else {
+                        print("email: ${emailController.text} password: $password");
+                      }
+                    },
                     child: const Text(
                       "Giriş",
                       style: TextStyle(
@@ -67,8 +90,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-
-                /// veya ile ayıralım
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -91,8 +112,6 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                /// Google butonu ekleyelim.
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
@@ -112,8 +131,6 @@ class LoginPage extends StatelessWidget {
                           width: 30,
                           child: Image.asset(
                             "assets/images/google.png",
-
-                            /// Hata durumunda gösterilecek widget
                             errorBuilder: (context, error, stackTrace) {
                               print("Hata oluştu: $error");
                               return const Icon(Icons.error);
@@ -132,8 +149,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-
-                /// şifremi unuttum seçeneği
                 TextButton(
                   onPressed: () {},
                   child: const Text(
@@ -144,8 +159,6 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                /// hesabım yok, kaydol butonu
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
