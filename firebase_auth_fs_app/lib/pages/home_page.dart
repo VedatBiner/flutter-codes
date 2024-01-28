@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../services/auth_services.dart';
+import 'login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -82,7 +83,17 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                /// SignOut servisi çağrılıyor.
+                await auth.signOut().then((value) {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                      (route) => false);
+                });
+              },
               child: const Text(
                 "Çıkış Yap",
                 style: TextStyle(

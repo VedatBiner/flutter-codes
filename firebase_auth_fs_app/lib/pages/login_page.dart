@@ -11,6 +11,8 @@ class LoginPage extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   String? password;
+  String? email;
+  String? emailReset;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +23,17 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
+                /// Flutter rlogo gösterelim
                 const FlutterLogo(
                   size: 200,
                   style: FlutterLogoStyle.stacked,
                   textColor: Colors.blue,
                 ),
                 const SizedBox(height: 20),
+
+                /// Kontrolcüyü e-posta TextField'ına atayalım
                 TextField(
-                  controller:
-                      emailController, // Kontrolcüyü e-posta TextField'ına atayın
+                  controller: emailController,
                   decoration: const InputDecoration(
                     hintText: "e-mail adresi",
                     prefixIcon: Icon(Icons.mail_outline),
@@ -74,10 +78,13 @@ class LoginPage extends StatelessWidget {
                                   builder: (context) => const HomePage(),
                                 ),
                                 (route) => false);
-                          } catch (e) { print(e); }
+                          } catch (e) {
+                            print(e);
+                          }
                         });
                       } else {
-                        print("email: ${emailController.text} password: $password");
+                        print(
+                            "email: ${emailController.text} password: $password");
                       }
                     },
                     child: const Text(
@@ -90,6 +97,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
+
+                /// veya çizgisi
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -113,6 +122,8 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
+
+                /// Google ile giriş
                 SizedBox(
                   width: double.infinity,
                   child: RawMaterialButton(
@@ -122,7 +133,19 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       side: const BorderSide(width: 1),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await MyAuthService().signInWithGoogle().then((value) {
+                        if (value != null) {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const HomePage(),
+                            ),
+                            (route) => false,
+                          );
+                        }
+                      });
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -149,8 +172,40 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
+
+                /// şifremi unuttum
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: TextField(
+                              decoration: const InputDecoration(
+                                hintText: "e-mail adresinizi giriniz...",
+                              ),
+                              onChanged: (mail) {
+                                emailReset = mail;
+                              },
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (emailReset != null) {
+                                MyAuthService()
+                                    .passwordResetWithMail(mail: emailReset!);
+                              } else {
+                                print("email : $emailReset");
+                              }
+                            },
+                            child: const Text("Sıfırla"),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   child: const Text(
                     "Şifremi unuttum",
                     style: TextStyle(
@@ -159,6 +214,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                /// hesabım yok, kaydol
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
