@@ -109,7 +109,29 @@ Future<void> reads() async {
         .update({"age": FieldValue.delete()})
         .then((value) => print("Alan verisi silimiştir"))
         .catchError(
-          (error) => print("Alan versi silinirken hata oluştu : $error"),
+          (error) => print("Alan veri silinirken hata oluştu : $error"),
         );
   }
+
+  /// Query (Sorgulama)
+  /// filtreleme - where metodu
+  /// users koleksiyonu içinde age 20 'den büyük
+  /// olanları getir
+  firestore
+      .collection("users")
+      .where(
+        "age",
+        isGreaterThan: 20,
+      )
+      .get();
+
+  /// limitlendirme .limit()
+  /// ilk iki belgeyi getir.
+  firestore.collection("users").limit(2).get();
+
+  /// son iki belge
+  firestore.collection("users").orderBy("age").limitToLast(2).get();
+
+  /// Sıralama (Sayısal ve Tarih - Saat bilgileri için)
+  firestore.collection("users").orderBy("age", descending: true).get();
 }

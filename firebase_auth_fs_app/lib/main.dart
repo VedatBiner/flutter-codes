@@ -1,6 +1,7 @@
 /// <----- main.dart ----->
 ///
 import 'package:firebase_auth_fs_app/pages/home_page.dart';
+import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 import 'package:firebase_auth_fs_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isUserNull == null ? LoginPage() : const HomePage(),
+      home: isUserNull == null ? LoginPage() : const VBHome(),
     );
   }
 }

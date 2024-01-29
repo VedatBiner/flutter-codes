@@ -1,5 +1,6 @@
 /// <----- login_page.dart ----->
 ///
+import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 import 'package:flutter/material.dart';
 
 import '../services/auth_services.dart';
@@ -64,18 +65,20 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     onPressed: () {
-                      // TextField 'dan gelen verilerin kontrolü
+                      /// TextField 'dan gelen verilerin kontrolü
                       if (emailController.text.isNotEmpty && password != null) {
                         MyAuthService()
                             .signInWithMail(
-                                mail: emailController.text, password: password!)
+                          mail: emailController.text,
+                          password: password!,
+                        )
                             .then((user) {
                           try {
                             print(user!.uid.toString());
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
+                                  builder: (context) => const VBHome(),
                                 ),
                                 (route) => false);
                           } catch (e) {
@@ -142,7 +145,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           (route) => false,
                         );
-                                            });
+                      });
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
