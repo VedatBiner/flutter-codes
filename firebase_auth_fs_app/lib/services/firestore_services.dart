@@ -35,6 +35,81 @@ Future<void> reads() async {
       .collection("users")
       .doc("vedatbiner")
       .snapshots();
+
+  /// Yazma / Güncelleme işlemi (WRITE)
+  /// users koleksiyonuna git
+  /// add metodu ile ID otomatik ekle ve verileri yaz
+  Future<void> addUser() {
+    /// ekleme fonksiyonu
+    return firestore
+        .collection("users")
+        .add({
+          "full_name": "Vedat Biner",
+          "company": "Flutter Developer",
+          "age": 59,
+        })
+        .then((value) => print("Kullanıcı eklendi"))
+        .catchError(
+          (error) => print("Hata oluştu : $error"),
+        );
+  }
+
+  /// set metodu ile doküman ID manuel ekleniyor
+  /// users koleksiyonuna gidilir.
+  /// vedatbiner dokümanı seçilir.
+  /// doküman yoksa oluştur ve verileri yaz
+  Future<void> addUserSet() {
+    return firestore
+        .collection("users")
+        .doc("vedatbiner")
+        .set({
+          "full_name": "Zeynep Biner",
+          "company": "Secretary",
+          "age": 58,
+        })
+        .then((value) => print("Kullanıcı eklendi"))
+        .catchError(
+          (error) => print("Hata oluştu : $error"),
+        );
+  }
+
+  /// Güncelleme (UPDATE)
+  /// users koleksiyonuna git
+  /// vedatbiner seç map içindeki verileri güncelle
+  Future<void> updateUser() {
+    return firestore
+        .collection("users")
+        .doc("vedatbiner")
+        .update({"company": "Home"})
+        .then((value) => print("Kullanıcı güncellendi"))
+        .catchError(
+          (error) => print("Güncelleme sırasında hata oluştu: $error"),
+        );
+  }
+
+  /// Silme (DELETE)
+  /// doküman silme
+  Future<void> deleteUser() {
+    return firestore
+        .collection("users")
+        .doc("vedatbiner")
+        .delete()
+        .then((value) => print("Kullanıcı silinmiştir"))
+        .catchError(
+          (error) => print("Kullanıcı silinirken hata oluştu"),
+        );
+  }
+
+  /// Doküman içindeki bir alanı silme
+  /// alan adı kalır içindeki veri silinir.
+  Future<void> deleteField() {
+    return firestore
+        .collection("users")
+        .doc("vedatbiner")
+        .update({"age": FieldValue.delete()})
+        .then((value) => print("Alan verisi silimiştir"))
+        .catchError(
+          (error) => print("Alan versi silinirken hata oluştu : $error"),
+        );
+  }
 }
-
-

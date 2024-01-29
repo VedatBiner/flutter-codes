@@ -135,16 +135,14 @@ class LoginPage extends StatelessWidget {
                     ),
                     onPressed: () async {
                       await MyAuthService().signInWithGoogle().then((value) {
-                        if (value != null) {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const HomePage(),
-                            ),
-                            (route) => false,
-                          );
-                        }
-                      });
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
+                                            });
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
