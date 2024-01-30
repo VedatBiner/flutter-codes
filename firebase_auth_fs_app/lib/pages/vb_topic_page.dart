@@ -1,6 +1,9 @@
 /// <----- vb_topic_page.dart ----->
 ///
+import 'package:firebase_auth_fs_app/services/firestore_services.dart';
 import 'package:flutter/material.dart';
+
+import '../services/auth_services.dart';
 
 class TopicPage extends StatefulWidget {
   String documentID;
@@ -67,7 +70,72 @@ class _TopicPageState extends State<TopicPage> {
 
                       /// düzenleme butonu
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          /// yazar kontrolü
+                          if (widget.documentAuthor ==
+                              auth.currentUser!.email) {
+                            TextEditingController textEditingController =
+                                TextEditingController();
+                            textEditingController.text = widget.documentContent;
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => Container(
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      maxLines: 8,
+                                      controller: textEditingController,
+                                    ),
+
+                                    /// Güncelle butonu
+                                    TextButton(
+                                      onPressed: () {
+                                        /// koleksiyona git
+                                        firestore
+                                            .collection("topics")
+
+                                            /// dokümana git
+                                            .doc(widget.documentID)
+
+                                            /// Güncelle
+                                            .update({
+                                          "topic_content":
+                                              textEditingController.text
+                                        }).then((value) {
+                                          /// ekranı yenile
+                                          setState(() {
+                                            widget.documentContent =
+                                                textEditingController.text;
+                                            Navigator.pop(context);
+                                          });
+                                        });
+                                      },
+                                      child: const Text("Güncelle"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else {
+                            /// mevcut kullanıcı ile oluşturan
+                            /// kullanıcı aynı değil ise
+                            showDialog(
+                                context: context,
+                                builder: (_) => SimpleDialog(
+                                      children: [
+                                        const Text(
+                                          "Bunun için yetkiniz yok !!!",
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Geri"),
+                                        ),
+                                      ],
+                                    ));
+                          }
+                        },
                         icon: const Icon(Icons.edit),
                       ),
 
