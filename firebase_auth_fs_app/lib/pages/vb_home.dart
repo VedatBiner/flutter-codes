@@ -70,7 +70,57 @@ class _VBHomeState extends State<VBHome> {
               Icons.sort,
               color: Colors.blue,
             ),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => SimpleDialog(
+                  children: [
+                    /// varsayılan durum
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          topicSnapshot =
+                              firestore.collection("topics").snapshots();
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Varsayılan"),
+                    ),
+
+                    /// Eskiden yeniye doğru sıralama
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          topicSnapshot = firestore
+                              .collection("topics")
+                              .orderBy("added_time")
+                              .snapshots();
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Zaman göre (eskiden > yeniye)"),
+                    ),
+
+                    /// Yeniden eskiye doğru sıralama
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          topicSnapshot = firestore
+                              .collection("topics")
+                              .orderBy(
+                                "added_time",
+                                descending: true,
+                              )
+                              .snapshots();
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text("Zaman göre (yeniden > eskiye)"),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -121,7 +171,8 @@ class _VBHomeState extends State<VBHome> {
                             documentID: topic.docs[index].id,
                             documentName: topic.docs[index]["topic_name"],
                             documentContent: topic.docs[index]["topic_content"],
-                            documentAddedTime: topic.docs[index]["added_time"].toDate(),
+                            documentAddedTime:
+                                topic.docs[index]["added_time"].toDate(),
                             documentAuthor: topic.docs[index]["author"],
                           ),
                         ),

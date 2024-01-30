@@ -18,6 +18,8 @@ dependencies:
   firebase_auth:
   google_sign_in:
   cloud_firestore:
+  firebase_storage:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
