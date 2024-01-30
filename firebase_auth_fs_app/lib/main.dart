@@ -1,13 +1,18 @@
 /// <----- main.dart ----->
 ///
-import 'package:firebase_auth_fs_app/pages/home_page.dart';
-import 'package:firebase_auth_fs_app/pages/vb_home.dart';
-import 'package:firebase_auth_fs_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth_fs_app/firebase_options.dart';
 
+import '../services/auth_services.dart';
 import '../pages/login_page.dart';
+import '../pages/home_page.dart';
+
+/// silme
+import '../pages/vb_home.dart';
+
+/// silme
+import '../pages/vb_memes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +41,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: isUserNull == null ? LoginPage() : const VBHome(),
+
+      /// home: isUserNull == null ? LoginPage() : const VBHome(),
+      home: isUserNull == null ? LoginPage() : const VBMemes(),
     );
   }
 }
