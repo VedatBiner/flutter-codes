@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth_fs_app/pages/login_page.dart';
 import 'package:firebase_auth_fs_app/pages/vb_add_page.dart';
+import 'package:firebase_auth_fs_app/pages/vb_topic_page.dart';
 import 'package:firebase_auth_fs_app/services/auth_services.dart';
 import 'package:firebase_auth_fs_app/services/firestore_services.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _VBHomeState extends State<VBHome> {
   /// topics koleksiyonunu dinleyecek bir stream tanımladık
   Stream<QuerySnapshot> topicSnapshot =
       firestore.collection("topics").snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +112,21 @@ class _VBHomeState extends State<VBHome> {
                     ///alanını yazdıralım.
                     title: Text(topic.docs[index]["topic_name"]),
                     trailing: const Icon(Icons.arrow_forward_ios),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TopicPage(
+                            /// parametreleri verelim
+                            documentID: topic.docs[index].id,
+                            documentName: topic.docs[index]["topic_name"],
+                            documentContent: topic.docs[index]["topic_content"],
+                            documentAddedTime: topic.docs[index]["added_time"].toDate(),
+                            documentAuthor: topic.docs[index]["author"],
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               );
