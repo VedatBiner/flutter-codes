@@ -1,5 +1,6 @@
 /// <----- vb_topic_page.dart ----->
 ///
+import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 import 'package:firebase_auth_fs_app/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 
@@ -141,7 +142,46 @@ class _TopicPageState extends State<TopicPage> {
 
                       /// silme butonu
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          /// işlem yapan kullanıcı ile konuyu
+                          /// oluşturan kullanıcı aynı kişi mi ?
+                          if (widget.documentAuthor ==
+                              auth.currentUser!.email) {
+                            /// koleksiyona git
+                            firestore
+                                .collection("topics")
+
+                                /// dokümana git
+                                .doc(widget.documentID)
+
+                                /// sil
+                                .delete();
+
+                            /// ana sayfaya yönlendir.
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const VBHome(),
+                              ),
+                              (route) => false,
+                            );
+                          } else {
+                            /// silecek kullanıcı ile dosya
+                            /// sahibi eşleşmiyorsa
+                            showDialog(
+                              context: context,
+                              builder: (_) => SimpleDialog(
+                                children: [
+                                  const Text("Bunun için yetkiniz yok"),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: const Text("Geri"),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
                         icon: const Icon(Icons.delete),
                       ),
                     ],
