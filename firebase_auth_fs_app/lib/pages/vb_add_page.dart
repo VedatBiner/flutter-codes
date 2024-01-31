@@ -19,10 +19,10 @@ class AddPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Başlık ekle"), actions: [
         Padding(
-            padding: EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(right: 10),
             // Gönder Butonu
             child: TextButton(
-                child: Text("Gönder"),
+                child: const Text("Gönder"),
                 onPressed: () {
                   if (topicName != null && topicContent != null) {
                     /// topics koleksiyonunu seç
