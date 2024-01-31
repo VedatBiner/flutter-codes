@@ -1,5 +1,7 @@
 /// <----- vb_memes.dart ----->
 ///
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth_fs_app/services/firestore_services.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/login_page.dart';
@@ -60,6 +62,92 @@ class _VBMemesState extends State<VBMemes> {
             icon: const Icon(Icons.add),
           ),
         ],
+      ),
+      body: SafeArea(
+        /// koleksiyon erişimi
+        child: StreamBuilder(
+          stream: firestore.collection("nemes").snapshots(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
+            try {
+              /// hata kontrolü
+              if (asyncSnapshot.hasError) {
+                return const Text("bir şeyler ters gitti...");
+              } else if (asyncSnapshot.connectionState ==
+                  ConnectionState.waiting) {
+                /// veri akışı kontrolü
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              /// gelen paket içeriğini alalım
+              final post = asyncSnapshot.requireData;
+
+              /// Listview ile ekrana yazalım
+              return ListView.builder(
+                itemCount: post.size,
+                itemBuilder: (context, index) {
+                  /// tarih verisini alalım
+                  DateTime addedTime = post.docs[index]["added_time"].toDate();
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.grey,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          /// resmi görüntüle
+                          Container(
+                            height: 300,
+                            width: double.infinity,
+                            child: Image.network(
+                              post.docs[index]["mediaURL"],
+                            ),
+                          ),
+
+                          /// gönderi metni
+                          Text(
+                            post.docs[index]["postText"].toString(),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              /// gönderi sahibi ve tarihi
+                              Text(
+                                post.docs[index]["author"],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "${addedTime.hour}:"
+                                "${addedTime.second}, "
+                                "${addedTime.day}/"
+                                "${addedTime.month}/"
+                                "${addedTime.year}",
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            } catch (e) {
+              return Text(e.toString());
+            }
+          },
+        ),
       ),
     );
   }
