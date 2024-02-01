@@ -56,6 +56,8 @@ mixin _SplashViewMixin on State<SplashView> {
   }
 
   Future<void> goToHome() async {
-    await Navigator.pushNamed(context, AppRoute.home);
+    /// Buradan login sayfasına gidilecek
+   // await Navigator.pushNamed(context, AppRoute.home);
+    await Navigator.pushNamed(context, AppRoute.login);
   }
 }

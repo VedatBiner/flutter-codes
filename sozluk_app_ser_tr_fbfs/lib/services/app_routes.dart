@@ -11,6 +11,7 @@ import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../screens/home_page.dart';
+import '../screens/login_page.dart';
 import '../screens/splash_page.dart';
 
 typedef AppRouteMapFunction = Widget Function(BuildContext context);
@@ -20,6 +21,7 @@ final class AppRoute {
 
   static String splash = "/";
   static String home = "/home";
+  static String login ="/login";
   static String latin = "/home/latin";
   static String kiril = "/home/kiril";
   static String cinsiyet = "/home/cinsiyet";
@@ -32,6 +34,7 @@ final class AppRoute {
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
+    login : (context) => LoginPage(),
     latin: (context) => _buildSayfaLatin(context),
     kiril: (context) => _buildSayfaKiril(context),
     cinsiyet: (context) => _buildSayfaCinsiyet(context),

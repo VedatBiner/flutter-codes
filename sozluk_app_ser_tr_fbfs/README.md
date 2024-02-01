@@ -10,7 +10,6 @@ görülüp, hem buton ile hem de slider ile kelimeler arası geçiş yapılıyor
 Light mode tema Drawer menüden değiştirilebiliyor.
 <HR>
 
-
 Kullanılan Paketler: <BR>
 - firebase_core     : Firebase temel paket
 - cloud firestore   : Firestore erişim paketi
@@ -20,7 +19,8 @@ Kullanılan Paketler: <BR>
 - provider          : dark/light mode geçişleri için kullanıldı.
 - carousel_slider   : detail_page.dart dosyasında kelimeleri kaydırma için kullanıldı.
 - package_info_plus : Versiyon bilgilerini almak için kullanıldı.
-
+<BR>
+Ekran Görüntüleri
 <HR>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-01.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-02.png" height="400em"/>
