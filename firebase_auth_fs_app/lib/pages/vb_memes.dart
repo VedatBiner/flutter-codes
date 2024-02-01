@@ -66,7 +66,7 @@ class _VBMemesState extends State<VBMemes> {
       body: SafeArea(
         /// koleksiyon erişimi
         child: StreamBuilder(
-          stream: firestore.collection("nemes").snapshots(),
+          stream: firestore.collection("memes").snapshots(),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
             try {
@@ -105,7 +105,7 @@ class _VBMemesState extends State<VBMemes> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// resmi görüntüle
-                          Container(
+                          SizedBox(
                             height: 300,
                             width: double.infinity,
                             child: Image.network(
@@ -130,7 +130,7 @@ class _VBMemesState extends State<VBMemes> {
                               ),
                               Text(
                                 "${addedTime.hour}:"
-                                "${addedTime.second}, "
+                                "${addedTime.minute}, "
                                 "${addedTime.day}/"
                                 "${addedTime.month}/"
                                 "${addedTime.year}",
