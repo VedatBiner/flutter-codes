@@ -8,6 +8,7 @@ import '../constants/app_constants/constants.dart';
 import '../services/auth_services.dart';
 import 'auth_page_parts/register_page.dart';
 import 'auth_page_parts/show_logo.dart';
+import 'auth_page_parts/show_message_line.dart';
 
 // import '../pages/home_page.dart';
 // import '../pages/register_page.dart';
@@ -205,31 +206,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  /// veya satırı ile ayıralım
-  Row messageLine() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-          height: 1,
-          width: 100,
-          color: menuColor,
-        ),
-        Text(
-          "veya",
-          style: TextStyle(
-            color: menuColor,
-            fontSize: 24,
-          ),
-        ),
-        Container(
-          height: 1,
-          width: 100,
-          color: menuColor,
-        ),
-      ],
-    );
-  }
+
 
   /// Giriş Butonu
   SizedBox buildGirisButonu() {
