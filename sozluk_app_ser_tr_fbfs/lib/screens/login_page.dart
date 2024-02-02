@@ -270,16 +270,15 @@ class _LoginPageState extends State<LoginPage> {
   /// kutularını gösteren metod
   TextField buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
-      Function(String)? onChanged,
-      bool isFirst = false}) {
+        Function(String)? onChanged,
+        bool isFirst = false}) {
     return TextField(
       controller: isFirst
           ? teControllerMail
-          : teControllerPassword, // İlk tıklanan TextField'a göre kontrolcü seçimi
+          : teControllerPassword,
       obscureText: obscureText,
       onChanged: onChanged,
       onTap: () {
-        // TextField'a tıklandığında kontrolcüler ve çerçeve rengi güncellenir.
         setState(() {
           isFirstTextFieldFocused = isFirst;
         });
@@ -289,9 +288,7 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
             width: 2,
-            color: isFirst
-                ? menuColor
-                : Colors.white, // İlk TextField 'ın çerçeve rengi
+            color: isFirst ? menuColor : menuColor,
           ),
         ),
         enabledBorder: OutlineInputBorder(
