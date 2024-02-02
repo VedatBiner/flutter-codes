@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                     onChanged: (parola) {
                   password = parola;
                 }),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
 
                 /// Giriş Butonu
                 buildGirisButonu(),
@@ -268,45 +268,59 @@ class _LoginPageState extends State<LoginPage> {
 
   /// Login ekranında e-mail ve password
   /// kutularını gösteren metod
-  TextField buildLoginTextField(String hintText, IconData prefixIcon,
+  Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
         Function(String)? onChanged,
         bool isFirst = false}) {
-    return TextField(
-      controller: isFirst
-          ? teControllerMail
-          : teControllerPassword,
-      obscureText: obscureText,
-      onChanged: onChanged,
-      onTap: () {
-        setState(() {
-          isFirstTextFieldFocused = isFirst;
-        });
-      },
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            width: 2,
-            color: isFirst ? menuColor : menuColor,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            width: 1,
-            color: Colors.white,
+        ],
+      ),
+      child: TextField(
+        controller: isFirst ? teControllerMail : teControllerPassword,
+        obscureText: obscureText,
+        onChanged: onChanged,
+        onTap: () {
+          setState(() {
+            isFirstTextFieldFocused = isFirst;
+          });
+        },
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: BorderSide(
+              width: 2,
+              color: isFirst ? menuColor : menuColor,
+            ),
           ),
-        ),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          color: Colors.grey,
-        ),
-        prefixIcon: Icon(
-          Icons.mail_outline,
-          color: menuColor,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
+            borderSide: const BorderSide(
+              width: 1,
+              color: Colors.white,
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          prefixIcon: Icon(
+            Icons.mail_outline,
+            color: menuColor,
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
       ),
     );
   }
+
 }
