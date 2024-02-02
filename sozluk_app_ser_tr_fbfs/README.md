@@ -8,11 +8,13 @@ Burada kelimeler Firebase Firestore 'a aktarılıyor. Aynı kelime girişi var m
 kontrol ediliyor. Kelime silme ve düzeltme yapılabiliyor. Detaylı kelime bilgisi 
 görülüp, hem buton ile hem de slider ile kelimeler arası geçiş yapılıyor. Dark ve 
 Light mode tema Drawer menüden değiştirilebiliyor.
+Erişim kontrolü için Google Sign In ve e-mail password erişimi eklendi
 <HR>
 
 Kullanılan Paketler: <BR>
 - firebase_core     : Firebase temel paket
 - cloud firestore   : Firestore erişim paketi
+  - Firebase Auth   : Mail ve Google hesabı ile giriş yöntemi
 - flag              : Bayrak gösterimi  için gerekli paket 
 - google fonts      : Ekstra font kullanımı gereken paket
 - flutter toast     : toast mesaj için kullanılan paket

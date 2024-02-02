@@ -3,8 +3,10 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/screens/home_page.dart';
 
 import '../constants/app_constants/constants.dart';
+import '../services/app_routes.dart';
 import '../services/auth_services.dart';
 import 'auth_page_parts/register_page.dart';
 import 'auth_page_parts/show_logo.dart';
@@ -180,13 +182,13 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () async {
           await MyAuthService().signInWithGoogle().then((value) {
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (_) => const HomePage(),
-            //   ),
-            //   (route) => false,
-            // );
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HomePage(),
+              ),
+              (route) => false,
+            );
           });
         },
         child: Row(
@@ -219,6 +221,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// Giriş Butonu
+  /// Burada bir hata var ?
   SizedBox buildGirisButonu() {
     return SizedBox(
       width: double.infinity,
@@ -231,11 +234,16 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () {
           /// TextField 'dan gelen verilerin kontrolü
-          if (teControllerMail.text.isNotEmpty && password != null) {
+          ///
+          print("E-posta: ${teControllerMail.text}");
+          print("Şifre: ${teControllerPassword.text}");
+
+          if (teControllerMail.text.isNotEmpty &&
+              teControllerPassword != null) {
             MyAuthService()
                 .signInWithMail(
               mail: teControllerMail.text,
-              password: password!,
+              password: teControllerPassword.text,
             )
                 .then((user) {
               try {
@@ -243,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                 // Navigator.pushAndRemoveUntil(
                 //     context,
                 //     MaterialPageRoute(
-                //       builder: (context) => const VBHome(),
+                //       builder: (context) => const HomePage(),
                 //     ),
                 //     (route) => false);
               } catch (e) {
@@ -251,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
               }
             });
           } else {
-            print("email: ${teControllerMail.text} password: $password");
+            print("email: ${teControllerMail.text} password: ${teControllerPassword.text}");
           }
         },
         child: Text(
@@ -270,8 +278,8 @@ class _LoginPageState extends State<LoginPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
-        Function(String)? onChanged,
-        bool isFirst = false}) {
+      Function(String)? onChanged,
+      bool isFirst = false}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -319,8 +327,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
+        cursorColor: Colors.white,
       ),
     );
   }
-
 }
