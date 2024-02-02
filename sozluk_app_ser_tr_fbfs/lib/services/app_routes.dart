@@ -1,4 +1,6 @@
 /// <----- app_routes.dart ----->
+///
+library;
 
 import 'package:flutter/material.dart';
 
@@ -33,7 +35,7 @@ final class AppRoute {
 
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
-    splash: (context) => const SplashView(),
+    splash: (context) => SplashView(),
     login : (context) => LoginPage(),
     latin: (context) => _buildSayfaLatin(context),
     kiril: (context) => _buildSayfaKiril(context),

@@ -1,4 +1,6 @@
 /// <----- splash_page.dart ----->
+///
+library;
 
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -6,6 +8,7 @@ import 'dart:async';
 import '../constants/app_constants/constants.dart';
 import '../constants/base_constants/app_const.dart';
 import '../services/app_routes.dart';
+import '../services/auth_services.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -56,8 +59,12 @@ mixin _SplashViewMixin on State<SplashView> {
   }
 
   Future<void> goToHome() async {
-    /// Buradan login sayfasına gidilecek
-   // await Navigator.pushNamed(context, AppRoute.home);
-    await Navigator.pushNamed(context, AppRoute.login);
+    /// eğer kullanıcı yoksa login sayfasına gidilecek
+    /// eğer kullanıcı varsa ana sayfaya gidilecek
+    var isUserNull = auth.currentUser;
+    await Navigator.pushNamed(
+      context,
+      isUserNull == null ? AppRoute.login : AppRoute.home,
+    );
   }
 }

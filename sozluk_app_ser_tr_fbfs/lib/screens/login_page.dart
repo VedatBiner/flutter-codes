@@ -185,7 +185,8 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (_) => const HomePage(),
+                // builder: (_) => const HomePage(),
+                builder: (_) => AppRoute.routes[AppRoute.home]!(context),
               ),
               (route) => false,
             );
@@ -232,11 +233,22 @@ class _LoginPageState extends State<LoginPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        onPressed: () {
+        onPressed: () async {
           /// TextField 'dan gelen verilerin kontrolü
           ///
           print("E-posta: ${teControllerMail.text}");
           print("Şifre: ${teControllerPassword.text}");
+
+          // /// bu sonradan eklendi
+          // String firebaseIdToken = await user.getIdToken();
+          // while (firebaseIdToken.length > 0) {
+          //   int startTokenLength =
+          //   (firebaseIdToken.length >= 500 ? 500 : firebaseIdToken.length);
+          //   print("TokenPart: " + firebaseIdToken.substring(0, startTokenLength));
+          //   int lastTokenLength = firebaseIdToken.length;
+          //   firebaseIdToken =
+          //       firebaseIdToken.substring(startTokenLength, lastTokenLength);
+          // }
 
           if (teControllerMail.text.isNotEmpty &&
               teControllerPassword != null) {

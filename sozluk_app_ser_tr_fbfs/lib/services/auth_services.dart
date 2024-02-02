@@ -54,6 +54,8 @@ class MyAuthService {
         print("Kullanıcı bulunamadı.");
       } else if (e.code == "wrong-password") {
         print("Yanlış veya hatalı şifre");
+      } else {
+        print("Giriş Hatası : ${e.message} (Code: ${e.code}");
       }
     }
     return null;
