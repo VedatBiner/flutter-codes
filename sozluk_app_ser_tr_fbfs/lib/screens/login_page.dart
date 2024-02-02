@@ -5,8 +5,10 @@ library;
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
-import 'auth_page_parts/register_page.dart';
 import '../services/auth_services.dart';
+import 'auth_page_parts/register_page.dart';
+import 'auth_page_parts/show_logo.dart';
+
 // import '../pages/home_page.dart';
 // import '../pages/register_page.dart';
 // import 'package:firebase_auth_fs_app/pages/vb_home.dart';
@@ -30,7 +32,8 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 /// logo gösterelim
-                showLogo(),
+                const LogoWidget(),
+
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
@@ -299,35 +302,6 @@ class LoginPage extends StatelessWidget {
         prefixIcon: Icon(
           Icons.mail_outline,
           color: menuColor,
-        ),
-      ),
-    );
-  }
-
-  /// login ekranında logo gösteren metod
-  Center showLogo() {
-    return Center(
-      child: CircleAvatar(
-        radius: 100,
-        backgroundColor: Colors.transparent,
-        child: Container(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.amber,
-                blurRadius: 10.0,
-                spreadRadius: 2.0,
-                offset: Offset(0, 5),
-              ),
-            ],
-          ),
-          child: const CircleAvatar(
-            radius: 100,
-            backgroundImage: AssetImage(
-              "assets/images/maymuncuk.jpg",
-            ),
-          ),
         ),
       ),
     );
