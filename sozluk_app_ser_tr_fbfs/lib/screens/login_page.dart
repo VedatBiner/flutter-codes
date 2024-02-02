@@ -14,12 +14,24 @@ import 'auth_page_parts/show_message_line.dart';
 // import '../pages/register_page.dart';
 // import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
-  final TextEditingController teController = TextEditingController();
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController teControllerMail = TextEditingController();
+
+  final TextEditingController teControllerPassword = TextEditingController();
+
+  bool isFirstTextFieldFocused = false;
+
   String? password;
+
   String? email;
+
   String? emailReset;
 
   @override
@@ -34,13 +46,13 @@ class LoginPage extends StatelessWidget {
               children: [
                 /// logo gösterelim
                 const LogoWidget(),
-
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
                 buildLoginTextField(
                   "e-mail adresi",
                   Icons.mail_outline,
+                  isFirst: true,
                 ),
                 const SizedBox(height: 10),
 
@@ -206,8 +218,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-
-
   /// Giriş Butonu
   SizedBox buildGirisButonu() {
     return SizedBox(
@@ -221,10 +231,10 @@ class LoginPage extends StatelessWidget {
         ),
         onPressed: () {
           /// TextField 'dan gelen verilerin kontrolü
-          if (teController.text.isNotEmpty && password != null) {
+          if (teControllerMail.text.isNotEmpty && password != null) {
             MyAuthService()
                 .signInWithMail(
-              mail: teController.text,
+              mail: teControllerMail.text,
               password: password!,
             )
                 .then((user) {
@@ -241,7 +251,7 @@ class LoginPage extends StatelessWidget {
               }
             });
           } else {
-            print("email: ${teController.text} password: $password");
+            print("email: ${teControllerMail.text} password: $password");
           }
         },
         child: Text(
@@ -259,17 +269,36 @@ class LoginPage extends StatelessWidget {
   /// Login ekranında e-mail ve password
   /// kutularını gösteren metod
   TextField buildLoginTextField(String hintText, IconData prefixIcon,
-      {bool obscureText = false, Function(String)? onChanged}) {
+      {bool obscureText = false,
+      Function(String)? onChanged,
+      bool isFirst = false}) {
     return TextField(
-      controller: teController,
+      controller: isFirst
+          ? teControllerMail
+          : teControllerPassword, // İlk tıklanan TextField'a göre kontrolcü seçimi
       obscureText: obscureText,
       onChanged: onChanged,
+      onTap: () {
+        // TextField'a tıklandığında kontrolcüler ve çerçeve rengi güncellenir.
+        setState(() {
+          isFirstTextFieldFocused = isFirst;
+        });
+      },
       decoration: InputDecoration(
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide(
+            width: 2,
+            color: isFirst
+                ? menuColor
+                : Colors.white, // İlk TextField 'ın çerçeve rengi
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(
             width: 1,
-            color: menuColor,
+            color: Colors.white,
           ),
         ),
         hintText: hintText,
