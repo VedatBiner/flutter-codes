@@ -1,4 +1,5 @@
 /// <----- home_page.dart ----->
+library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();

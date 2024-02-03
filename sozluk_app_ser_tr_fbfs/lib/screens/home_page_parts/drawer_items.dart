@@ -1,5 +1,6 @@
 /// <----- drawer_items.dart ----->
 /// Drawer seçeneklerini gösteren metot
+library;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +10,6 @@ import '../../services/auth_services.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
 import '../home_page.dart';
-import '../login_page.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);

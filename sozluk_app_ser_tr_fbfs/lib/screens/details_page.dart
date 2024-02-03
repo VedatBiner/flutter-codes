@@ -1,4 +1,5 @@
 /// <----- details_page.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -18,9 +19,9 @@ class DetailsPage extends StatefulWidget {
   Words word;
 
   DetailsPage({
-    Key? key,
+    super.key,
     required this.word,
-  }) : super(key: key);
+  });
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();

@@ -1,4 +1,5 @@
 /// <----- const_gecisli_donuslu_fiiller.dart ----->
+library;
 
 /// Geçişli ve Dönüşlü Fiiler (Türkçe)
 final List<Map<String, String>> gecisliDonusluFiilerTRSample = [

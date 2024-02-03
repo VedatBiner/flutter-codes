@@ -1,4 +1,5 @@
 /// <----- stream_builder_footer.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

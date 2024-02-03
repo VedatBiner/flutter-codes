@@ -1,4 +1,5 @@
 /// <----- app_bar.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 
@@ -12,13 +13,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function() onSearchPressed;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.aramaYapiliyorMu,
     required this.aramaKelimesi,
     required this.onAramaKelimesiChanged,
     required this.onCancelPressed,
     required this.onSearchPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

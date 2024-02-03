@@ -1,4 +1,5 @@
 /// <----- button_helper.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';

@@ -1,4 +1,5 @@
 /// <----- flag_row.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 

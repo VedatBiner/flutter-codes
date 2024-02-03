@@ -1,4 +1,5 @@
 /// <----- details_card.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,10 @@ class DetailsCard extends StatelessWidget {
   final ThemeProvider themeProvider;
 
   const DetailsCard({
-    Key? key,
+    super.key,
     required this.word,
     required this.themeProvider,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

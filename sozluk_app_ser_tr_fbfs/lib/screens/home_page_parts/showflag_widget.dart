@@ -1,4 +1,5 @@
 /// <----- showflag_widget.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 import '../../widgets/flags_widget.dart';

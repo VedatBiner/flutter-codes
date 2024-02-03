@@ -1,4 +1,5 @@
 /// <----- text_entry.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 

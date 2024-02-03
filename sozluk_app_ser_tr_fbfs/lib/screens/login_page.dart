@@ -3,12 +3,10 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/screens/home_page.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
-import 'auth_page_parts/register_page.dart';
 import 'auth_page_parts/show_logo.dart';
 import 'auth_page_parts/show_message_line.dart';
 
@@ -17,7 +15,7 @@ import 'auth_page_parts/show_message_line.dart';
 // import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -256,8 +254,7 @@ class _LoginPageState extends State<LoginPage> {
           //       firebaseIdToken.substring(startTokenLength, lastTokenLength);
           // }
 
-          if (teControllerMail.text.isNotEmpty &&
-              teControllerPassword != null) {
+          if (teControllerMail.text.isNotEmpty) {
             MyAuthService()
                 .signInWithMail(
               mail: teControllerMail.text,

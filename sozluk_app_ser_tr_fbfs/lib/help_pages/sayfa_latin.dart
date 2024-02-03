@@ -1,4 +1,5 @@
 /// <----- sayfa_latin.dart ----->
+library;
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
@@ -7,7 +8,7 @@ import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
 class SayfaLatin extends StatefulWidget {
-  const SayfaLatin({Key? key}) : super(key: key);
+  const SayfaLatin({super.key});
 
   @override
   State<SayfaLatin> createState() => _SayfaLatinState();

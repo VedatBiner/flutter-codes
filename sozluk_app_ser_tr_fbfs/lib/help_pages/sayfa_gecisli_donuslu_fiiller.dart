@@ -1,4 +1,5 @@
 /// <----- sayfa_gecisli_donuslu_fiiller.drt ----->
+library;
 
 import 'package:flutter/material.dart';
 

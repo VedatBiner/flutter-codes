@@ -1,4 +1,5 @@
 /// <----- sayfa_kiril.dart ----->
+library;
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
@@ -7,7 +8,7 @@ import 'help_parts/custom_appbar.dart';
 import 'help_parts/build_table.dart';
 
 class SayfaKiril extends StatefulWidget {
-  const SayfaKiril({Key? key}) : super(key: key);
+  const SayfaKiril({super.key});
 
   @override
   State<SayfaKiril> createState() => _SayfaKirilState();

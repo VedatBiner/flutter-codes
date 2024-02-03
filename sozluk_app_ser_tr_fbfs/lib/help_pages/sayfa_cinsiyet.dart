@@ -1,4 +1,5 @@
 /// <----- sayfa_cinsiyet.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
 class SayfaCinsiyet extends StatefulWidget {
-  const SayfaCinsiyet({Key? key}) : super(key: key);
+  const SayfaCinsiyet({super.key});
 
   @override
   State<SayfaCinsiyet> createState() => _SayfaCinsiyetState();

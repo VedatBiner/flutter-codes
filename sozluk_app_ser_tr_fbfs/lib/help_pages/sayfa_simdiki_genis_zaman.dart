@@ -1,4 +1,5 @@
 /// <----- sayfa_soru.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 

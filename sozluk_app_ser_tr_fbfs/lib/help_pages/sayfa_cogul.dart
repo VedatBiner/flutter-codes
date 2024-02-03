@@ -1,4 +1,5 @@
 /// <----- sayfa_cogul.dart ----->
+library;
 
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
 class SayfaCogul extends StatefulWidget {
-  const SayfaCogul({Key? key}) : super(key: key);
+  const SayfaCogul({super.key});
 
   @override
   State<SayfaCogul> createState() => _SayfaCogulState();

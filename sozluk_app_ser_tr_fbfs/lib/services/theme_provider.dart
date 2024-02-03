@@ -1,5 +1,6 @@
 /// <----- theme_provider.dart ----->
 /// tema değişikliği için provider paketi kullanan metot
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
