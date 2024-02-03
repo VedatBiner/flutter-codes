@@ -22,7 +22,10 @@ class _SplashViewState extends State<SplashView> with _SplashViewMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppConst.splash.appBarTitle),
+        title: Text(
+          AppConst.splash.appBarTitle,
+          style: TextStyle(color: menuColor),
+        ),
       ),
       body: Center(
         child: Column(
