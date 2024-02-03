@@ -23,15 +23,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController teControllerMail = TextEditingController();
-
   final TextEditingController teControllerPassword = TextEditingController();
-
   bool isFirstTextFieldFocused = false;
-
   String? password;
-
   String? email;
-
   String? emailReset;
 
   @override

@@ -16,9 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController teControllerMail = TextEditingController();
-
   final TextEditingController teControllerPassword = TextEditingController();
-
   bool isFirstTextFieldFocused = false;
 
   @override
@@ -85,8 +83,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: () {
                   /// eğer TextField bilgileri null değilse
                   /// metodu tetikleyelim
-                  // print("E-posta: ${teControllerMail.text}");
-                  // print("Şifre: ${teControllerPassword.text}");
                   email = teControllerMail.text;
                   print(email);
                   if (email != null && password != null) {
@@ -104,16 +100,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       },
                     );
-
-                    //     await MyAuthService().signInWithGoogle().then(
-                    //       (value) async {
-                    //     await Navigator.pushNamedAndRemoveUntil(
-                    //       context,
-                    //       AppRoute.home,
-                    //           (route) => false,
-                    //     );
-                    //   },
-                    // );
                   } else {
                     print(
                         "Bir hata oluştu. email : $email , password : $password");
@@ -139,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
+        
       Function(String)? onChanged,
       bool isFirst = false}) {
     return Container(
