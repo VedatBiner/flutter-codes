@@ -7,12 +7,9 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/constants.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
+import 'auth_page_parts/auth_common_widget.dart';
 import 'auth_page_parts/show_logo.dart';
 import 'auth_page_parts/show_message_line.dart';
-
-// import '../pages/home_page.dart';
-// import '../pages/register_page.dart';
-// import 'package:firebase_auth_fs_app/pages/vb_home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -49,21 +46,28 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
-                buildLoginTextField("e-mail adresi", Icons.mail_outline,
-                    isFirst: true,
-                    keyboardType: getKeyboardType(), onChanged: (mail) {
-                  email = mail;
-                }),
+                AuthPageWidgets.buildLoginTextField(
+                  "e-mail adresi",
+                  Icons.mail_outline,
+                  isFirst: true,
+                  keyboardType: getKeyboardType(),
+                  onChanged: (mail) {
+                    email = mail;
+                  },
+                  controller: teControllerMail,
+                ),
                 const SizedBox(height: 10),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
-                buildLoginTextField(
+                AuthPageWidgets.buildLoginTextField(
                   "parola",
                   Icons.lock,
                   obscureText: true,
+                  keyboardType: getKeyboardType(),
                   onChanged: (parola) {
                     password = parola;
                   },
+                  controller: teControllerPassword,
                 ),
                 const SizedBox(height: 20),
 
@@ -269,66 +273,6 @@ class _LoginPageState extends State<LoginPage> {
             fontSize: 18,
           ),
         ),
-      ),
-    );
-  }
-
-  /// Login ekranında e-mail ve password
-  /// kutularını gösteren metod
-  Container buildLoginTextField(String hintText, IconData prefixIcon,
-      {bool obscureText = false,
-      TextInputType? keyboardType,
-      Function(String)? onChanged,
-      bool isFirst = false}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: TextField(
-        controller: isFirst ? teControllerMail : teControllerPassword,
-        obscureText: obscureText,
-        onChanged: onChanged,
-        onTap: () {
-          setState(() {
-            isFirstTextFieldFocused = isFirst;
-          });
-        },
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              width: 2,
-              color: isFirst ? menuColor : menuColor,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.white,
-            ),
-          ),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
-          ),
-          prefixIcon: Icon(
-            Icons.mail_outline,
-            color: menuColor,
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
-        ),
-        cursorColor: Colors.white,
-        keyboardType: keyboardType,
       ),
     );
   }
