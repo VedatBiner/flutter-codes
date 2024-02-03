@@ -49,15 +49,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
-                buildLoginTextField(
-                  "e-mail adresi",
-                  Icons.mail_outline,
-                  isFirst: true,
-                    keyboardType: getKeyboardType(),
-                    onChanged: (mail){
-                      email = mail;
-                    }
-                ),
+                buildLoginTextField("e-mail adresi", Icons.mail_outline,
+                    isFirst: true,
+                    keyboardType: getKeyboardType(), onChanged: (mail) {
+                  email = mail;
+                }),
                 const SizedBox(height: 10),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
@@ -156,7 +152,10 @@ class _LoginPageState extends State<LoginPage> {
                     print("email : $emailReset");
                   }
                 },
-                child: const Text("Sıfırla"),
+                child: Text(
+                  "Sıfırla",
+                  style: TextStyle(color: menuColor),
+                ),
               ),
             ],
           ),
@@ -226,7 +225,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// Giriş Butonu
-  /// Burada bir hata var ?
   SizedBox buildGirisButonu() {
     return SizedBox(
       width: double.infinity,
@@ -279,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
-        TextInputType? keyboardType,
+      TextInputType? keyboardType,
       Function(String)? onChanged,
       bool isFirst = false}) {
     return Container(

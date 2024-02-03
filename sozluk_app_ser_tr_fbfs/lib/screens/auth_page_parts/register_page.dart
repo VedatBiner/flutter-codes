@@ -57,15 +57,11 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
 
             /// e-mail TextField
-            buildLoginTextField(
-              "e-mail adresi",
-              Icons.mail_outline,
-              isFirst: true,
-              keyboardType: getKeyboardType(),
-              onChanged: (mail){
-                email = mail;
-              }
-            ),
+            buildLoginTextField("e-mail adresi", Icons.mail_outline,
+                isFirst: true,
+                keyboardType: getKeyboardType(), onChanged: (mail) {
+              email = mail;
+            }),
             const SizedBox(height: 10),
 
             /// parola TextFields
