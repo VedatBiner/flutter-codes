@@ -19,6 +19,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController teControllerPassword = TextEditingController();
   bool isFirstTextFieldFocused = false;
 
+  TextInputType getKeyboardType() {
+    /// klavye tipi
+    return TextInputType.emailAddress;
+  }
+
   @override
   Widget build(BuildContext context) {
     String? email;
@@ -56,6 +61,10 @@ class _RegisterPageState extends State<RegisterPage> {
               "e-mail adresi",
               Icons.mail_outline,
               isFirst: true,
+              keyboardType: getKeyboardType(),
+              onChanged: (mail){
+                email = mail;
+              }
             ),
             const SizedBox(height: 10),
 
@@ -125,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
-        
+      TextInputType? keyboardType,
       Function(String)? onChanged,
       bool isFirst = false}) {
     return Container(
@@ -176,6 +185,7 @@ class _RegisterPageState extends State<RegisterPage> {
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
         cursorColor: Colors.white,
+        keyboardType: keyboardType,
       ),
     );
   }

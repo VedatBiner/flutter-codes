@@ -29,6 +29,11 @@ class _LoginPageState extends State<LoginPage> {
   String? email;
   String? emailReset;
 
+  TextInputType getKeyboardType() {
+    /// klavye tipi
+    return TextInputType.emailAddress;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +53,10 @@ class _LoginPageState extends State<LoginPage> {
                   "e-mail adresi",
                   Icons.mail_outline,
                   isFirst: true,
+                    keyboardType: getKeyboardType(),
+                    onChanged: (mail){
+                      email = mail;
+                    }
                 ),
                 const SizedBox(height: 10),
 
@@ -270,6 +279,7 @@ class _LoginPageState extends State<LoginPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
+        TextInputType? keyboardType,
       Function(String)? onChanged,
       bool isFirst = false}) {
     return Container(
@@ -320,6 +330,7 @@ class _LoginPageState extends State<LoginPage> {
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
         ),
         cursorColor: Colors.white,
+        keyboardType: keyboardType,
       ),
     );
   }
