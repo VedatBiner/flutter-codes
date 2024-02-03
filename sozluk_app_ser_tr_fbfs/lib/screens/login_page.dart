@@ -57,10 +57,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
-                buildLoginTextField("parola", Icons.lock, obscureText: true,
-                    onChanged: (parola) {
-                  password = parola;
-                }),
+                buildLoginTextField(
+                  "parola",
+                  Icons.lock,
+                  obscureText: true,
+                  onChanged: (parola) {
+                    password = parola;
+                  },
+                ),
                 const SizedBox(height: 20),
 
                 /// Giriş Butonu
@@ -231,40 +235,25 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () async {
           /// TextField 'dan gelen verilerin kontrolü
-          ///
-          print("E-posta: ${teControllerMail.text}");
-          print("Şifre: ${teControllerPassword.text}");
-
-          // /// bu sonradan eklendi
-          // String firebaseIdToken = await user.getIdToken();
-          // while (firebaseIdToken.length > 0) {
-          //   int startTokenLength =
-          //   (firebaseIdToken.length >= 500 ? 500 : firebaseIdToken.length);
-          //   print("TokenPart: " + firebaseIdToken.substring(0, startTokenLength));
-          //   int lastTokenLength = firebaseIdToken.length;
-          //   firebaseIdToken =
-          //       firebaseIdToken.substring(startTokenLength, lastTokenLength);
-          // }
-
           if (teControllerMail.text.isNotEmpty) {
             MyAuthService()
                 .signInWithMail(
               mail: teControllerMail.text,
               password: teControllerPassword.text,
             )
-                .then((user) {
-              try {
-                print(user!.uid.toString());
-                // Navigator.pushAndRemoveUntil(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => const HomePage(),
-                //     ),
-                //     (route) => false);
-              } catch (e) {
-                print(e);
-              }
-            });
+                .then(
+              (user) async {
+                try {
+                  await Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    AppRoute.home,
+                    (route) => false,
+                  );
+                } catch (e) {
+                  print(e);
+                }
+              },
+            );
           } else {
             print(
                 "email: ${teControllerMail.text} password: ${teControllerPassword.text}");

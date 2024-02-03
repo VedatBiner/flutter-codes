@@ -1,7 +1,9 @@
 /// <----- register_page.dart ----->
 ///
 library;
+
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/services/app_routes.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
 
@@ -13,13 +15,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   final TextEditingController teControllerMail = TextEditingController();
 
   final TextEditingController teControllerPassword = TextEditingController();
 
   bool isFirstTextFieldFocused = false;
-  
+
   @override
   Widget build(BuildContext context) {
     String? email;
@@ -53,31 +54,25 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
 
             /// e-mail TextField
-            TextFormField(
-              decoration: const InputDecoration(
-                hintText: "e-mail address",
-                prefixIcon: Icon(Icons.mail_outline),
-              ),
-              onChanged: (mail) {
-                email = mail;
-              },
+            buildLoginTextField(
+              "e-mail adresi",
+              Icons.mail_outline,
+              isFirst: true,
             ),
-
-            /// parola TextFiels
             const SizedBox(height: 10),
-            TextFormField(
+
+            /// parola TextFields
+            buildLoginTextField(
+              "parola",
+              Icons.lock,
               obscureText: true,
-              decoration: const InputDecoration(
-                hintText: "parola",
-                prefixIcon: Icon(Icons.lock),
-              ),
               onChanged: (parola) {
                 password = parola;
               },
             ),
+            const SizedBox(height: 20),
 
             /// kaydol butonu
-            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: RawMaterialButton(
@@ -90,11 +85,35 @@ class _RegisterPageState extends State<RegisterPage> {
                 onPressed: () {
                   /// eğer TextField bilgileri null değilse
                   /// metodu tetikleyelim
+                  // print("E-posta: ${teControllerMail.text}");
+                  // print("Şifre: ${teControllerPassword.text}");
+                  email = teControllerMail.text;
+                  print(email);
                   if (email != null && password != null) {
-                    MyAuthService().registerWithMail(
+                    MyAuthService()
+                        .registerWithMail(
                       mail: email!,
                       password: password!,
+                    )
+                        .then(
+                      (value) async {
+                        await Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoute.login,
+                          (route) => false,
+                        );
+                      },
                     );
+
+                    //     await MyAuthService().signInWithGoogle().then(
+                    //       (value) async {
+                    //     await Navigator.pushNamedAndRemoveUntil(
+                    //       context,
+                    //       AppRoute.home,
+                    //           (route) => false,
+                    //     );
+                    //   },
+                    // );
                   } else {
                     print(
                         "Bir hata oluştu. email : $email , password : $password");
@@ -120,8 +139,8 @@ class _RegisterPageState extends State<RegisterPage> {
   /// kutularını gösteren metod
   Container buildLoginTextField(String hintText, IconData prefixIcon,
       {bool obscureText = false,
-        Function(String)? onChanged,
-        bool isFirst = false}) {
+      Function(String)? onChanged,
+      bool isFirst = false}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
