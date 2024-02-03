@@ -35,9 +35,11 @@ class _RegisterPageState extends State<RegisterPage> {
             fontSize: 24,
           ),
         ),
-       // backgroundColor: Colors.white12,
         elevation: 0,
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: menuColor,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

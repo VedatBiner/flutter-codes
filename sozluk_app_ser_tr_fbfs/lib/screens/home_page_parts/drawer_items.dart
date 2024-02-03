@@ -77,10 +77,6 @@ Drawer buildDrawer(BuildContext context) {
                           context,
                           AppRoute.login,
                         );
-                        // Navigator.pushAndRemoveUntil(
-                        //     context,
-                        //     MaterialPageRoute(builder: (_) => LoginPage(),),
-                        //         (route) => false);
                       },
                     );
                   },

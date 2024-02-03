@@ -24,8 +24,8 @@ final class AppRoute {
 
   static String splash = "/";
   static String home = "/home";
-  static String login ="/login";
-  static String register ="/register";
+  static String login = "/login";
+  static String register = "/register";
   static String latin = "/home/latin";
   static String kiril = "/home/kiril";
   static String cinsiyet = "/home/cinsiyet";
@@ -38,7 +38,7 @@ final class AppRoute {
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
-    login : (context) => const LoginPage(),
+    login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
     latin: (context) => _buildSayfaLatin(context),
     kiril: (context) => _buildSayfaKiril(context),
@@ -47,7 +47,8 @@ final class AppRoute {
     zamir: (context) => _buildSayfaZamir(context),
     soru: (context) => _buildSayfaSoru(context),
     simdikiGenisZaman: (context) => _buildSayfaSimdikiGenisZaman(context),
-    gecisliDonusluFiller: (context) => _buildSayfaGecisliDonusluFiiller(context),
+    gecisliDonusluFiller: (context) =>
+        _buildSayfaGecisliDonusluFiiller(context),
   };
 
   static Widget _buildSayfaLatin(BuildContext context) {

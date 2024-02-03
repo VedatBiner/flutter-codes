@@ -178,23 +178,15 @@ class _LoginPageState extends State<LoginPage> {
           side: const BorderSide(width: 1),
         ),
         onPressed: () async {
-          await MyAuthService().signInWithGoogle().then((value) async {
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(
-            //     // builder: (_) => const HomePage(),
-            //     builder: (_) => AppRoute.routes[AppRoute.home]!(context),
-            //
-            //       //AppRoute.home
-            //   ),
-            //   (route) => false,
-            // );
-            await Navigator.pushNamed(
-              context,
-              AppRoute.home,
-            );
-
-          });
+          await MyAuthService().signInWithGoogle().then(
+            (value) async {
+              await Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoute.home,
+                (route) => false,
+              );
+            },
+          );
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -274,7 +266,8 @@ class _LoginPageState extends State<LoginPage> {
               }
             });
           } else {
-            print("email: ${teControllerMail.text} password: ${teControllerPassword.text}");
+            print(
+                "email: ${teControllerMail.text} password: ${teControllerPassword.text}");
           }
         },
         child: Text(
