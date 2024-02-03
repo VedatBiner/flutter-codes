@@ -103,12 +103,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.push(
+          onPressed: () async {
+            /// Register sayfası çağırılıyor.
+            await Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => const RegisterPage(),
-              ),
+              AppRoute.register,
             );
           },
           child: const Text(
@@ -181,15 +180,22 @@ class _LoginPageState extends State<LoginPage> {
           side: const BorderSide(width: 1),
         ),
         onPressed: () async {
-          await MyAuthService().signInWithGoogle().then((value) {
-            Navigator.pushAndRemoveUntil(
+          await MyAuthService().signInWithGoogle().then((value) async {
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(
+            //     // builder: (_) => const HomePage(),
+            //     builder: (_) => AppRoute.routes[AppRoute.home]!(context),
+            //
+            //       //AppRoute.home
+            //   ),
+            //   (route) => false,
+            // );
+            await Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                // builder: (_) => const HomePage(),
-                builder: (_) => AppRoute.routes[AppRoute.home]!(context),
-              ),
-              (route) => false,
+              AppRoute.home,
             );
+
           });
         },
         child: Row(

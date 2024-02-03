@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../../services/auth_services.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
 import '../home_page.dart';
+import '../login_page.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
@@ -37,22 +39,55 @@ Drawer buildDrawer(BuildContext context) {
             return pageRoute != null ? pageRoute(context) : Container();
           }),
         const SizedBox(height: 32),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: IconButton(
-              color: menuColor,
-              onPressed: () {
-                final provider =
-                    Provider.of<ThemeProvider>(context, listen: false);
-                provider.toggleTheme(!provider.isDarkMode);
-              },
-              icon: Icon(
-                themeProvider.isDarkMode ? Icons.wb_sunny : Icons.brightness_3,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: IconButton(
+                  color: menuColor,
+                  onPressed: () {
+                    final provider =
+                        Provider.of<ThemeProvider>(context, listen: false);
+                    provider.toggleTheme(!provider.isDarkMode);
+                  },
+                  icon: Icon(
+                    themeProvider.isDarkMode
+                        ? Icons.wb_sunny
+                        : Icons.brightness_3,
+                  ),
+                ),
               ),
             ),
-          ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: IconButton(
+                  color: menuColor,
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    auth.signOut().whenComplete(
+                      () async {
+                        /// kullanıcıya çıkış yaptırır ve
+                        /// giriş sayfasına yönlendirir
+                        await Navigator.pushNamed(
+                          context,
+                          AppRoute.login,
+                        );
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(builder: (_) => LoginPage(),),
+                        //         (route) => false);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
         const Divider(),
         FutureBuilder<String?>(
