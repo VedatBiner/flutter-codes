@@ -18,6 +18,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController teControllerMail = TextEditingController();
   final TextEditingController teControllerPassword = TextEditingController();
+  final TextEditingController teControllerCheckPassword = TextEditingController();
   bool isFirstTextFieldFocused = false;
 
   TextInputType getKeyboardType() {
@@ -79,6 +80,18 @@ class _RegisterPageState extends State<RegisterPage> {
                 password = parola;
               },
               controller: teControllerPassword,
+            ),
+            const SizedBox(height: 10),
+
+            /// parola Check TextFields
+            AuthPageWidgets.buildLoginTextField(
+              "parola tekrar",
+              Icons.lock,
+              obscureText: true,
+              onChanged: (parola) {
+                password = parola;
+              },
+              controller: teControllerCheckPassword,
             ),
             const SizedBox(height: 20),
 
