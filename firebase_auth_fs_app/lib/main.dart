@@ -1,5 +1,6 @@
 /// <----- main.dart ----->
 ///
+import 'package:firebase_auth_fs_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth_fs_app/firebase_options.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
+  /// Auth servisimizden mevcut kullanıcı bilgisini alalım ve bir değişkene aktaralım
   var isUserNull = auth.currentUser;
 
   @override
@@ -39,8 +41,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
+      /// sade firebase auth için bunu kullanıyoruz.
+      home: isUserNull == null ? LoginPage() : const HomePage(),
       /// home: isUserNull == null ? LoginPage() : const VBHome(),
-      home: isUserNull == null ? LoginPage() : const VBMemes(),
+
+      /// fire storage için bunu kullanıyoruz.
+      /// home: isUserNull == null ? LoginPage() : const VBMemes(),
     );
   }
 }
