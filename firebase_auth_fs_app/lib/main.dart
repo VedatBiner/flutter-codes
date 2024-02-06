@@ -1,13 +1,12 @@
 /// <----- main.dart ----->
 ///
-import 'package:firebase_auth_fs_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth_fs_app/firebase_options.dart';
 
 import '../services/auth_services.dart';
 import '../pages/login_page.dart';
-
+import '../pages/home_page.dart';
 
 /// silme
 import '../pages/vb_memes.dart';
