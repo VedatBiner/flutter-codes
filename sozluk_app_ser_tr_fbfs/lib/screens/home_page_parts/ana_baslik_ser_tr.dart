@@ -2,6 +2,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
 import '../../screens/home_page_parts/showflag_widget.dart';
 
@@ -14,25 +15,31 @@ class AnaBaslik extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blueAccent,
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ShowFlagWidget(
+            const ShowFlagWidget(
               code: 'RS',
               text: 'Sırpça',
               radius: 8,
             ),
-            ShowFlagWidget(
+            const ShowFlagWidget(
               code: 'TR',
               text: 'Türkçe',
               radius: 8,
             ),
-            Expanded(
-              flex: 1,
-              child: SizedBox(width: 20),
-            ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.swap_horizontal_circle_rounded,
+                  color: menuColor,
+                )),
+            // const Expanded(
+            //   flex: 1,
+            //   child: SizedBox(width: 20),
+            // ),
           ],
         ),
       ),
