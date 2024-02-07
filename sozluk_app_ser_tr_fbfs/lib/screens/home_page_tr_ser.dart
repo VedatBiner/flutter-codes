@@ -21,7 +21,7 @@ import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'details_page_tr_ser.dart';
 import 'home_page_parts/ana_baslik_tr_ser.dart';
-import 'home_page_parts/app_bar_tr_ser.dart';
+import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class HomePageTrSer extends StatefulWidget {
@@ -173,7 +173,7 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: CustomAppBarTrSer(
+        appBar: HomeCustomAppBar(
           aramaYapiliyorMu: aramaYapiliyorMu,
           aramaKelimesi: aramaKelimesi,
           onAramaKelimesiChanged: (aramaSonucu) {
@@ -192,6 +192,7 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
               aramaYapiliyorMu = true;
             });
           },
+          appBarTitle: appBarMainTitleTrSer,
         ),
         body: Column(
           children: [

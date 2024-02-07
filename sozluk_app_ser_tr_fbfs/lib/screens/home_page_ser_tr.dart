@@ -18,10 +18,10 @@ import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/ana_baslik_ser_tr.dart';
-import '../screens/home_page_parts/app_bar_ser_tr.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'home_page_parts/drawer_items.dart';
+import 'home_page_parts/home_app_bar.dart';
 
 class HomePageSerTr extends StatefulWidget {
   const HomePageSerTr({super.key});
@@ -172,7 +172,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: CustomAppBarSerTr(
+        appBar: HomeCustomAppBar(
           aramaYapiliyorMu: aramaYapiliyorMu,
           aramaKelimesi: aramaKelimesi,
           onAramaKelimesiChanged: (aramaSonucu) {
@@ -191,6 +191,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
               aramaYapiliyorMu = true;
             });
           },
+          appBarTitle: appBarMainTitleSerTr,
         ),
         body: Column(
           children: [

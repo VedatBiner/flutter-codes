@@ -42,6 +42,7 @@ class AnaBaslikTrSer extends StatelessWidget {
               icon: Icon(
                 Icons.swap_horizontal_circle_rounded,
                 color: menuColor,
+                size: 40,
               ),
             ),
           ],
