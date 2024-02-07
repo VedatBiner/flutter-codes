@@ -82,7 +82,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 /// Google ile giriş
-                AuthPageWidgets.googleSignIn(context),
+                // şimdilik iptal
+                // AuthPageWidgets.googleSignIn(context),
                 const SizedBox(height: 10),
 
                 /// şifremi unuttum
@@ -202,11 +203,12 @@ class _LoginPageState extends State<LoginPage> {
                 try {
                   await Navigator.pushNamedAndRemoveUntil(
                     context,
-                    AppRoute.home,
+                    AppRoute.homeSerTr,
                     (route) => false,
                   );
                 } catch (e) {
-                  print(e);
+                  showErrorMessage(e.toString());
+                  /// print(e);
                 }
               },
             );
@@ -224,6 +226,24 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+    );
+  }
+
+  /// hata mesajı için
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.indigo,
+          title: Center(
+            child: Text(
+              message,
+              style: TextStyle(color: menuColor),
+            ),
+          ),
+        );
+      },
     );
   }
 }

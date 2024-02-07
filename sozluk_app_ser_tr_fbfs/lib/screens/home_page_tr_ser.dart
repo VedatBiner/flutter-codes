@@ -17,24 +17,25 @@ import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
-import '../screens/home_page_parts/ana_baslik_ser_tr.dart';
-import '../screens/home_page_parts/app_bar_ser_tr.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
+import 'details_page_tr_ser.dart';
+import 'home_page_parts/ana_baslik_tr_ser.dart';
+import 'home_page_parts/app_bar_tr_ser.dart';
 import 'home_page_parts/drawer_items.dart';
 
-class HomePageSerTr extends StatefulWidget {
-  const HomePageSerTr({super.key});
+class HomePageTrSer extends StatefulWidget {
+  const HomePageTrSer({super.key});
 
   @override
-  _HomePageSerTrState createState() => _HomePageSerTrState();
+  _HomePageTrSerState createState() => _HomePageTrSerState();
 
   static String getVersion() {
-    return _HomePageSerTrState.version;
+    return _HomePageTrSerState.version;
   }
 }
 
-class _HomePageSerTrState extends State<HomePageSerTr> {
+class _HomePageTrSerState extends State<HomePageTrSer> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
@@ -109,12 +110,12 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextEntry(
-              controller: sirpcaController,
-              hintText: "Sırpça kelime giriniz ...",
+              controller: turkceController,
+              hintText: "Türkçe kelime giriniz ...",
             ),
             TextEntry(
-              controller: turkceController,
-              hintText: "Türkçe karşılığını giriniz ...",
+              controller: sirpcaController,
+              hintText: "Sırpça karşılığını giriniz ...",
             ),
           ],
         ),
@@ -172,7 +173,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: CustomAppBarSerTr(
+        appBar: CustomAppBarTrSer(
           aramaYapiliyorMu: aramaYapiliyorMu,
           aramaKelimesi: aramaKelimesi,
           onAramaKelimesiChanged: (aramaSonucu) {
@@ -194,7 +195,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
         ),
         body: Column(
           children: [
-            const AnaBaslikSerTr(),
+            const AnaBaslikTrSer(),
             const SizedBox(height: 5),
             buildStreamBuilderList(),
             const SizedBox(height: 5),
@@ -230,7 +231,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
         for (var document in snapshot.data!.docs) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           var gelenKelime = Words.fromJson(document.id, data);
-          if (!aramaYapiliyorMu || gelenKelime.sirpca.contains(aramaKelimesi)) {
+          if (!aramaYapiliyorMu || gelenKelime.turkce.contains(aramaKelimesi)) {
             wordsList.add(gelenKelime);
           }
         }
@@ -245,7 +246,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailsPageSerTr(
+                        builder: (context) => DetailsPageTrSer(
                           word: wordsList[index],
                         ),
                       ),
@@ -306,7 +307,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
-              word: word.sirpca,
+              word: word.turkce,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText1
                   : cardLightModeText1,
@@ -314,7 +315,7 @@ class _HomePageSerTrState extends State<HomePageSerTr> {
             ),
             const Divider(color: Colors.black26),
             ExpandedWord(
-              word: word.turkce,
+              word: word.sirpca,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText2
                   : cardLightModeText2,

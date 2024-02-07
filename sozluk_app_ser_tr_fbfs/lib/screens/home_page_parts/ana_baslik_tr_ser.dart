@@ -1,4 +1,4 @@
-/// <----- ana_baslik_ser_tr.dart ----->
+/// <----- ana_baslik_tr_ser.dart ----->
 library;
 
 import 'package:flutter/material.dart';
@@ -7,8 +7,8 @@ import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 import '../../screens/home_page_parts/showflag_widget.dart';
 import '../../services/app_routes.dart';
 
-class AnaBaslikSerTr extends StatelessWidget {
-  const AnaBaslikSerTr({
+class AnaBaslikTrSer extends StatelessWidget {
+  const AnaBaslikTrSer({
     super.key,
   });
 
@@ -22,21 +22,21 @@ class AnaBaslikSerTr extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const ShowFlagWidget(
-              code: 'RS',
-              text: 'Sırpça',
-              radius: 8,
-            ),
-            const ShowFlagWidget(
               code: 'TR',
               text: 'Türkçe',
               radius: 8,
             ),
+            const ShowFlagWidget(
+              code: 'RS',
+              text: 'Sırpça',
+              radius: 8,
+            ),
             IconButton(
               onPressed: () {
-                print("Türkçe->Sırpça seçildi");
+                print("Sırpça->Türkçe seçildi");
                 Navigator.pushNamed(
                   context,
-                  AppRoute.homeTrSer,
+                  AppRoute.homeSerTr,
                 );
               },
               icon: Icon(

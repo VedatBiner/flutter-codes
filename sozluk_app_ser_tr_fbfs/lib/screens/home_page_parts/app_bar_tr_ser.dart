@@ -1,18 +1,18 @@
-/// <----- app_bar_ser_tr.dart ----->
+/// <----- app_bar_tr_ser.dart ----->
 library;
 
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
 
-class CustomAppBarSerTr extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarTrSer extends StatelessWidget implements PreferredSizeWidget {
   final bool aramaYapiliyorMu;
   final String aramaKelimesi;
   final Function(String) onAramaKelimesiChanged;
   final Function() onCancelPressed;
   final Function() onSearchPressed;
 
-  const CustomAppBarSerTr({
+  const CustomAppBarTrSer({
     super.key,
     required this.aramaYapiliyorMu,
     required this.aramaKelimesi,
@@ -37,7 +37,7 @@ class CustomAppBarSerTr extends StatelessWidget implements PreferredSizeWidget {
               onChanged: onAramaKelimesiChanged,
             )
           : Text(
-              appBarMainTitleSerTr,
+              appBarMainTitleTrSer,
               style: TextStyle(color: menuColor),
             ),
       iconTheme: IconThemeData(color: menuColor),

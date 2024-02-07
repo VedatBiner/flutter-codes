@@ -1,4 +1,4 @@
-/// <----- details_card_ser_tr.dart ----->
+/// <----- details_card_tr_ser.dart ----->
 library;
 
 import 'package:flutter/material.dart';
@@ -8,11 +8,11 @@ import '../../models/words.dart';
 import '../../services/theme_provider.dart';
 import 'flag_row.dart';
 
-class DetailsCardSerTr extends StatelessWidget {
+class DetailsCardTrSer extends StatelessWidget {
   final Words word;
   final ThemeProvider themeProvider;
 
-  const DetailsCardSerTr({
+  const DetailsCardTrSer({
     super.key,
     required this.word,
     required this.themeProvider,
@@ -37,15 +37,15 @@ class DetailsCardSerTr extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               buildFlagRow(
-                'RS',
-                word.sirpca,
-                detailTextRed,
-              ),
-              const SizedBox(height: 40),
-              buildFlagRow(
                 'TR',
                 word.turkce,
                 detailTextBlue,
+              ),
+              const SizedBox(height: 40),
+              buildFlagRow(
+                'RS',
+                word.sirpca,
+                detailTextRed,
               ),
             ],
           ),

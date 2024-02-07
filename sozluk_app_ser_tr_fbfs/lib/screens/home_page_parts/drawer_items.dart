@@ -9,13 +9,13 @@ import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
-import '../home_page.dart';
+import '../home_page_ser_tr.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
   Future<String?> getVersion() async {
-    return HomePage.getVersion();
+    return HomePageSerTr.getVersion();
   }
 
   return Drawer(

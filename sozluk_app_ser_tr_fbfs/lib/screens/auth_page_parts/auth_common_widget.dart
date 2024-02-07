@@ -90,7 +90,7 @@ class AuthPageWidgets {
             (value) async {
               await Navigator.pushNamedAndRemoveUntil(
                 context,
-                AppRoute.home,
+                AppRoute.homeSerTr,
                 (route) => false,
               );
             },
