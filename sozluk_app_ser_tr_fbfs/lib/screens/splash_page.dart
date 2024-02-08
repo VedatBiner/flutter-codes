@@ -67,7 +67,7 @@ mixin _SplashViewMixin on State<SplashView> {
     var isUserNull = auth.currentUser;
     await Navigator.pushNamed(
       context,
-      isUserNull == null ? AppRoute.login : AppRoute.homeSerTr,
+      isUserNull == null ? AppRoute.login : AppRoute.home,
     );
   }
 }

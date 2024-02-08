@@ -13,8 +13,7 @@ import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../screens/auth_page_parts/register_page.dart';
-import '../screens/home_page_ser_tr.dart';
-import '../screens/home_page_tr_ser.dart';
+import '../screens/home_page.dart';
 import '../screens/login_page.dart';
 import '../screens/splash_page.dart';
 
@@ -24,8 +23,7 @@ final class AppRoute {
   const AppRoute._();
 
   static String splash = "/";
-  static String homeSerTr = "/homeSerTr";
-  static String homeTrSer = "/homeTrSer";
+  static String home = "/home";
   static String login = "/login";
   static String register = "/register";
   static String latin = "/home/latin";
@@ -38,8 +36,7 @@ final class AppRoute {
   static String gecisliDonusluFiller = "/home/gecisliDonusluFiller";
 
   static Map<String, AppRouteMapFunction> routes = {
-    homeSerTr: (context) => const HomePageSerTr(),
-    homeTrSer: (context) => const HomePageTrSer(),
+    home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),

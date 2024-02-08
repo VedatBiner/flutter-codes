@@ -1,4 +1,4 @@
-/// <----- home_page_tr_ser.dart ----->
+/// <----- home_page.dart ----->
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +10,6 @@ import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
-import '../services/app_routes.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
 import '../screens/details_page_ser_tr.dart';
@@ -25,64 +24,18 @@ import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/showflag_widget.dart';
 
-class AnaBaslikTrSer extends StatelessWidget {
-  const AnaBaslikTrSer({
-    super.key,
-  });
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueAccent,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const ShowFlagWidget(
-              code: 'TR',
-              text: 'Türkçe',
-              radius: 8,
-            ),
-            const ShowFlagWidget(
-              code: 'RS',
-              text: 'Sırpça',
-              radius: 8,
-            ),
-            IconButton(
-              onPressed: () {
-                print("Sırpça->Türkçe seçildi");
-                Navigator.pushNamed(
-                  context,
-                  AppRoute.home,
-                );
-              },
-              icon: Icon(
-                Icons.swap_horizontal_circle_rounded,
-                color: menuColor,
-                size: 40,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class HomePageTrSer extends StatefulWidget {
-  const HomePageTrSer({super.key});
-
-  @override
-  _HomePageTrSerState createState() => _HomePageTrSerState();
+  _HomePageState createState() => _HomePageState();
 
   static String getVersion() {
-    return _HomePageTrSerState.version;
+    return _HomePageState.version;
   }
 }
 
-class _HomePageTrSerState extends State<HomePageTrSer> {
+class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
   final TextEditingController sirpcaController = TextEditingController();
   final TextEditingController turkceController = TextEditingController();
@@ -91,6 +44,11 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
+  String firstLanguageCode = 'RS'; // İlk dil kodu
+  String firstLanguageText = 'Sırpça'; // İlk dil metni
+  String secondLanguageCode = 'TR'; // İkinci dil kodu
+  String secondLanguageText = 'Türkçe'; // İkinci dil metni
+  String appBarTitle = appBarMainTitleSerTr;
 
   var sayfaListe = [
     const SayfaLatin(),
@@ -212,6 +170,55 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
     );
   }
 
+  Widget buildLanguageSelector({
+    required BuildContext context,
+  }) {
+    return Container(
+      color: Colors.blueAccent,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ShowFlagWidget(
+              code: firstLanguageCode,
+              text: firstLanguageText,
+              radius: 8,
+            ),
+            ShowFlagWidget(
+              code: secondLanguageCode,
+              text: secondLanguageText,
+              radius: 8,
+            ),
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  String tempLanguageCode = firstLanguageCode;
+                  String tempLanguageText = firstLanguageText;
+                  firstLanguageCode = secondLanguageCode;
+                  firstLanguageText = secondLanguageText;
+                  secondLanguageCode = tempLanguageCode;
+                  secondLanguageText = tempLanguageText;
+
+                  if (firstLanguageText == 'Türkçe' && secondLanguageText == 'Sırpça') {
+                    appBarTitle = appBarMainTitleTrSer;
+                  } else if (firstLanguageText == 'Sırpça' && secondLanguageText == 'Türkçe') {
+                    appBarTitle= appBarMainTitleSerTr;
+                  }
+                });
+              },
+              icon: Icon(
+                Icons.swap_horizontal_circle_rounded,
+                color: menuColor,
+                size: 40,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -239,11 +246,13 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
               aramaYapiliyorMu = true;
             });
           },
-          appBarTitle: appBarMainTitleTrSer,
+          appBarTitle: appBarTitle,
         ),
         body: Column(
           children: [
-            const AnaBaslikTrSer(),
+            buildLanguageSelector(
+              context: context,
+            ),
             const SizedBox(height: 5),
             buildStreamBuilderList(),
             const SizedBox(height: 5),
@@ -378,9 +387,9 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -421,3 +430,4 @@ class _HomePageTrSerState extends State<HomePageTrSer> {
     );
   }
 }
+

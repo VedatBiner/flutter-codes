@@ -33,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AppRoute.routes[AppRoute.homeSerTr]!(context),
+                builder: (context) => AppRoute.routes[AppRoute.home]!(context),
               ),
             );
           },

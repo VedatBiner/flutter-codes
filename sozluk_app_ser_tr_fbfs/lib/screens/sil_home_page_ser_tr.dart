@@ -54,7 +54,7 @@ class AnaBaslikSerTr extends StatelessWidget {
                 print("Türkçe->Sırpça seçildi");
                 Navigator.pushNamed(
                   context,
-                  AppRoute.homeTrSer,
+                  AppRoute.home,
                 );
               },
               icon: Icon(

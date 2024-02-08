@@ -203,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                 try {
                   await Navigator.pushNamedAndRemoveUntil(
                     context,
-                    AppRoute.homeSerTr,
+                    AppRoute.home,
                     (route) => false,
                   );
                 } catch (e) {
