@@ -1,4 +1,4 @@
-/// <----- home_page.dart ----->
+/// <----- home_page_ser_tr.dart ----->
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,7 +18,6 @@ import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
-// Bimport '../screens/home_page_parts/ana_baslik_ser_tr.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'home_page_parts/drawer_items.dart';

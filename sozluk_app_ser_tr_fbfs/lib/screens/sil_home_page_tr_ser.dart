@@ -1,4 +1,4 @@
-/// <----- home_page.dart ----->
+/// <----- home_page_tr_ser.dart ----->
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +21,6 @@ import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'details_page_tr_ser.dart';
-// import 'home_page_parts/ana_baslik_tr_ser.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/showflag_widget.dart';
