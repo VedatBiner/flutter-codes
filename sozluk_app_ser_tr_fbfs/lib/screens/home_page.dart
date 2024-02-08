@@ -360,7 +360,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
-              word: word.turkce,
+              word: firstLanguageText == "Türkçe" ? word.turkce : word.sirpca,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText1
                   : cardLightModeText1,
@@ -368,7 +368,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const Divider(color: Colors.black26),
             ExpandedWord(
-              word: word.sirpca,
+              word: secondLanguageText == "Sırpça" ? word.sirpca : word.turkce,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText2
                   : cardLightModeText2,
