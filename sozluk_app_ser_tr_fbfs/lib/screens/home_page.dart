@@ -44,16 +44,12 @@ class _HomePageState extends State<HomePage> {
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
+  /// başlangıç dili Sırpça olacak
   String firstLanguageCode = 'RS'; // İlk dil kodu
   String firstLanguageText = 'Sırpça'; // İlk dil metni
   String secondLanguageCode = 'TR'; // İkinci dil kodu
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSerTr;
-
-  var sayfaListe = [
-    const SayfaLatin(),
-    const SayfaKiril(),
-  ];
 
   @override
   void initState() {
