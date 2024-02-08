@@ -7,8 +7,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../help_pages/sayfa_kiril.dart';
-import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
@@ -44,6 +42,7 @@ class _HomePageState extends State<HomePage> {
   bool aramaYapiliyorMu = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
+
   /// başlangıç dili Sırpça olacak
   String firstLanguageCode = 'RS'; // İlk dil kodu
   String firstLanguageText = 'Sırpça'; // İlk dil metni
@@ -196,10 +195,12 @@ class _HomePageState extends State<HomePage> {
                   secondLanguageCode = tempLanguageCode;
                   secondLanguageText = tempLanguageText;
 
-                  if (firstLanguageText == 'Türkçe' && secondLanguageText == 'Sırpça') {
+                  if (firstLanguageText == 'Türkçe' &&
+                      secondLanguageText == 'Sırpça') {
                     appBarTitle = appBarMainTitleTrSer;
-                  } else if (firstLanguageText == 'Sırpça' && secondLanguageText == 'Türkçe') {
-                    appBarTitle= appBarMainTitleSerTr;
+                  } else if (firstLanguageText == 'Sırpça' &&
+                      secondLanguageText == 'Türkçe') {
+                    appBarTitle = appBarMainTitleSerTr;
                   }
                 });
               },
@@ -265,13 +266,13 @@ class _HomePageState extends State<HomePage> {
 
   /// girilen kelime sayısını gösterme
   StreamBuilderFooter buildStreamBuilderFooter() {
-    return StreamBuilderFooter(firestoreService: firestoreService);
+    return StreamBuilderFooter(firestoreService: firestoreService, firstLanguageText: firstLanguageText,);
   }
 
   /// burada kelime listesi için streamBuilder oluşturuyoruz
   StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilderList() {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestoreService.getWordsStream(),
+      stream: firestoreService.getWordsStream(firstLanguageText),
       builder: (BuildContext context,
           AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -288,6 +289,14 @@ class _HomePageState extends State<HomePage> {
             wordsList.add(gelenKelime);
           }
         }
+        // Dil seçimine göre kelimeleri sırala
+        wordsList.sort((a, b) {
+          if (firstLanguageText == 'Türkçe') {
+            return a.turkce.compareTo(b.turkce);
+          } else {
+            return a.sirpca.compareTo(b.sirpca);
+          }
+        });
         return Expanded(
           child: ListView.builder(
             itemCount: wordsList.length,
@@ -383,9 +392,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -426,4 +435,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-

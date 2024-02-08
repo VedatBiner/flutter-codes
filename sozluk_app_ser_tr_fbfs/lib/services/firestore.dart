@@ -35,13 +35,26 @@ class FirestoreService {
     }
   }
 
-  Stream<QuerySnapshot<Object?>> getWordsStream() {
-    final wordsStream = words
-        .orderBy(
-          "sirpca",
-          descending: false,
-        )
-        .snapshots();
+  /// Orijinaldeki metot
+  // Stream<QuerySnapshot<Object?>> getWordsStream() {
+  //   final wordsStream = words
+  //       .orderBy(
+  //         "sirpca",
+  //         descending: false,
+  //       )
+  //       .snapshots();
+  //   return wordsStream;
+  // }
+
+  Stream<QuerySnapshot<Object?>> getWordsStream(String firstLanguageText) {
+    Query query;
+    if (firstLanguageText == 'Türkçe') {
+      query = words.orderBy("turkce");
+    } else {
+      query = words.orderBy("sirpca");
+    }
+
+    final wordsStream = query.snapshots();
     return wordsStream;
   }
 
@@ -72,29 +85,3 @@ class FirestoreService {
     return await words.doc(docId).get();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

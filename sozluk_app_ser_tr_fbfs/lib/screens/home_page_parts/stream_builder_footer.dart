@@ -8,13 +8,18 @@ import '../../services/firestore.dart';
 
 class StreamBuilderFooter extends StatelessWidget {
   final FirestoreService firestoreService;
+  final String firstLanguageText;
 
-  const StreamBuilderFooter({super.key, required this.firestoreService});
+  const StreamBuilderFooter({
+    super.key,
+    required this.firestoreService,
+    required this.firstLanguageText,
+  });
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestoreService.getWordsStream(),
+      stream: firestoreService.getWordsStream(firstLanguageText),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
