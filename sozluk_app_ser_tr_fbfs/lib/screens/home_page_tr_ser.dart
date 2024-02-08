@@ -10,6 +10,7 @@ import '../constants/app_constants/constants.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
 import '../models/words.dart';
+import '../services/app_routes.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
 import '../screens/details_page_ser_tr.dart';
@@ -20,9 +21,56 @@ import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'details_page_tr_ser.dart';
-import 'home_page_parts/ana_baslik_tr_ser.dart';
+// import 'home_page_parts/ana_baslik_tr_ser.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
+import 'home_page_parts/showflag_widget.dart';
+
+class AnaBaslikTrSer extends StatelessWidget {
+  const AnaBaslikTrSer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blueAccent,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const ShowFlagWidget(
+              code: 'TR',
+              text: 'Türkçe',
+              radius: 8,
+            ),
+            const ShowFlagWidget(
+              code: 'RS',
+              text: 'Sırpça',
+              radius: 8,
+            ),
+            IconButton(
+              onPressed: () {
+                print("Sırpça->Türkçe seçildi");
+                Navigator.pushNamed(
+                  context,
+                  AppRoute.homeSerTr,
+                );
+              },
+              icon: Icon(
+                Icons.swap_horizontal_circle_rounded,
+                color: menuColor,
+                size: 40,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 class HomePageTrSer extends StatefulWidget {
   const HomePageTrSer({super.key});
