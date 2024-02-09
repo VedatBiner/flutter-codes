@@ -72,8 +72,8 @@ TextStyle baslikTextDrawer = TextStyle(
 );
 
 const String drawerTitle = "Yardımcı Bilgiler";
-const String appBarMainTitleSerTr = "Sırpça-Türkçe Sözlük";
-const String appBarMainTitleTrSer = "Türkçe-Sırpça Sözlük";
+const String appBarMainTitleSecond = "Sırpça-Türkçe Sözlük";
+const String appBarMainTitleFirst = "Türkçe-Sırpça Sözlük";
 const String appBarDetailsTitle = "Details Page";
 const String appBarLatinTitle = "Sırpça 'da Latin Harfleri";
 const String appBarKirilTitle = "Sırpça 'da Kiril Harfleri";
@@ -84,6 +84,12 @@ const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 
+/// diller - Burada amaç dil adını sadece
+/// buradan verip, değişimi tek yerden kontrol etmek
+const String birinciDil = "Türkçe";
+const String fsBirinciDil = "turkce";
+const String ikinciDil = "Sırpça";
+const String fsIkinciDil ="sirpca";
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
   {"title": "Alfabe (Kiril)", "page": AppRoute.kiril},

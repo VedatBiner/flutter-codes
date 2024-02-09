@@ -35,8 +35,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FirestoreService firestoreService = FirestoreService();
-  final TextEditingController sirpcaController = TextEditingController();
-  final TextEditingController turkceController = TextEditingController();
+  final TextEditingController ikinciDilController = TextEditingController();
+  final TextEditingController birinciDilController = TextEditingController();
   PackageInfo? packageInfo;
   static String version = "";
   bool aramaYapiliyorMu = false;
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   String firstLanguageText = 'Sırpça'; // İlk dil metni
   String secondLanguageCode = 'TR'; // İkinci dil kodu
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
-  String appBarTitle = appBarMainTitleSerTr;
+  String appBarTitle = appBarMainTitleSecond;
 
   @override
   void initState() {
@@ -75,8 +75,8 @@ class _HomePageState extends State<HomePage> {
     required BuildContext context,
   }) async {
     String action = "create";
-    String sirpca = "";
-    String turkce = "";
+    String secondLang = "";
+    String firstLang = "";
 
     if (docId != null) {
       action = "update";
@@ -84,13 +84,13 @@ class _HomePageState extends State<HomePage> {
       var snapshot = await firestoreService.getWordById(docId);
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
-        sirpca = data["sirpca"];
-        turkce = data["turkce"];
+        secondLang = data[fsIkinciDil];
+        firstLang = data[fsBirinciDil];
       }
     }
 
-    sirpcaController.text = sirpca;
-    turkceController.text = turkce;
+    ikinciDilController.text = secondLang;
+    birinciDilController.text = firstLang;
 
     // showDialog içinde kullanılıyor
     await showDialog(
@@ -110,12 +110,12 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextEntry(
-              controller: turkceController,
-              hintText: "Türkçe kelime giriniz ...",
+              controller: birinciDilController,
+              hintText: "$birinciDil kelime giriniz ...",
             ),
             TextEntry(
-              controller: sirpcaController,
-              hintText: "Sırpça karşılığını giriniz ...",
+              controller: ikinciDilController,
+              hintText: "$ikinciDil karşılığını giriniz ...",
             ),
           ],
         ),
@@ -127,8 +127,8 @@ class _HomePageState extends State<HomePage> {
             onPressed: () async {
               // Sırpça ve Türkçe kelime boş ise eklenmesin
               if (docId == null &&
-                  sirpcaController.text == "" &&
-                  turkceController.text == "") {
+                  ikinciDilController.text == "" &&
+                  birinciDilController.text == "") {
                 MessageHelper.showSnackBar(
                   context,
                   message: "İki kelime satırını da boş ekleyemezsiniz ...",
@@ -136,19 +136,19 @@ class _HomePageState extends State<HomePage> {
               } else if (docId == null) {
                 firestoreService.addWord(
                   context,
-                  sirpcaController.text,
-                  turkceController.text,
+                  ikinciDilController.text,
+                  birinciDilController.text,
                 );
               } else {
                 firestoreService.updateWord(
                   docId,
-                  sirpcaController.text,
-                  turkceController.text,
+                  ikinciDilController.text,
+                  birinciDilController.text,
                 );
               }
 
-              sirpcaController.clear();
-              turkceController.clear();
+              ikinciDilController.clear();
+              birinciDilController.clear();
 
               Navigator.pop(context);
             },
@@ -196,12 +196,12 @@ class _HomePageState extends State<HomePage> {
                   secondLanguageCode = tempLanguageCode;
                   secondLanguageText = tempLanguageText;
 
-                  if (firstLanguageText == 'Türkçe' &&
-                      secondLanguageText == 'Sırpça') {
-                    appBarTitle = appBarMainTitleTrSer;
-                  } else if (firstLanguageText == 'Sırpça' &&
-                      secondLanguageText == 'Türkçe') {
-                    appBarTitle = appBarMainTitleSerTr;
+                  if (firstLanguageText == birinciDil &&
+                      secondLanguageText == ikinciDil) {
+                    appBarTitle = appBarMainTitleFirst;
+                  } else if (firstLanguageText == ikinciDil &&
+                      secondLanguageText == birinciDil) {
+                    appBarTitle = appBarMainTitleSecond;
                   }
                 });
               },
@@ -373,7 +373,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExpandedWord(
-              word: firstLanguageText == "Türkçe" ? word.turkce : word.sirpca,
+              word: firstLanguageText == birinciDil ? word.turkce : word.sirpca,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText1
                   : cardLightModeText1,
@@ -381,7 +381,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const Divider(color: Colors.black26),
             ExpandedWord(
-              word: secondLanguageText == "Sırpça" ? word.sirpca : word.turkce,
+              word: secondLanguageText == ikinciDil ? word.sirpca : word.turkce,
               color: themeProvider.isDarkMode
                   ? cardDarkModeText2
                   : cardLightModeText2,

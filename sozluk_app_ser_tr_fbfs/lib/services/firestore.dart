@@ -4,20 +4,21 @@ library;
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
 class FirestoreService {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
-      BuildContext context, String sirpca, String turkce) async {
-    var result = await words.where("sirpca", isEqualTo: sirpca).get();
+      BuildContext context, String ikinciDil, String birinciDil) async {
+    var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
 
     if (result.docs.isEmpty) {
       try {
         await words.add({
-          "sirpca": sirpca,
-          "turkce": turkce,
+          fsIkinciDil: ikinciDil,
+          fsBirinciDil: birinciDil,
         });
       } catch (e) {
         print("Error adding word: $e");
@@ -38,10 +39,10 @@ class FirestoreService {
   /// Alfabetik sıralama için kullanılan servis metodu
   Stream<QuerySnapshot<Object?>> getWordsStream(String firstLanguageText) {
     Query query;
-    if (firstLanguageText == 'Türkçe') {
-      query = words.orderBy("turkce");
+    if (firstLanguageText == birinciDil) {
+      query = words.orderBy(fsBirinciDil);
     } else {
-      query = words.orderBy("sirpca");
+      query = words.orderBy(fsIkinciDil);
     }
 
     final wordsStream = query.snapshots();
@@ -50,13 +51,13 @@ class FirestoreService {
 
   Future<void> updateWord(
     String docId,
-    String sirpcaKelime,
-    String turkceKelime,
+    String ikinciDilKelime,
+    String birinciDilKelime,
   ) async {
     try {
       await words.doc(docId).update({
-        "sirpca": sirpcaKelime,
-        "turkce": turkceKelime,
+        fsIkinciDil: ikinciDilKelime,
+        fsBirinciDil: birinciDilKelime,
       });
     } catch (e) {
       print("Error updating word: $e");
