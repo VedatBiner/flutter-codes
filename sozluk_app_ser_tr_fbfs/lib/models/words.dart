@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../constants/app_constants/constants.dart';
+
 /// <----- words.dart ----->
 class Words {
   String wordId;
@@ -19,8 +21,8 @@ class Words {
   ) {
     return Words(
       key,
-      json["sirpca"] as String,
-      json["turkce"] as String,
+      json[fsIkinciDil] as String,
+      json[fsBirinciDil] as String,
     );
   }
 
@@ -29,8 +31,8 @@ class Words {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     return Words(
       snapshot.id,
-      data["sirpca"] as String,
-      data["turkce"] as String,
+      data[fsIkinciDil] as String,
+      data[fsBirinciDil] as String,
     );
   }
 }

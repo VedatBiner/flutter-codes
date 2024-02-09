@@ -80,7 +80,8 @@ class _HomePageState extends State<HomePage> {
 
     if (docId != null) {
       action = "update";
-      // Fetch the document data from Firestore
+
+      /// Fetch the document data from Firestore
       var snapshot = await firestoreService.getWordById(docId);
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
@@ -293,6 +294,7 @@ class _HomePageState extends State<HomePage> {
             wordsList.add(gelenKelime);
           }
         }
+
         /// Dil seçimine göre kelimeleri sırala
         wordsList.sort((a, b) {
           if (firstLanguageText == 'Türkçe') {
@@ -409,7 +411,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Burada silme butonu için metot oluşturduk
-  IconButton kelimeSil(BuildContext context, Words word) {
+  IconButton kelimeSil(
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -418,6 +423,8 @@ class _HomePageState extends State<HomePage> {
             return DeleteWord(
               word: word,
               firestoreService: firestoreService,
+              firstLanguageText: birinciDil,
+              secondLanguageText: ikinciDil,
             );
           },
         );

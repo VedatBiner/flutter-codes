@@ -3,6 +3,7 @@ library;
 
 import 'package:flutter/material.dart';
 
+import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
 import '../services/firestore.dart';
 
@@ -11,10 +12,14 @@ class DeleteWord extends StatelessWidget {
     super.key,
     required this.word,
     required this.firestoreService,
+    required this.firstLanguageText,
+    required this.secondLanguageText,
   });
 
   final Words word;
   final FirestoreService firestoreService;
+  final String firstLanguageText;
+  final String secondLanguageText;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +45,7 @@ class DeleteWord extends StatelessWidget {
         children: [
           const Text("Bu kelime "),
           Text(
-            "(${word.sirpca})",
+            firstLanguageText == birinciDil ? word.turkce : word.sirpca,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.blueAccent,
