@@ -186,6 +186,7 @@ class _HomePageState extends State<HomePage> {
               radius: 8,
             ),
             IconButton(
+              /// Dile değişimlerini burada yapıyoruz.
               onPressed: () {
                 setState(() {
                   String tempLanguageCode = firstLanguageCode;
@@ -266,7 +267,10 @@ class _HomePageState extends State<HomePage> {
 
   /// girilen kelime sayısını gösterme
   StreamBuilderFooter buildStreamBuilderFooter() {
-    return StreamBuilderFooter(firestoreService: firestoreService, firstLanguageText: firstLanguageText,);
+    return StreamBuilderFooter(
+      firestoreService: firestoreService,
+      firstLanguageText: firstLanguageText,
+    );
   }
 
   /// burada kelime listesi için streamBuilder oluşturuyoruz
@@ -289,7 +293,7 @@ class _HomePageState extends State<HomePage> {
             wordsList.add(gelenKelime);
           }
         }
-        // Dil seçimine göre kelimeleri sırala
+        /// Dil seçimine göre kelimeleri sırala
         wordsList.sort((a, b) {
           if (firstLanguageText == 'Türkçe') {
             return a.turkce.compareTo(b.turkce);

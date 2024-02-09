@@ -35,17 +35,7 @@ class FirestoreService {
     }
   }
 
-  /// Orijinaldeki metot
-  // Stream<QuerySnapshot<Object?>> getWordsStream() {
-  //   final wordsStream = words
-  //       .orderBy(
-  //         "sirpca",
-  //         descending: false,
-  //       )
-  //       .snapshots();
-  //   return wordsStream;
-  // }
-
+  /// Alfabetik sıralama için kullanılan servis metodu
   Stream<QuerySnapshot<Object?>> getWordsStream(String firstLanguageText) {
     Query query;
     if (firstLanguageText == 'Türkçe') {
