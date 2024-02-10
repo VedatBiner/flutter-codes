@@ -1,4 +1,4 @@
-/// <----- details_page_tr_ser.dart ----->
+/// <----- details_page_ser_tr.dart ----->
 library;
 
 import 'package:flutter/material.dart';
@@ -12,22 +12,22 @@ import '../screens/details_page_parts/button_helper.dart';
 import '../services/theme_provider.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
-import 'details_page_parts/details_card_tr_ser.dart';
+import 'details_page_parts/sil_details_card_ser_tr.dart';
 import 'home_page_parts/drawer_items.dart';
 
-class DetailsPageTrSer extends StatefulWidget {
+class DetailsPageSerTr extends StatefulWidget {
   Words word;
 
-  DetailsPageTrSer({
+  DetailsPageSerTr({
     super.key,
     required this.word,
   });
 
   @override
-  State<DetailsPageTrSer> createState() => _DetailsPageStateTrSer();
+  State<DetailsPageSerTr> createState() => _DetailsPageSerTrState();
 }
 
-class _DetailsPageStateTrSer extends State<DetailsPageTrSer> {
+class _DetailsPageSerTrState extends State<DetailsPageSerTr> {
   final CollectionReference words =
   FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
@@ -49,7 +49,7 @@ class _DetailsPageStateTrSer extends State<DetailsPageTrSer> {
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
-      final querySnapshot = await words.orderBy("turkce").get()
+      final querySnapshot = await words.orderBy("sirpca").get()
       as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
       setState(() {
         _querySnapshot = querySnapshot;
@@ -150,7 +150,7 @@ class _DetailsPageStateTrSer extends State<DetailsPageTrSer> {
         },
       ),
       items: _querySnapshot?.docs.map((doc) {
-        return DetailsCardTrSer(
+        return DetailsCardSerTr(
           word: widget.word,
           themeProvider: themeProvider,
         );

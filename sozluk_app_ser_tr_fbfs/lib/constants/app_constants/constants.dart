@@ -88,8 +88,10 @@ const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller
 /// buradan verip, değişimi tek yerden kontrol etmek
 const String birinciDil = "Türkçe";
 const String fsBirinciDil = "turkce";
+const String firstCountry = "TR";
 const String ikinciDil = "Sırpça";
 const String fsIkinciDil ="sirpca";
+const secondCountry = "RS";
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
   {"title": "Alfabe (Kiril)", "page": AppRoute.kiril},
