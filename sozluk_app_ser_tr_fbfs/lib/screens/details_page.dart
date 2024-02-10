@@ -16,7 +16,7 @@ import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  late final Words word;
+  Words word;
 
   DetailsPage({
     super.key,
@@ -49,8 +49,8 @@ class _DetailsPageSerTrState extends State<DetailsPage> {
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
-      final querySnapshot = await words.orderBy(fsIkinciDil).get()
-      as QuerySnapshot<Map<String, dynamic>>;
+      final querySnapshot = await words.orderBy("sirpca").get()
+      as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
       setState(() {
         _querySnapshot = querySnapshot;
         _currentIndex = _querySnapshot!.docs.indexWhere(

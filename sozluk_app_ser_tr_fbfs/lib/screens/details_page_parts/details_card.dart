@@ -37,13 +37,13 @@ class DetailsCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               buildFlagRow(
-                secondCountry,
+                'RS',
                 word.sirpca,
                 detailTextRed,
               ),
               const SizedBox(height: 40),
               buildFlagRow(
-                firstCountry,
+                'TR',
                 word.turkce,
                 detailTextBlue,
               ),
