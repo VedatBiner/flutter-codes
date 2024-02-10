@@ -10,7 +10,6 @@ import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
-import '../screens/sil_details_page_ser_tr.dart';
 import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
@@ -18,7 +17,6 @@ import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
 import 'details_page.dart';
-import 'sil_details_page_tr_ser.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/showflag_widget.dart';
@@ -331,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailsPageTrSer(
+                        builder: (context) => DetailsPage(
                           word: wordsList[index],
                         ),
                       ),
