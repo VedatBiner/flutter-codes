@@ -110,14 +110,30 @@ class _HomePageState extends State<HomePage> {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            TextEntry(
-              controller: birinciDilController,
-              hintText: "$birinciDil kelime giriniz ...",
-            ),
-            TextEntry(
-              controller: ikinciDilController,
-              hintText: "$ikinciDil karşılığını giriniz ...",
-            ),
+            /// Seçilen dil birinci dil ise
+            /// seçilen dil üstte yazılır
+            if (firstLanguageText == birinciDil)
+              TextEntry(
+                controller: birinciDilController,
+                hintText: "$birinciDil kelime giriniz ...",
+              ),
+            if (secondLanguageText == ikinciDil)
+              TextEntry(
+                controller: ikinciDilController,
+                hintText: "$ikinciDil karşılığını giriniz ...",
+              ),
+            /// Seçilen dil ikinci dil ise
+            /// seçilen dil üstte yazılır.
+            if (firstLanguageText == ikinciDil)
+              TextEntry(
+                controller: ikinciDilController,
+                hintText: "$ikinciDil karşılığını giriniz ...",
+              ),
+            if (secondLanguageText == birinciDil)
+              TextEntry(
+                controller: birinciDilController,
+                hintText: "$birinciDil kelime giriniz ...",
+              ),
           ],
         ),
         actions: [
@@ -126,7 +142,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.indigoAccent,
             ),
             onPressed: () async {
-              // Sırpça ve Türkçe kelime boş ise eklenmesin
+              /// iki dil satırıda kelime boş ise eklenmesin
               if (docId == null &&
                   ikinciDilController.text == "" &&
                   birinciDilController.text == "") {
