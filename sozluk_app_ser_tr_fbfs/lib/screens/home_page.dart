@@ -423,8 +423,12 @@ class _HomePageState extends State<HomePage> {
             return DeleteWord(
               word: word,
               firestoreService: firestoreService,
-              firstLanguageText: birinciDil,
-              secondLanguageText: ikinciDil,
+              /// Burada dil seçimine göre
+              /// silinecek kelime bilgisini oluşturuyoruz
+              firstLanguageText:
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+              secondLanguageText:
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
