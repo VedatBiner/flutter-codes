@@ -121,6 +121,7 @@ class _HomePageState extends State<HomePage> {
                 controller: ikinciDilController,
                 hintText: "$ikinciDil karşılığını giriniz ...",
               ),
+
             /// Seçilen dil ikinci dil ise
             /// seçilen dil üstte yazılır.
             if (firstLanguageText == ikinciDil)
@@ -247,6 +248,10 @@ class _HomePageState extends State<HomePage> {
           onAramaKelimesiChanged: (aramaSonucu) {
             setState(() {
               aramaKelimesi = aramaSonucu;
+              if (aramaKelimesi.isNotEmpty) {
+                aramaKelimesi =
+                    aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+              }
             });
           },
           onCancelPressed: () {
@@ -413,9 +418,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -427,9 +432,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -438,12 +443,13 @@ class _HomePageState extends State<HomePage> {
             return DeleteWord(
               word: word,
               firestoreService: firestoreService,
+
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
