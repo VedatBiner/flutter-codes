@@ -313,6 +313,9 @@ class _HomePageState extends State<HomePage> {
           if (!aramaYapiliyorMu || gelenKelime.turkce.contains(aramaKelimesi)) {
             wordsList.add(gelenKelime);
           }
+          if (!aramaYapiliyorMu || gelenKelime.sirpca.contains(aramaKelimesi)) {
+            wordsList.add(gelenKelime);
+          }
         }
 
         /// Dil seçimine göre kelimeleri sırala
@@ -418,9 +421,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -432,9 +435,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-    BuildContext context,
-    Words word,
-  ) {
+      BuildContext context,
+      Words word,
+      ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -447,9 +450,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
