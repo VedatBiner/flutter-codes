@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
               radius: 8,
             ),
             IconButton(
-              /// Dile değişimlerini burada yapıyoruz.
+              /// Dil değişimlerini burada yapıyoruz.
               onPressed: () {
                 setState(() {
                   String tempLanguageCode = firstLanguageCode;
@@ -315,17 +315,19 @@ class _HomePageState extends State<HomePage> {
         for (var document in snapshot.data!.docs) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           var gelenKelime = Words.fromJson(document.id, data);
-          if (!aramaYapiliyorMu || gelenKelime.turkce.contains(aramaKelimesi)) {
-            wordsList.add(gelenKelime);
-          }
-          if (!aramaYapiliyorMu || gelenKelime.sirpca.contains(aramaKelimesi)) {
+          /// Burada arama kutusuna yazılan kelimenin diline
+          /// göre listelenme yapılması sağlanıyor.
+          if (!aramaYapiliyorMu ||
+              gelenKelime.turkce.contains(aramaKelimesi) ||
+              gelenKelime.sirpca.contains(aramaKelimesi)
+          ) {
             wordsList.add(gelenKelime);
           }
         }
 
         /// Dil seçimine göre kelimeleri sırala
         wordsList.sort((a, b) {
-          if (firstLanguageText == 'Türkçe') {
+          if (firstLanguageText == birinciDil) {
             return a.turkce.compareTo(b.turkce);
           } else {
             return a.sirpca.compareTo(b.sirpca);
