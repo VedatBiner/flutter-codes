@@ -126,12 +126,12 @@ class _HomePageState extends State<HomePage> {
             if (firstLanguageText == ikinciDil)
               TextEntry(
                 controller: ikinciDilController,
-                hintText: "$ikinciDil karşılığını giriniz ...",
+                hintText: "$ikinciDil kelime giriniz ...",
               ),
             if (secondLanguageText == birinciDil)
               TextEntry(
                 controller: birinciDilController,
-                hintText: "$birinciDil kelime giriniz ...",
+                hintText: "$birinciDil karşılığını giriniz ...",
               ),
           ],
         ),
