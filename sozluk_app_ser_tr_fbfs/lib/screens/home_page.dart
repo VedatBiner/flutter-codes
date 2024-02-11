@@ -242,31 +242,7 @@ class _HomePageState extends State<HomePage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: HomeCustomAppBar(
-          aramaYapiliyorMu: aramaYapiliyorMu,
-          aramaKelimesi: aramaKelimesi,
-          onAramaKelimesiChanged: (aramaSonucu) {
-            setState(() {
-              aramaKelimesi = aramaSonucu;
-              if (aramaKelimesi.isNotEmpty) {
-                aramaKelimesi =
-                    aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
-              }
-            });
-          },
-          onCancelPressed: () {
-            setState(() {
-              aramaYapiliyorMu = false;
-              aramaKelimesi = "";
-            });
-          },
-          onSearchPressed: () {
-            setState(() {
-              aramaYapiliyorMu = true;
-            });
-          },
-          appBarTitle: appBarTitle,
-        ),
+        appBar: buildHomeCustomAppBar(),
         body: Column(
           children: [
             buildLanguageSelector(
@@ -283,6 +259,35 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => openWordBox(context: context),
         ),
       ),
+    );
+  }
+
+  /// AppBar burada değişiyor
+  HomeCustomAppBar buildHomeCustomAppBar() {
+    return HomeCustomAppBar(
+      aramaYapiliyorMu: aramaYapiliyorMu,
+      aramaKelimesi: aramaKelimesi,
+      onAramaKelimesiChanged: (aramaSonucu) {
+        setState(() {
+          aramaKelimesi = aramaSonucu;
+          if (aramaKelimesi.isNotEmpty) {
+            aramaKelimesi =
+                aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+          }
+        });
+      },
+      onCancelPressed: () {
+        setState(() {
+          aramaYapiliyorMu = false;
+          aramaKelimesi = "";
+        });
+      },
+      onSearchPressed: () {
+        setState(() {
+          aramaYapiliyorMu = true;
+        });
+      },
+      appBarTitle: appBarTitle,
     );
   }
 
@@ -421,9 +426,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -435,9 +440,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -450,9 +455,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
