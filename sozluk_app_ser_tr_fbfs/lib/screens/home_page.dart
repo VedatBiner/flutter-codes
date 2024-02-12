@@ -203,7 +203,17 @@ class _HomePageState extends State<HomePage> {
               radius: 8,
             ),
             IconButton(
+              tooltip: "Liste görünümü",
+              onPressed: () {},
+              icon: Icon(
+                Icons.list,
+                size: 40,
+                color: menuColor,
+              ),
+            ),
+            IconButton(
               /// Dil değişimlerini burada yapıyoruz.
+              tooltip: "Dil değiştir",
               onPressed: () {
                 setState(() {
                   String tempLanguageCode = firstLanguageCode;
@@ -315,12 +325,12 @@ class _HomePageState extends State<HomePage> {
         for (var document in snapshot.data!.docs) {
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           var gelenKelime = Words.fromJson(document.id, data);
+
           /// Burada arama kutusuna yazılan kelimenin diline
           /// göre listelenme yapılması sağlanıyor.
           if (!aramaYapiliyorMu ||
               gelenKelime.turkce.contains(aramaKelimesi) ||
-              gelenKelime.sirpca.contains(aramaKelimesi)
-          ) {
+              gelenKelime.sirpca.contains(aramaKelimesi)) {
             wordsList.add(gelenKelime);
           }
         }
