@@ -8,7 +8,7 @@ import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
 class FirestoreService {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
       BuildContext context, String ikinciDil, String birinciDil) async {
@@ -50,10 +50,10 @@ class FirestoreService {
   }
 
   Future<void> updateWord(
-    String docId,
-    String ikinciDilKelime,
-    String birinciDilKelime,
-  ) async {
+      String docId,
+      String ikinciDilKelime,
+      String birinciDilKelime,
+      ) async {
     try {
       await words.doc(docId).update({
         fsIkinciDil: ikinciDilKelime,

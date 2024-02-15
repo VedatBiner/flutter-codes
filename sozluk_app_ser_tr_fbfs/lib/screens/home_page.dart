@@ -262,7 +262,7 @@ class _HomePageState extends State<HomePage> {
               kBottomNavigationBarHeight,
           child: ListView.builder(
 
-              /// Toplam iki öğe göstereceğiz: dil seçici ve veri listesi
+            /// Toplam iki öğe göstereceğiz: dil seçici ve veri listesi
               itemCount: 2,
               itemBuilder: (context, index) {
                 if (index == 0) {
@@ -447,9 +447,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -461,9 +461,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-    BuildContext context,
-    Words word,
-  ) {
+      BuildContext context,
+      Words word,
+      ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -476,9 +476,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
