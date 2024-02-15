@@ -256,21 +256,24 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height -
-              kToolbarHeight -
-              kBottomNavigationBarHeight,
-          child: ListView.builder(
-
-            /// Toplam iki öğe göstereceğiz: dil seçici ve veri listesi
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return buildLanguageSelector(context: context);
-                } else {
-                  return buildStreamBuilderList();
-                }
-              }),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.09,
+              child: buildLanguageSelector(context: context),
+            ),
+            const SizedBox(height: 2),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.75,
+              child: buildStreamBuilderList(),
+            ),
+            const SizedBox(height: 2),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.03,
+              child: buildStreamBuilderFooter(context),
+            ),
+          ],
         ),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(
@@ -310,7 +313,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// girilen kelime sayısını gösterme
-  StreamBuilderFooter buildStreamBuilderFooter() {
+  Widget buildStreamBuilderFooter(BuildContext context) {
     return StreamBuilderFooter(
       firestoreService: firestoreService,
       firstLanguageText: firstLanguageText,
@@ -444,9 +447,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -458,9 +461,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -473,9 +476,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );

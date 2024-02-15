@@ -3,7 +3,6 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../services/firestore.dart';
 
 class StreamBuilderFooter extends StatelessWidget {
@@ -22,7 +21,9 @@ class StreamBuilderFooter extends StatelessWidget {
       stream: firestoreService.getWordsStream(firstLanguageText),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
