@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import 'package:sozluk_app_ser_tr_fbfs/services/buton_provider.dart';
-
 import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
-// import '../services/buton_provider.dart';
+import '../services/buton_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
 import '../utils/mesaj_helper.dart';
@@ -208,9 +206,7 @@ class _HomePageState extends State<HomePage> {
             Consumer<IconProvider>(builder: (context, iconProvider, _) {
               return IconButton(
                 icon: Icon(
-                  iconProvider.isIconChanged
-                      ? Icons.credit_card
-                      : Icons.list,
+                  iconProvider.isIconChanged ? Icons.credit_card : Icons.list,
                   size: 40,
                   color: menuColor,
                 ),
@@ -251,7 +247,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -262,28 +257,20 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
         body: SizedBox(
-          height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight,
+          height: MediaQuery.of(context).size.height -
+              kToolbarHeight -
+              kBottomNavigationBarHeight,
           child: ListView.builder(
-              itemCount: 3,
+
+              /// Toplam iki öğe göstereceğiz: dil seçici ve veri listesi
+              itemCount: 2,
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return buildLanguageSelector(
-                    context: context,
-                  );
-                } else if (index == 1) {
-                  return const SizedBox(height: 5);
-                } else if (index == 2) {
-                  return buildStreamBuilderList();
-                } else if (index == 3) {
-                  return buildStreamBuilderFooter();
+                  return buildLanguageSelector(context: context);
                 } else {
-                  return Container();
+                  return buildStreamBuilderList();
                 }
-              }
-
-              // const SizedBox(height: 5),
-
-              ),
+              }),
         ),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(
@@ -337,7 +324,9 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context,
           AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
