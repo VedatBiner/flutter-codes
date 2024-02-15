@@ -357,23 +357,20 @@ class _HomePageState extends State<HomePage> {
           shrinkWrap: true,
           itemCount: wordsList.length,
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailsPage(
-                        word: wordsList[index],
-                      ),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsPage(
+                      word: wordsList[index],
                     ),
-                  );
-                },
-                child: SizedBox(
-                  height: 100,
-                  child: buildCard(wordsList[index], context),
-                ),
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: 100,
+                child: buildCard(wordsList[index], context),
               ),
             );
           },
@@ -418,8 +415,8 @@ class _HomePageState extends State<HomePage> {
       ),
       shadowColor: Colors.blue[200],
       color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-      // Colors.grey[200],
       child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
