@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import 'package:sozluk_app_ser_tr_fbfs/services/buton_provider.dart';
+
 import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
+// import '../services/buton_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
 import '../utils/mesaj_helper.dart';
@@ -202,17 +205,21 @@ class _HomePageState extends State<HomePage> {
               text: secondLanguageText,
               radius: 8,
             ),
+            Consumer<IconProvider>(builder: (context, iconProvider, _) {
+              return IconButton(
+                icon: Icon(
+                  iconProvider.isIconChanged
+                      ? Icons.credit_card
+                      : Icons.list,
+                  size: 40,
+                  color: menuColor,
+                ),
+                onPressed: () {
+                  iconProvider.changeIcon();
+                },
+              );
+            }),
             IconButton(
-              tooltip: "Liste görünümü",
-              onPressed: () {},
-              icon: Icon(
-                Icons.list,
-                size: 40,
-                color: menuColor,
-              ),
-            ),
-            IconButton(
-              /// Dil değişimlerini burada yapıyoruz.
               tooltip: "Dil değiştir",
               onPressed: () {
                 setState(() {
@@ -244,6 +251,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -253,16 +261,29 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
-        body: Column(
-          children: [
-            buildLanguageSelector(
-              context: context,
-            ),
-            const SizedBox(height: 5),
-            buildStreamBuilderList(),
-            const SizedBox(height: 5),
-            buildStreamBuilderFooter(),
-          ],
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight,
+          child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return buildLanguageSelector(
+                    context: context,
+                  );
+                } else if (index == 1) {
+                  return const SizedBox(height: 5);
+                } else if (index == 2) {
+                  return buildStreamBuilderList();
+                } else if (index == 3) {
+                  return buildStreamBuilderFooter();
+                } else {
+                  return Container();
+                }
+              }
+
+              // const SizedBox(height: 5),
+
+              ),
         ),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(
@@ -343,31 +364,30 @@ class _HomePageState extends State<HomePage> {
             return a.sirpca.compareTo(b.sirpca);
           }
         });
-        return Expanded(
-          child: ListView.builder(
-            itemCount: wordsList.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailsPage(
-                          word: wordsList[index],
-                        ),
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: wordsList.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsPage(
+                        word: wordsList[index],
                       ),
-                    );
-                  },
-                  child: SizedBox(
-                    height: 100,
-                    child: buildCard(wordsList[index], context),
-                  ),
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  height: 100,
+                  child: buildCard(wordsList[index], context),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );

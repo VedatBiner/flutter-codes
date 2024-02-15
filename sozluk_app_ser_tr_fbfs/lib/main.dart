@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:sozluk_app_ser_tr_fbfs/services/buton_provider.dart';
 
 import 'services/theme_provider.dart';
 import 'services/app_routes.dart';
@@ -16,7 +17,22 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        /// theme Provider
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
+
+        /// icon provider
+        ChangeNotifierProvider(
+          create: (context) => IconProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
