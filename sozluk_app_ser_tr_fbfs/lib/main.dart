@@ -4,8 +4,8 @@ library;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:sozluk_app_ser_tr_fbfs/services/buton_provider.dart';
 
+import 'services/buton_provider.dart';
 import 'services/theme_provider.dart';
 import 'services/app_routes.dart';
 import '../firebase_options.dart';

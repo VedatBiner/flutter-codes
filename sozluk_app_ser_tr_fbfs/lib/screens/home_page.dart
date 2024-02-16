@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.indigoAccent,
             ),
             onPressed: () async {
-              /// iki dil satırıda kelime boş ise eklenmesin
+              /// iki dil satırı da kelime boş ise eklenmesin
               if (docId == null &&
                   ikinciDilController.text == "" &&
                   birinciDilController.text == "") {
@@ -165,6 +165,7 @@ class _HomePageState extends State<HomePage> {
                 );
               }
 
+              /// Controller içeriklerini temizliyoruz
               ikinciDilController.clear();
               birinciDilController.clear();
 
@@ -205,6 +206,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Consumer<IconProvider>(builder: (context, iconProvider, _) {
               return IconButton(
+                tooltip: "Görünümü değiştir",
                 icon: Icon(
                   iconProvider.isIconChanged ? Icons.credit_card : Icons.list,
                   size: 40,
@@ -503,5 +505,4 @@ class _HomePageState extends State<HomePage> {
       tooltip: "kelime düzelt",
     );
   }
-
 }
