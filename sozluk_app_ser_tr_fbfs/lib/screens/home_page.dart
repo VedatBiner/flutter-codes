@@ -212,6 +212,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onPressed: () {
                   iconProvider.changeIcon();
+                  // const WordListPage(wordsList: ,);
                 },
               );
             }),
@@ -260,16 +261,19 @@ class _HomePageState extends State<HomePage> {
           shrinkWrap: true,
           children: [
             SizedBox(
+              /// Dil seçimine göre sayfa başlığı
               height: MediaQuery.of(context).size.height * 0.09,
               child: buildLanguageSelector(context: context),
             ),
             const SizedBox(height: 2),
             SizedBox(
+              /// Dil seçimine göre kelime kartları
               height: MediaQuery.of(context).size.height * 0.75,
               child: buildStreamBuilderList(),
             ),
             const SizedBox(height: 2),
             SizedBox(
+              /// toplam girilen kelime sayısı
               height: MediaQuery.of(context).size.height * 0.03,
               child: buildStreamBuilderFooter(context),
             ),
@@ -499,4 +503,5 @@ class _HomePageState extends State<HomePage> {
       tooltip: "kelime düzelt",
     );
   }
+
 }
