@@ -259,35 +259,40 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
-        body: Column(
-          children: [
-            /// burada sayfa başlığı ve
-            /// dil değişimi, görünüm ayarı var
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
-              child: buildLanguageSelector(context: context),
-            ),
-
-            /// Burada kelimeler listeleniyor
-            Expanded(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.89,
-                child: buildStreamBuilderList(),
-              ),
-            ),
-
-            /// Burada toplma kelime sayısı veriliyor
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.03,
-              child: buildStreamBuilderFooter(context),
-            ),
-          ],
-        ),
+        body: showBody(context),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(
           onPressed: () => openWordBox(context: context),
         ),
       ),
+    );
+  }
+
+  /// Sayfa düzeni burada oluşuyor.
+  Column showBody(BuildContext context) {
+    return Column(
+      children: [
+        /// burada sayfa başlığı ve
+        /// dil değişimi, görünüm ayarı var
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.08,
+          child: buildLanguageSelector(context: context),
+        ),
+
+        /// Burada kelimeler listeleniyor
+        Expanded(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.89,
+            child: buildStreamBuilderList(),
+          ),
+        ),
+
+        /// Burada toplam kelime sayısı veriliyor
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.03,
+          child: buildStreamBuilderFooter(context),
+        ),
+      ],
     );
   }
 
@@ -409,7 +414,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             },
+
+            /// Card Görünümü için
             child: buildCard(word, context),
+            /// Liste Görünümü için
+
           ),
         );
       },
