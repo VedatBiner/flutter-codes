@@ -259,23 +259,25 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
-        body: ListView(
-          shrinkWrap: true,
+        body: Column(
           children: [
+            /// burada sayfa başlığı ve
+            /// dil değişimi, görünüm ayarı var
             SizedBox(
-              /// Dil seçimine göre sayfa başlığı
-              height: MediaQuery.of(context).size.height * 0.09,
+              height: MediaQuery.of(context).size.height * 0.08,
               child: buildLanguageSelector(context: context),
             ),
-            const SizedBox(height: 2),
-            SizedBox(
-              /// Dil seçimine göre kelime kartları
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: buildStreamBuilderList(),
+
+            /// Burada kelimeler listeleniyor
+            Expanded(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.89,
+                child: buildStreamBuilderList(),
+              ),
             ),
-            const SizedBox(height: 2),
+
+            /// Burada toplma kelime sayısı veriliyor
             SizedBox(
-              /// toplam girilen kelime sayısı
               height: MediaQuery.of(context).size.height * 0.03,
               child: buildStreamBuilderFooter(context),
             ),
