@@ -21,6 +21,18 @@ TextStyle glutenFontText = TextStyle(
   color: Colors.white,
 );
 
+const listTextRed =TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 16,
+  color: Colors.red,
+);
+
+const listTextBlue =TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+  color: Colors.blue,
+);
+
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 32,

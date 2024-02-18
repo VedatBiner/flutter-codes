@@ -16,45 +16,42 @@ import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  Words word;
-
-  DetailsPage({
-    super.key,
-    required this.word,
-  });
+  const DetailsPage({Key? key});
 
   @override
-  State<DetailsPage> createState() => _DetailsPageSerTrState();
+  State<DetailsPage> createState() => _DetailsPageState();
 }
 
-class _DetailsPageSerTrState extends State<DetailsPage> {
+class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
+      FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late int _currentIndex;
   late ThemeProvider themeProvider;
+  late Words word;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     themeProvider = Provider.of<ThemeProvider>(context);
+    word = ModalRoute.of(context)!.settings.arguments as Words;
+    _loadWordList();
   }
 
   @override
   void initState() {
     super.initState();
-    _loadWordList();
   }
 
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
       final querySnapshot = await words.orderBy("sirpca").get()
-      as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
+          as QuerySnapshot<Map<String, dynamic>>; // Değişiklik burada
       setState(() {
         _querySnapshot = querySnapshot;
         _currentIndex = _querySnapshot!.docs.indexWhere(
-              (doc) => doc.id == widget.word.wordId,
+          (doc) => doc.id == word.wordId,
         );
       });
     } catch (e) {
@@ -99,8 +96,8 @@ class _DetailsPageSerTrState extends State<DetailsPage> {
   Future<void> _updateCurrentWord() async {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
-      _querySnapshot!.docs[_currentIndex];
-      widget.word = Words.fromFirestore(currentDocumentSnapshot);
+          _querySnapshot!.docs[_currentIndex];
+      word = Words.fromFirestore(currentDocumentSnapshot);
     });
   }
 
@@ -127,10 +124,7 @@ class _DetailsPageSerTrState extends State<DetailsPage> {
   CarouselSlider buildCarouselSlider(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height * 0.65,
+        height: MediaQuery.of(context).size.height * 0.65,
         aspectRatio: 16 / 9,
         enlargeCenterPage: true,
         autoPlay: false, // Otomatik oynatma kapalı
@@ -151,7 +145,7 @@ class _DetailsPageSerTrState extends State<DetailsPage> {
       ),
       items: _querySnapshot?.docs.map((doc) {
         return DetailsCard(
-          word: widget.word,
+          word: word,
           themeProvider: themeProvider,
         );
       }).toList(),

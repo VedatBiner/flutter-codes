@@ -2,12 +2,14 @@
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../models/words.dart';
+import '../services/app_routes.dart';
 import '../services/buton_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
@@ -282,6 +284,7 @@ class _HomePageState extends State<HomePage> {
         /// Burada kelimeler listeleniyor
         Expanded(
           child: SizedBox(
+            /// Card / Liste görünümü için boyutlar
             height: MediaQuery.of(context).size.height * 0.89,
             child: buildStreamBuilderList(),
           ),
@@ -369,25 +372,58 @@ class _HomePageState extends State<HomePage> {
             return a.sirpca.compareTo(b.sirpca);
           }
         });
+
+        /// liste görünümü
+        // return buildListView(wordsList);
+
+        /// Card görünümü
         return ListView.builder(
           shrinkWrap: true,
           itemCount: wordsList.length,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailsPage(
-                      word: wordsList[index],
-                    ),
-                  ),
-                );
-              },
-              child: SizedBox(
-                height: 100,
-                child: buildCard(wordsList[index], context),
+            /// Her bir öğe için buildCard metodunu
+            /// çağırıp, index 'i geçirelim
+            return buildCard(wordsList[index], context);
+          },
+        );
+      },
+    );
+  }
+
+  /// Kelime listesi görünümü burada oluşturuluyor
+  ListView buildListView(List<Words> wordsList) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.grey,
+        height: 1,
+      ),
+      shrinkWrap: true,
+      itemCount: wordsList.length,
+      itemBuilder: (context, index) {
+        Words word = wordsList[index];
+        return ListTile(
+          title: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  firstLanguageText == birinciDil ? word.turkce : word.sirpca,
+                  style: listTextRed,
+                ),
               ),
+              Expanded(
+                child: Text(
+                  firstLanguageText == birinciDil ? word.sirpca : word.turkce,
+                  style: listTextBlue,
+                ),
+              ),
+            ],
+          ),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () async {
+            await Navigator.pushNamed(
+              context,
+              AppRoute.details,
+              arguments: word,
             );
           },
         );
@@ -395,37 +431,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// Burada kelimeleri listeliyoruz
-  ListView buildListView(List<Words> wordsList) {
-    return ListView.builder(
-      itemCount: wordsList.length,
-      itemBuilder: (context, index) {
-        Words word = wordsList[index];
-        return Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsPage(
-                    word: word,
-                  ),
-                ),
-              );
-            },
-
-            /// Card Görünümü için
-            child: buildCard(word, context),
-            /// Liste Görünümü için
-
-          ),
-        );
-      },
-    );
-  }
-
-  /// Sözlük kartları burada oluşturuluyor
+  /// Kelime kart görünümü burada oluşturuluyor
   Card buildCard(Words word, BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Card(
@@ -435,29 +441,46 @@ class _HomePageState extends State<HomePage> {
       ),
       shadowColor: Colors.blue[200],
       color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ExpandedWord(
-              word: firstLanguageText == birinciDil ? word.turkce : word.sirpca,
-              color: themeProvider.isDarkMode
-                  ? cardDarkModeText1
-                  : cardLightModeText1,
-              align: TextAlign.start,
+      child: SizedBox(
+        height: 100, // İstediğiniz bir değeri buraya ekleyin
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+          title: SizedBox(
+            // height: 60, // İstediğiniz bir değeri buraya ekleyin
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ExpandedWord(
+                  word: firstLanguageText == birinciDil
+                      ? word.turkce
+                      : word.sirpca,
+                  color: themeProvider.isDarkMode
+                      ? cardDarkModeText1
+                      : cardLightModeText1,
+                  align: TextAlign.start,
+                ),
+                const Divider(color: Colors.black26),
+                ExpandedWord(
+                  word: secondLanguageText == ikinciDil
+                      ? word.sirpca
+                      : word.turkce,
+                  color: themeProvider.isDarkMode
+                      ? cardDarkModeText2
+                      : cardLightModeText2,
+                  align: TextAlign.end,
+                ),
+              ],
             ),
-            const Divider(color: Colors.black26),
-            ExpandedWord(
-              word: secondLanguageText == ikinciDil ? word.sirpca : word.turkce,
-              color: themeProvider.isDarkMode
-                  ? cardDarkModeText2
-                  : cardLightModeText2,
-              align: TextAlign.end,
-            ),
-          ],
+          ),
+          trailing: buildRow(word, context),
+          onTap: () async {
+            await Navigator.pushNamed(
+              context,
+              AppRoute.details,
+              arguments: word,
+            );
+          },
         ),
-        trailing: buildRow(word, context),
       ),
     );
   }
