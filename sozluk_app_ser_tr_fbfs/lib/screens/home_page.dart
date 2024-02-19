@@ -379,26 +379,25 @@ class _HomePageState extends State<HomePage> {
         /// Liste görünümü veya Card Görünümü
         /// Burada seçiliyor
         return InteractiveViewer(
-          boundaryMargin: const EdgeInsets.all(20),
           minScale: 0.1,
-          maxScale: 2,
+          maxScale: 0.1,
           child: Scrollbar(
             thumbVisibility: true,
             thickness: 8,
             child: isListView
 
-            /// true ise Card görünümü olacak
-            /// default olarak false geliyor
+                /// true ise Card görünümü olacak
+                /// default olarak false geliyor
                 ? buildListView(wordsList)
 
-            /// false ise List görünümü gelecek
+                /// false ise List görünümü gelecek
                 : ListView.builder(
-              shrinkWrap: true,
-              itemCount: wordsList.length,
-              itemBuilder: (context, index) {
-                return buildCard(wordsList[index], context);
-              },
-            ),
+                    shrinkWrap: true,
+                    itemCount: wordsList.length,
+                    itemBuilder: (context, index) {
+                      return buildCard(wordsList[index], context);
+                    },
+                  ),
           ),
         );
       },
@@ -449,18 +448,17 @@ class _HomePageState extends State<HomePage> {
   Card buildCard(Words word, BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Card(
-      elevation: 4,
+      elevation: 6,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
-      shadowColor: Colors.blue[200],
+      shadowColor: Colors.green[200],
       color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
       child: SizedBox(
-        height: 100, // İstediğiniz bir değeri buraya ekleyin
+        height: 100,
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           title: SizedBox(
-            // height: 60, // İstediğiniz bir değeri buraya ekleyin
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -501,9 +499,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -515,9 +513,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -530,9 +528,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
