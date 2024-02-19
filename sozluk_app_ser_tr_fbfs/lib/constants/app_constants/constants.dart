@@ -18,7 +18,7 @@ Color cardDarkModeText2 = Colors.lightBlueAccent.shade200;
 TextStyle glutenFontText = TextStyle(
   fontFamily: GoogleFonts.gluten().fontFamily,
   fontSize: 24,
-  color: Colors.white,
+  color: Colors.indigoAccent,
 );
 
 const listTextRed =TextStyle(
