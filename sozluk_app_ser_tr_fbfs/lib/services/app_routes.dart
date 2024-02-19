@@ -40,7 +40,7 @@ final class AppRoute {
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
-    details: (context) =>  DetailsPage(),
+    details: (context) =>  const DetailsPage(),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
     latin: (context) => _buildSayfaLatin(context),

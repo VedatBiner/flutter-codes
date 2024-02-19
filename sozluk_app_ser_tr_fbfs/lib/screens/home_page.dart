@@ -2,7 +2,6 @@
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,6 @@ import '../widgets/text_entry.dart';
 import '../screens/home_page_parts/expanded_word.dart';
 import '../screens/home_page_parts/fab_helper.dart';
 import '../screens/home_page_parts/stream_builder_footer.dart';
-import 'details_page.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/showflag_widget.dart';
@@ -42,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   PackageInfo? packageInfo;
   static String version = "";
   bool aramaYapiliyorMu = false;
+  bool isListView = false;
   String aramaKelimesi = "";
   int secilenIndex = 0;
 
@@ -206,20 +205,24 @@ class _HomePageState extends State<HomePage> {
               text: secondLanguageText,
               radius: 8,
             ),
-            Consumer<IconProvider>(builder: (context, iconProvider, _) {
-              return IconButton(
-                tooltip: "Görünümü değiştir",
-                icon: Icon(
-                  iconProvider.isIconChanged ? Icons.credit_card : Icons.list,
-                  size: 40,
-                  color: menuColor,
-                ),
-                onPressed: () {
-                  iconProvider.changeIcon();
-                  // const WordListPage(wordsList: ,);
-                },
-              );
-            }),
+            Consumer<IconProvider>(
+              builder: (context, iconProvider, _) {
+                return IconButton(
+                  tooltip: "Görünümü değiştir",
+                  icon: Icon(
+                    iconProvider.isIconChanged ? Icons.credit_card : Icons.list,
+                    size: 40,
+                    color: menuColor,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      iconProvider.changeIcon();
+                      isListView = !isListView;
+                    });
+                  },
+                );
+              },
+            ),
             IconButton(
               tooltip: "Dil değiştir",
               onPressed: () {
@@ -373,19 +376,31 @@ class _HomePageState extends State<HomePage> {
           }
         });
 
+        /// Liste görünümü veya Card Görünümü
+        /// Burada seçiliyor
+        return isListView
+            ? buildListView(wordsList)
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: wordsList.length,
+                itemBuilder: (context, index) {
+                  return buildCard(wordsList[index], context);
+                },
+              );
+
         /// liste görünümü
         // return buildListView(wordsList);
 
         /// Card görünümü
-        return ListView.builder(
-          shrinkWrap: true,
-          itemCount: wordsList.length,
-          itemBuilder: (context, index) {
-            /// Her bir öğe için buildCard metodunu
-            /// çağırıp, index 'i geçirelim
-            return buildCard(wordsList[index], context);
-          },
-        );
+        // return ListView.builder(
+        //   shrinkWrap: true,
+        //   itemCount: wordsList.length,
+        //   itemBuilder: (context, index) {
+        //     /// Her bir öğe için buildCard metodunu
+        //     /// çağırıp, index 'i geçirelim
+        //     return buildCard(wordsList[index], context);
+        //   },
+        // );
       },
     );
   }

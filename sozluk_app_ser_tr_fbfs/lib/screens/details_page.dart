@@ -16,7 +16,7 @@ import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({Key? key});
+  const DetailsPage({super.key});
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
