@@ -433,7 +433,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          trailing: const Icon(Icons.arrow_forward),
           onTap: () async {
             await Navigator.pushNamed(
               context,
