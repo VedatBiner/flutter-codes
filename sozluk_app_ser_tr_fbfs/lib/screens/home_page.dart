@@ -378,28 +378,20 @@ class _HomePageState extends State<HomePage> {
 
         /// Liste görünümü veya Card Görünümü
         /// Burada seçiliyor
-        return InteractiveViewer(
-          minScale: 0.1,
-          maxScale: 0.1,
-          child: Scrollbar(
-            thumbVisibility: true,
-            thickness: 8,
-            child: isListView
+        return isListView
 
-                /// true ise Card görünümü olacak
-                /// default olarak false geliyor
-                ? buildListView(wordsList)
+            /// true ise Card görünümü olacak
+            /// default olarak false geliyor
+            ? buildListView(wordsList)
 
-                /// false ise List görünümü gelecek
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: wordsList.length,
-                    itemBuilder: (context, index) {
-                      return buildCard(wordsList[index], context);
-                    },
-                  ),
-          ),
-        );
+            /// false ise List görünümü gelecek
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: wordsList.length,
+                itemBuilder: (context, index) {
+                  return buildCard(wordsList[index], context);
+                },
+              );
       },
     );
   }

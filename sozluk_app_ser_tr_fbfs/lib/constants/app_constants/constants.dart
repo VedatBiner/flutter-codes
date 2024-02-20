@@ -33,15 +33,17 @@ const listTextBlue =TextStyle(
   color: Colors.blue,
 );
 
+/// detay sayfası text stili
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 32,
+  fontSize: 28,
   color: Colors.red,
 );
 
+/// detay sayfası text stili
 const detailTextBlue = TextStyle(
   fontWeight: FontWeight.bold,
-  fontSize: 32,
+  fontSize: 28,
   color: Colors.blue,
 );
 
@@ -83,6 +85,7 @@ TextStyle baslikTextDrawer = TextStyle(
   color: menuColor,
 );
 
+/// Drawer titles
 const String drawerTitle = "Yardımcı Bilgiler";
 const String appBarMainTitleSecond = "Sırpça-Türkçe Sözlük";
 const String appBarMainTitleFirst = "Türkçe-Sırpça Sözlük";
