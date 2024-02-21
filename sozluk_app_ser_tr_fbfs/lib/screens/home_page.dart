@@ -159,6 +159,9 @@ class _HomePageState extends State<HomePage> {
                   birinciDilController.text,
                 );
               } else {
+                print("kayıt no : $docId");
+                print("Düzeltilecek kelime : $ikinciDilController.text");
+                print("Düzeltilecek kelime : $birinciDilController.text");
                 firestoreService.updateWord(
                   docId,
                   ikinciDilController.text,
@@ -380,18 +383,18 @@ class _HomePageState extends State<HomePage> {
         /// Burada seçiliyor
         return isListView
 
-        /// true ise Card görünümü olacak
-        /// default olarak false geliyor
+            /// true ise Card görünümü olacak
+            /// default olarak false geliyor
             ? buildListView(wordsList)
 
-        /// false ise List görünümü gelecek
+            /// false ise List görünümü gelecek
             : ListView.builder(
-          shrinkWrap: true,
-          itemCount: wordsList.length,
-          itemBuilder: (context, index) {
-            return buildCard(wordsList[index], context);
-          },
-        );
+                shrinkWrap: true,
+                itemCount: wordsList.length,
+                itemBuilder: (context, index) {
+                  return buildCard(wordsList[index], context);
+                },
+              );
       },
     );
   }
@@ -437,53 +440,59 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Kelime kart görünümü burada oluşturuluyor
-  Card buildCard(Words word, BuildContext context) {
+  Padding buildCard(Words word, BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 8,
+        right: 8,
       ),
-      shadowColor: Colors.green[200],
-      color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-      child: SizedBox(
-        height: 100,
-        child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-          title: SizedBox(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ExpandedWord(
-                  word: firstLanguageText == birinciDil
-                      ? word.turkce
-                      : word.sirpca,
-                  color: themeProvider.isDarkMode
-                      ? cardDarkModeText1
-                      : cardLightModeText1,
-                  align: TextAlign.start,
-                ),
-                const Divider(color: Colors.black26),
-                ExpandedWord(
-                  word: secondLanguageText == ikinciDil
-                      ? word.sirpca
-                      : word.turkce,
-                  color: themeProvider.isDarkMode
-                      ? cardDarkModeText2
-                      : cardLightModeText2,
-                  align: TextAlign.end,
-                ),
-              ],
+      child: Card(
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        shadowColor: Colors.green[200],
+        color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+        child: SizedBox(
+          height: 100,
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+            title: SizedBox(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ExpandedWord(
+                    word: firstLanguageText == birinciDil
+                        ? word.turkce
+                        : word.sirpca,
+                    color: themeProvider.isDarkMode
+                        ? cardDarkModeText1
+                        : cardLightModeText1,
+                    align: TextAlign.start,
+                  ),
+                  const Divider(color: Colors.black26),
+                  ExpandedWord(
+                    word: secondLanguageText == ikinciDil
+                        ? word.sirpca
+                        : word.turkce,
+                    color: themeProvider.isDarkMode
+                        ? cardDarkModeText2
+                        : cardLightModeText2,
+                    align: TextAlign.end,
+                  ),
+                ],
+              ),
             ),
+            trailing: buildRow(word, context),
+            onTap: () async {
+              await Navigator.pushNamed(
+                context,
+                AppRoute.details,
+                arguments: word,
+              );
+            },
           ),
-          trailing: buildRow(word, context),
-          onTap: () async {
-            await Navigator.pushNamed(
-              context,
-              AppRoute.details,
-              arguments: word,
-            );
-          },
         ),
       ),
     );
@@ -491,9 +500,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -505,9 +514,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -520,9 +529,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
