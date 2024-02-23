@@ -2,6 +2,7 @@
 library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -51,10 +52,13 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSecond;
 
+  ScrollController listViewController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     packageInfoInit();
+    listViewController = ScrollController();
   }
 
   /// versiyon bilgisini alıyoruz
@@ -278,6 +282,8 @@ class _HomePageState extends State<HomePage> {
 
   /// Sayfa düzeni burada oluşuyor.
   Column showBody(BuildContext context) {
+    final ScrollController controller;
+
     return Column(
       children: [
         /// burada sayfa başlığı ve
@@ -344,6 +350,7 @@ class _HomePageState extends State<HomePage> {
 
   /// burada kelime listesi için streamBuilder oluşturuyoruz
   StreamBuilder<QuerySnapshot<Object?>> buildStreamBuilderList() {
+    final ScrollController controller = ScrollController();
     return StreamBuilder<QuerySnapshot>(
       stream: firestoreService.getWordsStream(firstLanguageText),
       builder: (BuildContext context,
@@ -381,20 +388,33 @@ class _HomePageState extends State<HomePage> {
 
         /// Liste görünümü veya Card Görünümü
         /// Burada seçiliyor
-        return isListView
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final themeProvider = Provider.of<ThemeProvider>(context);
+            return DraggableScrollbar.arrows(
+              alwaysVisibleScrollThumb: true,
+              backgroundColor: themeProvider.isDarkMode
+                  ? Colors.white
+                  : Colors.grey.shade800,
+              controller: listViewController,
+              child: isListView
 
-            /// true ise Card görünümü olacak
-            /// default olarak false geliyor
-            ? buildListView(wordsList)
+                  /// true ise Card görünümü olacak
+                  /// default olarak false geliyor
+                  ? buildListView(wordsList)
 
-            /// false ise List görünümü gelecek
-            : ListView.builder(
-                shrinkWrap: true,
-                itemCount: wordsList.length,
-                itemBuilder: (context, index) {
-                  return buildCard(wordsList[index], context);
-                },
-              );
+                  /// false ise List görünümü gelecek
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: wordsList.length,
+                      controller: listViewController,
+                      itemBuilder: (context, index) {
+                        return buildCard(wordsList[index], context);
+                      },
+                    ),
+            );
+          },
+        );
       },
     );
   }
@@ -402,6 +422,7 @@ class _HomePageState extends State<HomePage> {
   /// Kelime listesi görünümü burada oluşturuluyor
   ListView buildListView(List<Words> wordsList) {
     return ListView.separated(
+      controller: listViewController,
       separatorBuilder: (context, index) => const Divider(
         color: Colors.grey,
         height: 1,
