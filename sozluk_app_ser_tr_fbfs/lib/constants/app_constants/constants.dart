@@ -47,6 +47,12 @@ const detailTextBlue = TextStyle(
   color: Colors.blue,
 );
 
+/// kelime ekleme / düzeltme stili
+TextStyle butonTextDialog = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: menuColor,
+);
+
 const baslikTextWhite = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.bold,

@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSecond;
 
+  /// Scrollbar için controller
   ScrollController listViewController = ScrollController();
 
   @override
@@ -181,10 +182,7 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text(
               docId == null ? "Kelime ekle" : "Kelime düzelt",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.amber,
-              ),
+              style: butonTextDialog,
             ),
           )
         ],
@@ -393,10 +391,13 @@ class _HomePageState extends State<HomePage> {
             final themeProvider = Provider.of<ThemeProvider>(context);
             return DraggableScrollbar.arrows(
               alwaysVisibleScrollThumb: true,
+              padding: const EdgeInsets.only(right: 2.0),
               backgroundColor: themeProvider.isDarkMode
                   ? Colors.white
                   : Colors.grey.shade800,
               controller: listViewController,
+              // labelTextBuilder: (double offset) => Text("test",
+              //     style: const TextStyle(color: Colors.white)),
               child: isListView
 
                   /// true ise Card görünümü olacak
