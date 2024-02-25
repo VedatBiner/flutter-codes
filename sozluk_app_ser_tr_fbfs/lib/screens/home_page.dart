@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
 
   /// Scrollbar için controller
   ScrollController listViewController = ScrollController();
+  final _itemExtent = 100.0;
 
   @override
   void initState() {
@@ -409,6 +410,7 @@ class _HomePageState extends State<HomePage> {
                   /// false ise List görünümü gelecek
                   : ListView.builder(
                       itemCount: wordsList.length,
+                      itemExtent: _itemExtent,
                       controller: listViewController,
                       itemBuilder: (context, index) {
                         return buildCard(wordsList[index], context);
