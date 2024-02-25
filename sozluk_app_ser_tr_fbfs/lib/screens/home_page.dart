@@ -408,7 +408,6 @@ class _HomePageState extends State<HomePage> {
 
                   /// false ise List görünümü gelecek
                   : ListView.builder(
-                      shrinkWrap: true,
                       itemCount: wordsList.length,
                       controller: listViewController,
                       itemBuilder: (context, index) {
@@ -430,7 +429,6 @@ class _HomePageState extends State<HomePage> {
         color: Colors.grey,
         height: 1,
       ),
-      shrinkWrap: true,
       itemCount: wordsList.length,
       itemBuilder: (context, index) {
         Words word = wordsList[index];
