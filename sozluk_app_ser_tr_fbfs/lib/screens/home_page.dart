@@ -396,8 +396,10 @@ class _HomePageState extends State<HomePage> {
                   ? Colors.white
                   : Colors.grey.shade800,
               controller: listViewController,
-              // labelTextBuilder: (double offset) => Text("test",
-              //     style: const TextStyle(color: Colors.white)),
+              labelTextBuilder: (double offset) => Text(
+                firstLanguageText,
+                style: const TextStyle(color: Colors.white),
+              ),
               child: isListView
 
                   /// true ise Card görünümü olacak
