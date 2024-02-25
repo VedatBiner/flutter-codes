@@ -112,9 +112,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     email = teControllerMail.text;
                     print(email);
                     if (email != null && password != null) {
+                      print("password : ${teControllerPassword.text}");
+                      print("password check : ${teControllerCheckPassword.text}");
+                      /// password Check eğer girilen iki şifre
+                      /// aynı ise kayıt yapılıyor
+                      if (teControllerPassword.text == teControllerCheckPassword.text){
 
-                      /// password Check
-                      if (teControllerPassword == teControllerCheckPassword){
                         /// password eşleşti ise kayıt yap
                         MyAuthService()
                             .registerWithMail(
