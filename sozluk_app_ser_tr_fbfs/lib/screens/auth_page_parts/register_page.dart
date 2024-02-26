@@ -118,20 +118,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     print(email);
                     if (email != null && password != null) {
                       /// Şifreler 8 karakterden küçük ise
-                      if ( teControllerPassword.text.length < 8 || teControllerCheckPassword.text.length <8 ){
+                      if (teControllerPassword.text.length < 8 ||
+                          teControllerCheckPassword.text.length < 8) {
                         /// Şifreler 8 karakterden küçük
                         MessageHelper.showSnackBar(
                           context,
                           message:
-                          "Şifreler sekiz (8) karakterden küçük olamaz !!!",
+                              "Şifreler sekiz (8) karakterden küçük olamaz !!!",
                         );
-                      } 
+                      }
 
+                      
 
-
+                      /// şifreler sekiz (8) karakterden büyük ise
                       /// password Check eğer girilen iki şifre
                       /// aynı ise kayıt yapılıyor
-                      if (teControllerPassword.text ==
+                      else if (teControllerPassword.text ==
                           teControllerCheckPassword.text) {
                         /// password eşleşti ise kayıt yap
                         MyAuthService()
@@ -141,6 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                             .then(
                           (value) async {
+
                             /// Kayıt için girilen iki şifre eşleşti
                             MessageHelper.showSnackBar(
                               context,
