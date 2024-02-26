@@ -3,7 +3,7 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_app_ser_tr_fbfs/services/app_routes.dart';
+import '../../services/app_routes.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
 import 'auth_common_widget.dart';
@@ -18,11 +18,15 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController teControllerMail = TextEditingController();
   final TextEditingController teControllerPassword = TextEditingController();
-  final TextEditingController teControllerCheckPassword = TextEditingController();
+  final TextEditingController teControllerCheckPassword =
+      TextEditingController();
   bool isFirstTextFieldFocused = false;
 
+  /// Şifrenin başlangıçta gizli olması için true olarak ayarlandı
+  bool obscureText = true;
+
   TextInputType getKeyboardType() {
-    /// klavye tipi
+    /// klavye tipi email adresi girecek şekilde olacak
     return TextInputType.emailAddress;
   }
 
@@ -60,9 +64,9 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               /// e-mail TextField
-              AuthPageWidgets.buildLoginTextField(
-                "e-mail adresi",
-                Icons.mail_outline,
+              AuthPageWidgets(
+                hintText: "e-mail adresi",
+                prefixIcon: Icons.mail_outline,
                 isFirst: true,
                 keyboardType: getKeyboardType(),
                 onChanged: (mail) {
@@ -73,10 +77,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               /// parola TextFields
-              AuthPageWidgets.buildLoginTextField(
-                "parola",
-                Icons.lock,
-                obscureText: true,
+              AuthPageWidgets(
+                hintText: "parola",
+                prefixIcon: Icons.lock,
+                obscureText: obscureText,
                 onChanged: (parola) {
                   password = parola;
                 },
@@ -85,10 +89,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               /// parola Check TextFields
-              AuthPageWidgets.buildLoginTextField(
-                "parola tekrar",
-                Icons.lock,
-                obscureText: true,
+              AuthPageWidgets(
+                hintText: "parola tekrar",
+                prefixIcon: Icons.lock,
+                obscureText: obscureText,
                 onChanged: (parola) {
                   password = parola;
                 },
@@ -113,11 +117,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     print(email);
                     if (email != null && password != null) {
                       print("password : ${teControllerPassword.text}");
-                      print("password check : ${teControllerCheckPassword.text}");
+                      print(
+                          "password check : ${teControllerCheckPassword.text}");
+
                       /// password Check eğer girilen iki şifre
                       /// aynı ise kayıt yapılıyor
-                      if (teControllerPassword.text == teControllerCheckPassword.text){
-
+                      if (teControllerPassword.text ==
+                          teControllerCheckPassword.text) {
                         /// password eşleşti ise kayıt yap
                         MyAuthService()
                             .registerWithMail(
@@ -125,11 +131,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           password: password!,
                         )
                             .then(
-                              (value) async {
+                          (value) async {
                             await Navigator.pushNamedAndRemoveUntil(
                               context,
                               AppRoute.login,
-                                  (route) => false,
+                              (route) => false,
                             );
                           },
                         );
@@ -158,10 +164,12 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  /// Kayıt için geçersiz bilgi girilmesi
+  /// durumunda çıkacak mesajkar
   void showErrorMessage(String message) {
     showDialog(
       context: context,
-      builder: (context){
+      builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.indigo,
           title: Center(

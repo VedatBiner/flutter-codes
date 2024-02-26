@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   String? emailReset;
 
   TextInputType getKeyboardType() {
-    /// klavye tipi
+    /// klavye tipi - @ işareti için
     return TextInputType.emailAddress;
   }
 
@@ -48,22 +48,23 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
-                AuthPageWidgets.buildLoginTextField(
-                  "e-mail adresi",
-                  Icons.mail_outline,
+                AuthPageWidgets(
+                  hintText: "e-mail adresi",
+                  prefixIcon: Icons.mail_outline,
                   isFirst: true,
                   keyboardType: getKeyboardType(),
                   onChanged: (mail) {
                     email = mail;
                   },
                   controller: teControllerMail,
+                  obscureText: false, // Bu alanı false olarak ayarla
                 ),
                 const SizedBox(height: 10),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
-                AuthPageWidgets.buildLoginTextField(
-                  "parola",
-                  Icons.lock,
+                AuthPageWidgets(
+                  hintText: "parola",
+                  prefixIcon: Icons.lock,
                   obscureText: true,
                   keyboardType: getKeyboardType(),
                   onChanged: (parola) {
@@ -82,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 /// Google ile giriş
-                // şimdilik iptal
-                // AuthPageWidgets.googleSignIn(context),
+                /// şimdilik iptal
+                /// AuthPageWidgets.googleSignIn(context),
                 const SizedBox(height: 10),
 
                 /// şifremi unuttum
@@ -208,7 +209,6 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 } catch (e) {
                   showErrorMessage(e.toString());
-                  /// print(e);
                 }
               },
             );

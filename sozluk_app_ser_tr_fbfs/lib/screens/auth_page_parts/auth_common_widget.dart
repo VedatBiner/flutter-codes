@@ -3,7 +3,7 @@
 /// Login ekranında e-mail ve password
 /// kutularını gösteren metod
 ///
-/// Google sign in metodo
+/// Google sign in metodu şimdilik iptal
 ///
 library;
 
@@ -13,18 +13,45 @@ import '../../constants/app_constants/constants.dart';
 import '../../services/app_routes.dart';
 import '../../services/auth_services.dart';
 
-class AuthPageWidgets {
+class AuthPageWidgets extends StatefulWidget {
+  final String hintText;
+  final IconData prefixIcon;
+  final bool obscureText;
+  final TextInputType? keyboardType;
+  final Function(String)? onChanged;
+  final bool isFirst;
+  final TextEditingController? controller;
+
+  const AuthPageWidgets({
+    super.key,
+    required this.hintText,
+    required this.prefixIcon,
+    this.obscureText = false,
+    this.keyboardType,
+    this.onChanged,
+    this.isFirst = false,
+    this.controller,
+  });
+
+  @override
+  State<AuthPageWidgets> createState() => _AuthPageWidgetsState();
+}
+
+class _AuthPageWidgetsState extends State<AuthPageWidgets> {
+  /// Şifrenin görünürlüğünü kontrol etmek için durum değişkeni
+  bool obscureText = false;
+
+  @override
+  void initState() {
+    super.initState();
+    obscureText = widget.obscureText;
+  }
+
   /// email ve password kutularını oluştur
-  /// bu bölüm login ve register dosyalarında ortak kullanılıyor.
-  static Container buildLoginTextField(
-    String hintText,
-    IconData prefixIcon, {
-    bool obscureText = false,
-    TextInputType? keyboardType,
-    Function(String)? onChanged,
-    bool isFirst = false,
-    TextEditingController? controller,
-  }) {
+  /// bu bölüm login ve register dosyalarında
+  /// ortak kullanılıyor.
+  @override
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -37,38 +64,59 @@ class AuthPageWidgets {
           ),
         ],
       ),
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        onChanged: onChanged,
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              width: 2,
-              color: isFirst ? menuColor : menuColor,
+      child: Stack(
+        alignment: obscureText ? Alignment.centerRight : Alignment.center,
+        children: [
+          TextField(
+            controller: widget.controller,
+            obscureText: obscureText,
+            onChanged: widget.onChanged,
+            style: const TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  width: 2,
+                  color: widget.isFirst ? menuColor : menuColor,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16),
+                borderSide: const BorderSide(
+                  width: 1,
+                  color: Colors.white,
+                ),
+              ),
+              hintText: widget.hintText,
+              hintStyle: const TextStyle(
+                color: Colors.grey,
+              ),
+              prefixIcon: Icon(
+                widget.prefixIcon,
+                color: menuColor,
+              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 15),
             ),
+            cursorColor: Colors.white,
+            keyboardType: widget.keyboardType,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              width: 1,
-              color: Colors.white,
+          if (widget.obscureText)
+            Positioned(
+              right: 10,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    /// Şifrenin görünürlüğünü tersine çevir
+                    obscureText = !obscureText;
+                  });
+                },
+                child: Icon(
+                  obscureText ? Icons.visibility : Icons.visibility_off,
+                  color: menuColor,
+                ),
+              ),
             ),
-          ),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            color: Colors.grey,
-          ),
-          prefixIcon: Icon(
-            prefixIcon,
-            color: menuColor,
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
-        ),
-        cursorColor: Colors.white,
-        keyboardType: keyboardType,
+        ],
       ),
     );
   }
