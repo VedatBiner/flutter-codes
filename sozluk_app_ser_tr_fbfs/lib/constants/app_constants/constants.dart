@@ -21,13 +21,13 @@ TextStyle glutenFontText = TextStyle(
   color: Colors.indigoAccent,
 );
 
-const listTextRed =TextStyle(
+const listTextRed = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 16,
   color: Colors.red,
 );
 
-const listTextBlue =TextStyle(
+const listTextBlue = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 14,
   color: Colors.blue,
@@ -59,7 +59,14 @@ const baslikTextWhite = TextStyle(
   color: Colors.white,
 );
 
-// Android için stil
+/// Giriş ve Kaydol buton Stili
+TextStyle buttonRL = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: menuColor,
+  fontSize: 18,
+);
+
+/// Android için stil
 const TextStyle androidTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18,
@@ -111,7 +118,7 @@ const String birinciDil = "Türkçe";
 const String fsBirinciDil = "turkce";
 const String firstCountry = "TR";
 const String ikinciDil = "Sırpça";
-const String fsIkinciDil ="sirpca";
+const String fsIkinciDil = "sirpca";
 const secondCountry = "RS";
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
@@ -121,7 +128,10 @@ final List<Map<String, dynamic>> drawerItems = [
   {"title": "Şahıs Zamirleri", "page": AppRoute.zamir},
   {"title": "Soru Cümleleri", "page": AppRoute.soru},
   {"title": "Şimdiki Geniş Zaman", "page": AppRoute.simdikiGenisZaman},
-  {"title": "Geçişli ve Dönüşlü Fiiller", "page": AppRoute.gecisliDonusluFiller},
+  {
+    "title": "Geçişli ve Dönüşlü Fiiller",
+    "page": AppRoute.gecisliDonusluFiller
+  },
 ];
 
 final List<Map<String, String>> latinAlphabet = [

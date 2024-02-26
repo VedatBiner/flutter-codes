@@ -13,7 +13,7 @@ import '../../constants/app_constants/constants.dart';
 import '../../services/app_routes.dart';
 import '../../services/auth_services.dart';
 
-class AuthPageWidgets extends StatefulWidget {
+class AuthPageWidget extends StatefulWidget {
   final String hintText;
   final IconData prefixIcon;
   final bool obscureText;
@@ -22,7 +22,7 @@ class AuthPageWidgets extends StatefulWidget {
   final bool isFirst;
   final TextEditingController? controller;
 
-  const AuthPageWidgets({
+  const AuthPageWidget({
     super.key,
     required this.hintText,
     required this.prefixIcon,
@@ -34,10 +34,10 @@ class AuthPageWidgets extends StatefulWidget {
   });
 
   @override
-  State<AuthPageWidgets> createState() => _AuthPageWidgetsState();
+  State<AuthPageWidget> createState() => _AuthPageWidgetState();
 }
 
-class _AuthPageWidgetsState extends State<AuthPageWidgets> {
+class _AuthPageWidgetState extends State<AuthPageWidget> {
   /// Şifrenin görünürlüğünü kontrol etmek için durum değişkeni
   bool obscureText = false;
 

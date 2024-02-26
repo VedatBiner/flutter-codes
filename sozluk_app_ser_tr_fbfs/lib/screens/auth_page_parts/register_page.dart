@@ -64,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               /// e-mail TextField
-              AuthPageWidgets(
+              AuthPageWidget(
                 hintText: "e-mail adresi",
                 prefixIcon: Icons.mail_outline,
                 isFirst: true,
@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               /// parola TextFields
-              AuthPageWidgets(
+              AuthPageWidget(
                 hintText: "parola",
                 prefixIcon: Icons.lock,
                 obscureText: obscureText,
@@ -89,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 10),
 
               /// parola Check TextFields
-              AuthPageWidgets(
+              AuthPageWidget(
                 hintText: "parola tekrar",
                 prefixIcon: Icons.lock,
                 obscureText: obscureText,
@@ -149,11 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   child: Text(
                     "Kaydol",
-                    style: TextStyle(
-                      color: menuColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: buttonRL,
                   ),
                 ),
               ),

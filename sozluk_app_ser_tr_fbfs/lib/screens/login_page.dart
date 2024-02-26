@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
 
                 /// Kontrolcüyü e-posta TextField 'ına atayalım
-                AuthPageWidgets(
+                AuthPageWidget(
                   hintText: "e-mail adresi",
                   prefixIcon: Icons.mail_outline,
                   isFirst: true,
@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
-                AuthPageWidgets(
+                AuthPageWidget(
                   hintText: "parola",
                   prefixIcon: Icons.lock,
                   obscureText: true,
@@ -219,11 +219,7 @@ class _LoginPageState extends State<LoginPage> {
         },
         child: Text(
           "Giriş",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: menuColor,
-            fontSize: 18,
-          ),
+          style: buttonRL,
         ),
       ),
     );
