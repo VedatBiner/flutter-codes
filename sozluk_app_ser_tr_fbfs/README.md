@@ -8,10 +8,13 @@ Burada kelimeler Firebase Firestore 'a aktarılıyor. Aynı kelime girişi var m
 kontrol ediliyor. Kelime silme ve düzeltme yapılabiliyor. Detaylı kelime bilgisi 
 görülüp, hem buton ile hem de slider ile kelimeler arası geçiş yapılıyor. Dark ve 
 Light mode tema Drawer menüden değiştirilebiliyor.
-Erişim kontrolü için Google Sign In ve e-mail password erişimi eklendi.
+Erişim kontrolü için Google Sign In ve e-mail password erişimi eklendi. Email adresi ile kayıt
+işlemi için mail adresi doğru formatta mı ? şifreler 8 karakterden büyük mü? şifreler eşleşiyor mu?
+kontrolleri yapıldı.
+*** gmail ile login şimdilik iptal ***
 Sırpça-Türkçe ve Türkçe-Sırpça dil değişimleri ekleniyor.
 Card Görünümü Liste Görünümü seçimleri yapılıyor.
-Scroollbar eklendi. Kelimelerin baş harflerinin küçük bile girilse büyük yapılması sağlandı
+Scroollbar eklendi. Kelimelerin baş harflerinin küçük bile girilse büyük yapılması sağlandı.
 <HR>
 
 Kullanılan Paketler: <BR>
