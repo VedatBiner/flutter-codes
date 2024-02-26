@@ -125,24 +125,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     email = teControllerMail.text;
                     print(email);
                     if (email != null && password != null) {
+                      /// mail adresi doğru formatta mı?
+                      if (!isValidEmail(email!)) {
+                        MessageHelper.showSnackBar(
+                          context,
+                          message: "email adresiniz doğru formatta değil !!!",
+                        );
+                      }
 
                       /// Şifreler 8 karakterden küçük ise
-                      if (teControllerPassword.text.length < 8 ||
+                      else if (teControllerPassword.text.length < 8 ||
                           teControllerCheckPassword.text.length < 8) {
                         /// Şifreler 8 karakterden küçük
                         MessageHelper.showSnackBar(
                           context,
                           message:
                               "Şifreler sekiz (8) karakterden küçük olamaz !!!",
-                        );
-                      }
-
-                      /// mail adresi doğru formatta mı?
-                      else if(!isValidEmail(email!)){
-                        MessageHelper.showSnackBar(
-                          context,
-                          message:
-                          "email adresiniz doğru formatta değil !!!",
                         );
                       }
 
@@ -159,12 +157,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                             .then(
                           (value) async {
-
                             /// Kayıt için girilen iki şifre eşleşti
                             MessageHelper.showSnackBar(
                               context,
                               message:
-                                  "Şifreler eşleşti, login sayfasına yönlendiriliyorsunuz ...",
+                                  "Şifreler eşleşti, login sayfasına yönlendirildiniz ...",
                             );
                             await Navigator.pushNamedAndRemoveUntil(
                               context,
@@ -197,5 +194,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
 }
