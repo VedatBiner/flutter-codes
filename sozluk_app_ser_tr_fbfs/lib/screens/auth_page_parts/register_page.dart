@@ -26,6 +26,14 @@ class _RegisterPageState extends State<RegisterPage> {
   /// Şifrenin başlangıçta gizli olması için true olarak ayarlandı
   bool obscureText = true;
 
+  /// girilen mail adresi doğru formatta mı ?
+  bool isValidEmail(String email) {
+    // Mail adresi doğrulaması için kullanılacak düzenli ifade
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    // Düzenli ifadeyi kullanarak mail adresini kontrol et
+    return emailRegex.hasMatch(email);
+  }
+
   TextInputType getKeyboardType() {
     /// klavye tipi email adresi girecek şekilde olacak
     return TextInputType.emailAddress;
@@ -117,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     email = teControllerMail.text;
                     print(email);
                     if (email != null && password != null) {
+
                       /// Şifreler 8 karakterden küçük ise
                       if (teControllerPassword.text.length < 8 ||
                           teControllerCheckPassword.text.length < 8) {
@@ -128,7 +137,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       }
 
-                      
+                      /// mail adresi doğru formatta mı?
+                      else if(!isValidEmail(email!)){
+                        MessageHelper.showSnackBar(
+                          context,
+                          message:
+                          "email adresiniz doğru formatta değil !!!",
+                        );
+                      }
 
                       /// şifreler sekiz (8) karakterden büyük ise
                       /// password Check eğer girilen iki şifre
@@ -182,22 +198,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // /// Kayıt için geçersiz bilgi girilmesi
-  // /// durumunda çıkacak mesajkar
-  // void showErrorMessage(String message) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) {
-  //       return AlertDialog(
-  //         backgroundColor: Colors.indigo,
-  //         title: Center(
-  //           child: Text(
-  //             message,
-  //             style: TextStyle(color: menuColor),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 }
