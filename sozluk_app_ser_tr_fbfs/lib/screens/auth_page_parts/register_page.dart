@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../services/app_routes.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
+import '../../utils/mesaj_helper.dart';
 import 'auth_common_widget.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -116,9 +117,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     email = teControllerMail.text;
                     print(email);
                     if (email != null && password != null) {
-                      print("password : ${teControllerPassword.text}");
-                      print(
-                          "password check : ${teControllerCheckPassword.text}");
+                      /// Şifreler 8 karakterden küçük ise
+                      if ( teControllerPassword.text.length < 8 || teControllerCheckPassword.text.length <8 ){
+                        /// Şifreler 8 karakterden küçük
+                        MessageHelper.showSnackBar(
+                          context,
+                          message:
+                          "Şifreler sekiz (8) karakterden küçük olamaz !!!",
+                        );
+                      } 
+
+
 
                       /// password Check eğer girilen iki şifre
                       /// aynı ise kayıt yapılıyor
@@ -132,6 +141,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                             .then(
                           (value) async {
+                            /// Kayıt için girilen iki şifre eşleşti
+                            MessageHelper.showSnackBar(
+                              context,
+                              message:
+                                  "Şifreler eşleşti, login sayfasına yönlendiriliyorsunuz ...",
+                            );
                             await Navigator.pushNamedAndRemoveUntil(
                               context,
                               AppRoute.login,
@@ -140,7 +155,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         );
                       } else {
-                        showErrorMessage("Şifreler eşleşmiyor");
+                        /// Kayıt için girilen iki şifre eşleşmedi
+                        MessageHelper.showSnackBar(
+                          context,
+                          message: "Şifreler eşleşmiyor ...",
+                        );
                       }
                     } else {
                       print(
@@ -160,22 +179,22 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  /// Kayıt için geçersiz bilgi girilmesi
-  /// durumunda çıkacak mesajkar
-  void showErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.indigo,
-          title: Center(
-            child: Text(
-              message,
-              style: TextStyle(color: menuColor),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // /// Kayıt için geçersiz bilgi girilmesi
+  // /// durumunda çıkacak mesajkar
+  // void showErrorMessage(String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         backgroundColor: Colors.indigo,
+  //         title: Center(
+  //           child: Text(
+  //             message,
+  //             style: TextStyle(color: menuColor),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 }
