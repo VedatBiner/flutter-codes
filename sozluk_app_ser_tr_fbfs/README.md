@@ -11,6 +11,7 @@ Light mode tema Drawer menüden değiştirilebiliyor.
 Erişim kontrolü için Google Sign In ve e-mail password erişimi eklendi.
 Sırpça-Türkçe ve Türkçe-Sırpça dil değişimleri ekleniyor.
 Card Görünümü Liste Görünümü seçimleri yapılıyor.
+Scroollbar eklendi. Kelimelerin baş harflerinin küçük bile girilse büyük yapılması sağlandı
 <HR>
 
 Kullanılan Paketler: <BR>

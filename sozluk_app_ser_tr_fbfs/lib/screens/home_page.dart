@@ -399,7 +399,11 @@ class _HomePageState extends State<HomePage> {
               controller: listViewController,
               labelTextBuilder: (double offset) => Text(
                 firstLanguageText,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: themeProvider.isDarkMode
+                      ? Colors.red
+                      : Colors.blue,
+                ),
               ),
               child: isListView
 
