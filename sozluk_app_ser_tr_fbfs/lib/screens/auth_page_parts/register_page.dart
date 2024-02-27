@@ -43,6 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     String? email;
     String? password;
+    String? checkPassword;
+
     return Scaffold(
       backgroundColor: drawerColor,
       appBar: AppBar(
@@ -103,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 prefixIcon: Icons.lock,
                 obscureText: obscureText,
                 onChanged: (parola) {
-                  password = parola;
+                  checkPassword = parola;
                 },
                 controller: teControllerCheckPassword,
               ),
@@ -123,7 +125,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     /// eğer TextField bilgileri null değilse
                     /// metodu tetikleyelim
                     email = teControllerMail.text;
-                    print(email);
+
+                    /// 1. şifreler sekiz (8) karakterden büyük ise,
+                    /// 2. eğer girilen iki şifre aynı ise,
+                    /// 3. mail adresi doğru formatta ise
+                    /// kayıt yapılıyor
                     if (email != null && password != null) {
                       /// mail adresi doğru formatta mı?
                       if (!isValidEmail(email!)) {
@@ -134,9 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
 
                       /// Şifreler 8 karakterden küçük ise
-                      else if (teControllerPassword.text.length < 8 ||
-                          teControllerCheckPassword.text.length < 8) {
-                        /// Şifreler 8 karakterden küçük
+                      else if (password!.length < 8 ||
+                          checkPassword!.length < 8) {
                         MessageHelper.showSnackBar(
                           context,
                           message:
@@ -144,52 +149,41 @@ class _RegisterPageState extends State<RegisterPage> {
                         );
                       }
 
-                      /// şifreler sekiz (8) karakterden büyük ise
-                      /// password Check eğer girilen iki şifre
-                      /// aynı ise kayıt yapılıyor
-                      else if (teControllerPassword.text ==
-                          teControllerCheckPassword.text) {
-                        /// mail adresi daha önceden kayıtlı mı?
-                        bool isRegistered =
-                            await MyAuthService().isUserRegistered(email!);
-                        if (isRegistered) {
-                          MessageHelper.showSnackBar(
-                            context,
-                            message: "Bu e-mail adresi zaten kayıtlı!",
-                          );
-                        } else {
-                          /// password eşleşti ise kayıt yap
-                          MyAuthService()
-                              .registerWithMail(
-                            mail: email!,
-                            password: password!,
-                          )
-                              .then(
-                            (value) async {
-                              /// Kayıt için girilen iki şifre eşleşti
-                              MessageHelper.showSnackBar(
-                                context,
-                                message:
-                                    "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.",
-                              );
-                              await Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                AppRoute.login,
-                                (route) => false,
-                              );
-                            },
-                          );
-                        }
-                      } else {
-                        /// Kayıt için girilen iki şifre eşleşmedi
+                      /// Şifreler eşleşmedi
+                      else if (password != checkPassword) {
                         MessageHelper.showSnackBar(
                           context,
                           message: "Şifreler eşleşmiyor ...",
                         );
+                      } else {
+                        /// password eşleşti ise kayıt yap
+                        MyAuthService()
+                            .registerWithMail(
+                          context: context,
+                          mail: email!,
+                          password: password!,
+                        )
+                            .then(
+                          (value) async {
+                            /// Kayıt için girilen iki şifre eşleşti
+                            MessageHelper.showSnackBar(
+                              context,
+                              message:
+                                  "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.",
+                            );
+                            await Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRoute.login,
+                              (route) => false,
+                            );
+                          },
+                        );
                       }
                     } else {
-                      print(
-                          "Bir hata oluştu. email : $email , password : $password");
+                      MessageHelper.showSnackBar(
+                        context,
+                        message: "E-mail ve şifre alanları boş bırakılamaz!",
+                      );
                     }
                   },
                   child: Text(

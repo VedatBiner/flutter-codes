@@ -4,14 +4,18 @@ library;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sozluk_app_ser_tr_fbfs/firebase_options.dart';
+
+import '../utils/mesaj_helper.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class MyAuthService {
   /// e-mail ve şifre ile kayıt servisi
   registerWithMail({
+    required BuildContext context,
     required String mail,
     required String password,
   }) async {
@@ -31,7 +35,11 @@ class MyAuthService {
       if (e.code == "weak-password") {
         print("Girdiğiniz şifre zayıf");
       } else if (e.code == "email-already-in-use") {
-        print("Bu mail adresi kullanılmaktadır");
+        // print("Bu mail adresi kullanılmaktadır");
+        MessageHelper.showSnackBar(
+          context,
+          message: "Bu e-mail adresi zaten kayıtlı!",
+        );
       }
     } catch (e) {
       /// farklı bir hata varsa
