@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     /// eğer TextField bilgileri null değilse
                     /// metodu tetikleyelim
                     email = teControllerMail.text;
@@ -149,27 +149,37 @@ class _RegisterPageState extends State<RegisterPage> {
                       /// aynı ise kayıt yapılıyor
                       else if (teControllerPassword.text ==
                           teControllerCheckPassword.text) {
-                        /// password eşleşti ise kayıt yap
-                        MyAuthService()
-                            .registerWithMail(
-                          mail: email!,
-                          password: password!,
-                        )
-                            .then(
-                          (value) async {
-                            /// Kayıt için girilen iki şifre eşleşti
-                            MessageHelper.showSnackBar(
-                              context,
-                              message:
-                                  "Şifreler eşleşti, login sayfasına yönlendirildiniz ...",
-                            );
-                            await Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              AppRoute.login,
-                              (route) => false,
-                            );
-                          },
-                        );
+                        /// mail adresi daha önceden kayıtlı mı?
+                        bool isRegistered =
+                            await MyAuthService().isUserRegistered(email!);
+                        if (isRegistered) {
+                          MessageHelper.showSnackBar(
+                            context,
+                            message: "Bu e-mail adresi zaten kayıtlı!",
+                          );
+                        } else {
+                          /// password eşleşti ise kayıt yap
+                          MyAuthService()
+                              .registerWithMail(
+                            mail: email!,
+                            password: password!,
+                          )
+                              .then(
+                            (value) async {
+                              /// Kayıt için girilen iki şifre eşleşti
+                              MessageHelper.showSnackBar(
+                                context,
+                                message:
+                                    "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.",
+                              );
+                              await Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRoute.login,
+                                (route) => false,
+                              );
+                            },
+                          );
+                        }
                       } else {
                         /// Kayıt için girilen iki şifre eşleşmedi
                         MessageHelper.showSnackBar(

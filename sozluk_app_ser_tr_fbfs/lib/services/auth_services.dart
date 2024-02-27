@@ -100,4 +100,23 @@ class MyAuthService {
     /// kullanıcının kimliği döndürülür.
     return await auth.signInWithCredential(credential);
   }
+
+  /// girilen mail adresi Firebase 'de kayıtlı mı ?
+  Future<bool> isUserRegistered(String email) async {
+    try {
+      /// Email adresine göre kayıtlı kullanıcıları getir
+      List<String> providers = await auth.fetchSignInMethodsForEmail(email);
+
+      /// Eğer hiçbir sağlayıcı bulunamadıysa, kullanıcı kayıtlı değildir
+      if (providers.isEmpty) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      /// Hata durumunda false döndür
+      print("Hata: $e");
+      return false;
+    }
+  }
 }
