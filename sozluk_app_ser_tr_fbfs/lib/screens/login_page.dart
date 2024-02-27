@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/constants.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
+import '../utils/email_validator.dart';
 import '../utils/mesaj_helper.dart';
 import 'auth_page_parts/auth_common_widget.dart';
 import 'auth_page_parts/show_logo.dart';
@@ -197,24 +198,31 @@ class _LoginPageState extends State<LoginPage> {
           print("mail : $email");
           print("password : $password");
           if (email != null && password != null) {
-            MyAuthService()
-                .signInWithMail(
-              mail: teControllerMail.text,
-              password: teControllerPassword.text,
-            )
-                .then(
-              (user) async {
-                try {
-                  await Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    AppRoute.home,
-                    (route) => false,
-                  );
-                } catch (e) {
-                  showErrorMessage(e.toString());
-                }
-              },
-            );
+            if (!EmailValidator.isValidEmail(email!)) {
+              MessageHelper.showSnackBar(
+                context,
+                message: "email adresiniz doğru formatta değil !!!",
+              );
+            } else {
+              MyAuthService()
+                  .signInWithMail(
+                mail: teControllerMail.text,
+                password: teControllerPassword.text,
+              )
+                  .then(
+                (user) async {
+                  try {
+                    await Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoute.home,
+                      (route) => false,
+                    );
+                  } catch (e) {
+                    showErrorMessage(e.toString());
+                  }
+                },
+              );
+            }
           } else {
             /// email ve password alanları boş
             MessageHelper.showSnackBar(
