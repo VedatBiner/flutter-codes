@@ -3,10 +3,12 @@
 library;
 
 import 'package:flutter/material.dart';
-import '../../services/app_routes.dart';
+
 import '../../constants/app_constants/constants.dart';
+import '../../services/app_routes.dart';
 import '../../services/auth_services.dart';
 import '../../utils/mesaj_helper.dart';
+import '../../utils/email_validator.dart';
 import 'auth_common_widget.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -25,14 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   /// Şifrenin başlangıçta gizli olması için true olarak ayarlandı
   bool obscureText = true;
-
-  /// girilen mail adresi doğru formatta mı ?
-  bool isValidEmail(String email) {
-    // Mail adresi doğrulaması için kullanılacak düzenli ifade
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    // Düzenli ifadeyi kullanarak mail adresini kontrol et
-    return emailRegex.hasMatch(email);
-  }
 
   TextInputType getKeyboardType() {
     /// klavye tipi email adresi girecek şekilde olacak
@@ -132,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     /// kayıt yapılıyor
                     if (email != null && password != null) {
                       /// mail adresi doğru formatta mı?
-                      if (!isValidEmail(email!)) {
+                      if (!EmailValidator.isValidEmail(email!)) {
                         MessageHelper.showSnackBar(
                           context,
                           message: "email adresiniz doğru formatta değil !!!",
