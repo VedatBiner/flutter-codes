@@ -47,6 +47,7 @@ Drawer buildDrawer(BuildContext context) {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: IconButton(
+                  tooltip: "Dark/Light Theme",
                   color: menuColor,
                   onPressed: () {
                     final provider =
@@ -66,6 +67,7 @@ Drawer buildDrawer(BuildContext context) {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: IconButton(
+                  tooltip: "Sign Out",
                   color: menuColor,
                   icon: const Icon(Icons.logout),
                   onPressed: () {

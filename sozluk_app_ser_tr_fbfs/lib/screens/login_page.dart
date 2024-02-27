@@ -85,8 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 /// Google ile giriş
-                /// şimdilik iptal
-                /// AuthPageWidgets.googleSignIn(context),
+                AuthPageWidget.googleSignIn(context),
                 const SizedBox(height: 10),
 
                 /// şifremi unuttum
@@ -206,6 +205,7 @@ class _LoginPageState extends State<LoginPage> {
             } else {
               MyAuthService()
                   .signInWithMail(
+                context: context,
                 mail: teControllerMail.text,
                 password: teControllerPassword.text,
               )
@@ -219,6 +219,12 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   } catch (e) {
                     showErrorMessage(e.toString());
+                    if (e == "wrong-password") {
+                      MessageHelper.showSnackBar(
+                        context,
+                        message: "Yanlış şifre girdiniz !!!",
+                      );
+                    }
                   }
                 },
               );

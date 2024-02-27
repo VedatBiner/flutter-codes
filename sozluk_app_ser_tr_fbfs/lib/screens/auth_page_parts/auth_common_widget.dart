@@ -33,6 +33,58 @@ class AuthPageWidget extends StatefulWidget {
     this.controller,
   });
 
+  /// Google Sign In Butonu
+  static Widget googleSignIn(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: RawMaterialButton(
+        fillColor: Colors.black54,
+        elevation: 10,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(width: 1),
+        ),
+        onPressed: () async {
+          await MyAuthService().signInWithGoogle().then(
+            (value) async {
+              await Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoute.home,
+                (route) => false,
+              );
+            },
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: Image.asset(
+                "assets/images/google.png",
+                errorBuilder: (context, error, stackTrace) {
+                  print("Hata oluştu: $error");
+                  return const Icon(Icons.error);
+                },
+              ),
+            ),
+            const SizedBox(width: 20),
+            Text(
+              "Google ile Giriş",
+              style: TextStyle(
+                color: menuColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   State<AuthPageWidget> createState() => _AuthPageWidgetState();
 }
@@ -117,58 +169,6 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
               ),
             ),
         ],
-      ),
-    );
-  }
-
-  /// Google Sign In Butonu
-  static SizedBox googleSignIn(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: RawMaterialButton(
-        fillColor: Colors.black54,
-        elevation: 10,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(width: 1),
-        ),
-        onPressed: () async {
-          await MyAuthService().signInWithGoogle().then(
-            (value) async {
-              await Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoute.home,
-                (route) => false,
-              );
-            },
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Image.asset(
-                "assets/images/google.png",
-                errorBuilder: (context, error, stackTrace) {
-                  print("Hata oluştu: $error");
-                  return const Icon(Icons.error);
-                },
-              ),
-            ),
-            const SizedBox(width: 20),
-            Text(
-              "Google ile Giriş",
-              style: TextStyle(
-                color: menuColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

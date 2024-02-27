@@ -35,7 +35,6 @@ class MyAuthService {
       if (e.code == "weak-password") {
         print("Girdiğiniz şifre zayıf");
       } else if (e.code == "email-already-in-use") {
-        // print("Bu mail adresi kullanılmaktadır");
         MessageHelper.showSnackBar(
           context,
           message: "Bu e-mail adresi zaten kayıtlı!",
@@ -49,6 +48,7 @@ class MyAuthService {
 
   /// e-mail  ve şifre ile giriş servisi
   Future<User?> signInWithMail({
+    required BuildContext context,
     required String mail,
     required String password,
   }) async {
@@ -61,12 +61,27 @@ class MyAuthService {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        print("Kullanıcı bulunamadı.");
-      } else if (e.code == "wrong-password") {
-        print("Yanlış veya hatalı şifre");
+        // print("Kullanıcı bulunamadı.");
+        MessageHelper.showSnackBar(
+          context,
+          message: "Kullanıcı bulunamadı !!!",
+        );
+      } else if (e.code == "invalid-credential") {
+        // print("Yanlış veya hatalı şifre");
+        MessageHelper.showSnackBar(
+          context,
+          message: "Hatalı şifre girdiniz !!!",
+        );
       } else {
         print("Giriş Hatası : ${e.message} (Code: ${e.code}");
       }
+    } catch (e) {
+      // Hata olmadığında da mesaj göstermek için else bloğu eklendi
+      MessageHelper.showSnackBar(
+        context,
+        message: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.",
+      );
+      print("Giriş Hatası : $e");
     }
     return null;
   }
