@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/constants.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
+import '../utils/mesaj_helper.dart';
 import 'auth_page_parts/auth_common_widget.dart';
 import 'auth_page_parts/show_logo.dart';
 import 'auth_page_parts/show_message_line.dart';
@@ -193,7 +194,9 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () async {
           /// TextField 'dan gelen verilerin kontrolü
-          if (teControllerMail.text.isNotEmpty) {
+          print("mail : $email");
+          print("password : $password");
+          if (email != null && password != null) {
             MyAuthService()
                 .signInWithMail(
               mail: teControllerMail.text,
@@ -213,8 +216,11 @@ class _LoginPageState extends State<LoginPage> {
               },
             );
           } else {
-            print(
-                "email: ${teControllerMail.text} password: ${teControllerPassword.text}");
+            /// email ve password alanları boş
+            MessageHelper.showSnackBar(
+              context,
+              message: "E-mail ve şifre alanları boş bırakılamaz !!!",
+            );
           }
         },
         child: Text(
