@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sozluk_app_ser_tr_fbfs/firebase_options.dart';
 
+import '../screens/auth_page_parts/register_page.dart';
 import '../screens/login_page.dart';
 import '../utils/mesaj_helper.dart';
 
@@ -61,30 +62,42 @@ class MyAuthService {
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
+      print("*** HATA *** >>> ${e.code}");
       if (e.code == "user-not-found") {
-        // print("Kullanıcı bulunamadı.");
         MessageHelper.showSnackBar(
           context,
-          message: "Kullanıcı bulunamadı !!!",
+          message: "Kullanıcı bulunamadı !!!  "
+              "Register sayfasına yönlendirildiniz...",
+        );
+
+        /// Kullanıcı bulunamadı ise kayıt
+        /// sayfasına yönlendirilsin
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const RegisterPage(),
+          ),
         );
       } else if (e.code == "invalid-credential") {
         MessageHelper.showSnackBar(
           context,
-          message: "Hatalı şifre girdiniz !!!",
+          message: "Hatalı e-posta veya şifre girdiniz !!!"
+              "Login sayfasına yönlendirildiniz.",
         );
+
         /// hatalı şifre girilince
         /// login sayfası açılsın
         await Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => LoginPage(),
+            builder: (context) => const LoginPage(),
           ),
         );
       } else {
         print("Giriş Hatası : ${e.message} (Code: ${e.code}");
       }
     } catch (e) {
-      // Hata olmadığında da mesaj göstermek için else bloğu eklendi
+      /// Hata olmadığında da mesaj göstermek için else bloğu eklendi
       MessageHelper.showSnackBar(
         context,
         message: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.",
