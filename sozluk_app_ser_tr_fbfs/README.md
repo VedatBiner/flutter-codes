@@ -54,7 +54,7 @@ Kayıt Penceresi
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-02.png" height="400em"/>
 Ana Sayfa Sırpça-Türkçe Sözlük ile Card görünümünde açılıyor.
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-03.png" height="400em"/>
-Drawer menü ile yardımcı bilgiler, tem değişimi ve çıkış yapılabiliyor. 
+Drawer menü ile yardımcı bilgiler, tema değişimi ve çıkış yapılabiliyor. 
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-04.png" height="400em"/>
 Dark tema ve Card görünümü
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/sozluk_app_ser_tr_fbfs/screen_shots/img-05.png" height="400em"/>
