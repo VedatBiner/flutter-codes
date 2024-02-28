@@ -194,8 +194,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
         onPressed: () async {
           /// TextField 'dan gelen verilerin kontrolü
-          print("mail : $email");
-          print("password : $password");
           if (email != null && password != null) {
             if (!EmailValidator.isValidEmail(email!)) {
               MessageHelper.showSnackBar(
@@ -206,8 +204,8 @@ class _LoginPageState extends State<LoginPage> {
               MyAuthService()
                   .signInWithMail(
                 context: context,
-                mail: teControllerMail.text,
-                password: teControllerPassword.text,
+                mail: email!,
+                password: password!,
               )
                   .then(
                 (user) async {
