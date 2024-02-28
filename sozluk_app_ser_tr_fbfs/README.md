@@ -30,6 +30,8 @@ Yapılacaklar ve Planlananlar<BR>
 - Firestore 'dan bir kere okunup, veriler ön belleğe alınıp, sadece değişiklikler olunca 
   Firestore 'a kayıt yapılarak performans artışı sağlanabilir.
 - JSON veya my SQL ile lokal veri yedeği tutulabilir. <BR>
+- Yetkisiz kullanıcıların kelime silmesi veya bir başka kullanıcının eklediği kelimeyi silmesi önlenebilir.
+- Yetkisiz kullanıcıların kelime eklemesi ve düzeltmesi engellenebilir. Ya da Firestore 2a eklenecek kolon ile listelenebilir.
 <BR>
 
 Kullanılan Paketler: <BR>
