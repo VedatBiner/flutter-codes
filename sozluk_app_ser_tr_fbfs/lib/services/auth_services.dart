@@ -62,45 +62,45 @@ class MyAuthService {
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      print("*** HATA *** >>> ${e.code}");
-      if (e.code == "user-not-found") {
-        MessageHelper.showSnackBar(
-          context,
-          message: "Kullanıcı bulunamadı !!!  "
-              "Register sayfasına yönlendirildiniz...",
-        );
+      switch (e.code) {
+        /// kullanıcı yoksa
+        case "user-not-found":
+          MessageHelper.showSnackBar(
+            context,
+            message: "Kullanıcı bulunamadı !!!  "
+                "Register sayfasına yönlendirildiniz...",
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const RegisterPage(),
+            ),
+          );
+          break;
 
-        /// Kullanıcı bulunamadı ise kayıt
-        /// sayfasına yönlendirilsin
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const RegisterPage(),
-          ),
-        );
-      } else if (e.code == "invalid-credential") {
-        MessageHelper.showSnackBar(
-          context,
-          message: "Hatalı e-posta veya şifre girdiniz !!!"
-              "Login sayfasına yönlendirildiniz.",
-        );
+        /// hatalı e-mail veya şifre girildi
+        case "invalid-credential":
+          MessageHelper.showSnackBar(
+            context,
+            message: "Hatalı e-posta veya şifre girdiniz !!! "
+                "Login sayfasına yönlendirildiniz.",
+          );
+          await Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          );
+          break;
 
-        /// hatalı şifre girilince
-        /// login sayfası açılsın
-        await Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ),
-        );
-      } else {
-        print("Giriş Hatası : ${e.message} (Code: ${e.code}");
+        default:
+          print("Giriş Hatası : ${e.message} (Code: ${e.code}");
+          break;
       }
     } catch (e) {
-      /// Hata olmadığında da mesaj göstermek için else bloğu eklendi
       MessageHelper.showSnackBar(
         context,
-        message: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.",
+        message: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyiniz.",
       );
       print("Giriş Hatası : $e");
     }
