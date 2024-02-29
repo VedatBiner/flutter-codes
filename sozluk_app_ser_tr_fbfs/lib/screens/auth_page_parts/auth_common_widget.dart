@@ -1,10 +1,10 @@
 /// <----- auth_page_widgets.dart ----->
 ///
-/// Login ekranında e-mail ve password
-/// kutularını gösteren metod
-///
-/// Google sign in metodu şimdilik iptal
-///
+/// Login ekranında e-mail, password
+/// google Sign In, kaydol ve
+/// şifremi unuttum
+/// kutularını ve seçeneklerini gösteren metod
+
 library;
 
 import 'package:flutter/material.dart';

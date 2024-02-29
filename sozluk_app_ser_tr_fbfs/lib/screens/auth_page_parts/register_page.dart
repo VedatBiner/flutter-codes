@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               /// e-mail TextField
               AuthPageWidget(
-                hintText: "e-mail adresi",
+                hintText: hintEmail,
                 prefixIcon: Icons.mail_outline,
                 isFirst: true,
                 keyboardType: getKeyboardType(),
@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               /// parola TextFields
               AuthPageWidget(
-                hintText: "parola",
+                hintText: hintPassword,
                 prefixIcon: Icons.lock,
                 obscureText: obscureText,
                 onChanged: (parola) {
@@ -95,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               /// parola Check TextFields
               AuthPageWidget(
-                hintText: "parola tekrar",
+                hintText: hintCheckPassword,
                 prefixIcon: Icons.lock,
                 obscureText: obscureText,
                 onChanged: (parola) {
@@ -129,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       if (!EmailValidator.isValidEmail(email!)) {
                         MessageHelper.showSnackBar(
                           context,
-                          message: "email adresiniz doğru formatta değil !!!",
+                          message: wrongMailFormat,
                         );
                       }
 
@@ -138,8 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           checkPassword!.length < 8) {
                         MessageHelper.showSnackBar(
                           context,
-                          message:
-                              "Şifreler sekiz (8) karakterden küçük olamaz !!!",
+                          message: passwordSize,
                         );
                       }
 
@@ -147,7 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       else if (password != checkPassword) {
                         MessageHelper.showSnackBar(
                           context,
-                          message: "Şifreler eşleşmiyor ...",
+                          message: checkPasswords,
                         );
                       } else {
                         /// password eşleşti ise kayıt yap
@@ -162,8 +161,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             /// Kayıt için girilen iki şifre eşleşti
                             MessageHelper.showSnackBar(
                               context,
-                              message:
-                                  "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.",
+                              message: registrationOk,
                             );
                             await Navigator.pushNamedAndRemoveUntil(
                               context,
@@ -176,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     } else {
                       MessageHelper.showSnackBar(
                         context,
-                        message: "E-mail ve şifre alanları boş bırakılamaz!",
+                        message: blankMailAndPassword,
                       );
                     }
                   },

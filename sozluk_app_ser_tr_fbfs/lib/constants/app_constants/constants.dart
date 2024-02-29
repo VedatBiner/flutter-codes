@@ -112,6 +112,18 @@ const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 
+/// Message Constants
+const String wrongMailFormat = "email adresiniz doğru formatta değil !!!";
+const String blankMailAndPassword = "E-mail ve şifre alanları boş bırakılamaz !!!";
+const String passwordSize = "Şifreler sekiz (8) karakterden küçük olamaz !!!";
+const String registrationOk = "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.";
+const String checkPasswords = "Şifreler eşleşmiyor ...";
+
+/// Hint Text Constants
+const String hintEmail = "e-mail adresi";
+const String hintPassword = "parola";
+const String hintCheckPassword = "parola tekrar";
+
 /// diller - Burada amaç dil adını sadece
 /// buradan verip, değişimi tek yerden kontrol etmek
 const String birinciDil = "Türkçe";

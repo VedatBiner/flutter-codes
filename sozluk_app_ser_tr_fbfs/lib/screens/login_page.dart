@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
             if (!EmailValidator.isValidEmail(email!)) {
               MessageHelper.showSnackBar(
                 context,
-                message: "email adresiniz doğru formatta değil !!!",
+                message: wrongMailFormat,
               );
             } else {
               MyAuthService()
@@ -216,7 +216,6 @@ class _LoginPageState extends State<LoginPage> {
                       (route) => false,
                     );
                   } catch (e) {
-                    showErrorMessage(e.toString());
                     if (e == "wrong-password") {
                       MessageHelper.showSnackBar(
                         context,
@@ -231,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
             /// email ve password alanları boş
             MessageHelper.showSnackBar(
               context,
-              message: "E-mail ve şifre alanları boş bırakılamaz !!!",
+              message: blankMailAndPassword,
             );
           }
         },
@@ -240,24 +239,6 @@ class _LoginPageState extends State<LoginPage> {
           style: buttonRL,
         ),
       ),
-    );
-  }
-
-  /// hata mesajı için
-  void showErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.indigo,
-          title: Center(
-            child: Text(
-              message,
-              style: TextStyle(color: menuColor),
-            ),
-          ),
-        );
-      },
     );
   }
 }
