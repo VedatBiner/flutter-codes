@@ -299,8 +299,7 @@ class _SayfaGecisliDonusluFiillerState
               buildRichTextRule(
                 "Mislim / Misliš / Misli / Mislimo / misliti / Mislite / Misle"
                     "ja želim da misliš '(Boşnakça / Hırvatça / Sırpça)'",
-                dashTextA: '(Sırpça)',
-                dashTextB: '(Boşnakça / Hırvatça / Sırpça)',
+                dashTextA: '(Boşnakça / Hırvatça / Sırpça)',
                 context,
               ),
               buildRichTextRule(
