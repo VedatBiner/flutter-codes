@@ -126,7 +126,8 @@ class _SayfaGecisliDonusluFiillerState
                 context,
               ),
               buildRichTextRule(
-                "Bu yüzden 'dönüşlü fiil' başta olup, 'li' ve sonra 'se' ile cümle devam ediyor.",
+                "Bu yüzden 'dönüşlü fiil' başta olup, 'li' ve sonra 'se' "
+                "ile cümle devam ediyor.",
                 dashTextA: "'dönüşlü fiil'",
                 dashTextB: "'li'",
                 dashTextC: "'se'",
@@ -176,13 +177,135 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleF,
                 "sık kullanılan 7 fiil - 3",
                 [
-                      (user) => user['şahıs']!,
-                      (user) => user['fiil7']!,
+                  (user) => user['şahıs']!,
+                  (user) => user['fiil7']!,
                 ],
               ),
               buildRichTextRule(
                 "(*) 'Razumeti' de lehçe farkı var. Sağdakiler Boşnakça ve Hırvatça kalıbı",
                 dashTextA: "'Razumeti'",
+                context,
+              ),
+
+              /// htjeti / hteti (istemek) Fiili
+              buildTable(
+                gecisliDonusluFiilerSampleG,
+                "htjeti / hteti (istemek) Fiili",
+                [
+                  (user) => user['şahıs']!,
+                  (user) => user['istemek']!,
+                  (user) => user['istememek']!,
+                ],
+              ),
+              buildRichTextRule(
+                "Düzensiz bir fiildir. Olumsuz yapma kuralına da uymaz. Olumsuz "
+                "yapılınca istisna olarak baştaki ‘ho’ atılıp ‘ne’ eklenir. "
+                "İngilizcedeki will gelecek zamanı ile benzer kullanımı vardır."
+                "Bu fiil daha çok arzu etmek / arzulamak anlamında kullanılır.",
+                dashTextA: "‘ho’ ",
+                dashTextB: "‘ne’",
+                context,
+              ),
+
+              /// voljeti / voleti (sevmek) ve željeti / želeti (istemek) fiili
+              buildTable(
+                gecisliDonusluFiilerSampleH,
+                "voljeti / voleti (sevmek) ve željeti / želeti (istemek) fiili",
+                [
+                  (user) => user['şahıs']!,
+                  (user) => user['sevmek']!,
+                  (user) => user['istemek']!,
+                ],
+              ),
+              buildRichTextRule(
+                "'Özneleri aynı olan Yardımcı Filler:' Konuşmayı seviyorum, "
+                "Yürümek istiyorum, Yemek yemek istiyor ...",
+                dashTextA: "'Özneleri aynı olan Yardımcı Filler:'",
+                context,
+              ),
+              buildRichTextRule(
+                "'Özneleri farklı olan Yardımcı Filler:' Konuşmanı seviyorum, "
+                "Yürümelerini istiyorum, Yemek yememi istiyorsun ...",
+                dashTextA: "'Özneleri farklı olan Yardımcı Filler:'",
+                context,
+              ),
+              const Divider(),
+              buildRichTextRule(
+                "Bir cümlede birden fazla fiil olursa bir tanesi diğer fiile "
+                "yardımcı oluyor bu durumda yardımcı fiil olarak adlandırılıyor. "
+                "'Örneğin' konuşmayı seviyorum cümlesinde 'sevmek' fiili yardımcı "
+                "fiildir. 'Konuşmayı sevmeyi' işaret ediyor.",
+                dashTextA: 'Örneğin',
+                dashTextB: 'sevmek',
+                dashTextC: 'Konuşmayı sevmeyi',
+                context,
+              ),
+              const Divider(),
+
+              buildTextRule(
+                "Sırpça ‘da İki kural var:",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildRichTextRule(
+                "'1.	Kural' Özneler aynı Yardımcı fiil (şimdiki / geniş zaman) "
+                "+ -ti/-ći bitimli mastar fiil",
+                dashTextA: '1.	Kural',
+                context,
+              ),
+              buildRichTextRule(
+                "'2.	Kural' Özneler aynı Yardımcı fiil (şimdiki / geniş zaman) "
+                "+ -ti/-ći bitimli mastar fiil",
+                dashTextA: '2.	Kural',
+                context,
+              ),
+              const Divider(),
+
+              buildTextRule(
+                "Örnek - Özneler Aynı ise:",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildRichTextRule(
+                "düşünmek istiyorum – željeti (istemek) misliti (düşünmek) >> "
+                "'(ja) želim misliti'",
+                dashTextA: '(ja) želim misliti',
+                context,
+              ),
+              buildTextRule(
+                "Örnek - Özneler farklı veya aynı ise:",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildRichTextRule(
+                "Mislim / Misliš / Misli / Mislimo / misliti / Mislite / Misle"
+                "(ja) želim da mislim '(Sırpça)' - ja želim misliti '(Boşnakça / Hırvatça)'",
+                dashTextA: '(Sırpça)',
+                dashTextB: '(Boşnakça / Hırvatça)',
+                context,
+              ),
+              buildRichTextRule(
+                "Özneler aynı olunca 'kural 1' Boşnakça Hırvatça ’da tercih ediliyor."
+                "'kural 2' ise Sırpça ’da tercih ediliyor.",
+                dashTextA: 'kural 1',
+                dashTextB: 'kural 2',
+                context,
+              ),
+              buildTextRule(
+                "Örnek - Özneler farklı ise:",
+                style: baslikTextBlack,
+                context,
+              ),
+              buildRichTextRule(
+                "Mislim / Misliš / Misli / Mislimo / misliti / Mislite / Misle"
+                    "ja želim da misliš '(Boşnakça / Hırvatça / Sırpça)'",
+                dashTextA: '(Sırpça)',
+                dashTextB: '(Boşnakça / Hırvatça / Sırpça)',
+                context,
+              ),
+              buildRichTextRule(
+                "Boşnak, Hırvat ve Sırp dillerinde mecburen 'kural 2' uygulanıyor.",
+                dashTextA: 'kural 2',
                 context,
               ),
             ],

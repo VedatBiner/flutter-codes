@@ -320,3 +320,82 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleF = [
     'fiil7': 'razumeju / razumiju',
   },
 ];
+
+/// htjeti / hteti (istemek) Fiili
+final List<Map<String, String>> gecisliDonusluFiilerSampleG = [
+  {
+    'şahıs': 'şahıs',
+    'istemek': 'Hteti / htjeti (istemek)',
+    'istememek': 'istememek',
+  },
+  {
+    'şahıs': 'ja',
+    'istemek': 'hoću',
+    'istememek': 'Neću',
+  },
+  {
+    'şahıs': 'ti',
+    'istemek': 'Hoćeš',
+    'istememek': 'Nećeš',
+  },
+  {
+    'şahıs': 'On / ona / ono',
+    'istemek': 'Hoće',
+    'istememek': 'Neće',
+  },
+  {
+    'şahıs': 'Mi',
+    'istemek': 'Hoćemo',
+    'istememek': 'Nećemo',
+  },
+  {
+    'şahıs': 'vi',
+    'istemek': 'Hoćete',
+    'istememek': 'Nećete',
+  },
+  {
+    'şahıs': 'Oni / one / ona',
+    'istemek': 'hoće',
+    'istememek': 'neće',
+  },
+];
+
+/// voljeti / voleti (sevmek) ve željeti / želeti (istemek) fiili
+final List<Map<String, String>> gecisliDonusluFiilerSampleH = [
+  {
+    'şahıs': 'şahıs',
+    'sevmek': 'voljeti / voleti (sevmek)',
+    'istemek': 'željeti / želeti (istemek)',
+  },
+  {
+    'şahıs': 'ja',
+    'sevmek': 'volim',
+    'istemek': 'želim',
+  },
+  {
+    'şahıs': 'ti',
+    'sevmek': 'voliš',
+    'istemek': 'želiš',
+  },
+  {
+    'şahıs': 'On / ona / ono',
+    'sevmek': 'voli',
+    'istemek': 'želi',
+  },
+  {
+    'şahıs': 'Mi',
+    'sevmek': 'volimo',
+    'istemek': 'želimo',
+  },
+  {
+    'şahıs': 'vi',
+    'sevmek': 'volite',
+    'istemek': 'želite',
+  },
+  {
+    'şahıs': 'Oni / one / ona',
+    'sevmek': 'vole',
+    'istemek': 'žele',
+  },
+
+];
