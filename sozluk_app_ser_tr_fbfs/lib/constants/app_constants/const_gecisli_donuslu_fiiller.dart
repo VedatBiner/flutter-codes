@@ -397,5 +397,84 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleH = [
     'sevmek': 'vole',
     'istemek': 'žele',
   },
+];
 
+/// Yardımcı Fiil Örnekleri
+final List<Map<String, String>> gecisliDonusluFiilerSampleI = [
+  {
+    'fiil': 'fiil',
+    'çekim': 'çekim',
+  },
+  {
+    'fiil': 'Ići (gitmek)',
+    'çekim': 'idem, ideš, ide, idemo, idete, idu',
+  },
+  {
+    'fiil': 'Voljeti (sevmek)',
+    'çekim': 'volim, voliš, voli, volimo, volite, vole',
+  },
+  {
+    'fiil': 'Željeti (istemek)',
+    'çekim': 'želim, želiš. želi, želimo, želite, žele ',
+  },
+  {
+    'fiil': 'Htjeti (istemek)',
+    'çekim': 'hoću, hoćes, hoće, hoćemo, hoćete, hoće ',
+  },
+  {
+    'fiil': 'Hodati (yürümek)',
+    'çekim': 'hodam, hodaš, hoda, hodamo, hodate, hodaju',
+  },
+  {
+    'fiil': 'Učiti (öğrenmek)',
+    'çekim': 'Učim, učiš, uči, učimo, učite, uče',
+  },
+  {
+    'fiil': 'Govorıti (konuşmak)',
+    'çekim': 'Govorim, govoriš, gvori, govorimo, govorite, govore',
+  },
+];
+
+/// Yardımcı Fiil Örnekleri
+final List<Map<String, String>> gecisliDonusluFiilerSampleJ = [
+  {
+    'fiil': 'fiil',
+    'anlam': 'anlam',
+  },
+  {
+    'fiil': 'Želim / hoću ići',
+    'anlam': 'Gitmek istiyorum',
+  },
+  {
+    'fiil': 'Želim / hocu da ideš',
+    'anlam': 'gitmeni istiyorum',
+  },
+  {
+    'fiil': 'Želiš / hoćes ići',
+    'anlam': 'Gitmek istiyorsun',
+  },
+  {
+    'fiil': 'hoće da ideš',
+    'anlam': 'gitmeni istiyor',
+  },
+  {
+    'fiil': 'voli da ideš',
+    'anlam': 'gitmeni seviyor',
+  },
+  {
+    'fiil': 'Voli hodati',
+    'anlam': 'Yürümeyi seviyor',
+  },
+  {
+    'fiil': 'Želimo da idete',
+    'anlam': 'Gitmeni istiyoruz',
+  },
+  {
+    'fiil': 'Voliš da hodaju',
+    'anlam': 'Onların yürümesini seviyorsun',
+  },
+  {
+    'fiil': 'Voli da hodam',
+    'anlam': 'Yürümeyi seviyor',
+  },
 ];

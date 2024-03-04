@@ -298,14 +298,42 @@ class _SayfaGecisliDonusluFiillerState
               ),
               buildRichTextRule(
                 "Mislim / Misliš / Misli / Mislimo / misliti / Mislite / Misle"
-                    "ja želim da misliš '(Boşnakça / Hırvatça / Sırpça)'",
+                "ja želim da misliš (Boşnakça / Hırvatça / Sırpça)",
                 dashTextA: '(Boşnakça / Hırvatça / Sırpça)',
                 context,
               ),
               buildRichTextRule(
-                "Boşnak, Hırvat ve Sırp dillerinde mecburen 'kural 2' uygulanıyor.",
+                "Boşnak, Hırvat ve Sırp dillerinde mecburen kural 2 uygulanıyor.",
                 dashTextA: 'kural 2',
                 context,
+              ),
+              const Divider(),
+
+              /// Yardımcı fiil örnekleri
+              buildTable(
+                gecisliDonusluFiilerSampleI,
+                "Yardımcı Fiil Örnekleri",
+                [
+                      (user) => user['fiil']!,
+                      (user) => user['çekim']!,
+                ],
+              ),
+              buildRichTextRule(
+                "Ići fiili gibi bazı filler de ći eki alırlar- Ići fiilinde "
+                "düzensiz çekim var. Çekim yaparken ći atılıyor.",
+                dashTextA: 'Ići',
+                dashTextB: 'ći',
+                dashTextC: 'Ići',
+                dashTextD: 'ći',
+                context,
+              ),
+              buildTable(
+                gecisliDonusluFiilerSampleJ,
+                "Yardımcı Fiil Örnekleri",
+                [
+                      (user) => user['fiil']!,
+                      (user) => user['anlam']!,
+                ],
               ),
             ],
           ),
