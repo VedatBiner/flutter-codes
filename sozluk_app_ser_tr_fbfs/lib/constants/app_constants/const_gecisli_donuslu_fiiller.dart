@@ -478,3 +478,51 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleJ = [
     'anlam': 'Yürümeyi seviyor',
   },
 ];
+
+/// Yardımcı Fiil Örnekleri
+final List<Map<String, String>> gecisliDonusluFiilerSampleK = [
+  {
+    'kalıp': 'kalıp',
+    'anlam': 'anlam',
+  },
+  {
+    'kalıp': 'Želim da govoriš bosanski',
+    'anlam': 'Boşnakça konuşmanı istiyorum',
+  },
+  {
+    'kalıp': 'Volim govoriti srpski',
+    'anlam': 'Sırpça konuşmayı severim',
+  },
+  {
+    'kalıp': 'Hoćemo ućiti hrvatski',
+    'anlam': 'Hırvatça öğrenmek istiyoruz',
+  },
+  {
+    'kalıp': 'Žele da govorimo turski',
+    'anlam': 'Türkçe konuşmamızı istiyorlar',
+  },
+  {
+    'kalıp': 'Volim željeti ',
+    'anlam': 'istemeyi seviyorum',
+  },
+  {
+    'kalıp': 'Volim htjeti',
+    'anlam': 'istemeyi seviyorum',
+  },
+  {
+    'kalıp': 'Želim voljeti',
+    'anlam': 'Sevmek istiyorum',
+  },
+  {
+    'kalıp': 'Hoću voljeti',
+    'anlam': 'Sevmek istiyorum',
+  },
+  {
+    'kalıp': 'Zelim ućiti govoriti Turski',
+    'anlam': 'Türkçe konuşmayı öğrenmek istiyorum',
+  },
+  {
+    'kalıp': 'Vole da želite učiti Bosanski.',
+    'anlam': 'Boşnakça öğrenmeyi istemeni seviyorlar',
+  },
+];

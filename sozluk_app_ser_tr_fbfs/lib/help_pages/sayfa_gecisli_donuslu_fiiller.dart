@@ -314,8 +314,8 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleI,
                 "Yardımcı Fiil Örnekleri",
                 [
-                      (user) => user['fiil']!,
-                      (user) => user['çekim']!,
+                  (user) => user['fiil']!,
+                  (user) => user['çekim']!,
                 ],
               ),
               buildRichTextRule(
@@ -331,7 +331,31 @@ class _SayfaGecisliDonusluFiillerState
                 gecisliDonusluFiilerSampleJ,
                 "Yardımcı Fiil Örnekleri",
                 [
-                      (user) => user['fiil']!,
+                  (user) => user['fiil']!,
+                  (user) => user['anlam']!,
+                ],
+              ),
+              const Divider(),
+              buildRichTextRule(
+                "Da eki gelince, özne farklılıkları oluyor. Yani birinin bir "
+                "eylem yapmasını istemek gibi.  Želim / hocu da ideš "
+                "(gitmeni istiyorum) ",
+                dashTextA: 'Da',
+                dashTextB: 'Želim / hocu da ideš',
+                dashTextC: '(gitmeni istiyorum)',
+                context,
+              ),
+              const Divider(),
+              buildRichTextRule(
+                "Kullanım kalıbı: (kişi zamiri) + fiil + nesne + diğer sözcükler",
+                dashTextA: 'Kullanım kalıbı:',
+                context,
+              ),
+              buildTable(
+                gecisliDonusluFiilerSampleK,
+                "Yardımcı Fiil Örnekleri",
+                [
+                      (user) => user['kalıp']!,
                       (user) => user['anlam']!,
                 ],
               ),
