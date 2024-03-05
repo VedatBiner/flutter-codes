@@ -85,3 +85,67 @@ final List<Map<String, String>> isaretSifatlariSampleB = [
     'kelime3': 'Ona sela',
   },
 ];
+
+/// Bu / şu / o nedir ?
+final List<Map<String, String>> isaretSifatlariSampleC = [
+  {
+    'soru': 'soru',
+    'cevap': 'cevap',
+  },
+  {
+    'soru': 'Šta je ovo? (bu nedir ?)',
+    'cevap': 'Ovo je jabuka (Bu bir elmadır)',
+  },
+  {
+    'soru': 'Šta je to? (şu nedir?)',
+    'cevap': 'To je kivi (bu bir kivi)',
+  },
+  {
+    'soru': 'Šta je ono? (o nedir?)',
+    'cevap': 'Ono je jagoda (Bu bir çilek)',
+  },
+];
+
+/// Bu / şu / o - devam
+final List<Map<String, String>> isaretSifatlariSampleD = [
+  {
+    'soru': 'soru',
+    'anlamı': 'anlamı',
+  },
+  {
+    'soru': 'Da li ovo kupus?',
+    'anlamı': 'Bu lahana mı?',
+  },
+  {
+    'soru': 'Je li ovo praziluk?',
+    'anlamı': 'Bu pırasa mı?',
+  },
+  {
+    'soru': 'Da li to paradajz?',
+    'anlamı': 'Şu bir domates mi?',
+  },
+  {
+    'soru': 'Da li ono patlidžan?',
+    'anlamı': 'O patlıcan mı?',
+  },
+];
+
+/// Bu / şu / o - olumsuz sorular
+final List<Map<String, String>> isaretSifatlariSampleE = [
+  {
+    'soru': 'soru',
+    'anlamı': 'anlamı',
+  },
+  {
+    'soru': 'Nije li ovo banana?',
+    'anlamı': 'Bu muz değil mi?',
+  },
+  {
+    'soru': 'Zar nije to škola?',
+    'anlamı': 'Şu okul değil mi? ',
+  },
+  {
+    'soru': 'Nije li ono avion?',
+    'anlamı': 'O uçak değil mi?',
+  },
+];
