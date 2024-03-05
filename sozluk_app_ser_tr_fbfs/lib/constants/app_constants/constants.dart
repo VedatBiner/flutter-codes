@@ -111,6 +111,7 @@ const String appBarZamirTitle = "Şahıs Zamirleri";
 const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
+const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
 
 /// Message Constants
 const String wrongMailFormat = "email adresiniz doğru formatta değil !!!";
@@ -132,6 +133,8 @@ const String firstCountry = "TR";
 const String ikinciDil = "Sırpça";
 const String fsIkinciDil = "sirpca";
 const secondCountry = "RS";
+
+/// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
   {"title": "Alfabe (Kiril)", "page": AppRoute.kiril},
@@ -144,8 +147,13 @@ final List<Map<String, dynamic>> drawerItems = [
     "title": "Geçişli ve Dönüşlü Fiiller",
     "page": AppRoute.gecisliDonusluFiller
   },
+  {
+    "title": "İşaret Sıfatları",
+    "page": AppRoute.isaretSifatlari
+  },
 ];
 
+/// Latin Harfleri
 final List<Map<String, String>> latinAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
@@ -184,6 +192,7 @@ final List<Map<String, String>> latinAlphabet = [
   {'turkce': "NY", 'sirpca': 'NJ nj - ny okunur'},
 ];
 
+/// Kiril Harfleri
 final List<Map<String, String>> kirilAlphabet = [
   {'turkce': "Türkçe Harfler", 'sirpca': 'Sırpça Karşılıkları'},
   {'turkce': "A", 'sirpca': 'A a'},
