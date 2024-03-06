@@ -14,10 +14,10 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  firebase_core:
-  cloud_firestore:
-  firebase_auth:
-  google_sign_in:
+  firebase_core: ^2.26.0
+  cloud_firestore: ^4.15.7
+  firebase_auth: ^4.17.7
+  google_sign_in: ^6.2.1
   flag:
   fluttertoast:
   google_fonts:
