@@ -149,3 +149,19 @@ final List<Map<String, String>> isaretSifatlariSampleE = [
     'anlamı': 'O uçak değil mi?',
   },
 ];
+
+/// Burada / Şurada / Orada
+final List<Map<String, String>> isaretSifatlariSampleF = [
+  {
+    'soru': 'soru',
+    'cevap': 'cevap',
+  },
+  {
+    'soru': 'Gdje je knjiga? (kitap nerede?)',
+    'cevap': 'Knjiga je ovde (kitap burada)',
+  },
+  {
+    'soru': 'Gdje su kniga? (kitaplar nerede?)',
+    'cevap': 'Knjiga je tamo (kitap orada)',
+  },
+];

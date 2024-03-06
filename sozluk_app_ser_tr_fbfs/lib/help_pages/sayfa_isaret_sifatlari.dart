@@ -93,8 +93,8 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 isaretSifatlariSampleD,
                 "Bu, Şu, o nedir? Sorular (nesne kullanarak)",
                 [
-                      (user) => user['soru']!,
-                      (user) => user['anlamı']!,
+                  (user) => user['soru']!,
+                  (user) => user['anlamı']!,
                 ],
               ),
               buildRichTextRule(
@@ -106,8 +106,8 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 isaretSifatlariSampleE,
                 "Bu, Şu, o nedir? Olumsuz Sorular (nesne kullanarak)",
                 [
-                      (user) => user['soru']!,
-                      (user) => user['anlamı']!,
+                  (user) => user['soru']!,
+                  (user) => user['anlamı']!,
                 ],
               ),
               buildRichTextRule(
@@ -116,6 +116,62 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 dashTextB: 'zar nije',
                 context,
               ),
+              const Divider(),
+              buildRichTextRule(
+                "Aşağıdaki kalıplar kullanılır.",
+                context,
+              ),
+              buildRichTextRule(
+                "Gdje / gde + (olmak fiili) + (isim/nesne) ?",
+                dashTextA: 'Gdje / gde',
+                context,
+              ),
+              buildRichTextRule(
+                "(isim/nesne) + (olmak fiili) + (burada/şurada)",
+                context,
+              ),
+              buildRichTextRule(
+                "Ovde / ovdje + je / su + (isim/nesne)",
+                dashTextA: 'Ovde / ovdje',
+                dashTextB: 'je / su',
+                context,
+              ),
+              buildRichTextRule(
+                "Tamo + je / su + (isim/nesne)",
+                dashTextA: 'Tamo',
+                dashTextB: 'je / su',
+                context,
+              ),
+              buildRichTextRule(
+                "Onamo + je / su + (isim/nesne)",
+                dashTextA: 'Onamo',
+                dashTextB: 'je / su',
+                context,
+              ),
+              buildRichTextRule(
+                "je tekiller için, su çoğullar için kullanılır.",
+                dashTextA: 'je',
+                dashTextB: 'su',
+                context,
+              ),
+              buildRichTextRule(
+                "Olumsuz yapmak için je yerine nije, "
+                "su yerine nisu kullanılır. ",
+                dashTextA: 'je',
+                dashTextB: 'nije',
+                dashTextC: 'su',
+                dashTextD: 'nisu',
+                context,
+              ),
+              buildTable(
+                isaretSifatlariSampleF,
+                "Burada, şurada, orada Örnekler ",
+                [
+                      (user) => user['soru']!,
+                      (user) => user['cevap']!,
+                ],
+              ),
+
             ],
           ),
         ),
