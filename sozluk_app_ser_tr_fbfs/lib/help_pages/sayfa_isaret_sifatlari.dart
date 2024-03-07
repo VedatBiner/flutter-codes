@@ -8,7 +8,6 @@ import '../constants/app_constants/constants.dart';
 import '../screens/home_page_parts/drawer_items.dart';
 import '../utils/rich_text_rule.dart';
 import '../utils/text_header.dart';
-import '../utils/text_rule.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 
@@ -165,13 +164,27 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
               ),
               buildTable(
                 isaretSifatlariSampleF,
-                "Burada, şurada, orada Örnekler ",
+                "Burada, şurada, orada Örnekler - 1",
                 [
-                      (user) => user['soru']!,
-                      (user) => user['cevap']!,
+                  (user) => user['soru']!,
+                  (user) => user['cevap']!,
                 ],
               ),
-
+              buildTable(
+                isaretSifatlariSampleG,
+                "Burada, şurada, orada Örnekler - 2",
+                [
+                      (user) => user['ifade']!,
+                      (user) => user['anlam']!,
+                ],
+              ),
+              // buildTable(
+              //   isaretSifatlariSampleG,
+              //   "Burada, şurada, orada Örnekler - 2",
+              //   [
+              //     (user) => user['örnek']!,
+              //   ],
+              // ),
             ],
           ),
         ),

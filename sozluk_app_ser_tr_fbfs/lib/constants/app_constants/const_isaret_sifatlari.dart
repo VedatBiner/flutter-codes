@@ -165,3 +165,49 @@ final List<Map<String, String>> isaretSifatlariSampleF = [
     'cevap': 'Knjiga je tamo (kitap orada)',
   },
 ];
+
+/// Burada / Şurada / Orada örnekler
+final List<Map<String, String>> isaretSifatlariSampleG = [
+  {
+    'ifade': 'ifade',
+    'anlam': 'anlam',
+  },
+  {
+    'ifade': 'Ovdje je čaša',
+    'anlam': 'burada bardak var',
+  },
+  {
+    'ifade': 'Tamo je čaša',
+    'anlam': 'burada bardak var',
+  },
+  {
+    'ifade': 'onamo je čaša',
+    'anlam': 'orada bardak var',
+  },
+  {
+    'ifade': 'Ovde su čaše',
+    'anlam': 'burada bardaklar var',
+  },
+  {
+    'ifade': 'Tamo su čaše',
+    'anlam': 'burada bardaklar var',
+  },
+
+  {
+    'ifade': 'onamo su čaše',
+    'anlam': 'orada bardaklar var',
+  },
+  {
+    'ifade': 'ovde nisu čaša ',
+    'anlam': 'burada bardak yok',
+  },
+  {
+    'ifade': 'Gdje je čaša?',
+    'anlam': 'bardak nerede?',
+  },
+
+  {
+    'ifade': 'Gdje su čaše?',
+    'anlam': 'bardaklar nerede?',
+  },
+];
