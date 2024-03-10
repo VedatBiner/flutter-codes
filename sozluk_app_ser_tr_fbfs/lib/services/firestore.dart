@@ -11,32 +11,37 @@ class FirestoreService {
       FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
-      BuildContext context, String ikinciDil, String birinciDil) async {
-    var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
+    BuildContext context,
+    String ikinciDil,
+    String birinciDil,
+  ) async {
+    /// eklenecek kelimelerin baş harfleri
+    /// büyük harfe çevriliyor
+    ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
+    birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
 
-    if (result.docs.isEmpty) {
-      /// eklenecek kelimelerin baş harfleri
-      /// büyük harfe çevriliyor
-      ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
-      birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
-      try {
-        await words.add({
-          fsIkinciDil: ikinciDil,
-          fsBirinciDil: birinciDil,
-        });
-      } catch (e) {
-        print("Error adding word: $e");
+    try {
+      var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
+      /// kelime veri tabanında varsa ekleme
+      if (result.docs.isNotEmpty) {
+        Fluttertoast.showToast(
+          msg: "Bu kelime zaten var",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.red,
+          fontSize: 16,
+        );
+        return;
       }
-    } else {
-      Fluttertoast.showToast(
-        msg: "Bu kelime zaten var",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black,
-        textColor: Colors.red,
-        fontSize: 16,
-      );
+      /// kelime veri tabanında yoksa ekle
+      await words.add({
+        fsIkinciDil: ikinciDil,
+        fsBirinciDil: birinciDil,
+      });
+    } catch (e) {
+      print("Error adding word: $e");
     }
   }
 

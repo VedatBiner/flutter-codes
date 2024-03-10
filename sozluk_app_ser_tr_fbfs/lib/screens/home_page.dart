@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
     ikinciDilController.text = secondLang;
     birinciDilController.text = firstLang;
 
-    // showDialog içinde kullanılıyor
+    /// showDialog içinde kullanılıyor
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
