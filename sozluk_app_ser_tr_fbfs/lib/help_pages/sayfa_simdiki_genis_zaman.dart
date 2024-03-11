@@ -56,6 +56,15 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 dashTextA: "'ti / ći'",
                 context,
               ),
+              buildRichTextRule(
+                "-ati, -eti, -iti (son üç harfine göre) olarak fiilleri üç "
+                    "gruba ayırıyoruz. -ati ile biten fiiller bazen -eti "
+                    "ile biten fiil kurallarına da uyabilir.",
+                dashTextA: "-ati, -eti, -iti",
+                dashTextB: "-ati",
+                dashTextC: "-eti",
+                context,
+              ),
               const Divider(),
 
               /// Çekim Grupları - 1
@@ -89,6 +98,18 @@ class _SimdikiGenisZamanState extends State<SimdikiGenisZaman> {
                 dashTextC: "'-uti, -sti, -ći'",
                 context,
               ),
+
+              buildTable(
+                simdikiGenisZamanSampleCA,
+                "Şimdiki Geniş Zaman Çekim Grupları - Örnek Spavati (uyumak) ve "
+                    "mrziti (nefret etmek) fiileri",
+                [
+                      (user) => user['şahıs']!,
+                      (user) => user['spavati']!,
+                      (user) => user['mrziti']!,
+                ],
+              ),
+
 
               /// Çekim Grupları - 3
               buildTable(

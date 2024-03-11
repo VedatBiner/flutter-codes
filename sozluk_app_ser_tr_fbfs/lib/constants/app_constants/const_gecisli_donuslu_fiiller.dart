@@ -526,3 +526,120 @@ final List<Map<String, String>> gecisliDonusluFiilerSampleK = [
     'anlam': 'Boşnakça öğrenmeyi istemeni seviyorlar',
   },
 ];
+
+/// Türkçe > Sırpça çeviri - 1
+final List<Map<String, String>> gecisliDonusluFiilerSampleL = [
+  {
+    'türkçe': 'türkçe',
+    'sırpça': 'sırpça',
+  },
+  {
+    'türkçe': 'Yürüyor musunuz?',
+    'sırpça': 'Hodate li? / Da li hodate?',
+  },
+  {
+    'türkçe': 'Düşünmüyor muyuz?',
+    'sırpça': 'da li ne mislimo?',
+  },
+  {
+    'türkçe': 'Telefon etmiyor',
+    'sırpça': 'ne telefonira',
+  },
+  {
+    'türkçe': 'Oturuyor muyum?',
+    'sırpça': 'sjedim li / da li sjedim?',
+  },
+  {
+    'türkçe': 'Kalkıyorlar mı?',
+    'sırpça': 'ustaju li? / da li ustaju?',
+  },
+  {
+    'türkçe': 'Bilmiyorsun',
+    'sırpça': 'ne znaš',
+  },
+  {
+    'türkçe': 'Gülüyor musun?',
+    'sırpça': 'smijes li se?',
+  },
+  {
+    'türkçe': 'anlıyorlar',
+    'sırpça': 'Razumiju',
+  },
+];
+
+/// Türkçe > Sırpça çeviri - 2
+final List<Map<String, String>> gecisliDonusluFiilerSampleM = [
+  {
+    'türkçe': 'türkçe',
+    'sırpça': 'sırpça',
+  },
+  {
+    'türkçe': 'Düşünmemi istemiyor musun?',
+    'sırpça': 'da li ne želiš da mislim?',
+  },
+  {
+    'türkçe': 'Düşünmeyi severiz',
+    'sırpça': 'volimo misliti?',
+  },
+  {
+    'türkçe': 'Konuşmalarını istiyor musunuz?',
+    'sırpça': 'da li želite da pričaju?',
+  },
+  {
+    'türkçe': 'Öğrenmesini isterim',
+    'sırpça': 'želim da nauči',
+  },
+  {
+    'türkçe': 'Yüzmeyi öğrenmek istiyorum',
+    'sırpça': 'želim da naučiti plivati',
+  },
+  {
+    'türkçe': 'Uyanmamı istiyorlar',
+    'sırpça': 'žele da probudim',
+  },
+  {
+    'türkçe': 'Tartışmayı sever misin?',
+    'sırpça': 'da li voliš raspravljati se?',
+  },
+  {
+    'türkçe': 'Mühendis olmanı istiyorum',
+    'sırpça': 'da li voliš raspravljati se',
+  },
+  {
+    'türkçe': 'Doktor yardım etmek istiyor',
+    'sırpça': 'doktor želi pomogati',
+  },
+  {
+    'türkçe': 'Avukatlar konuşmamı istiyor',
+    'sırpça': 'advokati žele da pričam',
+  },
+  {
+    'türkçe': 'Ev hanımları temizlik yapmayı sevmez',
+    'sırpça': 'domaćice ne voli očistiti',
+  },
+  {
+    'türkçe': 'Bu mühendis konuşmayı sevmiyor',
+    'sırpça': 'ovaj inženjer ne voli pričati',
+  },
+  {
+    'türkçe': 'Şu avukat telefon etmemi istiyor',
+    'sırpça': 'taj advokat želi da telefoniram',
+  },
+  {
+    'türkçe': 'O öğretmen gülmemi istiyor mu?',
+    'sırpça': 'da li onaj učitelj želi da se smijem',
+  },
+  {
+    'türkçe': 'Bu nedir ? Bu çilektir',
+    'sırpça': 'šta je ovo? / ovo je jagoda',
+  },
+  {
+    'türkçe': 'Çilek burada mı ? hayır burada çilek yok',
+    'sırpça': 'da li jagoda je ovdje ? / ne ovdje nije jagoda',
+  },
+  {
+    'türkçe': 'Domatesler nerede ? Domates buradadır ?',
+    'sırpça': 'gde je paradajz? / paradajz je ovdje',
+  },
+
+];

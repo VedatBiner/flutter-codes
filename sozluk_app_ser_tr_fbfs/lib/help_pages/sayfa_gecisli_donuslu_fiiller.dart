@@ -359,6 +359,24 @@ class _SayfaGecisliDonusluFiillerState
                       (user) => user['anlam']!,
                 ],
               ),
+              /// Aşağıdakileri Sırpçaya çeviriniz
+              buildTable(
+                gecisliDonusluFiilerSampleL,
+                "Türkçe > Sırpça Çeviri - 1",
+                [
+                      (user) => user['türkçe']!,
+                      (user) => user['sırpça']!,
+                ],
+              ),
+              buildTable(
+                gecisliDonusluFiilerSampleM,
+                "Türkçe > Sırpça Çeviri - 2",
+                [
+                      (user) => user['türkçe']!,
+                      (user) => user['sırpça']!,
+                ],
+              ),
+
             ],
           ),
         ),

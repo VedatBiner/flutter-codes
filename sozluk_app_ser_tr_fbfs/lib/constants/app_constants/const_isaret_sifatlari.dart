@@ -225,3 +225,31 @@ final List<Map<String, String>> isaretSifatlariSampleH = [
     'anlam': 'Bardaklar Burada / orada / şurada',
   },
 ];
+
+/// Burada / Şurada / Orada konum belirten sorular
+final List<Map<String, String>> isaretSifatlariSampleI = [
+  {
+    'ifade': 'ifade',
+    'anlam': 'anlam',
+  },
+  {
+    'ifade': 'Da li čaša ovdje / tamo / onamo ?',
+    'anlam': 'Bardak burada mı?',
+  },
+  {
+    'ifade': 'Da čaša je ovdje / tamo /onamo',
+    'anlam': 'Evet, bardak burada',
+  },
+  {
+    'ifade': 'Ne čaša nije ovdje / tamo / onamo',
+    'anlam': 'Hayır, bardak burada değil',
+  },
+  {
+    'ifade': 'Ovdeje je čaša',
+    'anlam': 'burada bardak yok',
+  },
+  {
+    'ifade': 'Da li je ovdje čaša ? ',
+    'anlam': 'burada bardak var mi? ',
+  },
+];

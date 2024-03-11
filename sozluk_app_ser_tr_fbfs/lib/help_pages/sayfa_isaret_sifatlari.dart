@@ -186,6 +186,19 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                   (user) => user['anlam']!,
                 ],
               ),
+              buildTable(
+                isaretSifatlariSampleI,
+                "Burada, şurada, orada Konum belirten sorular",
+                [
+                      (user) => user['ifade']!,
+                      (user) => user['anlam']!,
+                ],
+              ),
+              buildRichTextRule(
+                "(*) Eğer ovdje başa gelirse varlık yokluk anlamı katar.",
+                dashTextA: 'ovdje',
+                context,
+              ),
             ],
           ),
         ),

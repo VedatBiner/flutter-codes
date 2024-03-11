@@ -105,6 +105,44 @@ final List<Map<String, String>> simdikiGenisZamanSampleC = [
   },
 ];
 
+final List<Map<String, String>> simdikiGenisZamanSampleCA = [
+  {
+    'şahıs': 'şahıs',
+    'spavati': 'spavati',
+    'mrziti': 'mrziti',
+  },
+  {
+    'şahıs': 'ja',
+    'spavati': 'Spavam',
+    'mrziti': 'Mrzim',
+  },
+  {
+    'şahıs': 'ti',
+    'spavati': 'Spavaš',
+    'mrziti': 'Mrziš',
+  },
+  {
+    'şahıs': 'On / ona / ono',
+    'spavati': 'Spava',
+    'mrziti': 'mrzi',
+  },
+  {
+    'şahıs': 'Mi',
+    'spavati': 'Spavamo',
+    'mrziti': 'mrzimo',
+  },
+  {
+    'şahıs': 'vi',
+    'spavati': 'Spavate',
+    'mrziti': 'mrzite',
+  },
+  {
+    'şahıs': 'oni',
+    'spavati': 'spavaju',
+    'mrziti': 'mrze',
+  },
+];
+
 /// istisnai durum
 final List<Map<String, String>> simdikiGenisZamanSampleD = [
   {
