@@ -174,17 +174,18 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 isaretSifatlariSampleG,
                 "Burada, şurada, orada Örnekler - 2",
                 [
-                      (user) => user['ifade']!,
-                      (user) => user['anlam']!,
+                  (user) => user['ifade']!,
+                  (user) => user['anlam']!,
                 ],
               ),
-              // buildTable(
-              //   isaretSifatlariSampleG,
-              //   "Burada, şurada, orada Örnekler - 2",
-              //   [
-              //     (user) => user['örnek']!,
-              //   ],
-              // ),
+              buildTable(
+                isaretSifatlariSampleH,
+                "Burada, şurada, orada Cevapları",
+                [
+                  (user) => user['ifade']!,
+                  (user) => user['anlam']!,
+                ],
+              ),
             ],
           ),
         ),
