@@ -253,3 +253,56 @@ final List<Map<String, String>> isaretSifatlariSampleI = [
     'anlam': 'burada bardak var mi? ',
   },
 ];
+
+/// Burada / Şurada / Orada konum belirten sorular
+final List<Map<String, String>> isaretSifatlariSampleJ = [
+  {
+    'işaret': 'işaret',
+    'erkek': 'erkek',
+    'dişi': 'dişi',
+    'nötr': 'nötr',
+  },
+  {
+    'işaret': 'bu > bunlar',
+    'erkek': 'ovaj > ovi',
+    'dişi': 'ova > ove',
+    'nötr': 'Ovo > ova',
+  },
+  {
+    'işaret': 'şu > şunlar',
+    'erkek': 'taj > ti',
+    'dişi': 'ta > te',
+    'nötr': 'to > ta',
+  },
+  {
+    'işaret': 'o > onlar',
+    'erkek': 'onaj > oni',
+    'dişi': 'ona > one',
+    'nötr': 'ono > ona',
+  },
+];
+
+/// Burada / Şurada / Orada konum belirten sorular
+/// most / jabuka / selo örnekleri
+final List<Map<String, String>> isaretSifatlariSampleK = [
+  {
+    'most': 'işaret',
+    'jabuka': 'erkek',
+    'selo': 'dişi',
+  },
+  {
+    'most': 'ovi mostovi',
+    'jabuka': 'ove jabuke',
+    'selo': 'ova sela',
+  },
+  {
+    'most': 'ti mostovi',
+    'jabuka': 'Te jabuke',
+    'selo': 'Ova sela',
+  },
+  {
+    'most': 'Oni mostovi',
+    'jabuka': 'One jabuke',
+    'selo': 'Ona sela',
+  },
+];

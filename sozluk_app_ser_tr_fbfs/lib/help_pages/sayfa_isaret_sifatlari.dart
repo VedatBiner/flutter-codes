@@ -190,14 +190,34 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 isaretSifatlariSampleI,
                 "Burada, şurada, orada Konum belirten sorular",
                 [
-                      (user) => user['ifade']!,
-                      (user) => user['anlam']!,
+                  (user) => user['ifade']!,
+                  (user) => user['anlam']!,
                 ],
               ),
               buildRichTextRule(
                 "(*) Eğer ovdje başa gelirse varlık yokluk anlamı katar.",
                 dashTextA: 'ovdje',
                 context,
+              ),
+              const Divider(),
+              buildTable(
+                isaretSifatlariSampleJ,
+                "Bunlar, Şunlar, Onlar",
+                [
+                  (user) => user['işaret']!,
+                  (user) => user['erkek']!,
+                  (user) => user['dişi']!,
+                  (user) => user['nötr']!,
+                ],
+              ),
+              buildTable(
+                isaretSifatlariSampleK,
+                "Bunlar, Şunlar, Onlar Örnek",
+                [
+                      (user) => user['most']!,
+                      (user) => user['jabuka']!,
+                      (user) => user['selo']!,
+                ],
               ),
             ],
           ),
