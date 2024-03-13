@@ -214,9 +214,28 @@ class _SayfaIsaretSifatlariState extends State<SayfaIsaretSifatlari> {
                 isaretSifatlariSampleK,
                 "Bunlar, Şunlar, Onlar Örnek",
                 [
-                      (user) => user['most']!,
-                      (user) => user['jabuka']!,
-                      (user) => user['selo']!,
+                  (user) => user['most']!,
+                  (user) => user['jabuka']!,
+                  (user) => user['selo']!,
+                ],
+              ),
+              buildTable(
+                isaretSifatlariSampleL,
+                "Kim ? / Ne?",
+                [
+                  (user) => user['Boşnakça/Sırpça']!,
+                  (user) => user['Hırvatça']!,
+                  (user) => user['Türkçe']!,
+                ],
+              ),
+              buildTable(
+                isaretSifatlariSampleM,
+                "Kim ? / Ne? - Örnek: raditi (yapmak) ve "
+                "dolaziti (gelmek) fiileri",
+                [
+                  (user) => user['Boşnakça/Sırpça']!,
+                  (user) => user['Hırvatça']!,
+                  (user) => user['Türkçe']!,
                 ],
               ),
             ],

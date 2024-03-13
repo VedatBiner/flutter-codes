@@ -306,3 +306,41 @@ final List<Map<String, String>> isaretSifatlariSampleK = [
     'selo': 'Ona sela',
   },
 ];
+
+/// kim? Ne?
+final List<Map<String, String>> isaretSifatlariSampleL = [
+  {
+    'Boşnakça/Sırpça': 'Boşnakça/Sırpça',
+    'Hırvatça': 'Hırvatça',
+    'Türkçe': 'Türkçe',
+  },
+  {
+    'Boşnakça/Sırpça': 'Šta',
+    'Hırvatça': 'Što',
+    'Türkçe': 'Ne',
+  },
+  {
+    'Boşnakça/Sırpça': 'ko',
+    'Hırvatça': 'tko',
+    'Türkçe': 'kim',
+  },
+];
+
+/// kim? Ne? - Örnek : Raditi (yapmak) Dolaziti (gelmek)
+final List<Map<String, String>> isaretSifatlariSampleM = [
+  {
+    'Boşnakça/Sırpça': 'Boşnakça/Sırpça',
+    'Hırvatça': 'Hırvatça',
+    'Türkçe': 'Türkçe',
+  },
+  {
+    'Boşnakça/Sırpça': 'Šta radiš?',
+    'Hırvatça': 'Što radiš?',
+    'Türkçe': 'Ne yapıyorsun?',
+  },
+  {
+    'Boşnakça/Sırpça': 'Ko dolazi?',
+    'Hırvatça': 'Tko dolazi?',
+    'Türkçe': 'Kim geliyor?',
+  },
+];
