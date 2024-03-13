@@ -60,6 +60,10 @@ class MyAuthService {
         email: mail,
         password: password,
       );
+
+      /// Kullanıcı girişi başarılı olduğunda
+      /// kimlik bilgisini alıp konsola yazdır
+      print('Kullanıcı girişi başarılı: ${userCredential.user?.displayName}');
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
