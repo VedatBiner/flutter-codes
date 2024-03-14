@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
   static Future<void> packageInfoInit() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     version = packageInfo.version;
+    getVersion();
   }
 
   static Future<String?> getVersion() async {

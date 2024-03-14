@@ -1,5 +1,5 @@
 name: sozluk_app_ser_tr_fbfs
-description: "A new Flutter project."
+description: "Sırpça-Türkçe Sözlük Denemesi"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -14,9 +14,9 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  firebase_core: ^2.26.0
-  cloud_firestore: ^4.15.7
-  firebase_auth: ^4.17.7
+  firebase_core: ^2.27.1
+  cloud_firestore: ^4.15.9
+  firebase_auth: ^4.17.9
   google_sign_in: ^6.2.1
   flag:
   fluttertoast:
