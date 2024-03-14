@@ -1,6 +1,7 @@
 /// <----- delete_word.dart ----->
 library;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
@@ -50,8 +51,8 @@ class DeleteWord extends StatelessWidget {
             firstLanguageText == birinciDil
                 ? word.sirpca
                 : secondLanguageText == ikinciDil
-                ? word.sirpca
-                : word.turkce,
+                    ? word.sirpca
+                    : word.turkce,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.blueAccent,
@@ -76,28 +77,48 @@ class DeleteWord extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            firestoreService.deleteWord(word.wordId);
-            Navigator.pop(context);
+            /// Mevcut kullanıcının e-posta adresini al
+            String currentUserEmail =
+                FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  children: [
-                    Text(
-                      "(${word.sirpca})",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                        fontSize: 16,
+            /// Eğer kelimeyi kaydeden ile login olan kullanıcı
+            /// aynı ise kelimeyi sil
+            if (currentUserEmail != null &&
+                currentUserEmail == word.userEmail) {
+              firestoreService.deleteWord(word.wordId);
+              Navigator.pop(context);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Row(
+                    children: [
+                      Text(
+                        "(${word.sirpca})",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                    const Text(
-                      " kelimesi silinmiştir ...",
-                    ),
-                  ],
+                      const Text(
+                        " kelimesi silinmiştir ...",
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
+            } else {
+              /// Eğer e-posta adresleri farklıysa, kullanıcıyı uyar
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    "Bu kelimeyi silemezsiniz. Sadece kendi "
+                    "eklediğiniz kelimeleri silebilirsiniz.",
+                  ),
+                ),
+              );
+              Navigator.pop(context);
+            }
           },
         ),
       ],

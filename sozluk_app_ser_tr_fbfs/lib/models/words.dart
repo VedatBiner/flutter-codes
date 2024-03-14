@@ -7,32 +7,44 @@ class Words {
   String wordId;
   String sirpca;
   String turkce;
+  String userEmail;
 
   Words(
     this.wordId,
     this.sirpca,
     this.turkce,
+    this.userEmail,
   );
 
   /// parse işlemi
   factory Words.fromJson(
     String key,
-    Map<dynamic, dynamic> json,
+    Map<dynamic, dynamic>? json,
   ) {
+    if (json == null) {
+      throw ArgumentError("json cannot be null"); // Json null ise hata fırlatıyoruz
+    }
     return Words(
       key,
-      json[fsIkinciDil] as String,
-      json[fsBirinciDil] as String,
+      json[fsIkinciDil] as String? ?? "",
+      json[fsBirinciDil] as String? ?? "",
+      json[fsUserEmail] as String? ?? "",
     );
   }
 
   // Fabrika yöntemi
   factory Words.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic>? data = snapshot.data();
+
+    if (data == null) {
+      throw ArgumentError("data cannot be null"); // Data null ise hata fırlatıyoruz
+    }
+
     return Words(
       snapshot.id,
-      data[fsIkinciDil] as String,
-      data[fsBirinciDil] as String,
+      data[fsIkinciDil] as String ?? "",
+      data[fsBirinciDil] as String? ?? "",
+      data[fsUserEmail] as String? ?? "",
     );
   }
 }

@@ -9,13 +9,13 @@ import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
 class FirestoreService {
   final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
+      FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
-      BuildContext context,
-      String ikinciDil,
-      String birinciDil,
-      ) async {
+    BuildContext context,
+    String ikinciDil,
+    String birinciDil,
+  ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
@@ -27,6 +27,7 @@ class FirestoreService {
 
     try {
       var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
+
       /// kelime veri tabanında varsa ekleme
       if (result.docs.isNotEmpty) {
         Fluttertoast.showToast(
@@ -40,6 +41,7 @@ class FirestoreService {
         );
         return;
       }
+
       /// kelime veri tabanında yoksa ekle
       await words.add({
         fsIkinciDil: ikinciDil,
@@ -65,15 +67,18 @@ class FirestoreService {
   }
 
   Future<void> updateWord(
-      String docId,
-      String ikinciDilKelime,
-      String birinciDilKelime,
-      ) async {
+    String docId,
+    String ikinciDilKelime,
+    String birinciDilKelime,
+  ) async {
     try {
+      String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
       await words.doc(docId).update({
         fsIkinciDil: ikinciDilKelime,
         fsBirinciDil: birinciDilKelime,
+        fsUserEmail: userEmail,
       });
+      print("kelimeyi güncelleyen kullanıcı : $userEmail");
     } catch (e) {
       print("Error updating word: $e");
     }
@@ -93,7 +98,8 @@ class FirestoreService {
 
   /// tüm koleksiyon belgelerine yeni alan ekle
   /// örneğin mail adresi ekledik
-  Future<void> addFieldToAllDocuments(String fieldName, dynamic fieldValue) async {
+  Future<void> addFieldToAllDocuments(
+      String fieldName, dynamic fieldValue) async {
     try {
       // Tüm belgeleri al
       QuerySnapshot querySnapshot = await words.get();
@@ -114,5 +120,4 @@ class FirestoreService {
       print("Error adding field to all documents: $e");
     }
   }
-
 }
