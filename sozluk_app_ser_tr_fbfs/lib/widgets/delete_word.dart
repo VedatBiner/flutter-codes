@@ -50,8 +50,8 @@ class DeleteWord extends StatelessWidget {
             firstLanguageText == birinciDil
                 ? word.sirpca
                 : secondLanguageText == ikinciDil
-                    ? word.sirpca
-                    : word.turkce,
+                ? word.sirpca
+                : word.turkce,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.blueAccent,

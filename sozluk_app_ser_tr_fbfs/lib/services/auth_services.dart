@@ -67,7 +67,7 @@ class MyAuthService {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-        /// kullanıcı yoksa
+      /// kullanıcı yoksa
         case "user-not-found":
           MessageHelper.showSnackBar(
             context,
@@ -82,7 +82,7 @@ class MyAuthService {
           );
           break;
 
-        /// hatalı e-mail veya şifre girildi
+      /// hatalı e-mail veya şifre girildi
         case "invalid-credential":
           MessageHelper.showSnackBar(
             context,
@@ -137,7 +137,7 @@ class MyAuthService {
 
     /// kullanıcı erişim izni verdi mi ?
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    await googleUser?.authentication;
 
     /// yeni kimlik oluşturulur.
     final credential = GoogleAuthProvider.credential(

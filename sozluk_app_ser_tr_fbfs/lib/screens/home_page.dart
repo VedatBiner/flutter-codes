@@ -272,6 +272,19 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
         body: showBody(context),
+        /// bu bölüm tüm koleksiyon ögelerine mail adresi eklemek
+        /// için kullanıldı.
+        // body: Center(
+        //   child: ElevatedButton(
+        //     onPressed: () async {
+        //       // FirestoreService sınıfından bir örnek oluştur
+        //       FirestoreService firestoreService = FirestoreService();
+        //       // Yeni alanı ve değeri ekleyen metodu çağır
+        //       await firestoreService.addFieldToAllDocuments('userEmail', 'vbiner@gmail.com');
+        //     },
+        //     child: const Text('Tüm Belgelere Alan Ekle'),
+        //   ),
+        // ),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(
           onPressed: () => openWordBox(context: context),
@@ -408,19 +421,19 @@ class _HomePageState extends State<HomePage> {
               ),
               child: isListView
 
-                  /// true ise Card görünümü olacak
-                  /// default olarak false geliyor
+              /// true ise Card görünümü olacak
+              /// default olarak false geliyor
                   ? buildListView(wordsList)
 
-                  /// false ise List görünümü gelecek
+              /// false ise List görünümü gelecek
                   : ListView.builder(
-                      itemCount: wordsList.length,
-                      itemExtent: _itemExtent,
-                      controller: listViewController,
-                      itemBuilder: (context, index) {
-                        return buildCard(wordsList[index], context);
-                      },
-                    ),
+                itemCount: wordsList.length,
+                itemExtent: _itemExtent,
+                controller: listViewController,
+                itemBuilder: (context, index) {
+                  return buildCard(wordsList[index], context);
+                },
+              ),
             );
           },
         );
@@ -529,9 +542,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -543,9 +556,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-    BuildContext context,
-    Words word,
-  ) {
+      BuildContext context,
+      Words word,
+      ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -558,9 +571,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );

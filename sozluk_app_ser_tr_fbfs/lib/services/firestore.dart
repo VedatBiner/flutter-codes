@@ -8,13 +8,13 @@ import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
 class FirestoreService {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection("kelimeler");
 
   Future<void> addWord(
-    BuildContext context,
-    String ikinciDil,
-    String birinciDil,
-  ) async {
+      BuildContext context,
+      String ikinciDil,
+      String birinciDil,
+      ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
@@ -59,10 +59,10 @@ class FirestoreService {
   }
 
   Future<void> updateWord(
-    String docId,
-    String ikinciDilKelime,
-    String birinciDilKelime,
-  ) async {
+      String docId,
+      String ikinciDilKelime,
+      String birinciDilKelime,
+      ) async {
     try {
       await words.doc(docId).update({
         fsIkinciDil: ikinciDilKelime,
@@ -84,4 +84,28 @@ class FirestoreService {
   Future<DocumentSnapshot<Object?>> getWordById(String docId) async {
     return await words.doc(docId).get();
   }
+
+  /// tüm koleksiyon belgelerine yeni alan ekle
+  Future<void> addFieldToAllDocuments(String fieldName, dynamic fieldValue) async {
+    try {
+      // Tüm belgeleri al
+      QuerySnapshot querySnapshot = await words.get();
+
+      // Tüm belgeler için döngü oluştur
+      for (QueryDocumentSnapshot document in querySnapshot.docs) {
+        // Güncellenmiş alanın değeri
+        Map<String, dynamic> newData = {
+          fieldName: fieldValue, // Yeni alan ve değeri
+        };
+
+        // Firestore belgesini güncelle
+        await words.doc(document.id).update(newData);
+      }
+
+      print('Tüm belgelere yeni alan eklendi.');
+    } catch (e) {
+      print("Error adding field to all documents: $e");
+    }
+  }
+
 }
