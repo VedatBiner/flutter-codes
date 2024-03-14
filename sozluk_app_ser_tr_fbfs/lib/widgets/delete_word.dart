@@ -110,10 +110,11 @@ class DeleteWord extends StatelessWidget {
             } else {
               /// Eğer e-posta adresleri farklıysa, kullanıcıyı uyar
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   content: Text(
                     "Bu kelimeyi silemezsiniz. Sadece kendi "
-                    "eklediğiniz kelimeleri silebilirsiniz.",
+                    "eklediğiniz kelimeleri silebilirsiniz."
+                        "ekleyen kullanıcı : ${word.userEmail}",
                   ),
                 ),
               );

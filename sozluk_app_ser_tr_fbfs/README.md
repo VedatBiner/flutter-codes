@@ -19,6 +19,7 @@ Burada amaç hem uygulamadan hem de web 'den veri girişini sağlamak.<BR>
 - Kelime girişleri küçük harf ile başlasa bile büyük harfe çevriliyor.
 - Arama sayfası ile herhangi bir kelime sözlükte var mı aranabiliyor.
 - Firebase Hosting ile Web 'den de kullanım sağlandı. <BR>
+- Firestore 'a mail kolonu eklenip, yetkisiz kullanıcıların kelime silmesi engellendi
 
 Sorunlar<BR>
 - Web erişiminde sorun var.
