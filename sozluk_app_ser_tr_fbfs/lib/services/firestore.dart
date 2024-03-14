@@ -3,6 +3,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sozluk_app_ser_tr_fbfs/constants/app_constants/constants.dart';
 
@@ -19,6 +20,10 @@ class FirestoreService {
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
     birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
+
+    /// login olan kullanıcının email adresini al
+    String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
+    print("login olan kullanıcının mail adresi : $userEmail");
 
     try {
       var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
@@ -39,6 +44,7 @@ class FirestoreService {
       await words.add({
         fsIkinciDil: ikinciDil,
         fsBirinciDil: birinciDil,
+        fsUserEmail: userEmail,
       });
     } catch (e) {
       print("Error adding word: $e");
@@ -86,6 +92,7 @@ class FirestoreService {
   }
 
   /// tüm koleksiyon belgelerine yeni alan ekle
+  /// örneğin mail adresi ekledik
   Future<void> addFieldToAllDocuments(String fieldName, dynamic fieldValue) async {
     try {
       // Tüm belgeleri al

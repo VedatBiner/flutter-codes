@@ -134,6 +134,9 @@ const String ikinciDil = "Sırpça";
 const String fsIkinciDil = "sirpca";
 const secondCountry = "RS";
 
+/// mail adresi
+const String fsUserEmail = "userEmail";
+
 /// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
