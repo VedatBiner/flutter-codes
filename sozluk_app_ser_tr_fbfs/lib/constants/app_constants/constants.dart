@@ -73,11 +73,25 @@ const TextStyle androidTextStyle = TextStyle(
   color: Colors.blueAccent,
 );
 
-// Web için stil
+/// Web için stil
 const TextStyle webTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18,
   color: Colors.blue,
+);
+
+/// kelime ekle/dil/düzelt stili
+const TextStyle kelimeStil = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.red,
+  fontSize: 16,
+);
+
+/// kelime ekle/sil/düzelt maail
+const TextStyle userStil = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.blue,
+  fontSize: 16,
 );
 
 const baslikTextBlack = TextStyle(
@@ -115,9 +129,11 @@ const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
 
 /// Message Constants
 const String wrongMailFormat = "email adresiniz doğru formatta değil !!!";
-const String blankMailAndPassword = "E-mail ve şifre alanları boş bırakılamaz !!!";
+const String blankMailAndPassword =
+    "E-mail ve şifre alanları boş bırakılamaz !!!";
 const String passwordSize = "Şifreler sekiz (8) karakterden küçük olamaz !!!";
-const String registrationOk = "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.";
+const String registrationOk =
+    "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.";
 const String checkPasswords = "Şifreler eşleşmiyor ...";
 
 /// Hint Text Constants
@@ -137,6 +153,15 @@ const secondCountry = "RS";
 /// mail adresi
 const String fsUserEmail = "userEmail";
 
+/// update mesajı
+const String updateMsg = " tarafından düzeltilmiştir...";
+
+/// add mesajı
+const String addMsg = " tarafından eklenmiştir...";
+
+/// delete mesajı
+const String deleteMsg = " tarafından silinmiştir...";
+
 /// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
@@ -150,10 +175,7 @@ final List<Map<String, dynamic>> drawerItems = [
     "title": "Geçişli ve Dönüşlü Fiiller",
     "page": AppRoute.gecisliDonusluFiller
   },
-  {
-    "title": "İşaret Sıfatları",
-    "page": AppRoute.isaretSifatlari
-  },
+  {"title": "İşaret Sıfatları", "page": AppRoute.isaretSifatlari},
 ];
 
 /// Latin Harfleri

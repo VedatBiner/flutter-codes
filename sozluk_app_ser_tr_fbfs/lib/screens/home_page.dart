@@ -87,6 +87,7 @@ class _HomePageState extends State<HomePage> {
     String action = "create";
     String secondLang = "";
     String firstLang = "";
+    String message = "";
 
     String currentUserEmail =
         FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
@@ -171,8 +172,7 @@ class _HomePageState extends State<HomePage> {
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
-                print("kayıt no : $docId");
-                print("kelime : ");
+                message = addMsg;
               } else {
                 /// kelime güncelleniyor
                 firestoreService.updateWord(
@@ -180,8 +180,7 @@ class _HomePageState extends State<HomePage> {
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
-                print("kayıt no : $docId");
-                print("kelime : ${ikinciDilController.text}");
+                message = updateMsg;
               }
 
               ScaffoldMessenger.of(context).showSnackBar(
@@ -189,25 +188,15 @@ class _HomePageState extends State<HomePage> {
                   content: Row(
                     children: [
                       Text(
-                        "(${ikinciDilController.text ?? ''})",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                          fontSize: 16,
-                        ),
+                        ikinciDilController.text ?? '',
+                        style: kelimeStil,
                       ),
                       const Text(" kelimesi "),
                       Text(
                         currentUserEmail,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                          fontSize: 16,
-                        ),
+                        style: userStil,
                       ),
-                      const Text(
-                        " tarafından eklenmiştir / düzeltilmiştir ...",
-                      ),
+                      Text(message),
                     ],
                   ),
                 ),
@@ -228,7 +217,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Widget buildLanguageSelector({
     required BuildContext context,
