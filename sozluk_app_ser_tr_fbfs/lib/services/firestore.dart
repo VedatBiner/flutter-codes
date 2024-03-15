@@ -73,10 +73,6 @@ class FirestoreService {
   ) async {
     try {
       String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
-      if (userEmail == null) {
-        print("Error: Current user email is null."); /// Kullanıcı e-postası null ise hata mesajı verelim
-        return;
-      }
       await words.doc(docId).update({
         fsIkinciDil: ikinciDilKelime,
         fsBirinciDil: birinciDilKelime,

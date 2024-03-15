@@ -2,6 +2,7 @@
 /// Drawer seçeneklerini gösteren metot
 library;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,10 @@ import '../home_page.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
+
+  /// login olan kullanıcı bilgisini al
+  String currentUserEmail =
+      FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
 
   Future<String?> getVersion() async {
     return HomePage.getVersion();
@@ -98,9 +103,18 @@ Drawer buildDrawer(BuildContext context) {
             } else {
               return Padding(
                 padding: const EdgeInsets.all(20),
-                child: Text(
-                  "v${snapshot.data}\nvbiner@gmail.com",
-                  style: TextStyle(color: menuColor),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Kullanıcı : $currentUserEmail",
+                      style: TextStyle(color: menuColor),
+                    ),
+                    Text(
+                      "v${snapshot.data}\nvbiner@gmail.com",
+                      style: TextStyle(color: menuColor),
+                    ),
+                  ],
                 ),
               );
             }

@@ -83,8 +83,7 @@ class DeleteWord extends StatelessWidget {
 
             /// Eğer kelimeyi kaydeden ile login olan kullanıcı
             /// aynı ise kelimeyi sil
-            if (currentUserEmail != null &&
-                currentUserEmail == word.userEmail) {
+            if (currentUserEmail == word.userEmail) {
               firestoreService.deleteWord(word.wordId);
               Navigator.pop(context);
 
