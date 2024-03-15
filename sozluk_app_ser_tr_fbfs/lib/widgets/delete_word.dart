@@ -115,6 +115,7 @@ class DeleteWord extends StatelessWidget {
                   ),
                 ),
               );
+              print("Bu kelime, ${word.userEmail} tarafından silinmiştir.");
             } else {
               /// Eğer e-posta adresleri farklıysa, kullanıcıyı uyar
               ScaffoldMessenger.of(context).showSnackBar(

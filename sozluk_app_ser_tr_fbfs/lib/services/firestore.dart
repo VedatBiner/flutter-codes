@@ -23,7 +23,7 @@ class FirestoreService {
 
     /// login olan kullanıcının email adresini al
     String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
-    print("login olan kullanıcının mail adresi : $userEmail");
+    print("user mail : $userEmail");
 
     try {
       var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
@@ -48,6 +48,7 @@ class FirestoreService {
         fsBirinciDil: birinciDil,
         fsUserEmail: userEmail,
       });
+      print("Bu kelime, $userEmail tarafından eklenmiştir.");
     } catch (e) {
       print("Error adding word: $e");
     }
