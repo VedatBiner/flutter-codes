@@ -2,8 +2,8 @@
 /// Drawer seçeneklerini gösteren metot
 library;
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
