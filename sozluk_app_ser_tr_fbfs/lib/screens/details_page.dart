@@ -122,34 +122,44 @@ class _DetailsPageState extends State<DetailsPage> {
 
   /// kelimelerin sağa-sola sürüklenmesi için slider
   CarouselSlider buildCarouselSlider(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: MediaQuery.of(context).size.height * 0.65,
-        aspectRatio: 16 / 9,
-        enlargeCenterPage: true,
-        autoPlay: false, // Otomatik oynatma kapalı
-        enableInfiniteScroll: false, // Sonsuz kaydırma kapalı
-        onPageChanged: (index, reason) {
-          if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-            /// Hata işlemleri
-            print("Hata: _querySnapshot başlatılmamış.");
-          } else {
-            /// Sayfa değişimini dinleyelim
-            if (index > _currentIndex) {
-              _loadNextWord();
-            } else if (index < _currentIndex) {
-              _loadPreviousWord();
+    if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+      return CarouselSlider(
+        /// hata varsa burası uygulanacaktır
+        items: const [Text("Veri bulunamadı")],
+        options: CarouselOptions(),
+      );
+    } else {
+      return CarouselSlider(
+        options: CarouselOptions(
+          height: MediaQuery.of(context).size.height * 0.65,
+          aspectRatio: 16 / 9,
+          enlargeCenterPage: true,
+          autoPlay: false,
+          // Otomatik oynatma kapalı
+          enableInfiniteScroll: false,
+          // Sonsuz kaydırma kapalı
+          onPageChanged: (index, reason) {
+            if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+              /// Hata işlemleri
+              print("Hata: _querySnapshot başlatılmamış.");
+            } else {
+              /// Sayfa değişimini dinleyelim
+              if (index > _currentIndex) {
+                _loadNextWord();
+              } else if (index < _currentIndex) {
+                _loadPreviousWord();
+              }
             }
-          }
-        },
-      ),
-      items: _querySnapshot?.docs.map((doc) {
-        return DetailsCard(
-          word: word,
-          themeProvider: themeProvider,
-        );
-      }).toList(),
-    );
+          },
+        ),
+        items: _querySnapshot?.docs.map((doc) {
+          return DetailsCard(
+            word: word,
+            themeProvider: themeProvider,
+          );
+        }).toList(),
+      );
+    }
   }
 
   /// önceki-sonraki kelimelere butonlar

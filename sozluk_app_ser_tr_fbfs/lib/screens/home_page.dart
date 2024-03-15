@@ -167,8 +167,6 @@ class _HomePageState extends State<HomePage> {
                 );
               } else {
                 print("kayıt no : $docId");
-                print("Düzeltilecek kelime : $ikinciDilController.text");
-                print("Düzeltilecek kelime : $birinciDilController.text");
                 firestoreService.updateWord(
                   docId,
                   ikinciDilController.text,
