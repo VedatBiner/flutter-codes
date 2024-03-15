@@ -3,6 +3,7 @@ library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -81,15 +82,19 @@ class _HomePageState extends State<HomePage> {
   Future<void> openWordBox({
     String? docId,
     required BuildContext context,
+    Words? word,
   }) async {
     String action = "create";
     String secondLang = "";
     String firstLang = "";
 
+    String currentUserEmail =
+        FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
+
     if (docId != null) {
       action = "update";
 
-      /// Fetch the document data from Firestore
+      /// Firestore 'dan belge verilerini al
       var snapshot = await firestoreService.getWordById(docId);
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
@@ -160,19 +165,53 @@ class _HomePageState extends State<HomePage> {
                   message: "İki kelime satırını da boş ekleyemezsiniz ...",
                 );
               } else if (docId == null) {
+                /// kelime ekleniyor
                 firestoreService.addWord(
                   context,
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
-              } else {
                 print("kayıt no : $docId");
+                print("kelime : ");
+              } else {
+                /// kelime güncelleniyor
                 firestoreService.updateWord(
                   docId,
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
+                print("kayıt no : $docId");
+                print("kelime : ${ikinciDilController.text}");
               }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Row(
+                    children: [
+                      Text(
+                        "(${ikinciDilController.text ?? ''})",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const Text(" kelimesi "),
+                      Text(
+                        currentUserEmail,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const Text(
+                        " tarafından eklenmiştir / düzeltilmiştir ...",
+                      ),
+                    ],
+                  ),
+                ),
+              );
 
               /// Controller içeriklerini temizliyoruz
               ikinciDilController.clear();
@@ -189,6 +228,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 
   Widget buildLanguageSelector({
     required BuildContext context,
@@ -270,6 +310,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: buildHomeCustomAppBar(),
         body: showBody(context),
+
         /// bu bölüm tüm koleksiyon ögelerine mail adresi eklemek
         /// için kullanıldı.
         // body: Center(
@@ -412,26 +453,24 @@ class _HomePageState extends State<HomePage> {
               labelTextBuilder: (double offset) => Text(
                 firstLanguageText,
                 style: TextStyle(
-                  color: themeProvider.isDarkMode
-                      ? Colors.red
-                      : Colors.blue,
+                  color: themeProvider.isDarkMode ? Colors.red : Colors.blue,
                 ),
               ),
               child: isListView
 
-              /// true ise Card görünümü olacak
-              /// default olarak false geliyor
+                  /// true ise Card görünümü olacak
+                  /// default olarak false geliyor
                   ? buildListView(wordsList)
 
-              /// false ise List görünümü gelecek
+                  /// false ise List görünümü gelecek
                   : ListView.builder(
-                itemCount: wordsList.length,
-                itemExtent: _itemExtent,
-                controller: listViewController,
-                itemBuilder: (context, index) {
-                  return buildCard(wordsList[index], context);
-                },
-              ),
+                      itemCount: wordsList.length,
+                      itemExtent: _itemExtent,
+                      controller: listViewController,
+                      itemBuilder: (context, index) {
+                        return buildCard(wordsList[index], context);
+                      },
+                    ),
             );
           },
         );
@@ -540,13 +579,13 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-      Words word,
-      BuildContext context,
-      ) {
+    Words word,
+    BuildContext context,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        kelimeDuzelt(word),
+        kelimeDuzelt(context, word),
         kelimeSil(context, word),
       ],
     );
@@ -554,9 +593,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-      BuildContext context,
-      Words word,
-      ) {
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -569,9 +608,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
@@ -582,7 +621,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Burada düzeltme butonu için metodumuz var
-  IconButton kelimeDuzelt(Words word) {
+  IconButton kelimeDuzelt(
+    BuildContext context,
+    Words word,
+  ) {
     return IconButton(
       onPressed: () => openWordBox(
         docId: word.wordId,
