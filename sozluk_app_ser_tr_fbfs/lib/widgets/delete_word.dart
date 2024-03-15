@@ -99,8 +99,17 @@ class DeleteWord extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
+                      const Text(" kelimesi "),
+                      Text(
+                        word.userEmail,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontSize: 16,
+                        ),
+                      ),
                       const Text(
-                        " kelimesi silinmiştir ...",
+                        " tarafından silinmiştir ...",
                       ),
                     ],
                   ),
@@ -113,7 +122,7 @@ class DeleteWord extends StatelessWidget {
                   content: Text(
                     "Bu kelimeyi silemezsiniz. Sadece kendi "
                     "eklediğiniz kelimeleri silebilirsiniz."
-                        "ekleyen kullanıcı : ${word.userEmail}",
+                    "ekleyen kullanıcı : ${word.userEmail}",
                   ),
                 ),
               );

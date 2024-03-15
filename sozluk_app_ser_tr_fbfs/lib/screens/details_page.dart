@@ -135,9 +135,11 @@ class _DetailsPageState extends State<DetailsPage> {
           aspectRatio: 16 / 9,
           enlargeCenterPage: true,
           autoPlay: false,
-          // Otomatik oynatma kapalı
+
+          /// Otomatik oynatma kapalı
           enableInfiniteScroll: false,
-          // Sonsuz kaydırma kapalı
+
+          /// Sonsuz kaydırma kapalı
           onPageChanged: (index, reason) {
             if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
               /// Hata işlemleri
