@@ -446,19 +446,19 @@ class _HomePageState extends State<HomePage> {
               ),
               child: isListView
 
-                  /// true ise Card görünümü olacak
-                  /// default olarak false geliyor
+              /// true ise Card görünümü olacak
+              /// default olarak false geliyor
                   ? buildListView(wordsList)
 
-                  /// false ise List görünümü gelecek
+              /// false ise List görünümü gelecek
                   : ListView.builder(
-                      itemCount: wordsList.length,
-                      itemExtent: _itemExtent,
-                      controller: listViewController,
-                      itemBuilder: (context, index) {
-                        return buildCard(wordsList[index], context);
-                      },
-                    ),
+                itemCount: wordsList.length,
+                itemExtent: _itemExtent,
+                controller: listViewController,
+                itemBuilder: (context, index) {
+                  return buildCard(wordsList[index], context);
+                },
+              ),
             );
           },
         );
@@ -567,9 +567,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme ve düzeltme butonlarını gösteriyoruz
   Row buildRow(
-    Words word,
-    BuildContext context,
-  ) {
+      Words word,
+      BuildContext context,
+      ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -581,9 +581,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada silme butonu için metot oluşturduk
   IconButton kelimeSil(
-    BuildContext context,
-    Words word,
-  ) {
+      BuildContext context,
+      Words word,
+      ) {
     return IconButton(
       onPressed: () {
         showDialog(
@@ -596,9 +596,9 @@ class _HomePageState extends State<HomePage> {
               /// Burada dil seçimine göre
               /// silinecek kelime bilgisini oluşturuyoruz
               firstLanguageText:
-                  firstLanguageText == birinciDil ? ikinciDil : birinciDil,
+              firstLanguageText == birinciDil ? ikinciDil : birinciDil,
               secondLanguageText:
-                  secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
+              secondLanguageText == ikinciDil ? birinciDil : ikinciDil,
             );
           },
         );
@@ -610,9 +610,9 @@ class _HomePageState extends State<HomePage> {
 
   /// Burada düzeltme butonu için metodumuz var
   IconButton kelimeDuzelt(
-    BuildContext context,
-    Words word,
-  ) {
+      BuildContext context,
+      Words word,
+      ) {
     return IconButton(
       onPressed: () => openWordBox(
         docId: word.wordId,

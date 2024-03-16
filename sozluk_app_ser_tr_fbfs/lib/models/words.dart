@@ -1,8 +1,8 @@
+/// <----- words.dart ----->
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants/app_constants/constants.dart';
 
-/// <----- words.dart ----->
 class Words {
   String wordId;
   String sirpca;
@@ -22,7 +22,8 @@ class Words {
     Map<dynamic, dynamic>? json,
   ) {
     if (json == null) {
-      throw ArgumentError("json cannot be null"); // Json null ise hata fırlatıyoruz
+      throw ArgumentError(
+          "json cannot be null"); // Json null ise hata fırlatıyoruz
     }
     return Words(
       key,
@@ -32,12 +33,13 @@ class Words {
     );
   }
 
-  // Fabrika yöntemi
+  /// Fabrika yöntemi
   factory Words.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     Map<String, dynamic>? data = snapshot.data();
 
     if (data == null) {
-      throw ArgumentError("data cannot be null"); // Data null ise hata fırlatıyoruz
+      /// Data null ise hata fırlatıyoruz
+      throw ArgumentError("data cannot be null");
     }
 
     return Words(
@@ -46,5 +48,13 @@ class Words {
       data[fsBirinciDil] as String? ?? "",
       data[fsUserEmail] as String? ?? "",
     );
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      fsIkinciDil: sirpca,
+      fsBirinciDil: turkce,
+      fsUserEmail: userEmail,
+    };
   }
 }
