@@ -1,4 +1,5 @@
 /// <----- words.dart ----->
+library;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants/app_constants/constants.dart';

@@ -89,23 +89,34 @@ class DeleteWord extends StatelessWidget {
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Row(
+                  content: Column(
                     children: [
-                      Text(
-                        word.sirpca,
-                        style: kelimeStil,
+                      Row(
+                        children: [
+                          Text(
+                            word.sirpca,
+                            style: kelimeStil,
+                          ),
+                          const Text(" kelimesi "),
+                        ],
                       ),
-                      const Text(" kelimesi "),
-                      Text(
-                        word.userEmail,
-                        style: userStil,
+                      Row(
+                        children: [
+                          Text(
+                            word.userEmail,
+                            style: userStil,
+                          ),
+                          const Text(deleteMsg),
+                        ],
                       ),
-                      const Text(deleteMsg),
                     ],
                   ),
                 ),
               );
-              print("${word.sirpca} kelimesi, ${word.userEmail} tarafından silinmiştir.");
+              print(
+                "${word.sirpca} kelimesi, ${word.userEmail} "
+                "tarafından silinmiştir.",
+              );
             } else {
               /// Eğer e-posta adresleri farklıysa, kullanıcıyı uyar
               ScaffoldMessenger.of(context).showSnackBar(
