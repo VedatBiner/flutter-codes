@@ -8,10 +8,10 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../services/app_routes.dart';
-import '../../services/auth_services.dart';
 
 class AuthPageWidget extends StatefulWidget {
   final String hintText;
@@ -35,54 +35,81 @@ class AuthPageWidget extends StatefulWidget {
 
   /// Google Sign In Butonu
   static Widget googleSignIn(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: RawMaterialButton(
-        fillColor: Colors.black54,
-        elevation: 10,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(width: 1),
-        ),
-        onPressed: () async {
-          await MyAuthService().signInWithGoogle().then(
-            (value) async {
-              await Navigator.pushNamedAndRemoveUntil(
-                context,
-                AppRoute.home,
-                (route) => false,
-              );
-            },
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 30,
-              width: 30,
-              child: Image.asset(
-                "assets/images/google.png",
-                errorBuilder: (context, error, stackTrace) {
-                  print("Hata oluştu: $error");
-                  return const Icon(Icons.error);
+    final GoogleSignIn _googleSignIn = GoogleSignIn(
+      clientId:
+          '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
+    );
+    return StreamBuilder<GoogleSignInAccount?>(
+        stream: _googleSignIn.onCurrentUserChanged,
+        builder: (context, snapshot) {
+          final isSignedIn = snapshot.hasData;
+          if (isSignedIn) {
+            // Eğer kullanıcı zaten oturum açmışsa butonu gösterme
+            return const SizedBox.shrink();
+          } else {
+            // Kullanıcı oturum açmamışsa butonu göster
+            return SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  // foregroundColor: Colors.white,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: const BorderSide(width: 1),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 15,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Image.asset(
+                        "assets/images/google.png",
+                        errorBuilder: (context, error, stackTrace) {
+                          print("Hata oluştu: $error");
+                          return const Icon(Icons.error);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      "Google ile Giriş",
+                      style: TextStyle(
+                        color: menuColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                onPressed: () async {
+                  try {
+                    await _googleSignIn.signIn();
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoute.home,
+                      (route) => false,
+                    );
+                  } catch (error) {
+                    print('Google ile oturum açma hatası: $error');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('Google ile oturum açma işlemi başarısız.'),
+                      ),
+                    );
+                  }
                 },
               ),
-            ),
-            const SizedBox(width: 20),
-            Text(
-              "Google ile Giriş",
-              style: TextStyle(
-                color: menuColor,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          }
+        });
   }
 
   @override
