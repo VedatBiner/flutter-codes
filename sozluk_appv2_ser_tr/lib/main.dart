@@ -8,6 +8,12 @@ import 'model/word_model.dart';
 
 late CollectionReference<Words> collection;
 
+/// Scrollbar için controller
+ScrollController listViewController = ScrollController();
+final _itemExtent = 100.0;
+
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -35,7 +41,7 @@ class FirebaseUIFirestoreExample extends StatelessWidget {
           title: const Text("Sırpça - Türkçe Sözlük"),
         ),
         body: FirestoreListView<Words>(
-          query: collection,
+          query: collection.orderBy("sirpca"),
           padding: const EdgeInsets.all(8),
           itemBuilder: (context, snapshot) {
             final word = snapshot.data();
