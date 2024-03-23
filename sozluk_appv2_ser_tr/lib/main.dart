@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sozluk_app_sqflite/pages/home_page.dart';
 
 import 'firebase_options.dart';
 import 'model/word_model.dart';
@@ -54,44 +55,6 @@ class FirebaseUIFirestoreExample extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-}
-
-class WordTile extends StatelessWidget {
-  final Words word;
-
-  const WordTile({
-    super.key,
-    required this.word,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                word.sirpca,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Text(
-                word.turkce,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              Text(
-                word.userEmail,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

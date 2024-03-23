@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../model/word_model.dart';
+import 'model/word_model.dart';
 
 class WordTile extends StatelessWidget {
   final Words word;
 
   const WordTile({
-    Key? key,
+    super.key,
     required this.word,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
