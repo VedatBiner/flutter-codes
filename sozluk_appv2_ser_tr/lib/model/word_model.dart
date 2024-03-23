@@ -1,3 +1,6 @@
+/// <----- word_model.dart ----->
+library;
+
 /// kelimelerin modeli
 class Words {
   final String wordId;
