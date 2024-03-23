@@ -70,28 +70,29 @@ class WordTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              word.sirpca,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            Text(
-              word.turkce,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              word.userEmail,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                word.sirpca,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                word.turkce,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              Text(
+                word.userEmail,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 }
-
 
