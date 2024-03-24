@@ -3,10 +3,12 @@ library;
 
 import 'package:flutter/material.dart';
 
-import 'model/word_model.dart';
+import 'model/fs_word_model.dart';
+
+
 
 class WordTile extends StatelessWidget {
-  final Words word;
+  final FsWords word;
 
   const WordTile({
     super.key,
