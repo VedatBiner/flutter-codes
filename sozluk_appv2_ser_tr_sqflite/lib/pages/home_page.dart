@@ -9,7 +9,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../model/fs_word_model.dart';
+import '../models/fs_word_model.dart';
 import '../word_tile.dart';
 
 class HomePage extends StatefulWidget {
