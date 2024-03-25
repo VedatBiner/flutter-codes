@@ -6,10 +6,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../models/fs_word_model.dart';
+import '../models/sql_word_model.dart';
 import '../word_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,6 +54,7 @@ class _HomePageState extends State<HomePage> {
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
+  /// json dosyası burada oluşturuluyor
   String convertToJson(List<FsWords> words) {
     /// İlk olarak, bir Map listesi oluşturulur.
     /// Her bir Words nesnesi bir Map 'e dönüştürülür.
@@ -63,25 +67,56 @@ class _HomePageState extends State<HomePage> {
     return jsonEncode(wordList);
   }
 
+  /// SqfLite işlemleri
+  // Future<void> writeToSQLite(String jsonData) async {
+  //   /// SQFlite veritabanını oluşturuluyor ve açılıyor
+  //   /// JSON dosya sanal cihazda burada :
+  //   /// /data/user/0/com.example.sozluk_appv2_ser_tr_sqflite/app_flutter/ser_tr_dict.json
+  //   final database = openDatabase(
+  //     join(await getDatabasesPath(), 'ser_tr_dict.sqlite'),
+  //     onCreate: (db, version) {
+  //       /// Veritabanı tablosunu oluşturun
+  //       return db.execute(
+  //         'CREATE TABLE IF NOT EXISTS words(wordId TEXT PRIMARY KEY, sirpca TEXT, turkce TEXT, userEmail TEXT)',
+  //       );
+  //     },
+  //     version: 1,
+  //   );
+  //
+  //   /// SQFlite veri tabanına veriyi ekleniyor
+  //   try {
+  //     await database.then((db) async {
+  //       final db = await database;
+  //
+  //       /// JSON verisini parse edin
+  //       List<Map<String, dynamic>> wordList =
+  //           jsonDecode(jsonData).cast<Map<String, dynamic>>();
+  //
+  //       /// Her bir veriyi SQFlite veri tabanına ekliyoruz
+  //       /// SqlWords nesnesini toJson() metodu ile Map 'e dönüştürüyoruz
+  //       for (var word in wordList) {
+  //         await db.rawInsert(
+  //           'REPLACE INTO words(wordId, sirpca, turkce, userEmail) VALUES (?, ?, ?, ?)',
+  //           [
+  //             word['wordId'].toString(),
+  //             word['sirpca'].toString(),
+  //             word['turkce'].toString(),
+  //             word['userEmail'].toString(),
+  //           ],
+  //         );
+  //       }
+  //     });
+  //   } catch (e, s) {
+  //     print(s);
+  //   }
+  // }
+
   /// json verisini dosyaya yazdırıyoruz
   Future<void> writeJsonToFile(String jsonData) async {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/ser_tr_dict.json');
 
     await file.writeAsString(jsonData);
-    print('JSON verisi başarıyla dosyaya yazıldı: ${file.path}');
-
-    /// dosyayı lokal diske alalım
-    const String destinationPath = 'assets/database/ser_tr_dict.json';
-
-    try {
-      /// Sanal cihaz dizinden assets klasörüne kopyalama
-      await file.copy(destinationPath);
-      print('JSON verisi başarıyla assets/database dizinine kopyalandı.');
-    } catch (e) {
-      print('Dosya kopyalama hatası: $e');
-    }
-
     print('JSON verisi başarıyla dosyaya yazıldı: ${file.path}');
   }
 
@@ -100,6 +135,19 @@ class _HomePageState extends State<HomePage> {
 
                 /// JSON verisini dosyaya yaz
                 await writeJsonToFile(jsonData);
+
+                // /// JSON verisini SQLite veri tabanına yaz
+                // try {
+                //   await writeToSQLite(jsonData);
+                //   print('JSON verisi başarıyla veri tabanına eklendi');
+                //
+                //   /// Sqflite dosyanın sanal cihazdaki yeri  :
+                //   /// /data/data/com.example.sozluk_appv2_ser_tr_sqflite/databases/ser_tr_dict.sqlite
+                // } catch (e) {
+                //   print(
+                //       'Veri tabanına yazma işlemi sırasında bir hata oluştu: $e');
+                // }
+                print("İşlem tamam");
               },
               icon: const Icon(Icons.refresh_sharp),
             ),
