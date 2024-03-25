@@ -13,6 +13,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/fs_word_model.dart';
 import '../models/sql_word_model.dart';
+import '../services/word_service.dart';
 import '../word_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,18 +24,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late CollectionReference<FsWords> collection;
+
+  late WordService _wordService; // WordService değişkenini tanımlayın
 
   @override
   void initState() {
     super.initState();
+    _wordService = WordService();
     requestStoragePermission();
-    final collectionRef = FirebaseFirestore.instance.collection('kelimeler');
-
-    collection = collectionRef.withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
   }
 
   /// Depolama izni talebi
@@ -46,12 +43,6 @@ class _HomePageState extends State<HomePage> {
     if (!status.isGranted) {
       await Permission.storage.request();
     }
-  }
-
-  /// firestore 'dan verileri çekiyoruz
-  Future<List<FsWords>> fetchWords() async {
-    final querySnapshot = await collection.orderBy("sirpca").get();
-    return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
   /// json dosyası burada oluşturuluyor
@@ -130,7 +121,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () async {
-                List<FsWords> words = await fetchWords();
+                List<FsWords> words = await _wordService.fetchWords();
                 String jsonData = convertToJson(words);
 
                 /// JSON verisini dosyaya yaz
@@ -154,7 +145,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: FirestoreListView<FsWords>(
-          query: collection.orderBy("sirpca"),
+          query: _wordService.collection.orderBy("sirpca"),
           padding: const EdgeInsets.all(8),
           itemBuilder: (context, snapshot) {
             final word = snapshot.data();
