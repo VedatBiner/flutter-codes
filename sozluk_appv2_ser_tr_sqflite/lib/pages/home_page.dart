@@ -2,17 +2,10 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sqflite/sqflite.dart';
 
 import '../models/fs_word_model.dart';
-import '../models/sql_word_model.dart';
 import '../services/word_service.dart';
 import '../word_tile.dart';
 
@@ -24,8 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  late WordService _wordService; // WordService değişkenini tanımlayın
+  late WordService _wordService;
 
   @override
   void initState() {
@@ -43,19 +35,6 @@ class _HomePageState extends State<HomePage> {
     if (!status.isGranted) {
       await Permission.storage.request();
     }
-  }
-
-  /// json dosyası burada oluşturuluyor
-  String convertToJson(List<FsWords> words) {
-    /// İlk olarak, bir Map listesi oluşturulur.
-    /// Her bir Words nesnesi bir Map 'e dönüştürülür.
-    List<Map<String, dynamic>> wordList =
-        words.map((word) => word.toJson()).toList();
-
-    /// JSON formatına dönüştürmek için jsonEncode fonksiyonu kullanılır.
-    /// wordList, jsonEncode fonksiyonuna verilir ve JSON formatında bir
-    /// String elde edilir.
-    return jsonEncode(wordList);
   }
 
   /// SqfLite işlemleri
@@ -102,15 +81,6 @@ class _HomePageState extends State<HomePage> {
   //   }
   // }
 
-  /// json verisini dosyaya yazdırıyoruz
-  Future<void> writeJsonToFile(String jsonData) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/ser_tr_dict.json');
-
-    await file.writeAsString(jsonData);
-    print('JSON verisi başarıyla dosyaya yazıldı: ${file.path}');
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -122,10 +92,10 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () async {
                 List<FsWords> words = await _wordService.fetchWords();
-                String jsonData = convertToJson(words);
+                String jsonData = _wordService.convertToJson(words);
 
                 /// JSON verisini dosyaya yaz
-                await writeJsonToFile(jsonData);
+                await _wordService.writeJsonToFile(jsonData);
 
                 // /// JSON verisini SQLite veri tabanına yaz
                 // try {
