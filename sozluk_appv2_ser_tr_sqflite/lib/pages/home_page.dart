@@ -108,6 +108,8 @@ class _HomePageState extends State<HomePage> {
                 //   print(
                 //       'Veri tabanına yazma işlemi sırasında bir hata oluştu: $e');
                 // }
+                /// SQL veri tabanı oluştur
+                _wordService.initDatabase();
                 print("İşlem tamam");
               },
               icon: const Icon(Icons.refresh_sharp),
