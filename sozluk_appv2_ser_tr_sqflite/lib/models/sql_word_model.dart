@@ -25,10 +25,15 @@ class SqlWords {
 
   Map<String, Object?> toJson() {
     return {
-      'wordId': wordId,
+     // 'wordId': wordId,
       'sirpca': sirpca,
       'turkce': turkce,
       'userEmail': userEmail,
     };
+  }
+
+  @override
+  String toString() {
+    return 'SqlWords{sirpca: $sirpca, turkce: $turkce, userEmail: $userEmail}';
   }
 }

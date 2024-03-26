@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -17,13 +18,15 @@ class DbHelper {
       log("Veri tabanı zaten var, kopyalamaya gerek yok");
     } else {
       // kopyalama için önce byte dosyaya dönüştürmek gerekiyor.
-      ByteData data = await rootBundle.load("veritabani/$veritabaniAdi");
+      ByteData data = await rootBundle.load("assets/database/$veritabaniAdi");
       // byte 'a dönüştürme
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(veritabaniYolu).writeAsBytes(bytes,flush: true);
+      List<int> bytes =
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(veritabaniYolu).writeAsBytes(bytes, flush: true);
       log("Veri tabanı kopyalandı.");
     }
     // tekrar veri tabanına erişiliyor
     return openDatabase(veritabaniYolu);
   }
+
 }

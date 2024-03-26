@@ -6,6 +6,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../models/fs_word_model.dart';
+import '../models/sql_word_model.dart';
 import '../services/word_service.dart';
 import '../word_tile.dart';
 
@@ -91,26 +92,28 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () async {
+                /// Firestore verisinden JSON veri oluştur
                 List<FsWords> words = await _wordService.fetchWords();
                 String jsonData = _wordService.convertToJson(words);
 
                 /// JSON verisini dosyaya yaz
                 await _wordService.writeJsonToFile(jsonData);
 
-                // /// JSON verisini SQLite veri tabanına yaz
-                // try {
-                //   await writeToSQLite(jsonData);
-                //   print('JSON verisi başarıyla veri tabanına eklendi');
-                //
-                //   /// Sqflite dosyanın sanal cihazdaki yeri  :
-                //   /// /data/data/com.example.sozluk_appv2_ser_tr_sqflite/databases/ser_tr_dict.sqlite
-                // } catch (e) {
-                //   print(
-                //       'Veri tabanına yazma işlemi sırasında bir hata oluştu: $e');
-                // }
                 /// SQL veri tabanı oluştur
-                _wordService.initDatabase();
-                print("İşlem tamam");
+                await _wordService.initDatabase();
+
+                try{
+                  /// Verileri SQL veri tabanına yaz
+                  List<SqlWords> sqlWordsList = await _wordService.fetchAndConvertWords();
+
+                  /// Veritabanına tüm kayıtları yazdırın
+                  await _wordService.writeToSQLite(sqlWordsList);
+
+                  print("İşlem tamam");
+                } catch(e){
+                  print('Veritabanına yazma işlemi sırasında bir hata oluştu: $e');
+                }
+
               },
               icon: const Icon(Icons.refresh_sharp),
             ),

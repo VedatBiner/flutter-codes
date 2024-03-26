@@ -9,6 +9,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/fs_word_model.dart';
+import '../models/sql_word_model.dart';
 
 class WordService {
   late CollectionReference<FsWords> collection;
@@ -29,12 +30,21 @@ class WordService {
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
+  /// Firestore 'dan verileri çekiyoruz ve SqlWords listesine dönüştürüyoruz
+  Future<List<SqlWords>> fetchAndConvertWords() async {
+    final List<FsWords> fsWordsList = await fetchWords();
+    final List<SqlWords> sqlWordsList = fsWordsList
+        .map((fsWord) => SqlWords.fromJson(fsWord.toJson()))
+        .toList();
+    return sqlWordsList;
+  }
+
   /// json dosyası burada oluşturuluyor
   String convertToJson(List<FsWords> words) {
     /// İlk olarak, bir Map listesi oluşturulur.
     /// Her bir Words nesnesi bir Map 'e dönüştürülür.
     List<Map<String, dynamic>> wordList =
-    words.map((word) => word.toJson()).toList();
+        words.map((word) => word.toJson()).toList();
 
     /// JSON formatına dönüştürmek için jsonEncode fonksiyonu kullanılır.
     /// wordList, jsonEncode fonksiyonuna verilir ve JSON formatında bir
@@ -64,4 +74,35 @@ class WordService {
     );
   }
 
+  /// Firestore verisini SQLite veri tabanına yazma
+  Future<void> writeToSQLite(List<SqlWords> words) async {
+    List<Map<String, dynamic>> wordList =
+        words.map((word) => word.toJson()).toList();
+    List<SqlWords> sqlWordsList =
+        words.map((word) => SqlWords.fromJson(word.toJson())).toList();
+
+    /// print("SQL Word  List : $wordList");
+    for (var sqlWord in sqlWordsList) {
+      print(sqlWord);
+    }
+    try {
+      await _database.transaction((txn) async {
+        for (var word in sqlWordsList) {
+          await txn.rawInsert(
+            'INSERT OR REPLACE INTO words(wordId, sirpca, turkce, userEmail) VALUES (?, ?, ?, ?)',
+            [
+              word.wordId,
+              word.sirpca,
+              word.turkce,
+              word.userEmail,
+            ],
+          );
+        }
+      });
+      print('Firestore verisi SQLite veritabanına başarıyla aktarıldı.');
+    } catch (e, s) {
+      print('SQLite veritabanına yazma işlemi sırasında bir hata oluştu: $e');
+      print(s);
+    }
+  }
 }
