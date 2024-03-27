@@ -17,6 +17,7 @@ import '../screens/auth_page_parts/register_page.dart';
 import '../screens/details_page.dart';
 import '../screens/home_page.dart';
 import '../screens/login_page.dart';
+import '../screens/settings_page.dart';
 import '../screens/splash_page.dart';
 
 typedef AppRouteMapFunction = Widget Function(BuildContext context);
@@ -29,6 +30,7 @@ final class AppRoute {
   static String details = "/details";
   static String login = "/login";
   static String register = "/register";
+  static String settings = "/settings";
   static String latin = "/home/latin";
   static String kiril = "/home/kiril";
   static String cinsiyet = "/home/cinsiyet";
@@ -45,6 +47,7 @@ final class AppRoute {
     details: (context) =>  const DetailsPage(),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
+    settings: (context) => const SettingsPage(),
     latin: (context) => _buildSayfaLatin(context),
     kiril: (context) => _buildSayfaKiril(context),
     cinsiyet: (context) => _buildSayfaCinsiyet(context),

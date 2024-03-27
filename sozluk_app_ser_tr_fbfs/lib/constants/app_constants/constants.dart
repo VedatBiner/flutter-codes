@@ -126,6 +126,7 @@ const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
+const String appBarSettingsTitle = "Settings Page";
 
 /// Message Constants
 const String wrongMailFormat = "email adresiniz doğru formatta değil !!!";
@@ -135,6 +136,8 @@ const String passwordSize = "Şifreler sekiz (8) karakterden küçük olamaz !!!
 const String registrationOk =
     "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.";
 const String checkPasswords = "Şifreler eşleşmiyor ...";
+const String googleSignInMsg = "Google ile Giriş";
+const String googleSignInFailMsg = "Google ile oturum açma işlemi başarısız.";
 
 /// Hint Text Constants
 const String hintEmail = "e-mail adresi";

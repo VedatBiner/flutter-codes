@@ -76,7 +76,11 @@ Drawer buildDrawer(BuildContext context) {
                   color: menuColor,
                   icon: const Icon(Icons.settings),
                   onPressed: () {
-
+                    /// Settings sayfasına gidilir.
+                    Navigator.pushNamed(
+                      context,
+                      AppRoute.settings,
+                    );
                   },
                 ),
               ),

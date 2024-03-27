@@ -81,7 +81,7 @@ class AuthPageWidget extends StatefulWidget {
                     ),
                     const SizedBox(width: 20),
                     Text(
-                      "Google ile Giriş",
+                      googleSignInMsg,
                       style: TextStyle(
                         color: menuColor,
                         fontSize: 18,
@@ -99,11 +99,11 @@ class AuthPageWidget extends StatefulWidget {
                           (route) => false,
                     );
                   } catch (error) {
-                    log('Google ile oturum açma hatası: $error');
+                    log('googleSignInFailMsg : $error');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content:
-                        Text('Google ile oturum açma işlemi başarısız.'),
+                        Text(googleSignInFailMsg),
                       ),
                     );
                   }
