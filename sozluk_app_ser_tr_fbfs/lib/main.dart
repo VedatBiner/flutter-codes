@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import 'services/buton_provider.dart';
+import 'services/word_count_provider.dart';
+import 'services/icon_provider.dart';
 import 'services/theme_provider.dart';
 import 'services/app_routes.dart';
 import '../firebase_options.dart';
@@ -16,6 +17,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
 
   runApp(
     MultiProvider(
@@ -28,6 +30,11 @@ void main() async {
         /// icon provider
         ChangeNotifierProvider(
           create: (context) => IconProvider(),
+        ),
+
+        /// word count provider
+        ChangeNotifierProvider(
+          create: (context) => WordCountProvider(),
         ),
       ],
       child: const MyApp(),

@@ -72,6 +72,20 @@ Drawer buildDrawer(BuildContext context) {
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: IconButton(
+                  tooltip: "Settings",
+                  color: menuColor,
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+
+                  },
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: IconButton(
                   tooltip: "Sign Out",
                   color: menuColor,
                   icon: const Icon(Icons.logout),

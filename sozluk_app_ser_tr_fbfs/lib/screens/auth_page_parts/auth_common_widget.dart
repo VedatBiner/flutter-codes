@@ -5,7 +5,9 @@
 /// şifremi unuttum
 /// kutularını ve seçeneklerini gösteren metod
 
-library;
+library auth_page_widgets;
+
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -37,7 +39,7 @@ class AuthPageWidget extends StatefulWidget {
   static Widget googleSignIn(BuildContext context) {
     final GoogleSignIn _googleSignIn = GoogleSignIn(
       clientId:
-          '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
+      '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
     );
     return StreamBuilder<GoogleSignInAccount?>(
         stream: _googleSignIn.onCurrentUserChanged,
@@ -72,7 +74,7 @@ class AuthPageWidget extends StatefulWidget {
                       child: Image.asset(
                         "assets/images/google.png",
                         errorBuilder: (context, error, stackTrace) {
-                          print("Hata oluştu: $error");
+                          log("Hata oluştu: $error");
                           return const Icon(Icons.error);
                         },
                       ),
@@ -90,18 +92,18 @@ class AuthPageWidget extends StatefulWidget {
                 ),
                 onPressed: () async {
                   try {
-                    await _googleSignIn.signIn();
+                    await _googleSignIn.signInSilently();
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoute.home,
-                      (route) => false,
+                          (route) => false,
                     );
                   } catch (error) {
-                    print('Google ile oturum açma hatası: $error');
+                    log('Google ile oturum açma hatası: $error');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content:
-                            Text('Google ile oturum açma işlemi başarısız.'),
+                        Text('Google ile oturum açma işlemi başarısız.'),
                       ),
                     );
                   }
