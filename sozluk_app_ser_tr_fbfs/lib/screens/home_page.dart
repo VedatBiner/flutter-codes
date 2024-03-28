@@ -371,7 +371,7 @@ class _HomePageState extends State<HomePage> {
 
         /// Burada toplam kelime sayısı veriliyor
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
+          height: MediaQuery.of(context).size.height * 0.05,
           child: buildStreamBuilderFooter(context),
         ),
       ],
