@@ -14,6 +14,8 @@ import '../services/app_routes.dart';
 import '../services/icon_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/firestore.dart';
+import '../services/word_service.dart';
+import '../utils/generate_json.dart';
 import '../utils/mesaj_helper.dart';
 import '../widgets/delete_word.dart';
 import '../widgets/text_entry.dart';
@@ -57,11 +59,24 @@ class _HomePageState extends State<HomePage> {
   ScrollController listViewController = ScrollController();
   final _itemExtent = 100.0;
 
+  /// JSON dosya oluşturup güncel tutalım
+  late WordService _wordService;
+
+
   @override
   void initState() {
     super.initState();
     packageInfoInit();
     listViewController = ScrollController();
+    /// Firestore verisinden JSON dosya oluşturup yazıyoruz
+    _wordService = WordService();
+    jsonInit();
+  }
+
+  /// her çalışmada JSON verisini güncel tutsun
+  static Future<void> jsonInit() async {
+    WordService wordService = WordService();
+    await generateAndWriteJson(wordService);
   }
 
   /// versiyon bilgisini alıyoruz
