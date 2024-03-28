@@ -165,6 +165,10 @@ const String addMsg = " tarafından eklenmiştir...";
 /// delete mesajı
 const String deleteMsg = " tarafından silinmiştir...";
 
+/// Settings Buton labels
+const String jsonMsg = "Firestore verisini JSON verisine çevir";
+const String sqfliteMsg = "JSON verisini Sqflite veri tabanına  çevir";
+
 /// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [
   {"title": "Alfabe (Latin)", "page": AppRoute.latin},
