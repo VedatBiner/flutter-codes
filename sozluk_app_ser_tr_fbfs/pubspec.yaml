@@ -17,7 +17,7 @@ dependencies:
   firebase_core: ^2.27.1
   cloud_firestore: ^4.15.9
   firebase_auth: ^4.17.9
-  google_sign_in: ^6.2.1
+  google_sign_in:
   flag:
   fluttertoast:
   google_fonts:
@@ -25,6 +25,9 @@ dependencies:
   package_info_plus:
   carousel_slider:
   draggable_scrollbar:
+  path:
+  sqflite:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
@@ -38,4 +41,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/database/
 

@@ -10,7 +10,6 @@ import 'package:path_provider/path_provider.dart';
 
 import '../models/fs_words.dart';
 
-
 class WordService {
   late CollectionReference<FsWords> collection;
   // late Database _database;
