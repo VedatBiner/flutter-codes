@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../widgets/word_tile.dart';
 import '../model/word_model.dart';
 
-
 class FirebaseUIFirestoreExample extends StatelessWidget {
   late Query<Word> collection;
 
