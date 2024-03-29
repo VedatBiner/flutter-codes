@@ -8,6 +8,8 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
+import 'model/word_model.dart';
+
 late Query<Word> collection;
 
 Future<void> main() async {
@@ -64,48 +66,26 @@ class WordTile extends StatelessWidget {
     return Row(
       children: [
         const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              word.sirpca,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            Text(
-              word.turkce,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                word.sirpca,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              Text(
+                word.turkce,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 }
 
-class Word {
-  Word({
-    required this.sirpca,
-    required this.turkce,
-    required this.userEmail,
-  });
-  Word.fromJson(Map<String, Object?> json)
-      : this(
-          sirpca: json['sirpca'].toString(),
-          turkce: json['turkce'].toString(),
-          userEmail: json['userEmail'].toString(),
-        );
 
-  final String sirpca;
-  final String turkce;
-  final String userEmail;
-
-  Map<String, Object?> toJson() {
-    return {
-      'sirpca': sirpca,
-      'turkce': turkce,
-      'userEmail': userEmail,
-    };
-  }
-}
