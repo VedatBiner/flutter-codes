@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/const_gecisli_donuslu_fiiller.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import '../constants/app_constants/constants.dart';
-import '../screens/home_page_parts/drawer_items.dart';
+import '../screens/home_page_parts/drawer_items_new.dart';
 import '../utils/rich_text_rule.dart';
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';

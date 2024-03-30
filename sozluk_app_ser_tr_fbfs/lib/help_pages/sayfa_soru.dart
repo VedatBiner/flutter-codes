@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/const_soru.dart';
 import '../constants/app_constants/constants.dart';
-import '../screens/home_page_parts/drawer_items.dart';
+import '../screens/home_page_parts/drawer_items_new.dart';
 
 import '../utils/text_header.dart';
 import '../utils/text_rule.dart';

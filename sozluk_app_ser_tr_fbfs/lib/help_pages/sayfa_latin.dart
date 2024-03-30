@@ -3,7 +3,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../screens/home_page_parts/drawer_items.dart';
+import '../screens/home_page_parts/drawer_items_new.dart';
 import 'help_parts/build_table.dart';
 import 'help_parts/custom_appbar.dart';
 

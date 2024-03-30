@@ -12,7 +12,6 @@ import '../models/fs_words.dart';
 
 class WordService {
   late CollectionReference<FsWords> collection;
-  // late Database _database;
 
   WordService() {
     final collectionRef = FirebaseFirestore.instance.collection('kelimeler');

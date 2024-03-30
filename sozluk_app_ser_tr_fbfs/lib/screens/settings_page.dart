@@ -9,7 +9,7 @@ import '../help_pages/help_parts/custom_appbar.dart';
 import '../models/fs_words.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
-import 'home_page_parts/drawer_items.dart';
+import 'home_page_parts/drawer_items_new.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

@@ -4,13 +4,14 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
-import '../home_page.dart';
+import '../Home_page_new.dart';
 
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
@@ -19,9 +20,6 @@ Drawer buildDrawer(BuildContext context) {
   String currentUserEmail =
       FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
 
-  Future<String?> getVersion() async {
-    return HomePage.getVersion();
-  }
 
   return Drawer(
     shadowColor: Colors.lightBlue,
@@ -161,4 +159,9 @@ ListTile buildListTile(
       );
     },
   );
+}
+
+Future<String?> getVersion() async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  return packageInfo.version;
 }

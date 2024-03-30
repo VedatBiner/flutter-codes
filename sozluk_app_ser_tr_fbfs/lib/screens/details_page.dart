@@ -13,7 +13,7 @@ import '../services/theme_provider.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import 'details_page_parts/details_card.dart';
-import 'home_page_parts/drawer_items.dart';
+import 'home_page_parts/drawer_items_new.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
