@@ -90,51 +90,76 @@ class _HomePageState extends State<HomePage> {
 
   /// kelime listesi Card Görünümü
   Widget buildWordTile({required FsWords word}) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Card(
-        elevation: 6,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        shadowColor: Colors.green[200],
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      firstLanguageCode == 'RS'
-                          ? word.sirpca ?? ""
-                          : word.turkce ?? "",
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const Divider(color: Colors.black38),
-                    Text(
-                      secondLanguageCode == 'TR'
-                          ? word.turkce ?? ""
-                          : word.sirpca ?? "",
-                      style: const TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+    Widget wordWidget;
+    if (isListView) {
+      /// Liste görünümü
+      wordWidget = ListTile(
+        title: Text(
+          firstLanguageCode == 'RS' ? word.sirpca ?? "" : word.turkce ?? "",
+          style: const TextStyle(
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
           ),
         ),
-      ),
-    );
+        subtitle: Text(
+          secondLanguageCode == 'TR' ? word.turkce ?? "" : word.sirpca ?? "",
+          style: const TextStyle(
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+      );
+    } else {
+      /// Card Görünümü
+      wordWidget = Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Card(
+          elevation: 6,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          shadowColor: Colors.green[200],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        firstLanguageCode == 'RS'
+                            ? word.sirpca ?? ""
+                            : word.turkce ?? "",
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const Divider(color: Colors.black38),
+                      Text(
+                        secondLanguageCode == 'TR'
+                            ? word.turkce ?? ""
+                            : word.sirpca ?? "",
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+    return wordWidget;
   }
 
   /// ana kodumuz bu şekilde
