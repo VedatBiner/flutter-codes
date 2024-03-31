@@ -108,7 +108,13 @@ class _HomePageState extends State<HomePage> {
                         ? word.sirpca ?? ""
                         : word.turkce ?? "",
                     textAlign: TextAlign.left,
-                    style: listTextRed,
+                    style: TextStyle(
+                      color: themeProvider.isDarkMode
+                          ? cardDarkModeText1
+                          : cardLightModeText1,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -117,15 +123,19 @@ class _HomePageState extends State<HomePage> {
                         ? word.turkce ?? ""
                         : word.sirpca ?? "",
                     textAlign: TextAlign.right,
-                    style: listTextBlue,
+                    style: TextStyle(
+                      color: themeProvider.isDarkMode
+                          ? cardDarkModeText2
+                          : cardLightModeText2,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
             ),
             Divider(
-              color: themeProvider.isDarkMode
-                  ? Colors.white60
-                  : Colors.black45,
+              color: themeProvider.isDarkMode ? Colors.white60 : Colors.black45,
             ),
           ],
         ),
