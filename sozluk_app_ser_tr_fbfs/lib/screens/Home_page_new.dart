@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -73,9 +73,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     return FirestoreListView<FsWords>(
       query: query ?? collection,
@@ -107,7 +107,9 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      word.sirpca ?? "",
+                      firstLanguageCode == 'RS'
+                          ? word.sirpca ?? ""
+                          : word.turkce ?? "",
                       style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
@@ -116,7 +118,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const Divider(color: Colors.black38),
                     Text(
-                      word.turkce ?? "",
+                      secondLanguageCode == 'TR'
+                          ? word.turkce ?? ""
+                          : word.sirpca ?? "",
                       style: const TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
