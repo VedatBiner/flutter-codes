@@ -64,6 +64,70 @@ class _HomePageState extends State<HomePage> {
     initializeFirestore();
   }
 
+  Widget buildWordList() {
+    final collectionRef =
+        FirebaseFirestore.instance.collection('kelimeler').orderBy("sirpca");
+
+    final collection = collectionRef.withConverter<FsWords>(
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
+
+    return FirestoreListView<FsWords>(
+      query: collection,
+      pageSize: 50,
+      padding: const EdgeInsets.all(8.0),
+      itemBuilder: (context, snapshot) {
+        final word = snapshot.data();
+        return buildWordTile(word: word);
+      },
+    );
+  }
+
+  Widget buildWordTile({required FsWords word}) {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Card(
+        elevation: 6,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        shadowColor: Colors.green[200],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      word.sirpca ?? "",
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const Divider(color: Colors.black38),
+                    Text(
+                      word.turkce ?? "",
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -118,7 +182,7 @@ class _HomePageState extends State<HomePage> {
         ///
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.72,
-          child: WordList(),
+          child: buildWordList(),
         ),
       ],
     );
@@ -219,103 +283,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-
-}
-
-class WordList extends StatelessWidget {
-  late Query<FsWords> collection;
-
-  WordList({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final collectionRef =
-        FirebaseFirestore.instance.collection('kelimeler').orderBy("sirpca");
-
-    final collection = collectionRef.withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
-
-    return FirestoreListView<FsWords>(
-      query: collection,
-      pageSize: 50,
-      padding: const EdgeInsets.all(8.0),
-      itemBuilder: (context, snapshot) {
-        final word = snapshot.data();
-        return Column(
-          children: [
-            WordTile(
-              word: word,
-            ),
-            // const Divider(),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class WordTile extends StatefulWidget {
-  final FsWords word;
-
-  const WordTile({
-    super.key,
-    required this.word,
-  });
-
-  @override
-  State<WordTile> createState() => _WordTileState();
-}
-
-class _WordTileState extends State<WordTile> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(2.0),
-      child: Card(
-        elevation: 6,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        shadowColor: Colors.green[200],
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.word.sirpca ?? "",
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const Divider(color: Colors.black38),
-                    Text(
-                      widget.word.turkce ?? "",
-                      style: const TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
