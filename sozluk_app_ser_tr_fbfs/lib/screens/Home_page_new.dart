@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../models/fs_words.dart';
 import '../services/icon_provider.dart';
+import '../services/theme_provider.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
 import 'home_page_parts/drawer_items_new.dart';
@@ -90,25 +92,42 @@ class _HomePageState extends State<HomePage> {
 
   /// kelime listesi Card Görünümü
   Widget buildWordTile({required FsWords word}) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     Widget wordWidget;
     if (isListView) {
       /// Liste görünümü
       wordWidget = ListTile(
-        title: Text(
-          firstLanguageCode == 'RS' ? word.sirpca ?? "" : word.turkce ?? "",
-          style: const TextStyle(
-            color: Colors.red,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-        ),
-        subtitle: Text(
-          secondLanguageCode == 'TR' ? word.turkce ?? "" : word.sirpca ?? "",
-          style: const TextStyle(
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
+        contentPadding: EdgeInsets.zero,
+        title: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    firstLanguageCode == 'RS'
+                        ? word.sirpca ?? ""
+                        : word.turkce ?? "",
+                    textAlign: TextAlign.left,
+                    style: listTextRed,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    secondLanguageCode == 'TR'
+                        ? word.turkce ?? ""
+                        : word.sirpca ?? "",
+                    textAlign: TextAlign.right,
+                    style: listTextBlue,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: themeProvider.isDarkMode
+                  ? Colors.white60
+                  : Colors.black45,
+            ),
+          ],
         ),
       );
     } else {
@@ -121,6 +140,7 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(16.0),
           ),
           shadowColor: Colors.green[200],
+          color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -133,19 +153,27 @@ class _HomePageState extends State<HomePage> {
                         firstLanguageCode == 'RS'
                             ? word.sirpca ?? ""
                             : word.turkce ?? "",
-                        style: const TextStyle(
-                          color: Colors.red,
+                        style: TextStyle(
+                          color: themeProvider.isDarkMode
+                              ? cardDarkModeText1
+                              : cardLightModeText1,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
-                      const Divider(color: Colors.black38),
+                      Divider(
+                        color: themeProvider.isDarkMode
+                            ? Colors.white60
+                            : Colors.black45,
+                      ),
                       Text(
                         secondLanguageCode == 'TR'
                             ? word.turkce ?? ""
                             : word.sirpca ?? "",
-                        style: const TextStyle(
-                          color: Colors.blue,
+                        style: TextStyle(
+                          color: themeProvider.isDarkMode
+                              ? cardDarkModeText2
+                              : cardLightModeText2,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
