@@ -21,11 +21,9 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
-
   /// JSON dosya oluşturup güncel tutalım
   late WordService _wordService;
 
@@ -44,9 +42,9 @@ class _HomePageState extends State<HomePage> {
   Future<void> initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance.collection('kelimeler');
     query = collectionRef.orderBy("sirpca").withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
   }
 
   /// her çalışmada JSON verisini güncel tutsun
@@ -59,6 +57,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
     /// Firestore verisinden JSON dosya oluşturup yazıyoruz
     _wordService = WordService();
     jsonInit();
@@ -79,10 +78,10 @@ class _HomePageState extends State<HomePage> {
         body: showBody(context),
 
         drawer: buildDrawer(context),
-        floatingActionButton: buildFloatingActionButton(onPressed: () {  }
+        floatingActionButton: buildFloatingActionButton(onPressed: () {}
 
-          /// onPressed: () => openWordBox(context: context),
-        ),
+            /// onPressed: () => openWordBox(context: context),
+            ),
       ),
     );
   }
@@ -121,12 +120,9 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height * 0.72,
           child: WordList(),
         ),
-
       ],
     );
   }
-
-
 
   /// AppBar burada değişiyor
   HomeCustomAppBar buildHomeCustomAppBar() {
@@ -157,8 +153,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-
+  /// dil değişimi burada yapılıyor
   Widget buildLanguageSelector({
     required BuildContext context,
   }) {
@@ -229,11 +224,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+
 }
 
 class WordList extends StatelessWidget {
   late Query<FsWords> collection;
-
 
   WordList({
     super.key,
@@ -242,41 +237,34 @@ class WordList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final collectionRef =
-    FirebaseFirestore.instance.collection('kelimeler').orderBy("sirpca");
+        FirebaseFirestore.instance.collection('kelimeler').orderBy("sirpca");
 
     final collection = collectionRef.withConverter<FsWords>(
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        // appBar: AppBar(title: const Text('Serbian - Turkish Dictionary')),
-        body: FirestoreListView<FsWords>(
-          query: collection,
-          pageSize: 50,
-          padding: const EdgeInsets.all(8.0),
-          itemBuilder: (context, snapshot) {
-            final word = snapshot.data();
-            return Column(
-              children: [
-                WordTile(
-                  word: word,
-                ),
-                // const Divider(),
-              ],
-            );
-          },
-        ),
-      ),
+    return FirestoreListView<FsWords>(
+      query: collection,
+      pageSize: 50,
+      padding: const EdgeInsets.all(8.0),
+      itemBuilder: (context, snapshot) {
+        final word = snapshot.data();
+        return Column(
+          children: [
+            WordTile(
+              word: word,
+            ),
+            // const Divider(),
+          ],
+        );
+      },
     );
   }
 }
 
 class WordTile extends StatefulWidget {
   final FsWords word;
-
 
   const WordTile({
     super.key,
@@ -290,7 +278,6 @@ class WordTile extends StatefulWidget {
 class _WordTileState extends State<WordTile> {
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
