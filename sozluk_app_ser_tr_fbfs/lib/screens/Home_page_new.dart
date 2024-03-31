@@ -40,11 +40,14 @@ class _HomePageState extends State<HomePage> {
   String appBarTitle = appBarMainTitleSecond;
 
   Future<void> initializeFirestore() async {
-    final collectionRef = FirebaseFirestore.instance.collection('kelimeler');
-    query = collectionRef.orderBy("sirpca").withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+    final collectionRef = FirebaseFirestore.instance
+        .collection('kelimeler')
+        .orderBy("sirpca")
+        .withConverter<FsWords>(
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
+    collection = collectionRef as CollectionReference<FsWords>;
   }
 
   /// her çalışmada JSON verisini güncel tutsun
@@ -64,17 +67,18 @@ class _HomePageState extends State<HomePage> {
     initializeFirestore();
   }
 
+  /// kelime listesi oluşturma
   Widget buildWordList() {
-    final collectionRef =
-        FirebaseFirestore.instance.collection('kelimeler').orderBy("sirpca");
-
-    final collection = collectionRef.withConverter<FsWords>(
+    query = FirebaseFirestore.instance
+        .collection('kelimeler')
+        .orderBy("sirpca")
+        .withConverter<FsWords>(
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
     );
 
     return FirestoreListView<FsWords>(
-      query: collection,
+      query: query ?? collection,
       pageSize: 50,
       padding: const EdgeInsets.all(8.0),
       itemBuilder: (context, snapshot) {
@@ -84,6 +88,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// kelime listesi Card Görünümü
   Widget buildWordTile({required FsWords word}) {
     return Padding(
       padding: const EdgeInsets.all(2.0),
