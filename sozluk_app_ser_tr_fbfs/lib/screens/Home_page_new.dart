@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../models/fs_words.dart';
+import '../services/app_routes.dart';
 import '../services/icon_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/word_service.dart';
@@ -151,47 +151,73 @@ class _HomePageState extends State<HomePage> {
           ),
           shadowColor: Colors.green[200],
           color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          child: InkWell(
+            onTap: () async {
+              await Navigator.pushNamed(
+                context,
+                AppRoute.details,
+                arguments: word,
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          firstLanguageCode == 'RS'
+                              ? word.sirpca ?? ""
+                              : word.turkce ?? "",
+                          style: TextStyle(
+                            color: themeProvider.isDarkMode
+                                ? cardDarkModeText1
+                                : cardLightModeText1,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Divider(
+                          thickness: 1,
+                          color: themeProvider.isDarkMode
+                              ? Colors.white60
+                              : Colors.black45,
+                        ),
+                        Text(
+                          secondLanguageCode == 'TR'
+                              ? word.turkce ?? ""
+                              : word.sirpca ?? "",
+                          style: TextStyle(
+                            color: themeProvider.isDarkMode
+                                ? cardDarkModeText2
+                                : cardLightModeText2,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        firstLanguageCode == 'RS'
-                            ? word.sirpca ?? ""
-                            : word.turkce ?? "",
-                        style: TextStyle(
-                          color: themeProvider.isDarkMode
-                              ? cardDarkModeText1
-                              : cardLightModeText1,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit),
+                        tooltip: "kelime düzelt",
+                        color: Colors.green,
                       ),
-                      Divider(
-                        color: themeProvider.isDarkMode
-                            ? Colors.white60
-                            : Colors.black45,
-                      ),
-                      Text(
-                        secondLanguageCode == 'TR'
-                            ? word.turkce ?? ""
-                            : word.sirpca ?? "",
-                        style: TextStyle(
-                          color: themeProvider.isDarkMode
-                              ? cardDarkModeText2
-                              : cardLightModeText2,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.delete),
+                        tooltip: "kelime sil",
+                        color: Colors.red,
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

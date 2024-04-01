@@ -15,7 +15,7 @@ import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../screens/Home_page_new.dart';
 import '../screens/auth_page_parts/register_page.dart';
-import '../screens/details_page.dart';
+import '../screens/details_page_new.dart';
 import '../screens/login_page.dart';
 import '../screens/settings_page.dart';
 import '../screens/splash_page.dart';

@@ -1,19 +1,24 @@
 /// <----- details_page_ser_tr.dart ----->
 library;
 
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:sozluk_app_ser_tr_fbfs/models/fs_words_test.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../models/words.dart';
+
 import '../screens/details_page_parts/button_helper.dart';
 import '../services/theme_provider.dart';
 import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items_new.dart';
+
+late CollectionReference<FsWords> collection;
+late Query<FsWords> query;
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -28,13 +33,13 @@ class _DetailsPageState extends State<DetailsPage> {
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late int _currentIndex;
   late ThemeProvider themeProvider;
-  late Words word;
+  late FsWords word;
 
-  @override
+  /*@override
   void didChangeDependencies() {
     super.didChangeDependencies();
     themeProvider = Provider.of<ThemeProvider>(context);
-    word = ModalRoute.of(context)!.settings.arguments as Words;
+    word = ModalRoute.of(context)!.settings.arguments as FsWords;
     _loadWordList();
   }
 
@@ -97,9 +102,34 @@ class _DetailsPageState extends State<DetailsPage> {
     setState(() {
       DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
           _querySnapshot!.docs[_currentIndex];
-      word = Words.fromFirestore(currentDocumentSnapshot);
+      word = FsWords.fromFirestore(currentDocumentSnapshot).toWords();
     });
   }
+*/
+
+  /// kelime listesi oluşturma
+  Widget buildWordList() {
+    query = FirebaseFirestore.instance
+        .collection('kelimeler')
+        .orderBy("sirpca")
+        .withConverter<FsWords>(
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
+
+    return FirestoreListView<FsWords>(
+      query: query ?? collection,
+      pageSize: 50,
+      padding: const EdgeInsets.all(8.0),
+      itemBuilder: (context, snapshot) {
+        final word = snapshot.data();
+        return Text("OK");
+          // buildWordTile(word: word);
+      },
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,15 +142,17 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            buildCarouselSlider(context),
-            buildDetailsButton(),
+            // Center(child: Text("Deneme")),
+            buildWordList(),
+            // buildCarouselSlider(context),
+            // buildDetailsButton(),
           ],
         ),
       ),
     );
   }
 
-  /// kelimelerin sağa-sola sürüklenmesi için slider
+ /* /// kelimelerin sağa-sola sürüklenmesi için slider
   CarouselSlider buildCarouselSlider(BuildContext context) {
     if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
       return CarouselSlider(
@@ -189,4 +221,4 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-}
+*/}
