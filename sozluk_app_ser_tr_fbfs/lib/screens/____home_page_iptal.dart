@@ -9,7 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../models/fs_words.dart';
+import '../models/____fs_words.dart_iptal';
 import '../models/words.dart';
 import '../services/app_routes.dart';
 import '../services/icon_provider.dart';

@@ -1,15 +1,18 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
-import '../models/fs_words.dart';
-import '../services/app_routes.dart';
+
+import '../models/fs_words_test.dart';
 import '../services/icon_provider.dart';
 import '../services/theme_provider.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
+import 'details_page_new.dart';
 import 'home_page_parts/drawer_items_new.dart';
 import 'home_page_parts/fab_helper.dart';
 import 'home_page_parts/home_app_bar.dart';
@@ -40,6 +43,9 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageCode = 'TR'; // İkinci dil kodu
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSecond;
+
+  /// seçilen kelime
+  String? selectedWord;
 
   Future<void> initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance
@@ -152,13 +158,6 @@ class _HomePageState extends State<HomePage> {
           shadowColor: Colors.green[200],
           color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
           child: InkWell(
-            onTap: () async {
-              await Navigator.pushNamed(
-                context,
-                AppRoute.details,
-                arguments: word,
-              );
-            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -219,6 +218,21 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            onTap: () {
+              log("word : ${word.sirpca}");
+              log("word : ${word.turkce}");
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(
+                    wordId: word.wordId,
+                    firstLanguage: word.turkce,
+                    secondLanguage: word.sirpca,
+                  ),
+                ),
+              );
+            },
           ),
         ),
       );

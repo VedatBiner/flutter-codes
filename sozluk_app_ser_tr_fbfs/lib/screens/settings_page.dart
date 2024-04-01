@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
-import '../models/fs_words.dart';
+import '../models/____fs_words.dart_iptal';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
 import 'home_page_parts/drawer_items_new.dart';

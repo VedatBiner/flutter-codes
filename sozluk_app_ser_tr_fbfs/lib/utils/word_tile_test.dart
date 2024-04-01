@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/fs_words.dart';
+import '../models/____fs_words.dart_iptal';
 
 class WordTile extends StatefulWidget {
   final FsWords word;

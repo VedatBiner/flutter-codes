@@ -44,7 +44,7 @@ final class AppRoute {
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
-    details: (context) =>  const DetailsPage(),
+    // details: (context) =>  const DetailsPage(word: word),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
     settings: (context) => const SettingsPage(),
@@ -96,4 +96,5 @@ final class AppRoute {
   static Widget _buildIsaretSifatlari(BuildContext context) {
     return const SayfaIsaretSifatlari();
   }
+
 }

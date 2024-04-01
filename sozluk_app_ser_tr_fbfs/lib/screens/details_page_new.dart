@@ -1,6 +1,8 @@
 /// <----- details_page_ser_tr.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,19 +23,29 @@ late CollectionReference<FsWords> collection;
 late Query<FsWords> query;
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+  final String firstLanguage;
+  final String secondLanguage;
+  final String wordId;
+
+  DetailsPage({
+    super.key,
+    required this.firstLanguage,
+    required this.secondLanguage,
+    required this.wordId,
+  });
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
-  QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
-  late int _currentIndex;
+  // final CollectionReference words =
+  //     FirebaseFirestore.instance.collection("kelimeler");
+  // QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
+  // late int _currentIndex;
   late ThemeProvider themeProvider;
-  late FsWords word;
+  // late FsWords word;
+
 
   /*@override
   void didChangeDependencies() {
@@ -113,9 +125,9 @@ class _DetailsPageState extends State<DetailsPage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     return FirestoreListView<FsWords>(
       query: query ?? collection,
@@ -124,12 +136,10 @@ class _DetailsPageState extends State<DetailsPage> {
       itemBuilder: (context, snapshot) {
         final word = snapshot.data();
         return Text("OK");
-          // buildWordTile(word: word);
+        // buildWordTile(word: word);
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +152,13 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Center(child: Text("Deneme")),
-            buildWordList(),
+            Column(
+              children: [
+                Text("sirpça : ${widget.secondLanguage}"),
+                Text("türkçe : ${widget.firstLanguage}"),
+              ],
+            ),
+
             // buildCarouselSlider(context),
             // buildDetailsButton(),
           ],
@@ -152,7 +167,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
- /* /// kelimelerin sağa-sola sürüklenmesi için slider
+  /* /// kelimelerin sağa-sola sürüklenmesi için slider
   CarouselSlider buildCarouselSlider(BuildContext context) {
     if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
       return CarouselSlider(
@@ -221,4 +236,5 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-*/}
+*/
+}

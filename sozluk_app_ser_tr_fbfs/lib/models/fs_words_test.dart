@@ -28,4 +28,9 @@ class FsWords {
       'userEmail': userEmail,
     };
   }
+
+  @override
+  String toString() {
+    return 'FsWords{sirpca: $sirpca, turkce: $turkce}';
+  }
 }

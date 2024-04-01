@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../models/fs_words.dart';
+import '../../models/____fs_words.dart_iptal';
 import '../../utils/word_tile_test.dart';
 
 class WordList extends StatelessWidget {
