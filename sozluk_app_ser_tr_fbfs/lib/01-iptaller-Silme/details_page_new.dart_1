@@ -1,0 +1,179 @@
+/// <----- details_page_ser_tr.dart ----->
+/// Yeni Details_page - Ancak bazı sorunları var
+library;
+
+import 'dart:developer';
+
+import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:sozluk_app_ser_tr_fbfs/models/fs_words_test.dart';
+
+import '../constants/app_constants/constants.dart';
+
+import '../screens/details_page_parts/button_helper.dart';
+import '../services/theme_provider.dart';
+import '../utils/mesaj_helper.dart';
+import '../help_pages/help_parts/custom_appbar.dart';
+import 'details_page_parts/details_card.dart';
+import 'home_page_parts/drawer_items_new.dart';
+
+late CollectionReference<FsWords> collection;
+late Query<FsWords> query;
+
+class DetailsPageX extends StatefulWidget {
+  final String firstLanguage;
+  final String secondLanguage;
+  final String wordId;
+
+  const DetailsPage_New({
+    super.key,
+    required this.firstLanguage,
+    required this.secondLanguage,
+    required this.wordId,
+  });
+
+  @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  // final CollectionReference words =
+  //     FirebaseFirestore.instance.collection("kelimeler");
+  // QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
+  // late int _currentIndex;
+  late ThemeProvider themeProvider;
+
+  // late FsWords word;
+
+  late List<DocumentSnapshot<Map<String, dynamic>>> _documents;
+
+
+  Future<List<DocumentSnapshot<Map<String, dynamic>>>>
+      getFirestoreData() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection('kelimeler')
+              .orderBy("sirpca")
+              .get();
+      List<DocumentSnapshot<Map<String, dynamic>>> documents = querySnapshot.docs;
+      _documents = documents;
+      return documents;
+    } catch (e) {
+      log("Firestore verileri alınamadı: $e");
+      return [];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const CustomAppBar(
+        appBarTitle: appBarDetailsTitle,
+      ),
+      drawer: buildDrawer(context),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Text("sirpça : ${widget.secondLanguage}"),
+                Text("türkçe : ${widget.firstLanguage}"),
+              ],
+            ),
+
+            // buildCarouselSlider(context),
+            buildDetailsButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Firestore'dan verileri al
+    getFirestoreData().then((List<DocumentSnapshot<Map<String, dynamic>>> documents) {
+      log("veriler sıralı olarak çekildi");
+      setState(() {
+        _documents = documents;
+      });
+    }).catchError((error) {
+      // Veriler alınırken bir hata oluşursa burası çalışır
+      log("Hata: Firestore verileri alınamadı: $error");
+    });
+  }
+
+  /// önceki-sonraki kelimelere butonlar
+  /// aracılığı ile gidilmesi içindir
+  Padding buildDetailsButton() {
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildElevatedButton(
+            onPressed: () {
+              /// önceki kelime
+              log("önceki kelime");
+              goToPreviousWord();
+            },
+            icon: Icons.arrow_left,
+            iconSize: 50,
+          ),
+          const Expanded(
+            child: SizedBox(width: 100),
+          ),
+          buildElevatedButton(
+            onPressed: () {
+              /// sonraki kelime
+              log("sonraki kelime");
+            },
+            icon: Icons.arrow_right,
+            iconSize: 50,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void goToPreviousWord() {
+    if (_documents != null && _documents.isNotEmpty) {
+      // Mevcut kelimenin indexini bul
+      int currentIndex = _documents.indexWhere((doc) => doc.id == widget.wordId);
+
+      // Eğer bulunamadıysa veya ilk kelimeyse, işlemi durdur
+      if (currentIndex == -1 || currentIndex == 0) return;
+
+      // Önceki kelimenin indexini al
+      int previousIndex = currentIndex - 1;
+
+      // Tıklanan kelimenin bilgisini konsola yazdır
+      DocumentSnapshot<Map<String, dynamic>> selectedWordSnapshot = _documents[currentIndex];
+      log("Tıklanan kelime: ${selectedWordSnapshot.data()}");
+
+      // Önceki kelimenin ID'sini al
+      String previousWordId = _documents[previousIndex].id;
+
+      // Önceki kelimeye git
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailsPage(
+            firstLanguage: widget.firstLanguage,
+            secondLanguage: widget.secondLanguage,
+            wordId: previousWordId,
+          ),
+        ),
+      );
+    }
+  }
+
+}
+
+
