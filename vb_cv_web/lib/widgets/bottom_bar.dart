@@ -27,14 +27,8 @@ class BottomBar extends StatelessWidget {
                 heading: 'HAKKIMDA',
                 s1: 'İletişim',
                 s2: 'Hakkımda',
-                s3: 'Careers',
+                s3: '',
               ),
-              // BottomBarColumn(
-              //   heading: 'HELP',
-              //   s1: 'Payment',
-              //   s2: 'Cancellation',
-              //   s3: 'FAQ',
-              // ),
               BottomBarColumn(
                 heading: 'SOSYAL MEDYA',
                 s1: 'Twitter',
@@ -55,7 +49,7 @@ class BottomBar extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           const InfoText(
-            type: 'Address',
+            type: 'Adres',
             text: 'Ankara - TÜRKİYE',
           ),
           const SizedBox(height: 20),
@@ -84,9 +78,8 @@ class BottomBar extends StatelessWidget {
                 heading: 'HAKKIMDA',
                 s1: 'İletişim',
                 s2: 'Hakkımda',
-                s3: 'Careers',
+                s3: '',
               ),
-
               const BottomBarColumn(
                 heading: 'SOSYAL MEDYA',
                 s1: 'Twitter',
@@ -107,7 +100,7 @@ class BottomBar extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   InfoText(
-                    type: 'Address',
+                    type: 'Adres',
                     text: 'Ankara - TURKİYE',
                   )
                 ],

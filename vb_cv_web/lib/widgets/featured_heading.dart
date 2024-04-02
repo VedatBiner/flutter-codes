@@ -21,26 +21,26 @@ class FeaturedHeading extends StatelessWidget {
         right: screenSize.width / 15,
       ),
       child: ResponsiveWidget.isSmallScreen(context)
-          ? Column(
+          ? const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Row(),
-                const Text(
-                  'Featured',
+                Row(),
+                Text(
+                  'Ana çalışma konularım',
                   style: TextStyle(
                     fontSize: 24,
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  'Unique wildlife tours & destinations',
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context).primaryTextTheme.titleMedium,
-                ),
-                const SizedBox(height: 10),
+                SizedBox(height: 5),
+                // Text(
+                //   'Unique wildlife tours & destinations',
+                //   textAlign: TextAlign.end,
+                //   style: Theme.of(context).primaryTextTheme.titleMedium,
+                // ),
+                SizedBox(height: 10),
               ],
             )
           : Row(
@@ -48,7 +48,7 @@ class FeaturedHeading extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Featured',
+                  'Ana çalışma konularım',
                   style: TextStyle(
                     fontSize: 40,
                     fontFamily: 'Montserrat',
@@ -57,13 +57,13 @@ class FeaturedHeading extends StatelessWidget {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                Expanded(
-                  child: Text(
-                    'Unique wildlife tours & destinations',
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context).primaryTextTheme.titleMedium,
-                  ),
-                ),
+                // Expanded(
+                //   child: Text(
+                //     'Unique wildlife tours & destinations',
+                //     textAlign: TextAlign.end,
+                //     style: Theme.of(context).primaryTextTheme.titleMedium,
+                //   ),
+                // ),
               ],
             ),
     );

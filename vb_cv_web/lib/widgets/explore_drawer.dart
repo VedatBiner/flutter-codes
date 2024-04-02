@@ -2,6 +2,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:vb_cv_web/utils/theme_data.dart';
 import 'dart:developer';
 
 import '../screens/home_page.dart';
@@ -21,8 +22,8 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+
       child: Container(
-        // color: Theme.of(context).bottomAppBarColor,
         color: Theme.of(context).bottomAppBarTheme.color,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -34,11 +35,13 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                   ? SizedBox(
                       width: double.maxFinite,
                       child: TextButton(
-                        // color: Colors.black,
+                        ///color: Colors.black,
                         // hoverColor: Colors.blueGrey[800],
                         // highlightColor: Colors.blueGrey[700],
                         style: TextButton.styleFrom(
-                          foregroundColor: Colors.black,
+                          foregroundColor: Theme.of(context).brightness == Brightness.light
+                            ? lightThemeData.primaryColor
+                            : darkThemeData.colorScheme.secondary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
@@ -157,7 +160,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
               InkWell(
                 onTap: () {},
                 child: const Text(
-                  'Discover',
+                  'Hakkımda',
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ),
@@ -171,7 +174,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
               InkWell(
                 onTap: () {},
                 child: const Text(
-                  'Contact Us',
+                  'İletişim',
                   style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
               ),
@@ -183,7 +186,7 @@ class _ExploreDrawerState extends State<ExploreDrawer> {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Text(
-                    'Copyright © 2020 | EXPLORE',
+                    'Copyright © 2024 | Vedat Biner',
                     style: TextStyle(
                       color: Colors.blueGrey[300],
                       fontSize: 14,

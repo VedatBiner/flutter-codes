@@ -65,13 +65,14 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.brightness_6),
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
+            color: Colors.white,
             onPressed: () {
               EasyDynamicTheme.of(context).changeTheme();
             },
           ),
         ],
         title: Text(
-          'EXPLORE',
+          'Vedat Biner',
           style: TextStyle(
             color: Colors.blueGrey[100],
             fontSize: 20,
