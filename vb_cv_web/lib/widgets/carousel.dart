@@ -24,21 +24,21 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   int _current = 0;
 
   final images = [
-    'assets/images/asia.jpg',
-    'assets/images/africa.jpg',
-    'assets/images/europe.jpg',
-    'assets/images/south_america.jpg',
-    'assets/images/australia.jpg',
-    'assets/images/antarctica.jpg',
+    'assets/images/experience_photo.jpg',
+    'assets/images/experience_photo.jpg',
+    'assets/images/experience_photo.jpg',
+    'assets/images/experience_photo.jpg',
+    'assets/images/experience_photo.jpg',
+    'assets/images/experience_photo.jpg',
   ];
 
   final places = [
-    'ASIA',
-    'AFRICA',
-    'EUROPE',
-    'SOUTH AMERICA',
-    'AUSTRALIA',
-    'ANTARCTICA',
+    'Deneyim1',
+    'Deneyim2',
+    'Deneyim3',
+    'Deneyim4',
+    'Deneyim5',
+    'Deneyim6',
   ];
 
   List<Widget> generateImageTiles(screenSize) => images
