@@ -15,8 +15,9 @@ class FeaturedTiles extends StatelessWidget {
 
   final List<String> assets = [
     'assets/images/sysadmin.jpg',
-    'assets/images/animals.jpg',
-    'assets/images/photography.jpeg',
+    'assets/images/flutter_developer.jpg',
+    'assets/images/python_developer.jpg',
+    'assets/images/web_developer.jpg',
   ];
 
   final List<String> title = [
