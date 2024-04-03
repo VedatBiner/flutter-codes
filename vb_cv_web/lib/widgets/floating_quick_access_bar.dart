@@ -38,7 +38,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
     rowElements.clear();
     for (int i = 0; i < items.length; i++) {
       Widget elementTile = InkWell(
-        splashColor: Colors.transparent,
+        splashColor: Colors.black12,
         hoverColor: Colors.transparent,
         onHover: (value) {
           setState(() {

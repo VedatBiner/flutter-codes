@@ -24,12 +24,12 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   int _current = 0;
 
   final images = [
-    'assets/images/experience_photo.jpg',
-    'assets/images/experience_photo.jpg',
-    'assets/images/experience_photo.jpg',
-    'assets/images/experience_photo.jpg',
-    'assets/images/experience_photo.jpg',
-    'assets/images/experience_photo.jpg',
+    'assets/images/experience_1.jpg',
+    'assets/images/experience_2.jpg',
+    'assets/images/experience_3.jpg',
+    'assets/images/experience_1.jpg',
+    'assets/images/experience_2.jpg',
+    'assets/images/experience_3.jpg',
   ];
 
   final places = [
@@ -44,7 +44,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   List<Widget> generateImageTiles(screenSize) => images
       .map(
         (element) => ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(16.0),
           child: Image.asset(
             element,
             fit: BoxFit.cover,
@@ -92,7 +92,6 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                 letterSpacing: 8,
                 fontFamily: 'Electrolize',
                 fontSize: screenSize.width / 25,
-                // color: Colors.white,
                 color: Theme.of(context).primaryColor
               ),
             ),

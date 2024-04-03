@@ -39,7 +39,6 @@ class _TopBarContentsState extends State<TopBarContents> {
     return PreferredSize(
       preferredSize: Size(screenSize.width, 1000),
       child: Container(
-        // color: Theme.of(context).bottomAppBarColor.withOpacity(widget.opacity),
         color: Theme.of(context).bottomAppBarTheme.color,
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -69,7 +68,25 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[0] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Hakkımda'),
+                              content: Text('TextBox tıklandı!'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Kapat'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -77,8 +94,9 @@ class _TopBarContentsState extends State<TopBarContents> {
                             'Hakkımda',
                             style: TextStyle(
                               color: _isHovering[0]
-                                  ? Colors.blue[200]
+                                  ? Colors.amberAccent.shade400
                                   : Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 5),
@@ -105,7 +123,25 @@ class _TopBarContentsState extends State<TopBarContents> {
                               : _isHovering[1] = false;
                         });
                       },
-                      onTap: () {},
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('İletişim'),
+                              content: Text('Vedat Biner : vbiner@gmail.com'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Kapat'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -113,7 +149,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                             'İletişim',
                             style: TextStyle(
                               color: _isHovering[1]
-                                  ? Colors.blue[200]
+                                  ? Colors.amberAccent.shade400
                                   : Colors.white,
                             ),
                           ),
@@ -136,10 +172,16 @@ class _TopBarContentsState extends State<TopBarContents> {
                 ),
               ),
               IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.home),
+                tooltip: "Ana Sayfa",
+              ),
+              IconButton(
                 icon: const Icon(Icons.brightness_6),
+                tooltip: "Dark/Light Mode",
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
-               // color: Colors.white,
+                // color: Colors.white,
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
                   EasyDynamicTheme.of(context).changeTheme();

@@ -14,7 +14,6 @@ import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';
 import '../widgets/top_bar_contents.dart';
 
-
 class HomePage extends StatefulWidget {
   static const String route = '/';
 
@@ -54,38 +53,38 @@ class _HomePageState extends State<HomePage> {
       extendBodyBehindAppBar: true,
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
-        backgroundColor: Theme.of(context)
-            .bottomAppBarTheme
-            .color
-            ?.withOpacity(_opacity),
-        elevation: 0,
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            color: Colors.white,
-            onPressed: () {
-              EasyDynamicTheme.of(context).changeTheme();
-            },
-          ),
-        ],
-        title: Text(
-          'Vedat Biner',
-          style: TextStyle(
-            color: Colors.blueGrey[100],
-            fontSize: 20,
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w400,
-            letterSpacing: 3,
-          ),
-        ),
-      )
+              backgroundColor: Theme.of(context)
+                  .bottomAppBarTheme
+                  .color
+                  ?.withOpacity(_opacity),
+              elevation: 0,
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.brightness_6),
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  color: Colors.white,
+                  onPressed: () {
+                    EasyDynamicTheme.of(context).changeTheme();
+                  },
+                ),
+              ],
+              title: Text(
+                'Vedat Biner',
+                style: TextStyle(
+                  color: Colors.blueGrey[100],
+                  fontSize: 20,
+                  fontFamily: 'Montserrat',
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 3,
+                ),
+              ),
+            )
           : PreferredSize(
-        preferredSize: Size(screenSize.width, 1000),
-        child: TopBarContents(_opacity),
-      ),
+              preferredSize: Size(screenSize.width, 1000),
+              child: TopBarContents(_opacity),
+            ),
       drawer: const ExploreDrawer(),
       body: SingleChildScrollView(
         controller: _scrollController,
