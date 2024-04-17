@@ -1,6 +1,7 @@
 /// <----- carousel.dart ----->
 library;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -33,15 +34,22 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   ];
 
   final places = [
-    'Girişim Bilgisayar Eğitim Merkezi',
-    'Data Sistem ve Teknoloji',
-    'Türk Hava Kuvvetleri Komutanlığı',
-    'Protek A.Ş.',
-    'TEPUM Ltd. Şti.',
     'Aselsan A.Ş.',
+    'TEPUM Ltd. Şti.',
+    'Protek A.Ş.',
+    'Hava Kuvvetleri Komutanlığı',
+    'Data Sistem ve Teknoloji',
+    'Girişim Bilgisayar Eğitim Merkezi',
   ];
 
-  final locations = ['Ankara', 'Ankara', 'Ankara', 'Ankara', 'Ankara', 'Ankara'];
+  final locations = [
+    'Ankara, 01/1999 - 12/2020',
+    'Ankara, 01/1993 - 11/1998',
+    'Ankara, 08/1991 - 11/1992',
+    'Ankara, 07/1990 - 07/1991',
+    'Ankara, 02/1988 - 03/1990',
+    'Ankara, 10/1987 - 02/1988',
+  ];
 
   List<Widget> generateImageTiles(screenSize) => images
       .map(
@@ -87,15 +95,38 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
         ),
         AspectRatio(
           aspectRatio: 18 / 8,
-          child: Center(
-            child: Text(
-              places[_current],
-              style: TextStyle(
-                  letterSpacing: 8,
-                  fontFamily: 'Electrolize',
-                  fontSize: screenSize.width / 35,
-                  color: Theme.of(context).primaryColor),
-            ),
+          child: Column(
+            children: [
+              Opacity(
+                opacity: 0.7,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.68,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[200],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        places[_current],
+                        style: TextStyle(
+                          letterSpacing: 6,
+                          fontFamily: 'Electrolize',
+                          fontSize: screenSize.width / 35,
+                          // color: Theme.of(context).primaryColor
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Text(locations[_current]),
+            ],
           ),
         ),
         ResponsiveWidget.isSmallScreen(context)
@@ -118,6 +149,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                             top: screenSize.height / 50,
                             bottom: screenSize.height / 50,
                           ),
+
                           /// Alt menu bar
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -171,6 +203,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                         opacity: _isSelected[i] ? 1 : 0,
                                         child: Container(
                                           height: 5,
+
                                           /// alt çizgi kırmızı olsun
                                           decoration: const BoxDecoration(
                                             color: Colors.red,
