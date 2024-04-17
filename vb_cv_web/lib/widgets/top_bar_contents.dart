@@ -73,14 +73,14 @@ class _TopBarContentsState extends State<TopBarContents> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Hakkımda'),
-                              content: Text('TextBox tıklandı!'),
+                              title: const Text('Hakkımda'),
+                              content: const Text('TextBox tıklandı!'),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('Kapat'),
+                                  child: const Text('Kapat'),
                                 ),
                               ],
                             );
@@ -128,14 +128,14 @@ class _TopBarContentsState extends State<TopBarContents> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('İletişim'),
-                              content: Text('Vedat Biner : vbiner@gmail.com'),
+                              title: const Text('İletişim'),
+                              content: const Text('Vedat Biner : vbiner@gmail.com'),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('Kapat'),
+                                  child: const Text('Kapat'),
                                 ),
                               ],
                             );
