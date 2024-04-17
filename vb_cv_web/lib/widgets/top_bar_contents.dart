@@ -46,7 +46,7 @@ class _TopBarContentsState extends State<TopBarContents> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Vedat Biner',
+                'Mehmet Vedat Biner',
                 style: TextStyle(
                   color: Colors.blueGrey[100],
                   fontSize: 20,

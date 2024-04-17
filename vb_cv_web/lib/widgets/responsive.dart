@@ -1,4 +1,6 @@
 /// <----- responsive.dart ----->
+/// Responsive tasarım için kullanılıyor
+
 library;
 
 import 'package:flutter/material.dart';

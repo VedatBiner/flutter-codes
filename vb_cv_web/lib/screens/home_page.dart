@@ -1,4 +1,6 @@
 /// <----- home_page.dart ----->
+/// Ana sayfamız burası
+
 library;
 
 import 'package:flutter/material.dart';
@@ -8,7 +10,7 @@ import '../widgets/bottom_bar.dart';
 import '../widgets/carousel.dart';
 import '../widgets/destination_heading.dart';
 import '../widgets/explore_drawer.dart';
-import '../widgets/featured_heading.dart';
+import '../widgets/main_work_title.dart';
 import '../widgets/featured_tiles.dart';
 import '../widgets/floating_quick_access_bar.dart';
 import '../widgets/responsive.dart';

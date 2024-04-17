@@ -1,4 +1,6 @@
 /// <----- floating_quick_access_bar.dart ----->
+/// Cover altındaki menü
+
 library;
 
 import 'package:flutter/material.dart';
@@ -47,7 +49,7 @@ class _FloatingQuickAccessBarState extends State<FloatingQuickAccessBar> {
         },
         onTap: () {},
         child: Text(
-          items[i],
+          items[i] ,
           style: TextStyle(
             color: _isHovering[i]
                 ? Theme.of(context).primaryTextTheme.labelLarge!.decorationColor

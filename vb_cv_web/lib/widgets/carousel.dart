@@ -33,13 +33,15 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
   ];
 
   final places = [
-    'Deneyim1',
-    'Deneyim2',
-    'Deneyim3',
-    'Deneyim4',
-    'Deneyim5',
-    'Deneyim6',
+    'Girişim Bilgisayar Eğitim Merkezi',
+    'Data Sistem ve Teknoloji',
+    'Türk Hava Kuvvetleri Komutanlığı',
+    'Protek A.Ş.',
+    'TEPUM Ltd. Şti.',
+    'Aselsan A.Ş.',
   ];
+
+  final locations = ['Ankara', 'Ankara', 'Ankara', 'Ankara', 'Ankara', 'Ankara'];
 
   List<Widget> generateImageTiles(screenSize) => images
       .map(
@@ -89,11 +91,10 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
             child: Text(
               places[_current],
               style: TextStyle(
-                letterSpacing: 8,
-                fontFamily: 'Electrolize',
-                fontSize: screenSize.width / 25,
-                color: Theme.of(context).primaryColor
-              ),
+                  letterSpacing: 8,
+                  fontFamily: 'Electrolize',
+                  fontSize: screenSize.width / 35,
+                  color: Theme.of(context).primaryColor),
             ),
           ),
         ),
@@ -117,6 +118,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                             top: screenSize.height / 50,
                             bottom: screenSize.height / 50,
                           ),
+                          /// Alt menu bar
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -142,6 +144,7 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                             top: screenSize.height / 80,
                                             bottom: screenSize.height / 90),
                                         child: Text(
+                                          /// iş yeri başlıkları burada
                                           places[i],
                                           style: TextStyle(
                                             color: _isHovering[i]
@@ -164,12 +167,13 @@ class _DestinationCarouselState extends State<DestinationCarousel> {
                                       visible: _isSelected[i],
                                       child: AnimatedOpacity(
                                         duration:
-                                            const Duration(milliseconds: 400),
+                                            const Duration(milliseconds: 600),
                                         opacity: _isSelected[i] ? 1 : 0,
                                         child: Container(
                                           height: 5,
+                                          /// alt çizgi kırmızı olsun
                                           decoration: const BoxDecoration(
-                                            color: Colors.blueGrey,
+                                            color: Colors.red,
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(10),
                                             ),

@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:vb_cv_web/screens/home_page.dart';
 
+import '../screens/home_page.dart';
 import '../utils/theme_data.dart';
 import '../utils/authentication.dart';
 import 'firebase_options.dart';
-
-// import '../screens/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
