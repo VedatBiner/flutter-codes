@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
     if (isListView) {
       /// Liste görünümü
       wordWidget = ListTile(
-        contentPadding: EdgeInsets.zero,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         title: Column(
           children: [
             Row(
