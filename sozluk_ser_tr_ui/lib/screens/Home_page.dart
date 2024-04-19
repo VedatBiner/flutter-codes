@@ -77,23 +77,60 @@ class _HomePageState extends State<HomePage> {
 
   /// kelime listesi oluşturma
   Widget buildWordList() {
-    query = FirebaseFirestore.instance
+    /// Sırpça için sorgu oluşturulur
+    final queryForSerbian = FirebaseFirestore.instance
         .collection('kelimeler')
         .orderBy("sirpca")
         .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
-    return FirestoreListView<FsWords>(
-      query: query ?? collection,
-      pageSize: 50,
-      padding: const EdgeInsets.all(8.0),
-      itemBuilder: (context, snapshot) {
-        final word = snapshot.data();
-        return buildWordTile(word: word);
+    /// Türkçe için sorgu oluşturulur
+    final queryForTurkish = FirebaseFirestore.instance
+        .collection('kelimeler')
+        .orderBy("turkce")
+        .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
+        .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .withConverter<FsWords>(
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
+
+    // Sırpça ve Türkçe sorguları birleştirilmeden önce Future döndürüyoruz
+    return FutureBuilder<List<QuerySnapshot<FsWords>>>(
+      future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
+      builder: (context, AsyncSnapshot<List<QuerySnapshot<FsWords>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Transform.scale(
+            scale: 0.30,
+            child: const CircularProgressIndicator(
+              backgroundColor: Colors.red,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              strokeWidth: 6,
+            ),
+          );
+        }
+        if (snapshot.hasError) {
+          return Text(
+              'Hata: ${snapshot.error}'); // Hata durumunda hata mesajı göster
+        }
+
+        // Sırpça ve Türkçe sorgularının sonuçlarını birleştir
+        final serbianResults = snapshot.data![0].docs.map((doc) => doc.data());
+        final turkishResults = snapshot.data![1].docs.map((doc) => doc.data());
+        final mergedResults = [...serbianResults, ...turkishResults];
+
+        // Sonuçları göster
+        return ListView.builder(
+          itemCount: mergedResults.length,
+          itemBuilder: (context, index) {
+            final word = mergedResults[index];
+            return buildWordTile(word: word);
+          },
+        );
       },
     );
   }
