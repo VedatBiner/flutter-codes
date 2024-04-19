@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +44,6 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSecond;
 
-
   Future<void> initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance
         .collection('kelimeler')
@@ -72,11 +70,6 @@ class _HomePageState extends State<HomePage> {
     _wordService = WordService();
     jsonInit();
     initializeFirestore();
-
-    /// Belge sayısını konsola yazdır
-    getDocumentCountStream().listen((count) {
-      print('Koleksiyondaki belge sayısı: $count');
-    });
   }
 
   /// kelime listesi oluşturma
@@ -279,19 +272,6 @@ class _HomePageState extends State<HomePage> {
     return wordWidget;
   }
 
-  /// Kelime sayısı bulma
-  Stream<int> getDocumentCountStream() {
-    /// Firestore koleksiyonunu referans al
-    CollectionReference collectionReference =
-        FirebaseFirestore.instance.collection('kelimeler');
-
-    /// Koleksiyondaki belgelerin yayınını al ve dinle
-    return collectionReference.snapshots().map((querySnapshot) {
-      /// Koleksiyondaki belge sayısını döndür
-      return querySnapshot.size;
-    });
-  }
-
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -326,17 +306,8 @@ class _HomePageState extends State<HomePage> {
           child: buildLanguageSelector(context: context),
         ),
 
-        /// Burada kelimeler listeleniyor
-        // Expanded(
-        //   child: SizedBox(
-        //     /// Card / Liste görünümü için boyutlar
-        //     height: MediaQuery.of(context).size.height * 0.89,
-        //     child: buildStreamBuilderList(),
-        //   ),
-        // ),
-
         /// burada sıralı kelime listesi gelsin
-        ///
+
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
           child: buildWordList(),
