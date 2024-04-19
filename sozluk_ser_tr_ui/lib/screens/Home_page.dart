@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -80,6 +80,8 @@ class _HomePageState extends State<HomePage> {
     query = FirebaseFirestore.instance
         .collection('kelimeler')
         .orderBy("sirpca")
+        .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
+        .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
@@ -246,14 +248,15 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: buildHomeCustomAppBar(),
+
         /// appBar: AppBar(),
         body: showBody(context),
 
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(onPressed: () {}
 
-          /// onPressed: () => openWordBox(context: context),
-        ),
+            /// onPressed: () => openWordBox(context: context),
+            ),
       ),
     );
   }
