@@ -24,6 +24,7 @@ dependencies:
   flag:
   firebase_ui_firestore:
   carousel_slider:
+  path_provider:
 
 dev_dependencies:
   flutter_test:

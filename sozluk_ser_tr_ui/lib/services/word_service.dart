@@ -10,8 +10,6 @@ import 'package:path_provider/path_provider.dart';
 
 import '../models/fs_words.dart';
 
-// import '../models/____fs_words.dart_iptal';
-
 class WordService {
   late CollectionReference<FsWords> collection;
 
@@ -50,6 +48,19 @@ class WordService {
 
     await file.writeAsString(jsonData);
     log('JSON verisi başarıyla dosyaya yazıldı: ${file.path}');
+  }
+
+  /// kelime sayısını bulan metod
+  Stream<int> getDocumentCountStream() {
+    /// Firestore koleksiyonunu referans al
+    CollectionReference collectionReference =
+    FirebaseFirestore.instance.collection('kelimeler');
+
+    /// Koleksiyondaki belgelerin yayınını al ve dinle
+    return collectionReference.snapshots().map((querySnapshot) {
+      /// Koleksiyondaki belge sayısını döndür
+      return querySnapshot.size;
+    });
   }
 
 // /// Firestore 'dan verileri çekiyoruz ve SqlWords listesine dönüştürüyoruz

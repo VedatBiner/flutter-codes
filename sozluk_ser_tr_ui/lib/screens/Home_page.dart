@@ -13,6 +13,7 @@ import '../services/theme_provider.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
 import 'details_page.dart';
+import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/fab_helper.dart';
 import 'home_page_parts/home_app_bar.dart';
@@ -30,7 +31,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   /// JSON dosya oluşturup güncel tutalım
-  late WordService _wordService;
+  late WordService _wordService = WordService();
 
   bool isListView = false;
   bool aramaYapiliyorMu = false;
@@ -44,8 +45,6 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageText = 'Türkçe'; // İkinci dil metni
   String appBarTitle = appBarMainTitleSecond;
 
-  // /// seçilen kelime
-  // String? selectedWord;
 
   Future<void> initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance
@@ -309,7 +308,7 @@ class _HomePageState extends State<HomePage> {
 
             /// onPressed: () => openWordBox(context: context),
             ),
-        bottomSheet: buildBottomSheet(),
+        bottomSheet: const BottomSheetWidget(),
       ),
     );
   }
@@ -446,57 +445,57 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// sarı bant ile kelime sayısı yaz
-  Widget buildBottomSheet() {
-    return Expanded(
-      child: Container(
-        color: menuColor,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: StreamBuilder<int>(
-          stream: getDocumentCountStream(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
-            if (snapshot.hasData) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Girilen kelime sayısı: ',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red,
-                      ),
-                    ),
-                    Text(
-                      '${snapshot.data}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-            return const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                'Girilen kelime sayısı: Hesaplanamadı',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
+  // /// sarı bant ile kelime sayısı yaz
+  // Widget buildBottomSheet() {
+  //   return Expanded(
+  //     child: Container(
+  //       color: menuColor,
+  //       padding: const EdgeInsets.symmetric(horizontal: 8),
+  //       child: StreamBuilder<int>(
+  //         stream: getDocumentCountStream(),
+  //         builder: (context, snapshot) {
+  //           if (snapshot.connectionState == ConnectionState.waiting) {
+  //             return const CircularProgressIndicator();
+  //           }
+  //           if (snapshot.hasData) {
+  //             return Padding(
+  //               padding: const EdgeInsets.symmetric(horizontal: 8),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   const Text(
+  //                     'Girilen kelime sayısı: ',
+  //                     style: TextStyle(
+  //                       fontSize: 14,
+  //                       fontWeight: FontWeight.bold,
+  //                       color: Colors.red,
+  //                     ),
+  //                   ),
+  //                   Text(
+  //                     '${snapshot.data}',
+  //                     style: const TextStyle(
+  //                       fontSize: 14,
+  //                       fontWeight: FontWeight.bold,
+  //                       color: Colors.indigo,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             );
+  //           }
+  //           return const Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 8),
+  //             child: Text(
+  //               'Girilen kelime sayısı: Hesaplanamadı',
+  //               style: TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 }
