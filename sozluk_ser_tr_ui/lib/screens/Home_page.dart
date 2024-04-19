@@ -73,6 +73,11 @@ class _HomePageState extends State<HomePage> {
     _wordService = WordService();
     jsonInit();
     initializeFirestore();
+
+    /// Belge sayısını konsola yazdır
+    getDocumentCountStream().listen((count) {
+      print('Koleksiyondaki belge sayısı: $count');
+    });
   }
 
   /// kelime listesi oluşturma
@@ -99,7 +104,7 @@ class _HomePageState extends State<HomePage> {
           toFirestore: (word, _) => word.toJson(),
         );
 
-    // Sırpça ve Türkçe sorguları birleştirilmeden önce Future döndürüyoruz
+    /// Sırpça ve Türkçe sorguları birleştirilmeden önce Future döndürüyoruz
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
       builder: (context, AsyncSnapshot<List<QuerySnapshot<FsWords>>> snapshot) {
@@ -118,12 +123,12 @@ class _HomePageState extends State<HomePage> {
               'Hata: ${snapshot.error}'); // Hata durumunda hata mesajı göster
         }
 
-        // Sırpça ve Türkçe sorgularının sonuçlarını birleştir
+        /// Sırpça ve Türkçe sorgularının sonuçlarını birleştir
         final serbianResults = snapshot.data![0].docs.map((doc) => doc.data());
         final turkishResults = snapshot.data![1].docs.map((doc) => doc.data());
         final mergedResults = [...serbianResults, ...turkishResults];
 
-        // Sonuçları göster
+        /// Sonuçları göster
         return ListView.builder(
           itemCount: mergedResults.length,
           itemBuilder: (context, index) {
@@ -275,6 +280,19 @@ class _HomePageState extends State<HomePage> {
     return wordWidget;
   }
 
+  /// Kelime sayısı bulma
+  Stream<int> getDocumentCountStream() {
+    /// Firestore koleksiyonunu referans al
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('kelimeler');
+
+    /// Koleksiyondaki belgelerin yayınını al ve dinle
+    return collectionReference.snapshots().map((querySnapshot) {
+      /// Koleksiyondaki belge sayısını döndür
+      return querySnapshot.size;
+    });
+  }
+
   /// ana kodumuz bu şekilde
   @override
   Widget build(BuildContext context) {
@@ -285,15 +303,13 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: buildHomeCustomAppBar(),
-
-        /// appBar: AppBar(),
         body: showBody(context),
-
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(onPressed: () {}
 
             /// onPressed: () => openWordBox(context: context),
             ),
+        bottomSheet: buildBottomSheet(),
       ),
     );
   }
@@ -320,16 +336,10 @@ class _HomePageState extends State<HomePage> {
         //   ),
         // ),
 
-        /// Burada toplam kelime sayısı veriliyor
-        // SizedBox(
-        //   height: MediaQuery.of(context).size.height * 0.05,
-        //   child: buildStreamBuilderFooter(context),
-        // ),
-
         /// burada sıralı kelime listesi gelsin
         ///
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.72,
+          height: MediaQuery.of(context).size.height * 0.78,
           child: buildWordList(),
         ),
       ],
@@ -431,6 +441,60 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// sarı bant ile kelime sayısı yaz
+  Widget buildBottomSheet() {
+    return Expanded(
+      child: Container(
+        color: menuColor,
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: StreamBuilder<int>(
+          stream: getDocumentCountStream(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            if (snapshot.hasData) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Girilen kelime sayısı: ',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                    Text(
+                      '${snapshot.data}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                'Girilen kelime sayısı: Hesaplanamadı',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
