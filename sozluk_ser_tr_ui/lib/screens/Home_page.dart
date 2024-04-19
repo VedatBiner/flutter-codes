@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -73,15 +73,6 @@ class _HomePageState extends State<HomePage> {
     _wordService = WordService();
     jsonInit();
     initializeFirestore();
-
-    /// Burada query alanını başlatın
-    query = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("sirpca")
-        .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
   }
 
   /// kelime listesi oluşturma
@@ -89,16 +80,10 @@ class _HomePageState extends State<HomePage> {
     query = FirebaseFirestore.instance
         .collection('kelimeler')
         .orderBy("sirpca")
-        .where(
-          /// Sırpça kelimeler için arama
-          "sirpca",
-          isGreaterThanOrEqualTo: aramaKelimesi.toLowerCase(),
-          isLessThanOrEqualTo: '${aramaKelimesi.toLowerCase()}z',
-        )
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     return FirestoreListView<FsWords>(
       query: query ?? collection,
@@ -261,14 +246,14 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: buildHomeCustomAppBar(),
-        // appBar: AppBar(),
+        /// appBar: AppBar(),
         body: showBody(context),
 
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(onPressed: () {}
 
-            /// onPressed: () => openWordBox(context: context),
-            ),
+          /// onPressed: () => openWordBox(context: context),
+        ),
       ),
     );
   }
