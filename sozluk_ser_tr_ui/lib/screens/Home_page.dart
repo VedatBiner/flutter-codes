@@ -17,6 +17,7 @@ import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/fab_helper.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/showflag_widget.dart';
+import 'home_page_parts/word_list_builder.dart';
 
 late CollectionReference<FsWords> collection;
 late Query<FsWords> query;
@@ -74,7 +75,6 @@ class _HomePageState extends State<HomePage> {
 
   /// kelime listesi oluşturma
   Widget buildWordList() {
-    /// Sırpça için sorgu oluşturulur
     final queryForSerbian = FirebaseFirestore.instance
         .collection('kelimeler')
         .orderBy("sirpca")
@@ -85,7 +85,6 @@ class _HomePageState extends State<HomePage> {
           toFirestore: (word, _) => word.toJson(),
         );
 
-    /// Türkçe için sorgu oluşturulur
     final queryForTurkish = FirebaseFirestore.instance
         .collection('kelimeler')
         .orderBy("turkce")
@@ -96,7 +95,6 @@ class _HomePageState extends State<HomePage> {
           toFirestore: (word, _) => word.toJson(),
         );
 
-    /// Sırpça ve Türkçe sorguları birleştirilmeden önce Future döndürüyoruz
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
       builder: (context, AsyncSnapshot<List<QuerySnapshot<FsWords>>> snapshot) {
@@ -114,162 +112,10 @@ class _HomePageState extends State<HomePage> {
           return Text(
               'Hata: ${snapshot.error}'); // Hata durumunda hata mesajı göster
         }
-
-        /// Sırpça ve Türkçe sorgularının sonuçlarını birleştir
-        final serbianResults = snapshot.data![0].docs.map((doc) => doc.data());
-        final turkishResults = snapshot.data![1].docs.map((doc) => doc.data());
-        final mergedResults = [...serbianResults, ...turkishResults];
-
-        /// Sonuçları göster
-        return ListView.builder(
-          itemCount: mergedResults.length,
-          itemBuilder: (context, index) {
-            final word = mergedResults[index];
-            return buildWordTile(word: word);
-          },
-        );
+        return WordListBuilder(
+            snapshot: snapshot.data!, isListView: isListView);
       },
     );
-  }
-
-  /// kelime listesi Card Görünümü
-  Widget buildWordTile({required FsWords word}) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    Widget wordWidget;
-    if (isListView) {
-      /// Liste görünümü
-      wordWidget = ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-        title: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    firstLanguageCode == 'RS'
-                        ? word.sirpca ?? ""
-                        : word.turkce ?? "",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: themeProvider.isDarkMode
-                          ? cardDarkModeText1
-                          : cardLightModeText1,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    secondLanguageCode == 'TR'
-                        ? word.turkce ?? ""
-                        : word.sirpca ?? "",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: themeProvider.isDarkMode
-                          ? cardDarkModeText2
-                          : cardLightModeText2,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Divider(
-              color: themeProvider.isDarkMode ? Colors.white60 : Colors.black45,
-            ),
-          ],
-        ),
-      );
-    } else {
-      /// Card Görünümü
-      wordWidget = Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Card(
-          elevation: 6,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          shadowColor: Colors.green[200],
-          color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-          child: InkWell(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          firstLanguageCode == 'RS'
-                              ? word.sirpca ?? ""
-                              : word.turkce ?? "",
-                          style: TextStyle(
-                            color: themeProvider.isDarkMode
-                                ? cardDarkModeText1
-                                : cardLightModeText1,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        Divider(
-                          thickness: 1,
-                          color: themeProvider.isDarkMode
-                              ? Colors.white60
-                              : Colors.black45,
-                        ),
-                        Text(
-                          secondLanguageCode == 'TR'
-                              ? word.turkce ?? ""
-                              : word.sirpca ?? "",
-                          style: TextStyle(
-                            color: themeProvider.isDarkMode
-                                ? cardDarkModeText2
-                                : cardLightModeText2,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit),
-                        tooltip: "kelime düzelt",
-                        color: Colors.green,
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.delete),
-                        tooltip: "kelime sil",
-                        color: Colors.red,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            onTap: () {
-              log("word : ${word.sirpca}");
-              log("word : ${word.turkce}");
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DetailsPage(),
-                ),
-              );
-            },
-          ),
-        ),
-      );
-    }
-    return wordWidget;
   }
 
   /// ana kodumuz bu şekilde
@@ -415,58 +261,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  // /// sarı bant ile kelime sayısı yaz
-  // Widget buildBottomSheet() {
-  //   return Expanded(
-  //     child: Container(
-  //       color: menuColor,
-  //       padding: const EdgeInsets.symmetric(horizontal: 8),
-  //       child: StreamBuilder<int>(
-  //         stream: getDocumentCountStream(),
-  //         builder: (context, snapshot) {
-  //           if (snapshot.connectionState == ConnectionState.waiting) {
-  //             return const CircularProgressIndicator();
-  //           }
-  //           if (snapshot.hasData) {
-  //             return Padding(
-  //               padding: const EdgeInsets.symmetric(horizontal: 8),
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   const Text(
-  //                     'Girilen kelime sayısı: ',
-  //                     style: TextStyle(
-  //                       fontSize: 14,
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors.red,
-  //                     ),
-  //                   ),
-  //                   Text(
-  //                     '${snapshot.data}',
-  //                     style: const TextStyle(
-  //                       fontSize: 14,
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors.indigo,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             );
-  //           }
-  //           return const Padding(
-  //             padding: EdgeInsets.symmetric(horizontal: 8),
-  //             child: Text(
-  //               'Girilen kelime sayısı: Hesaplanamadı',
-  //               style: TextStyle(
-  //                 fontSize: 14,
-  //                 fontWeight: FontWeight.bold,
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
 }

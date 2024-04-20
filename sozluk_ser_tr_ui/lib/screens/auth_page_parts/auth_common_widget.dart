@@ -37,12 +37,12 @@ class AuthPageWidget extends StatefulWidget {
 
   /// Google Sign In Butonu
   static Widget googleSignIn(BuildContext context) {
-    final GoogleSignIn _googleSignIn = GoogleSignIn(
+    final GoogleSignIn googleSignIn = GoogleSignIn(
       clientId:
       '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
     );
     return StreamBuilder<GoogleSignInAccount?>(
-        stream: _googleSignIn.onCurrentUserChanged,
+        stream: googleSignIn.onCurrentUserChanged,
         builder: (context, snapshot) {
           final isSignedIn = snapshot.hasData;
           if (isSignedIn) {
@@ -92,7 +92,7 @@ class AuthPageWidget extends StatefulWidget {
                 ),
                 onPressed: () async {
                   try {
-                    await _googleSignIn.signInSilently();
+                    await googleSignIn.signInSilently();
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoute.home,
