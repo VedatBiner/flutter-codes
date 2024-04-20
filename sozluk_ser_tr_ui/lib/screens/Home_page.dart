@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
-
 import '../models/fs_words.dart';
 import '../services/icon_provider.dart';
 import '../services/word_service.dart';
@@ -12,7 +11,7 @@ import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/fab_helper.dart';
 import 'home_page_parts/home_app_bar.dart';
-import 'home_page_parts/showflag_widget.dart';
+import 'home_page_parts/laguage_selector.dart';
 import 'home_page_parts/word_list_builder.dart';
 
 late CollectionReference<FsWords> collection;
@@ -123,7 +122,7 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: HomeCustomAppBar( // Değişiklik yapıldı
+        appBar: HomeCustomAppBar(
           aramaYapiliyorMu: aramaYapiliyorMu,
           aramaKelimesi: aramaKelimesi,
           onAramaKelimesiChanged: (aramaSonucu) {
@@ -186,70 +185,36 @@ class _HomePageState extends State<HomePage> {
   Widget buildLanguageSelector({
     required BuildContext context,
   }) {
-    return Container(
-      color: Colors.blueAccent,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ShowFlagWidget(
-              code: firstLanguageCode,
-              text: firstLanguageText,
-              radius: 8,
-            ),
-            ShowFlagWidget(
-              code: secondLanguageCode,
-              text: secondLanguageText,
-              radius: 8,
-            ),
-            Consumer<IconProvider>(
-              builder: (context, iconProvider, _) {
-                return IconButton(
-                  tooltip: "Görünümü değiştir",
-                  icon: Icon(
-                    iconProvider.isIconChanged ? Icons.credit_card : Icons.list,
-                    size: 40,
-                    color: menuColor,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      iconProvider.changeIcon();
-                      isListView = !isListView;
-                    });
-                  },
-                );
-              },
-            ),
-            IconButton(
-              tooltip: "Dil değiştir",
-              onPressed: () {
-                setState(() {
-                  String tempLanguageCode = firstLanguageCode;
-                  String tempLanguageText = firstLanguageText;
-                  firstLanguageCode = secondLanguageCode;
-                  firstLanguageText = secondLanguageText;
-                  secondLanguageCode = tempLanguageCode;
-                  secondLanguageText = tempLanguageText;
+    return LanguageSelector(
+      firstLanguageCode: firstLanguageCode,
+      firstLanguageText: firstLanguageText,
+      secondLanguageCode: secondLanguageCode,
+      secondLanguageText: secondLanguageText,
+      isListView: isListView,
+      onIconPressed: () {
+        setState(() {
+          Provider.of<IconProvider>(context, listen: false).changeIcon();
+          isListView = !isListView;
+        });
+      },
+      onLanguageChange: () {
+        setState(() {
+          String tempLanguageCode = firstLanguageCode;
+          String tempLanguageText = firstLanguageText;
+          firstLanguageCode = secondLanguageCode;
+          firstLanguageText = secondLanguageText;
+          secondLanguageCode = tempLanguageCode;
+          secondLanguageText = tempLanguageText;
 
-                  if (firstLanguageText == birinciDil &&
-                      secondLanguageText == ikinciDil) {
-                    appBarTitle = appBarMainTitleFirst;
-                  } else if (firstLanguageText == ikinciDil &&
-                      secondLanguageText == birinciDil) {
-                    appBarTitle = appBarMainTitleSecond;
-                  }
-                });
-              },
-              icon: Icon(
-                Icons.swap_horizontal_circle_rounded,
-                color: menuColor,
-                size: 40,
-              ),
-            ),
-          ],
-        ),
-      ),
+          if (firstLanguageText == birinciDil &&
+              secondLanguageText == ikinciDil) {
+            appBarTitle = appBarMainTitleFirst;
+          } else if (firstLanguageText == ikinciDil &&
+              secondLanguageText == birinciDil) {
+            appBarTitle = appBarMainTitleSecond;
+          }
+        });
+      },
     );
   }
 }
