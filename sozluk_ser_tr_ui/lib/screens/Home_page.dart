@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,10 +6,8 @@ import '../constants/app_constants/constants.dart';
 
 import '../models/fs_words.dart';
 import '../services/icon_provider.dart';
-import '../services/theme_provider.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
-import 'details_page.dart';
 import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/fab_helper.dart';
@@ -127,7 +123,31 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: buildHomeCustomAppBar(),
+        appBar: HomeCustomAppBar( // Değişiklik yapıldı
+          aramaYapiliyorMu: aramaYapiliyorMu,
+          aramaKelimesi: aramaKelimesi,
+          onAramaKelimesiChanged: (aramaSonucu) {
+            setState(() {
+              aramaKelimesi = aramaSonucu;
+              if (aramaKelimesi.isNotEmpty) {
+                aramaKelimesi =
+                    aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+              }
+            });
+          },
+          onCancelPressed: () {
+            setState(() {
+              aramaYapiliyorMu = false;
+              aramaKelimesi = "";
+            });
+          },
+          onSearchPressed: () {
+            setState(() {
+              aramaYapiliyorMu = true;
+            });
+          },
+          appBarTitle: appBarTitle,
+        ),
         body: showBody(context),
         drawer: buildDrawer(context),
         floatingActionButton: buildFloatingActionButton(onPressed: () {}
@@ -159,35 +179,6 @@ class _HomePageState extends State<HomePage> {
           child: buildWordList(),
         ),
       ],
-    );
-  }
-
-  /// AppBar burada değişiyor
-  HomeCustomAppBar buildHomeCustomAppBar() {
-    return HomeCustomAppBar(
-      aramaYapiliyorMu: aramaYapiliyorMu,
-      aramaKelimesi: aramaKelimesi,
-      onAramaKelimesiChanged: (aramaSonucu) {
-        setState(() {
-          aramaKelimesi = aramaSonucu;
-          if (aramaKelimesi.isNotEmpty) {
-            aramaKelimesi =
-                aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
-          }
-        });
-      },
-      onCancelPressed: () {
-        setState(() {
-          aramaYapiliyorMu = false;
-          aramaKelimesi = "";
-        });
-      },
-      onSearchPressed: () {
-        setState(() {
-          aramaYapiliyorMu = true;
-        });
-      },
-      appBarTitle: appBarTitle,
     );
   }
 
