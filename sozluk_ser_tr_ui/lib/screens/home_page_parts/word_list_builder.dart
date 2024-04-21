@@ -1,3 +1,6 @@
+/// <----- word_list_builder.dart ----->
+library;
+
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -137,13 +140,17 @@ class WordListBuilder extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          log("Kelime düzeltme seçildi");
+                        },
                         icon: const Icon(Icons.edit),
                         tooltip: "kelime düzelt",
                         color: Colors.green,
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          log("Kelime silme seçildi");
+                        },
                         icon: const Icon(Icons.delete),
                         tooltip: "kelime sil",
                         color: Colors.red,

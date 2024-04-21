@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/fs_words.dart';
+import '../utils/generate_json.dart';
 
 class WordService {
   late CollectionReference<FsWords> collection;
@@ -20,6 +21,10 @@ class WordService {
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
     );
+  }
+
+  Future<void> jsonInit() async {
+    await generateAndWriteJson(this);
   }
 
   /// firestore 'dan verileri çekiyoruz

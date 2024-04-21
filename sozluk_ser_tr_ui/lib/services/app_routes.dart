@@ -13,7 +13,7 @@ import '../help_pages/sayfa_latin.dart';
 import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
-import '../screens/Home_page.dart';
+import '../screens/home_page.dart';
 import '../screens/auth_page_parts/register_page.dart';
 import '../screens/login_page.dart';
 import '../screens/settings_page.dart';

@@ -1,3 +1,6 @@
+/// <----- language_selector.dart ----->
+library;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +18,7 @@ class LanguageSelector extends StatelessWidget {
   final Function() onLanguageChange;
 
   const LanguageSelector({
+    super.key,
     required this.firstLanguageCode,
     required this.firstLanguageText,
     required this.secondLanguageCode,
