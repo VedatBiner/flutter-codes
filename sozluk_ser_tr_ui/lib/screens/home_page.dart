@@ -185,12 +185,13 @@ class _HomePageState extends State<HomePage> {
               onWordAdded: (String secondLang, String firstLang,) {
                 // Eklenecek kelimenin işlemleri
                 log('Eklenecek kelime: $secondLang - $firstLang');
+                _wordListFuture = _fetchWordList();
                 // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler burada gerçekleştirilebilir
               },
               onWordUpdated:(String docId ) {
                 // Güncellenecek kelimenin işlemleri
                 log('Güncellenecek kelime ID: $docId');
-
+                _wordListFuture = _fetchWordList();
                 // Güncellenen kelimeyi Firestore 'da güncelleme gibi işlemler burada gerçekleştirilebilir
               },
             );
