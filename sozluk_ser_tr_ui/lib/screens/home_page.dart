@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -78,9 +78,9 @@ class _HomePageState extends State<HomePage> {
         .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     final queryForTurkish = FirebaseFirestore.instance
         .collection('kelimeler')
@@ -88,9 +88,9 @@ class _HomePageState extends State<HomePage> {
         .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
@@ -263,153 +263,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Future<void> openWordBox({
-  //   String? docId,
-  //   required BuildContext context,
-  //   Words? word,
-  // }) async {
-  //   String action = "create";
-  //   String secondLang = "";
-  //   String firstLang = "";
-  //   String message = "";
-  //
-  //   /// eğer currentUserMail null ise sabit değer alsın
-  //   String currentUserEmail =
-  //       FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
-  //
-  //   if (docId != null) {
-  //     action = "update";
-  //
-  //     /// Firestore 'dan belge verilerini al
-  //     var snapshot = await firestoreService.getWordById(docId);
-  //     if (snapshot.exists) {
-  //       var data = snapshot.data() as Map<String, dynamic>;
-  //       secondLang = data[fsIkinciDil];
-  //       firstLang = data[fsBirinciDil];
-  //     }
-  //   }
-  //
-  //   ikinciDilController.text = secondLang;
-  //   birinciDilController.text = firstLang;
-  //
-  //   /// showDialog içinde kullanılıyor
-  //   await showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       backgroundColor: Theme.of(context).brightness == Brightness.dark
-  //           ? Colors.grey.shade300 // Dark mode için mavi renk
-  //           : null, // null olması default rengi kullanır
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(16.0),
-  //         side: const BorderSide(
-  //           color: Colors.red,
-  //           width: 2.0,
-  //         ),
-  //       ),
-  //       content: Column(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: [
-  //           /// Seçilen dil birinci dil ise
-  //           /// seçilen dil üstte yazılır
-  //           if (firstLanguageText == birinciDil)
-  //             TextEntry(
-  //               controller: birinciDilController,
-  //               hintText: "$birinciDil kelime giriniz ...",
-  //             ),
-  //           if (secondLanguageText == ikinciDil)
-  //             TextEntry(
-  //               controller: ikinciDilController,
-  //               hintText: "$ikinciDil karşılığını giriniz ...",
-  //             ),
-  //
-  //           /// Seçilen dil ikinci dil ise
-  //           /// seçilen dil üstte yazılır.
-  //           if (firstLanguageText == ikinciDil)
-  //             TextEntry(
-  //               controller: ikinciDilController,
-  //               hintText: "$ikinciDil kelime giriniz ...",
-  //             ),
-  //           if (secondLanguageText == birinciDil)
-  //             TextEntry(
-  //               controller: birinciDilController,
-  //               hintText: "$birinciDil karşılığını giriniz ...",
-  //             ),
-  //         ],
-  //       ),
-  //       actions: [
-  //         ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             backgroundColor: Colors.indigoAccent,
-  //           ),
-  //           onPressed: () async {
-  //             /// iki dil satırı da kelime boş ise eklenmesin
-  //             if (docId == null &&
-  //                 ikinciDilController.text == "" &&
-  //                 birinciDilController.text == "") {
-  //               MessageHelper.showSnackBar(
-  //                 context,
-  //                 message: "İki kelime satırını da boş ekleyemezsiniz ...",
-  //               );
-  //             } else if (docId == null) {
-  //               /// kelime ekleniyor
-  //               firestoreService.addWord(
-  //                 context,
-  //                 ikinciDilController.text,
-  //                 birinciDilController.text,
-  //               );
-  //               message = addMsg;
-  //             } else {
-  //               /// kelime güncelleniyor
-  //               firestoreService.updateWord(
-  //                 docId,
-  //                 ikinciDilController.text,
-  //                 birinciDilController.text,
-  //               );
-  //               message = updateMsg;
-  //             }
-  //
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //               SnackBar(
-  //                 content: Column(
-  //                   children: [
-  //                     Row(
-  //                       children: [
-  //                         Text(
-  //                           ikinciDilController.text ?? '',
-  //                           style: kelimeStil,
-  //                         ),
-  //                         const Text(" kelimesi "),
-  //                       ],
-  //                     ),
-  //                     Row(
-  //                       children: [
-  //                         Text(
-  //                           currentUserEmail,
-  //                           style: userStil,
-  //                         ),
-  //                         Text(
-  //                           message,
-  //                         ),
-  //                       ],
-  //                     ),
-  //
-  //                   ],
-  //                 ),
-  //               ),
-  //             );
-  //
-  //             /// Controller içeriklerini temizliyoruz
-  //             ikinciDilController.clear();
-  //             birinciDilController.clear();
-  //
-  //             Navigator.pop(context);
-  //           },
-  //           child: Text(
-  //             docId == null ? "Kelime ekle" : "Kelime düzelt",
-  //             style: butonTextDialog,
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
 }
