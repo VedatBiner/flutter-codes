@@ -20,7 +20,7 @@ dependencies:
   google_sign_in:
   google_fonts:
   provider:
-  package_info_plus:
+  package_info_plus: ^8.0.0
   flag:
   firebase_ui_firestore:
   carousel_slider:

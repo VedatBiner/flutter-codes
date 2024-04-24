@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
         .collection('kelimeler')
         .orderBy("sirpca")
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -78,9 +78,9 @@ class _HomePageState extends State<HomePage> {
         .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     final queryForTurkish = FirebaseFirestore.instance
         .collection('kelimeler')
@@ -88,9 +88,9 @@ class _HomePageState extends State<HomePage> {
         .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
@@ -108,10 +108,14 @@ class _HomePageState extends State<HomePage> {
         }
         if (snapshot.hasError) {
           return Text(
-              'Hata: ${snapshot.error}'); // Hata durumunda hata mesajı göster
+            'Hata: ${snapshot.error}',
+          ); // Hata durumunda hata mesajı göster
         }
         return WordListBuilder(
-            snapshot: snapshot.data!, isListView: isListView);
+          snapshot: snapshot.data!,
+          isListView: isListView,
+          firstLanguageText: firstLanguageText,
+        );
       },
     );
   }
@@ -123,9 +127,9 @@ class _HomePageState extends State<HomePage> {
         .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     final queryForTurkish = FirebaseFirestore.instance
         .collection('kelimeler')
@@ -133,9 +137,9 @@ class _HomePageState extends State<HomePage> {
         .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
         .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
 
     return await Future.wait([queryForSerbian.get(), queryForTurkish.get()]);
   }
@@ -179,16 +183,19 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             log("Kelime ekleme seçildi");
-            // _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
+            /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
             _wordBoxDialog.openWordBox(
               context: context,
-              onWordAdded: (String secondLang, String firstLang,) {
+              onWordAdded: (
+                String secondLang,
+                String firstLang,
+              ) {
                 // Eklenecek kelimenin işlemleri
                 log('Eklenecek kelime: $secondLang - $firstLang');
                 _wordListFuture = _fetchWordList();
                 // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler burada gerçekleştirilebilir
               },
-              onWordUpdated:(String docId ) {
+              onWordUpdated: (String docId) {
                 // Güncellenecek kelimenin işlemleri
                 log('Güncellenecek kelime ID: $docId');
                 _wordListFuture = _fetchWordList();
@@ -262,5 +269,4 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
 }

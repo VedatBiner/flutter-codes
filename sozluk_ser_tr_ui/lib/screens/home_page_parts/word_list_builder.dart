@@ -13,11 +13,13 @@ import '../../services/theme_provider.dart';
 class WordListBuilder extends StatelessWidget {
   final List<QuerySnapshot<FsWords>> snapshot;
   final bool isListView;
+  final String firstLanguageText;
 
   const WordListBuilder({
     super.key,
     required this.snapshot,
     required this.isListView,
+    required this.firstLanguageText,
   });
 
   @override
@@ -54,7 +56,10 @@ class WordListBuilder extends StatelessWidget {
         ? WordListView(word: word, isDarkMode: isDarkMode)
 
         /// Card Görünümü
-        : WordCardView(word: word, isDarkMode: isDarkMode);
+        : WordCardView(
+            word: word,
+            isDarkMode: isDarkMode,
+          );
 
     return wordWidget;
   }
