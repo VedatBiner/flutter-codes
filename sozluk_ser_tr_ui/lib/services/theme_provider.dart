@@ -23,6 +23,15 @@ class ThemeProvider extends ChangeNotifier {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
+
+  String _language = "Sırpça";
+
+  String get language => _language;
+
+  void toggleLanguage() {
+    _language = _language == "Sırpça" ? "Türkçe" : "Sırpça";
+    notifyListeners();
+  }
 }
 
 class MyThemes {

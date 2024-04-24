@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../models/fs_words.dart';
+import '../models/language_params.dart';
 import '../services/firestore_services.dart';
 import '../services/icon_provider.dart';
 import '../services/word_service.dart';
@@ -111,10 +112,17 @@ class _HomePageState extends State<HomePage> {
             'Hata: ${snapshot.error}',
           ); // Hata durumunda hata mesajı göster
         }
+        /// languageParams nesnesini oluşturun
+        final languageParams = LanguageParams(
+          firstLanguageCode: firstLanguageCode,
+          firstLanguageText: firstLanguageText,
+          secondLanguageCode: secondLanguageCode,
+          secondLanguageText: secondLanguageText,
+        );
         return WordListBuilder(
           snapshot: snapshot.data!,
           isListView: isListView,
-          firstLanguageText: firstLanguageText,
+          languageParams: languageParams,
         );
       },
     );

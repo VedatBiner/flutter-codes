@@ -7,15 +7,24 @@ import '../details_page.dart';
 class WordCardView extends StatelessWidget {
   final FsWords word;
   final bool isDarkMode;
+  final String language;
 
-  const WordCardView({
-    super.key,
+  WordCardView({
+    Key? key, // key parametresi eklendi
     required this.word,
     required this.isDarkMode,
-  });
+    required this.language,
+  }) : super(key: key); // super(key: key) eklendi
 
   @override
   Widget build(BuildContext context) {
+    /// Gösterilecek dil
+    String displayedLanguage =
+    language == "Türkçe" ? word.turkce ?? "" : word.sirpca ?? "";
+
+    String displayedTranslation =
+    language == "Türkçe" ? word.sirpca ?? "" : word.turkce ?? "";
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -46,7 +55,7 @@ class WordCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        word.sirpca ?? "",
+                        displayedLanguage,
                         style: TextStyle(
                           color: isDarkMode
                               ? cardDarkModeText1
@@ -90,7 +99,7 @@ class WordCardView extends StatelessWidget {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness ==
-                                      Brightness.dark
+                                  Brightness.dark
                                   ? Colors.white // Dark mode arka plan rengi
                                   : null, // Light mode arka plan rengi
                               shape: RoundedRectangleBorder(
