@@ -43,11 +43,15 @@ class WordListBuilder extends StatelessWidget {
               final displayedLanguage = wordIndex < serbianResults.length
                   ? currentLanguage
                   : targetLanguage;
+              final translatedLanguage = wordIndex < serbianResults.length
+                  ? targetLanguage
+                  : currentLanguage;
               return buildWordTile(
                 context: context,
                 word: word,
                 isListView: isListView,
                 displayedLanguage: displayedLanguage,
+                translatedLanguage: translatedLanguage,
               );
             },
           ),
@@ -62,15 +66,13 @@ class WordListBuilder extends StatelessWidget {
     required FsWords word,
     required bool isListView,
     required String displayedLanguage,
+    required String translatedLanguage,
   }) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final bool isDarkMode = themeProvider.isDarkMode;
 
     /// Dil kontrolü ve kelimenin doğru dilde gösterilmesi
-    final displayedTranslation =
-        displayedLanguage == languageParams.firstLanguageText
-            ? word.turkce ?? "" // Türkçe gösterilecekse
-            : word.sirpca ?? ""; // Sırpça gösterilecekse
+    final displayedTranslation = translatedLanguage;
 
     final wordWidget = isListView
         ? WordListView(
@@ -82,16 +84,16 @@ class WordListBuilder extends StatelessWidget {
             isDarkMode: isDarkMode,
             displayedTranslation: displayedTranslation,
             displayedLanguage: displayedLanguage,
-            firstLanguageText: languageParams.firstLanguageText == displayedTranslation
-              ? word.turkce
-              : word.sirpca,
-            secondLanguageText: languageParams.secondLanguageText == displayedLanguage
-              ? word.sirpca
-              : word.turkce,
+            firstLanguageText:
+                languageParams.firstLanguageText == displayedTranslation
+                    ? word.sirpca
+                    : word.turkce,
+            secondLanguageText:
+                languageParams.secondLanguageText == displayedLanguage
+                    ? word.turkce
+                    : word.sirpca,
           );
 
-    print("first Language text: ${languageParams.firstLanguageText}");
-    print("second Language text: ${languageParams.secondLanguageText}");
     return wordWidget;
   }
 }

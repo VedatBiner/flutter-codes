@@ -1,5 +1,6 @@
 /// <----- word_card_view.dart ----->
 library;
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants/constants.dart';
@@ -11,8 +12,8 @@ class WordCardView extends StatelessWidget {
   final bool isDarkMode;
   final String displayedLanguage;
   final String displayedTranslation;
-  final String firstLanguageText; // Yeni eklenen parametreler
-  final String secondLanguageText; // Yeni eklenen parametreler
+  final String firstLanguageText;
+  final String secondLanguageText;
 
   const WordCardView({
     super.key,
@@ -56,10 +57,9 @@ class WordCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                    //    displayedLanguage == word.turkce
-                        displayedLanguage == firstLanguageText
-                          ? word.turkce ?? ""
-                          : word.sirpca ?? "",
+                        displayedLanguage == birinciDil
+                            ? firstLanguageText ?? ""
+                            : secondLanguageText ?? "",
                         style: TextStyle(
                           color: isDarkMode
                               ? cardDarkModeText1
@@ -73,10 +73,9 @@ class WordCardView extends StatelessWidget {
                         color: isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
-                        // displayedTranslation == word.sirpca
-                        displayedLanguage == secondLanguageText
-                            ? word.sirpca ?? ""
-                            : word.turkce ?? "",
+                        displayedTranslation == ikinciDil
+                            ? secondLanguageText ?? ""
+                            : firstLanguageText ?? "",
                         style: TextStyle(
                           color: isDarkMode
                               ? cardDarkModeText2
@@ -106,7 +105,7 @@ class WordCardView extends StatelessWidget {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness ==
-                                  Brightness.dark
+                                      Brightness.dark
                                   ? Colors.white
                                   : null,
                               shape: RoundedRectangleBorder(
