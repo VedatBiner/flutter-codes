@@ -1,5 +1,6 @@
 /// <----- word_list_builder.dart ----->
 library;
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -28,32 +29,25 @@ class WordListBuilder extends StatelessWidget {
     final turkishResults = snapshot[1].docs.map((doc) => doc.data());
     final mergedResults = [...serbianResults, ...turkishResults];
 
+    /// Dilin her iki yöne de belirlenmesi
+    final currentLanguage = languageParams.firstLanguageText;
+    final targetLanguage = languageParams.secondLanguageText;
+
     return Column(
       children: [
-        // LanguageSelector(
-        //   firstLanguageCode: firstLanguageCode,
-        //   firstLanguageText: firstLanguageText,
-        //   secondLanguageCode: secondLanguageCode,
-        //   secondLanguageText: secondLanguageText,
-        //   isListView: isListView,
-        //   onIconPressed: () {}, // İkon basıldığında yapılacak işlev
-        //   onLanguageChange: () {
-        //     // Dil değişimini burada işleyelim
-        //     // Eğer Sırpça ise Türkçe, Türkçe ise Sırpça olarak değiştiriyoruz
-        //     final newLanguage = firstLanguageText == "Sırpça" ? "Türkçe" : "Sırpça";
-        //     // Şimdi dil değişimi işlevini çağırarak ThemeProvider 'a bilgi gönderelim
-        //     Provider.of<ThemeProvider>(context, listen: false).toggleLanguage();
-        //   },
-        // ),
         Expanded(
           child: ListView.builder(
             itemCount: mergedResults.length,
-            itemBuilder: (context, index) {
-              final word = mergedResults[index];
+            itemBuilder: (context, wordIndex) {
+              final word = mergedResults[wordIndex];
+              final displayedLanguage = wordIndex < serbianResults.length
+                  ? currentLanguage
+                  : targetLanguage;
               return buildWordTile(
                 context: context,
                 word: word,
                 isListView: isListView,
+                displayedLanguage: displayedLanguage,
               );
             },
           ),
@@ -67,21 +61,37 @@ class WordListBuilder extends StatelessWidget {
     required BuildContext context,
     required FsWords word,
     required bool isListView,
+    required String displayedLanguage,
   }) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final bool isDarkMode = themeProvider.isDarkMode;
 
+    /// Dil kontrolü ve kelimenin doğru dilde gösterilmesi
+    final displayedTranslation =
+        displayedLanguage == languageParams.firstLanguageText
+            ? word.turkce ?? "" // Türkçe gösterilecekse
+            : word.sirpca ?? ""; // Sırpça gösterilecekse
+
     final wordWidget = isListView
         ? WordListView(
-      word: word,
-      isDarkMode: isDarkMode,
-    )
+            word: word,
+            isDarkMode: isDarkMode,
+          )
         : WordCardView(
-      word: word,
-      isDarkMode: isDarkMode,
-      language: languageParams.firstLanguageText,
-    );
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText: languageParams.firstLanguageText == displayedTranslation
+              ? word.turkce
+              : word.sirpca,
+            secondLanguageText: languageParams.secondLanguageText == displayedLanguage
+              ? word.sirpca
+              : word.turkce,
+          );
 
+    print("first Language text: ${languageParams.firstLanguageText}");
+    print("second Language text: ${languageParams.secondLanguageText}");
     return wordWidget;
   }
 }

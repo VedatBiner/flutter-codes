@@ -1,3 +1,5 @@
+/// <----- word_card_view.dart ----->
+library;
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants/constants.dart';
@@ -7,24 +9,23 @@ import '../details_page.dart';
 class WordCardView extends StatelessWidget {
   final FsWords word;
   final bool isDarkMode;
-  final String language;
+  final String displayedLanguage;
+  final String displayedTranslation;
+  final String firstLanguageText; // Yeni eklenen parametreler
+  final String secondLanguageText; // Yeni eklenen parametreler
 
-  WordCardView({
-    Key? key, // key parametresi eklendi
+  const WordCardView({
+    super.key,
     required this.word,
     required this.isDarkMode,
-    required this.language,
-  }) : super(key: key); // super(key: key) eklendi
+    required this.displayedLanguage,
+    required this.displayedTranslation,
+    required this.firstLanguageText,
+    required this.secondLanguageText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    /// Gösterilecek dil
-    String displayedLanguage =
-    language == "Türkçe" ? word.turkce ?? "" : word.sirpca ?? "";
-
-    String displayedTranslation =
-    language == "Türkçe" ? word.sirpca ?? "" : word.turkce ?? "";
-
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -55,7 +56,10 @@ class WordCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        displayedLanguage,
+                    //    displayedLanguage == word.turkce
+                        displayedLanguage == firstLanguageText
+                          ? word.turkce ?? ""
+                          : word.sirpca ?? "",
                         style: TextStyle(
                           color: isDarkMode
                               ? cardDarkModeText1
@@ -69,7 +73,10 @@ class WordCardView extends StatelessWidget {
                         color: isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
-                        word.turkce ?? "",
+                        // displayedTranslation == word.sirpca
+                        displayedLanguage == secondLanguageText
+                            ? word.sirpca ?? ""
+                            : word.turkce ?? "",
                         style: TextStyle(
                           color: isDarkMode
                               ? cardDarkModeText2
@@ -100,8 +107,8 @@ class WordCardView extends StatelessWidget {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness ==
                                   Brightness.dark
-                                  ? Colors.white // Dark mode arka plan rengi
-                                  : null, // Light mode arka plan rengi
+                                  ? Colors.white
+                                  : null,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16.0),
                                 side: const BorderSide(
