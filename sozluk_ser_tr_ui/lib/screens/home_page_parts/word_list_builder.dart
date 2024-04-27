@@ -78,6 +78,16 @@ class WordListBuilder extends StatelessWidget {
         ? WordListView(
             word: word,
             isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText:
+            languageParams.firstLanguageText == displayedTranslation
+                ? word.sirpca
+                : word.turkce,
+            secondLanguageText:
+            languageParams.secondLanguageText == displayedLanguage
+                ? word.turkce
+                : word.sirpca,
           )
         : WordCardView(
             word: word,

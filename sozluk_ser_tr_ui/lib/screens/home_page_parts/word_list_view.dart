@@ -6,11 +6,19 @@ import '../../models/fs_words.dart';
 class WordListView extends StatelessWidget {
   final FsWords word;
   final bool isDarkMode;
+  final String displayedLanguage;
+  final String displayedTranslation;
+  final String firstLanguageText;
+  final String secondLanguageText;
 
   const WordListView({
     super.key,
     required this.word,
     required this.isDarkMode,
+    required this.displayedLanguage,
+    required this.displayedTranslation,
+    required this.firstLanguageText,
+    required this.secondLanguageText,
   });
 
   @override
@@ -23,7 +31,9 @@ class WordListView extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  word.sirpca ?? "",
+                  displayedLanguage == birinciDil
+                      ? firstLanguageText ?? ""
+                      : secondLanguageText ?? "",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color:
@@ -35,7 +45,9 @@ class WordListView extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  word.turkce ?? "",
+                  displayedTranslation == ikinciDil
+                      ? secondLanguageText ?? ""
+                      : firstLanguageText ?? "",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color:
