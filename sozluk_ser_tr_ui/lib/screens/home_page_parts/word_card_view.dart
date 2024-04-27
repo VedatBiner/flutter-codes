@@ -8,6 +8,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../models/fs_words.dart';
+import '../../services/app_routes.dart';
 import '../details_page.dart';
 
 class WordCardView extends StatelessWidget {
@@ -45,11 +46,10 @@ class WordCardView extends StatelessWidget {
             log("word : ${word.turkce}");
 
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DetailsPage(),
-              ),
-            );
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(initialWord: word),
+                ));
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),

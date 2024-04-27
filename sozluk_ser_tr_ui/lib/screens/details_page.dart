@@ -16,7 +16,11 @@ import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+  final FsWords initialWord;
+  DetailsPage({
+    super.key,
+    required this.initialWord,
+  });
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -44,6 +48,8 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
+    word = widget.initialWord;
+    _loadWordList();
   }
 
   /// Tüm kelimelerin listesi
@@ -116,6 +122,10 @@ class _DetailsPageState extends State<DetailsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // buildCarouselSlider(context),
+            DetailsCard(
+                word: word,
+                themeProvider: themeProvider,
+            ),
             buildDetailsButton(),
           ],
         ),

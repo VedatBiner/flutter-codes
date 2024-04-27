@@ -13,6 +13,8 @@ import '../help_pages/sayfa_latin.dart';
 import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
+import '../models/fs_words.dart';
+import '../screens/details_page.dart';
 import '../screens/home_page.dart';
 import '../screens/auth_page_parts/register_page.dart';
 import '../screens/login_page.dart';
@@ -40,10 +42,12 @@ final class AppRoute {
   static String gecisliDonusluFiller = "/home/gecisliDonusluFiller";
   static String isaretSifatlari = "/home/isaretSifatlari";
 
+  static FsWords? word;
+
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
-    // details: (context) =>  const DetailsPage(word: word),
+    details: (context) =>  _buildDetails(context, word!),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
     settings: (context) => const SettingsPage(),
@@ -95,5 +99,9 @@ final class AppRoute {
   static Widget _buildIsaretSifatlari(BuildContext context) {
     return const SayfaIsaretSifatlari();
   }
+
+ static Widget _buildDetails(BuildContext context, FsWords word){
+    return DetailsPage(initialWord: word,);
+ }
 
 }

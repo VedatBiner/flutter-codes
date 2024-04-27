@@ -41,7 +41,7 @@ class WordListView extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const DetailsPage(),
+              builder: (context) => DetailsPage( initialWord: word),
             ),
           );
         },
