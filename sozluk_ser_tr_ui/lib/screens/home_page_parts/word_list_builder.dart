@@ -1,4 +1,8 @@
 /// <----- word_list_builder.dart ----->
+/// Kelime listesini oluşturmak için bu kod kullanılıyor.
+/// Oluşturulan kelimeler word_card_view.dart dosyasına
+/// veya word_list_view.dart dosyasına gönderilerek
+/// istenen formatta görünüm elde ediliyor.
 library;
 
 import 'package:flutter/material.dart';
@@ -60,7 +64,8 @@ class WordListBuilder extends StatelessWidget {
     );
   }
 
-  /// kelime listesi List ve Card Görünümü
+  /// kelime listesi List ve Card görünümüne
+  /// göre hangi metodun kullanılacağı burada belirleniyor
   Widget buildWordTile({
     required BuildContext context,
     required FsWords word,

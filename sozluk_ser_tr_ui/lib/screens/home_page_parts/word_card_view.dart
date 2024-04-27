@@ -1,4 +1,7 @@
 /// <----- word_card_view.dart ----->
+/// Kelime listesini CardView olarak göstermek için
+/// bu kod kullanılıyor.
+/// kelime bilgileri word_list_builder.dart dosyasından geliyor.
 library;
 
 import 'dart:developer';
