@@ -2,6 +2,8 @@
 /// Burada kelimeleri tek tek gösteriyoruz
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -199,7 +201,9 @@ class _DetailsPageState extends State<DetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildElevatedButton(
-            onPressed: () => {}, //_loadPreviousWord(),
+            onPressed: ()  {
+              log("Önceki kelime");
+            }, //_loadPreviousWord(),
             icon: Icons.arrow_left,
             iconSize: 50,
           ),
@@ -207,7 +211,9 @@ class _DetailsPageState extends State<DetailsPage> {
             child: SizedBox(width: 100),
           ),
           buildElevatedButton(
-            onPressed: () => {}, // _loadNextWord(),
+            onPressed: () {
+              log("sonraki kelime");
+            }, // _loadNextWord(),
             icon: Icons.arrow_right,
             iconSize: 50,
           ),
