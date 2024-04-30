@@ -39,11 +39,15 @@ class WordListView extends StatelessWidget {
           log("word : ${word.turkce}");
 
           Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsPage( initialWord: word),
-            ),
-          );
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailsPage(
+                  firstLanguageText: firstLanguageText,
+                  secondLanguageText: secondLanguageText,
+                  displayedLanguage: displayedLanguage,
+                  displayedTranslation: displayedTranslation,
+                ),
+              ));
         },
         child: Column(
           children: [

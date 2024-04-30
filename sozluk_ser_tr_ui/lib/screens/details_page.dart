@@ -1,4 +1,5 @@
 /// <----- details_page_ser_tr.dart ----->
+/// Burada kelimeleri tek tek gösteriyoruz
 library;
 
 import 'package:flutter/material.dart';
@@ -16,10 +17,17 @@ import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  final FsWords initialWord;
-  DetailsPage({
+  final String firstLanguageText;
+  final String secondLanguageText;
+  final String displayedLanguage;
+  final String displayedTranslation;
+
+  const DetailsPage({
     super.key,
-    required this.initialWord,
+    required this.firstLanguageText,
+    required this.secondLanguageText,
+    required this.displayedLanguage,
+    required this.displayedTranslation,
   });
 
   @override
@@ -27,88 +35,90 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
-  QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
-  late int _currentIndex;
+  // final CollectionReference words =
+  // FirebaseFirestore.instance.collection("kelimeler");
+  // QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
+  // late int _currentIndex;
+  // late ThemeProvider themeProvider;
+  // late FsWords word;
+
   late ThemeProvider themeProvider;
-  late FsWords word;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     themeProvider = Provider.of<ThemeProvider>(context);
-    var route = ModalRoute.of(context);
-    if(route != null && route.settings.arguments != null) {
-      word = route.settings.arguments as FsWords;
-      _loadWordList();
-    }
+  //   var route = ModalRoute.of(context);
+  //   if(route != null && route.settings.arguments != null) {
+  //     word = route.settings.arguments as FsWords;
+  //     _loadWordList();
+  //   }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    word = widget.initialWord;
-    _loadWordList();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   word = widget.initialWord;
+  //   _loadWordList();
+  // }
 
   /// Tüm kelimelerin listesi
-  Future<void> _loadWordList() async {
-    try {
-      final querySnapshot = await words.orderBy("sirpca").get()
-      as QuerySnapshot<Map<String, dynamic>>;
-      setState(() {
-        _querySnapshot = querySnapshot;
-        _currentIndex = _querySnapshot!.docs.indexWhere(
-              (doc) => doc.id == word.wordId,
-        );
-      });
-    } catch (e) {
-      print("Hata: $e");
-      setState(() {
-        _querySnapshot = null;
-      });
-    }
-  }
+  // Future<void> _loadWordList() async {
+  //   try {
+  //     final querySnapshot = await words.orderBy("sirpca").get()
+  //     as QuerySnapshot<Map<String, dynamic>>;
+  //     setState(() {
+  //       _querySnapshot = querySnapshot;
+  //       _currentIndex = _querySnapshot!.docs.indexWhere(
+  //             (doc) => doc.id == word.wordId,
+  //       );
+  //     });
+  //   } catch (e) {
+  //     print("Hata: $e");
+  //     setState(() {
+  //       _querySnapshot = null;
+  //     });
+  //   }
+  // }
 
   /// Önceki kelime
-  Future<void> _loadPreviousWord() async {
-    if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-        _updateCurrentWord();
-      });
-    } else {
-      MessageHelper.showSnackBar(
-        context,
-        message: "Bu ilk kelime, önceki kelime yok.",
-      );
-    }
-  }
+  // Future<void> _loadPreviousWord() async {
+  //   if (_currentIndex > 0) {
+  //     setState(() {
+  //       _currentIndex--;
+  //       _updateCurrentWord();
+  //     });
+  //   } else {
+  //     MessageHelper.showSnackBar(
+  //       context,
+  //       message: "Bu ilk kelime, önceki kelime yok.",
+  //     );
+  //   }
+  // }
 
   /// Sonraki kelime
-  Future<void> _loadNextWord() async {
-    if (_currentIndex < _querySnapshot!.size - 1) {
-      setState(() {
-        _currentIndex++;
-        _updateCurrentWord();
-      });
-    } else {
-      MessageHelper.showSnackBar(
-        context,
-        message: "Bu son kelime, sonraki kelime yok.",
-      );
-    }
-  }
+  // Future<void> _loadNextWord() async {
+  //   if (_currentIndex < _querySnapshot!.size - 1) {
+  //     setState(() {
+  //       _currentIndex++;
+  //       _updateCurrentWord();
+  //     });
+  //   } else {
+  //     MessageHelper.showSnackBar(
+  //       context,
+  //       message: "Bu son kelime, sonraki kelime yok.",
+  //     );
+  //   }
+  // }
 
   /// Kelimelerin güncellenmesi
-  Future<void> _updateCurrentWord() async {
-    setState(() {
-      DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
-      _querySnapshot!.docs[_currentIndex];
-      word = FsWords.fromFirestore(currentDocumentSnapshot);
-    });
-  }
+  // Future<void> _updateCurrentWord() async {
+  //   setState(() {
+  //     DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
+  //     _querySnapshot!.docs[_currentIndex];
+  //     word = FsWords.fromFirestore(currentDocumentSnapshot);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +133,11 @@ class _DetailsPageState extends State<DetailsPage> {
           children: [
             // buildCarouselSlider(context),
             DetailsCard(
-                word: word,
-                themeProvider: themeProvider,
+              firstLanguageText: widget.firstLanguageText,
+              secondLanguageText: widget.secondLanguageText,
+              displayedLanguage: widget.displayedLanguage,
+              displayedTranslation: widget.displayedTranslation,
+              themeProvider: themeProvider,
             ),
             buildDetailsButton(),
           ],
@@ -186,7 +199,7 @@ class _DetailsPageState extends State<DetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildElevatedButton(
-            onPressed: () => _loadPreviousWord(),
+            onPressed: () => {}, //_loadPreviousWord(),
             icon: Icons.arrow_left,
             iconSize: 50,
           ),
@@ -194,7 +207,7 @@ class _DetailsPageState extends State<DetailsPage> {
             child: SizedBox(width: 100),
           ),
           buildElevatedButton(
-            onPressed: () => _loadNextWord(),
+            onPressed: () => {}, // _loadNextWord(),
             icon: Icons.arrow_right,
             iconSize: 50,
           ),

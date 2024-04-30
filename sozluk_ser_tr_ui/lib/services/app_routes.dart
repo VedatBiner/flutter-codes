@@ -47,7 +47,7 @@ final class AppRoute {
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
     splash: (context) => const SplashView(),
-    details: (context) =>  _buildDetails(context, word!),
+    // details: (context) =>  _buildDetails(context),
     login: (context) => const LoginPage(),
     register: (context) => const RegisterPage(),
     settings: (context) => const SettingsPage(),
@@ -100,8 +100,26 @@ final class AppRoute {
     return const SayfaIsaretSifatlari();
   }
 
- static Widget _buildDetails(BuildContext context, FsWords word){
-    return DetailsPage(initialWord: word,);
- }
+  // static Widget _buildDetails(BuildContext context) {
+  //   if (word != null) {
+  //     final firstLanguageText = word!.firstLanguageText ?? "";
+  //     final secondLanguageText = word!.secondLanguageText ?? "";
+  //     final displayedLanguage = word!.displayedLanguage ?? "";
+  //     final displayedTranslation = word!.displayedTranslation ?? "";
+  //     return DetailsPage(
+  //       firstLanguageText: firstLanguageText,
+  //       secondLanguageText: secondLanguageText,
+  //       displayedLanguage: displayedLanguage,
+  //       displayedTranslation: displayedTranslation,
+  //     );
+  //   } else {
+  //     // Eğer kelime yoksa, hata sayfası gösterilebilir veya başka bir şey yapılabilir
+  //     return const Scaffold(
+  //       body: Center(
+  //         child: Text("Bir hata oluştu"),
+  //       ),
+  //     );
+  //   }
+  // }
 
 }

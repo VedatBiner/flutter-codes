@@ -151,7 +151,7 @@ const String fsBirinciDil = "turkce";
 const String firstCountry = "TR";
 const String ikinciDil = "Sırpça";
 const String fsIkinciDil = "sirpca";
-const secondCountry = "RS";
+const String secondCountry = "RS";
 
 /// mail adresi
 const String fsUserEmail = "userEmail";

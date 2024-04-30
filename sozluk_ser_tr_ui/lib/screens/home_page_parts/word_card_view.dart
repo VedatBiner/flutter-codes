@@ -10,6 +10,7 @@ import '../../constants/app_constants/constants.dart';
 import '../../models/fs_words.dart';
 import '../../services/app_routes.dart';
 import '../details_page.dart';
+import '../details_page_parts/details_card.dart';
 
 class WordCardView extends StatelessWidget {
   final FsWords word;
@@ -42,13 +43,20 @@ class WordCardView extends StatelessWidget {
         color: isDarkMode ? cardDarkMode : cardLightMode,
         child: InkWell(
           onTap: () {
-            log("word : ${word.sirpca}");
-            log("word : ${word.turkce}");
+            log("first : $firstLanguageText");
+            log("second : $secondLanguageText");
+            log("disp : $displayedLanguage");
+            log("trans : $displayedTranslation");
 
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsPage(initialWord: word),
+                  builder: (context) => DetailsPage(
+                    firstLanguageText: firstLanguageText,
+                    secondLanguageText: secondLanguageText,
+                    displayedLanguage: displayedLanguage,
+                    displayedTranslation: displayedTranslation,
+                  ),
                 ));
           },
           child: Padding(

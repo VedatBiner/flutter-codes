@@ -9,12 +9,18 @@ import '../../services/theme_provider.dart';
 import 'flag_row.dart';
 
 class DetailsCard extends StatelessWidget {
-  final FsWords word;
+  final String firstLanguageText;
+  final String secondLanguageText;
+  final String displayedLanguage;
+  final String displayedTranslation;
   final ThemeProvider themeProvider;
 
   const DetailsCard({
     super.key,
-    required this.word,
+    required this.firstLanguageText,
+    required this.secondLanguageText,
+    required this.displayedLanguage,
+    required this.displayedTranslation,
     required this.themeProvider,
   });
 
@@ -36,17 +42,29 @@ class DetailsCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              buildFlagRow(
-                'RS',
-                word.sirpca,
-                detailTextRed,
-              ),
+              displayedLanguage == birinciDil
+                  ? buildFlagRow(
+                      firstCountry,
+                      firstLanguageText,
+                      detailTextRed,
+                    )
+                  : buildFlagRow(
+                      secondCountry,
+                      secondLanguageText,
+                      detailTextBlue,
+                    ),
               const SizedBox(height: 40),
-              buildFlagRow(
-                'TR',
-                word.turkce,
-                detailTextBlue,
-              ),
+              displayedTranslation == ikinciDil
+                  ? buildFlagRow(
+                      secondCountry,
+                      secondLanguageText,
+                      detailTextRed,
+                    )
+                  : buildFlagRow(
+                      firstCountry,
+                      firstLanguageText,
+                      detailTextBlue,
+                    ),
             ],
           ),
         ),
