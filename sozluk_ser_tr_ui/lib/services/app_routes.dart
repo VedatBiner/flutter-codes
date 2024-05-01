@@ -14,7 +14,6 @@ import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../models/fs_words.dart';
-import '../screens/details_page.dart';
 import '../screens/home_page.dart';
 import '../screens/auth_page_parts/register_page.dart';
 import '../screens/login_page.dart';

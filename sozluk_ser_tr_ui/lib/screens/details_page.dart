@@ -2,10 +2,8 @@
 /// Burada kelimeleri tek tek gösteriyoruz
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +11,6 @@ import '../constants/app_constants/constants.dart';
 import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
 import '../services/theme_provider.dart';
-import '../utils/mesaj_helper.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
@@ -37,51 +34,69 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  // final CollectionReference words =
-  // FirebaseFirestore.instance.collection("kelimeler");
-  // QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
-  // late int _currentIndex;
-  // late ThemeProvider themeProvider;
-  // late FsWords word;
-
+  final CollectionReference words =
+      FirebaseFirestore.instance.collection("kelimeler");
+  QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
+  late int _currentIndex;
+  late FsWords word;
   late ThemeProvider themeProvider;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     themeProvider = Provider.of<ThemeProvider>(context);
-  //   var route = ModalRoute.of(context);
-  //   if(route != null && route.settings.arguments != null) {
-  //     word = route.settings.arguments as FsWords;
-  //     _loadWordList();
-  //   }
+    //   var route = ModalRoute.of(context);
+    //   if(route != null && route.settings.arguments != null) {
+    //     word = route.settings.arguments as FsWords;
+    _loadWordList();
+    //   }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   word = widget.initialWord;
-  //   _loadWordList();
-  // }
+  @override
+  void initState() {
+    super.initState();
+   // word = widget.initialWord;
+    // initState içinde word değişkenini başlatıyoruz
+    word = FsWords(
+      wordId: 'initialId',
+      sirpca: 'initialSirpca',
+      turkce: 'initialTurkce',
+      userEmail: 'initialEmail',
+    );
+    _loadWordList();
+  }
 
   /// Tüm kelimelerin listesi
-  // Future<void> _loadWordList() async {
-  //   try {
-  //     final querySnapshot = await words.orderBy("sirpca").get()
-  //     as QuerySnapshot<Map<String, dynamic>>;
-  //     setState(() {
-  //       _querySnapshot = querySnapshot;
-  //       _currentIndex = _querySnapshot!.docs.indexWhere(
-  //             (doc) => doc.id == word.wordId,
-  //       );
-  //     });
-  //   } catch (e) {
-  //     print("Hata: $e");
-  //     setState(() {
-  //       _querySnapshot = null;
-  //     });
-  //   }
-  // }
+  Future<void> _loadWordList() async {
+    try {
+      final querySnapshot = await FsWords.orderBy("sirpca") as QuerySnapshot<Map<String, dynamic>>;;
+      setState(() {
+        _querySnapshot = querySnapshot;
+        _currentIndex = _querySnapshot!.docs.indexWhere(
+          (doc) => doc.id == word.wordId,
+        );
+      });
+      printWordList();
+    } catch (e) {
+      print("Hata: $e");
+      setState(() {
+        _querySnapshot = null;
+      });
+    }
+  }
+
+  /// Geçici liste yazdırma
+  void printWordList() {
+    if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+      print("Liste boş");
+    } else {
+      for (var doc in _querySnapshot!.docs) {
+        var word = FsWords.fromFirestore(doc);
+        print("Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
+      }
+    }
+  }
+
 
   /// Önceki kelime
   // Future<void> _loadPreviousWord() async {
@@ -201,7 +216,7 @@ class _DetailsPageState extends State<DetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildElevatedButton(
-            onPressed: ()  {
+            onPressed: () {
               log("Önceki kelime");
             }, //_loadPreviousWord(),
             icon: Icons.arrow_left,

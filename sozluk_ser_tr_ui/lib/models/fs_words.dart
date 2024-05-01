@@ -16,11 +16,11 @@ class FsWords {
 
   FsWords.fromJson(Map<String, Object?> json)
       : this(
-    wordId: json['wordId'].toString(),
-    sirpca: json['sirpca'].toString(),
-    turkce: json['turkce'].toString(),
-    userEmail: json['userEmail'].toString(),
-  );
+          wordId: json['wordId'].toString(),
+          sirpca: json['sirpca'].toString(),
+          turkce: json['turkce'].toString(),
+          userEmail: json['userEmail'].toString(),
+        );
 
   Map<String, Object?> toJson() {
     return {
@@ -33,10 +33,11 @@ class FsWords {
 
   @override
   String toString() {
-    return 'FsWords{sirpca: $sirpca, turkce: $turkce}';
+    return 'FsWords{sirpca: $sirpca, turkce: $turkce,userEmail: $userEmail,}';
   }
 
-  factory FsWords.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  factory FsWords.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
     var data = snapshot.data()!;
     return FsWords(
       wordId: data["wordId"].toString(),
@@ -44,5 +45,11 @@ class FsWords {
       turkce: data["turkce"].toString(),
       userEmail: data["userEmail"].toString(),
     );
+  }
+
+  // orderBy metodunu ekleyin
+  static Future<QuerySnapshot<Object?>> orderBy(String field) async {
+    final CollectionReference words = FirebaseFirestore.instance.collection("kelimeler");
+    return await words.orderBy(field).get();
   }
 }

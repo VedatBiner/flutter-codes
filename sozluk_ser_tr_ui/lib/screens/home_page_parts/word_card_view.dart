@@ -8,9 +8,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../models/fs_words.dart';
-import '../../services/app_routes.dart';
 import '../details_page.dart';
-import '../details_page_parts/details_card.dart';
 
 class WordCardView extends StatelessWidget {
   final FsWords word;
