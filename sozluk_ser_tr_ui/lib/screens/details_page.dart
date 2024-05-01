@@ -55,7 +55,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-   // word = widget.initialWord;
+    // word = widget.initialWord;
     // initState içinde word değişkenini başlatıyoruz
     word = FsWords(
       wordId: 'initialId',
@@ -69,7 +69,9 @@ class _DetailsPageState extends State<DetailsPage> {
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
-      final querySnapshot = await FsWords.orderBy("sirpca") as QuerySnapshot<Map<String, dynamic>>;;
+      final querySnapshot = await FsWords.orderBy(
+              widget.firstLanguageText == birinciDil ? 'turkce' : 'sirpca')
+          as QuerySnapshot<Map<String, dynamic>>;
       setState(() {
         _querySnapshot = querySnapshot;
         _currentIndex = _querySnapshot!.docs.indexWhere(
@@ -92,11 +94,11 @@ class _DetailsPageState extends State<DetailsPage> {
     } else {
       for (var doc in _querySnapshot!.docs) {
         var word = FsWords.fromFirestore(doc);
-        print("Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
+        print(
+            "Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
       }
     }
   }
-
 
   /// Önceki kelime
   // Future<void> _loadPreviousWord() async {
