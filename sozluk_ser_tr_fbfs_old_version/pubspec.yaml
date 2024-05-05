@@ -1,0 +1,45 @@
+name: sozluk_app_ser_tr_fbfs
+description: "Sırpça-Türkçe Sözlük Denemesi"
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.7.7+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  firebase_core: ^2.27.1
+  cloud_firestore: ^4.15.9
+  firebase_auth: ^4.17.9
+  google_sign_in:
+  flag:
+  fluttertoast:
+  google_fonts:
+  provider:
+  package_info_plus:
+  carousel_slider:
+  draggable_scrollbar:
+  path:
+  sqflite:
+  path_provider:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/database/
+
