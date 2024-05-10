@@ -126,6 +126,7 @@ const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
+const String appBarSahiplikSifatlariTitle = "Sahiplik Sıfatları";
 const String appBarSettingsTitle = "Settings Page";
 
 /// Message Constants
@@ -183,6 +184,7 @@ final List<Map<String, dynamic>> drawerItems = [
     "page": AppRoute.gecisliDonusluFiller
   },
   {"title": "İşaret Sıfatları", "page": AppRoute.isaretSifatlari},
+  {"title": "Sahiplik Sıfatları", "page": AppRoute.sahiplikSifatlari},
 ];
 
 /// Latin Harfleri

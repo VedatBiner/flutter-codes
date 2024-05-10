@@ -149,7 +149,10 @@ class _HomePageState extends State<HomePage> {
           toFirestore: (word, _) => word.toJson(),
         );
 
-    return await Future.wait([queryForSerbian.get(), queryForTurkish.get()]);
+    const options = GetOptions(source: Source.cache);
+    return await Future.wait([
+      queryForSerbian.get(options),
+      queryForTurkish.get(options)]);
   }
 
   /// ana kodumuz bu şekilde

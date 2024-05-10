@@ -1,4 +1,4 @@
-/// <----- details_page_ser_tr.dart ----->
+/// <----- details_page.dart ----->
 /// Burada kelimeleri tek tek gösteriyoruz
 library;
 
@@ -37,7 +37,8 @@ class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
-  late int _currentIndex;
+  late List<FsWords> _wordList = []; // Kelimelerin listesi
+  late int _currentIndex = 0; // Başlangıçta _currentIndex 0 olacak
   late FsWords word;
   late ThemeProvider themeProvider;
 
@@ -55,89 +56,114 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    // word = widget.initialWord;
-    // initState içinde word değişkenini başlatıyoruz
     word = FsWords(
       wordId: 'initialId',
       sirpca: 'initialSirpca',
       turkce: 'initialTurkce',
       userEmail: 'initialEmail',
     );
-    _loadWordList();
   }
 
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
     try {
-      final querySnapshot = await FsWords.orderBy(
-              widget.firstLanguageText == birinciDil ? 'turkce' : 'sirpca')
-          as QuerySnapshot<Map<String, dynamic>>;
+      /// Firestore 'dan verileri alırken offline veri kullanımını etkinleştirin
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance
+              .collection("kelimeler")
+
+              /// Kelimeleri alfabetik sıraya göre sırala
+              .orderBy(
+                  widget.firstLanguageText == birinciDil ? 'turkce' : 'sirpca')
+              .get(
+                /// Firestore 'dan alınan verilerin daha önce indirilmiş verilere
+                /// karşı güncellenip güncellenmediğini kontrol et
+                const GetOptions(source: Source.cache),
+              );
+
       setState(() {
-        _querySnapshot = querySnapshot;
-        _currentIndex = _querySnapshot!.docs.indexWhere(
-          (doc) => doc.id == word.wordId,
-        );
+        _wordList = querySnapshot.docs
+            .map((doc) => FsWords.fromFirestore(
+                doc as DocumentSnapshot<Map<String, dynamic>>))
+            .toList();
       });
-      printWordList();
     } catch (e) {
       print("Hata: $e");
       setState(() {
-        _querySnapshot = null;
+        _wordList = [];
       });
     }
   }
 
-  /// Geçici liste yazdırma
-  void printWordList() {
-    if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-      print("Liste boş");
-    } else {
-      for (var doc in _querySnapshot!.docs) {
-        var word = FsWords.fromFirestore(doc);
-        print(
-            "Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
-      }
-    }
+  /// önceki kelime
+  void _loadPreviousWord() {
+    log("_wordList : $_wordList");
+    // if (_currentIndex > 0) {
+    //   setState(() {
+    //     _currentIndex--;
+    //   });
+    //   log("Önceki kelime: ${_wordList[_currentIndex - 1].turkce} - ${_wordList[_currentIndex - 1].sirpca}");
+    // } else {
+    //   log("Bu ilk kelime, önceki kelime yok.");
+    // }
   }
 
-  /// Önceki kelime
-  // Future<void> _loadPreviousWord() async {
-  //   if (_currentIndex > 0) {
-  //     setState(() {
-  //       _currentIndex--;
-  //       _updateCurrentWord();
-  //     });
+  /// Geçici liste yazdırma
+  /// daha sonra silinebilir.
+  // void printWordList() {
+  //   if (_wordList.isEmpty) {
+  //     print("Liste boş");
   //   } else {
-  //     MessageHelper.showSnackBar(
-  //       context,
-  //       message: "Bu ilk kelime, önceki kelime yok.",
-  //     );
+  //     _wordList.forEach((word) {
+  //       widget.firstLanguageText == ikinciDil
+  //           ? print(
+  //               "Word ID: ${word.wordId}, Turkce: ${word.turkce}, Sirpca: ${word.sirpca}, User Email: ${word.userEmail}")
+  //           : print(
+  //               "Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
+  //     });
   //   }
   // }
 
-  /// Sonraki kelime
-  // Future<void> _loadNextWord() async {
-  //   if (_currentIndex < _querySnapshot!.size - 1) {
-  //     setState(() {
-  //       _currentIndex++;
-  //       _updateCurrentWord();
-  //     });
-  //   } else {
-  //     MessageHelper.showSnackBar(
-  //       context,
-  //       message: "Bu son kelime, sonraki kelime yok.",
-  //     );
-  //   }
-  // }
-
-  /// Kelimelerin güncellenmesi
-  // Future<void> _updateCurrentWord() async {
-  //   setState(() {
-  //     DocumentSnapshot<Map<String, dynamic>> currentDocumentSnapshot =
-  //     _querySnapshot!.docs[_currentIndex];
-  //     word = FsWords.fromFirestore(currentDocumentSnapshot);
-  //   });
-  // }
+  /// önceki-sonraki kelimelere butonlar
+  /// aracılığı ile gidilmesi içindir
+  Padding buildDetailsButton() {
+    return Padding(
+      padding: const EdgeInsets.all(30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          buildElevatedButton(
+            onPressed: () {
+              log("Önceki kelime");
+              log("index : $_currentIndex");
+              log("Önceki kelime: ${_wordList[_currentIndex].turkce} - ${_wordList[_currentIndex].sirpca}");
+              // log("Word List : ${_wordList.toString()}");
+              // log("Word List (5) : ${_wordList[5].toString()}");
+              //  _loadPreviousWord();
+              if (_currentIndex > 0) {
+                _currentIndex--;
+                _loadPreviousWord();
+              } else {
+                log("Bu ilk kelime, önceki kelime yok.");
+              }
+            },
+            icon: Icons.arrow_left,
+            iconSize: 50,
+          ),
+          const Expanded(
+            child: SizedBox(width: 100),
+          ),
+          buildElevatedButton(
+            onPressed: () {
+              log("sonraki kelime");
+            },
+            icon: Icons.arrow_right,
+            iconSize: 50,
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,34 +234,4 @@ class _DetailsPageState extends State<DetailsPage> {
   //     );
   //   }
   // }
-
-  /// önceki-sonraki kelimelere butonlar
-  /// aracılığı ile gidilmesi içindir
-  Padding buildDetailsButton() {
-    return Padding(
-      padding: const EdgeInsets.all(30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          buildElevatedButton(
-            onPressed: () {
-              log("Önceki kelime");
-            }, //_loadPreviousWord(),
-            icon: Icons.arrow_left,
-            iconSize: 50,
-          ),
-          const Expanded(
-            child: SizedBox(width: 100),
-          ),
-          buildElevatedButton(
-            onPressed: () {
-              log("sonraki kelime");
-            }, // _loadNextWord(),
-            icon: Icons.arrow_right,
-            iconSize: 50,
-          ),
-        ],
-      ),
-    );
-  }
 }
