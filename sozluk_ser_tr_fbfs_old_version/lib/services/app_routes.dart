@@ -10,6 +10,7 @@ import '../help_pages/sayfa_gecisli_donuslu_fiiller.dart';
 import '../help_pages/sayfa_isaret_sifatlari.dart';
 import '../help_pages/sayfa_kiril.dart';
 import '../help_pages/sayfa_latin.dart';
+import '../help_pages/sayfa_sahiplik_sifatlari.dart';
 import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
 import '../help_pages/sayfa_zamir.dart';
@@ -40,6 +41,7 @@ final class AppRoute {
   static String simdikiGenisZaman = "/home/simdikiGenisZaman";
   static String gecisliDonusluFiller = "/home/gecisliDonusluFiller";
   static String isaretSifatlari = "/home/isaretSifatlari";
+  static String sahiplikSifatlari = "/home/sahiplikSifatlari";
 
   static Map<String, AppRouteMapFunction> routes = {
     home: (context) => const HomePage(),
@@ -59,6 +61,8 @@ final class AppRoute {
         _buildSayfaGecisliDonusluFiiller(context),
     isaretSifatlari: (context) =>
         _buildIsaretSifatlari(context),
+    sahiplikSifatlari: (context) =>
+        _buildSahiplikSifatlari(context),
   };
 
   static Widget _buildSayfaLatin(BuildContext context) {
@@ -95,5 +99,9 @@ final class AppRoute {
 
   static Widget _buildIsaretSifatlari(BuildContext context) {
     return const SayfaIsaretSifatlari();
+  }
+
+  static Widget _buildSahiplikSifatlari(BuildContext context) {
+    return const SayfaSahiplikSifatlari();
   }
 }

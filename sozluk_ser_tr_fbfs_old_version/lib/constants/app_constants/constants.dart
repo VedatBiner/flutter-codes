@@ -4,7 +4,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../services/app_routes.dart';
+import '../../../services/app_routes.dart';
 
 Color drawerColor = const Color(0xFF4C3398);
 Color menuColor = const Color(0xFFFFD300);
@@ -126,6 +126,7 @@ const String appbarSoruTitle = "Soru Cümleleri";
 const String appBarSimdikiGenisZamanTitle = "Şimdiki Geniş Zaman";
 const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller";
 const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
+const String appBarSahiplikSifatlariTitle = "Sahiplik Sıfatları";
 const String appBarSettingsTitle = "Settings Page";
 
 /// Message Constants
@@ -151,7 +152,7 @@ const String fsBirinciDil = "turkce";
 const String firstCountry = "TR";
 const String ikinciDil = "Sırpça";
 const String fsIkinciDil = "sirpca";
-const secondCountry = "RS";
+const String secondCountry = "RS";
 
 /// mail adresi
 const String fsUserEmail = "userEmail";
@@ -183,6 +184,7 @@ final List<Map<String, dynamic>> drawerItems = [
     "page": AppRoute.gecisliDonusluFiller
   },
   {"title": "İşaret Sıfatları", "page": AppRoute.isaretSifatlari},
+  {"title": "Sahiplik Sıfatları", "page": AppRoute.sahiplikSifatlari},
 ];
 
 /// Latin Harfleri
