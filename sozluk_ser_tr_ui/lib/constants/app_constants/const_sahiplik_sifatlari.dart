@@ -240,3 +240,27 @@ final List<Map<String, String>> sahiplikSifatlariSampleG = [
     'türkçe (çoğul)': 'Onların kız kardeşleri',
   },
 ];
+
+/// Örnekler
+final List<Map<String, String>> sahiplikSifatlariSampleH = [
+  {
+    'türkçe': 'türkçe',
+    'sırpça': 'sırpça',
+  },
+  {
+    'türkçe': 'Arkadaşım konuşmayı sever',
+    'sırpça': 'moj prijatelj voli govoriti',
+  },
+  {
+    'türkçe': 'Oyuncakların nerede?',
+    'sırpça': 'gdje su tvoje igračke',
+  },
+  {
+    'türkçe': 'Onların köyü uzak ',
+    'sırpça': 'njihovo selo je daleko',
+  },
+  {
+    'türkçe': 'Onun (kız) kitapları burada mı?',
+    'sırpça': 'Da li su njene knjige ovdje?',
+  },
+];

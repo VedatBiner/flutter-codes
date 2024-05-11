@@ -116,6 +116,14 @@ class _SayfaSahiplikSifatlariState extends State<SayfaSahiplikSifatlari> {
                 ],
               ),
               const Divider(),
+              buildTable(
+                sahiplikSifatlariSampleH,
+                "Örnekler",
+                [
+                  (user) => user['türkçe']!,
+                  (user) => user['sırpça']!,
+                ],
+              ),
             ],
           ),
         ),
