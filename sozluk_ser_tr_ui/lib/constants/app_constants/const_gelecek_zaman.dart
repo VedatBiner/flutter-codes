@@ -265,3 +265,74 @@ final List<Map<String, String>> gelecekZamanSampleG = [
     'kısa': 'Reći će',
   },
 ];
+
+/// Özne düşürmeden kullanım
+final List<Map<String, String>> gelecekZamanSampleH = [
+  {
+    'özne': 'özne',
+    'çekim': 'çekim',
+    'isim': 'isim',
+  },
+  {
+    'özne': 'ja',
+    'çekim': 'sam',
+    'isim': 'dobro',
+  },
+  {
+    'özne': 'ti',
+    'çekim': 'si',
+    'isim': 'dobro',
+  },
+  {
+    'özne': 'on / ona',
+    'çekim': 'je',
+    'isim': 'dobro',
+  },
+  {
+    'özne': 'mi',
+    'çekim': 'smo',
+    'isim': 'dobro',
+  },
+  {
+    'özne': 'vi',
+    'çekim': 'ste',
+    'isim': 'dobro',
+  },
+  {
+    'özne': 'oni / one',
+    'çekim': 'su',
+    'isim': 'dobro',
+  },
+];
+
+/// Özne düşürerek kullanım
+final List<Map<String, String>> gelecekZamanSampleI = [
+  {
+    'isim': 'isim',
+    'çekim': 'çekim',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'sam',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'si',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'je',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'smo',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'ste',
+  },
+  {
+    'isim': 'dobro',
+    'çekim': 'su',
+  },
+];

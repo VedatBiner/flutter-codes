@@ -135,6 +135,31 @@ class _SayfaGelecekZamanState extends State<SayfaGelecekZaman> {
                   (user) => user['kısa']!,
                 ],
               ),
+              const Divider(),
+              buildRichTextRule(
+                "Burada bazı fiilerde özne düşmesi uygulandı. Örneğin "
+                "'govoriti' fiilinde olduğu gibi",
+                dashTextA: "'govoriti'",
+                context,
+              ),
+              const Divider(),
+              buildTable(
+                gelecekZamanSampleH,
+                "Özne düşürmeden kullanım aşağıdaki gibi",
+                [
+                  (user) => user['özne']!,
+                  (user) => user['çekim']!,
+                  (user) => user['isim']!,
+                ],
+              ),
+              buildTable(
+                gelecekZamanSampleI,
+                "Özne düşürerek kullanım aşağıdaki gibi",
+                [
+                  (user) => user['isim']!,
+                  (user) => user['çekim']!,
+                ],
+              ),
             ],
           ),
         ),
