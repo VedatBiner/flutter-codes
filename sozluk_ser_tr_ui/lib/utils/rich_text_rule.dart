@@ -7,7 +7,7 @@ Widget buildRichTextRule(
   String? dashTextB,
   String? dashTextC,
   String? dashTextD,
-      String? dashTextE,
+  String? dashTextE,
 }) {
   TextStyle defaultStyle = TextStyle(
     fontWeight: FontWeight.normal,

@@ -99,11 +99,13 @@ class _HomePageState extends State<HomePage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Transform.scale(
             alignment: Alignment.center,
-            scale: 0.30,
-            child: const CircularProgressIndicator(
-              backgroundColor: Colors.red,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-              strokeWidth: 6,
+            scale: 0.90,
+            child: const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.red,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                strokeWidth: 6,
+              ),
             ),
           );
         }
@@ -194,6 +196,8 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             log("Kelime ekleme seçildi");
+            log("second : $secondLanguageText");
+            log("first : $firstLanguageText");
             /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
             _wordBoxDialog.openWordBox(
               context: context,
