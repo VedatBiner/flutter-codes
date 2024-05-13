@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
 
     /// Firestore verisinden JSON dosya oluşturup yazıyoruz
     _wordService.jsonInit();
+
     /// Firestore veri yapısı listelenir
     _initializeFirestore();
     _wordListFuture = _fetchWordList();
@@ -207,8 +208,8 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             log("Kelime ekleme seçildi");
-            log("second : $secondLanguageText");
-            log("first : $firstLanguageText");
+            log("home_page : firstLanguageText : $firstLanguageText");
+            log("home_page : secondLanguageText : $secondLanguageText");
 
             /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
             _wordBoxDialog.openWordBox(

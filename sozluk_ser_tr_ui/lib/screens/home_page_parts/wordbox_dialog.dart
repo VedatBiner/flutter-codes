@@ -16,10 +16,10 @@ class WordBoxDialog {
   final FirestoreService firestoreService = FirestoreService();
 
   /// başlangıç dili Sırpça olacak
-  String firstLanguageCode = 'RS'; // İlk dil kodu
-  String firstLanguageText = 'Sırpça'; // İlk dil metni
-  String secondLanguageCode = 'TR'; // İkinci dil kodu
-  String secondLanguageText = 'Türkçe'; // İkinci dil metni
+  String firstLanguageCode = secondCountry; // İlk dil kodu
+  String firstLanguageText = ikinciDil; // İlk dil metni
+  String secondLanguageCode = firstCountry; // İkinci dil kodu
+  String secondLanguageText = birinciDil; // İkinci dil metni
 
   /// veri girişi için Controller
   final TextEditingController ikinciDilController = TextEditingController();
@@ -50,11 +50,22 @@ class WordBoxDialog {
       }
     }
 
+    // log("first lang : $firstLang");
+    // log("second lang : $secondLang");
+
     ikinciDilController.text = secondLang;
     birinciDilController.text = firstLang;
 
-    log("first Language Text : $firstLanguageText");
-    log("second Language Text : $secondLanguageText");
+    firstLang == birinciDil
+        ? firstLanguageText = birinciDil
+        : firstLanguageText = ikinciDil;
+
+    secondLang == ikinciDil
+        ? secondLanguageText = ikinciDil
+        : secondLanguageText = birinciDil;
+
+    log("wordbox_dialog first Language Text : $firstLanguageText");
+    log("wordBox_dialog second Language Text : $secondLanguageText");
 
     await showDialog(
       context: context,
@@ -72,43 +83,56 @@ class WordBoxDialog {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            firstLanguageText == birinciDil
-                ? TextEntry(
-                    controller: birinciDilController,
-                    hintText: "$birinciDil kelime giriniz ...",
-                  )
-                : TextEntry(
-                    controller: ikinciDilController,
-                    hintText: "$ikinciDil kelime giriniz ...",
-                  ),
-            // secondLanguageText == ikinciDil
-            //     ? TextEntry(
-            //         controller: ikinciDilController,
-            //         hintText: "$ikinciDil kelime giriniz ...",
-            //       )
-            //     : TextEntry(
-            //         controller: birinciDilController,
-            //         hintText: "$birinciDil karşılığını giriniz ...",
-            //       ),
+            // TextEntry(
+            //   controller: firstLanguageText == birinciDil
+            //       ? birinciDilController
+            //       : secondLanguageText == ikinciDil
+            //           ? ikinciDilController
+            //           : birinciDilController,
+            //   hintText: firstLanguageText == birinciDil
+            //       ? "$birinciDil $wordEntryMsg"
+            //       : secondLanguageText == ikinciDil
+            //           ? "$ikinciDil $wordMeanInMsg"
+            //           : "$birinciDil $wordMeanInMsg",
+            // ),
+
+            // TextEntry(
+            //   controller: firstLanguageText == birinciDil
+            //       ? birinciDilController
+            //       : ikinciDilController,
+            //   hintText: firstLanguageText == birinciDil
+            //       ? "$birinciDil $wordEntryMsg"
+            //       : "$ikinciDil $wordEntryMsg",
+            // ),
+            //
+            // TextEntry(
+            //   controller: secondLanguageText == ikinciDil
+            //       ? ikinciDilController
+            //       : birinciDilController,
+            //   hintText: secondLanguageText == ikinciDil
+            //       ? "$ikinciDil $wordMeanInMsg"
+            //       : "$birinciDil $wordMeanInMsg",
+            // ),
+
             // if (firstLanguageText == birinciDil)
             //   TextEntry(
             //     controller: birinciDilController,
-            //     hintText: "$birinciDil kelime giriniz ...",
+            //     hintText: "$birinciDil $wordEntryMsg",
             //   ),
             // if (secondLanguageText == ikinciDil)
             //   TextEntry(
             //     controller: ikinciDilController,
-            //     hintText: "$ikinciDil karşılığını giriniz ...",
+            //     hintText: "$ikinciDil $wordMeanInMsg",
             //   ),
             // if (firstLanguageText == ikinciDil)
             //   TextEntry(
             //     controller: ikinciDilController,
-            //     hintText: "$ikinciDil kelime giriniz ...",
+            //     hintText: "$ikinciDil $wordEntryMsg",
             //   ),
             // if (secondLanguageText == birinciDil)
             //   TextEntry(
             //     controller: birinciDilController,
-            //     hintText: "$birinciDil karşılığını giriniz ...",
+            //     hintText: "$birinciDil $wordMeanInMsg",
             //   ),
           ],
         ),

@@ -181,6 +181,11 @@ const String noOfWordsEntered = "Girilen kelime sayısı: ";
 /// Girilen kelime sayısı bulunamadı hatası
 const String noOfWordsErrorMsg = 'Girilen kelime sayısı: Hesaplanamadı';
 
+/// Kelime Giriş mesajı
+const String wordEntryMsg = "kelime giriniz ... ";
+/// Kelime karşılık mesajı
+const String wordMeanInMsg = "karşılığını giriniz ... ";
+
 /// update mesajı
 const String updateMsg = " tarafından düzeltilmiştir...";
 

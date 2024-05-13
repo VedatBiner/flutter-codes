@@ -5,6 +5,8 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,7 @@ class WordListBuilder extends StatelessWidget {
     /// Dilin her iki yöne de belirlenmesi
     final currentLanguage = languageParams.firstLanguageText;
     final targetLanguage = languageParams.secondLanguageText;
+    // log("Current Lang : $currentLanguage");
 
     return Column(
       children: [
@@ -86,13 +89,13 @@ class WordListBuilder extends StatelessWidget {
             displayedTranslation: displayedTranslation,
             displayedLanguage: displayedLanguage,
             firstLanguageText:
-            languageParams.firstLanguageText == displayedTranslation
-                ? word.sirpca
-                : word.turkce,
+                languageParams.firstLanguageText == displayedTranslation
+                    ? word.sirpca
+                    : word.turkce,
             secondLanguageText:
-            languageParams.secondLanguageText == displayedLanguage
-                ? word.turkce
-                : word.sirpca,
+                languageParams.secondLanguageText == displayedLanguage
+                    ? word.turkce
+                    : word.sirpca,
           )
         : WordCardView(
             word: word,
