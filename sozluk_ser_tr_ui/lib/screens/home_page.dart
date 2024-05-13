@@ -141,22 +141,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// ekrana listelenecek yapı burada oluşturuluyor
   Future<List<QuerySnapshot<FsWords>>> _fetchWordList() async {
     final queryForSerbian = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("sirpca")
-        .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
-        .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .collection(collectionName)
+        .orderBy(fsIkinciDil)
+        .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
+        .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
         );
 
     final queryForTurkish = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("turkce")
-        .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
-        .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .collection(collectionName)
+        .orderBy(fsBirinciDil)
+        .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
+        .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
@@ -219,13 +220,15 @@ class _HomePageState extends State<HomePage> {
                 // Eklenecek kelimenin işlemleri
                 log('Eklenecek kelime: $secondLang - $firstLang');
                 _wordListFuture = _fetchWordList();
-                // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler burada gerçekleştirilebilir
+                // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler
+                // burada gerçekleştirilebilir
               },
               onWordUpdated: (String docId) {
                 // Güncellenecek kelimenin işlemleri
                 log('Güncellenecek kelime ID: $docId');
                 _wordListFuture = _fetchWordList();
-                // Güncellenen kelimeyi Firestore 'da güncelleme gibi işlemler burada gerçekleştirilebilir
+                // Güncellenen kelimeyi Firestore 'da güncelleme gibi
+                // işlemler burada gerçekleştirilebilir
               },
             );
           },
@@ -250,7 +253,6 @@ class _HomePageState extends State<HomePage> {
         ),
 
         /// burada sıralı kelime listesi gelsin
-
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
           child: _buildWordList(),

@@ -1,4 +1,5 @@
 /// <----- build_bottom_sheet.dart ----->
+/// Girilen kelime sayısı burada bulunuyor
 library;
 
 import 'package:flutter/material.dart';
@@ -28,20 +29,12 @@ class BottomSheetWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Girilen kelime sayısı: ',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
+                    noOfWordsEntered,
+                    style: noOfWordsText,
                   ),
                   Text(
                     '${snapshot.data}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.indigo,
-                    ),
+                    style: noOfWordsCount,
                   ),
                 ],
               ),
@@ -50,11 +43,8 @@ class BottomSheetWidget extends StatelessWidget {
           return const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              'Girilen kelime sayısı: Hesaplanamadı',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+              noOfWordsErrorMsg,
+              style: baslikTextBlack,
             ),
           );
         },

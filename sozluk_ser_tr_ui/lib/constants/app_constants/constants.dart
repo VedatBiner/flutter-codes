@@ -33,6 +33,20 @@ const listTextBlue = TextStyle(
   color: Colors.blue,
 );
 
+/// Girilen kelime sayısı mesaj stili
+const noOfWordsText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.red,
+);
+
+/// Girilen kelime sayısı
+const noOfWordsCount = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.indigo,
+);
+
 /// detay sayfası text stili
 const detailTextRed = TextStyle(
   fontWeight: FontWeight.bold,
@@ -157,8 +171,15 @@ const String secondCountry = "RS";
 
 /// koleksiyon adını burada belirtelim
 const String collectionName = 'kelimeler';
+
 /// mail adresi
 const String fsUserEmail = "userEmail";
+
+/// girilen kelime sayısı
+const String noOfWordsEntered = "Girilen kelime sayısı: ";
+
+/// Girilen kelime sayısı bulunamadı hatası
+const String noOfWordsErrorMsg = 'Girilen kelime sayısı: Hesaplanamadı';
 
 /// update mesajı
 const String updateMsg = " tarafından düzeltilmiştir...";
