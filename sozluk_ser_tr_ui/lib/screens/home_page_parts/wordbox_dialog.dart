@@ -1,6 +1,8 @@
 /// <----- wordbox_dialog.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -51,6 +53,9 @@ class WordBoxDialog {
     ikinciDilController.text = secondLang;
     birinciDilController.text = firstLang;
 
+    log("first Language Text : $firstLanguageText");
+    log("second Language Text : $secondLanguageText");
+
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -67,26 +72,44 @@ class WordBoxDialog {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            if (firstLanguageText == birinciDil)
-              TextEntry(
-                controller: birinciDilController,
-                hintText: "$birinciDil kelime giriniz ...",
-              ),
-            if (secondLanguageText == ikinciDil)
-              TextEntry(
-                controller: ikinciDilController,
-                hintText: "$ikinciDil karşılığını giriniz ...",
-              ),
-            if (firstLanguageText == ikinciDil)
-              TextEntry(
-                controller: ikinciDilController,
-                hintText: "$ikinciDil kelime giriniz ...",
-              ),
-            if (secondLanguageText == birinciDil)
-              TextEntry(
-                controller: birinciDilController,
-                hintText: "$birinciDil karşılığını giriniz ...",
-              ),
+            firstLanguageText == birinciDil
+                ? TextEntry(
+                    controller: birinciDilController,
+                    hintText: "$birinciDil kelime giriniz ...",
+                  )
+                : TextEntry(
+                    controller: ikinciDilController,
+                    hintText: "$ikinciDil kelime giriniz ...",
+                  ),
+            // secondLanguageText == ikinciDil
+            //     ? TextEntry(
+            //         controller: ikinciDilController,
+            //         hintText: "$ikinciDil kelime giriniz ...",
+            //       )
+            //     : TextEntry(
+            //         controller: birinciDilController,
+            //         hintText: "$birinciDil karşılığını giriniz ...",
+            //       ),
+            // if (firstLanguageText == birinciDil)
+            //   TextEntry(
+            //     controller: birinciDilController,
+            //     hintText: "$birinciDil kelime giriniz ...",
+            //   ),
+            // if (secondLanguageText == ikinciDil)
+            //   TextEntry(
+            //     controller: ikinciDilController,
+            //     hintText: "$ikinciDil karşılığını giriniz ...",
+            //   ),
+            // if (firstLanguageText == ikinciDil)
+            //   TextEntry(
+            //     controller: ikinciDilController,
+            //     hintText: "$ikinciDil kelime giriniz ...",
+            //   ),
+            // if (secondLanguageText == birinciDil)
+            //   TextEntry(
+            //     controller: birinciDilController,
+            //     hintText: "$birinciDil karşılığını giriniz ...",
+            //   ),
           ],
         ),
         actions: [

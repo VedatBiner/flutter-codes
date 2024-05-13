@@ -42,17 +42,23 @@ class _HomePageState extends State<HomePage> {
 
   String aramaKelimesi = "";
 
-  /// başlangıç dili Sırpça olacak
+  /// Başlangıç App Bar
   String appBarTitle = appBarMainTitleSecond;
-  String firstLanguageCode = 'RS'; // İlk dil kodu
-  String firstLanguageText = 'Sırpça'; // İlk dil metni
-  String secondLanguageCode = 'TR'; // İkinci dil kodu
-  String secondLanguageText = 'Türkçe'; // İkinci dil metni
 
+  /// başlangıç dili Sırpça olacak
+  String firstLanguageCode = secondCountry; // İlk dil kodu
+  String firstLanguageText = ikinciDil; // İlk dil metni
+  String secondLanguageCode = firstCountry; // İkinci dil kodu
+  String secondLanguageText = birinciDil; // İkinci dil metni
+
+  /// Burada başlangıç dili Sırpça geldiği için
+  /// koleksiyon okunduğu zaman
+  /// kelimeler sırpça 'ya göre sıralı olarak
+  /// pagination ile listelenir.
   Future<void> _initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("sirpca")
+        .collection(collectionName)
+        .orderBy(fsIkinciDil)
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
@@ -67,27 +73,31 @@ class _HomePageState extends State<HomePage> {
 
     /// Firestore verisinden JSON dosya oluşturup yazıyoruz
     _wordService.jsonInit();
+    /// Firestore veri yapısı listelenir
     _initializeFirestore();
     _wordListFuture = _fetchWordList();
   }
 
   /// kelime listesi oluşturma
+  /// Burada hem sırpça hem de Türkçe iki liste oluşturuluyor
   Widget _buildWordList() {
+    /// Sırpça sorgu listesi
     final queryForSerbian = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("sirpca")
-        .where("sirpca", isGreaterThanOrEqualTo: aramaKelimesi)
-        .where("sirpca", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .collection(collectionName)
+        .orderBy(fsIkinciDil)
+        .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
+        .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
         );
 
+    /// Türkçe sorgu listesi
     final queryForTurkish = FirebaseFirestore.instance
-        .collection('kelimeler')
-        .orderBy("turkce")
-        .where("turkce", isGreaterThanOrEqualTo: aramaKelimesi)
-        .where("turkce", isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .collection(collectionName)
+        .orderBy(fsBirinciDil)
+        .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
+        .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
@@ -114,6 +124,7 @@ class _HomePageState extends State<HomePage> {
             'Hata: ${snapshot.error}',
           ); // Hata durumunda hata mesajı göster
         }
+
         /// languageParams nesnesini oluşturun
         final languageParams = LanguageParams(
           firstLanguageCode: firstLanguageCode,
@@ -152,9 +163,8 @@ class _HomePageState extends State<HomePage> {
         );
 
     const options = GetOptions(source: Source.cache);
-    return await Future.wait([
-      queryForSerbian.get(options),
-      queryForTurkish.get(options)]);
+    return await Future.wait(
+        [queryForSerbian.get(options), queryForTurkish.get(options)]);
   }
 
   /// ana kodumuz bu şekilde
@@ -198,6 +208,7 @@ class _HomePageState extends State<HomePage> {
             log("Kelime ekleme seçildi");
             log("second : $secondLanguageText");
             log("first : $firstLanguageText");
+
             /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
             _wordBoxDialog.openWordBox(
               context: context,

@@ -155,6 +155,8 @@ const String ikinciDil = "Sırpça";
 const String fsIkinciDil = "sirpca";
 const String secondCountry = "RS";
 
+/// koleksiyon adını burada belirtelim
+const String collectionName = 'kelimeler';
 /// mail adresi
 const String fsUserEmail = "userEmail";
 
