@@ -64,8 +64,8 @@ class WordBoxDialog {
         ? secondLanguageText = ikinciDil
         : secondLanguageText = birinciDil;
 
-    log("wordbox_dialog first Language Text : $firstLanguageText");
-    log("wordBox_dialog second Language Text : $secondLanguageText");
+    log("wordbox_dialog : firstLanguageText : $firstLanguageText");
+    log("wordBox_dialog : secondLanguageText : $secondLanguageText");
 
     await showDialog(
       context: context,
@@ -83,6 +83,25 @@ class WordBoxDialog {
         content: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            TextEntry(
+              controller: firstLanguageText == birinciDil
+                  ? birinciDilController
+                  : ikinciDilController,
+              hintText: firstLanguageText == birinciDil
+                  ? "$birinciDil $wordEntryMsg"
+                  : "$birinciDil $wordEntryMsg", // Burada secondLanguageText kullanıldı
+            ),
+            TextEntry(
+              controller: secondLanguageText == ikinciDil
+                  ? ikinciDilController
+                  : birinciDilController,
+              hintText: secondLanguageText == ikinciDil
+                  ? "$ikinciDil $wordMeanInMsg"
+                  : "$ikinciDil $wordMeanInMsg", // Burada firstLanguageText kullanıldı
+            ),
+
+
+
             // TextEntry(
             //   controller: firstLanguageText == birinciDil
             //       ? birinciDilController
