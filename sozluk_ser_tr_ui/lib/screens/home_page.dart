@@ -60,9 +60,9 @@ class _HomePageState extends State<HomePage> {
         .collection(collectionName)
         .orderBy(fsIkinciDil)
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -79,30 +79,27 @@ class _HomePageState extends State<HomePage> {
     _wordListFuture = _fetchWordList();
   }
 
+  /// kelime listesi sorgulama
+  Query<FsWords> _buildQuery(String orderByField) {
+    return FirebaseFirestore.instance
+        .collection(collectionName)
+        .orderBy(orderByField)
+        .where(orderByField, isGreaterThanOrEqualTo: aramaKelimesi)
+        .where(orderByField, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .withConverter<FsWords>(
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
+  }
+
   /// kelime listesi oluşturma
   /// Burada hem sırpça hem de Türkçe iki liste oluşturuluyor
   Widget _buildWordList() {
     /// Sırpça sorgu listesi
-    final queryForSerbian = FirebaseFirestore.instance
-        .collection(collectionName)
-        .orderBy(fsIkinciDil)
-        .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
-        .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
-        .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+    final queryForSerbian = _buildQuery(fsIkinciDil);
 
     /// Türkçe sorgu listesi
-    final queryForTurkish = FirebaseFirestore.instance
-        .collection(collectionName)
-        .orderBy(fsBirinciDil)
-        .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
-        .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
-        .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+    final queryForTurkish = _buildQuery(fsBirinciDil);
 
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
@@ -144,25 +141,8 @@ class _HomePageState extends State<HomePage> {
 
   /// ekrana listelenecek yapı burada oluşturuluyor
   Future<List<QuerySnapshot<FsWords>>> _fetchWordList() async {
-    final queryForSerbian = FirebaseFirestore.instance
-        .collection(collectionName)
-        .orderBy(fsIkinciDil)
-        .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
-        .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
-        .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
-
-    final queryForTurkish = FirebaseFirestore.instance
-        .collection(collectionName)
-        .orderBy(fsBirinciDil)
-        .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
-        .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
-        .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+    final queryForSerbian = _buildQuery(fsIkinciDil);
+    final queryForTurkish = _buildQuery(fsBirinciDil);
 
     const options = GetOptions(source: Source.cache);
     return await Future.wait(
@@ -215,9 +195,9 @@ class _HomePageState extends State<HomePage> {
             _wordBoxDialog.openWordBox(
               context: context,
               onWordAdded: (
-                  String secondLang,
-                  String firstLang,
-                  ) {
+                String secondLang,
+                String firstLang,
+              ) {
                 // Eklenecek kelimenin işlemleri
                 log('Eklenecek kelime: $secondLang - $firstLang');
                 _wordListFuture = _fetchWordList();
