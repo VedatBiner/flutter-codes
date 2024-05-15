@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+import '../firebase_options.dart';
+import 'models/language_params.dart';
 import 'services/word_count_provider.dart';
 import 'services/icon_provider.dart';
 import 'services/theme_provider.dart';
 import 'services/app_routes.dart';
-import '../firebase_options.dart';
 import 'constants/base_constants/app_const.dart';
+import 'constants/app_constants/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  /// Kullanıcı dil parametreleri buradan sağlanıyor
+  String firstLanguageCode = firstCountry;
+  String firstLanguageText = birinciDil;
+  String secondLanguageCode = secondCountry;
+  String secondLanguageText = ikinciDil;
 
   runApp(
     MultiProvider(
@@ -33,9 +40,19 @@ void main() async {
         ),
 
         /// word count provider
-        ChangeNotifierProvider(
-          create: (context) => WordCountProvider(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (context) => WordCountProvider(),
+        // ),
+
+        /// LanguageParam için provider
+        // ChangeNotifierProvider<LanguageParams>(
+        //   create: (_) => LanguageParams(
+        //     firstLanguageCode: firstLanguageCode,
+        //     firstLanguageText: firstLanguageText,
+        //     secondLanguageCode: secondLanguageCode,
+        //     secondLanguageText: secondLanguageText,
+        //   ),
+        // ),
       ],
       child: const MyApp(),
     ),

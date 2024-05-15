@@ -1,3 +1,4 @@
+/// bu dosya şimdilik kullanılmayacak
 /// <----- word_count_provider.dart ----->
 library;
 

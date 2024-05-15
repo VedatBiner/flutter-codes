@@ -11,3 +11,6 @@ class LanguageParams {
     required this.secondLanguageText,
   });
 }
+
+
+// class LanguageParams extends ChangeNotifier {

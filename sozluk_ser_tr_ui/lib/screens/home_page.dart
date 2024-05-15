@@ -60,9 +60,9 @@ class _HomePageState extends State<HomePage> {
         .collection(collectionName)
         .orderBy(fsIkinciDil)
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -89,9 +89,9 @@ class _HomePageState extends State<HomePage> {
         .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     /// Türkçe sorgu listesi
     final queryForTurkish = FirebaseFirestore.instance
@@ -100,9 +100,9 @@ class _HomePageState extends State<HomePage> {
         .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
@@ -150,9 +150,9 @@ class _HomePageState extends State<HomePage> {
         .where(fsIkinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(fsIkinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     final queryForTurkish = FirebaseFirestore.instance
         .collection(collectionName)
@@ -160,9 +160,9 @@ class _HomePageState extends State<HomePage> {
         .where(fsBirinciDil, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(fsBirinciDil, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
 
     const options = GetOptions(source: Source.cache);
     return await Future.wait(
@@ -215,9 +215,9 @@ class _HomePageState extends State<HomePage> {
             _wordBoxDialog.openWordBox(
               context: context,
               onWordAdded: (
-                String secondLang,
-                String firstLang,
-              ) {
+                  String secondLang,
+                  String firstLang,
+                  ) {
                 // Eklenecek kelimenin işlemleri
                 log('Eklenecek kelime: $secondLang - $firstLang');
                 _wordListFuture = _fetchWordList();

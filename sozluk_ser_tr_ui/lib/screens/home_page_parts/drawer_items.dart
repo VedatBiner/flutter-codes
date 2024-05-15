@@ -53,7 +53,7 @@ Drawer buildDrawer(BuildContext context) {
                   color: menuColor,
                   onPressed: () {
                     final provider =
-                        Provider.of<ThemeProvider>(context, listen: false);
+                    Provider.of<ThemeProvider>(context, listen: false);
                     provider.toggleTheme(!provider.isDarkMode);
                   },
                   icon: Icon(
@@ -92,7 +92,7 @@ Drawer buildDrawer(BuildContext context) {
                   icon: const Icon(Icons.logout),
                   onPressed: () {
                     auth.signOut().whenComplete(
-                      () async {
+                          () async {
                         /// kullanıcıya çıkış yaptırır ve
                         /// giriş sayfasına yönlendirir
                         await Navigator.pushNamed(
@@ -141,10 +141,10 @@ Drawer buildDrawer(BuildContext context) {
 }
 
 ListTile buildListTile(
-  BuildContext context,
-  String text,
-  Widget Function(BuildContext) pageRouteGetter,
-) {
+    BuildContext context,
+    String text,
+    Widget Function(BuildContext) pageRouteGetter,
+    ) {
   return ListTile(
     textColor: menuColor,
     title: Text(text),
