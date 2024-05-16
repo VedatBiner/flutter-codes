@@ -150,10 +150,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ana kodumuz bu şekilde
+  /// Dil değiştirme işlemi için provider 'ı alın
+
   @override
   Widget build(BuildContext context) {
     /// burada Splash_page.dart sayfasına
     /// geri dönüşü engelledik.
+    final languageParams = Provider.of<LanguageParams>(context);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -183,7 +186,7 @@ class _HomePageState extends State<HomePage> {
           },
           appBarTitle: appBarTitle,
         ),
-        body: showBody(context),
+        body: showBody(context, languageParams),
         drawer: buildDrawer(context),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -221,7 +224,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Sayfa düzeni burada oluşuyor.
-  Column showBody(BuildContext context) {
+  Column showBody(BuildContext context, LanguageParams languageParams) {
     final ScrollController controller;
 
     return Column(
@@ -230,13 +233,13 @@ class _HomePageState extends State<HomePage> {
         /// dil değişimi, görünüm ayarı var
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.08,
-          child: buildLanguageSelector(context: context),
+          child: buildLanguageSelector(context: context, languageParams: languageParams),
         ),
 
         /// burada sıralı kelime listesi gelsin
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
-          child: _buildWordList(),
+          child: const Text("şimdilik burası boş kalsın"), //_buildWordList(),
         ),
       ],
     );
@@ -245,12 +248,13 @@ class _HomePageState extends State<HomePage> {
   /// dil değişimi burada yapılıyor
   Widget buildLanguageSelector({
     required BuildContext context,
+    required LanguageParams languageParams,
   }) {
     return LanguageSelector(
-      firstLanguageCode: firstLanguageCode,
-      firstLanguageText: firstLanguageText,
-      secondLanguageCode: secondLanguageCode,
-      secondLanguageText: secondLanguageText,
+      firstLanguageCode: languageParams.firstLanguageCode,
+      firstLanguageText: languageParams.firstLanguageText,
+      secondLanguageCode: languageParams.secondLanguageCode,
+      secondLanguageText: languageParams.secondLanguageText,
       isListView: isListView,
       onIconPressed: () {
         setState(() {
@@ -260,18 +264,31 @@ class _HomePageState extends State<HomePage> {
       },
       onLanguageChange: () {
         setState(() {
-          String tempLanguageCode = firstLanguageCode;
-          String tempLanguageText = firstLanguageText;
-          firstLanguageCode = secondLanguageCode;
-          firstLanguageText = secondLanguageText;
-          secondLanguageCode = tempLanguageCode;
-          secondLanguageText = tempLanguageText;
+          // String tempLanguageCode = firstLanguageCode;
+          // String tempLanguageText = firstLanguageText;
+          // firstLanguageCode = secondLanguageCode;
+          // firstLanguageText = secondLanguageText;
+          // secondLanguageCode = tempLanguageCode;
+          // secondLanguageText = tempLanguageText;
 
-          if (firstLanguageText == birinciDil &&
-              secondLanguageText == ikinciDil) {
+          final newParams = languageParams.copyWith(
+            firstLanguageCode: languageParams.secondLanguageCode,
+            firstLanguageText: languageParams.secondLanguageText,
+            secondLanguageCode: languageParams.firstLanguageCode,
+            secondLanguageText: languageParams.firstLanguageText,
+          );
+          Provider.of<LanguageParams>(context, listen: false).changeLanguage(
+            firstLanguageCode: newParams.firstLanguageCode,
+            firstLanguageText: newParams.firstLanguageText,
+            secondLanguageCode: newParams.secondLanguageCode,
+            secondLanguageText: newParams.secondLanguageText,
+          );
+
+          if (newParams.firstLanguageText == birinciDil &&
+              newParams.secondLanguageText == ikinciDil) {
             appBarTitle = appBarMainTitleFirst;
-          } else if (firstLanguageText == ikinciDil &&
-              secondLanguageText == birinciDil) {
+          } else if (newParams.firstLanguageText == ikinciDil &&
+              newParams.secondLanguageText == birinciDil) {
             appBarTitle = appBarMainTitleSecond;
           }
         });

@@ -45,14 +45,14 @@ void main() async {
         // ),
 
         /// LanguageParam için provider
-        // ChangeNotifierProvider<LanguageParams>(
-        //   create: (_) => LanguageParams(
-        //     firstLanguageCode: firstLanguageCode,
-        //     firstLanguageText: firstLanguageText,
-        //     secondLanguageCode: secondLanguageCode,
-        //     secondLanguageText: secondLanguageText,
-        //   ),
-        // ),
+        ChangeNotifierProvider<LanguageParams>(
+          create: (_) => LanguageParams(
+            firstLanguageCode: firstLanguageCode,
+            firstLanguageText: firstLanguageText,
+            secondLanguageCode: secondLanguageCode,
+            secondLanguageText: secondLanguageText,
+          ),
+        ),
       ],
       child: const MyApp(),
     ),
