@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../../models/language_params.dart';
 import '../../services/firestore_services.dart';
 import '../../utils/mesaj_helper.dart';
 import '../../widgets/test_entry.dart';
@@ -30,6 +31,7 @@ class WordBoxDialog {
     required Function(String, String) onWordAdded,
     required void Function(String) onWordUpdated,
     String? docId,
+    required LanguageParams languageParams,
   }) async {
     String action = "create";
     String secondLang = "";
@@ -80,81 +82,7 @@ class WordBoxDialog {
             width: 2.0,
           ),
         ),
-        content: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextEntry(
-              controller: firstLanguageText == birinciDil
-                  ? birinciDilController
-                  : ikinciDilController,
-              hintText: firstLanguageText == birinciDil
-                  ? "$birinciDil $wordEntryMsg"
-                  : "$birinciDil $wordEntryMsg", // Burada secondLanguageText kullanıldı
-            ),
-            TextEntry(
-              controller: secondLanguageText == ikinciDil
-                  ? ikinciDilController
-                  : birinciDilController,
-              hintText: secondLanguageText == ikinciDil
-                  ? "$ikinciDil $wordMeanInMsg"
-                  : "$ikinciDil $wordMeanInMsg", // Burada firstLanguageText kullanıldı
-            ),
-
-
-
-            // TextEntry(
-            //   controller: firstLanguageText == birinciDil
-            //       ? birinciDilController
-            //       : secondLanguageText == ikinciDil
-            //           ? ikinciDilController
-            //           : birinciDilController,
-            //   hintText: firstLanguageText == birinciDil
-            //       ? "$birinciDil $wordEntryMsg"
-            //       : secondLanguageText == ikinciDil
-            //           ? "$ikinciDil $wordMeanInMsg"
-            //           : "$birinciDil $wordMeanInMsg",
-            // ),
-
-            // TextEntry(
-            //   controller: firstLanguageText == birinciDil
-            //       ? birinciDilController
-            //       : ikinciDilController,
-            //   hintText: firstLanguageText == birinciDil
-            //       ? "$birinciDil $wordEntryMsg"
-            //       : "$ikinciDil $wordEntryMsg",
-            // ),
-            //
-            // TextEntry(
-            //   controller: secondLanguageText == ikinciDil
-            //       ? ikinciDilController
-            //       : birinciDilController,
-            //   hintText: secondLanguageText == ikinciDil
-            //       ? "$ikinciDil $wordMeanInMsg"
-            //       : "$birinciDil $wordMeanInMsg",
-            // ),
-
-            // if (firstLanguageText == birinciDil)
-            //   TextEntry(
-            //     controller: birinciDilController,
-            //     hintText: "$birinciDil $wordEntryMsg",
-            //   ),
-            // if (secondLanguageText == ikinciDil)
-            //   TextEntry(
-            //     controller: ikinciDilController,
-            //     hintText: "$ikinciDil $wordMeanInMsg",
-            //   ),
-            // if (firstLanguageText == ikinciDil)
-            //   TextEntry(
-            //     controller: ikinciDilController,
-            //     hintText: "$ikinciDil $wordEntryMsg",
-            //   ),
-            // if (secondLanguageText == birinciDil)
-            //   TextEntry(
-            //     controller: birinciDilController,
-            //     hintText: "$birinciDil $wordMeanInMsg",
-            //   ),
-          ],
-        ),
+        content: _buildWordBox(),
         actions: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
@@ -201,19 +129,19 @@ class WordBoxDialog {
                             ikinciDilController.text ?? '',
                             style: kelimeStil,
                           ),
-                          const Text(" kelimesi "),
+                          const Text(
+                            ' = ',
+                            style: kelimeStil,
+                          ),
+                          Text(
+                            birinciDilController.text ?? '',
+                            style: kelimeStil,
+                          ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            currentUserEmail,
-                            style: userStil,
-                          ),
-                          Text(
-                            message,
-                          ),
-                        ],
+                      Text(
+                        message,
+                        style: kelimeStil,
                       ),
                     ],
                   ),
@@ -232,6 +160,23 @@ class WordBoxDialog {
           )
         ],
       ),
+    );
+  }
+
+  Widget _buildWordBox() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextEntry(
+          controller: ikinciDilController,
+          hintText: "$secondLanguageText $wordEntryMsg",
+        ),
+        const SizedBox(height: 10),
+        TextEntry(
+          controller: birinciDilController,
+          hintText: "$firstLanguageText $wordMeanInMsg",
+        ),
+      ],
     );
   }
 }

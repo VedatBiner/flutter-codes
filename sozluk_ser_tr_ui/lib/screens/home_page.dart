@@ -192,6 +192,7 @@ class _HomePageState extends State<HomePage> {
             /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
             _wordBoxDialog.openWordBox(
               context: context,
+              languageParams: Provider.of<LanguageParams>(context, listen: false),
               onWordAdded: (
                 String secondLang,
                 String firstLang,
