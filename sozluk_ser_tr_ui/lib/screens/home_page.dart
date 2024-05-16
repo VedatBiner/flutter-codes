@@ -124,12 +124,7 @@ class _HomePageState extends State<HomePage> {
         }
 
         /// languageParams nesnesini oluşturun
-        final languageParams = LanguageParams(
-          firstLanguageCode: firstLanguageCode,
-          firstLanguageText: firstLanguageText,
-          secondLanguageCode: secondLanguageCode,
-          secondLanguageText: secondLanguageText,
-        );
+        final languageParams = Provider.of<LanguageParams>(context);
         return WordListBuilder(
           snapshot: snapshot.data!,
           isListView: isListView,
@@ -239,7 +234,7 @@ class _HomePageState extends State<HomePage> {
         /// burada sıralı kelime listesi gelsin
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
-          child: const Text("şimdilik burası boş kalsın"), //_buildWordList(),
+          child:  _buildWordList(),// const Text("şimdilik burası boş kalsın"), //
         ),
       ],
     );
