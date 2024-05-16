@@ -228,13 +228,15 @@ class _HomePageState extends State<HomePage> {
         /// dil değişimi, görünüm ayarı var
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.08,
-          child: buildLanguageSelector(context: context, languageParams: languageParams),
+          child: buildLanguageSelector(
+              context: context, languageParams: languageParams),
         ),
 
         /// burada sıralı kelime listesi gelsin
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
-          child:  _buildWordList(),// const Text("şimdilik burası boş kalsın"), //
+          child:
+              _buildWordList(), // const Text("şimdilik burası boş kalsın"), //
         ),
       ],
     );
@@ -259,13 +261,6 @@ class _HomePageState extends State<HomePage> {
       },
       onLanguageChange: () {
         setState(() {
-          // String tempLanguageCode = firstLanguageCode;
-          // String tempLanguageText = firstLanguageText;
-          // firstLanguageCode = secondLanguageCode;
-          // firstLanguageText = secondLanguageText;
-          // secondLanguageCode = tempLanguageCode;
-          // secondLanguageText = tempLanguageText;
-
           final newParams = languageParams.copyWith(
             firstLanguageCode: languageParams.secondLanguageCode,
             firstLanguageText: languageParams.secondLanguageText,
