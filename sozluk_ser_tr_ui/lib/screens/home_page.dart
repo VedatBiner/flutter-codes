@@ -235,8 +235,8 @@ class _HomePageState extends State<HomePage> {
         /// burada sıralı kelime listesi gelsin
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
-          child:
-              _buildWordList(), // const Text("şimdilik burası boş kalsın"), //
+          /// kelimeleri listeleyen metod
+          child: _buildWordList(),
         ),
       ],
     );
