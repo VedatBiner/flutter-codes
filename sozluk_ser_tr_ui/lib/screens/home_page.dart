@@ -249,10 +249,10 @@ class _HomePageState extends State<HomePage> {
     required LanguageParams languageParams,
   }) {
     return LanguageSelector(
-      firstLanguageCode: languageParams.firstLanguageCode,
-      firstLanguageText: languageParams.firstLanguageText,
-      secondLanguageCode: languageParams.secondLanguageCode,
-      secondLanguageText: languageParams.secondLanguageText,
+      firstLanguageCode: languageParams.secondLanguageCode,
+      firstLanguageText: languageParams.secondLanguageText,
+      secondLanguageCode: languageParams.firstLanguageCode,
+      secondLanguageText: languageParams.firstLanguageText,
       isListView: isListView,
       onIconPressed: () {
         setState(() {
@@ -263,17 +263,20 @@ class _HomePageState extends State<HomePage> {
       onLanguageChange: () {
         setState(() {
           final newParams = languageParams.copyWith(
-            firstLanguageCode: languageParams.secondLanguageCode,
-            firstLanguageText: languageParams.secondLanguageText,
-            secondLanguageCode: languageParams.firstLanguageCode,
-            secondLanguageText: languageParams.firstLanguageText,
+            firstLanguageCode: languageParams.firstLanguageCode,
+            firstLanguageText: languageParams.firstLanguageText,
+            secondLanguageCode: languageParams.secondLanguageCode,
+            secondLanguageText: languageParams.secondLanguageText,
           );
           Provider.of<LanguageParams>(context, listen: false).changeLanguage(
-            firstLanguageCode: newParams.firstLanguageCode,
-            firstLanguageText: newParams.firstLanguageText,
-            secondLanguageCode: newParams.secondLanguageCode,
-            secondLanguageText: newParams.secondLanguageText,
+            firstLanguageCode: newParams.secondLanguageCode,
+            firstLanguageText: newParams.secondLanguageText,
+            secondLanguageCode: newParams.firstLanguageCode,
+            secondLanguageText: newParams.firstLanguageText,
           );
+
+          log("home_page.dart : newParams.firstLanguageText = ${newParams.firstLanguageText}");
+          log("home_page.dart : newParams.secondLanguageText = ${newParams.secondLanguageText}");
 
           if (newParams.firstLanguageText == birinciDil &&
               newParams.secondLanguageText == ikinciDil) {
