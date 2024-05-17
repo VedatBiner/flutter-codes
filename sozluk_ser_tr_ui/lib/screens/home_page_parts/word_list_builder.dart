@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import '../../screens/home_page_parts/word_card_view.dart';
 import '../../screens/home_page_parts/word_list_view.dart';
 import '../../models/fs_words.dart';
-import '../../services/language_provider.dart';
 import '../../services/theme_provider.dart';
 import '../../models/language_params.dart';
 

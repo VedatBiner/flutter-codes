@@ -48,10 +48,10 @@ class LanguageParams extends ChangeNotifier {
     String? secondLanguageText,
   }) {
     return LanguageParams(
-      firstLanguageCode: firstLanguageCode ?? this._firstLanguageCode,
-      firstLanguageText: firstLanguageText ?? this._firstLanguageText,
-      secondLanguageCode: secondLanguageCode ?? this._secondLanguageCode,
-      secondLanguageText: secondLanguageText ?? this._secondLanguageText,
+      firstLanguageCode: firstLanguageCode ?? _firstLanguageCode,
+      firstLanguageText: firstLanguageText ?? _firstLanguageText,
+      secondLanguageCode: secondLanguageCode ?? _secondLanguageCode,
+      secondLanguageText: secondLanguageText ?? _secondLanguageText,
     );
   }
 

@@ -1,8 +1,6 @@
 /// <----- wordbox_dialog.dart ----->
 library;
 
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,15 +10,15 @@ import '../../services/firestore_services.dart';
 import '../../utils/mesaj_helper.dart';
 import '../../widgets/test_entry.dart';
 
-class WordBoxDialog {
+class WordBoxDialog extends ChangeNotifier {
   /// Firestore servisi için değişken oluşturalım
   final FirestoreService firestoreService = FirestoreService();
 
   /// başlangıç dili Sırpça olacak
-  String firstLanguageCode = secondCountry; // İlk dil kodu
-  String firstLanguageText = ikinciDil; // İlk dil metni
-  String secondLanguageCode = firstCountry; // İkinci dil kodu
-  String secondLanguageText = birinciDil; // İkinci dil metni
+  String firstLanguageCode = firstCountry; // İlk dil kodu
+  String firstLanguageText = birinciDil; // İlk dil metni
+  String secondLanguageCode = secondCountry; // İkinci dil kodu
+  String secondLanguageText = ikinciDil; // İkinci dil metni
 
   /// veri girişi için Controller
   final TextEditingController ikinciDilController = TextEditingController();
@@ -52,22 +50,16 @@ class WordBoxDialog {
       }
     }
 
-    // log("first lang : $firstLang");
-    // log("second lang : $secondLang");
-
     ikinciDilController.text = secondLang;
     birinciDilController.text = firstLang;
 
     firstLang == birinciDil
-        ? firstLanguageText = birinciDil
-        : firstLanguageText = ikinciDil;
+        ? firstLanguageText = languageParams.firstLanguageText
+        : firstLanguageText = languageParams.secondLanguageText;
 
     secondLang == ikinciDil
-        ? secondLanguageText = ikinciDil
-        : secondLanguageText = birinciDil;
-
-    log("wordbox_dialog : firstLanguageText : $firstLanguageText");
-    log("wordBox_dialog : secondLanguageText : $secondLanguageText");
+        ? secondLanguageText = languageParams.secondLanguageText
+        : secondLanguageText = languageParams.firstLanguageText;
 
     await showDialog(
       context: context,
@@ -169,12 +161,12 @@ class WordBoxDialog {
       children: [
         TextEntry(
           controller: ikinciDilController,
-          hintText: "$secondLanguageText $wordEntryMsg",
+          hintText: "$firstLanguageText $wordEntryMsg",
         ),
         const SizedBox(height: 5),
         TextEntry(
           controller: birinciDilController,
-          hintText: "$firstLanguageText $wordMeanInMsg",
+          hintText: "$secondLanguageText $wordMeanInMsg",
         ),
       ],
     );

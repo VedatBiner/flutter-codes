@@ -55,7 +55,7 @@ class MyThemes {
     iconTheme: const IconThemeData(color: Colors.red, opacity: 0.8),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(drawerColor),
+        backgroundColor: WidgetStateProperty.all<Color>(drawerColor),
       ),
     ),
     textTheme: const TextTheme(

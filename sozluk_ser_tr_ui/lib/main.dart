@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
 import 'models/language_params.dart';
-import 'services/word_count_provider.dart';
 import 'services/icon_provider.dart';
 import 'services/theme_provider.dart';
 import 'services/app_routes.dart';
