@@ -186,13 +186,12 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             log("Kelime ekleme seçildi");
-            log("home_page : firstLanguageText : $firstLanguageText");
-            log("home_page : secondLanguageText : $secondLanguageText");
 
             /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
             _wordBoxDialog.openWordBox(
               context: context,
-              languageParams: Provider.of<LanguageParams>(context, listen: false),
+              languageParams:
+                  Provider.of<LanguageParams>(context, listen: false),
               onWordAdded: (
                 String secondLang,
                 String firstLang,
@@ -236,6 +235,7 @@ class _HomePageState extends State<HomePage> {
         /// burada sıralı kelime listesi gelsin
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.78,
+
           /// kelimeleri listeleyen metod
           child: _buildWordList(),
         ),
@@ -274,9 +274,6 @@ class _HomePageState extends State<HomePage> {
             secondLanguageCode: newParams.firstLanguageCode,
             secondLanguageText: newParams.firstLanguageText,
           );
-
-          log("home_page.dart : newParams.firstLanguageText = ${newParams.firstLanguageText}");
-          log("home_page.dart : newParams.secondLanguageText = ${newParams.secondLanguageText}");
 
           if (newParams.firstLanguageText == birinciDil &&
               newParams.secondLanguageText == ikinciDil) {

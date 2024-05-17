@@ -12,10 +12,11 @@ import 'package:provider/provider.dart';
 import '../../screens/home_page_parts/word_card_view.dart';
 import '../../screens/home_page_parts/word_list_view.dart';
 import '../../models/fs_words.dart';
+import '../../services/language_provider.dart';
 import '../../services/theme_provider.dart';
 import '../../models/language_params.dart';
 
-class WordListBuilder extends StatelessWidget {
+class WordListBuilder extends StatefulWidget {
   final List<QuerySnapshot<FsWords>> snapshot;
   final bool isListView;
   final LanguageParams languageParams;
@@ -28,14 +29,19 @@ class WordListBuilder extends StatelessWidget {
   });
 
   @override
+  State<WordListBuilder> createState() => _WordListBuilderState();
+}
+
+class _WordListBuilderState extends State<WordListBuilder> {
+  @override
   Widget build(BuildContext context) {
-    final serbianResults = snapshot[0].docs.map((doc) => doc.data());
-    final turkishResults = snapshot[1].docs.map((doc) => doc.data());
+    final serbianResults = widget.snapshot[0].docs.map((doc) => doc.data());
+    final turkishResults = widget.snapshot[1].docs.map((doc) => doc.data());
     final mergedResults = [...serbianResults, ...turkishResults];
 
     /// Dilin her iki yöne de belirlenmesi
-    final currentLanguage = languageParams.firstLanguageText;
-    final targetLanguage = languageParams.secondLanguageText;
+    final currentLanguage = widget.languageParams.firstLanguageText;
+    final targetLanguage = widget.languageParams.secondLanguageText;
 
     return Column(
       children: [
@@ -53,7 +59,7 @@ class WordListBuilder extends StatelessWidget {
               return buildWordTile(
                 context: context,
                 word: word,
-                isListView: isListView,
+                isListView: widget.isListView,
                 displayedLanguage: displayedLanguage,
                 translatedLanguage: translatedLanguage,
               );
@@ -77,37 +83,38 @@ class WordListBuilder extends StatelessWidget {
     final bool isDarkMode = themeProvider.isDarkMode;
 
     /// Dil kontrolü ve kelimenin doğru dilde gösterilmesi
+    final languageParams = Provider.of<LanguageParams>(context);
     final displayedTranslation = translatedLanguage;
 
     final wordWidget = isListView
         ? WordListView(
-      word: word,
-      isDarkMode: isDarkMode,
-      displayedTranslation: displayedTranslation,
-      displayedLanguage: displayedLanguage,
-      firstLanguageText:
-      languageParams.firstLanguageText == displayedTranslation
-          ? word.turkce
-          : word.sirpca,
-      secondLanguageText:
-      languageParams.secondLanguageText == displayedLanguage
-          ? word.sirpca
-          : word.turkce,
-    )
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText:
+                languageParams.firstLanguageText == displayedTranslation
+                    ? word.turkce
+                    : word.sirpca,
+            secondLanguageText:
+                languageParams.secondLanguageText == displayedLanguage
+                    ? word.sirpca
+                    : word.turkce,
+          )
         : WordCardView(
-      word: word,
-      isDarkMode: isDarkMode,
-      displayedTranslation: displayedTranslation,
-      displayedLanguage: displayedLanguage,
-      firstLanguageText:
-      languageParams.firstLanguageText == displayedTranslation
-          ? word.turkce
-          : word.sirpca,
-      secondLanguageText:
-      languageParams.secondLanguageText == displayedLanguage
-          ? word.sirpca
-          : word.turkce,
-    );
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText:
+                languageParams.firstLanguageText == displayedTranslation
+                    ? word.turkce
+                    : word.sirpca,
+            secondLanguageText:
+                languageParams.secondLanguageText == displayedLanguage
+                    ? word.sirpca
+                    : word.turkce,
+          );
 
     return wordWidget;
   }
