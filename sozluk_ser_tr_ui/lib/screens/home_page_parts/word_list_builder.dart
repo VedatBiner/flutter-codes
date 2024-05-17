@@ -5,8 +5,6 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -38,7 +36,6 @@ class WordListBuilder extends StatelessWidget {
     /// Dilin her iki yöne de belirlenmesi
     final currentLanguage = languageParams.firstLanguageText;
     final targetLanguage = languageParams.secondLanguageText;
-    // log("Current Lang : $currentLanguage");
 
     return Column(
       children: [
