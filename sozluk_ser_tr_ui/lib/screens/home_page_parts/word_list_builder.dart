@@ -90,12 +90,12 @@ class WordListBuilder extends StatelessWidget {
       displayedLanguage: displayedLanguage,
       firstLanguageText:
       languageParams.firstLanguageText == displayedTranslation
-          ? word.sirpca
-          : word.turkce,
-      secondLanguageText:
-      languageParams.secondLanguageText == displayedLanguage
           ? word.turkce
           : word.sirpca,
+      secondLanguageText:
+      languageParams.secondLanguageText == displayedLanguage
+          ? word.sirpca
+          : word.turkce,
     )
         : WordCardView(
       word: word,
@@ -104,12 +104,12 @@ class WordListBuilder extends StatelessWidget {
       displayedLanguage: displayedLanguage,
       firstLanguageText:
       languageParams.firstLanguageText == displayedTranslation
-          ? word.sirpca
-          : word.turkce,
-      secondLanguageText:
-      languageParams.secondLanguageText == displayedLanguage
           ? word.turkce
           : word.sirpca,
+      secondLanguageText:
+      languageParams.secondLanguageText == displayedLanguage
+          ? word.sirpca
+          : word.turkce,
     );
 
     return wordWidget;

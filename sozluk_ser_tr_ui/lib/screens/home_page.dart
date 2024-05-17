@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
             log("home_page : firstLanguageText : $firstLanguageText");
             log("home_page : secondLanguageText : $secondLanguageText");
 
-            /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağırın
+            /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
             _wordBoxDialog.openWordBox(
               context: context,
               languageParams: Provider.of<LanguageParams>(context, listen: false),

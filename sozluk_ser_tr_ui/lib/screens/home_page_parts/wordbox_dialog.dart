@@ -171,7 +171,7 @@ class WordBoxDialog {
           controller: ikinciDilController,
           hintText: "$secondLanguageText $wordEntryMsg",
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 5),
         TextEntry(
           controller: birinciDilController,
           hintText: "$firstLanguageText $wordMeanInMsg",
