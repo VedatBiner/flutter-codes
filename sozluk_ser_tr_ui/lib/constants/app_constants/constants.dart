@@ -197,7 +197,8 @@ const String deleteMsg = " tarafından silinmiştir...";
 
 /// Settings Buton labels
 const String jsonMsg = "Firestore verisini JSON verisine çevir";
-const String sqfliteMsg = "JSON verisini Sqflite veri tabanına  çevir";
+const String sqfliteMsg = "JSON verisini Sqflite veri tabanına çevir";
+const String blankMailMsg = "Boş mail adreslerini düzelt";
 
 /// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [

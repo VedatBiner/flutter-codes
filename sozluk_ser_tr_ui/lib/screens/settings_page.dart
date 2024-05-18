@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
+import '../services/firestore_services.dart';
 import '../services/word_service.dart';
 import '../utils/generate_json.dart';
 import 'home_page_parts/drawer_items.dart';
@@ -59,6 +60,24 @@ class _SettingsPageState extends State<SettingsPage> {
             onPressed: () {},
             child: Text(
               sqfliteMsg,
+              style: butonTextDialog,
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.indigoAccent,
+            ),
+            onPressed: () async {
+              /// FirestoreService sınıfından bir örnek oluştur
+              FirestoreService firestoreService = FirestoreService();
+
+              /// Yeni alanı ve değeri ekleyen metodu çağır
+              await firestoreService.addFieldToAllDocuments(
+                  'userEmail', 'vbiner@gmail.com');
+            },
+            child: Text(
+              blankMailMsg,
               style: butonTextDialog,
             ),
           ),
