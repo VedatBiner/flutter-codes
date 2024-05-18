@@ -165,66 +165,42 @@ class _HomePageState extends State<HomePage> {
       canPop: false,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: HomeCustomAppBar(
-          aramaYapiliyorMu: aramaYapiliyorMu,
-          aramaKelimesi: aramaKelimesi,
-          onAramaKelimesiChanged: (aramaSonucu) {
-            setState(() {
-              aramaKelimesi = aramaSonucu;
-              if (aramaKelimesi.isNotEmpty) {
-                aramaKelimesi =
-                    aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
-              }
-            });
-          },
-          onCancelPressed: () {
-            setState(() {
-              aramaYapiliyorMu = false;
-              aramaKelimesi = "";
-            });
-          },
-          onSearchPressed: () {
-            setState(() {
-              aramaYapiliyorMu = true;
-            });
-          },
-          appBarTitle: appBarTitle,
-        ),
+        appBar: buildHomeCustomAppBar(),
         body: showBody(context, languageParams),
         drawer: buildDrawer(context),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            log("Kelime ekleme seçildi");
-
-            /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
-            _wordBoxDialog.openWordBox(
-              context: context,
-              languageParams:
-                  Provider.of<LanguageParams>(context, listen: false),
-              onWordAdded: (
-                String secondLang,
-                String firstLang,
-              ) {
-                // Eklenecek kelimenin işlemleri
-                log('Eklenecek kelime: $secondLang - $firstLang');
-                _wordListFuture = _fetchWordList();
-                // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler
-                // burada gerçekleştirilebilir
-              },
-              onWordUpdated: (String docId) {
-                // Güncellenecek kelimenin işlemleri
-                log('Güncellenecek kelime ID: $docId');
-                _wordListFuture = _fetchWordList();
-                // Güncellenen kelimeyi Firestore 'da güncelleme gibi
-                // işlemler burada gerçekleştirilebilir
-              },
-            );
-          },
-          child: const Icon(Icons.add),
-        ),
+        floatingActionButton: buildFloatingActionButton(context),
         bottomSheet: const BottomSheetWidget(),
       ),
     );
+  }
+
+  /// arama kutusunu içeren Appbar burada
+  HomeCustomAppBar buildHomeCustomAppBar() {
+    return HomeCustomAppBar(
+        aramaYapiliyorMu: aramaYapiliyorMu,
+        aramaKelimesi: aramaKelimesi,
+        onAramaKelimesiChanged: (aramaSonucu) {
+          setState(() {
+            aramaKelimesi = aramaSonucu;
+            if (aramaKelimesi.isNotEmpty) {
+              aramaKelimesi =
+                  aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+            }
+          });
+        },
+        onCancelPressed: () {
+          setState(() {
+            aramaYapiliyorMu = false;
+            aramaKelimesi = "";
+          });
+        },
+        onSearchPressed: () {
+          setState(() {
+            aramaYapiliyorMu = true;
+          });
+        },
+        appBarTitle: appBarTitle,
+      );
   }
 
   /// Sayfa düzeni burada oluşuyor.
@@ -293,6 +269,39 @@ class _HomePageState extends State<HomePage> {
           }
         });
       },
+    );
+  }
+
+  /// FAB ile kelime ekleme işlemi burada yapılıyor
+  FloatingActionButton buildFloatingActionButton(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        log("Kelime ekleme seçildi");
+
+        /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
+        _wordBoxDialog.openWordBox(
+          context: context,
+          languageParams: Provider.of<LanguageParams>(context, listen: false),
+          onWordAdded: (
+            String secondLang,
+            String firstLang,
+          ) {
+            // Eklenecek kelimenin işlemleri
+            log('Eklenecek kelime: $secondLang - $firstLang');
+            _wordListFuture = _fetchWordList();
+            // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler
+            // burada gerçekleştirilebilir
+          },
+          onWordUpdated: (String docId) {
+            // Güncellenecek kelimenin işlemleri
+            log('Güncellenecek kelime ID: $docId');
+            _wordListFuture = _fetchWordList();
+            // Güncellenen kelimeyi Firestore 'da güncelleme gibi
+            // işlemler burada gerçekleştirilebilir
+          },
+        );
+      },
+      child: const Icon(Icons.add),
     );
   }
 }
