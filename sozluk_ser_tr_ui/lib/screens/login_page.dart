@@ -1,5 +1,8 @@
 /// <----- login_page.dart ----->
-///
+/// --------------------------------------------------
+/// Burada login işlemleri ile ilgili adımlar yapılıyor.
+/// --------------------------------------------------
+
 library;
 
 import 'package:flutter/material.dart';
@@ -242,3 +245,32 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

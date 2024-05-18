@@ -1,4 +1,9 @@
 /// <----- main.dart ----->
+/// --------------------------------------------------
+/// Burada kodumuzun çalışmasını başlatıyoruz.
+/// provider paketi ile kullanılacak işlemler ve
+/// firebase tanımlarımız var
+/// --------------------------------------------------
 library;
 
 import 'package:flutter/material.dart';

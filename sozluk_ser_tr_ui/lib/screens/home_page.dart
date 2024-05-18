@@ -1,4 +1,13 @@
 /// <----- home_page.dart ----->
+/// --------------------------------------------------
+/// Bu sayfa bütün kodun merkezini oluşturuyor.
+/// çok sık güncelleme yapılıyor.
+/// Burada kelimeler Firebase Firestore 'dan pagination
+/// yöntemi ile çekiliyor. Liste ve Card görünümünde
+/// gösteriliyor. Yeni kelime ekleme, silme ve düzeltme
+/// işlemleri yapılıyor. Ayrıca kelimeler tek tek card
+/// olarak da görüntülenebiliyor.
+/// --------------------------------------------------
 library;
 
 import 'dart:developer';

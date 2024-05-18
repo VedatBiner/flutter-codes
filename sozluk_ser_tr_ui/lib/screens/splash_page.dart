@@ -1,5 +1,14 @@
 /// <----- splash_page.dart ----->
-///
+/// --------------------------------------------------
+/// Burada açılışta bir süre bekleniyor.
+/// Eğer kullanıcı login ise sözlük sayfasına
+/// geçiliyor. Eğer kullanıcı login değilse
+/// login_page.dart dosyası çalışıyor.
+/// eğer kullanıcı login ise home_page.dart
+/// dosyası çalışıyor.
+/// Bu kod da tüm yönlendirme işleri,
+/// app_routes.dart kodu ile yapılıyor.
+/// --------------------------------------------------
 library;
 
 import 'package:flutter/material.dart';
