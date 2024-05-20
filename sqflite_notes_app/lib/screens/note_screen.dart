@@ -114,7 +114,7 @@ class _NoteScreenState extends State<NoteScreen> {
                         await DatabaseHelper.updateNote(model);
                       }
 
-                      if(mounted){
+                      if (mounted) {
                         Navigator.pop(context);
                       }
                     },
