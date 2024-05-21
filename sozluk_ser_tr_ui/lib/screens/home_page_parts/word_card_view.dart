@@ -114,7 +114,7 @@ class WordCardView extends StatelessWidget {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness ==
-                                      Brightness.dark
+                                  Brightness.dark
                                   ? Colors.white
                                   : null,
                               shape: RoundedRectangleBorder(

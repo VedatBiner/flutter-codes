@@ -5,6 +5,8 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -34,13 +36,17 @@ class WordListBuilder extends StatefulWidget {
 class _WordListBuilderState extends State<WordListBuilder> {
   @override
   Widget build(BuildContext context) {
-    final serbianResults = widget.snapshot[0].docs.map((doc) => doc.data());
-    final turkishResults = widget.snapshot[1].docs.map((doc) => doc.data());
+    final serbianResults = widget.snapshot[0].docs.map((doc) => doc.data()).toList();
+    final turkishResults = widget.snapshot[1].docs.map((doc) => doc.data()).toList();
     final mergedResults = [...serbianResults, ...turkishResults];
+    log("Merged results : $mergedResults");
+    log("Serbian Words : $serbianResults");
+    log("Turkish Words : $turkishResults");
 
     /// Dilin her iki yöne de belirlenmesi
-    final currentLanguage = widget.languageParams.firstLanguageText;
-    final targetLanguage = widget.languageParams.secondLanguageText;
+    final languageParams = Provider.of<LanguageParams>(context);
+    final currentLanguage = languageParams.firstLanguageText;
+    final targetLanguage = languageParams.secondLanguageText;
 
     return Column(
       children: [
