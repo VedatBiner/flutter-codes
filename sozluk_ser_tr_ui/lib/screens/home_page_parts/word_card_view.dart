@@ -125,16 +125,21 @@ class WordCardView extends StatelessWidget {
                                 ),
                               ),
                               title: const Text(
-                                "Dikkat !!!",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                dikkatMsg,
+                                style: dikkatText,
                               ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  const Text("Bu kelime:"),
+                                  const Text(
+                                    silMsg,
+                                    style: silText,
+                                  ),
+                                  const Text(
+                                    eminMsg,
+                                    style: eminText,
+                                  ),
                                   Text(
                                     word.sirpca ?? "",
                                     style: const TextStyle(
@@ -147,8 +152,6 @@ class WordCardView extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  const Text("silinsin mi?"),
                                 ],
                               ),
                               actions: [

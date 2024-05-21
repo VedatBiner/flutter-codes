@@ -150,7 +150,8 @@ class _HomePageState extends State<HomePage> {
 
     const options = GetOptions(source: Source.cache);
     return await Future.wait(
-        [queryForSerbian.get(options), queryForTurkish.get(options)]);
+      [queryForSerbian.get(options), queryForTurkish.get(options)],
+    );
   }
 
   /// ana kodumuz bu şekilde
@@ -177,30 +178,30 @@ class _HomePageState extends State<HomePage> {
   /// arama kutusunu içeren Appbar burada
   HomeCustomAppBar buildHomeCustomAppBar() {
     return HomeCustomAppBar(
-        aramaYapiliyorMu: aramaYapiliyorMu,
-        aramaKelimesi: aramaKelimesi,
-        onAramaKelimesiChanged: (aramaSonucu) {
-          setState(() {
-            aramaKelimesi = aramaSonucu;
-            if (aramaKelimesi.isNotEmpty) {
-              aramaKelimesi =
-                  aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
-            }
-          });
-        },
-        onCancelPressed: () {
-          setState(() {
-            aramaYapiliyorMu = false;
-            aramaKelimesi = "";
-          });
-        },
-        onSearchPressed: () {
-          setState(() {
-            aramaYapiliyorMu = true;
-          });
-        },
-        appBarTitle: appBarTitle,
-      );
+      aramaYapiliyorMu: aramaYapiliyorMu,
+      aramaKelimesi: aramaKelimesi,
+      onAramaKelimesiChanged: (aramaSonucu) {
+        setState(() {
+          aramaKelimesi = aramaSonucu;
+          if (aramaKelimesi.isNotEmpty) {
+            aramaKelimesi =
+                aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+          }
+        });
+      },
+      onCancelPressed: () {
+        setState(() {
+          aramaYapiliyorMu = false;
+          aramaKelimesi = "";
+        });
+      },
+      onSearchPressed: () {
+        setState(() {
+          aramaYapiliyorMu = true;
+        });
+      },
+      appBarTitle: appBarTitle,
+    );
   }
 
   /// Sayfa düzeni burada oluşuyor.
@@ -214,7 +215,9 @@ class _HomePageState extends State<HomePage> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.08,
           child: buildLanguageSelector(
-              context: context, languageParams: languageParams),
+            context: context,
+            languageParams: languageParams,
+          ),
         ),
 
         /// burada sıralı kelime listesi gelsin

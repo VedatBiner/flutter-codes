@@ -183,6 +183,7 @@ const String noOfWordsErrorMsg = 'Girilen kelime sayısı: Hesaplanamadı';
 
 /// Kelime Giriş mesajı
 const String wordEntryMsg = "kelime giriniz ... ";
+
 /// Kelime karşılık mesajı
 const String wordMeanInMsg = "karşılığını giriniz ... ";
 
@@ -199,6 +200,35 @@ const String deleteMsg = " tarafından silinmiştir...";
 const String jsonMsg = "Firestore verisini JSON verisine çevir";
 const String sqfliteMsg = "JSON verisini Sqflite veri tabanına çevir";
 const String blankMailMsg = "Boş mail adreslerini düzelt";
+
+/// Dikkat mesaj
+const String dikkatMsg = "Dikkat !!!";
+
+/// Dikkat style
+const dikkatText = TextStyle(
+  color: Colors.red,
+  fontWeight: FontWeight.bold,
+);
+
+/// silme mesajı
+const String silMsg = "Bu kelime Silinecektir!!!";
+
+/// Sil style
+const silText = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.blue,
+  fontSize: 20,
+);
+
+/// Emin soru mesajı
+const String eminMsg = "Emin misiniz?";
+
+/// Emin text style
+const eminText = TextStyle(
+  fontSize: 18,
+  color: Colors.red,
+  fontWeight: FontWeight.bold,
+);
 
 /// Drawer Items
 final List<Map<String, dynamic>> drawerItems = [
