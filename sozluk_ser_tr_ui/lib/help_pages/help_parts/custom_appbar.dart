@@ -3,8 +3,8 @@ library;
 
 import 'package:flutter/material.dart';
 
+import '../../constants/app_constants/color_constants.dart';
 import '../../services/app_routes.dart';
-import '../../constants/app_constants/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appBarTitle;

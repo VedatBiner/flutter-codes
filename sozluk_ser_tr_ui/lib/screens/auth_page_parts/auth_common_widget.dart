@@ -7,11 +7,11 @@
 
 library auth_page_widgets;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:developer';
 
+import '../../constants/app_constants/color_constants.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../services/app_routes.dart';
 
@@ -39,7 +39,7 @@ class AuthPageWidget extends StatefulWidget {
   static Widget googleSignIn(BuildContext context) {
     final GoogleSignIn googleSignIn = GoogleSignIn(
       clientId:
-      '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
+          '826685681663-1vdr426n5mn44mjej5qcgo6egbovpgm6.apps.googleusercontent.com',
     );
     return StreamBuilder<GoogleSignInAccount?>(
         stream: googleSignIn.onCurrentUserChanged,
@@ -96,14 +96,13 @@ class AuthPageWidget extends StatefulWidget {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       AppRoute.home,
-                          (route) => false,
+                      (route) => false,
                     );
                   } catch (error) {
                     log('googleSignInFailMsg : $error');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content:
-                        Text(googleSignInFailMsg),
+                        content: Text(googleSignInFailMsg),
                       ),
                     );
                   }

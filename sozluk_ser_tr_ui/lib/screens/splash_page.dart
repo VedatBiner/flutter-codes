@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import '../constants/app_constants/constants.dart';
+import '../constants/app_constants/color_constants.dart';
 import '../constants/base_constants/app_const.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
@@ -30,6 +31,7 @@ class _SplashViewState extends State<SplashView> with _SplashViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: drawerColor,
       appBar: AppBar(
         title: Text(
           AppConst.splash.appBarTitle,

@@ -5,6 +5,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../../constants/app_constants/color_constants.dart';
 import '../../services/word_service.dart';
 
 class BottomSheetWidget extends StatelessWidget {

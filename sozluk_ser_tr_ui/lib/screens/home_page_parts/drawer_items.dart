@@ -8,6 +8,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../../constants/app_constants/color_constants.dart';
+import '../../constants/app_constants/drawer_constants.dart';
 import '../../services/auth_services.dart';
 import '../../services/theme_provider.dart';
 import '../../services/app_routes.dart';
@@ -18,7 +20,6 @@ Drawer buildDrawer(BuildContext context) {
   /// login olan kullanıcı bilgisini al
   String currentUserEmail =
       FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
-
 
   return Drawer(
     shadowColor: Colors.lightBlue,
@@ -53,7 +54,7 @@ Drawer buildDrawer(BuildContext context) {
                   color: menuColor,
                   onPressed: () {
                     final provider =
-                    Provider.of<ThemeProvider>(context, listen: false);
+                        Provider.of<ThemeProvider>(context, listen: false);
                     provider.toggleTheme(!provider.isDarkMode);
                   },
                   icon: Icon(
@@ -92,7 +93,7 @@ Drawer buildDrawer(BuildContext context) {
                   icon: const Icon(Icons.logout),
                   onPressed: () {
                     auth.signOut().whenComplete(
-                          () async {
+                      () async {
                         /// kullanıcıya çıkış yaptırır ve
                         /// giriş sayfasına yönlendirir
                         await Navigator.pushNamed(
@@ -141,10 +142,10 @@ Drawer buildDrawer(BuildContext context) {
 }
 
 ListTile buildListTile(
-    BuildContext context,
-    String text,
-    Widget Function(BuildContext) pageRouteGetter,
-    ) {
+  BuildContext context,
+  String text,
+  Widget Function(BuildContext) pageRouteGetter,
+) {
   return ListTile(
     textColor: menuColor,
     title: Text(text),

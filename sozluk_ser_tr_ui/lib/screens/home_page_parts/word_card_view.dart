@@ -4,10 +4,12 @@
 /// kelime bilgileri word_list_builder.dart dosyasından geliyor.
 library;
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer';
+
 import '../../constants/app_constants/constants.dart';
+import '../../constants/app_constants/color_constants.dart';
 import '../../models/fs_words.dart';
 import '../../models/language_params.dart';
 import '../../services/theme_provider.dart';
@@ -119,7 +121,7 @@ class WordCardView extends StatelessWidget {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: Theme.of(context).brightness ==
-                                  Brightness.dark
+                                      Brightness.dark
                                   ? Colors.white
                                   : null,
                               shape: RoundedRectangleBorder(

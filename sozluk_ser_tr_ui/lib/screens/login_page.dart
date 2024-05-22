@@ -8,6 +8,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
+import '../constants/app_constants/color_constants.dart';
 import '../services/app_routes.dart';
 import '../services/auth_services.dart';
 import '../utils/email_validator.dart';
@@ -245,32 +246,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
