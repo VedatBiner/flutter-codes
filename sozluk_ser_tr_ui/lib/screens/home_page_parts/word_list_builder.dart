@@ -94,19 +94,22 @@ class _WordListBuilderState extends State<WordListBuilder> {
     final displayedTranslation = translatedLanguage;
 
     final wordWidget = isListView
-        ? WordListView(
-            word: word,
-            isDarkMode: isDarkMode,
-            displayedTranslation: displayedTranslation,
-            displayedLanguage: displayedLanguage,
-            firstLanguageText:
-                languageParams.firstLanguageText == displayedTranslation
-                    ? word.turkce
-                    : word.sirpca,
-            secondLanguageText:
-                languageParams.secondLanguageText == displayedLanguage
-                    ? word.sirpca
-                    : word.turkce,
+        ? ChangeNotifierProvider<LanguageParams>.value(
+            value: languageParams,
+            child: WordListView(
+              word: word,
+              isDarkMode: isDarkMode,
+              displayedTranslation: displayedTranslation,
+              displayedLanguage: displayedLanguage,
+              firstLanguageText:
+                  languageParams.firstLanguageText == displayedTranslation
+                      ? word.turkce
+                      : word.sirpca,
+              secondLanguageText:
+                  languageParams.secondLanguageText == displayedLanguage
+                      ? word.sirpca
+                      : word.turkce,
+            ),
           )
         : ChangeNotifierProvider.value(
             value: languageParams,
