@@ -6,8 +6,11 @@ library;
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../models/fs_words.dart';
+import '../../models/language_params.dart';
+import '../../services/theme_provider.dart';
 import '../details_page.dart';
 
 class WordCardView extends StatelessWidget {
@@ -30,6 +33,8 @@ class WordCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final languageParams = Provider.of<LanguageParams>(context);
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -41,8 +46,8 @@ class WordCardView extends StatelessWidget {
         color: isDarkMode ? cardDarkMode : cardLightMode,
         child: InkWell(
           onTap: () {
-            log("first : $firstLanguageText");
-            log("second : $secondLanguageText");
+            log("first : ${languageParams.firstLanguageText}");
+            log("second : ${languageParams.secondLanguageText}");
             log("disp : $displayedLanguage");
             log("trans : $displayedTranslation");
 
@@ -50,8 +55,8 @@ class WordCardView extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailsPage(
-                    firstLanguageText: firstLanguageText,
-                    secondLanguageText: secondLanguageText,
+                    firstLanguageText: languageParams.firstLanguageText,
+                    secondLanguageText: languageParams.secondLanguageText,
                     displayedLanguage: displayedLanguage,
                     displayedTranslation: displayedTranslation,
                   ),

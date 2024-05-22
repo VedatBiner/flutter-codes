@@ -36,8 +36,10 @@ class WordListBuilder extends StatefulWidget {
 class _WordListBuilderState extends State<WordListBuilder> {
   @override
   Widget build(BuildContext context) {
-    final serbianResults = widget.snapshot[0].docs.map((doc) => doc.data()).toList();
-    final turkishResults = widget.snapshot[1].docs.map((doc) => doc.data()).toList();
+    final serbianResults =
+        widget.snapshot[0].docs.map((doc) => doc.data()).toList();
+    final turkishResults =
+        widget.snapshot[1].docs.map((doc) => doc.data()).toList();
     final mergedResults = [...serbianResults, ...turkishResults];
     log("Merged results : $mergedResults");
     log("Serbian Words : $serbianResults");
@@ -106,19 +108,22 @@ class _WordListBuilderState extends State<WordListBuilder> {
                     ? word.sirpca
                     : word.turkce,
           )
-        : WordCardView(
-            word: word,
-            isDarkMode: isDarkMode,
-            displayedTranslation: displayedTranslation,
-            displayedLanguage: displayedLanguage,
-            firstLanguageText:
-                languageParams.firstLanguageText == displayedTranslation
-                    ? word.turkce
-                    : word.sirpca,
-            secondLanguageText:
-                languageParams.secondLanguageText == displayedLanguage
-                    ? word.sirpca
-                    : word.turkce,
+        : ChangeNotifierProvider.value(
+            value: languageParams,
+            child: WordCardView(
+              word: word,
+              isDarkMode: isDarkMode,
+              displayedTranslation: displayedTranslation,
+              displayedLanguage: displayedLanguage,
+              firstLanguageText:
+                  languageParams.firstLanguageText == displayedTranslation
+                      ? word.turkce
+                      : word.sirpca,
+              secondLanguageText:
+                  languageParams.secondLanguageText == displayedLanguage
+                      ? word.sirpca
+                      : word.turkce,
+            ),
           );
 
     return wordWidget;
