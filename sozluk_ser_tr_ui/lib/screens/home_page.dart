@@ -278,6 +278,7 @@ class _HomePageState extends State<HomePage> {
 
   /// FAB ile kelime ekleme işlemi burada yapılıyor
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
+    final WordBoxDialog _wordBoxDialog = WordBoxDialog();
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
@@ -286,15 +287,11 @@ class _HomePageState extends State<HomePage> {
         _wordBoxDialog.openWordBox(
           context: context,
           languageParams: Provider.of<LanguageParams>(context, listen: false),
-          onWordAdded: (
-            String secondLang,
-            String firstLang,
-          ) {
-            // Eklenecek kelimenin işlemleri
-            log('Eklenecek kelime: $secondLang - $firstLang');
-            _wordListFuture = _fetchWordList();
-            // Eklenen kelimeyi Firestore 'a ekleme gibi işlemler
-            // burada gerçekleştirilebilir
+          onWordAdded: (String secondLang, String firstLang) async {
+            await _firestoreService.addWord(context, secondLang, firstLang);
+            setState(() {
+              _wordListFuture = _fetchWordList();
+            });
           },
           onWordUpdated: (String docId) {
             // Güncellenecek kelimenin işlemleri
