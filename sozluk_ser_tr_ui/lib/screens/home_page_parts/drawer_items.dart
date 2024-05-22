@@ -18,8 +18,9 @@ Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
   /// login olan kullanıcı bilgisini al
-  String currentUserEmail =
-      FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
+  // String currentUserEmail =
+  //     FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
+  MyAuthService.currentUserEmail;
 
   return Drawer(
     shadowColor: Colors.lightBlue,
@@ -123,7 +124,8 @@ Drawer buildDrawer(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Kullanıcı : $currentUserEmail",
+                    //  "Kullanıcı : $currentUserEmail",
+                      "Kullanıcı : ${MyAuthService.currentUserEmail}",
                       style: TextStyle(color: menuColor),
                     ),
                     Text(

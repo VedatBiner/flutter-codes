@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../models/language_params.dart';
+import '../../services/auth_services.dart';
 import '../../services/firestore_services.dart';
 import '../../utils/mesaj_helper.dart';
 import '../../widgets/test_entry.dart';
@@ -99,7 +100,7 @@ class WordBoxDialog extends ChangeNotifier {
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
-                message = addMsg;
+                message = "${MyAuthService.currentUserEmail} addMsg";
               } else {
                 /// kelime güncelleniyor
                 await firestoreService.updateWord(

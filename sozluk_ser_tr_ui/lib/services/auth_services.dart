@@ -15,6 +15,18 @@ import '../utils/mesaj_helper.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class MyAuthService {
+  /// login olan kullanıcının mail adresi singleton ile alınır
+  static String get currentUserEmail =>
+      FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
+
+  static final MyAuthService _instance = MyAuthService._privateConstructor();
+
+  factory MyAuthService() {
+    return _instance;
+  }
+
+  MyAuthService._privateConstructor();
+
   /// e-mail ve şifre ile kayıt servisi
   registerWithMail({
     required BuildContext context,
@@ -67,7 +79,7 @@ class MyAuthService {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
-      /// kullanıcı yoksa
+        /// kullanıcı yoksa
         case "user-not-found":
           MessageHelper.showSnackBar(
             context,
@@ -82,7 +94,7 @@ class MyAuthService {
           );
           break;
 
-      /// hatalı e-mail veya şifre girildi
+        /// hatalı e-mail veya şifre girildi
         case "invalid-credential":
           MessageHelper.showSnackBar(
             context,
@@ -137,7 +149,7 @@ class MyAuthService {
 
     /// kullanıcı erişim izni verdi mi ?
     final GoogleSignInAuthentication? googleAuth =
-    await googleUser?.authentication;
+        await googleUser?.authentication;
 
     /// yeni kimlik oluşturulur.
     final credential = GoogleAuthProvider.credential(
