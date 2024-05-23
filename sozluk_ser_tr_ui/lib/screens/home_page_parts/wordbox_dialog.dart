@@ -37,8 +37,8 @@ class WordBoxDialog extends ChangeNotifier {
     String firstLang = "";
     String message = "";
 
-    String currentUserEmail =
-        FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
+    // String currentUserEmail =
+    //     FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
 
     if (docId != null) {
       action = "update";
@@ -62,6 +62,11 @@ class WordBoxDialog extends ChangeNotifier {
         ? secondLanguageText = languageParams.secondLanguageText
         : secondLanguageText = languageParams.firstLanguageText;
 
+    if (firstLang != null && secondLang != null) {
+      ikinciDilController.text = secondLang;
+      birinciDilController.text = firstLang;
+    }
+
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -83,8 +88,8 @@ class WordBoxDialog extends ChangeNotifier {
             ),
             onPressed: () async {
               if (docId == null &&
-                  ikinciDilController.text == "" &&
-                  birinciDilController.text == "") {
+                  ikinciDilController.text.isEmpty &&
+                  birinciDilController.text.isEmpty) {
                 MessageHelper.showSnackBar(
                   context,
                   message: "İki kelime satırını da boş ekleyemezsiniz ...",

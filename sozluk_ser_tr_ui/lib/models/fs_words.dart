@@ -47,7 +47,7 @@ class FsWords {
     );
   }
 
-  // orderBy metodunu ekleyin
+  /// orderBy metodu
   static Future<QuerySnapshot<Object?>> orderBy(String field) async {
     final CollectionReference words = FirebaseFirestore.instance.collection("kelimeler");
     return await words.orderBy(field).get();

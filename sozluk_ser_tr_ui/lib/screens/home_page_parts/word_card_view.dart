@@ -6,6 +6,7 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sozluk_ser_tr_ui/screens/home_page_parts/wordbox_dialog.dart';
 import 'dart:developer';
 
 import '../../constants/app_constants/constants.dart';
@@ -108,6 +109,15 @@ class WordCardView extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         log("Kelime düzeltme seçildi");
+                        WordBoxDialog().openWordBox(
+                            context: context,
+                            onWordAdded: (secondLang, firstLang) {
+                              log ("Kelime Eklendi : $secondLang = $firstLang");
+                            },
+                            onWordUpdated: (docId){
+                              log("Kelime güncellendi : $docId");
+                            },
+                            languageParams: languageParams);
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "kelime düzelt",

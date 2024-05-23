@@ -93,6 +93,7 @@ class FirestoreService {
     }
   }
 
+  /// Firestore 'dan id belli olan kelimeyi çekmek için kullanılıyor
   Future<DocumentSnapshot<Object?>> getWordById(String docId) async {
     return await words.doc(docId).get();
   }

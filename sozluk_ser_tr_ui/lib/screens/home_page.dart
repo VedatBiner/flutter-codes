@@ -296,8 +296,8 @@ class _HomePageState extends State<HomePage> {
           },
 
           /// kelime düzeltme bilgisi buradan gidiyor.
-          onWordUpdated: (String docId) {
-            // Güncellenecek kelimenin işlemleri
+          onWordUpdated: (String docId) async {
+
             log('Güncellenecek kelime ID: $docId');
             _wordListFuture = _fetchWordList();
             // Güncellenen kelimeyi Firestore 'da güncelleme gibi
