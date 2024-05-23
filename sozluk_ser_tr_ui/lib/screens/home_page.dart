@@ -156,7 +156,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// ana kodumuz bu şekilde
-  /// Dil değiştirme işlemi için provider 'ı alın
 
   @override
   Widget build(BuildContext context) {
@@ -278,21 +277,25 @@ class _HomePageState extends State<HomePage> {
 
   /// FAB ile kelime ekleme işlemi burada yapılıyor
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    final WordBoxDialog _wordBoxDialog = WordBoxDialog();
+    final WordBoxDialog wordBoxDialog = WordBoxDialog();
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
 
         /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
-        _wordBoxDialog.openWordBox(
+        wordBoxDialog.openWordBox(
           context: context,
           languageParams: Provider.of<LanguageParams>(context, listen: false),
+
+          /// kelime ekleme bilgisi buradan gidiyor
           onWordAdded: (String secondLang, String firstLang) async {
             await _firestoreService.addWord(context, secondLang, firstLang);
             setState(() {
               _wordListFuture = _fetchWordList();
             });
           },
+
+          /// kelime düzeltme bilgisi buradan gidiyor.
           onWordUpdated: (String docId) {
             // Güncellenecek kelimenin işlemleri
             log('Güncellenecek kelime ID: $docId');

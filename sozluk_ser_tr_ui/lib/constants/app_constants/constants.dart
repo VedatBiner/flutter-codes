@@ -4,7 +4,6 @@ library;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../services/app_routes.dart';
 import 'color_constants.dart';
 
 TextStyle glutenFontText = TextStyle(
@@ -93,7 +92,7 @@ const TextStyle kelimeStil = TextStyle(
   fontSize: 16,
 );
 
-/// kelime ekle/sil/düzelt maail
+/// kelime ekle/sil/düzelt mail
 const TextStyle userStil = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.blue,
