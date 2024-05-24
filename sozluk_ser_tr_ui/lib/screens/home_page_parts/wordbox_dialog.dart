@@ -1,7 +1,6 @@
 /// <----- wordbox_dialog.dart ----->
 library;
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
@@ -46,13 +45,14 @@ class WordBoxDialog extends ChangeNotifier {
       var snapshot = await firestoreService.getWordById(docId);
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
-        secondLang = data[fsIkinciDil];
-        firstLang = data[fsBirinciDil];
+        ikinciDilController.text = data[fsIkinciDil];
+        birinciDilController.text = data[fsBirinciDil];
+        notifyListeners();
       }
     }
 
-    ikinciDilController.text = secondLang;
-    birinciDilController.text = firstLang;
+    // ikinciDilController.text = secondLang;
+    // birinciDilController.text = firstLang;
 
     firstLang == birinciDil
         ? firstLanguageText = languageParams.firstLanguageText
