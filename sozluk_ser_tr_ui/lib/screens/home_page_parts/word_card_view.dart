@@ -13,6 +13,7 @@ import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
 import '../../models/fs_words.dart';
 import '../../models/language_params.dart';
+import '../../services/firestore_services.dart';
 import '../../services/theme_provider.dart';
 import '../details_page.dart';
 
@@ -38,6 +39,9 @@ class WordCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
+
+    final FirestoreService firestoreService = FirestoreService();
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -49,10 +53,10 @@ class WordCardView extends StatelessWidget {
         color: isDarkMode ? cardDarkMode : cardLightMode,
         child: InkWell(
           onTap: () {
-            log("first : ${languageParams.firstLanguageText}");
-            log("second : ${languageParams.secondLanguageText}");
-            log("disp : $displayedLanguage");
-            log("trans : $displayedTranslation");
+            // log("first : ${languageParams.firstLanguageText}");
+            // log("second : ${languageParams.secondLanguageText}");
+            // log("disp : $displayedLanguage");
+            // log("trans : $displayedTranslation");
 
             Navigator.push(
                 context,
@@ -109,12 +113,13 @@ class WordCardView extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         log("Kelime düzeltme seçildi");
+
                         WordBoxDialog().openWordBox(
                             context: context,
                             onWordAdded: (secondLang, firstLang) {
-                              log ("Kelime Eklendi : $secondLang = $firstLang");
+                              log("Kelime Eklendi : $secondLang = $firstLang");
                             },
-                            onWordUpdated: (docId){
+                            onWordUpdated: (docId) {
                               log("Kelime güncellendi : $docId");
                             },
                             languageParams: languageParams);

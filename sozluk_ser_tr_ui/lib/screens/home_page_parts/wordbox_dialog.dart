@@ -1,6 +1,8 @@
 /// <----- wordbox_dialog.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
@@ -47,6 +49,8 @@ class WordBoxDialog extends ChangeNotifier {
         var data = snapshot.data() as Map<String, dynamic>;
         ikinciDilController.text = data[fsIkinciDil];
         birinciDilController.text = data[fsBirinciDil];
+        secondLang = data[fsIkinciDil];
+        firstLang = data[fsBirinciDil];
         notifyListeners();
       }
     }
@@ -62,11 +66,9 @@ class WordBoxDialog extends ChangeNotifier {
         ? secondLanguageText = languageParams.secondLanguageText
         : secondLanguageText = languageParams.firstLanguageText;
 
-    if (firstLang != null && secondLang != null) {
-      ikinciDilController.text = secondLang;
-      birinciDilController.text = firstLang;
-    }
-
+    ikinciDilController.text = secondLang;
+    birinciDilController.text = firstLang;
+  
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -113,8 +115,9 @@ class WordBoxDialog extends ChangeNotifier {
                   ikinciDilController.text,
                   birinciDilController.text,
                 );
-                onWordUpdated(docId);
-                message = updateMsg;
+                log("word_box_dialog.dat : update : ikinciDilController.text : ${ikinciDilController.text}");
+                // onWordUpdated(docId);
+                // message = updateMsg;
               }
 
               ScaffoldMessenger.of(context).showSnackBar(

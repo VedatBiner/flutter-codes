@@ -7,6 +7,7 @@ library;
 
 import 'dart:developer';
 
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,8 @@ class WordListBuilder extends StatefulWidget {
 }
 
 class _WordListBuilderState extends State<WordListBuilder> {
+  /// Scrollbar için controller
+  ScrollController listViewController = ScrollController();
   @override
   Widget build(BuildContext context) {
     final serbianResults =
@@ -41,9 +44,9 @@ class _WordListBuilderState extends State<WordListBuilder> {
     final turkishResults =
         widget.snapshot[1].docs.map((doc) => doc.data()).toList();
     final mergedResults = [...serbianResults, ...turkishResults];
-    log("Merged results : $mergedResults");
-    log("Serbian Words : $serbianResults");
-    log("Turkish Words : $turkishResults");
+    // log("Merged results : $mergedResults");
+    // log("Serbian Words : $serbianResults");
+    // log("Turkish Words : $turkishResults");
 
     /// Dilin her iki yöne de belirlenmesi
     final languageParams = Provider.of<LanguageParams>(context);
@@ -53,24 +56,41 @@ class _WordListBuilderState extends State<WordListBuilder> {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: mergedResults.length,
-            itemBuilder: (context, wordIndex) {
-              final word = mergedResults[wordIndex];
-              final displayedLanguage = wordIndex < serbianResults.length
-                  ? currentLanguage
-                  : targetLanguage;
-              final translatedLanguage = wordIndex < serbianResults.length
-                  ? targetLanguage
-                  : currentLanguage;
-              return buildWordTile(
-                context: context,
-                word: word,
-                isListView: widget.isListView,
-                displayedLanguage: displayedLanguage,
-                translatedLanguage: translatedLanguage,
-              );
-            },
+          child: DraggableScrollbar.arrows(
+            alwaysVisibleScrollThumb: true,
+            backgroundColor:
+            Provider.of<ThemeProvider>(context).isDarkMode
+                ? Colors.white
+                : Colors.grey.shade800,
+            controller: listViewController,
+            labelTextBuilder: (double offset) => Text(
+              targetLanguage,
+              style: TextStyle(
+                color: Provider.of<ThemeProvider>(context).isDarkMode
+                    ? Colors.red
+                    : Colors.blue,
+              ),
+            ),
+            child: ListView.builder(
+              controller: listViewController,
+              itemCount: mergedResults.length,
+              itemBuilder: (context, wordIndex) {
+                final word = mergedResults[wordIndex];
+                final displayedLanguage = wordIndex < serbianResults.length
+                    ? currentLanguage
+                    : targetLanguage;
+                final translatedLanguage = wordIndex < serbianResults.length
+                    ? targetLanguage
+                    : currentLanguage;
+                return buildWordTile(
+                  context: context,
+                  word: word,
+                  isListView: widget.isListView,
+                  displayedLanguage: displayedLanguage,
+                  translatedLanguage: translatedLanguage,
+                );
+              },
+            ),
           ),
         ),
       ],
