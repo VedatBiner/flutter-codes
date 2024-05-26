@@ -26,7 +26,6 @@ dependencies:
   carousel_slider:
   path_provider:
   fluttertoast:
-  draggable_scrollbar:
 
 dev_dependencies:
   flutter_test:

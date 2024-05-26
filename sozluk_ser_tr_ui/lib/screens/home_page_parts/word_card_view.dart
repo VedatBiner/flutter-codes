@@ -6,7 +6,6 @@ library;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sozluk_ser_tr_ui/screens/home_page_parts/wordbox_dialog.dart';
 import 'dart:developer';
 
 import '../../constants/app_constants/constants.dart';
@@ -15,6 +14,7 @@ import '../../models/fs_words.dart';
 import '../../models/language_params.dart';
 import '../../services/firestore_services.dart';
 import '../../services/theme_provider.dart';
+import '../../screens/home_page_parts/wordbox_dialog.dart';
 import '../details_page.dart';
 
 class WordCardView extends StatelessWidget {

@@ -5,9 +5,6 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
-import 'dart:developer';
-
-import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -56,41 +53,25 @@ class _WordListBuilderState extends State<WordListBuilder> {
     return Column(
       children: [
         Expanded(
-          child: DraggableScrollbar.arrows(
-            alwaysVisibleScrollThumb: true,
-            backgroundColor:
-            Provider.of<ThemeProvider>(context).isDarkMode
-                ? Colors.white
-                : Colors.grey.shade800,
+          child: ListView.builder(
             controller: listViewController,
-            labelTextBuilder: (double offset) => Text(
-              targetLanguage,
-              style: TextStyle(
-                color: Provider.of<ThemeProvider>(context).isDarkMode
-                    ? Colors.red
-                    : Colors.blue,
-              ),
-            ),
-            child: ListView.builder(
-              controller: listViewController,
-              itemCount: mergedResults.length,
-              itemBuilder: (context, wordIndex) {
-                final word = mergedResults[wordIndex];
-                final displayedLanguage = wordIndex < serbianResults.length
-                    ? currentLanguage
-                    : targetLanguage;
-                final translatedLanguage = wordIndex < serbianResults.length
-                    ? targetLanguage
-                    : currentLanguage;
-                return buildWordTile(
-                  context: context,
-                  word: word,
-                  isListView: widget.isListView,
-                  displayedLanguage: displayedLanguage,
-                  translatedLanguage: translatedLanguage,
-                );
-              },
-            ),
+            itemCount: mergedResults.length,
+            itemBuilder: (context, wordIndex) {
+              final word = mergedResults[wordIndex];
+              final displayedLanguage = wordIndex < serbianResults.length
+                  ? currentLanguage
+                  : targetLanguage;
+              final translatedLanguage = wordIndex < serbianResults.length
+                  ? targetLanguage
+                  : currentLanguage;
+              return buildWordTile(
+                context: context,
+                word: word,
+                isListView: widget.isListView,
+                displayedLanguage: displayedLanguage,
+                translatedLanguage: translatedLanguage,
+              );
+            },
           ),
         ),
       ],
