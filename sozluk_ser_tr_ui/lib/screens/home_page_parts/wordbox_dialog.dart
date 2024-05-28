@@ -68,7 +68,7 @@ class WordBoxDialog extends ChangeNotifier {
 
     ikinciDilController.text = secondLang;
     birinciDilController.text = firstLang;
-  
+
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -102,6 +102,7 @@ class WordBoxDialog extends ChangeNotifier {
                   context,
                   ikinciDil,
                   birinciDil,
+                  MyAuthService.currentUserEmail,
                 );
                 onWordAdded(
                   ikinciDilController.text,

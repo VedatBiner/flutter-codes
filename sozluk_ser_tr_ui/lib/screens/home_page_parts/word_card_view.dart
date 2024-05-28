@@ -12,10 +12,11 @@ import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
 import '../../models/fs_words.dart';
 import '../../models/language_params.dart';
+import '../../services/auth_services.dart';
 import '../../services/firestore_services.dart';
 import '../../services/theme_provider.dart';
-import '../../screens/home_page_parts/wordbox_dialog.dart';
 import '../details_page.dart';
+import 'edit_word_box.dart';
 
 class WordCardView extends StatelessWidget {
   final FsWords word;
@@ -39,8 +40,9 @@ class WordCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
+    final String currentUserEmail = MyAuthService.currentUserEmail;
 
-    final FirestoreService firestoreService = FirestoreService();
+    final FirestoreService _firestoreService = FirestoreService();
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -113,16 +115,54 @@ class WordCardView extends StatelessWidget {
                     IconButton(
                       onPressed: () {
                         log("Kelime düzeltme seçildi");
+                        showGeneralDialog(
+                          context: context,
+                          barrierDismissible:
+                              false, // Dialog dışına tıklayınca kapanmasını engeller
+                          barrierLabel: MaterialLocalizations.of(context)
+                              .modalBarrierDismissLabel,
+                          barrierColor: Colors.black54,
+                          transitionDuration: const Duration(milliseconds: 200),
+                          pageBuilder: (BuildContext buildContext,
+                              Animation animation,
+                              Animation secondaryAnimation) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Material(
+                                  child: EditWordBox(
+                                      firstLanguageController:
+                                          TextEditingController(
+                                              text: firstLanguageText),
+                                      secondLanguageController:
+                                          TextEditingController(
+                                              text: secondLanguageText),
+                                      firstLanguageText: firstLanguageText,
+                                      secondLanguageText: secondLanguageText,
+                                      currentUserEmail: currentUserEmail,
+                                      onWordUpdated: (String secondLang,
+                                          String firstLang) async {
+                                        await _firestoreService.updateWord(
+                                          word.wordId,
+                                          firstLang,
+                                          secondLang,
+                                        );
+                                      }),
+                                ),
+                              ),
+                            );
+                          },
+                        );
 
-                        WordBoxDialog().openWordBox(
-                            context: context,
-                            onWordAdded: (secondLang, firstLang) {
-                              log("Kelime Eklendi : $secondLang = $firstLang");
-                            },
-                            onWordUpdated: (docId) {
-                              log("Kelime güncellendi : $docId");
-                            },
-                            languageParams: languageParams);
+                        // WordBoxDialog().openWordBox(
+                        //     context: context,
+                        //     onWordAdded: (secondLang, firstLang) {
+                        //       log("Kelime Eklendi : $secondLang = $firstLang");
+                        //     },
+                        //     onWordUpdated: (docId) {
+                        //       log("Kelime güncellendi : $docId");
+                        //     },
+                        //     languageParams: languageParams);
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "kelime düzelt",

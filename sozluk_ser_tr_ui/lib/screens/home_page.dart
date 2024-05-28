@@ -19,6 +19,7 @@ import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../models/language_params.dart';
+import '../services/auth_services.dart';
 import '../services/firestore_services.dart';
 import '../services/icon_provider.dart';
 import '../services/word_service.dart';
@@ -26,6 +27,7 @@ import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/language_selector.dart';
+import 'home_page_parts/add_word_box.dart';
 import 'home_page_parts/word_list_builder.dart';
 import 'home_page_parts/wordbox_dialog.dart';
 
@@ -270,6 +272,9 @@ class _HomePageState extends State<HomePage> {
               newParams.secondLanguageText == birinciDil) {
             appBarTitle = appBarMainTitleSecond;
           }
+
+          firstLanguageText = newParams.secondLanguageText;
+          secondLanguageText = newParams.firstLanguageText;
         });
       },
     );
@@ -277,33 +282,84 @@ class _HomePageState extends State<HomePage> {
 
   /// FAB ile kelime ekleme işlemi burada yapılıyor
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    final WordBoxDialog wordBoxDialog = WordBoxDialog();
+    final TextEditingController firstLanguageController =
+        TextEditingController();
+    final TextEditingController secondLanguageController =
+        TextEditingController();
+
+    // firstLanguageText == birinciDil
+    //     ? firstLanguageText = birinciDil
+    //     : firstLanguageText = ikinciDil;
+    //
+    // secondLanguageText == ikinciDil
+    //     ? secondLanguageText = ikinciDil
+    //     : secondLanguageText = birinciDil;
+
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
-
-        /// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
-        wordBoxDialog.openWordBox(
-          context: context,
-          languageParams: Provider.of<LanguageParams>(context, listen: false),
-
-          /// kelime ekleme bilgisi buradan gidiyor
-          onWordAdded: (String secondLang, String firstLang) async {
-            await _firestoreService.addWord(context, secondLang, firstLang);
-            setState(() {
-              _wordListFuture = _fetchWordList();
+        log("home_page.dart >> firstLanguageText : $firstLanguageText");
+        log("home_page.dart >> secondLanguageText : $secondLanguageText");
+        showGeneralDialog(
+            context: context,
+            barrierDismissible:
+                false, // Dialog dışına tıklayınca kapanmasını engeller
+            barrierLabel:
+                MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            barrierColor: Colors.black54,
+            transitionDuration: const Duration(milliseconds: 200),
+            pageBuilder: (BuildContext buildContext, Animation animation,
+                Animation secondaryAnimation) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: AddWordBox(
+                      firstLanguageController: firstLanguageController,
+                      secondLanguageController: secondLanguageController,
+                      firstLanguageText: firstLanguageText,
+                      secondLanguageText: secondLanguageText,
+                      currentUserEmail: MyAuthService.currentUserEmail,
+                      onWordAdded: (String secondLang, String firstLang) async {
+                        await _firestoreService.addWord(
+                          context,
+                          secondLang,
+                          firstLang,
+                          MyAuthService.currentUserEmail,
+                        );
+                        setState(() {
+                          _wordListFuture = _fetchWordList();
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              );
             });
-          },
 
-          /// kelime düzeltme bilgisi buradan gidiyor.
-          onWordUpdated: (String docId) async {
+        /*/// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
+        // wordBoxDialog.openWordBox(
+        //   context: context,
+        //   languageParams: Provider.of<LanguageParams>(context, listen: false),
 
-            log('Güncellenecek kelime ID: $docId');
-            _wordListFuture = _fetchWordList();
-            // Güncellenen kelimeyi Firestore 'da güncelleme gibi
-            // işlemler burada gerçekleştirilebilir
-          },
-        );
+        /// kelime ekleme bilgisi buradan gidiyor
+        // onWordAdded: (String secondLang, String firstLang) async {
+        //   await _firestoreService.addWord(context, secondLang, firstLang);
+        //   setState(() {
+        //     _wordListFuture = _fetchWordList();
+        //   });
+        // },
+
+        /// kelime düzeltme bilgisi buradan gidiyor.
+        // onWordUpdated: (String docId) async {
+        //
+        //   log('Güncellenecek kelime ID: $docId');
+        //   _wordListFuture = _fetchWordList();
+        //   // Güncellenen kelimeyi Firestore 'da güncelleme gibi
+        //   // işlemler burada gerçekleştirilebilir
+        // },
+        // );*/
       },
       child: const Icon(Icons.add),
     );

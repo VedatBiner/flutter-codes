@@ -15,6 +15,7 @@ class FirestoreService {
       BuildContext context,
       String ikinciDil,
       String birinciDil,
+      String userEmail,
       ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
