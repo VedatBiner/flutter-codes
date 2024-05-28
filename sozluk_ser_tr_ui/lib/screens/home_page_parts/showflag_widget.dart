@@ -20,22 +20,19 @@ class ShowFlagWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          FlagWidget(
-            countryCode: code,
-            radius: radius,
-          ),
-          const SizedBox(width: 10),
-          Text(
-            text,
-            style: baslikTextWhite,
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        FlagWidget(
+          countryCode: code,
+          radius: radius,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          text,
+          style: baslikTextWhite,
+        ),
+      ],
     );
   }
 }

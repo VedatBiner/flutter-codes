@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
 
   /// Sayfa düzeni burada oluşuyor.
   Column showBody(BuildContext context, LanguageParams languageParams) {
-    final ScrollController controller;
+    // final ScrollController controller;
 
     return Column(
       children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
-
+import 'package:sozluk_ser_tr_ui/constants/app_constants/constants.dart';
+import 'package:sozluk_ser_tr_ui/screens/home_page_parts/showflag_widget.dart';
 
 class EditWordBox extends StatelessWidget {
   const EditWordBox({
@@ -19,7 +20,6 @@ class EditWordBox extends StatelessWidget {
   final String secondLanguageText;
   final String currentUserEmail;
   final Function(String, String) onWordUpdated;
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,19 @@ class EditWordBox extends StatelessWidget {
           TextField(
             controller: firstLanguageController,
             decoration: InputDecoration(
-                labelText: "$firstLanguageText kelime",
+                prefixIcon: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: ShowFlagWidget(
+                        code: secondCountry,
+                        text: '',
+                        radius: 48,
+                      ),
+                    ),
+                  ],
+                ),
                 border: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: Colors.black54,
@@ -54,14 +66,27 @@ class EditWordBox extends StatelessWidget {
           TextField(
             controller: secondLanguageController,
             decoration: InputDecoration(
-                labelText: "$secondLanguageText karşılığı",
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.black54,
-                    width: 2,
+              prefixIcon: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: ShowFlagWidget(
+                      code: firstCountry,
+                      text: '',
+                      radius: 48,
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(8),
-                )),
+                ],
+              ),
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.black54,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
           ),
           const SizedBox(height: 10),
           Padding(
