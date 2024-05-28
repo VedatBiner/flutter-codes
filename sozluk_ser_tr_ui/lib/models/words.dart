@@ -28,8 +28,8 @@ class Words {
     }
     return Words(
       key,
-      json[fsIkinciDil] as String? ?? "",
-      json[fsBirinciDil] as String? ?? "",
+      json[fsYardimciDil] as String? ?? "",
+      json[fsAnaDil] as String? ?? "",
       json[fsUserEmail] as String? ?? "",
     );
   }
@@ -45,16 +45,16 @@ class Words {
 
     return Words(
       snapshot.id,
-      data[fsIkinciDil] as String ?? "",
-      data[fsBirinciDil] as String? ?? "",
+      data[fsYardimciDil] as String ?? "",
+      data[fsAnaDil] as String? ?? "",
       data[fsUserEmail] as String? ?? "",
     );
   }
 
   Map<String, dynamic> toJson(){
     return {
-      fsIkinciDil: sirpca,
-      fsBirinciDil: turkce,
+      fsYardimciDil: sirpca,
+      fsAnaDil: turkce,
       fsUserEmail: userEmail,
     };
   }

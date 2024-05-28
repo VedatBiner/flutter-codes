@@ -42,7 +42,7 @@ class DetailsCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              displayedLanguage == birinciDil
+              displayedLanguage == anaDil
                   ? buildFlagRow(
                       firstCountry,
                       firstLanguageText,
@@ -54,7 +54,7 @@ class DetailsCard extends StatelessWidget {
                       detailTextBlue,
                     ),
               const SizedBox(height: 40),
-              displayedTranslation == ikinciDil
+              displayedTranslation == yardimciDil
                   ? buildFlagRow(
                       secondCountry,
                       secondLanguageText,

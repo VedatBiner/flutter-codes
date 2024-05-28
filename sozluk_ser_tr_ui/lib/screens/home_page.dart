@@ -59,9 +59,9 @@ class _HomePageState extends State<HomePage> {
 
   /// başlangıç dili Sırpça olacak
   String firstLanguageCode = secondCountry; // İlk dil kodu
-  String firstLanguageText = ikinciDil; // İlk dil metni
+  String firstLanguageText = yardimciDil; // İlk dil metni
   String secondLanguageCode = firstCountry; // İkinci dil kodu
-  String secondLanguageText = birinciDil; // İkinci dil metni
+  String secondLanguageText = anaDil; // İkinci dil metni
 
   /// Burada başlangıç dili Sırpça geldiği için
   /// koleksiyon okunduğu zaman
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _initializeFirestore() async {
     final collectionRef = FirebaseFirestore.instance
         .collection(collectionName)
-        .orderBy(fsIkinciDil)
+        .orderBy(fsYardimciDil)
         .withConverter<FsWords>(
           fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
           toFirestore: (word, _) => word.toJson(),
@@ -108,10 +108,10 @@ class _HomePageState extends State<HomePage> {
   /// Burada hem sırpça hem de Türkçe iki liste oluşturuluyor
   Widget _buildWordList() {
     /// Sırpça sorgu listesi
-    final queryForSerbian = _buildQuery(fsIkinciDil);
+    final queryForSerbian = _buildQuery(fsYardimciDil);
 
     /// Türkçe sorgu listesi
-    final queryForTurkish = _buildQuery(fsBirinciDil);
+    final queryForTurkish = _buildQuery(fsAnaDil);
 
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
@@ -148,8 +148,8 @@ class _HomePageState extends State<HomePage> {
 
   /// ekrana listelenecek yapı burada oluşturuluyor
   Future<List<QuerySnapshot<FsWords>>> _fetchWordList() async {
-    final queryForSerbian = _buildQuery(fsIkinciDil);
-    final queryForTurkish = _buildQuery(fsBirinciDil);
+    final queryForSerbian = _buildQuery(fsYardimciDil);
+    final queryForTurkish = _buildQuery(fsAnaDil);
 
     const options = GetOptions(source: Source.cache);
     return await Future.wait(
@@ -208,8 +208,6 @@ class _HomePageState extends State<HomePage> {
 
   /// Sayfa düzeni burada oluşuyor.
   Column showBody(BuildContext context, LanguageParams languageParams) {
-    // final ScrollController controller;
-
     return Column(
       children: [
         /// burada sayfa başlığı ve
@@ -265,11 +263,11 @@ class _HomePageState extends State<HomePage> {
             secondLanguageText: newParams.firstLanguageText,
           );
 
-          if (newParams.firstLanguageText == birinciDil &&
-              newParams.secondLanguageText == ikinciDil) {
+          if (newParams.firstLanguageText == anaDil &&
+              newParams.secondLanguageText == yardimciDil) {
             appBarTitle = appBarMainTitleFirst;
-          } else if (newParams.firstLanguageText == ikinciDil &&
-              newParams.secondLanguageText == birinciDil) {
+          } else if (newParams.firstLanguageText == yardimciDil &&
+              newParams.secondLanguageText == anaDil) {
             appBarTitle = appBarMainTitleSecond;
           }
 
@@ -287,81 +285,108 @@ class _HomePageState extends State<HomePage> {
     final TextEditingController secondLanguageController =
         TextEditingController();
 
-    // firstLanguageText == birinciDil
-    //     ? firstLanguageText = birinciDil
-    //     : firstLanguageText = ikinciDil;
-    //
-    // secondLanguageText == ikinciDil
-    //     ? secondLanguageText = ikinciDil
-    //     : secondLanguageText = birinciDil;
-
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
-        log("home_page.dart >> firstLanguageText : $firstLanguageText");
-        log("home_page.dart >> secondLanguageText : $secondLanguageText");
         showGeneralDialog(
-            context: context,
-            barrierDismissible:
-                false, // Dialog dışına tıklayınca kapanmasını engeller
-            barrierLabel:
-                MaterialLocalizations.of(context).modalBarrierDismissLabel,
-            barrierColor: Colors.black54,
-            transitionDuration: const Duration(milliseconds: 200),
-            pageBuilder: (BuildContext buildContext, Animation animation,
-                Animation secondaryAnimation) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: AddWordBox(
-                      firstLanguageController: firstLanguageController,
-                      secondLanguageController: secondLanguageController,
-                      firstLanguageText: firstLanguageText,
-                      secondLanguageText: secondLanguageText,
-                      currentUserEmail: MyAuthService.currentUserEmail,
-                      onWordAdded: (String secondLang, String firstLang) async {
-                        await _firestoreService.addWord(
-                          context,
-                          secondLang,
-                          firstLang,
-                          MyAuthService.currentUserEmail,
-                        );
-                        setState(() {
-                          _wordListFuture = _fetchWordList();
-                        });
-                      },
-                    ),
-                  ),
-                ),
-              );
-            });
+          context: context,
+          barrierDismissible: false,
+          barrierLabel:
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          barrierColor: Colors.black54,
+          transitionDuration: const Duration(milliseconds: 200),
+          pageBuilder: (BuildContext buildContext, Animation animation,
+              Animation secondaryAnimation) {
+            log("home_page.dart => firstLanguageText : $firstLanguageText");
+            log("home_page.dart => secondLanguageText : $secondLanguageText");
 
-        /*/// _wordBoxDialog nesnesi üzerinden openWordBox metodunu çağır
-        // wordBoxDialog.openWordBox(
-        //   context: context,
-        //   languageParams: Provider.of<LanguageParams>(context, listen: false),
+            if (firstLanguageText == anaDil) {
+              firstLanguageText = anaDil;
+              secondLanguageText = yardimciDil;
+            } else if (firstLanguageText == yardimciDil) {
+              firstLanguageText = yardimciDil;
+              secondLanguageText = anaDil;
+            }
+            log("home_page.dart => yeni firstLanguageText : $firstLanguageText");
+            log("home_page.dart => yeni secondLanguageText : $secondLanguageText");
 
-        /// kelime ekleme bilgisi buradan gidiyor
-        // onWordAdded: (String secondLang, String firstLang) async {
-        //   await _firestoreService.addWord(context, secondLang, firstLang);
-        //   setState(() {
-        //     _wordListFuture = _fetchWordList();
-        //   });
-        // },
-
-        /// kelime düzeltme bilgisi buradan gidiyor.
-        // onWordUpdated: (String docId) async {
-        //
-        //   log('Güncellenecek kelime ID: $docId');
-        //   _wordListFuture = _fetchWordList();
-        //   // Güncellenen kelimeyi Firestore 'da güncelleme gibi
-        //   // işlemler burada gerçekleştirilebilir
-        // },
-        // );*/
+            return buildCenter(
+              firstLanguageController,
+              secondLanguageController,
+              context,
+            );
+          },
+        );
       },
       child: const Icon(Icons.add),
+    );
+  }
+
+  /// Yeni kelime ekleme kutusu buradan çıkıyor
+  Center buildCenter(TextEditingController firstLanguageController,
+      TextEditingController secondLanguageController, BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Material(
+          borderRadius: BorderRadius.circular(16.0),
+          child: AddWordBox(
+            firstLanguageController: firstLanguageController,
+            secondLanguageController: secondLanguageController,
+            firstLanguageText: firstLanguageText,
+            secondLanguageText: secondLanguageText,
+            currentUserEmail: MyAuthService.currentUserEmail,
+            onWordAdded: (String secondLang, String firstLang) async {
+              await _firestoreService.addWord(
+                context,
+                secondLang,
+                firstLang,
+                MyAuthService.currentUserEmail,
+              );
+              setState(
+                () {
+                  _wordListFuture = _fetchWordList();
+                  var message = addMsg;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    buildSnackBar(message),
+                  );
+                  Navigator.of(context).pop();
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Yeni kelime eklendi mesajı burada yazılıyor
+  SnackBar buildSnackBar(String message) {
+    return SnackBar(
+      content: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                secondLanguageText ?? '',
+                style: kelimeStil,
+              ),
+              const Text(" kelimesi "),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                MyAuthService.currentUserEmail,
+                style: userStil,
+              ),
+              Text(
+                message,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

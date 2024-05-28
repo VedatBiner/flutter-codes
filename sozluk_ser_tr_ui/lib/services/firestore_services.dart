@@ -27,7 +27,7 @@ class FirestoreService {
     print("user mail : $userEmail");
 
     try {
-      var result = await words.where(fsIkinciDil, isEqualTo: ikinciDil).get();
+      var result = await words.where(fsYardimciDil, isEqualTo: ikinciDil).get();
 
       /// kelime veri tabanında varsa ekleme
       if (result.docs.isNotEmpty) {
@@ -45,8 +45,8 @@ class FirestoreService {
 
       /// kelime veri tabanında yoksa ekle
       await words.add({
-        fsIkinciDil: ikinciDil,
-        fsBirinciDil: birinciDil,
+        fsYardimciDil: ikinciDil,
+        fsAnaDil: birinciDil,
         fsUserEmail: userEmail,
       });
       print("Bu kelime, $userEmail tarafından eklenmiştir.");
@@ -58,10 +58,10 @@ class FirestoreService {
   /// Alfabetik sıralama için kullanılan servis metodu
   Stream<QuerySnapshot<Object?>> getWordsStream(String firstLanguageText) {
     Query query;
-    if (firstLanguageText == birinciDil) {
-      query = words.orderBy(fsBirinciDil);
+    if (firstLanguageText == anaDil) {
+      query = words.orderBy(fsAnaDil);
     } else {
-      query = words.orderBy(fsIkinciDil);
+      query = words.orderBy(fsYardimciDil);
     }
 
     final wordsStream = query.snapshots();
@@ -76,8 +76,8 @@ class FirestoreService {
     try {
       String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
       await words.doc(docId).update({
-        fsIkinciDil: ikinciDilKelime,
-        fsBirinciDil: birinciDilKelime,
+        fsYardimciDil: ikinciDilKelime,
+        fsAnaDil: birinciDilKelime,
         fsUserEmail: userEmail,
       });
       print("kelimeyi güncelleyen kullanıcı : $userEmail");

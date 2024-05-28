@@ -13,9 +13,9 @@ class LanguageProvider with ChangeNotifier {
   LanguageProvider() {
     _languageParams = LanguageParams(
       firstLanguageCode: secondCountry,
-      firstLanguageText: ikinciDil,
+      firstLanguageText: yardimciDil,
       secondLanguageCode: firstCountry,
-      secondLanguageText: birinciDil,
+      secondLanguageText: anaDil,
     );
   }
 

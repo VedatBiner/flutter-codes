@@ -135,11 +135,11 @@ const String hintCheckPassword = "parola tekrar";
 
 /// diller - Burada amaç dil adını sadece
 /// buradan verip, değişimi tek yerden kontrol etmek
-const String birinciDil = "Türkçe";
-const String fsBirinciDil = "turkce";
+const String anaDil = "Türkçe";
+const String fsAnaDil = "turkce";
 const String firstCountry = "TR";
-const String ikinciDil = "Sırpça";
-const String fsIkinciDil = "sirpca";
+const String yardimciDil = "Sırpça";
+const String fsYardimciDil = "sirpca";
 const String secondCountry = "RS";
 
 /// koleksiyon adını burada belirtelim

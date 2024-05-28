@@ -75,7 +75,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
               /// Kelimeleri alfabetik sıraya göre sırala
               .orderBy(
-                  widget.firstLanguageText == birinciDil ? 'turkce' : 'sirpca')
+                  widget.firstLanguageText == anaDil ? 'turkce' : 'sirpca')
               .get(
                 /// Firestore 'dan alınan verilerin daha önce indirilmiş verilere
                 /// karşı güncellenip güncellenmediğini kontrol et

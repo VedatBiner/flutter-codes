@@ -26,9 +26,9 @@ void main() async {
 
   /// Kullanıcı dil parametreleri buradan sağlanıyor
   String firstLanguageCode = firstCountry;
-  String firstLanguageText = birinciDil;
+  String firstLanguageText = anaDil;
   String secondLanguageCode = secondCountry;
-  String secondLanguageText = ikinciDil;
+  String secondLanguageText = yardimciDil;
 
   runApp(
     MultiProvider(

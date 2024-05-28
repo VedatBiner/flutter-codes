@@ -56,7 +56,7 @@ class WordListView extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    displayedLanguage == birinciDil
+                    displayedLanguage == anaDil
                         ? firstLanguageText ?? ""
                         : secondLanguageText ?? "",
                     textAlign: TextAlign.left,
@@ -70,7 +70,7 @@ class WordListView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    displayedTranslation == ikinciDil
+                    displayedTranslation == yardimciDil
                         ? secondLanguageText ?? ""
                         : firstLanguageText ?? "",
                     textAlign: TextAlign.right,

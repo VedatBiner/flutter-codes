@@ -18,9 +18,9 @@ class WordBoxDialog extends ChangeNotifier {
 
   /// başlangıç dili Sırpça olacak
   String firstLanguageCode = firstCountry; // İlk dil kodu
-  String firstLanguageText = birinciDil; // İlk dil metni
+  String firstLanguageText = anaDil; // İlk dil metni
   String secondLanguageCode = secondCountry; // İkinci dil kodu
-  String secondLanguageText = ikinciDil; // İkinci dil metni
+  String secondLanguageText = yardimciDil; // İkinci dil metni
 
   /// veri girişi için Controller
   final TextEditingController ikinciDilController = TextEditingController();
@@ -47,10 +47,10 @@ class WordBoxDialog extends ChangeNotifier {
       var snapshot = await firestoreService.getWordById(docId);
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
-        ikinciDilController.text = data[fsIkinciDil];
-        birinciDilController.text = data[fsBirinciDil];
-        secondLang = data[fsIkinciDil];
-        firstLang = data[fsBirinciDil];
+        ikinciDilController.text = data[fsYardimciDil];
+        birinciDilController.text = data[fsAnaDil];
+        secondLang = data[fsYardimciDil];
+        firstLang = data[fsAnaDil];
         notifyListeners();
       }
     }
@@ -58,11 +58,11 @@ class WordBoxDialog extends ChangeNotifier {
     // ikinciDilController.text = secondLang;
     // birinciDilController.text = firstLang;
 
-    firstLang == birinciDil
+    firstLang == anaDil
         ? firstLanguageText = languageParams.firstLanguageText
         : firstLanguageText = languageParams.secondLanguageText;
 
-    secondLang == ikinciDil
+    secondLang == yardimciDil
         ? secondLanguageText = languageParams.secondLanguageText
         : secondLanguageText = languageParams.firstLanguageText;
 
@@ -100,8 +100,8 @@ class WordBoxDialog extends ChangeNotifier {
                 /// kelime ekleniyor
                 await firestoreService.addWord(
                   context,
-                  ikinciDil,
-                  birinciDil,
+                  yardimciDil,
+                  anaDil,
                   MyAuthService.currentUserEmail,
                 );
                 onWordAdded(

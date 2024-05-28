@@ -61,15 +61,16 @@ class WordCardView extends StatelessWidget {
             // log("trans : $displayedTranslation");
 
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsPage(
-                    firstLanguageText: languageParams.firstLanguageText,
-                    secondLanguageText: languageParams.secondLanguageText,
-                    displayedLanguage: displayedLanguage,
-                    displayedTranslation: displayedTranslation,
-                  ),
-                ));
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailsPage(
+                  firstLanguageText: languageParams.firstLanguageText,
+                  secondLanguageText: languageParams.secondLanguageText,
+                  displayedLanguage: displayedLanguage,
+                  displayedTranslation: displayedTranslation,
+                ),
+              ),
+            );
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -80,7 +81,7 @@ class WordCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        displayedLanguage == birinciDil
+                        displayedLanguage == anaDil
                             ? firstLanguageText ?? ""
                             : secondLanguageText ?? "",
                         style: TextStyle(
@@ -96,7 +97,7 @@ class WordCardView extends StatelessWidget {
                         color: isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
-                        displayedTranslation == ikinciDil
+                        displayedTranslation == yardimciDil
                             ? secondLanguageText ?? ""
                             : firstLanguageText ?? "",
                         style: TextStyle(
