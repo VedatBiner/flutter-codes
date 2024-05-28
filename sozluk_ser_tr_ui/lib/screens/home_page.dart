@@ -44,6 +44,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Future<List<QuerySnapshot<FsWords>>> _wordListFuture;
   late final WordService _wordService = WordService();
+  final email = MyAuthService.currentUserEmail;
 
   /// Firestore servisi için değişken oluşturalım
   final FirestoreService _firestoreService = FirestoreService();
@@ -341,7 +342,8 @@ class _HomePageState extends State<HomePage> {
                 context,
                 secondLang,
                 firstLang,
-                MyAuthService.currentUserEmail,
+                email,
+               // MyAuthService.currentUserEmail,
               );
               setState(
                 () {
@@ -377,7 +379,7 @@ class _HomePageState extends State<HomePage> {
           Row(
             children: [
               Text(
-                MyAuthService.currentUserEmail,
+                email,
                 style: userStil,
               ),
               Text(
