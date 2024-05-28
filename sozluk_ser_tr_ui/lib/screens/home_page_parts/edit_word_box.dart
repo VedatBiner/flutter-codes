@@ -1,7 +1,11 @@
+/// <----- edit_word_box.dart ----->
+library;
+
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
-import 'package:sozluk_ser_tr_ui/constants/app_constants/constants.dart';
-import 'package:sozluk_ser_tr_ui/screens/home_page_parts/showflag_widget.dart';
+
+import '../../constants/app_constants/color_constants.dart';
+import '../../constants/app_constants/constants.dart';
+import '../../screens/home_page_parts/showflag_widget.dart';
 
 class EditWordBox extends StatelessWidget {
   const EditWordBox({

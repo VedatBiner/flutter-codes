@@ -117,8 +117,7 @@ class WordCardView extends StatelessWidget {
                         log("Kelime düzeltme seçildi");
                         showGeneralDialog(
                           context: context,
-                          barrierDismissible:
-                              false, // Dialog dışına tıklayınca kapanmasını engeller
+                          barrierDismissible: false,
                           barrierLabel: MaterialLocalizations.of(context)
                               .modalBarrierDismissLabel,
                           barrierColor: Colors.black54,
@@ -131,38 +130,31 @@ class WordCardView extends StatelessWidget {
                                 padding: const EdgeInsets.all(20),
                                 child: Material(
                                   child: EditWordBox(
-                                      firstLanguageController:
-                                          TextEditingController(
-                                              text: firstLanguageText),
-                                      secondLanguageController:
-                                          TextEditingController(
-                                              text: secondLanguageText),
-                                      firstLanguageText: firstLanguageText,
-                                      secondLanguageText: secondLanguageText,
-                                      currentUserEmail: currentUserEmail,
-                                      onWordUpdated: (String secondLang,
-                                          String firstLang) async {
-                                        await _firestoreService.updateWord(
-                                          word.wordId,
-                                          firstLang,
-                                          secondLang,
-                                        );
-                                      }),
+                                    firstLanguageController:
+                                        TextEditingController(
+                                      text: firstLanguageText,
+                                    ),
+                                    secondLanguageController:
+                                        TextEditingController(
+                                      text: secondLanguageText,
+                                    ),
+                                    firstLanguageText: firstLanguageText,
+                                    secondLanguageText: secondLanguageText,
+                                    currentUserEmail: currentUserEmail,
+                                    onWordUpdated: (String secondLang,
+                                        String firstLang) async {
+                                      await _firestoreService.updateWord(
+                                        word.wordId,
+                                        firstLang,
+                                        secondLang,
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             );
                           },
                         );
-
-                        // WordBoxDialog().openWordBox(
-                        //     context: context,
-                        //     onWordAdded: (secondLang, firstLang) {
-                        //       log("Kelime Eklendi : $secondLang = $firstLang");
-                        //     },
-                        //     onWordUpdated: (docId) {
-                        //       log("Kelime güncellendi : $docId");
-                        //     },
-                        //     languageParams: languageParams);
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "kelime düzelt",
@@ -174,65 +166,7 @@ class WordCardView extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : null,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                                side: const BorderSide(
-                                  color: Colors.red,
-                                  width: 2.0,
-                                ),
-                              ),
-                              title: const Text(
-                                dikkatMsg,
-                                style: dikkatText,
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    silMsg,
-                                    style: silText,
-                                  ),
-                                  const Text(
-                                    eminMsg,
-                                    style: eminText,
-                                  ),
-                                  Text(
-                                    word.sirpca ?? "",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    word.turkce ?? "",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('İptal'),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Burada silme işlemi gerçekleştirilebilir
-                                    Navigator.pop(context);
-                                    log("Kelime silindi");
-                                  },
-                                  child: const Text('Sil'),
-                                ),
-                              ],
-                            );
+                            return buildAlertDialog(context);
                           },
                         );
                       },
@@ -247,6 +181,68 @@ class WordCardView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Burada kelime düzeltme işlemi için
+  /// dialog kutusu oluşturuyoruz.
+  AlertDialog buildAlertDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        side: const BorderSide(
+          color: Colors.red,
+          width: 2.0,
+        ),
+      ),
+      title: const Text(
+        dikkatMsg,
+        style: dikkatText,
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Text(
+            silMsg,
+            style: silText,
+          ),
+          const Text(
+            eminMsg,
+            style: eminText,
+          ),
+          Text(
+            word.sirpca ?? "",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            word.turkce ?? "",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('İptal'),
+        ),
+        TextButton(
+          onPressed: () {
+            // Burada silme işlemi gerçekleştirilebilir
+            Navigator.pop(context);
+            log("Kelime silindi");
+          },
+          child: const Text('Sil'),
+        ),
+      ],
     );
   }
 }
