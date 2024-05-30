@@ -29,7 +29,6 @@ import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/language_selector.dart';
 import 'home_page_parts/add_word_box.dart';
 import 'home_page_parts/word_list_builder.dart';
-import 'home_page_parts/wordbox_dialog.dart';
 
 late CollectionReference<FsWords> collection;
 late Query<FsWords> query;
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 
   /// Firestore servisi için değişken oluşturalım
   final FirestoreService _firestoreService = FirestoreService();
-  final WordBoxDialog _wordBoxDialog = WordBoxDialog();
+  // final WordBoxDialog _wordBoxDialog = WordBoxDialog();
 
   bool isListView = false;
   bool aramaYapiliyorMu = false;
@@ -272,8 +271,11 @@ class _HomePageState extends State<HomePage> {
             appBarTitle = appBarMainTitleSecond;
           }
 
-          firstLanguageText = newParams.secondLanguageText;
-          secondLanguageText = newParams.firstLanguageText;
+          firstLanguageText = newParams.firstLanguageText;
+          secondLanguageText = newParams.secondLanguageText;
+
+          log("home_page.dart => Lang Selector - firstLanguageText : $firstLanguageText");
+          log("home_page.dart => Lang Selector - secondLanguageText : $secondLanguageText");
         });
       },
     );
@@ -289,6 +291,10 @@ class _HomePageState extends State<HomePage> {
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
+
+        log("home_page.dart => FAB - firstLanguageText : $firstLanguageText");
+        log("home_page.dart => FAB - secondLanguageText : $secondLanguageText");
+
         showGeneralDialog(
           context: context,
           barrierDismissible: false,
@@ -298,22 +304,10 @@ class _HomePageState extends State<HomePage> {
           transitionDuration: const Duration(milliseconds: 200),
           pageBuilder: (BuildContext buildContext, Animation animation,
               Animation secondaryAnimation) {
-            log("home_page.dart => firstLanguageText : $firstLanguageText");
-            log("home_page.dart => secondLanguageText : $secondLanguageText");
-
-            if (firstLanguageText == anaDil) {
-              firstLanguageText = anaDil;
-              secondLanguageText = yardimciDil;
-            } else if (firstLanguageText == yardimciDil) {
-              firstLanguageText = yardimciDil;
-              secondLanguageText = anaDil;
-            }
-            log("home_page.dart => yeni firstLanguageText : $firstLanguageText");
-            log("home_page.dart => yeni secondLanguageText : $secondLanguageText");
-
             return buildCenter(
               firstLanguageController,
               secondLanguageController,
+              email,
               context,
             );
           },
@@ -324,8 +318,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Yeni kelime ekleme kutusu buradan çıkıyor
-  Center buildCenter(TextEditingController firstLanguageController,
-      TextEditingController secondLanguageController, BuildContext context) {
+  Center buildCenter(
+    TextEditingController firstLanguageController,
+    TextEditingController secondLanguageController,
+    email,
+    BuildContext context,
+  ) {
+    log("home_page.dart => Center - firstLanguageText : $firstLanguageText");
+    log("home_page.dart => Center - secondLanguageText : $secondLanguageText");
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -334,16 +334,19 @@ class _HomePageState extends State<HomePage> {
           child: AddWordBox(
             firstLanguageController: firstLanguageController,
             secondLanguageController: secondLanguageController,
-            firstLanguageText: firstLanguageText,
-            secondLanguageText: secondLanguageText,
-            currentUserEmail: MyAuthService.currentUserEmail,
-            onWordAdded: (String secondLang, String firstLang) async {
+            firstLanguageText: anaDil,
+            secondLanguageText: yardimciDil,
+            currentUserEmail: email,
+            onWordAdded: (
+              String firstLang,
+              String secondLang,
+              String email,
+            ) async {
               await _firestoreService.addWord(
                 context,
-                secondLang,
                 firstLang,
+                secondLang,
                 email,
-               // MyAuthService.currentUserEmail,
               );
               setState(
                 () {

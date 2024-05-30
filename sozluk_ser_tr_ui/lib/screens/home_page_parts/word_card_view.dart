@@ -42,7 +42,7 @@ class WordCardView extends StatelessWidget {
     final languageParams = Provider.of<LanguageParams>(context);
     final String currentUserEmail = MyAuthService.currentUserEmail;
 
-    final FirestoreService _firestoreService = FirestoreService();
+    final FirestoreService firestoreService = FirestoreService();
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -144,7 +144,7 @@ class WordCardView extends StatelessWidget {
                                     currentUserEmail: currentUserEmail,
                                     onWordUpdated: (String secondLang,
                                         String firstLang) async {
-                                      await _firestoreService.updateWord(
+                                      await firestoreService.updateWord(
                                         word.wordId,
                                         firstLang,
                                         secondLang,

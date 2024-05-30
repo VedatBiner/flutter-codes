@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
-import 'package:sozluk_ser_tr_ui/constants/app_constants/constants.dart';
+
 
 class AddWordBox extends StatelessWidget {
-  const AddWordBox({
+  AddWordBox({
     super.key,
     required this.firstLanguageController,
     required this.secondLanguageController,
@@ -15,13 +17,24 @@ class AddWordBox extends StatelessWidget {
 
   final TextEditingController firstLanguageController;
   final TextEditingController secondLanguageController;
-  final String firstLanguageText;
-  final String secondLanguageText;
+  String firstLanguageText;
+  String secondLanguageText;
   final String currentUserEmail;
-  final Function(String, String) onWordAdded;
+  final Function(String, String, String) onWordAdded;
 
   @override
   Widget build(BuildContext context) {
+    log("kayıtlı kullanıcı : $currentUserEmail");
+    // if (firstLanguageText == anaDil) {
+    //   firstLanguageText = anaDil;
+    //   secondLanguageText = yardimciDil;
+    // } else {
+    //   firstLanguageText = yardimciDil;
+    //   secondLanguageText = anaDil;
+    // }
+
+    log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
+    log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -40,27 +53,29 @@ class AddWordBox extends StatelessWidget {
           TextField(
             controller: firstLanguageController,
             decoration: InputDecoration(
-                labelText: "$firstLanguageText kelime",
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.black54,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                )),
+              labelText: "$firstLanguageText kelime",
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.black54,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
           ),
           const SizedBox(height: 20),
           TextField(
             controller: secondLanguageController,
             decoration: InputDecoration(
-                labelText: "$secondLanguageText karşılığı",
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.black54,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                )),
+              labelText: "$secondLanguageText karşılığı",
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.black54,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
           ),
           const SizedBox(height: 10),
           Padding(
@@ -73,7 +88,7 @@ class AddWordBox extends StatelessWidget {
                     backgroundColor: Colors.grey,
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop(); // Diyaloğu kapatır
+                    Navigator.of(context).pop();
                   },
                   child: const Text(
                     'İptal',
@@ -89,6 +104,7 @@ class AddWordBox extends StatelessWidget {
                     onWordAdded(
                       firstLanguageController.text,
                       secondLanguageController.text,
+                      currentUserEmail,
                     );
                   },
                   child: Text(

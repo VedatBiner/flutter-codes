@@ -27,13 +27,13 @@ class FsWords {
       'wordId': wordId,
       'sirpca': sirpca,
       'turkce': turkce,
-      'userEmail': userEmail,
+      'userEmail': userEmail
     };
   }
 
   @override
   String toString() {
-    return 'FsWords{sirpca: $sirpca, turkce: $turkce,userEmail: $userEmail,}';
+    return 'FsWords{sirpca: $sirpca, turkce: $turkce, userEmail: $userEmail,}';
   }
 
   factory FsWords.fromFirestore(
@@ -49,7 +49,8 @@ class FsWords {
 
   /// orderBy metodu
   static Future<QuerySnapshot<Object?>> orderBy(String field) async {
-    final CollectionReference words = FirebaseFirestore.instance.collection("kelimeler");
+    final CollectionReference words =
+        FirebaseFirestore.instance.collection("kelimeler");
     return await words.orderBy(field).get();
   }
 }
