@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
 
+import '../../constants/app_constants/constants.dart';
+import '../../services/auth_services.dart';
 
 class AddWordBox extends StatelessWidget {
   AddWordBox({
@@ -21,20 +23,28 @@ class AddWordBox extends StatelessWidget {
   String secondLanguageText;
   final String currentUserEmail;
   final Function(String, String, String) onWordAdded;
+  final email = MyAuthService.currentUserEmail;
 
   @override
   Widget build(BuildContext context) {
-    log("kayıtlı kullanıcı : $currentUserEmail");
-    // if (firstLanguageText == anaDil) {
-    //   firstLanguageText = anaDil;
-    //   secondLanguageText = yardimciDil;
-    // } else {
-    //   firstLanguageText = yardimciDil;
-    //   secondLanguageText = anaDil;
-    // }
+    // log("kayıtlı kullanıcı : $currentUserEmail");
+    // log("add_word_box.dart email : $email");
 
     log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
+
+    /// bu kontroller Sırpça-Türkçe dile seçimi için doğru çalışıyor
+    if (firstLanguageText == anaDil) {
+      firstLanguageText = yardimciDil;
+      secondLanguageText = anaDil;
+    } else if (firstLanguageText == yardimciDil) {
+      firstLanguageText = anaDil;
+      secondLanguageText = yardimciDil;
+    } 
+
+    log("add_word_box.dart => build - değişti mi? - firstLanguageText : $firstLanguageText");
+    log("add_word_box.dart => build - değişti mi ?secondLanguageText : $secondLanguageText");
+
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -101,10 +111,11 @@ class AddWordBox extends StatelessWidget {
                     backgroundColor: drawerColor,
                   ),
                   onPressed: () {
+                    // log("add_word_box.dart => (ElevatedButton) - email : $email");
                     onWordAdded(
                       firstLanguageController.text,
                       secondLanguageController.text,
-                      currentUserEmail,
+                      email,
                     );
                   },
                   child: Text(

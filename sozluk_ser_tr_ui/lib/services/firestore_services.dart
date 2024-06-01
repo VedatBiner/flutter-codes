@@ -1,11 +1,14 @@
 /// <----- firestore_services.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../constants/app_constants/constants.dart';
+import 'auth_services.dart';
 
 class FirestoreService {
   final CollectionReference words =
@@ -23,8 +26,7 @@ class FirestoreService {
     birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
 
     /// login olan kullanıcının email adresini al
-    String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
-    print("user mail : $userEmail");
+//    log("firestore_services.dart => user email : ${MyAuthService.currentUserEmail}");
 
     try {
       var result = await words.where(fsYardimciDil, isEqualTo: ikinciDil).get();
@@ -47,11 +49,11 @@ class FirestoreService {
       await words.add({
         fsYardimciDil: ikinciDil,
         fsAnaDil: birinciDil,
-        fsUserEmail: userEmail,
+        fsUserEmail: MyAuthService.currentUserEmail,
       });
-      print("Bu kelime, $userEmail tarafından eklenmiştir.");
+      log("Bu kelime, ${MyAuthService.currentUserEmail} tarafından eklenmiştir.");
     } catch (e) {
-      print("Error adding word: $e");
+      log("Error adding word: $e");
     }
   }
 

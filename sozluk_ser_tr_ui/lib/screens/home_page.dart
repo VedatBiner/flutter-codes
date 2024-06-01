@@ -292,8 +292,8 @@ class _HomePageState extends State<HomePage> {
       onPressed: () {
         log("Kelime ekleme seçildi");
 
-        log("home_page.dart => FAB - firstLanguageText : $firstLanguageText");
-        log("home_page.dart => FAB - secondLanguageText : $secondLanguageText");
+        log("home_page.dart => (FAB) - firstLanguageText : $firstLanguageText");
+        log("home_page.dart => (FAB) - secondLanguageText : $secondLanguageText");
 
         showGeneralDialog(
           context: context,
@@ -304,6 +304,7 @@ class _HomePageState extends State<HomePage> {
           transitionDuration: const Duration(milliseconds: 200),
           pageBuilder: (BuildContext buildContext, Animation animation,
               Animation secondaryAnimation) {
+           // log("Home_page.dart (FAB) => email : $email");
             return buildCenter(
               firstLanguageController,
               secondLanguageController,
@@ -324,16 +325,17 @@ class _HomePageState extends State<HomePage> {
     email,
     BuildContext context,
   ) {
-    log("home_page.dart => Center - firstLanguageText : $firstLanguageText");
-    log("home_page.dart => Center - secondLanguageText : $secondLanguageText");
+    log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
+    log("home_page.dart => (buildCenter) - secondLanguageText : $secondLanguageText");
+   // log("Home_page.dart => (Center) - email : $email");
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Material(
           borderRadius: BorderRadius.circular(16.0),
           child: AddWordBox(
-            firstLanguageController: firstLanguageController,
-            secondLanguageController: secondLanguageController,
+            firstLanguageController: secondLanguageController,
+            secondLanguageController: firstLanguageController,
             firstLanguageText: anaDil,
             secondLanguageText: yardimciDil,
             currentUserEmail: email,
@@ -342,6 +344,7 @@ class _HomePageState extends State<HomePage> {
               String secondLang,
               String email,
             ) async {
+          //    log("Home_page.dart => (AddWordBox) - email : $email");
               await _firestoreService.addWord(
                 context,
                 firstLang,
