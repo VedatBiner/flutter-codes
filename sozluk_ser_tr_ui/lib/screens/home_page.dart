@@ -329,11 +329,13 @@ class _HomePageState extends State<HomePage> {
     language,
     BuildContext context,
   ) {
-    log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
-    log("home_page.dart => (buildCenter) - secondLanguageText : $secondLanguageText");
+
     log("***** 05-home_page.dart dosyasında buildCenter() metodu çalıştı.");
     log("------------------------------------------------------------------------");
+    log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
+    log("home_page.dart => (buildCenter) - secondLanguageText : $secondLanguageText");
     log("home_page.dart >> language : $language");
+    log("bu bilgiler Center metoduna gönderildi");
     TextEditingController tempLanguageController;
     String tempLanguageText;
 
@@ -358,10 +360,10 @@ class _HomePageState extends State<HomePage> {
         child: Material(
           borderRadius: BorderRadius.circular(16.0),
           child: AddWordBox(
-            firstLanguageController: secondLanguageController,
-            secondLanguageController: firstLanguageController,
-            firstLanguageText: anaDil,
-            secondLanguageText: yardimciDil,
+            // firstLanguageController: secondLanguageController,
+            // secondLanguageController: firstLanguageController,
+            firstLanguageText: yardimciDil,
+            secondLanguageText: anaDil,
             currentUserEmail: email,
             language: language,
             onWordAdded: (

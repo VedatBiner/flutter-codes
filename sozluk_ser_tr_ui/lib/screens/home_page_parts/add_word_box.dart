@@ -8,15 +8,16 @@ import '../../services/auth_services.dart';
 class AddWordBox extends StatelessWidget {
   AddWordBox({
     super.key,
-    required this.firstLanguageController,
-    required this.secondLanguageController,
     required this.firstLanguageText,
     required this.secondLanguageText,
     required this.language,
     required this.onWordAdded,
     required this.currentUserEmail,
-  });
+  })  : firstLanguageController = TextEditingController(),
+        secondLanguageController = TextEditingController();
 
+  /// burada TextEditingController 'lat tekrar tanımlandı
+  /// aksi halde iki text kutusuna da aynı değer yazılır.
   final TextEditingController firstLanguageController;
   final TextEditingController secondLanguageController;
   String firstLanguageText;
@@ -28,10 +29,9 @@ class AddWordBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // log("kayıtlı kullanıcı : $currentUserEmail");
-    // log("add_word_box.dart email : $email");
 
     log("10-add_word_box.dart dosyası çalıştı. >>>>>");
+    log("---------------------------------------------");
 
     log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
@@ -39,6 +39,7 @@ class AddWordBox extends StatelessWidget {
 
     String tempLanguageText;
 
+    /// bu kontroller Sırpça-Türkçe dile seçimi için doğru çalışıyor
     if (language) {
       firstLanguageText = firstLanguageText;
       secondLanguageText = secondLanguageText;
@@ -48,17 +49,10 @@ class AddWordBox extends StatelessWidget {
       secondLanguageText = tempLanguageText;
     }
 
-    /// bu kontroller Sırpça-Türkçe dile seçimi için doğru çalışıyor
-    // if (firstLanguageText == anaDil) {
-    //   firstLanguageText = yardimciDil;
-    //   secondLanguageText = anaDil;
-    // } else if (firstLanguageText == yardimciDil) {
-    //   firstLanguageText = anaDil;
-    //   secondLanguageText = yardimciDil;
-    // }
-
     log("add_word_box.dart => build - değişti mi? - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - değişti mi ?secondLanguageText : $secondLanguageText");
+    log("first language controller : $firstLanguageController");
+    log("second language controller : $secondLanguageController");
 
     return Padding(
       padding: const EdgeInsets.all(24),
