@@ -5,6 +5,8 @@
 
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants/constants.dart';
@@ -39,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    log("03-login_page.dart çalıştı.");
     return Scaffold(
       backgroundColor: drawerColor,
       body: SafeArea(

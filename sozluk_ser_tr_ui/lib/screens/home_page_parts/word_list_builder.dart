@@ -5,6 +5,8 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +20,14 @@ import '../../models/language_params.dart';
 class WordListBuilder extends StatefulWidget {
   final List<QuerySnapshot<FsWords>> snapshot;
   final bool isListView;
+  final bool language;
   final LanguageParams languageParams;
 
   const WordListBuilder({
     super.key,
     required this.snapshot,
     required this.isListView,
+    required this.language,
     required this.languageParams,
   });
 
@@ -32,8 +36,6 @@ class WordListBuilder extends StatefulWidget {
 }
 
 class _WordListBuilderState extends State<WordListBuilder> {
-  /// Scrollbar için controller
-  ScrollController listViewController = ScrollController();
   @override
   Widget build(BuildContext context) {
     final serbianResults =
@@ -41,33 +43,32 @@ class _WordListBuilderState extends State<WordListBuilder> {
     final turkishResults =
         widget.snapshot[1].docs.map((doc) => doc.data()).toList();
     final mergedResults = [...serbianResults, ...turkishResults];
-    // log("Merged results : $mergedResults");
-    // log("Serbian Words : $serbianResults");
-    // log("Turkish Words : $turkishResults");
+
+    log("13-word_list_builder.dart dosyası. >>>>>>>");
+    log("word_list_builder => Language : ${widget.language}");
 
     /// Dilin her iki yöne de belirlenmesi
     final languageParams = Provider.of<LanguageParams>(context);
-    final currentLanguage = languageParams.firstLanguageText;
-    final targetLanguage = languageParams.secondLanguageText;
+
+    final displayedLanguage = widget.language
+        ? languageParams.secondLanguageText
+        : languageParams.firstLanguageText;
+    final translatedLanguage = widget.language
+        ? languageParams.firstLanguageText
+        : languageParams.secondLanguageText;
 
     return Column(
       children: [
         Expanded(
           child: ListView.builder(
-            controller: listViewController,
             itemCount: mergedResults.length,
             itemBuilder: (context, wordIndex) {
               final word = mergedResults[wordIndex];
-              final displayedLanguage = wordIndex < serbianResults.length
-                  ? currentLanguage
-                  : targetLanguage;
-              final translatedLanguage = wordIndex < serbianResults.length
-                  ? targetLanguage
-                  : currentLanguage;
               return buildWordTile(
                 context: context,
                 word: word,
                 isListView: widget.isListView,
+                language: widget.language,
                 displayedLanguage: displayedLanguage,
                 translatedLanguage: translatedLanguage,
               );
@@ -84,6 +85,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
     required BuildContext context,
     required FsWords word,
     required bool isListView,
+    required bool language,
     required String displayedLanguage,
     required String translatedLanguage,
   }) {
@@ -94,6 +96,31 @@ class _WordListBuilderState extends State<WordListBuilder> {
     final languageParams = Provider.of<LanguageParams>(context);
     final displayedTranslation = translatedLanguage;
 
+    /// Sırpça - Türkçe olunca sorun yok
+    /// Sırpça - Türkçe durumuna göre Card ve List
+    /// görünümü burada belirleniyor.
+    final firstLanguageText = language
+        ? (displayedLanguage == languageParams.firstLanguageText
+            ? word.sirpca
+            : word.turkce)
+        : (displayedLanguage == languageParams.firstLanguageText
+            ? word.turkce
+            : word.sirpca);
+    final secondLanguageText = language
+        ? (displayedLanguage == languageParams.firstLanguageText
+            ? word.turkce
+            : word.sirpca)
+        : (displayedLanguage == languageParams.firstLanguageText
+            ? word.sirpca
+            : word.turkce);
+
+    log("word_list_builder.dart");
+    log("-------------------------------------");
+    log("word_list_builder.dart (buildWorTile)");
+    log("word_list_builder.dart (buildWorTile) language : ${widget.language}");
+    log("first language Text : $secondLanguageText");
+    log("second language Text : $firstLanguageText");
+
     final wordWidget = isListView
         ? ChangeNotifierProvider<LanguageParams>.value(
             value: languageParams,
@@ -102,14 +129,8 @@ class _WordListBuilderState extends State<WordListBuilder> {
               isDarkMode: isDarkMode,
               displayedTranslation: displayedTranslation,
               displayedLanguage: displayedLanguage,
-              firstLanguageText:
-                  languageParams.firstLanguageText == displayedTranslation
-                      ? word.turkce
-                      : word.sirpca,
-              secondLanguageText:
-                  languageParams.secondLanguageText == displayedLanguage
-                      ? word.sirpca
-                      : word.turkce,
+              firstLanguageText: firstLanguageText,
+              secondLanguageText: secondLanguageText,
             ),
           )
         : ChangeNotifierProvider.value(
@@ -119,14 +140,8 @@ class _WordListBuilderState extends State<WordListBuilder> {
               isDarkMode: isDarkMode,
               displayedTranslation: displayedTranslation,
               displayedLanguage: displayedLanguage,
-              firstLanguageText:
-                  languageParams.firstLanguageText == displayedTranslation
-                      ? word.turkce
-                      : word.sirpca,
-              secondLanguageText:
-                  languageParams.secondLanguageText == displayedLanguage
-                      ? word.sirpca
-                      : word.turkce,
+              firstLanguageText: firstLanguageText,
+              secondLanguageText: secondLanguageText,
             ),
           );
 

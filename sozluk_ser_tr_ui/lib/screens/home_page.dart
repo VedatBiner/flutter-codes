@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> {
 
   /// Firestore servisi için değişken oluşturalım
   final FirestoreService _firestoreService = FirestoreService();
-  // final WordBoxDialog _wordBoxDialog = WordBoxDialog();
 
   bool isListView = false;
   bool aramaYapiliyorMu = false;
@@ -63,11 +62,14 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageCode = firstCountry; // İkinci dil kodu
   String secondLanguageText = anaDil; // İkinci dil metni
 
+  bool language = true; // ilk başta Sırpça - Türkçe
+
   /// Burada başlangıç dili Sırpça geldiği için
   /// koleksiyon okunduğu zaman
   /// kelimeler sırpça 'ya göre sıralı olarak
   /// pagination ile listelenir.
   Future<void> _initializeFirestore() async {
+    log("***** 05-home_page.dart dosyasında _initializeFirestore() metodu çalıştı.");
     final collectionRef = FirebaseFirestore.instance
         .collection(collectionName)
         .orderBy(fsYardimciDil)
@@ -82,6 +84,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    log(" >>>>> home_page.dart dosyasında intiState() metodu çalıştı. *****");
 
     /// Firestore verisinden JSON dosya oluşturup yazıyoruz
     _wordService.jsonInit();
@@ -113,6 +116,7 @@ class _HomePageState extends State<HomePage> {
     /// Türkçe sorgu listesi
     final queryForTurkish = _buildQuery(fsAnaDil);
 
+    log(">>>>> home_page.dart dosyasında _buildWordList() metodu çalıştı. *****");
     return FutureBuilder<List<QuerySnapshot<FsWords>>>(
       future: Future.wait([queryForSerbian.get(), queryForTurkish.get()]),
       builder: (context, AsyncSnapshot<List<QuerySnapshot<FsWords>>> snapshot) {
@@ -141,6 +145,7 @@ class _HomePageState extends State<HomePage> {
           snapshot: snapshot.data!,
           isListView: isListView,
           languageParams: languageParams,
+          language: language,
         );
       },
     );
@@ -152,18 +157,19 @@ class _HomePageState extends State<HomePage> {
     final queryForTurkish = _buildQuery(fsAnaDil);
 
     const options = GetOptions(source: Source.cache);
+    log(">>>>> home_page.dart dosyasında _fetchWordList() metodu çalıştı. *****");
     return await Future.wait(
       [queryForSerbian.get(options), queryForTurkish.get(options)],
     );
   }
 
   /// ana kodumuz bu şekilde
-
   @override
   Widget build(BuildContext context) {
     /// burada Splash_page.dart sayfasına
     /// geri dönüşü engelledik.
     final languageParams = Provider.of<LanguageParams>(context);
+    log(">>>>> home_page.dart dosyasında build() metodu çalıştı. *****");
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -179,6 +185,7 @@ class _HomePageState extends State<HomePage> {
 
   /// arama kutusunu içeren Appbar burada
   HomeCustomAppBar buildHomeCustomAppBar() {
+    log(">>>>> home_page.dart dosyasında buildHomeCustomAppBar() metodu çalıştı. *****");
     return HomeCustomAppBar(
       aramaYapiliyorMu: aramaYapiliyorMu,
       aramaKelimesi: aramaKelimesi,
@@ -208,6 +215,7 @@ class _HomePageState extends State<HomePage> {
 
   /// Sayfa düzeni burada oluşuyor.
   Column showBody(BuildContext context, LanguageParams languageParams) {
+    log(">>>>> home_page.dart dosyasında showBody() metodu çalıştı. *****");
     return Column(
       children: [
         /// burada sayfa başlığı ve
@@ -236,47 +244,42 @@ class _HomePageState extends State<HomePage> {
     required BuildContext context,
     required LanguageParams languageParams,
   }) {
+    log(">>>>> home_page.dart dosyasında buildLanguageSelector() "
+        "metodu çalıştı. *****");
     return LanguageSelector(
       firstLanguageCode: languageParams.secondLanguageCode,
       firstLanguageText: languageParams.secondLanguageText,
       secondLanguageCode: languageParams.firstLanguageCode,
       secondLanguageText: languageParams.firstLanguageText,
       isListView: isListView,
+      language: language,
       onIconPressed: () {
         setState(() {
           Provider.of<IconProvider>(context, listen: false).changeIcon();
           isListView = !isListView;
         });
       },
-      onLanguageChange: () {
-        setState(() {
-          final newParams = languageParams.copyWith(
-            firstLanguageCode: languageParams.firstLanguageCode,
-            firstLanguageText: languageParams.firstLanguageText,
-            secondLanguageCode: languageParams.secondLanguageCode,
-            secondLanguageText: languageParams.secondLanguageText,
-          );
-          Provider.of<LanguageParams>(context, listen: false).changeLanguage(
-            firstLanguageCode: newParams.secondLanguageCode,
-            firstLanguageText: newParams.secondLanguageText,
-            secondLanguageCode: newParams.firstLanguageCode,
-            secondLanguageText: newParams.firstLanguageText,
-          );
-
-          if (newParams.firstLanguageText == anaDil &&
-              newParams.secondLanguageText == yardimciDil) {
-            appBarTitle = appBarMainTitleFirst;
-          } else if (newParams.firstLanguageText == yardimciDil &&
-              newParams.secondLanguageText == anaDil) {
-            appBarTitle = appBarMainTitleSecond;
-          }
-
-          firstLanguageText = newParams.firstLanguageText;
-          secondLanguageText = newParams.secondLanguageText;
-
-          log("home_page.dart => Lang Selector - firstLanguageText : $firstLanguageText");
-          log("home_page.dart => Lang Selector - secondLanguageText : $secondLanguageText");
-        });
+      onLanguageChange: (bool newLanguage) {
+        setState(
+          () {
+            language = newLanguage;
+            log(">>>>> home_page.dart dosyasında buildLanguageSelector() "
+                "metodu çalıştı. *****");
+            if (language) {
+              firstLanguageCode = secondCountry;
+              firstLanguageText = yardimciDil;
+              secondLanguageCode = firstCountry;
+              secondLanguageText = anaDil;
+              appBarTitle = appBarMainTitleSecond;
+            } else {
+              firstLanguageCode = firstCountry;
+              firstLanguageText = anaDil;
+              secondLanguageCode = secondCountry;
+              secondLanguageText = yardimciDil;
+              appBarTitle = appBarMainTitleFirst;
+            }
+          },
+        );
       },
     );
   }
@@ -287,13 +290,13 @@ class _HomePageState extends State<HomePage> {
         TextEditingController();
     final TextEditingController secondLanguageController =
         TextEditingController();
-
+    log(">>>>> home_page.dart dosyasında buildFloatingActionButon() "
+        "metodu çalıştı. *****");
     return FloatingActionButton(
       onPressed: () {
         log("Kelime ekleme seçildi");
-
-        log("home_page.dart => (FAB) - firstLanguageText : $firstLanguageText");
-        log("home_page.dart => (FAB) - secondLanguageText : $secondLanguageText");
+        log(">>>>> home_page.dart dosyasında FloatingActionButton() "
+            "metodu çalıştı. *****");
 
         showGeneralDialog(
           context: context,
@@ -304,11 +307,11 @@ class _HomePageState extends State<HomePage> {
           transitionDuration: const Duration(milliseconds: 200),
           pageBuilder: (BuildContext buildContext, Animation animation,
               Animation secondaryAnimation) {
-           // log("Home_page.dart (FAB) => email : $email");
             return buildCenter(
               firstLanguageController,
               secondLanguageController,
               email,
+              language,
               context,
             );
           },
@@ -323,11 +326,32 @@ class _HomePageState extends State<HomePage> {
     TextEditingController firstLanguageController,
     TextEditingController secondLanguageController,
     email,
+    language,
     BuildContext context,
   ) {
     log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
     log("home_page.dart => (buildCenter) - secondLanguageText : $secondLanguageText");
-   // log("Home_page.dart => (Center) - email : $email");
+    log("***** 05-home_page.dart dosyasında buildCenter() metodu çalıştı.");
+    log("------------------------------------------------------------------------");
+    log("home_page.dart >> language : $language");
+    TextEditingController tempLanguageController;
+    String tempLanguageText;
+
+    if (language) {
+      tempLanguageController = secondLanguageController;
+      firstLanguageController = secondLanguageController;
+      firstLanguageText = secondLanguageText;
+      secondLanguageController = firstLanguageController;
+      secondLanguageText = firstLanguageText;
+    } else {
+      tempLanguageController = firstLanguageController;
+      tempLanguageText = firstLanguageText;
+      firstLanguageController = secondLanguageController;
+      firstLanguageText = secondLanguageText;
+      secondLanguageController = tempLanguageController;
+      secondLanguageText = tempLanguageText;
+    }
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -339,12 +363,12 @@ class _HomePageState extends State<HomePage> {
             firstLanguageText: anaDil,
             secondLanguageText: yardimciDil,
             currentUserEmail: email,
+            language: language,
             onWordAdded: (
               String firstLang,
               String secondLang,
               String email,
             ) async {
-          //    log("Home_page.dart => (AddWordBox) - email : $email");
               await _firestoreService.addWord(
                 context,
                 firstLang,

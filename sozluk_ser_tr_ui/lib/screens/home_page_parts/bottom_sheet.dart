@@ -2,6 +2,8 @@
 /// Girilen kelime sayısı burada bulunuyor
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
@@ -14,6 +16,7 @@ class BottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final WordService wordService = WordService();
+    log("08-bottom_sheet.dart dosyası çalıştı.");
     return Container(
       color: menuColor,
       padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -6,6 +6,8 @@
 /// --------------------------------------------------
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -71,6 +73,7 @@ class MyApp extends StatelessWidget {
         create: (context) => ThemeProvider(),
         builder: (context, _) {
           final themeProvider = Provider.of<ThemeProvider>(context);
+          log("01-main.dart çalıştı.");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: AppConst.main.title,

@@ -2,6 +2,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../../constants/app_constants/color_constants.dart';
 
@@ -25,6 +26,7 @@ class HomeCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("11-home_app_bar.dart dosyası çalıştı");
     return AppBar(
       backgroundColor: drawerColor,
       title: aramaYapiliyorMu

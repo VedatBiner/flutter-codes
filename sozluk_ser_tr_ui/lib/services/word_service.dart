@@ -43,6 +43,7 @@ class WordService {
     /// JSON formatına dönüştürmek için jsonEncode fonksiyonu kullanılır.
     /// wordList, jsonEncode fonksiyonuna verilir ve JSON formatında bir
     /// String elde edilir.
+    log("***** 06-word_service.dart dosyasında jsonInit() metodu çalıştı.");
     return jsonEncode(wordList);
   }
 
@@ -59,7 +60,7 @@ class WordService {
   Stream<int> getDocumentCountStream() {
     /// Firestore koleksiyonunu referans al
     CollectionReference collectionReference =
-    FirebaseFirestore.instance.collection('kelimeler');
+        FirebaseFirestore.instance.collection('kelimeler');
 
     /// Koleksiyondaki belgelerin yayınını al ve dinle
     return collectionReference.snapshots().map((querySnapshot) {

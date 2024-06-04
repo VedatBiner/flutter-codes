@@ -1,6 +1,8 @@
 /// <----- language_selector.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +16,9 @@ class LanguageSelector extends StatelessWidget {
   final String secondLanguageCode;
   final String secondLanguageText;
   final bool isListView;
+  final bool language;
   final Function() onIconPressed;
-  final Function() onLanguageChange;
+  final Function(bool) onLanguageChange;
 
   const LanguageSelector({
     super.key,
@@ -24,12 +27,17 @@ class LanguageSelector extends StatelessWidget {
     required this.secondLanguageCode,
     required this.secondLanguageText,
     required this.isListView,
+    required this.language,
     required this.onIconPressed,
     required this.onLanguageChange,
   });
 
   @override
   Widget build(BuildContext context) {
+    log("language_selector.dart => language : $language");
+
+    language == true ? log("Sırpça - Türkçe") : log("Türkçe - Sırpça");
+
     return Container(
       color: Colors.blueAccent,
       child: Padding(
@@ -38,13 +46,13 @@ class LanguageSelector extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ShowFlagWidget(
-              code: firstLanguageCode,
-              text: firstLanguageText,
+              code: language == true ? firstLanguageCode : secondLanguageCode,
+              text: language == true ? firstLanguageText : secondLanguageText,
               radius: 8,
             ),
             ShowFlagWidget(
-              code: secondLanguageCode,
-              text: secondLanguageText,
+              code: language == true ? secondLanguageCode : firstLanguageCode,
+              text: language == true ? secondLanguageText : firstLanguageText,
               radius: 8,
             ),
             Consumer<IconProvider>(
@@ -62,7 +70,7 @@ class LanguageSelector extends StatelessWidget {
             ),
             IconButton(
               tooltip: "Dil değiştir",
-              onPressed: onLanguageChange,
+              onPressed: () => onLanguageChange(!language),
               icon: Icon(
                 Icons.swap_horizontal_circle_rounded,
                 color: menuColor,

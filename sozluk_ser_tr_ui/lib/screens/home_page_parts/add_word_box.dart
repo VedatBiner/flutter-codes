@@ -13,6 +13,7 @@ class AddWordBox extends StatelessWidget {
     required this.secondLanguageController,
     required this.firstLanguageText,
     required this.secondLanguageText,
+    required this.language,
     required this.onWordAdded,
     required this.currentUserEmail,
   });
@@ -24,23 +25,38 @@ class AddWordBox extends StatelessWidget {
   final String currentUserEmail;
   final Function(String, String, String) onWordAdded;
   final email = MyAuthService.currentUserEmail;
+  final bool language;
 
   @override
   Widget build(BuildContext context) {
     // log("kayıtlı kullanıcı : $currentUserEmail");
     // log("add_word_box.dart email : $email");
 
+    log("10-add_word_box.dart dosyası çalıştı. >>>>>");
+
     log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
+    log("add_word_box.dart => build - language : $language");
+
+    String tempLanguageText;
+
+    if (language) {
+      firstLanguageText = firstLanguageText;
+      secondLanguageText = secondLanguageText;
+    } else {
+      tempLanguageText = firstLanguageText;
+      firstLanguageText = secondLanguageText;
+      secondLanguageText = tempLanguageText;
+    }
 
     /// bu kontroller Sırpça-Türkçe dile seçimi için doğru çalışıyor
-    if (firstLanguageText == anaDil) {
-      firstLanguageText = yardimciDil;
-      secondLanguageText = anaDil;
-    } else if (firstLanguageText == yardimciDil) {
-      firstLanguageText = anaDil;
-      secondLanguageText = yardimciDil;
-    } 
+    // if (firstLanguageText == anaDil) {
+    //   firstLanguageText = yardimciDil;
+    //   secondLanguageText = anaDil;
+    // } else if (firstLanguageText == yardimciDil) {
+    //   firstLanguageText = anaDil;
+    //   secondLanguageText = yardimciDil;
+    // }
 
     log("add_word_box.dart => build - değişti mi? - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - değişti mi ?secondLanguageText : $secondLanguageText");
