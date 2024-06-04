@@ -120,30 +120,27 @@ class _WordListBuilderState extends State<WordListBuilder> {
     log("first language Text : $secondLanguageText");
     log("second language Text : $firstLanguageText");
 
-    final wordWidget = isListView
-        ? ChangeNotifierProvider<LanguageParams>.value(
-            value: languageParams,
-            child: WordListView(
-              word: word,
-              isDarkMode: isDarkMode,
-              displayedTranslation: displayedTranslation,
-              displayedLanguage: displayedLanguage,
-              firstLanguageText: firstLanguageText,
-              secondLanguageText: secondLanguageText,
-            ),
+    final wordWidgetChild = isListView
+        ? WordListView(
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText: firstLanguageText,
+            secondLanguageText: secondLanguageText,
           )
-        : ChangeNotifierProvider.value(
-            value: languageParams,
-            child: WordCardView(
-              word: word,
-              isDarkMode: isDarkMode,
-              displayedTranslation: displayedTranslation,
-              displayedLanguage: displayedLanguage,
-              firstLanguageText: firstLanguageText,
-              secondLanguageText: secondLanguageText,
-            ),
+        : WordCardView(
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText: firstLanguageText,
+            secondLanguageText: secondLanguageText,
           );
 
-    return wordWidget;
+    return ChangeNotifierProvider.value(
+      value: languageParams,
+      child: wordWidgetChild,
+    );
   }
 }
