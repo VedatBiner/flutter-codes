@@ -45,7 +45,6 @@ class _WordListBuilderState extends State<WordListBuilder> {
     final mergedResults = [...serbianResults, ...turkishResults];
 
     log("13-word_list_builder.dart dosyası. >>>>>>>");
-    log("word_list_builder => Language : ${widget.language}");
 
     /// Dilin her iki yöne de belirlenmesi
     final languageParams = Provider.of<LanguageParams>(context);

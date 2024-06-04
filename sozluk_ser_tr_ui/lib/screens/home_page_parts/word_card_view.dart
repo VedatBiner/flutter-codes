@@ -44,6 +44,9 @@ class WordCardView extends StatelessWidget {
 
     final FirestoreService firestoreService = FirestoreService();
 
+    log("14-word_card_view.dart dosyası çalıştı. >>>>>>>");
+    log("-----------------------------------------------");
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
 
-import '../../constants/app_constants/constants.dart';
 import '../../services/auth_services.dart';
 
 class AddWordBox extends StatelessWidget {
