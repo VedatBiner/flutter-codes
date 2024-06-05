@@ -158,9 +158,19 @@ class _HomePageState extends State<HomePage> {
 
     const options = GetOptions(source: Source.cache);
     log(">>>>> home_page.dart dosyasında _fetchWordList() metodu çalıştı. *****");
-    return await Future.wait(
-      [queryForSerbian.get(options), queryForTurkish.get(options)],
-    );
+    return language == true
+        ? await Future.wait(
+            [
+              queryForSerbian.get(options),
+              queryForTurkish.get(options),
+            ],
+          )
+        : await Future.wait(
+            [
+              queryForTurkish.get(options),
+              queryForSerbian.get(options),
+            ],
+          );
   }
 
   /// ana kodumuz bu şekilde
@@ -329,7 +339,6 @@ class _HomePageState extends State<HomePage> {
     language,
     BuildContext context,
   ) {
-
     log("***** 05-home_page.dart dosyasında buildCenter() metodu çalıştı.");
     log("------------------------------------------------------------------------");
     log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
@@ -360,8 +369,6 @@ class _HomePageState extends State<HomePage> {
         child: Material(
           borderRadius: BorderRadius.circular(16.0),
           child: AddWordBox(
-            // firstLanguageController: secondLanguageController,
-            // secondLanguageController: firstLanguageController,
             firstLanguageText: yardimciDil,
             secondLanguageText: anaDil,
             currentUserEmail: email,
