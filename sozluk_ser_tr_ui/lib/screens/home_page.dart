@@ -373,8 +373,8 @@ class _HomePageState extends State<HomePage> {
             ) async {
               await _firestoreService.addWord(
                 context,
-                firstLang,
-                secondLang,
+                language == true ? firstLang : secondLang,
+                language == true ? secondLang : firstLang,
                 email,
               );
               setState(
