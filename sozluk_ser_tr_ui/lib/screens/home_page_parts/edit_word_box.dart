@@ -1,6 +1,8 @@
 /// <----- edit_word_box.dart ----->
 library;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/color_constants.dart';
@@ -16,6 +18,7 @@ class EditWordBox extends StatelessWidget {
     required this.secondLanguageText,
     required this.onWordUpdated,
     required this.currentUserEmail,
+    required this.language,
   });
 
   final TextEditingController firstLanguageController;
@@ -23,10 +26,13 @@ class EditWordBox extends StatelessWidget {
   final String firstLanguageText;
   final String secondLanguageText;
   final String currentUserEmail;
+  final bool language;
   final Function(String, String) onWordUpdated;
 
   @override
   Widget build(BuildContext context) {
+    log("===> 17 - edit_word_bax.dart dosyası çalıştı. >>>>>");
+    log("---------------------------------------------------");
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -43,40 +49,45 @@ class EditWordBox extends StatelessWidget {
           const Divider(),
           const SizedBox(height: 8),
           TextField(
-            controller: firstLanguageController,
+            controller: language == true
+                ? secondLanguageController
+                : firstLanguageController,
             decoration: InputDecoration(
-                prefixIcon: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 8),
-                      child: ShowFlagWidget(
-                        code: secondCountry,
-                        text: '',
-                        radius: 48,
-                      ),
-                    ),
-                  ],
-                ),
-                border: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.black54,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                )),
-          ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: secondLanguageController,
-            decoration: InputDecoration(
-              prefixIcon: const Row(
+              prefixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 8),
+                    padding: const EdgeInsets.only(left: 8),
                     child: ShowFlagWidget(
-                      code: firstCountry,
+                      code: language == true ? secondCountry : firstCountry,
+                      text: '',
+                      radius: 48,
+                    ),
+                  ),
+                ],
+              ),
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.black54,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            controller: language == true
+                ? firstLanguageController
+                : secondLanguageController,
+            decoration: InputDecoration(
+              prefixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: ShowFlagWidget(
+                      code: language == true ? firstCountry : secondCountry,
                       text: '',
                       radius: 48,
                     ),
