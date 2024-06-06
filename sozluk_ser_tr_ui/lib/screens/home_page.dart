@@ -389,7 +389,7 @@ class _HomePageState extends State<HomePage> {
                   _wordListFuture = _fetchWordList();
                   var message = addMsg;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    buildSnackBar(message),
+                    buildSnackBar(firstLang, message),
                   );
                   Navigator.of(context).pop();
                 },
@@ -402,17 +402,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Yeni kelime eklendi mesajı burada yazılıyor
-  SnackBar buildSnackBar(String message) {
+  SnackBar buildSnackBar(String text, message) {
     return SnackBar(
       content: Column(
         children: [
           Row(
             children: [
               Text(
-                secondLanguageText ?? '',
+                text ?? '',
                 style: kelimeStil,
               ),
-              const Text(" kelimesi "),
+              const Text(" kelimesi"),
             ],
           ),
           Row(
