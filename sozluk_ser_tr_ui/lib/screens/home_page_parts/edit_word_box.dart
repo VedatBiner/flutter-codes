@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/color_constants.dart';
 import '../../constants/app_constants/constants.dart';
-import '../../screens/home_page_parts/showflag_widget.dart';
+import '../../widgets/showflag_widget.dart';
 
 class EditWordBox extends StatelessWidget {
   const EditWordBox({

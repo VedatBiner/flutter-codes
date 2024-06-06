@@ -20,7 +20,7 @@ import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/color_constants.dart';
 import '../constants/base_constants/app_const.dart';
 import '../services/app_routes.dart';
-import '../services/auth_services.dart';
+import '../services/firebase_services/auth_services.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -78,7 +78,7 @@ mixin _SplashViewMixin on State<SplashView> {
     /// eğer kullanıcı yoksa login sayfasına gidilecek
     /// eğer kullanıcı varsa ana sayfaya gidilecek
     var isUserNull = auth.currentUser;
-    log("02-splash.dart çalıştı.");
+    log("===> 02-splash.dart çalıştı. >>>>>");
     await Navigator.pushNamed(
       context,
       isUserNull == null ? AppRoute.login : AppRoute.home,

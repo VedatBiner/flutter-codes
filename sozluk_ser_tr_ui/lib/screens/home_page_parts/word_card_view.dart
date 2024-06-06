@@ -12,9 +12,9 @@ import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
 import '../../models/fs_words.dart';
 import '../../models/language_params.dart';
-import '../../services/auth_services.dart';
-import '../../services/firestore_services.dart';
-import '../../services/theme_provider.dart';
+import '../../services/firebase_services/auth_services.dart';
+import '../../services/firebase_services/firestore_services.dart';
+import '../../services/providers/theme_provider.dart';
 import '../details_page.dart';
 import 'edit_word_box.dart';
 
@@ -44,8 +44,8 @@ class WordCardView extends StatelessWidget {
 
     final FirestoreService firestoreService = FirestoreService();
 
-    log("14-word_card_view.dart dosyası çalıştı. >>>>>>>");
-    log("-----------------------------------------------");
+    log("===> 14-word_card_view.dart dosyası çalıştı. >>>>>>>");
+    log("----------------------------------------------------");
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -58,11 +58,6 @@ class WordCardView extends StatelessWidget {
         color: isDarkMode ? cardDarkMode : cardLightMode,
         child: InkWell(
           onTap: () {
-            // log("first : ${languageParams.firstLanguageText}");
-            // log("second : ${languageParams.secondLanguageText}");
-            // log("disp : $displayedLanguage");
-            // log("trans : $displayedTranslation");
-
             Navigator.push(
               context,
               MaterialPageRoute(

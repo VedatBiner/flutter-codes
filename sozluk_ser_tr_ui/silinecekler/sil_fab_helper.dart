@@ -3,10 +3,10 @@ library;
 
 import 'package:flutter/material.dart';
 
-FloatingActionButton buildFloatingActionButton({
+FloatingActionButton _buildFloatingActionButton({
   required VoidCallback onPressed,
 }) {
-  return FloatingActionButton(
+  return _FloatingActionButton(
     onPressed: onPressed,
     backgroundColor: Colors.blueAccent,
     child: const Icon(

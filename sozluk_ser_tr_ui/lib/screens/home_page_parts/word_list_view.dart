@@ -32,6 +32,8 @@ class WordListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("===> 15-word_list_view.dart dosyası çalıştı. >>>>>>>");
+    log("----------------------------------------------------");
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       title: InkWell(

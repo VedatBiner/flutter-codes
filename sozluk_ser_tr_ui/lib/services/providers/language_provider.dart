@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants/app_constants/constants.dart';
-import '../models/language_params.dart';
+import '../../constants/app_constants/constants.dart';
+import '../../models/language_params.dart';
 
 class LanguageProvider with ChangeNotifier {
   late LanguageParams _languageParams;

@@ -11,8 +11,8 @@ import 'package:provider/provider.dart';
 import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
 import '../../constants/app_constants/drawer_constants.dart';
-import '../../services/auth_services.dart';
-import '../../services/theme_provider.dart';
+import '../../services/firebase_services/auth_services.dart';
+import '../../services/providers/theme_provider.dart';
 import '../../services/app_routes.dart';
 
 Drawer buildDrawer(BuildContext context) {
@@ -22,7 +22,7 @@ Drawer buildDrawer(BuildContext context) {
   // String currentUserEmail =
   //     FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
   MyAuthService.currentUserEmail;
-  log("09-drawer_items.dart dosyasında buildDrawer() metodu çalıştı.");
+  log("===> 09-drawer_items.dart dosyasında buildDrawer() metodu çalıştı. >>>>>");
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,
@@ -125,7 +125,6 @@ Drawer buildDrawer(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                    //  "Kullanıcı : $currentUserEmail",
                       "Kullanıcı : ${MyAuthService.currentUserEmail}",
                       style: TextStyle(color: menuColor),
                     ),

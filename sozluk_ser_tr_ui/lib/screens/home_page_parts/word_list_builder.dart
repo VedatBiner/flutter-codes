@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import '../../screens/home_page_parts/word_card_view.dart';
 import '../../screens/home_page_parts/word_list_view.dart';
 import '../../models/fs_words.dart';
-import '../../services/theme_provider.dart';
+import '../../services/providers/theme_provider.dart';
 import '../../models/language_params.dart';
 
 class WordListBuilder extends StatefulWidget {
@@ -44,7 +44,8 @@ class _WordListBuilderState extends State<WordListBuilder> {
         widget.snapshot[1].docs.map((doc) => doc.data()).toList();
     final mergedResults = [...serbianResults, ...turkishResults];
 
-    log("13-word_list_builder.dart dosyası. >>>>>>>");
+    log("===> 13-word_list_builder.dart dosyası çalıştı. >>>>>>>");
+    log("-------------------------------------------------------");
 
     /// Dilin her iki yöne de belirlenmesi
     final languageParams = Provider.of<LanguageParams>(context);
@@ -113,12 +114,11 @@ class _WordListBuilderState extends State<WordListBuilder> {
             ? word.sirpca
             : word.turkce);
 
-    log("word_list_builder.dart");
-    log("-------------------------------------");
     log("word_list_builder.dart (buildWorTile)");
     log("word_list_builder.dart (buildWorTile) language : ${widget.language}");
     log("first language Text : $secondLanguageText");
     log("second language Text : $firstLanguageText");
+    log("----------------------------------------------------------");
 
     final wordWidgetChild = isListView
         ? WordListView(

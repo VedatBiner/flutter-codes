@@ -16,7 +16,7 @@ class BottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final WordService wordService = WordService();
-    log("08-bottom_sheet.dart dosyası çalıştı.");
+    log("===> 08-bottom_sheet.dart dosyası çalıştı. >>>>>");
     return Container(
       color: menuColor,
       padding: const EdgeInsets.symmetric(horizontal: 8),

@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/color_constants.dart';
-import '../../services/icon_provider.dart';
-import 'showflag_widget.dart';
+import '../../services/providers/icon_provider.dart';
+import '../../widgets/showflag_widget.dart';
 
 class LanguageSelector extends StatelessWidget {
   final String firstLanguageCode;
@@ -34,6 +34,8 @@ class LanguageSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("===> 15-language_selector.dart dosyası çalıştı. >>>>>>>");
+    log("-------------------------------------------------------");
     log("language_selector.dart => language : $language");
 
     language == true ? log("Sırpça - Türkçe") : log("Türkçe - Sırpça");

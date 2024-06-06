@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/color_constants.dart';
 import '../services/app_routes.dart';
-import '../services/auth_services.dart';
+import '../services/firebase_services/auth_services.dart';
 import '../utils/email_validator.dart';
 import '../utils/mesaj_helper.dart';
 import 'auth_page_parts/auth_common_widget.dart';
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    log("03-login_page.dart çalıştı.");
+    log("===> 03-login_page.dart çalıştı. >>>>>");
     return Scaffold(
       backgroundColor: drawerColor,
       body: SafeArea(

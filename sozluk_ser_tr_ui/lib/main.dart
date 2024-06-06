@@ -14,8 +14,8 @@ import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
 import 'models/language_params.dart';
-import 'services/icon_provider.dart';
-import 'services/theme_provider.dart';
+import 'services/providers/icon_provider.dart';
+import 'services/providers/theme_provider.dart';
 import 'services/app_routes.dart';
 import 'constants/base_constants/app_const.dart';
 import 'constants/app_constants/constants.dart';
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
         create: (context) => ThemeProvider(),
         builder: (context, _) {
           final themeProvider = Provider.of<ThemeProvider>(context);
-          log("01-main.dart çalıştı.");
+          log("===> 01-main.dart çalıştı. >>>>>");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: AppConst.main.title,

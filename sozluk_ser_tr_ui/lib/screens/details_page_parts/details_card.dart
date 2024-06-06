@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
-import '../../services/theme_provider.dart';
+import '../../services/providers/theme_provider.dart';
 import 'flag_row.dart';
 
 class DetailsCard extends StatelessWidget {

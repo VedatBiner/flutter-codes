@@ -9,7 +9,8 @@ Future<void> generateAndWriteJson(WordService wordService) async {
   List<FsWords> words = await wordService.fetchWords();
   String jsonData = wordService.convertToJson(words);
 
-  log("***** 07-generate_json.dart dosyasında generateAndWriteJson() metodu çalıştı.");
+  log("===> 07-generate_json.dart dosyasında generateAndWriteJson() "
+      "metodu çalıştı. *****");
   /// JSON verisini dosyaya yaz
   await wordService.writeJsonToFile(jsonData);
 }

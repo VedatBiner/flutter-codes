@@ -11,7 +11,7 @@ import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
-import '../services/theme_provider.dart';
+import '../services/providers/theme_provider.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
 import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';

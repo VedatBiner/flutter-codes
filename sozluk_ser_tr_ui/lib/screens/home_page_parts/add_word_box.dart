@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
 
 import '../../constants/app_constants/constants.dart';
-import '../../services/auth_services.dart';
+import '../../services/firebase_services/auth_services.dart';
 
 class AddWordBox extends StatelessWidget {
   AddWordBox({
@@ -33,14 +33,13 @@ class AddWordBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("10-add_word_box.dart dosyası çalıştı. >>>>>");
-    log("---------------------------------------------");
+    log("===> 10-add_word_box.dart dosyası çalıştı. >>>>>");
+    log("------------------------------------------------");
 
     log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
     log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
     log("add_word_box.dart => build - language : $language");
 
-    // String tempLanguageText;
     String displayFirstLanguageText;
     String displaySecondLanguageText;
 

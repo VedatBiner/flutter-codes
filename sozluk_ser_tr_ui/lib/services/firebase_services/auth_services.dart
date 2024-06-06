@@ -6,11 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../firebase_options.dart';
+import '../../firebase_options.dart';
 
-import '../screens/auth_page_parts/register_page.dart';
-import '../screens/login_page.dart';
-import '../utils/mesaj_helper.dart';
+import '../../screens/auth_page_parts/register_page.dart';
+import '../../screens/login_page.dart';
+import '../../utils/mesaj_helper.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
