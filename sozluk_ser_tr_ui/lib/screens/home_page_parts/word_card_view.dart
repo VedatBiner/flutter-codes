@@ -41,7 +41,8 @@ class WordCardView extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
     final String currentUserEmail = MyAuthService.currentUserEmail;
-    bool language = true;
+    // bool language = true;
+    bool language = displayedLanguage == yardimciDil;
 
     final FirestoreService firestoreService = FirestoreService();
 
@@ -172,7 +173,7 @@ class WordCardView extends StatelessWidget {
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
-                            return buildAlertDialog(context);
+                            return buildAlertDialog(context, language);
                           },
                         );
                       },
@@ -192,7 +193,10 @@ class WordCardView extends StatelessWidget {
 
   /// Burada kelime silme işlemi için
   /// dialog kutusu oluşturuyoruz.
-  AlertDialog buildAlertDialog(BuildContext context) {
+  AlertDialog buildAlertDialog(
+    BuildContext context,
+    bool language,
+  ) {
     return AlertDialog(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
@@ -213,7 +217,7 @@ class WordCardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            word.sirpca ?? "",
+            language == true ? word.sirpca ?? "" : word.turkce ?? "",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -231,12 +235,6 @@ class WordCardView extends StatelessWidget {
             style: eminText,
           ),
           const Divider(),
-          // Text(
-          //   word.turkce ?? "",
-          //   style: const TextStyle(
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
         ],
       ),
       actions: [

@@ -62,7 +62,9 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageCode = firstCountry; // İkinci dil kodu
   String secondLanguageText = anaDil; // İkinci dil metni
 
-  bool language = true; // ilk başta Sırpça - Türkçe
+
+  /// ilk başta Sırpça - Türkçe
+  bool language = true; /// ilk başta Sırpça - Türkçe
 
   /// Burada başlangıç dili Sırpça geldiği için
   /// koleksiyon okunduğu zaman
