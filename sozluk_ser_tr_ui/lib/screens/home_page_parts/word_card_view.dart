@@ -41,7 +41,9 @@ class WordCardView extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
     final String currentUserEmail = MyAuthService.currentUserEmail;
-    // bool language = true;
+
+    /// dil seçimine göre değişim için
+    /// burası gerekli bir kontrol sağlıyor
     bool language = displayedLanguage == yardimciDil;
 
     final FirestoreService firestoreService = FirestoreService();
@@ -239,18 +241,34 @@ class WordCardView extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.grey,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('İptal'),
+          child: const Text(
+            'İptal',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: drawerColor,
+          ),
           onPressed: () {
             /// Burada silme işlemi gerçekleştirilir.
             Navigator.pop(context);
             log("Kelime silindi");
           },
-          child: const Text('Sil'),
+          child: Text(
+            'Sil',
+            style: TextStyle(
+              color: menuColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ],
     );
