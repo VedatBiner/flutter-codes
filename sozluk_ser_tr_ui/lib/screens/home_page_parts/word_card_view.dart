@@ -112,6 +112,8 @@ class WordCardView extends StatelessWidget {
                 ),
                 Row(
                   children: [
+                    /// kelime düzeltme işlemi için buton
+                    /// ve düzeltme metodu burada
                     IconButton(
                       onPressed: () {
                         log("Kelime düzeltme seçildi");
@@ -161,11 +163,14 @@ class WordCardView extends StatelessWidget {
                       tooltip: "kelime düzelt",
                       color: Colors.green,
                     ),
+
+                    /// kelime silme için buton ve silme metodu
                     IconButton(
                       onPressed: () {
                         log("Kelime silme seçildi");
                         showDialog(
                           context: context,
+                          barrierDismissible: false,
                           builder: (BuildContext context) {
                             return buildAlertDialog(context);
                           },
@@ -185,7 +190,7 @@ class WordCardView extends StatelessWidget {
     );
   }
 
-  /// Burada kelime düzeltme işlemi için
+  /// Burada kelime silme işlemi için
   /// dialog kutusu oluşturuyoruz.
   AlertDialog buildAlertDialog(BuildContext context) {
     return AlertDialog(
@@ -205,27 +210,33 @@ class WordCardView extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            word.sirpca ?? "",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.green,
+            ),
+          ),
+          const Divider(),
           const Text(
             silMsg,
             style: silText,
+            textAlign: TextAlign.left,
           ),
           const Text(
             eminMsg,
             style: eminText,
           ),
-          Text(
-            word.sirpca ?? "",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            word.turkce ?? "",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          const Divider(),
+          // Text(
+          //   word.turkce ?? "",
+          //   style: const TextStyle(
+          //     fontWeight: FontWeight.bold,
+          //   ),
+          // ),
         ],
       ),
       actions: [
@@ -237,7 +248,7 @@ class WordCardView extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            // Burada silme işlemi gerçekleştirilebilir
+            /// Burada silme işlemi gerçekleştirilir.
             Navigator.pop(context);
             log("Kelime silindi");
           },
