@@ -15,6 +15,7 @@ import '../../models/language_params.dart';
 import '../../services/firebase_services/auth_services.dart';
 import '../../services/firebase_services/firestore_services.dart';
 import '../../services/providers/theme_provider.dart';
+import '../../utils/snackbar_helper.dart';
 import '../details_page.dart';
 import 'edit_word_box.dart';
 
@@ -279,6 +280,7 @@ class _WordCardViewState extends State<WordCardView> {
                 buildSnackBar(
                   silinecekKelime,
                   MyAuthService.currentUserEmail,
+                  deleteMsg,
                 ),
               );
             });
@@ -298,33 +300,5 @@ class _WordCardViewState extends State<WordCardView> {
     );
   }
 
-  /// silindi mesajı burada yazılıyor
-  SnackBar buildSnackBar(String text, message) {
-    return SnackBar(
-      content: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                text ?? '',
-                style: kelimeStil,
-              ),
-              const Text(" kelimesi"),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                message,
-                style: userStil,
-              ),
-              const Text(
-                " tarafından silinmiştir",
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+
 }
