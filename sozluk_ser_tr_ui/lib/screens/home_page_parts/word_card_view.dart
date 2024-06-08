@@ -18,7 +18,7 @@ import '../../services/providers/theme_provider.dart';
 import '../details_page.dart';
 import 'edit_word_box.dart';
 
-class WordCardView extends StatelessWidget {
+class WordCardView extends StatefulWidget {
   final FsWords word;
   final bool isDarkMode;
   final String displayedLanguage;
@@ -37,6 +37,11 @@ class WordCardView extends StatelessWidget {
   });
 
   @override
+  State<WordCardView> createState() => _WordCardViewState();
+}
+
+class _WordCardViewState extends State<WordCardView> {
+  @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
@@ -44,8 +49,9 @@ class WordCardView extends StatelessWidget {
 
     /// dil seçimine göre değişim için
     /// burası gerekli bir kontrol sağlıyor
-    bool language = displayedLanguage == yardimciDil;
+    bool language = widget.displayedLanguage == yardimciDil;
 
+    /// Firestore servislerine erişiyoruz
     final FirestoreService firestoreService = FirestoreService();
 
     log("===> 14-word_card_view.dart dosyası çalıştı. >>>>>>>");
@@ -59,7 +65,7 @@ class WordCardView extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
         ),
         shadowColor: Colors.green[200],
-        color: isDarkMode ? cardDarkMode : cardLightMode,
+        color: widget.isDarkMode ? cardDarkMode : cardLightMode,
         child: InkWell(
           onTap: () {
             Navigator.push(
@@ -68,8 +74,8 @@ class WordCardView extends StatelessWidget {
                 builder: (context) => DetailsPage(
                   firstLanguageText: languageParams.firstLanguageText,
                   secondLanguageText: languageParams.secondLanguageText,
-                  displayedLanguage: displayedLanguage,
-                  displayedTranslation: displayedTranslation,
+                  displayedLanguage: widget.displayedLanguage,
+                  displayedTranslation: widget.displayedTranslation,
                 ),
               ),
             );
@@ -83,11 +89,11 @@ class WordCardView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        displayedLanguage == anaDil
-                            ? firstLanguageText ?? ""
-                            : secondLanguageText ?? "",
+                        widget.displayedLanguage == anaDil
+                            ? widget.firstLanguageText ?? ""
+                            : widget.secondLanguageText ?? "",
                         style: TextStyle(
-                          color: isDarkMode
+                          color: widget.isDarkMode
                               ? cardDarkModeText1
                               : cardLightModeText1,
                           fontWeight: FontWeight.bold,
@@ -96,14 +102,15 @@ class WordCardView extends StatelessWidget {
                       ),
                       Divider(
                         thickness: 1,
-                        color: isDarkMode ? Colors.white60 : Colors.black45,
+                        color:
+                            widget.isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
-                        displayedTranslation == yardimciDil
-                            ? secondLanguageText ?? ""
-                            : firstLanguageText ?? "",
+                        widget.displayedTranslation == yardimciDil
+                            ? widget.secondLanguageText ?? ""
+                            : widget.firstLanguageText ?? "",
                         style: TextStyle(
-                          color: isDarkMode
+                          color: widget.isDarkMode
                               ? cardDarkModeText2
                               : cardLightModeText2,
                           fontWeight: FontWeight.bold,
@@ -137,20 +144,21 @@ class WordCardView extends StatelessWidget {
                                   child: EditWordBox(
                                     firstLanguageController:
                                         TextEditingController(
-                                      text: firstLanguageText,
+                                      text: widget.firstLanguageText,
                                     ),
                                     secondLanguageController:
                                         TextEditingController(
-                                      text: secondLanguageText,
+                                      text: widget.secondLanguageText,
                                     ),
-                                    firstLanguageText: firstLanguageText,
-                                    secondLanguageText: secondLanguageText,
+                                    firstLanguageText: widget.firstLanguageText,
+                                    secondLanguageText:
+                                        widget.secondLanguageText,
                                     currentUserEmail: currentUserEmail,
                                     language: language,
                                     onWordUpdated: (String secondLang,
                                         String firstLang) async {
                                       await firestoreService.updateWord(
-                                        word.wordId,
+                                        widget.word.wordId,
                                         firstLang,
                                         secondLang,
                                       );
@@ -175,7 +183,11 @@ class WordCardView extends StatelessWidget {
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
-                            return buildAlertDialog(context, language);
+                            return buildAlertDialog(
+                              context,
+                              language,
+                              firestoreService,
+                            );
                           },
                         );
                       },
@@ -198,7 +210,10 @@ class WordCardView extends StatelessWidget {
   AlertDialog buildAlertDialog(
     BuildContext context,
     bool language,
+    FirestoreService firestoreService,
   ) {
+    String silinecekKelime =
+        language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
     return AlertDialog(
       backgroundColor:
           Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
@@ -219,7 +234,7 @@ class WordCardView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            language == true ? word.sirpca ?? "" : word.turkce ?? "",
+            silinecekKelime,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -256,8 +271,17 @@ class WordCardView extends StatelessWidget {
           style: TextButton.styleFrom(
             backgroundColor: drawerColor,
           ),
-          onPressed: () {
+          onPressed: () async {
             /// Burada silme işlemi gerçekleştirilir.
+            await firestoreService.deleteWord(widget.word.wordId);
+            setState(() {
+              ScaffoldMessenger.of(context).showSnackBar(
+                buildSnackBar(
+                  silinecekKelime,
+                  MyAuthService.currentUserEmail,
+                ),
+              );
+            });
             Navigator.pop(context);
             log("Kelime silindi");
           },
@@ -271,6 +295,36 @@ class WordCardView extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  /// silindi mesajı burada yazılıyor
+  SnackBar buildSnackBar(String text, message) {
+    return SnackBar(
+      content: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                text ?? '',
+                style: kelimeStil,
+              ),
+              const Text(" kelimesi"),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                message,
+                style: userStil,
+              ),
+              const Text(
+                " tarafından silinmiştir",
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

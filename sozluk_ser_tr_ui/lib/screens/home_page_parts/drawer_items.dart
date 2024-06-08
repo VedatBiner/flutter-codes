@@ -152,7 +152,7 @@ ListTile buildListTile(
     textColor: menuColor,
     title: Text(text),
     onTap: () {
-      Navigator.pop(context); // Drawer'ı kapat
+      Navigator.pop(context); // Drawer 'ı kapat
       Navigator.push(
         context,
         MaterialPageRoute(
