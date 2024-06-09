@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants/app_constants/constants.dart';
 
 SnackBar buildSnackBar(
-  String text,
-  firstMessage,
-  secondMessage,
+  String firstMessage,
+  String secondMessage,
+  // String secondMessage,
+  String email,
 ) {
   return SnackBar(
     content: Column(
@@ -13,7 +14,7 @@ SnackBar buildSnackBar(
         Row(
           children: [
             Text(
-              text ?? '',
+              firstMessage ?? '',
               style: kelimeStil,
             ),
             const Text(" kelimesi"),
@@ -22,7 +23,7 @@ SnackBar buildSnackBar(
         Row(
           children: [
             Text(
-              firstMessage,
+              email,
               style: userStil,
             ),
             Text(secondMessage),

@@ -62,9 +62,10 @@ class _HomePageState extends State<HomePage> {
   String secondLanguageCode = firstCountry; // İkinci dil kodu
   String secondLanguageText = anaDil; // İkinci dil metni
 
+  /// ilk başta Sırpça - Türkçe
+  bool language = true;
 
   /// ilk başta Sırpça - Türkçe
-  bool language = true; /// ilk başta Sırpça - Türkçe
 
   /// Burada başlangıç dili Sırpça geldiği için
   /// koleksiyon okunduğu zaman
@@ -391,7 +392,10 @@ class _HomePageState extends State<HomePage> {
                   _wordListFuture = _fetchWordList();
                   var message = addMsg;
                   ScaffoldMessenger.of(context).showSnackBar(
-                    buildSnackBar(firstLang, message),
+                    buildSnackBar(
+                      firstLang,
+                      message,
+                    ),
                   );
                   Navigator.of(context).pop();
                 },

@@ -46,7 +46,8 @@ class _WordCardViewState extends State<WordCardView> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
-    final String currentUserEmail = MyAuthService.currentUserEmail;
+    // final String currentUserEmail = MyAuthService.currentUserEmail;
+    final email = MyAuthService.currentUserEmail;
 
     /// dil seçimine göre değişim için
     /// burası gerekli bir kontrol sağlıyor
@@ -154,7 +155,7 @@ class _WordCardViewState extends State<WordCardView> {
                                     firstLanguageText: widget.firstLanguageText,
                                     secondLanguageText:
                                         widget.secondLanguageText,
-                                    currentUserEmail: currentUserEmail,
+                                    currentUserEmail: email,
                                     language: language,
                                     onWordUpdated: (String secondLang,
                                         String firstLang) async {
@@ -278,9 +279,10 @@ class _WordCardViewState extends State<WordCardView> {
             setState(() {
               ScaffoldMessenger.of(context).showSnackBar(
                 buildSnackBar(
-                  silinecekKelime,
-                  MyAuthService.currentUserEmail,
+                  silinecekKelime, // silinecek kelimeyi gönder
                   deleteMsg,
+                  MyAuthService.currentUserEmail, // silen kullanıcı
+                  //"",
                 ),
               );
             });
@@ -299,6 +301,4 @@ class _WordCardViewState extends State<WordCardView> {
       ],
     );
   }
-
-
 }

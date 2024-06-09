@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
 import 'models/language_params.dart';
-import 'services/firebase_services/firestore_services.dart';
 import 'services/providers/icon_provider.dart';
 import 'services/providers/theme_provider.dart';
 import 'services/app_routes.dart';
