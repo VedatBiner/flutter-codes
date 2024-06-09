@@ -5,7 +5,6 @@ import '../constants/app_constants/constants.dart';
 SnackBar buildSnackBar(
   String firstMessage,
   String secondMessage,
-  // String secondMessage,
   String email,
 ) {
   return SnackBar(
