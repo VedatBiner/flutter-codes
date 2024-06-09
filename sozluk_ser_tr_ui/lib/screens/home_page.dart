@@ -23,6 +23,7 @@ import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
 import '../services/providers/icon_provider.dart';
 import '../services/word_service.dart';
+import '../utils/snackbar_helper.dart';
 import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
@@ -64,8 +65,6 @@ class _HomePageState extends State<HomePage> {
 
   /// ilk başta Sırpça - Türkçe
   bool language = true;
-
-  /// ilk başta Sırpça - Türkçe
 
   /// Burada başlangıç dili Sırpça geldiği için
   /// koleksiyon okunduğu zaman
@@ -344,10 +343,6 @@ class _HomePageState extends State<HomePage> {
   ) {
     log("***** 05-home_page.dart dosyasında buildCenter() metodu çalıştı. *****");
     log("-----------------------------------------------------------------------");
-    // log("home_page.dart => (buildCenter) - firstLanguageText : $firstLanguageText");
-    // log("home_page.dart => (buildCenter) - secondLanguageText : $secondLanguageText");
-    // log("home_page.dart >> language : $language");
-    // log("bu bilgiler Center metoduna gönderildi");
     TextEditingController tempLanguageController;
     String tempLanguageText;
 
@@ -395,6 +390,7 @@ class _HomePageState extends State<HomePage> {
                     buildSnackBar(
                       firstLang,
                       message,
+                      MyAuthService.currentUserEmail,
                     ),
                   );
                   Navigator.of(context).pop();
@@ -403,36 +399,6 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-      ),
-    );
-  }
-
-  /// Yeni kelime eklendi mesajı burada yazılıyor
-  SnackBar buildSnackBar(String text, message) {
-    return SnackBar(
-      content: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                text ?? '',
-                style: kelimeStil,
-              ),
-              const Text(" kelimesi"),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                email,
-                style: userStil,
-              ),
-              Text(
-                message,
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

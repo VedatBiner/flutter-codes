@@ -12,3 +12,6 @@ Karşılaşılan hatalar
  Ancak kelime seçimine göre sıralama da hatalar var.
 5. Eklenen kelimeler artık mail adresi ile birlikte ekleniyor. Boş mail adresi kelime sayısı çok aza indirgendi.
 6. Kelime ekleme kutusu ile kelime eklenmesi. Türkçe-Sırpça durumunda kelime görünümü Sırpça üstte, Türkçe altta oluyor. Tam tersi olmalı
+7. Kelime silme ve ekleme aynı snackbar ile kullanılır hale getirildi.
+8. Kelime silme de kontrol ve silme işlemi tam gerçekleşmiyor. Önce silip silemeyeceği kontrol edilip, sonra silmesi sağlanacak.
+9. Kelime düzeltme kutusu düzenlenecek

@@ -279,7 +279,7 @@ class _WordCardViewState extends State<WordCardView> {
             setState(() {
               ScaffoldMessenger.of(context).showSnackBar(
                 buildSnackBar(
-                  silinecekKelime, 
+                  silinecekKelime,
                   deleteMsg,
                   MyAuthService.currentUserEmail,
                 ),
