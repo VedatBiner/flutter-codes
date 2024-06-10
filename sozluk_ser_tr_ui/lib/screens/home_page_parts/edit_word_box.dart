@@ -127,6 +127,7 @@ class EditWordBox extends StatelessWidget {
                     backgroundColor: drawerColor,
                   ),
                   onPressed: () {
+                    log("Düzeltme butonuna basıldı");
                     onWordUpdated(
                       firstLanguageController.text,
                       secondLanguageController.text,

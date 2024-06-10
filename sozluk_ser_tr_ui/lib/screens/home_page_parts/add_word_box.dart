@@ -1,12 +1,10 @@
 /// <----- add_word_box.dart ----->
 library;
 
+import 'package:flutter/material.dart';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_ui/constants/app_constants/color_constants.dart';
-
-import '../../constants/app_constants/constants.dart';
+import '../../constants/app_constants/color_constants.dart';
 import '../../services/firebase_services/auth_services.dart';
 
 class AddWordBox extends StatelessWidget {
@@ -147,33 +145,34 @@ class AddWordBox extends StatelessWidget {
     );
   }
 
-  /// Yeni kelime eklendi mesajı burada yazılıyor
-  SnackBar buildSnackBar(String message) {
-    return SnackBar(
-      content: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                secondLanguageText ?? '',
-                style: kelimeStil,
-              ),
-              const Text(" kelimesi "),
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                currentUserEmail,
-                style: userStil,
-              ),
-              Text(
-                message,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+
+  // /// Yeni kelime eklendi mesajı burada yazılıyor
+  // SnackBar buildSnackBar(String message) {
+  //   return SnackBar(
+  //     content: Column(
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Text(
+  //               secondLanguageText ?? '',
+  //               style: kelimeStil,
+  //             ),
+  //             const Text(" kelimesi "),
+  //           ],
+  //         ),
+  //         Row(
+  //           children: [
+  //             Text(
+  //               currentUserEmail,
+  //               style: userStil,
+  //             ),
+  //             Text(
+  //               message,
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
