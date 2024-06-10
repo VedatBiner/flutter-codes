@@ -157,10 +157,14 @@ class _WordCardViewState extends State<WordCardView> {
                                         widget.secondLanguageText,
                                     currentUserEmail: email,
                                     language: language,
-                                    onWordUpdated: (String secondLang,
-                                        String firstLang) async {
+                                    wordId: widget.word.wordId,
+                                    onWordUpdated: (
+                                      String wordId,
+                                      String secondLang,
+                                      String firstLang,
+                                    ) async {
                                       await firestoreService.updateWord(
-                                        widget.word.wordId,
+                                        wordId,
                                         firstLang,
                                         secondLang,
                                       );

@@ -19,6 +19,7 @@ class EditWordBox extends StatelessWidget {
     required this.onWordUpdated,
     required this.currentUserEmail,
     required this.language,
+    required this.wordId,
   });
 
   final TextEditingController firstLanguageController;
@@ -27,7 +28,8 @@ class EditWordBox extends StatelessWidget {
   final String secondLanguageText;
   final String currentUserEmail;
   final bool language;
-  final Function(String, String) onWordUpdated;
+  final String wordId;
+  final Function(String, String, String) onWordUpdated;
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +131,7 @@ class EditWordBox extends StatelessWidget {
                   onPressed: () {
                     log("Düzeltme butonuna basıldı");
                     onWordUpdated(
+                      wordId,
                       firstLanguageController.text,
                       secondLanguageController.text,
                     );
