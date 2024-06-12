@@ -144,35 +144,5 @@ class AddWordBox extends StatelessWidget {
       ),
     );
   }
-
-
-  // /// Yeni kelime eklendi mesajı burada yazılıyor
-  // SnackBar buildSnackBar(String message) {
-  //   return SnackBar(
-  //     content: Column(
-  //       children: [
-  //         Row(
-  //           children: [
-  //             Text(
-  //               secondLanguageText ?? '',
-  //               style: kelimeStil,
-  //             ),
-  //             const Text(" kelimesi "),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               currentUserEmail,
-  //               style: userStil,
-  //             ),
-  //             Text(
-  //               message,
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  
 }
