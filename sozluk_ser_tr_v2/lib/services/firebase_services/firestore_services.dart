@@ -12,14 +12,15 @@ import 'auth_services.dart';
 
 class FirestoreService {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection("kelimeler");
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<void> addWord(
-    BuildContext context,
-    String ikinciDil,
-    String birinciDil,
-    String userEmail,
-  ) async {
+      BuildContext context,
+      String ikinciDil,
+      String birinciDil,
+      String userEmail,
+      ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
@@ -70,31 +71,19 @@ class FirestoreService {
     return wordsStream;
   }
 
-  Future<void> updateWord(
-    String docId,
-    String ikinciDilKelime,
-    String birinciDilKelime,
-  ) async {
-    if (docId.isEmpty) {
-      log("firestore_services.dart");
-      log("-------------------------------------");
-      log("Error DocId is null or Empty : $docId");
+  Future<void> updateWord(String wordId, String firstLang, String secondLang) async {
+    if (wordId.isEmpty) {
+      throw ArgumentError('wordId must be a non-empty string');
     }
+
     try {
-      String userEmail = FirebaseAuth.instance.currentUser?.email ?? '';
-      log("**********************************************************************************");
-      log("firestore_services.dart >> (updateWord) docId : $docId");
-      log("firestore_services.dart >> (updateWord) ikinciDilKelime : $ikinciDilKelime");
-      log("firestore_services.dart >> (updateWord) birinciDilKelime : $birinciDilKelime");
-      log("**********************************************************************************");
-      await words.doc(docId).update({
-        fsYardimciDil: ikinciDilKelime,
-        fsAnaDil: birinciDilKelime,
-        fsUserEmail: userEmail,
+      await _db.collection('kelimeler').doc(wordId).update({
+        'sirpca': firstLang,
+        'turkce': secondLang,
       });
-      log("kelimeyi güncelleyen kullanıcı : $userEmail");
     } catch (e) {
-      log("Error updating word: $e");
+      log('Error updating word: $e');
+      rethrow;
     }
   }
 

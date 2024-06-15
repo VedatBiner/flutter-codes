@@ -122,15 +122,15 @@ class AddWordBox extends StatelessWidget {
                     log("add_word_box.dart (on pressed) language : $language ");
                     language == true
                         ? onWordAdded(
-                            firstLanguageController.text,
-                            secondLanguageController.text,
-                            email,
-                          )
+                      firstLanguageController.text,
+                      secondLanguageController.text,
+                      email,
+                    )
                         : onWordAdded(
-                            secondLanguageController.text,
-                            firstLanguageController.text,
-                            email,
-                          );
+                      secondLanguageController.text,
+                      firstLanguageController.text,
+                      email,
+                    );
                   },
                   child: Text(
                     'Kelime Ekle',
@@ -144,5 +144,5 @@ class AddWordBox extends StatelessWidget {
       ),
     );
   }
-  
+
 }

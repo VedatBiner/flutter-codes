@@ -16,11 +16,11 @@ class FsWords {
 
   FsWords.fromJson(Map<String, Object?> json)
       : this(
-          wordId: json['wordId'].toString(),
-          sirpca: json['sirpca'].toString(),
-          turkce: json['turkce'].toString(),
-          userEmail: json['userEmail'].toString(),
-        );
+    wordId: json['wordId'].toString(),
+    sirpca: json['sirpca'].toString(),
+    turkce: json['turkce'].toString(),
+    userEmail: json['userEmail'].toString(),
+  );
 
   Map<String, Object?> toJson() {
     return {
@@ -50,7 +50,8 @@ class FsWords {
   /// orderBy metodu
   static Future<QuerySnapshot<Object?>> orderBy(String field) async {
     final CollectionReference words =
-        FirebaseFirestore.instance.collection("kelimeler");
+    FirebaseFirestore.instance.collection("kelimeler");
     return await words.orderBy(field).get();
   }
+
 }

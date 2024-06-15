@@ -163,16 +163,31 @@ class _WordCardViewState extends State<WordCardView> {
                                       String secondLang,
                                       String firstLang,
                                     ) async {
-                                      log("Word_card_view.dart (Center) "
-                                          "Updating word with id: ${widget.word.wordId}");
-                                      log("*********************************"
-                                          "***************************");
+                                      String updateKelime = language
+                                          ? widget.word.sirpca ?? ""
+                                          : widget.word.turkce ?? "";
+                                      // log("Word_card_view.dart (Center) "
+                                      //     "Updating word with id: ${widget.word.wordId}");
+                                      // log("*********************************"
+                                      //     "***************************");
 
-                                      await firestoreService.updateWord(
-                                        wordId,
-                                        firstLang,
-                                        secondLang,
-                                      );
+                                      // await firestoreService.updateWord(
+                                      //   wordId,
+                                      //   firstLang,
+                                      //   secondLang,
+                                      // );
+                                      setState(() {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          buildSnackBar(
+                                            updateKelime,
+                                            updateMsg,
+                                            MyAuthService.currentUserEmail,
+                                          ),
+                                        );
+                                      });
+                                      Navigator.pop(context);
+                                      log("Kelime düzeltildi");
                                     },
                                   ),
                                 ),
@@ -284,7 +299,10 @@ class _WordCardViewState extends State<WordCardView> {
           ),
           onPressed: () async {
             /// Burada silme işlemi gerçekleştirilir.
-            await firestoreService.deleteWord(widget.word.wordId);
+            /// Burada firestoreService.deleteWord metodu hatalı
+            /// ********************************************************
+            /// await firestoreService.deleteWord(widget.word.wordId);
+            /// ********************************************************
             setState(() {
               ScaffoldMessenger.of(context).showSnackBar(
                 buildSnackBar(
