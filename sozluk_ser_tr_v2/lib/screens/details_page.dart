@@ -67,33 +67,33 @@ class _DetailsPageState extends State<DetailsPage> {
 
   /// Tüm kelimelerin listesi
   Future<void> _loadWordList() async {
-    try {
-      /// Firestore 'dan verileri alırken offline veri kullanımını etkinleştirin
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance
-              .collection("kelimeler")
-
-              /// Kelimeleri alfabetik sıraya göre sırala
-              .orderBy(
-                  widget.firstLanguageText == anaDil ? 'turkce' : 'sirpca')
-              .get(
-                /// Firestore 'dan alınan verilerin daha önce indirilmiş verilere
-                /// karşı güncellenip güncellenmediğini kontrol et
-                const GetOptions(source: Source.cache),
-              );
-
-      setState(() {
-        _wordList = querySnapshot.docs
-            .map((doc) => FsWords.fromFirestore(
-                doc as DocumentSnapshot<Map<String, dynamic>>))
-            .toList();
-      });
-    } catch (e) {
-      print("Hata: $e");
-      setState(() {
-        _wordList = [];
-      });
-    }
+    // try {
+    //   /// Firestore 'dan verileri alırken offline veri kullanımını etkinleştirin
+    //   QuerySnapshot<Map<String, dynamic>> querySnapshot =
+    //       await FirebaseFirestore.instance
+    //           .collection("kelimeler")
+    //
+    //           /// Kelimeleri alfabetik sıraya göre sırala
+    //           .orderBy(
+    //               widget.firstLanguageText == anaDil ? 'turkce' : 'sirpca')
+    //           .get(
+    //             /// Firestore 'dan alınan verilerin daha önce indirilmiş verilere
+    //             /// karşı güncellenip güncellenmediğini kontrol et
+    //             const GetOptions(source: Source.cache),
+    //           );
+    //
+    //   setState(() {
+    // //     _wordList = querySnapshot.docs
+    // //         .map((doc) => FsWords.fromFirestore(
+    // //             doc as DocumentSnapshot<Map<String, dynamic>>))
+    // //         .toList();
+    // //   });
+    //  } catch (e) {
+    //   print("Hata: $e");
+    //   setState(() {
+    //     _wordList = [];
+    //   });
+    // }
   }
 
   /// önceki kelime
