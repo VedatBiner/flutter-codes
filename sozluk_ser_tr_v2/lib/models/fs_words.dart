@@ -35,12 +35,13 @@ class FsWords {
   /// Bu yöntem, Firestore belgesinin ID 'sini (doc.id) ve belge
   /// içeriğini (doc['sirpca'], doc['turkce'], doc['userEmail']) kullanarak
   /// yeni bir FsWords nesnesi oluşturur.
+  /// Burada null kontrolü yaparak eksik alanları boşlukla dolduruyoruz
   factory FsWords.fromDocument(DocumentSnapshot doc) {
     return FsWords(
       wordId: doc.id,
-      sirpca: doc['sirpca'],
-      turkce: doc['turkce'],
-      userEmail: doc['userEmail'],
+      sirpca: doc['sirpca'] ?? "",
+      turkce: doc['turkce'] ?? "",
+      userEmail: doc['userEmail'] ?? "",
     );
   }
 
@@ -50,10 +51,10 @@ class FsWords {
   /// JSON verisinden FsWords nesnesi oluşturma
   factory FsWords.fromJson(Map<String, dynamic> json) {
     return FsWords(
-      wordId: json['wordId'] as String,
-      sirpca: json['sirpca'] as String,
-      turkce: json['turkce'] as String,
-      userEmail: json['userEmail'] as String,
+      wordId: json['wordId'] ?? "",
+      sirpca: json['sirpca'] ?? "",
+      turkce: json['turkce'] ?? "",
+      userEmail: json['userEmail'] ?? "",
     );
   }
 
@@ -67,46 +68,3 @@ class FsWords {
     };
   }
 }
-
-/*FsWords.fromJson(Map<String, Object?> json)
-      : this(
-    wordId: json['wordId'].toString(),
-    sirpca: json['sirpca'].toString(),
-    turkce: json['turkce'].toString(),
-    userEmail: json['userEmail'].toString(),
-  );
-
-  Map<String, Object?> toJson() {
-    return {
-      'wordId': wordId,
-      'sirpca': sirpca,
-      'turkce': turkce,
-      'userEmail': userEmail
-    };
-  }
-
-  @override
-  String toString() {
-    return 'FsWords{sirpca: $sirpca, turkce: $turkce, userEmail: $userEmail,}';
-  }
-
-  factory FsWords.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    var data = snapshot.data()!;
-    return FsWords(
-      wordId: data["wordId"].toString(),
-      sirpca: data["sirpca"].toString(),
-      turkce: data["turkce"].toString(),
-      userEmail: data["userEmail"].toString(),
-    );
-  }
-
-  /// orderBy metodu
-  static Future<QuerySnapshot<Object?>> orderBy(String field) async {
-    final CollectionReference words =
-    FirebaseFirestore.instance.collection("kelimeler");
-    return await words.orderBy(field).get();
-  }
-
-}
-*/

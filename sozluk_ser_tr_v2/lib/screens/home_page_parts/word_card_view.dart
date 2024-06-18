@@ -129,6 +129,8 @@ class _WordCardViewState extends State<WordCardView> {
                     IconButton(
                       onPressed: () {
                         log("Kelime düzeltme seçildi");
+                        log("Düzeltilecek kelime : ${widget.secondLanguageText}");
+                        log("düzeltilecek kelime id : ${widget.word.wordId}");
                         showGeneralDialog(
                           context: context,
                           barrierDismissible: false,

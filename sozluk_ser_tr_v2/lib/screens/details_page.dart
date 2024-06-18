@@ -7,7 +7,6 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
@@ -38,7 +37,7 @@ class _DetailsPageState extends State<DetailsPage> {
   final CollectionReference words =
       FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
-  late List<FsWords> _wordList = []; // Kelimelerin listesi
+  late final List<FsWords> _wordList = []; // Kelimelerin listesi
   late int _currentIndex = 0; // Başlangıçta _currentIndex 0 olacak
   late FsWords word;
   late ThemeProvider themeProvider;

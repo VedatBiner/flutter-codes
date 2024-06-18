@@ -130,7 +130,7 @@ class EditWordBox extends StatelessWidget {
                   ),
                   onPressed: () {
                     log("Düzeltme butonuna basıldı");
-                    log("EditWordBox: wordId is $wordId");
+                  //  log("EditWordBox: wordId is $wordId");
                     onWordUpdated(
                       wordId,
                       firstLanguageController.text,
