@@ -36,6 +36,8 @@ class WordListBuilder extends StatefulWidget {
 }
 
 class _WordListBuilderState extends State<WordListBuilder> {
+  List<FsWords> mergedResults = [];
+
   @override
   Widget build(BuildContext context) {
     final serbianResults =
@@ -136,6 +138,12 @@ class _WordListBuilderState extends State<WordListBuilder> {
             displayedLanguage: displayedLanguage,
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
+            onDelete: (){
+              setState(() {
+                /// silinen kelimeyi listeden çıkartalım
+                mergedResults.remove(word);
+              });
+            },
           );
 
     return ChangeNotifierProvider.value(

@@ -26,6 +26,7 @@ class WordCardView extends StatefulWidget {
   final String displayedTranslation;
   final String firstLanguageText;
   final String secondLanguageText;
+  final VoidCallback onDelete; // Callback fonksiyonu eklendi
 
   const WordCardView({
     super.key,
@@ -35,6 +36,7 @@ class WordCardView extends StatefulWidget {
     required this.displayedTranslation,
     required this.firstLanguageText,
     required this.secondLanguageText,
+    required this.onDelete,
   });
 
   @override
@@ -304,6 +306,7 @@ class _WordCardViewState extends State<WordCardView> {
             /// Burada firestoreService.deleteWord metodu hatalı
             /// ********************************************************
             await firestoreService.deleteWord(widget.word.wordId);
+            widget.onDelete();
             /// ********************************************************
             setState(() {
               ScaffoldMessenger.of(context).showSnackBar(
