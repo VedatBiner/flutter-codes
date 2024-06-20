@@ -34,11 +34,10 @@ class LanguageSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 15-language_selector.dart dosyası çalıştı. >>>>>>>");
-    log("-------------------------------------------------------");
-    log("language_selector.dart => language : $language");
+    log("===> 15-language_selector.dart dosyası çalıştı. >>>>>");
+    log("------------------------------------------------------------");
 
-    language == true ? log("Sırpça - Türkçe") : log("Türkçe - Sırpça");
+    // language == true ? log("Sırpça - Türkçe") : log("Türkçe - Sırpça");
 
     return Container(
       color: Colors.blueAccent,

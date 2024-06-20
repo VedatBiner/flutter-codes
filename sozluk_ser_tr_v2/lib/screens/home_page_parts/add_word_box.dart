@@ -32,11 +32,11 @@ class AddWordBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log("===> 10-add_word_box.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------");
+    log("------------------------------------------------------------");
 
-    log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
-    log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
-    log("add_word_box.dart => build - language : $language");
+    // log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
+    // log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
+    // log("add_word_box.dart => build - language : $language");
 
     String displayFirstLanguageText;
     String displaySecondLanguageText;
@@ -50,8 +50,8 @@ class AddWordBox extends StatelessWidget {
       displaySecondLanguageText = firstLanguageText;
     }
 
-    log("add_word_box.dart => build - displayFirstLanguageText : $displayFirstLanguageText");
-    log("add_word_box.dart => build - displaySecondLanguageText : $displaySecondLanguageText");
+    // log("add_word_box.dart => build - displayFirstLanguageText : $displayFirstLanguageText");
+    // log("add_word_box.dart => build - displaySecondLanguageText : $displaySecondLanguageText");
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -122,15 +122,15 @@ class AddWordBox extends StatelessWidget {
                     log("add_word_box.dart (on pressed) language : $language ");
                     language == true
                         ? onWordAdded(
-                      firstLanguageController.text,
-                      secondLanguageController.text,
-                      email,
-                    )
+                            firstLanguageController.text,
+                            secondLanguageController.text,
+                            email,
+                          )
                         : onWordAdded(
-                      secondLanguageController.text,
-                      firstLanguageController.text,
-                      email,
-                    );
+                            secondLanguageController.text,
+                            firstLanguageController.text,
+                            email,
+                          );
                   },
                   child: Text(
                     'Kelime Ekle',
@@ -144,5 +144,4 @@ class AddWordBox extends StatelessWidget {
       ),
     );
   }
-
 }

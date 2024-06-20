@@ -1,4 +1,5 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+/// <----- fw_words.dart ----->
+library;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

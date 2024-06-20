@@ -27,7 +27,7 @@ class HomeCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     log("===> 11-home_app_bar.dart dosyası çalıştı >>>>>");
-    log("-----------------------------------------------");
+    log("------------------------------------------------------------");
     return AppBar(
       backgroundColor: drawerColor,
       title: aramaYapiliyorMu

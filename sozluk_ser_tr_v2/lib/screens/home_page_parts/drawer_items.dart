@@ -18,11 +18,9 @@ import '../../services/app_routes.dart';
 Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
-  /// login olan kullanıcı bilgisini al
-  // String currentUserEmail =
-  //     FirebaseAuth.instance.currentUser?.email ?? 'vbiner@gmail.com';
   MyAuthService.currentUserEmail;
-  log("===> 09-drawer_items.dart dosyasında buildDrawer() metodu çalıştı. >>>>>");
+  log("===> 09-drawer_items.dart çalıştı >>>>>");
+  log("------------------------------------------------------------");
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,
@@ -39,10 +37,14 @@ Drawer buildDrawer(BuildContext context) {
           ),
         ),
         for (var item in drawerItems)
-          buildListTile(context, item["title"], (BuildContext context) {
-            final pageRoute = AppRoute.routes[item["page"]];
-            return pageRoute != null ? pageRoute(context) : Container();
-          }),
+          buildListTile(
+            context,
+            item["title"],
+            (BuildContext context) {
+              final pageRoute = AppRoute.routes[item["page"]];
+              return pageRoute != null ? pageRoute(context) : Container();
+            },
+          ),
         const SizedBox(height: 32),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

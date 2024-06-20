@@ -43,7 +43,8 @@ class WordService {
     /// JSON formatına dönüştürmek için jsonEncode fonksiyonu kullanılır.
     /// wordList, jsonEncode fonksiyonuna verilir ve JSON formatında bir
     /// String elde edilir.
-    log("===> 06-word_service.dart dosyasında jsonInit() metodu çalıştı. *****");
+    log("===> 06-word_service.dart dosyası çalıştı. >>>>>");
+    log("------------------------------------------------------------");
     return jsonEncode(wordList);
   }
 

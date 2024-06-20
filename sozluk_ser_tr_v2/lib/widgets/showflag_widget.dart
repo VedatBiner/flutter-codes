@@ -23,7 +23,7 @@ class ShowFlagWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log("===> 12-showflag_widget.dart dosyası çalıştı. >>>>>");
-    log("----------------------------------------------------");
+    log("------------------------------------------------------------");
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

@@ -58,7 +58,7 @@ class _WordCardViewState extends State<WordCardView> {
     final FirestoreService firestoreService = FirestoreService();
 
     log("===> 14-word_card_view.dart dosyası çalıştı. >>>>>>>");
-    log("----------------------------------------------------");
+    log("------------------------------------------------------------");
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -129,9 +129,9 @@ class _WordCardViewState extends State<WordCardView> {
                     /// ve düzeltme metodu burada
                     IconButton(
                       onPressed: () {
-                        log("Kelime düzeltme seçildi");
-                        log("Düzeltilecek kelime : ${widget.secondLanguageText}");
-                        log("düzeltilecek kelime id : ${widget.word.wordId}");
+                        // log("Kelime düzeltme seçildi");
+                        // log("Düzeltilecek kelime : ${widget.secondLanguageText}");
+                        // log("düzeltilecek kelime id : ${widget.word.wordId}");
                         showGeneralDialog(
                           context: context,
                           barrierDismissible: false,
@@ -305,8 +305,6 @@ class _WordCardViewState extends State<WordCardView> {
           ),
           onPressed: () async {
             /// Burada silme işlemi gerçekleştirilir.
-            /// Burada firestoreService.deleteWord metodu hatalı
-            /// ********************************************************
             await firestoreService.deleteWord(widget.word.wordId);
             widget.onDelete();
 

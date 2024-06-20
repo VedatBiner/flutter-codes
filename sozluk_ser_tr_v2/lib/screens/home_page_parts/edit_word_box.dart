@@ -1,9 +1,8 @@
 /// <----- edit_word_box.dart ----->
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 import '../../constants/app_constants/color_constants.dart';
 import '../../constants/app_constants/constants.dart';
@@ -33,8 +32,8 @@ class EditWordBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 17 - edit_word_bax.dart dosyası çalıştı. >>>>>");
-    log("---------------------------------------------------");
+    log("===> 17 - edit_word_box.dart dosyası çalıştı. >>>>>");
+    log("------------------------------------------------------------");
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -130,7 +129,6 @@ class EditWordBox extends StatelessWidget {
                   ),
                   onPressed: () {
                     log("Düzeltme butonuna basıldı");
-                  //  log("EditWordBox: wordId is $wordId");
                     onWordUpdated(
                       wordId,
                       firstLanguageController.text,

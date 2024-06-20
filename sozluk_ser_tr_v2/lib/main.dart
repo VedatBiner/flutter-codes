@@ -46,16 +46,6 @@ void main() async {
           create: (context) => IconProvider(),
         ),
 
-        /// firestoreService provider
-        // ChangeNotifierProvider<FirestoreService>(
-        //   create: (_) => FirestoreService(),
-        // ),
-
-        /// word count provider
-        // ChangeNotifierProvider(
-        //   create: (context) => WordCountProvider(),
-        // ),
-
         /// LanguageParam için provider
         ChangeNotifierProvider<LanguageParams>(
           create: (_) => LanguageParams(
@@ -77,9 +67,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (context) => ThemeProvider(),
-        builder: (context, _) {
+        builder: (
+          context,
+          _,
+        ) {
           final themeProvider = Provider.of<ThemeProvider>(context);
           log("===> 01-main.dart çalıştı. >>>>>");
+          log("------------------------------------------------------------");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: AppConst.main.title,

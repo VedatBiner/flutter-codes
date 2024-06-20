@@ -5,8 +5,6 @@
 /// istenen formatta görünüm elde ediliyor.
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +38,6 @@ class _WordListBuilderState extends State<WordListBuilder> {
 
   @override
   Widget build(BuildContext context) {
-
     final serbianResults =
         widget.snapshot[0].docs.map((doc) => doc.data()).toList();
     final turkishResults =
@@ -50,9 +47,6 @@ class _WordListBuilderState extends State<WordListBuilder> {
     if (mergedResults.isEmpty) {
       mergedResults = [...serbianResults, ...turkishResults];
     }
-
-    log("===> 13-word_list_builder.dart dosyası çalıştı. >>>>>>>");
-    log("-------------------------------------------------------");
 
     /// Dilin her iki yöne de belirlenmesi
     final languageParams = Provider.of<LanguageParams>(context);
@@ -78,11 +72,13 @@ class _WordListBuilderState extends State<WordListBuilder> {
                 language: widget.language,
                 displayedLanguage: displayedLanguage,
                 translatedLanguage: translatedLanguage,
-                onDelete : (){
-                  setState(() {
-                    mergedResults.remove(word);
-                  });
-                }
+                onDelete: () {
+                  setState(
+                    () {
+                      mergedResults.remove(word);
+                    },
+                  );
+                },
               );
             },
           ),
@@ -127,12 +123,6 @@ class _WordListBuilderState extends State<WordListBuilder> {
             ? word.sirpca
             : word.turkce);
 
-    log("word_list_builder.dart (buildWorTile)");
-    log("word_list_builder.dart (buildWorTile) language : ${widget.language}");
-    log("first language Text : $secondLanguageText");
-    log("second language Text : $firstLanguageText");
-    log("----------------------------------------------------------");
-
     final wordWidgetChild = isListView
         ? WordListView(
             word: word,
@@ -149,7 +139,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
             displayedLanguage: displayedLanguage,
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
-            onDelete: (){
+            onDelete: () {
               setState(() {
                 /// silinen kelimeyi listeden çıkartalım
                 mergedResults.remove(word);

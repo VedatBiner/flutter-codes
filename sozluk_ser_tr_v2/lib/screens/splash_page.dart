@@ -80,6 +80,7 @@ mixin _SplashViewMixin on State<SplashView> {
     /// eğer kullanıcı varsa ana sayfaya gidilecek
     var isUserNull = auth.currentUser;
     log("===> 02-splash.dart çalıştı. >>>>>");
+    log("------------------------------------------------------------");
     await Navigator.pushNamed(
       context,
       isUserNull == null ? AppRoute.login : AppRoute.home,

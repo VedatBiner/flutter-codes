@@ -46,16 +46,15 @@ class AuthPageWidget extends StatefulWidget {
         builder: (context, snapshot) {
           final isSignedIn = snapshot.hasData;
           if (isSignedIn) {
-            // Eğer kullanıcı zaten oturum açmışsa butonu gösterme
+            /// Eğer kullanıcı zaten oturum açmışsa butonu gösterme
             return const SizedBox.shrink();
           } else {
-            // Kullanıcı oturum açmamışsa butonu göster
+            /// Kullanıcı oturum açmamışsa butonu göster
             return SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
-                  // foregroundColor: Colors.white,
                   elevation: 10,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -93,6 +92,7 @@ class AuthPageWidget extends StatefulWidget {
                 onPressed: () async {
                   log(">>>>> 03a-Google hesabı ile giriş seçildi.");
                   log("===> 04-auth_common_widget.dart içinde googleSignIn() metodu çalıştı. >>>>>");
+                  log("----------------------------------------------------------------------------");
                   try {
                     await googleSignIn.signInSilently();
                     Navigator.pushNamedAndRemoveUntil(
@@ -187,10 +187,12 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
               right: 10,
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    /// Şifrenin görünürlüğünü tersine çevir
-                    obscureText = !obscureText;
-                  });
+                  setState(
+                    () {
+                      /// Şifrenin görünürlüğünü tersine çevir
+                      obscureText = !obscureText;
+                    },
+                  );
                 },
                 child: Icon(
                   obscureText ? Icons.visibility : Icons.visibility_off,
