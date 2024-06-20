@@ -40,11 +40,16 @@ class _WordListBuilderState extends State<WordListBuilder> {
 
   @override
   Widget build(BuildContext context) {
+
     final serbianResults =
         widget.snapshot[0].docs.map((doc) => doc.data()).toList();
     final turkishResults =
         widget.snapshot[1].docs.map((doc) => doc.data()).toList();
-    final mergedResults = [...serbianResults, ...turkishResults];
+
+    /// mergedResults listesini sadece ilk oluşturulduğunda doldur.
+    if (mergedResults.isEmpty) {
+      mergedResults = [...serbianResults, ...turkishResults];
+    }
 
     log("===> 13-word_list_builder.dart dosyası çalıştı. >>>>>>>");
     log("-------------------------------------------------------");
@@ -73,6 +78,11 @@ class _WordListBuilderState extends State<WordListBuilder> {
                 language: widget.language,
                 displayedLanguage: displayedLanguage,
                 translatedLanguage: translatedLanguage,
+                onDelete : (){
+                  setState(() {
+                    mergedResults.remove(word);
+                  });
+                }
               );
             },
           ),
@@ -90,6 +100,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
     required bool language,
     required String displayedLanguage,
     required String translatedLanguage,
+    required VoidCallback onDelete,
   }) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final bool isDarkMode = themeProvider.isDarkMode;
