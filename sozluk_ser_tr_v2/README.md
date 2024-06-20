@@ -12,6 +12,7 @@ Karşılaşılan hatalar
 5. Eklenen kelimeler artık mail adresi ile birlikte ekleniyor. Boş mail adresi kelime sayısı çok aza indirgendi.
 6. Kelime ekleme kutusu düzeltildi.
 7. Kelime silme ve ekleme aynı snackbar ile kullanılır hale getirildi.
-8. Kelime silme de kontrol ve silme işlemi tam gerçekleşmiyor. Önce silip silemeyeceği kontrol edilip, sonra silmesi sağlanacak.
-9. Kelime düzeltme kutusu düzenlenecek. Yani Update metodu yazılacak.
-10. güncelleme ve işlerinde id null geliyor ? Bu metodlar şimdilik comment yapıldı
+8. Silme işlemi gerçekleşti. Şimdilik kontrol yok. Önce silip silemeyeceği kontrol edilip, sonra silmesi sağlanacak.
+9. Kelime düzeltme (güncelleme) kutusu kodu çalıştı.
+10. Bu hali ile firebase web host olarak düzenleyelim.
+11. Details bölümü düzeltilecek
