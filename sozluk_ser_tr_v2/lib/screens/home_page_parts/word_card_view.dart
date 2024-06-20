@@ -26,7 +26,7 @@ class WordCardView extends StatefulWidget {
   final String displayedTranslation;
   final String firstLanguageText;
   final String secondLanguageText;
-  final VoidCallback onDelete; // Callback fonksiyonu eklendi
+  final VoidCallback onDelete;
 
   const WordCardView({
     super.key,
@@ -48,7 +48,6 @@ class _WordCardViewState extends State<WordCardView> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageParams = Provider.of<LanguageParams>(context);
-    // final String currentUserEmail = MyAuthService.currentUserEmail;
     final email = MyAuthService.currentUserEmail;
 
     /// dil seçimine göre değişim için
@@ -170,28 +169,31 @@ class _WordCardViewState extends State<WordCardView> {
                                       String updateKelime = language
                                           ? widget.word.sirpca ?? ""
                                           : widget.word.turkce ?? "";
-                                      // log("Word_card_view.dart (Center) "
-                                      //     "Updating word with id: ${widget.word.wordId}");
-                                      // log("*********************************"
-                                      //     "***************************");
 
-                                      // await firestoreService.updateWord(
-                                      //   wordId,
-                                      //   firstLang,
-                                      //   secondLang,
-                                      // );
-                                      setState(() {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          buildSnackBar(
-                                            updateKelime,
-                                            updateMsg,
-                                            MyAuthService.currentUserEmail,
-                                          ),
-                                        );
-                                      });
-                                      Navigator.pop(context);
+                                      /// Firestore 'da güncelleme
+                                      /// burada yapılıyor.
+                                      await firestoreService.updateWord(
+                                        wordId,
+                                        firstLang,
+                                        secondLang,
+                                      );
+                                      Navigator.pop(buildContext);
                                       log("Kelime düzeltildi");
+
+                                      if (mounted) {
+                                        setState(
+                                          () {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              buildSnackBar(
+                                                updateKelime,
+                                                updateMsg,
+                                                MyAuthService.currentUserEmail,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
                                     },
                                   ),
                                 ),
@@ -307,16 +309,19 @@ class _WordCardViewState extends State<WordCardView> {
             /// ********************************************************
             await firestoreService.deleteWord(widget.word.wordId);
             widget.onDelete();
+
             /// ********************************************************
-            setState(() {
-              ScaffoldMessenger.of(context).showSnackBar(
-                buildSnackBar(
-                  silinecekKelime,
-                  deleteMsg,
-                  MyAuthService.currentUserEmail,
-                ),
-              );
-            });
+            if (mounted) {
+              setState(() {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  buildSnackBar(
+                    silinecekKelime,
+                    deleteMsg,
+                    MyAuthService.currentUserEmail,
+                  ),
+                );
+              });
+            }
             Navigator.pop(context);
             log("Kelime silindi");
           },
