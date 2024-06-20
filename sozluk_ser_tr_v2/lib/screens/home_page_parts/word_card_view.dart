@@ -303,7 +303,7 @@ class _WordCardViewState extends State<WordCardView> {
             /// Burada silme işlemi gerçekleştirilir.
             /// Burada firestoreService.deleteWord metodu hatalı
             /// ********************************************************
-            /// await firestoreService.deleteWord(widget.word.wordId);
+            await firestoreService.deleteWord(widget.word.wordId);
             /// ********************************************************
             setState(() {
               ScaffoldMessenger.of(context).showSnackBar(

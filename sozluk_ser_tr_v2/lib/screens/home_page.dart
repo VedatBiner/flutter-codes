@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
         .where(orderByField, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(orderByField, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data() ?? {}),
+      fromFirestore: (snapshot, _) => FsWords.fromDocument(snapshot),
       toFirestore: (word, _) => word.toJson(),
     );
   }
