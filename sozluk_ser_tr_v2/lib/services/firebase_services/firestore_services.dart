@@ -25,9 +25,6 @@ class FirestoreService {
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
     birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
 
-    /// login olan kullanıcının email adresini al
-//    log("firestore_services.dart => user email : ${MyAuthService.currentUserEmail}");
-
     try {
       var result = await words.where(fsYardimciDil, isEqualTo: ikinciDil).get();
 
@@ -109,23 +106,23 @@ class FirestoreService {
   Future<void> addFieldToAllDocuments(
       String fieldName, dynamic fieldValue) async {
     try {
-      // Tüm belgeleri al
+      /// Tüm belgeleri al
       QuerySnapshot querySnapshot = await words.get();
 
-      // Tüm belgeler için döngü oluştur
+      /// Tüm belgeler için döngü oluştur
       for (QueryDocumentSnapshot document in querySnapshot.docs) {
-        // Güncellenmiş alanın değeri
+        /// Güncellenmiş alanın değeri
         Map<String, dynamic> newData = {
           fieldName: fieldValue, // Yeni alan ve değeri
         };
 
-        // Firestore belgesini güncelle
+        /// Firestore belgesini güncelle
         await words.doc(document.id).update(newData);
       }
 
-      print('Tüm belgelere yeni alan eklendi.');
+      log('Tüm belgelere yeni alan eklendi.');
     } catch (e) {
-      print("Error adding field to all documents: $e");
+      log("Error adding field to all documents: $e");
     }
   }
 }
