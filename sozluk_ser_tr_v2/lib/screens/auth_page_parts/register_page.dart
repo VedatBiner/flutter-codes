@@ -1,4 +1,9 @@
 /// <----- register_page.dart ----->
+/// --------------------------------------------------
+/// 03-B register_page.dart
+/// Eğer kullanıcı kayıtlı değilse kayıt
+/// işlemleri burada yapılıyor.
+/// --------------------------------------------------
 ///
 library;
 

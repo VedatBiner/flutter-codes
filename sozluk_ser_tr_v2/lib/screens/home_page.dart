@@ -1,5 +1,6 @@
 /// <----- home_page.dart ----->
 /// --------------------------------------------------
+/// 03-c home_page.dart
 /// Bu sayfa bütün kodun merkezini oluşturuyor.
 /// çok sık güncelleme yapılıyor.
 /// Burada kelimeler Firebase Firestore 'dan pagination
@@ -10,9 +11,9 @@
 /// --------------------------------------------------
 library;
 
+import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_constants/constants.dart';
@@ -21,8 +22,8 @@ import '../models/fs_words.dart';
 import '../models/language_params.dart';
 import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
-import '../services/providers/icon_provider.dart';
 import '../services/word_service.dart';
+import '../services/providers/icon_provider.dart';
 import '../utils/snackbar_helper.dart';
 import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/drawer_items.dart';
