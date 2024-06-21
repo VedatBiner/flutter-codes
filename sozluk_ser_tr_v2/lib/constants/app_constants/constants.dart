@@ -1,4 +1,8 @@
 /// <----- constants.dart ----->
+/// --------------------------------------------------
+/// Burada sık kullanılan text stilleri, font ve
+/// mesajlar, buton etiketleri bulunuyor.
+/// --------------------------------------------------
 library;
 
 import 'package:flutter/material.dart';
@@ -202,5 +206,3 @@ const eminText = TextStyle(
   color: Colors.red,
   fontWeight: FontWeight.bold,
 );
-
-
