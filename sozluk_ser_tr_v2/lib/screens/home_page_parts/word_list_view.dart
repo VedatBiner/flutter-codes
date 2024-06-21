@@ -12,13 +12,14 @@ import '../../constants/app_constants/color_constants.dart';
 import '../../models/fs_words.dart';
 import '../details_page.dart';
 
-class WordListView extends StatelessWidget {
+class WordListView extends StatefulWidget {
   final FsWords word;
   final bool isDarkMode;
   final String displayedLanguage;
   final String displayedTranslation;
   final String firstLanguageText;
   final String secondLanguageText;
+  final List<FsWords> mergedResults;
 
   const WordListView({
     super.key,
@@ -28,8 +29,14 @@ class WordListView extends StatelessWidget {
     required this.displayedTranslation,
     required this.firstLanguageText,
     required this.secondLanguageText,
+    required this.mergedResults,
   });
 
+  @override
+  State<WordListView> createState() => _WordListViewState();
+}
+
+class _WordListViewState extends State<WordListView> {
   @override
   Widget build(BuildContext context) {
     log("===> 15-word_list_view.dart dosyası çalıştı. >>>>>>>");
@@ -38,17 +45,19 @@ class WordListView extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       title: InkWell(
         onTap: () {
-          log("word : ${word.sirpca}");
-          log("word : ${word.turkce}");
+          log("word : ${widget.word.sirpca}");
+          log("word : ${widget.word.turkce}");
 
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => DetailsPage(
-                firstLanguageText: firstLanguageText,
-                secondLanguageText: secondLanguageText,
-                displayedLanguage: displayedLanguage,
-                displayedTranslation: displayedTranslation,
+                firstLanguageText: widget.firstLanguageText,
+                secondLanguageText: widget.secondLanguageText,
+                displayedLanguage: widget.displayedLanguage,
+                displayedTranslation: widget.displayedTranslation,
+                wordList: widget.mergedResults,
+                initialWord: widget.word,
               ),
             ),
           );
@@ -59,13 +68,13 @@ class WordListView extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    displayedLanguage == anaDil
-                        ? firstLanguageText ?? ""
-                        : secondLanguageText ?? "",
+                    widget.displayedLanguage == anaDil
+                        ? widget.firstLanguageText ?? ""
+                        : widget.secondLanguageText ?? "",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color:
-                          isDarkMode ? cardDarkModeText1 : cardLightModeText1,
+                          widget.isDarkMode ? cardDarkModeText1 : cardLightModeText1,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
@@ -73,13 +82,13 @@ class WordListView extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    displayedTranslation == yardimciDil
-                        ? secondLanguageText ?? ""
-                        : firstLanguageText ?? "",
+                    widget.displayedTranslation == yardimciDil
+                        ? widget.secondLanguageText ?? ""
+                        : widget.firstLanguageText ?? "",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                       color:
-                          isDarkMode ? cardDarkModeText2 : cardLightModeText2,
+                          widget.isDarkMode ? cardDarkModeText2 : cardLightModeText2,
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                     ),
@@ -88,7 +97,7 @@ class WordListView extends StatelessWidget {
               ],
             ),
             Divider(
-              color: isDarkMode ? Colors.white60 : Colors.black45,
+              color: widget.isDarkMode ? Colors.white60 : Colors.black45,
             ),
           ],
         ),

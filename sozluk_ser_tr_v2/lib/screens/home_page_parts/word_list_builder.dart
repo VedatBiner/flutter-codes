@@ -20,6 +20,7 @@ class WordListBuilder extends StatefulWidget {
   final bool isListView;
   final bool language;
   final LanguageParams languageParams;
+  final List<FsWords> mergedResults;
 
   const WordListBuilder({
     super.key,
@@ -27,6 +28,7 @@ class WordListBuilder extends StatefulWidget {
     required this.isListView,
     required this.language,
     required this.languageParams,
+    required this.mergedResults,
   });
 
   @override
@@ -72,6 +74,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
                 language: widget.language,
                 displayedLanguage: displayedLanguage,
                 translatedLanguage: translatedLanguage,
+                mergedResults: widget.mergedResults,
                 onDelete: () {
                   setState(
                     () {
@@ -96,6 +99,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
     required bool language,
     required String displayedLanguage,
     required String translatedLanguage,
+    required List<FsWords> mergedResults,
     required VoidCallback onDelete,
   }) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -131,6 +135,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
             displayedLanguage: displayedLanguage,
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
+            mergedResults: mergedResults,
           )
         : WordCardView(
             word: word,
@@ -139,6 +144,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
             displayedLanguage: displayedLanguage,
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
+            mergedResults: mergedResults,
             onDelete: () {
               setState(() {
                 /// silinen kelimeyi listeden çıkartalım

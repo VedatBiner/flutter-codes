@@ -20,6 +20,8 @@ class DetailsPage extends StatefulWidget {
   final String secondLanguageText;
   final String displayedLanguage;
   final String displayedTranslation;
+  final List<FsWords> wordList;
+  final FsWords initialWord;
 
   const DetailsPage({
     super.key,
@@ -27,6 +29,8 @@ class DetailsPage extends StatefulWidget {
     required this.secondLanguageText,
     required this.displayedLanguage,
     required this.displayedTranslation,
+    required this.wordList,
+    required this.initialWord,
   });
 
   @override
@@ -38,7 +42,7 @@ class _DetailsPageState extends State<DetailsPage> {
       FirebaseFirestore.instance.collection("kelimeler");
   QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late final List<FsWords> _wordList = []; // Kelimelerin listesi
-  late int _currentIndex = 0; // Başlangıçta _currentIndex 0 olacak
+  late int _currentIndex;
   late FsWords word;
   late ThemeProvider themeProvider;
 
@@ -56,6 +60,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
+    _currentIndex = widget.wordList.indexOf(widget.initialWord);
     word = FsWords(
       wordId: 'initialId',
       sirpca: 'initialSirpca',

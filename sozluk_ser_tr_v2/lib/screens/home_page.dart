@@ -139,14 +139,26 @@ class _HomePageState extends State<HomePage> {
           ); // Hata durumunda hata mesajı göster
         }
 
+
         /// languageParams nesnesini oluşturun
         final languageParams = Provider.of<LanguageParams>(context);
-        return WordListBuilder(
-          snapshot: snapshot.data!,
-          isListView: isListView,
-          languageParams: languageParams,
-          language: language,
-        );
+
+        if (snapshot.hasData) {
+          List<FsWords> allWords = [];
+          for (var querySnapshot in snapshot.data!) {
+            allWords.addAll(
+                querySnapshot.docs.map((doc) => doc.data()).toList());
+          }
+          return WordListBuilder(
+            snapshot: snapshot.data!,
+            isListView: isListView,
+            languageParams: languageParams,
+            language: language,
+            mergedResults: allWords,
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
       },
     );
   }

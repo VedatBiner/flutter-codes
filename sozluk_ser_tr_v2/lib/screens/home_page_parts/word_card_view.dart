@@ -27,6 +27,7 @@ class WordCardView extends StatefulWidget {
   final String firstLanguageText;
   final String secondLanguageText;
   final VoidCallback onDelete;
+  final List<FsWords> mergedResults;
 
   const WordCardView({
     super.key,
@@ -37,6 +38,7 @@ class WordCardView extends StatefulWidget {
     required this.firstLanguageText,
     required this.secondLanguageText,
     required this.onDelete,
+    required this.mergedResults,
   });
 
   @override
@@ -79,6 +81,8 @@ class _WordCardViewState extends State<WordCardView> {
                   secondLanguageText: languageParams.secondLanguageText,
                   displayedLanguage: widget.displayedLanguage,
                   displayedTranslation: widget.displayedTranslation,
+                  wordList: widget.mergedResults,
+                  initialWord: widget.word,
                 ),
               ),
             );
