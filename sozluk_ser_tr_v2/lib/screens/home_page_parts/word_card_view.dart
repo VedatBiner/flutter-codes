@@ -48,6 +48,7 @@ class WordCardView extends StatefulWidget {
 }
 
 class _WordCardViewState extends State<WordCardView> {
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -85,6 +86,7 @@ class _WordCardViewState extends State<WordCardView> {
                   displayedTranslation: widget.displayedTranslation,
                   wordList: widget.mergedResults,
                   initialWord: widget.word,
+                  language: language,
                 ),
               ),
             );

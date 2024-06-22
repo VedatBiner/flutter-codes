@@ -136,6 +136,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
             mergedResults: mergedResults,
+            language: language,
           )
         : WordCardView(
             word: word,

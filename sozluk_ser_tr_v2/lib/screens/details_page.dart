@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:sozluk_ser_tr_v2/screens/details_page_parts/flag_row.dart';
 
 import '../constants/app_constants/color_constants.dart';
+import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
@@ -23,6 +25,7 @@ class DetailsPage extends StatefulWidget {
   final String displayedTranslation;
   final List<FsWords> wordList;
   final FsWords initialWord;
+  final bool language;
 
   const DetailsPage({
     super.key,
@@ -32,6 +35,7 @@ class DetailsPage extends StatefulWidget {
     required this.displayedTranslation,
     required this.wordList,
     required this.initialWord,
+    required this.language,
   });
 
   @override
@@ -136,18 +140,18 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           buildElevatedButton(
             onPressed: () {
-              log("Önceki kelime");
-              log("index : $_currentIndex");
-              log("Önceki kelime: ${_wordList[_currentIndex].turkce} - ${_wordList[_currentIndex].sirpca}");
-              // log("Word List : ${_wordList.toString()}");
-              // log("Word List (5) : ${_wordList[5].toString()}");
-              //  _loadPreviousWord();
-              if (_currentIndex > 0) {
-                _currentIndex--;
-                _loadPreviousWord();
-              } else {
-                log("Bu ilk kelime, önceki kelime yok.");
-              }
+              // log("Önceki kelime");
+              // log("index : $_currentIndex");
+              // log("Önceki kelime: ${_wordList[_currentIndex].turkce} - ${_wordList[_currentIndex].sirpca}");
+              // // log("Word List : ${_wordList.toString()}");
+              // // log("Word List (5) : ${_wordList[5].toString()}");
+              // //  _loadPreviousWord();
+              // if (_currentIndex > 0) {
+              //   _currentIndex--;
+              //   _loadPreviousWord();
+              // } else {
+              //   log("Bu ilk kelime, önceki kelime yok.");
+              // }
             },
             icon: Icons.arrow_left,
             iconSize: 50,
@@ -169,6 +173,9 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
+    log("------------------------------------------------------------");
+    log("language : ${widget.language}");
     return Scaffold(
       appBar: const CustomAppBar(
         appBarTitle: appBarDetailsTitle,
@@ -194,9 +201,20 @@ class _DetailsPageState extends State<DetailsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        word.sirpca,
-                      ),
+                      widget.language == true
+                          ?
+                        buildFlagRow(
+                          secondCountry,
+                          word.sirpca,
+                          detailTextRed,)
+                          : buildFlagRow(
+                        firstCountry,
+                        word.turkce,
+                        detailTextRed,)
+                      ,
+                      // Text(
+                      //   word.sirpca,
+                      // ),
                       const Divider(),
                       Text(
                         word.turkce,

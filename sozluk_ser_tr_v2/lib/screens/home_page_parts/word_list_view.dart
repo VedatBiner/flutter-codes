@@ -20,6 +20,7 @@ class WordListView extends StatefulWidget {
   final String firstLanguageText;
   final String secondLanguageText;
   final List<FsWords> mergedResults;
+  final bool language;
 
   const WordListView({
     super.key,
@@ -30,6 +31,7 @@ class WordListView extends StatefulWidget {
     required this.firstLanguageText,
     required this.secondLanguageText,
     required this.mergedResults,
+    required this.language,
   });
 
   @override
@@ -58,6 +60,7 @@ class _WordListViewState extends State<WordListView> {
                 displayedTranslation: widget.displayedTranslation,
                 wordList: widget.mergedResults,
                 initialWord: widget.word,
+                language: widget.language,
               ),
             ),
           );
