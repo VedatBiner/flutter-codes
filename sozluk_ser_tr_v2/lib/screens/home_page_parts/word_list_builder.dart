@@ -145,6 +145,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
             firstLanguageText: firstLanguageText,
             secondLanguageText: secondLanguageText,
             mergedResults: mergedResults,
+            language: language,
             onDelete: () {
               setState(() {
                 /// silinen kelimeyi listeden çıkartalım
