@@ -7,6 +7,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_constants/color_constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
@@ -178,30 +179,35 @@ class _DetailsPageState extends State<DetailsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Card(
-              child: ListTile(
-                title: Column(
-                  children: [
-                    Text(
-                      word.sirpca,
-                      style: TextStyle(
-                        color: themeProvider.isDarkMode
-                            ? Colors.white
-                            : Colors.black,
+              elevation: 10.0,
+              margin: const EdgeInsets.all(8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              shadowColor: Colors.blue[200],
+              color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  height: MediaQuery.of(context).size.width * 0.95,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        word.sirpca,
                       ),
-                    ),
-                    Text(
-                      word.turkce,
-                      style: TextStyle(
-                        color: themeProvider.isDarkMode
-                            ? Colors.white
-                            : Colors.black,
+                      const Divider(),
+                      Text(
+                        word.turkce,
                       ),
-                    ),
-                    buildDetailsButton(),
-                  ],
+
+                    ],
+                  ),
                 ),
               ),
-            )
+            ),
+            buildDetailsButton(),
           ],
         ),
       ),
