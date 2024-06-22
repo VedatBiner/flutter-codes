@@ -62,12 +62,7 @@ class _DetailsPageState extends State<DetailsPage> {
     super.initState();
     _currentIndex = widget.wordList.indexOf(widget.initialWord);
     _wordList.addAll(widget.wordList);
-    word = FsWords(
-      wordId: 'initialId',
-      sirpca: 'initialSirpca',
-      turkce: 'initialTurkce',
-      userEmail: 'initialEmail',
-    );
+    word = widget.initialWord;
   }
 
   /// Tüm kelimelerin listesi
@@ -179,11 +174,10 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       drawer: buildDrawer(context),
       body: Center(
-        child: ListView.builder(
-          itemCount: _wordList.length,
-          itemBuilder: (context, index) {
-            final word = _wordList[index];
-            return Card(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
               child: ListTile(
                 title: Column(
                   children: [
@@ -203,25 +197,12 @@ class _DetailsPageState extends State<DetailsPage> {
                             : Colors.black,
                       ),
                     ),
+                    buildDetailsButton(),
                   ],
                 ),
               ),
-            );
-          },
-          // child: Column(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     // buildCarouselSlider(context),
-          //     DetailsCard(
-          //       firstLanguageText: widget.firstLanguageText,
-          //       secondLanguageText: widget.secondLanguageText,
-          //       displayedLanguage: widget.displayedLanguage,
-          //       displayedTranslation: widget.displayedTranslation,
-          //       themeProvider: themeProvider,
-          //     ),
-          //     buildDetailsButton(),
-          //   ],
-          // ),
+            )
+          ],
         ),
       ),
     );
