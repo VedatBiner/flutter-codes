@@ -61,6 +61,7 @@ class _DetailsPageState extends State<DetailsPage> {
   void initState() {
     super.initState();
     _currentIndex = widget.wordList.indexOf(widget.initialWord);
+    _wordList.addAll(widget.wordList);
     word = FsWords(
       wordId: 'initialId',
       sirpca: 'initialSirpca',
@@ -178,19 +179,49 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       drawer: buildDrawer(context),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // buildCarouselSlider(context),
-            DetailsCard(
-              firstLanguageText: widget.firstLanguageText,
-              secondLanguageText: widget.secondLanguageText,
-              displayedLanguage: widget.displayedLanguage,
-              displayedTranslation: widget.displayedTranslation,
-              themeProvider: themeProvider,
-            ),
-            buildDetailsButton(),
-          ],
+        child: ListView.builder(
+          itemCount: _wordList.length,
+          itemBuilder: (context, index) {
+            final word = _wordList[index];
+            return Card(
+              child: ListTile(
+                title: Column(
+                  children: [
+                    Text(
+                      word.sirpca,
+                      style: TextStyle(
+                        color: themeProvider.isDarkMode
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                    Text(
+                      word.turkce,
+                      style: TextStyle(
+                        color: themeProvider.isDarkMode
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+          // child: Column(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     // buildCarouselSlider(context),
+          //     DetailsCard(
+          //       firstLanguageText: widget.firstLanguageText,
+          //       secondLanguageText: widget.secondLanguageText,
+          //       displayedLanguage: widget.displayedLanguage,
+          //       displayedTranslation: widget.displayedTranslation,
+          //       themeProvider: themeProvider,
+          //     ),
+          //     buildDetailsButton(),
+          //   ],
+          // ),
         ),
       ),
     );
