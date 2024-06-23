@@ -15,7 +15,6 @@ import '../models/fs_words.dart';
 import '../screens/details_page_parts/button_helper.dart';
 import '../services/providers/theme_provider.dart';
 import '../help_pages/help_parts/custom_appbar.dart';
-import 'details_page_parts/details_card.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -202,24 +201,28 @@ class _DetailsPageState extends State<DetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       widget.language == true
-                          ?
-                        buildFlagRow(
-                          secondCountry,
-                          word.sirpca,
-                          detailTextRed,)
+                          ? buildFlagRow(
+                              secondCountry,
+                              word.sirpca,
+                              detailTextRed,
+                            )
                           : buildFlagRow(
-                        firstCountry,
-                        word.turkce,
-                        detailTextRed,)
-                      ,
-                      // Text(
-                      //   word.sirpca,
-                      // ),
+                              firstCountry,
+                              word.turkce,
+                              detailTextRed,
+                            ),
                       const Divider(),
-                      Text(
-                        word.turkce,
-                      ),
-
+                      widget.language == true
+                          ? buildFlagRow(
+                              firstCountry,
+                              word.turkce,
+                              detailTextBlue,
+                            )
+                          : buildFlagRow(
+                              secondCountry,
+                              word.sirpca,
+                              detailTextBlue,
+                            ),
                     ],
                   ),
                 ),
