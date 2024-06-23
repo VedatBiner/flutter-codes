@@ -139,7 +139,7 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           buildElevatedButton(
             onPressed: () {
-              // log("Önceki kelime");
+              log("Önceki kelime");
               // log("index : $_currentIndex");
               // log("Önceki kelime: ${_wordList[_currentIndex].turkce} - ${_wordList[_currentIndex].sirpca}");
               // // log("Word List : ${_wordList.toString()}");
@@ -184,6 +184,8 @@ class _DetailsPageState extends State<DetailsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            /// burada tek kelime için detaylı
+            /// Card görünümü oluşturuluyor
             Card(
               elevation: 10.0,
               margin: const EdgeInsets.all(8.0),
@@ -200,6 +202,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      /// burada dil seçimine göre kelimeler
+                      /// yer değiştiriyorlar.
                       widget.language == true
                           ? buildFlagRow(
                               secondCountry,
