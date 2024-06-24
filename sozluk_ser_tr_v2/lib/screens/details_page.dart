@@ -82,6 +82,10 @@ class _DetailsPageState extends State<DetailsPage> {
     log("Seçilen kelime : ${word.sirpca} - ${word.turkce}");
     log("seçilen kelimenin indeksi: $selectedWordIndex");
     _currentIndex = selectedWordIndex;
+
+    log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
+    log("------------------------------------------------------------");
+    log("language : ${widget.language}");
   }
 
   /// index bulan metod
@@ -133,11 +137,11 @@ class _DetailsPageState extends State<DetailsPage> {
           buildElevatedButton(
             onPressed: () {
               log("sonraki kelime");
-              if (_currentIndex > _wordList.length - 1) {
+              if (_currentIndex < _wordList.length - 1) {
                 setState(() {
                   _currentIndex++;
                   word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
-                  log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
+                  log("Sonraki kelime: ${word.sirpca} - ${word.turkce}");
                   log("index : $_currentIndex");
                 });
               } else {
@@ -159,69 +163,70 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
-    log("------------------------------------------------------------");
-    log("language : ${widget.language}");
     return Scaffold(
       appBar: const CustomAppBar(
         appBarTitle: appBarDetailsTitle,
       ),
       drawer: buildDrawer(context),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            /// burada tek kelime için detaylı
-            /// Card görünümü oluşturuluyor
-            Card(
-              elevation: 10.0,
-              margin: const EdgeInsets.all(8.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              shadowColor: Colors.blue[200],
-              color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.90,
-                  height: MediaQuery.of(context).size.width * 0.95,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      /// burada dil seçimine göre kelimeler
-                      /// yer değiştiriyorlar.
-                      widget.language == true
-                          ? buildFlagRow(
-                              secondCountry,
-                              _wordList[_currentIndex].sirpca,
-                              detailTextRed,
-                            )
-                          : buildFlagRow(
-                              firstCountry,
-                              _wordList[_currentIndex].turkce,
-                              detailTextRed,
-                            ),
-                      const Divider(),
-                      widget.language == true
-                          ? buildFlagRow(
-                              firstCountry,
-                              _wordList[_currentIndex].turkce,
-                              detailTextBlue,
-                            )
-                          : buildFlagRow(
-                              secondCountry,
-                              _wordList[_currentIndex].sirpca,
-                              detailTextBlue,
-                            ),
-                    ],
-                  ),
+      body: buildCardShow(context),
+    );
+  }
+
+  Center buildCardShow(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          /// burada tek kelime için detaylı
+          /// Card görünümü oluşturuluyor
+          Card(
+            elevation: 10.0,
+            margin: const EdgeInsets.all(8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            shadowColor: Colors.blue[200],
+            color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.90,
+                height: MediaQuery.of(context).size.width * 0.95,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    /// burada dil seçimine göre kelimeler
+                    /// yer değiştiriyorlar.
+                    widget.language == true
+                        ? buildFlagRow(
+                            secondCountry,
+                            _wordList[_currentIndex].sirpca,
+                            detailTextRed,
+                          )
+                        : buildFlagRow(
+                            firstCountry,
+                            _wordList[_currentIndex].turkce,
+                            detailTextRed,
+                          ),
+                    const Divider(),
+                    widget.language == true
+                        ? buildFlagRow(
+                            firstCountry,
+                            _wordList[_currentIndex].turkce,
+                            detailTextBlue,
+                          )
+                        : buildFlagRow(
+                            secondCountry,
+                            _wordList[_currentIndex].sirpca,
+                            detailTextBlue,
+                          ),
+                  ],
                 ),
               ),
             ),
-            buildDetailsButton(),
-          ],
-        ),
+          ),
+          buildDetailsButton(),
+        ],
       ),
     );
   }
