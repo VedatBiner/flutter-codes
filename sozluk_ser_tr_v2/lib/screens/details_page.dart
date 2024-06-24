@@ -54,11 +54,6 @@ class _DetailsPageState extends State<DetailsPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     themeProvider = Provider.of<ThemeProvider>(context);
-    //   var route = ModalRoute.of(context);
-    //   if(route != null && route.settings.arguments != null) {
-    //     word = route.settings.arguments as FsWords;
-    _loadWordList();
-    //   }
   }
 
   @override
@@ -67,67 +62,39 @@ class _DetailsPageState extends State<DetailsPage> {
     _currentIndex = widget.wordList.indexOf(widget.initialWord);
     _wordList.addAll(widget.wordList);
     word = widget.initialWord;
-  }
-
-  /// Tüm kelimelerin listesi
-  Future<void> _loadWordList() async {
-    // try {
-    //   /// Firestore 'dan verileri alırken offline veri kullanımını etkinleştirin
-    //   QuerySnapshot<Map<String, dynamic>> querySnapshot =
-    //       await FirebaseFirestore.instance
-    //           .collection("kelimeler")
-    //
-    //           /// Kelimeleri alfabetik sıraya göre sırala
-    //           .orderBy(
-    //               widget.firstLanguageText == anaDil ? 'turkce' : 'sirpca')
-    //           .get(
-    //             /// Firestore 'dan alınan verilerin daha önce indirilmiş verilere
-    //             /// karşı güncellenip güncellenmediğini kontrol et
-    //             const GetOptions(source: Source.cache),
-    //           );
-    //
-    //   setState(() {
-    // //     _wordList = querySnapshot.docs
-    // //         .map((doc) => FsWords.fromFirestore(
-    // //             doc as DocumentSnapshot<Map<String, dynamic>>))
-    // //         .toList();
-    // //   });
-    //  } catch (e) {
-    //   print("Hata: $e");
-    //   setState(() {
-    //     _wordList = [];
-    //   });
+    // _currentIndex = widget.wordList.indexOf(word);
+    log("Seçilen kelime: ${word.sirpca} - ${word.turkce}");
+    log("Aktarılan liste:");
+    // for (var word in widget.wordList) {
+    //   log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
     // }
+    for (int i = 0; i < widget.wordList.length && i < 10; i++) {
+      var word= widget.wordList[i];
+      log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
+    }
+    int selectedWordIndex = findIndex(word.sirpca);
+    if (selectedWordIndex != -1) {
+      log("Seçilen kelimenin indeksi: $selectedWordIndex");
+    } else {
+      log("Seçilen kelime listede bulunamadı.");
+    }
+    log("---------------------------------------");
+    log("Seçilen kelime : ${word.sirpca} - ${word.turkce}");
+    log("seçilen kelimenin indeksi: $selectedWordIndex");
+    _currentIndex = selectedWordIndex;
   }
 
-  /// önceki kelime
-  void _loadPreviousWord() {
-    log("_wordList : $_wordList");
-    // if (_currentIndex > 0) {
-    //   setState(() {
-    //     _currentIndex--;
-    //   });
-    //   log("Önceki kelime: ${_wordList[_currentIndex - 1].turkce} - ${_wordList[_currentIndex - 1].sirpca}");
-    // } else {
-    //   log("Bu ilk kelime, önceki kelime yok.");
-    // }
+  /// index bulan metod
+  int findIndex(String selectedWord) {
+    int index = -1;
+    for (int i = 0; i < widget.wordList.length; i++) {
+      if (widget.wordList[i].sirpca == selectedWord) {
+        index = i;
+        break; // Kelime bulundu, döngüyü sonlandır
+      }
+    }
+    return index;
   }
-
-  /// Geçici liste yazdırma
-  /// daha sonra silinebilir.
-  // void printWordList() {
-  //   if (_wordList.isEmpty) {
-  //     print("Liste boş");
-  //   } else {
-  //     _wordList.forEach((word) {
-  //       widget.firstLanguageText == ikinciDil
-  //           ? print(
-  //               "Word ID: ${word.wordId}, Turkce: ${word.turkce}, Sirpca: ${word.sirpca}, User Email: ${word.userEmail}")
-  //           : print(
-  //               "Word ID: ${word.wordId}, Sirpca: ${word.sirpca}, Turkce: ${word.turkce}, User Email: ${word.userEmail}");
-  //     });
-  //   }
-  // }
 
   /// önceki-sonraki kelimelere butonlar
   /// aracılığı ile gidilmesi içindir
@@ -140,17 +107,23 @@ class _DetailsPageState extends State<DetailsPage> {
           buildElevatedButton(
             onPressed: () {
               log("Önceki kelime");
-              // log("index : $_currentIndex");
-              // log("Önceki kelime: ${_wordList[_currentIndex].turkce} - ${_wordList[_currentIndex].sirpca}");
-              // // log("Word List : ${_wordList.toString()}");
-              // // log("Word List (5) : ${_wordList[5].toString()}");
-              // //  _loadPreviousWord();
-              // if (_currentIndex > 0) {
-              //   _currentIndex--;
-              //   _loadPreviousWord();
-              // } else {
-              //   log("Bu ilk kelime, önceki kelime yok.");
-              // }
+
+              if (_currentIndex > 0 ){
+                setState(() {
+                  _currentIndex--;
+                  word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
+                  log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
+                  log("index : $_currentIndex");
+                });
+              } else {
+                log("Bu ilk ilk kelime");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Bu ilk kelime!"),
+                  ),
+                );
+              }
+
             },
             icon: Icons.arrow_left,
             iconSize: 50,
@@ -238,48 +211,48 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-
-  /// kelimelerin sağa-sola sürüklenmesi için slider
-  // CarouselSlider buildCarouselSlider(BuildContext context) {
-  //   if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-  //     return CarouselSlider(
-  //       /// hata varsa burası uygulanacaktır
-  //       items: const [Text("Veri bulunamadı")],
-  //       options: CarouselOptions(),
-  //     );
-  //   } else {
-  //     return CarouselSlider(
-  //       options: CarouselOptions(
-  //         height: MediaQuery.of(context).size.height * 0.65,
-  //         aspectRatio: 16 / 9,
-  //         enlargeCenterPage: true,
-  //         autoPlay: false,
-  //
-  //         /// Otomatik oynatma kapalı
-  //         enableInfiniteScroll: false,
-  //
-  //         /// Sonsuz kaydırma kapalı
-  //         onPageChanged: (index, reason) {
-  //           if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-  //             /// Hata işlemleri
-  //             print("Hata: _querySnapshot başlatılmamış.");
-  //           } else {
-  //             /// Sayfa değişimini dinleyelim
-  //             if (index > _currentIndex) {
-  //               _loadNextWord();
-  //             } else if (index < _currentIndex) {
-  //               _loadPreviousWord();
-  //             }
-  //           }
-  //         },
-  //       ),
-  //       items: _querySnapshot?.docs.map((doc) {
-  //         return DetailsCard(
-  //           word: word,
-  //           themeProvider: themeProvider,
-  //         );
-  //       }).toList(),
-  //     );
-  //   }
-  // }
 }
+
+/// kelimelerin sağa-sola sürüklenmesi için slider
+// CarouselSlider buildCarouselSlider(BuildContext context) {
+//   if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+//     return CarouselSlider(
+//       /// hata varsa burası uygulanacaktır
+//       items: const [Text("Veri bulunamadı")],
+//       options: CarouselOptions(),
+//     );
+//   } else {
+//     return CarouselSlider(
+//       options: CarouselOptions(
+//         height: MediaQuery.of(context).size.height * 0.65,
+//         aspectRatio: 16 / 9,
+//         enlargeCenterPage: true,
+//         autoPlay: false,
+//
+//         /// Otomatik oynatma kapalı
+//         enableInfiniteScroll: false,
+//
+//         /// Sonsuz kaydırma kapalı
+//         onPageChanged: (index, reason) {
+//           if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
+//             /// Hata işlemleri
+//             print("Hata: _querySnapshot başlatılmamış.");
+//           } else {
+//             /// Sayfa değişimini dinleyelim
+//             if (index > _currentIndex) {
+//               _loadNextWord();
+//             } else if (index < _currentIndex) {
+//               _loadPreviousWord();
+//             }
+//           }
+//         },
+//       ),
+//       items: _querySnapshot?.docs.map((doc) {
+//         return DetailsCard(
+//           word: word,
+//           themeProvider: themeProvider,
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
