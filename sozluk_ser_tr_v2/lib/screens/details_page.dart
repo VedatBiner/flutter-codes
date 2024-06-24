@@ -49,6 +49,9 @@ class _DetailsPageState extends State<DetailsPage> {
   late int _currentIndex;
   late FsWords word;
   late ThemeProvider themeProvider;
+  // /// Drawer 'ın oluşturulup oluşturulmadığını kontrol
+  // /// etmek için bir değişken
+  // late bool _drawerBuilt = true;
 
   @override
   void didChangeDependencies() {
@@ -64,14 +67,6 @@ class _DetailsPageState extends State<DetailsPage> {
     word = widget.initialWord;
     // _currentIndex = widget.wordList.indexOf(word);
     log("Seçilen kelime: ${word.sirpca} - ${word.turkce}");
-    log("Aktarılan liste:");
-    // for (var word in widget.wordList) {
-    //   log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
-    // }
-    for (int i = 0; i < widget.wordList.length && i < 10; i++) {
-      var word = widget.wordList[i];
-      log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
-    }
     int selectedWordIndex = findIndex(word.sirpca);
     if (selectedWordIndex != -1) {
       log("Seçilen kelimenin indeksi: $selectedWordIndex");
@@ -82,7 +77,6 @@ class _DetailsPageState extends State<DetailsPage> {
     log("Seçilen kelime : ${word.sirpca} - ${word.turkce}");
     log("seçilen kelimenin indeksi: $selectedWordIndex");
     _currentIndex = selectedWordIndex;
-
     log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
     log("------------------------------------------------------------");
     log("language : ${widget.language}");
@@ -110,8 +104,6 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           buildElevatedButton(
             onPressed: () {
-              log("Önceki kelime");
-
               if (_currentIndex > 0) {
                 setState(() {
                   _currentIndex--;
