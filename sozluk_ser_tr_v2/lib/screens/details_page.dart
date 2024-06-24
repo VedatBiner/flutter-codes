@@ -116,7 +116,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   log("index : $_currentIndex");
                 });
               } else {
-                log("Bu ilk ilk kelime");
+                log("Bu ilk kelime");
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text("Bu ilk kelime!"),
@@ -134,6 +134,21 @@ class _DetailsPageState extends State<DetailsPage> {
           buildElevatedButton(
             onPressed: () {
               log("sonraki kelime");
+              if (_currentIndex > _wordList.length - 1){
+                setState(() {
+                  _currentIndex++;
+                  word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
+                  log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
+                  log("index : $_currentIndex");
+                });
+              } else {
+                log("Bu son kelime");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Bu son kelime!"),
+                  ),
+                );
+              }
             },
             icon: Icons.arrow_right,
             iconSize: 50,
