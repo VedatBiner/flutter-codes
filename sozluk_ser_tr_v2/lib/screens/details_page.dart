@@ -69,7 +69,7 @@ class _DetailsPageState extends State<DetailsPage> {
     //   log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
     // }
     for (int i = 0; i < widget.wordList.length && i < 10; i++) {
-      var word= widget.wordList[i];
+      var word = widget.wordList[i];
       log("${word.sirpca} - ${word.turkce}"); // Her kelimeyi ayrı satırda yazdır
     }
     int selectedWordIndex = findIndex(word.sirpca);
@@ -108,7 +108,7 @@ class _DetailsPageState extends State<DetailsPage> {
             onPressed: () {
               log("Önceki kelime");
 
-              if (_currentIndex > 0 ){
+              if (_currentIndex > 0) {
                 setState(() {
                   _currentIndex--;
                   word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
@@ -123,7 +123,6 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 );
               }
-
             },
             icon: Icons.arrow_left,
             iconSize: 50,
@@ -134,7 +133,7 @@ class _DetailsPageState extends State<DetailsPage> {
           buildElevatedButton(
             onPressed: () {
               log("sonraki kelime");
-              if (_currentIndex > _wordList.length - 1){
+              if (_currentIndex > _wordList.length - 1) {
                 setState(() {
                   _currentIndex++;
                   word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
@@ -195,24 +194,24 @@ class _DetailsPageState extends State<DetailsPage> {
                       widget.language == true
                           ? buildFlagRow(
                               secondCountry,
-                              word.sirpca,
+                              _wordList[_currentIndex].sirpca,
                               detailTextRed,
                             )
                           : buildFlagRow(
                               firstCountry,
-                              word.turkce,
+                              _wordList[_currentIndex].turkce,
                               detailTextRed,
                             ),
                       const Divider(),
                       widget.language == true
                           ? buildFlagRow(
                               firstCountry,
-                              word.turkce,
+                              _wordList[_currentIndex].turkce,
                               detailTextBlue,
                             )
                           : buildFlagRow(
                               secondCountry,
-                              word.sirpca,
+                              _wordList[_currentIndex].sirpca,
                               detailTextBlue,
                             ),
                     ],
