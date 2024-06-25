@@ -12,7 +12,6 @@ part 'home_constant.dart';
 
 final class AppConst {
   AppConst._();
-
   static final listener = _ListenerConstant();
   static final main = _MainConstant();
   static final splash = _SplashConstant();

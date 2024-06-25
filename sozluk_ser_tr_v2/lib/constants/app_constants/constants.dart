@@ -16,18 +16,6 @@ TextStyle glutenFontText = TextStyle(
   color: const Color(0xFFFFD300),
 );
 
-const listTextRed = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 16,
-  color: Colors.red,
-);
-
-const listTextBlue = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 14,
-  color: Colors.blue,
-);
-
 /// Girilen kelime sayısı mesaj stili
 const noOfWordsText = TextStyle(
   fontSize: 14,
@@ -109,12 +97,6 @@ const baslikTextBlack = TextStyle(
   color: Colors.black,
 );
 
-const baslikTextBlack87 = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 14,
-  color: Colors.black87,
-);
-
 TextStyle baslikTextDrawer = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
@@ -157,12 +139,6 @@ const String noOfWordsEntered = "Girilen kelime sayısı: ";
 
 /// Girilen kelime sayısı bulunamadı hatası
 const String noOfWordsErrorMsg = 'Girilen kelime sayısı: Hesaplanamadı';
-
-/// Kelime Giriş mesajı
-const String wordEntryMsg = "kelime giriniz ... ";
-
-/// Kelime karşılık mesajı
-const String wordMeanInMsg = "karşılığını giriniz ... ";
 
 /// update mesajı
 const String updateMsg = " tarafından düzeltilmiştir...";
