@@ -7,7 +7,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/color_constants.dart';
