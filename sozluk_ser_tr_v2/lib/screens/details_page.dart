@@ -19,20 +19,12 @@ import '../help_pages/help_parts/custom_appbar.dart';
 import 'home_page_parts/drawer_items.dart';
 
 class DetailsPage extends StatefulWidget {
-  final String firstLanguageText;
-  final String secondLanguageText;
-  final String displayedLanguage;
-  final String displayedTranslation;
   final List<FsWords> wordList;
   final FsWords initialWord;
   final bool language;
 
   const DetailsPage({
     super.key,
-    required this.firstLanguageText,
-    required this.secondLanguageText,
-    required this.displayedLanguage,
-    required this.displayedTranslation,
     required this.wordList,
     required this.initialWord,
     required this.language,
@@ -183,27 +175,27 @@ class _DetailsPageState extends State<DetailsPage> {
                     /// yer değiştiriyorlar.
                     widget.language == true
                         ? buildFlagRow(
-                            secondCountry,
-                            _wordList[_currentIndex].sirpca,
-                            detailTextRed,
-                          )
+                      secondCountry,
+                      _wordList[_currentIndex].sirpca,
+                      detailTextRed,
+                    )
                         : buildFlagRow(
-                            firstCountry,
-                            _wordList[_currentIndex].turkce,
-                            detailTextRed,
-                          ),
+                      firstCountry,
+                      _wordList[_currentIndex].turkce,
+                      detailTextRed,
+                    ),
                     const Divider(),
                     widget.language == true
                         ? buildFlagRow(
-                            firstCountry,
-                            _wordList[_currentIndex].turkce,
-                            detailTextBlue,
-                          )
+                      firstCountry,
+                      _wordList[_currentIndex].turkce,
+                      detailTextBlue,
+                    )
                         : buildFlagRow(
-                            secondCountry,
-                            _wordList[_currentIndex].sirpca,
-                            detailTextBlue,
-                          ),
+                      secondCountry,
+                      _wordList[_currentIndex].sirpca,
+                      detailTextBlue,
+                    ),
                   ],
                 ),
               ),

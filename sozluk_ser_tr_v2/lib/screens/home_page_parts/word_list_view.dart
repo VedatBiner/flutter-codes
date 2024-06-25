@@ -54,10 +54,6 @@ class _WordListViewState extends State<WordListView> {
             context,
             MaterialPageRoute(
               builder: (context) => DetailsPage(
-                firstLanguageText: widget.firstLanguageText,
-                secondLanguageText: widget.secondLanguageText,
-                displayedLanguage: widget.displayedLanguage,
-                displayedTranslation: widget.displayedTranslation,
                 wordList: widget.mergedResults,
                 initialWord: widget.word,
                 language: widget.language,

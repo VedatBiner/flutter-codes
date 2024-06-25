@@ -80,10 +80,6 @@ class _WordCardViewState extends State<WordCardView> {
               context,
               MaterialPageRoute(
                 builder: (context) => DetailsPage(
-                  firstLanguageText: languageParams.firstLanguageText,
-                  secondLanguageText: languageParams.secondLanguageText,
-                  displayedLanguage: widget.displayedLanguage,
-                  displayedTranslation: widget.displayedTranslation,
                   wordList: widget.mergedResults,
                   initialWord: widget.word,
                   language: language,
