@@ -126,7 +126,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   /// Bir sonraki kelimeye gidelim
-  void _onNextWordPressed(){
+  void _onNextWordPressed() {
     if (_currentIndex < _wordList.length - 1) {
       setState(() {
         _currentIndex++;
@@ -152,20 +152,35 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
       drawer: buildDrawer(context),
       // body: buildCardShow(context),
-      body: CarouselSlider(
-        options: CarouselOptions(
-          height: MediaQuery.of(context).size.height * 0.7, // Kart yüksekliği
-          enlargeCenterPage: true,
-          enableInfiniteScroll: false, // sonsuz kaydırma devre dışı
-          onPageChanged: (index, reason){
-            setState(() {
-              _currentIndex = index;
-            });
-          }
-        ),
-        items: _wordList.map((word){
-          return buildCardShow(context, word);
-        }).toList(),
+      body: Column(
+        children: [
+          Expanded(
+            child: CarouselSlider(
+              options: CarouselOptions(
+                /// Kart yüksekliği
+                height: MediaQuery.of(context).size.height * 0.7,
+                enlargeCenterPage: true,
+
+                /// sonsuz kaydırma devre dışı
+                enableInfiniteScroll: false,
+                aspectRatio: 16 / 9,
+                onPageChanged: (index, reason) {
+                  setState(
+                    () {
+                      _currentIndex = index;
+                    },
+                  );
+                },
+              ),
+              items: _wordList.map(
+                (word) {
+                  return buildCardShow(context, word);
+                },
+              ).toList(),
+            ),
+          ),
+          buildDetailsButton(),
+        ],
       ),
     );
   }
@@ -191,7 +206,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.90,
-                  height: MediaQuery.of(context).size.width * 0.75,
+                  height: MediaQuery.of(context).size.width * 0.80,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -199,27 +214,27 @@ class _DetailsPageState extends State<DetailsPage> {
                       /// yer değiştiriyorlar.
                       widget.language == true
                           ? buildFlagRow(
-                        secondCountry,
-                        _wordList[_currentIndex].sirpca,
-                        detailTextRed,
-                      )
+                              secondCountry,
+                              _wordList[_currentIndex].sirpca,
+                              detailTextRed,
+                            )
                           : buildFlagRow(
-                        firstCountry,
-                        _wordList[_currentIndex].turkce,
-                        detailTextRed,
-                      ),
+                              firstCountry,
+                              _wordList[_currentIndex].turkce,
+                              detailTextRed,
+                            ),
                       const Divider(),
                       widget.language == true
                           ? buildFlagRow(
-                        firstCountry,
-                        _wordList[_currentIndex].turkce,
-                        detailTextBlue,
-                      )
+                              firstCountry,
+                              _wordList[_currentIndex].turkce,
+                              detailTextBlue,
+                            )
                           : buildFlagRow(
-                        secondCountry,
-                        _wordList[_currentIndex].sirpca,
-                        detailTextBlue,
-                      ),
+                              secondCountry,
+                              _wordList[_currentIndex].sirpca,
+                              detailTextBlue,
+                            ),
                     ],
                   ),
                 ),
@@ -227,52 +242,7 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
         ),
-        buildDetailsButton(),
       ],
     );
   }
 }
-
-/// kelimelerin sağa-sola sürüklenmesi için slider
-// CarouselSlider buildCarouselSlider(BuildContext context) {
-//   if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-//     return CarouselSlider(
-//       /// hata varsa burası uygulanacaktır
-//       items: const [Text("Veri bulunamadı")],
-//       options: CarouselOptions(),
-//     );
-//   } else {
-//     return CarouselSlider(
-//       options: CarouselOptions(
-//         height: MediaQuery.of(context).size.height * 0.65,
-//         aspectRatio: 16 / 9,
-//         enlargeCenterPage: true,
-//         autoPlay: false,
-//
-//         /// Otomatik oynatma kapalı
-//         enableInfiniteScroll: false,
-//
-//         /// Sonsuz kaydırma kapalı
-//         onPageChanged: (index, reason) {
-//           if (_querySnapshot == null || _querySnapshot!.docs.isEmpty) {
-//             /// Hata işlemleri
-//             print("Hata: _querySnapshot başlatılmamış.");
-//           } else {
-//             /// Sayfa değişimini dinleyelim
-//             if (index > _currentIndex) {
-//               _loadNextWord();
-//             } else if (index < _currentIndex) {
-//               _loadPreviousWord();
-//             }
-//           }
-//         },
-//       ),
-//       items: _querySnapshot?.docs.map((doc) {
-//         return DetailsCard(
-//           word: word,
-//           themeProvider: themeProvider,
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
