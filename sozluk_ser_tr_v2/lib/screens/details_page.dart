@@ -4,6 +4,7 @@
 /// Firestore veri tabına erişim yapılmıyor.
 library;
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:provider/provider.dart';
@@ -150,67 +151,84 @@ class _DetailsPageState extends State<DetailsPage> {
         appBarTitle: appBarDetailsTitle,
       ),
       drawer: buildDrawer(context),
-      body: buildCardShow(context),
+      // body: buildCardShow(context),
+      body: CarouselSlider(
+        options: CarouselOptions(
+          height: MediaQuery.of(context).size.height * 0.7, // Kart yüksekliği
+          enlargeCenterPage: true,
+          enableInfiniteScroll: false, // sonsuz kaydırma devre dışı
+          onPageChanged: (index, reason){
+            setState(() {
+              _currentIndex = index;
+            });
+          }
+        ),
+        items: _wordList.map((word){
+          return buildCardShow(context, word);
+        }).toList(),
+      ),
     );
   }
 
   /// kelimeleri burada tek tek Card olarak gösteriyoruz.
-  Center buildCardShow(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          /// burada tek kelime için detaylı
-          /// Card görünümü oluşturuluyor
-          Card(
-            elevation: 10.0,
-            margin: const EdgeInsets.all(8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            shadowColor: Colors.blue[200],
-            color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.width * 0.95,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    /// burada dil seçimine göre kelimeler
-                    /// yer değiştiriyorlar.
-                    widget.language == true
-                        ? buildFlagRow(
-                      secondCountry,
-                      _wordList[_currentIndex].sirpca,
-                      detailTextRed,
-                    )
-                        : buildFlagRow(
-                      firstCountry,
-                      _wordList[_currentIndex].turkce,
-                      detailTextRed,
-                    ),
-                    const Divider(),
-                    widget.language == true
-                        ? buildFlagRow(
-                      firstCountry,
-                      _wordList[_currentIndex].turkce,
-                      detailTextBlue,
-                    )
-                        : buildFlagRow(
-                      secondCountry,
-                      _wordList[_currentIndex].sirpca,
-                      detailTextBlue,
-                    ),
-                  ],
+  Widget buildCardShow(BuildContext context, FsWords word) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        /// burada tek kelime için detaylı
+        /// Card görünümü oluşturuluyor
+        Expanded(
+          child: Center(
+            child: Card(
+              elevation: 10.0,
+              margin: const EdgeInsets.all(8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              shadowColor: Colors.blue[200],
+              color: themeProvider.isDarkMode ? cardDarkMode : cardLightMode,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  height: MediaQuery.of(context).size.width * 0.75,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      /// burada dil seçimine göre kelimeler
+                      /// yer değiştiriyorlar.
+                      widget.language == true
+                          ? buildFlagRow(
+                        secondCountry,
+                        _wordList[_currentIndex].sirpca,
+                        detailTextRed,
+                      )
+                          : buildFlagRow(
+                        firstCountry,
+                        _wordList[_currentIndex].turkce,
+                        detailTextRed,
+                      ),
+                      const Divider(),
+                      widget.language == true
+                          ? buildFlagRow(
+                        firstCountry,
+                        _wordList[_currentIndex].turkce,
+                        detailTextBlue,
+                      )
+                          : buildFlagRow(
+                        secondCountry,
+                        _wordList[_currentIndex].sirpca,
+                        detailTextBlue,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-          buildDetailsButton(),
-        ],
-      ),
+        ),
+        buildDetailsButton(),
+      ],
     );
   }
 }
