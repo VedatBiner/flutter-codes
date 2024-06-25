@@ -1,10 +1,11 @@
 /// <----- details_page.dart ----->
 /// Burada kelimeleri tek tek gösteriyoruz
+/// Bu kelimeler bir liste olarak geldiği için
+/// Firestore veri tabına erişim yapılmıyor.
 library;
 
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:sozluk_ser_tr_v2/screens/details_page_parts/flag_row.dart';
 
@@ -42,16 +43,10 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
-  QuerySnapshot<Map<String, dynamic>>? _querySnapshot;
   late final List<FsWords> _wordList = []; // Kelimelerin listesi
   late int _currentIndex;
   late FsWords word;
   late ThemeProvider themeProvider;
-  // /// Drawer 'ın oluşturulup oluşturulmadığını kontrol
-  // /// etmek için bir değişken
-  // late bool _drawerBuilt = true;
 
   @override
   void didChangeDependencies() {
@@ -65,7 +60,6 @@ class _DetailsPageState extends State<DetailsPage> {
     _currentIndex = widget.wordList.indexOf(widget.initialWord);
     _wordList.addAll(widget.wordList);
     word = widget.initialWord;
-    // _currentIndex = widget.wordList.indexOf(word);
     log("Seçilen kelime: ${word.sirpca} - ${word.turkce}");
     int selectedWordIndex = findIndex(word.sirpca);
     if (selectedWordIndex != -1) {
@@ -79,7 +73,6 @@ class _DetailsPageState extends State<DetailsPage> {
     _currentIndex = selectedWordIndex;
     log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
     log("------------------------------------------------------------");
-    log("language : ${widget.language}");
   }
 
   /// index bulan metod
@@ -128,7 +121,6 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
           buildElevatedButton(
             onPressed: () {
-              log("sonraki kelime");
               if (_currentIndex < _wordList.length - 1) {
                 setState(() {
                   _currentIndex++;
