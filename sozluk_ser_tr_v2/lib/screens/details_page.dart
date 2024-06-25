@@ -88,23 +88,7 @@ class _DetailsPageState extends State<DetailsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           buildElevatedButton(
-            onPressed: () {
-              if (_currentIndex > 0) {
-                setState(() {
-                  _currentIndex--;
-                  word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
-                  log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
-                  log("index : $_currentIndex");
-                });
-              } else {
-                log("Bu ilk kelime");
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Bu ilk kelime!"),
-                  ),
-                );
-              }
-            },
+            onPressed: _onPreviousWordPressed,
             icon: Icons.arrow_left,
             iconSize: 50,
           ),
@@ -112,29 +96,51 @@ class _DetailsPageState extends State<DetailsPage> {
             child: SizedBox(width: 100),
           ),
           buildElevatedButton(
-            onPressed: () {
-              if (_currentIndex < _wordList.length - 1) {
-                setState(() {
-                  _currentIndex++;
-                  word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
-                  log("Sonraki kelime: ${word.sirpca} - ${word.turkce}");
-                  log("index : $_currentIndex");
-                });
-              } else {
-                log("Bu son kelime");
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Bu son kelime!"),
-                  ),
-                );
-              }
-            },
+            onPressed: _onNextWordPressed,
             icon: Icons.arrow_right,
             iconSize: 50,
           ),
         ],
       ),
     );
+  }
+
+  /// Bir önceki kelimeye gidelim
+  void _onPreviousWordPressed() {
+    if (_currentIndex > 0) {
+      setState(() {
+        _currentIndex--;
+        word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
+        log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
+        log("index : $_currentIndex");
+      });
+    } else {
+      log("Bu ilk kelime");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Bu ilk kelime!"),
+        ),
+      );
+    }
+  }
+
+  /// Bir sonraki kelimeye gidelim
+  void _onNextWordPressed(){
+    if (_currentIndex < _wordList.length - 1) {
+      setState(() {
+        _currentIndex++;
+        word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
+        log("Sonraki kelime: ${word.sirpca} - ${word.turkce}");
+        log("index : $_currentIndex");
+      });
+    } else {
+      log("Bu son kelime");
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Bu son kelime!"),
+        ),
+      );
+    }
   }
 
   @override
@@ -148,6 +154,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  /// kelimeleri burada tek tek Card olarak gösteriyoruz.
   Center buildCardShow(BuildContext context) {
     return Center(
       child: Column(
