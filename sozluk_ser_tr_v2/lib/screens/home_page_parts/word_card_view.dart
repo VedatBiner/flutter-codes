@@ -48,7 +48,6 @@ class WordCardView extends StatefulWidget {
 }
 
 class _WordCardViewState extends State<WordCardView> {
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -61,9 +60,6 @@ class _WordCardViewState extends State<WordCardView> {
 
     /// Firestore servislerine erişiyoruz
     final FirestoreService firestoreService = FirestoreService();
-
-    log("===> 14-word_card_view.dart dosyası çalıştı. >>>>>>>");
-    log("------------------------------------------------------------");
 
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -309,8 +305,6 @@ class _WordCardViewState extends State<WordCardView> {
             /// Burada silme işlemi gerçekleştirilir.
             await firestoreService.deleteWord(widget.word.wordId);
             widget.onDelete();
-
-            /// ********************************************************
             if (mounted) {
               setState(() {
                 ScaffoldMessenger.of(context).showSnackBar(

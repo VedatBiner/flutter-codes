@@ -13,7 +13,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
 import 'dart:async';
 
 import '../constants/app_constants/constants.dart';
@@ -78,8 +77,6 @@ mixin _SplashViewMixin on State<SplashView> {
     /// eğer kullanıcı yoksa login sayfasına gidilecek
     /// eğer kullanıcı varsa ana sayfaya gidilecek
     var isUserNull = auth.currentUser;
-    log("===> 02-splash.dart çalıştı. >>>>>");
-    log("------------------------------------------------------------");
     await Navigator.pushNamed(
       context,
       isUserNull == null ? AppRoute.login : AppRoute.home,

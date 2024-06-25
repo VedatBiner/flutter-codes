@@ -4,7 +4,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 import '../../constants/app_constants/constants.dart';
 import '../../constants/app_constants/color_constants.dart';
@@ -16,8 +15,6 @@ class BottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final WordService wordService = WordService();
-    log("===> 08-bottom_sheet.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------------------");
     return Container(
       color: menuColor,
       padding: const EdgeInsets.symmetric(horizontal: 8),

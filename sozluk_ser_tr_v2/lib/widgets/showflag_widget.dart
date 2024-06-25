@@ -1,8 +1,6 @@
 /// <----- showflag_widget.dart ----->
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'flags_widget.dart';
 
@@ -22,8 +20,6 @@ class ShowFlagWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 12-showflag_widget.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------------------");
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

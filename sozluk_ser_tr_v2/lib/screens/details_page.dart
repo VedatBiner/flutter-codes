@@ -52,20 +52,18 @@ class _DetailsPageState extends State<DetailsPage> {
     super.initState();
     _currentIndex = widget.wordList.indexOf(widget.initialWord);
     _wordList.addAll(widget.wordList);
+
+    /// seçilip, aktarılan kelime
     word = widget.initialWord;
-    log("Seçilen kelime: ${word.sirpca} - ${word.turkce}");
+
+    /// seçilen kelimenin indeksi
     int selectedWordIndex = findIndex(word.sirpca);
     if (selectedWordIndex != -1) {
       log("Seçilen kelimenin indeksi: $selectedWordIndex");
     } else {
       log("Seçilen kelime listede bulunamadı.");
     }
-    log("---------------------------------------");
-    log("Seçilen kelime : ${word.sirpca} - ${word.turkce}");
-    log("seçilen kelimenin indeksi: $selectedWordIndex");
     _currentIndex = selectedWordIndex;
-    log("===> 15-details_page.dart dosyası çalıştı. >>>>>>>");
-    log("------------------------------------------------------------");
   }
 
   /// index bulan metod
@@ -74,7 +72,9 @@ class _DetailsPageState extends State<DetailsPage> {
     for (int i = 0; i < widget.wordList.length; i++) {
       if (widget.wordList[i].sirpca == selectedWord) {
         index = i;
-        break; // Kelime bulundu, döngüyü sonlandır
+
+        /// Kelime bulundu, döngüyü sonlandır
+        break;
       }
     }
     return index;
@@ -109,12 +109,12 @@ class _DetailsPageState extends State<DetailsPage> {
   /// Bir önceki kelimeye gidelim
   void _onPreviousWordPressed() {
     if (_currentIndex > 0) {
-      setState(() {
-        _currentIndex--;
-        word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
-        log("Önceki kelime: ${word.sirpca} - ${word.turkce}");
-        log("index : $_currentIndex");
-      });
+      setState(
+        () {
+          _currentIndex--;
+          word = _wordList[_currentIndex]; // Önceki kelimeyi yükle
+        },
+      );
     } else {
       log("Bu ilk kelime");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -128,12 +128,12 @@ class _DetailsPageState extends State<DetailsPage> {
   /// Bir sonraki kelimeye gidelim
   void _onNextWordPressed() {
     if (_currentIndex < _wordList.length - 1) {
-      setState(() {
-        _currentIndex++;
-        word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
-        log("Sonraki kelime: ${word.sirpca} - ${word.turkce}");
-        log("index : $_currentIndex");
-      });
+      setState(
+        () {
+          _currentIndex++;
+          word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
+        },
+      );
     } else {
       log("Bu son kelime");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -151,37 +151,40 @@ class _DetailsPageState extends State<DetailsPage> {
         appBarTitle: appBarDetailsTitle,
       ),
       drawer: buildDrawer(context),
-      // body: buildCardShow(context),
-      body: Column(
-        children: [
-          Expanded(
-            child: CarouselSlider(
-              options: CarouselOptions(
-                /// Kart yüksekliği
-                height: MediaQuery.of(context).size.height * 0.7,
-                enlargeCenterPage: true,
+      body: showCarousel(context),
+    );
+  }
 
-                /// sonsuz kaydırma devre dışı
-                enableInfiniteScroll: false,
-                aspectRatio: 16 / 9,
-                onPageChanged: (index, reason) {
-                  setState(
-                    () {
-                      _currentIndex = index;
-                    },
-                  );
-                },
-              ),
-              items: _wordList.map(
-                (word) {
-                  return buildCardShow(context, word);
-                },
-              ).toList(),
+  Widget showCarousel(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: CarouselSlider(
+            options: CarouselOptions(
+              /// Kart yüksekliği
+              height: MediaQuery.of(context).size.height * 0.7,
+              enlargeCenterPage: true,
+
+              /// sonsuz kaydırma devre dışı
+              enableInfiniteScroll: false,
+              aspectRatio: 16 / 9,
+              onPageChanged: (index, reason) {
+                setState(
+                  () {
+                    _currentIndex = index;
+                  },
+                );
+              },
             ),
+            items: _wordList.map(
+              (word) {
+                return buildCardShow(context, word);
+              },
+            ).toList(),
           ),
-          buildDetailsButton(),
-        ],
-      ),
+        ),
+        buildDetailsButton(),
+      ],
     );
   }
 

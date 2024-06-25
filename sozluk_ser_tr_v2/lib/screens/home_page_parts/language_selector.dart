@@ -1,8 +1,6 @@
 /// <----- language_selector.dart ----->
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,11 +32,6 @@ class LanguageSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 15-language_selector.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------------------");
-
-    // language == true ? log("Sırpça - Türkçe") : log("Türkçe - Sırpça");
-
     return Container(
       color: Colors.blueAccent,
       child: Padding(

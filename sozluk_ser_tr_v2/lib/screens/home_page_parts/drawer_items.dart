@@ -2,8 +2,6 @@
 /// Drawer seçeneklerini gösteren metot
 library;
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +17,6 @@ Drawer buildDrawer(BuildContext context) {
   final themeProvider = Provider.of<ThemeProvider>(context);
 
   MyAuthService.currentUserEmail;
-  log("===> 09-drawer_items.dart çalıştı >>>>>");
-  log("------------------------------------------------------------");
   return Drawer(
     shadowColor: Colors.lightBlue,
     backgroundColor: drawerColor,

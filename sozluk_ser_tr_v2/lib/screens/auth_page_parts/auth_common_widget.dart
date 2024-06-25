@@ -90,9 +90,6 @@ class AuthPageWidget extends StatefulWidget {
                   ],
                 ),
                 onPressed: () async {
-                  log(">>>>> 03a-Google hesabı ile giriş seçildi.");
-                  log("===> 04-auth_common_widget.dart içinde googleSignIn() metodu çalıştı. >>>>>");
-                  log("----------------------------------------------------------------------------");
                   try {
                     await googleSignIn.signInSilently();
                     Navigator.pushNamedAndRemoveUntil(
