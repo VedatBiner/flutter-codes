@@ -16,12 +16,14 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_constants/color_constants.dart';
 import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../models/language_params.dart';
 import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
+import '../services/providers/theme_provider.dart';
 import '../services/word_service.dart';
 import '../services/providers/icon_provider.dart';
 import '../utils/snackbar_helper.dart';
@@ -139,15 +141,14 @@ class _HomePageState extends State<HomePage> {
           ); // Hata durumunda hata mesajı göster
         }
 
-
         /// languageParams nesnesini oluşturun
         final languageParams = Provider.of<LanguageParams>(context);
 
         if (snapshot.hasData) {
           List<FsWords> allWords = [];
           for (var querySnapshot in snapshot.data!) {
-            allWords.addAll(
-                querySnapshot.docs.map((doc) => doc.data()).toList());
+            allWords
+                .addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
           }
           return WordListBuilder(
             snapshot: snapshot.data!,
@@ -304,7 +305,12 @@ class _HomePageState extends State<HomePage> {
         TextEditingController();
     final TextEditingController secondLanguageController =
         TextEditingController();
+
+    /// theme kontrolü
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return FloatingActionButton(
+      backgroundColor: themeProvider.isDarkMode ? Colors.green.shade900 : drawerColor,
+      foregroundColor: menuColor,
       onPressed: () {
         log("Kelime ekleme seçildi");
 

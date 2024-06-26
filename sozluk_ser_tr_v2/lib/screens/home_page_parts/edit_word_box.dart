@@ -50,9 +50,7 @@ class _EditWordBoxState extends State<EditWordBox> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: themeProvider.isDarkMode
-                  ? menuColor
-                  : drawerColor,
+              color: themeProvider.isDarkMode ? menuColor : drawerColor,
             ),
           ),
           const Divider(),
