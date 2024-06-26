@@ -338,7 +338,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Yeni kelime ekleme kutusu buradan çıkıyor
-  Center buildCenter(
+  Widget buildCenter(
     TextEditingController firstLanguageController,
     TextEditingController secondLanguageController,
     email,
@@ -366,39 +366,48 @@ class _HomePageState extends State<HomePage> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Material(
-          borderRadius: BorderRadius.circular(16.0),
-          child: AddWordBox(
-            firstLanguageText: yardimciDil,
-            secondLanguageText: anaDil,
-            currentUserEmail: email,
-            language: language,
-            onWordAdded: (
-              String firstLang,
-              String secondLang,
-              String email,
-            ) async {
-              await _firestoreService.addWord(
-                context,
-                language == true ? firstLang : secondLang,
-                language == true ? secondLang : firstLang,
-                email,
-              );
-              setState(
-                () {
-                  _wordListFuture = _fetchWordList();
-                  var message = addMsg;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    buildSnackBar(
-                      firstLang,
-                      message,
-                      MyAuthService.currentUserEmail,
-                    ),
-                  );
-                  Navigator.of(context).pop();
-                },
-              );
-            },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.red,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Material(
+            borderRadius: BorderRadius.circular(16.0),
+            child: AddWordBox(
+              firstLanguageText: yardimciDil,
+              secondLanguageText: anaDil,
+              currentUserEmail: email,
+              language: language,
+              onWordAdded: (
+                String firstLang,
+                String secondLang,
+                String email,
+              ) async {
+                await _firestoreService.addWord(
+                  context,
+                  language == true ? firstLang : secondLang,
+                  language == true ? secondLang : firstLang,
+                  email,
+                );
+                setState(
+                  () {
+                    _wordListFuture = _fetchWordList();
+                    var message = addMsg;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      buildSnackBar(
+                        firstLang,
+                        message,
+                        MyAuthService.currentUserEmail,
+                      ),
+                    );
+                    Navigator.of(context).pop();
+                  },
+                );
+              },
+            ),
           ),
         ),
       ),
