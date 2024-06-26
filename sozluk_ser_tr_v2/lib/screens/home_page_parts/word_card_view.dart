@@ -106,7 +106,7 @@ class _WordCardViewState extends State<WordCardView> {
                       Divider(
                         thickness: 1,
                         color:
-                        widget.isDarkMode ? Colors.white60 : Colors.black45,
+                            widget.isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
                         widget.displayedTranslation == yardimciDil
@@ -143,56 +143,67 @@ class _WordCardViewState extends State<WordCardView> {
                             return Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(20),
-                                child: Material(
-                                  child: EditWordBox(
-                                    firstLanguageController:
-                                    TextEditingController(
-                                      text: widget.firstLanguageText,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.red,
+                                      width: 2,
                                     ),
-                                    secondLanguageController:
-                                    TextEditingController(
-                                      text: widget.secondLanguageText,
-                                    ),
-                                    firstLanguageText: widget.firstLanguageText,
-                                    secondLanguageText:
-                                    widget.secondLanguageText,
-                                    currentUserEmail: email,
-                                    language: language,
-                                    wordId: widget.word.wordId,
-                                    onWordUpdated: (
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Material(
+                                    child: EditWordBox(
+                                      firstLanguageController:
+                                          TextEditingController(
+                                        text: widget.firstLanguageText,
+                                      ),
+                                      secondLanguageController:
+                                          TextEditingController(
+                                        text: widget.secondLanguageText,
+                                      ),
+                                      firstLanguageText:
+                                          widget.firstLanguageText,
+                                      secondLanguageText:
+                                          widget.secondLanguageText,
+                                      currentUserEmail: email,
+                                      language: language,
+                                      wordId: widget.word.wordId,
+                                      onWordUpdated: (
                                         String wordId,
                                         String secondLang,
                                         String firstLang,
-                                        ) async {
-                                      String updateKelime = language
-                                          ? widget.word.sirpca ?? ""
-                                          : widget.word.turkce ?? "";
+                                      ) async {
+                                        String updateKelime = language
+                                            ? widget.word.sirpca ?? ""
+                                            : widget.word.turkce ?? "";
 
-                                      /// Firestore 'da güncelleme
-                                      /// burada yapılıyor.
-                                      await firestoreService.updateWord(
-                                        wordId,
-                                        firstLang,
-                                        secondLang,
-                                      );
-                                      Navigator.pop(buildContext);
-                                      log("Kelime düzeltildi");
-
-                                      if (mounted) {
-                                        setState(
-                                              () {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              buildSnackBar(
-                                                updateKelime,
-                                                updateMsg,
-                                                MyAuthService.currentUserEmail,
-                                              ),
-                                            );
-                                          },
+                                        /// Firestore 'da güncelleme
+                                        /// burada yapılıyor.
+                                        await firestoreService.updateWord(
+                                          wordId,
+                                          firstLang,
+                                          secondLang,
                                         );
-                                      }
-                                    },
+                                        Navigator.pop(buildContext);
+                                        log("Kelime düzeltildi");
+
+                                        if (mounted) {
+                                          setState(
+                                            () {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                buildSnackBar(
+                                                  updateKelime,
+                                                  updateMsg,
+                                                  MyAuthService
+                                                      .currentUserEmail,
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -238,15 +249,15 @@ class _WordCardViewState extends State<WordCardView> {
   /// Burada kelime silme işlemi için
   /// dialog kutusu oluşturuyoruz.
   AlertDialog buildAlertDialog(
-      BuildContext context,
-      bool language,
-      FirestoreService firestoreService,
-      ) {
+    BuildContext context,
+    bool language,
+    FirestoreService firestoreService,
+  ) {
     String silinecekKelime =
-    language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
+        language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
     return AlertDialog(
       backgroundColor:
-      Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+          Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
         side: const BorderSide(
