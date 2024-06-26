@@ -2,10 +2,11 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
+import 'package:provider/provider.dart';
 
 import '../../constants/app_constants/color_constants.dart';
 import '../../services/firebase_services/auth_services.dart';
+import '../../services/providers/theme_provider.dart';
 
 class AddWordBox extends StatelessWidget {
   AddWordBox({
@@ -33,6 +34,7 @@ class AddWordBox extends StatelessWidget {
   Widget build(BuildContext context) {
     String displayFirstLanguageText;
     String displaySecondLanguageText;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     /// bu kontroller Sırpça-Türkçe dile seçimi için doğru çalışıyor
     if (language) {
@@ -53,13 +55,16 @@ class AddWordBox extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: drawerColor,
+              color: themeProvider.isDarkMode ? menuColor : drawerColor,
             ),
           ),
           const Divider(),
           const SizedBox(height: 8),
           TextField(
             controller: firstLanguageController,
+            style: TextStyle(
+              color: themeProvider.isDarkMode ? darkModeText1 : lightModeText1,
+            ),
             decoration: InputDecoration(
               labelText: "$displayFirstLanguageText kelime",
               border: OutlineInputBorder(
@@ -74,6 +79,9 @@ class AddWordBox extends StatelessWidget {
           const SizedBox(height: 20),
           TextField(
             controller: secondLanguageController,
+            style: TextStyle(
+              color: themeProvider.isDarkMode ? darkModeText1 : lightModeText1,
+            ),
             decoration: InputDecoration(
               labelText: "$displaySecondLanguageText karşılığı",
               border: OutlineInputBorder(
