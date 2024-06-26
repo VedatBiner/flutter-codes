@@ -32,8 +32,6 @@ class EditWordBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 17 - edit_word_box.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------------------");
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(

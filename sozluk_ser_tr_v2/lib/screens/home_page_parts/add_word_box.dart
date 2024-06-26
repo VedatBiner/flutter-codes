@@ -31,13 +31,6 @@ class AddWordBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("===> 10-add_word_box.dart dosyası çalıştı. >>>>>");
-    log("------------------------------------------------------------");
-
-    // log("add_word_box.dart => build - firstLanguageText : $firstLanguageText");
-    // log("add_word_box.dart => build - secondLanguageText : $secondLanguageText");
-    // log("add_word_box.dart => build - language : $language");
-
     String displayFirstLanguageText;
     String displaySecondLanguageText;
 
@@ -119,7 +112,6 @@ class AddWordBox extends StatelessWidget {
                     backgroundColor: drawerColor,
                   ),
                   onPressed: () {
-                    log("add_word_box.dart (on pressed) language : $language ");
                     language == true
                         ? onWordAdded(
                             firstLanguageController.text,
