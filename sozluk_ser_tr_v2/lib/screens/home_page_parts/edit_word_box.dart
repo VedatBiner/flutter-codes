@@ -2,13 +2,15 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:developer';
 
 import '../../constants/app_constants/color_constants.dart';
 import '../../constants/app_constants/constants.dart';
+import '../../services/providers/theme_provider.dart';
 import '../../widgets/showflag_widget.dart';
 
-class EditWordBox extends StatelessWidget {
+class EditWordBox extends StatefulWidget {
   const EditWordBox({
     super.key,
     required this.firstLanguageController,
@@ -31,7 +33,13 @@ class EditWordBox extends StatelessWidget {
   final Function(String, String, String) onWordUpdated;
 
   @override
+  State<EditWordBox> createState() => _EditWordBoxState();
+}
+
+class _EditWordBoxState extends State<EditWordBox> {
+  @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -42,15 +50,20 @@ class EditWordBox extends StatelessWidget {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: drawerColor,
+              color: themeProvider.isDarkMode
+                  ? menuColor
+                  : drawerColor,
             ),
           ),
           const Divider(),
           const SizedBox(height: 8),
           TextField(
-            controller: language == true
-                ? secondLanguageController
-                : firstLanguageController,
+            controller: widget.language == true
+                ? widget.secondLanguageController
+                : widget.firstLanguageController,
+            style: TextStyle(
+              color: themeProvider.isDarkMode ? darkModeText1 : lightModeText1,
+            ),
             decoration: InputDecoration(
               prefixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -58,7 +71,9 @@ class EditWordBox extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: ShowFlagWidget(
-                      code: language == true ? secondCountry : firstCountry,
+                      code: widget.language == true
+                          ? secondCountry
+                          : firstCountry,
                       text: '',
                       radius: 48,
                     ),
@@ -76,9 +91,12 @@ class EditWordBox extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           TextField(
-            controller: language == true
-                ? firstLanguageController
-                : secondLanguageController,
+            controller: widget.language == true
+                ? widget.firstLanguageController
+                : widget.secondLanguageController,
+            style: TextStyle(
+              color: themeProvider.isDarkMode ? darkModeText1 : lightModeText1,
+            ),
             decoration: InputDecoration(
               prefixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -86,7 +104,9 @@ class EditWordBox extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: ShowFlagWidget(
-                      code: language == true ? firstCountry : secondCountry,
+                      code: widget.language == true
+                          ? firstCountry
+                          : secondCountry,
                       text: '',
                       radius: 48,
                     ),
@@ -127,15 +147,17 @@ class EditWordBox extends StatelessWidget {
                   ),
                   onPressed: () {
                     log("Düzeltme butonuna basıldı");
-                    onWordUpdated(
-                      wordId,
-                      firstLanguageController.text,
-                      secondLanguageController.text,
+                    widget.onWordUpdated(
+                      widget.wordId,
+                      widget.firstLanguageController.text,
+                      widget.secondLanguageController.text,
                     );
                   },
                   child: Text(
                     'Kelime Düzelt',
-                    style: TextStyle(color: menuColor),
+                    style: TextStyle(
+                      color: menuColor,
+                    ),
                   ),
                 ),
               ],

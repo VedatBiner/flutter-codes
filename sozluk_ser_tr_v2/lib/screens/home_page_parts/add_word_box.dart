@@ -43,9 +43,6 @@ class AddWordBox extends StatelessWidget {
       displaySecondLanguageText = firstLanguageText;
     }
 
-    // log("add_word_box.dart => build - displayFirstLanguageText : $displayFirstLanguageText");
-    // log("add_word_box.dart => build - displaySecondLanguageText : $displaySecondLanguageText");
-
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(

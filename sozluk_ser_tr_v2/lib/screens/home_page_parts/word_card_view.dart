@@ -106,7 +106,7 @@ class _WordCardViewState extends State<WordCardView> {
                       Divider(
                         thickness: 1,
                         color:
-                            widget.isDarkMode ? Colors.white60 : Colors.black45,
+                        widget.isDarkMode ? Colors.white60 : Colors.black45,
                       ),
                       Text(
                         widget.displayedTranslation == yardimciDil
@@ -146,24 +146,24 @@ class _WordCardViewState extends State<WordCardView> {
                                 child: Material(
                                   child: EditWordBox(
                                     firstLanguageController:
-                                        TextEditingController(
+                                    TextEditingController(
                                       text: widget.firstLanguageText,
                                     ),
                                     secondLanguageController:
-                                        TextEditingController(
+                                    TextEditingController(
                                       text: widget.secondLanguageText,
                                     ),
                                     firstLanguageText: widget.firstLanguageText,
                                     secondLanguageText:
-                                        widget.secondLanguageText,
+                                    widget.secondLanguageText,
                                     currentUserEmail: email,
                                     language: language,
                                     wordId: widget.word.wordId,
                                     onWordUpdated: (
-                                      String wordId,
-                                      String secondLang,
-                                      String firstLang,
-                                    ) async {
+                                        String wordId,
+                                        String secondLang,
+                                        String firstLang,
+                                        ) async {
                                       String updateKelime = language
                                           ? widget.word.sirpca ?? ""
                                           : widget.word.turkce ?? "";
@@ -180,7 +180,7 @@ class _WordCardViewState extends State<WordCardView> {
 
                                       if (mounted) {
                                         setState(
-                                          () {
+                                              () {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               buildSnackBar(
@@ -238,15 +238,15 @@ class _WordCardViewState extends State<WordCardView> {
   /// Burada kelime silme işlemi için
   /// dialog kutusu oluşturuyoruz.
   AlertDialog buildAlertDialog(
-    BuildContext context,
-    bool language,
-    FirestoreService firestoreService,
-  ) {
+      BuildContext context,
+      bool language,
+      FirestoreService firestoreService,
+      ) {
     String silinecekKelime =
-        language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
+    language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
     return AlertDialog(
       backgroundColor:
-          Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+      Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
         side: const BorderSide(

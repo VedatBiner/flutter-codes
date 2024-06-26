@@ -11,3 +11,5 @@ Color cardLightModeText1 = Colors.red.shade400;
 Color cardLightModeText2 = Colors.indigo.shade900;
 Color cardDarkModeText1 = Colors.amberAccent.shade400;
 Color cardDarkModeText2 = Colors.lightBlueAccent.shade200;
+Color darkModeText1 = Colors.white;
+Color lightModeText1 = Colors.black;
