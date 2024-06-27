@@ -56,9 +56,7 @@ class _WordCardViewState extends State<WordCardView> {
 
     /// dil seçimine göre değişim için
     /// burası gerekli bir kontrol sağlıyor
-    /// Bu bölümdeki değişiklikler test edilecek daha sonra github 'a atılacak
-    // bool language = widget.displayedLanguage == yardimciDil;
-    bool language = languageParams.secondLanguageText == yardimciDil;
+    bool language = widget.displayedLanguage == yardimciDil;
 
     /// Firestore servislerine erişiyoruz
     final FirestoreService firestoreService = FirestoreService();
@@ -85,202 +83,155 @@ class _WordCardViewState extends State<WordCardView> {
               ),
             );
           },
-          child: buildCardView(
-            context,
-            email,
-            language,
-            firestoreService,
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Card Görünümü burada oluşturuluyor
-  Widget buildCardView(
-    BuildContext context,
-    String email,
-    bool language,
-    FirestoreService firestoreService,
-  ) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
               children: [
-                Text(
-                  widget.displayedLanguage == anaDil
-                      ? widget.firstLanguageText ?? ""
-                      : widget.secondLanguageText ?? "",
-                  style: TextStyle(
-                    color: themeProvider.isDarkMode
-                        ? cardDarkModeText1
-                        : cardLightModeText1,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.displayedLanguage == anaDil
+                            ? widget.firstLanguageText ?? ""
+                            : widget.secondLanguageText ?? "",
+                        style: TextStyle(
+                          color: widget.isDarkMode
+                              ? cardDarkModeText1
+                              : cardLightModeText1,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Divider(
+                        thickness: 1,
+                        color:
+                            themeProvider.isDarkMode ? Colors.white60 : Colors.black45,
+                      ),
+                      Text(
+                        widget.displayedTranslation == yardimciDil
+                            ? widget.secondLanguageText ?? ""
+                            : widget.firstLanguageText ?? "",
+                        style: TextStyle(
+                          color: widget.isDarkMode
+                              ? cardDarkModeText2
+                              : cardLightModeText2,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Divider(
-                  thickness: 1,
-                  color: themeProvider.isDarkMode
-                      ? Colors.white60
-                      : Colors.black45,
-                ),
-                Text(
-                  widget.displayedTranslation == yardimciDil
-                      ? widget.secondLanguageText ?? ""
-                      : widget.firstLanguageText ?? "",
-                  style: TextStyle(
-                    color: themeProvider.isDarkMode
-                        ? cardDarkModeText2
-                        : cardLightModeText2,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                Row(
+                  children: [
+                    /// kelime düzeltme işlemi için buton
+                    /// ve düzeltme metodu burada
+                    IconButton(
+                      onPressed: () {
+                        log("Kelime düzeltme seçildi");
+                        showGeneralDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          barrierLabel: MaterialLocalizations.of(context)
+                              .modalBarrierDismissLabel,
+                          barrierColor: Colors.black54,
+                          transitionDuration: const Duration(milliseconds: 200),
+                          pageBuilder: (BuildContext buildContext,
+                              Animation animation,
+                              Animation secondaryAnimation) {
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Material(
+                                  child: EditWordBox(
+                                    firstLanguageController:
+                                        TextEditingController(
+                                      text: widget.firstLanguageText,
+                                    ),
+                                    secondLanguageController:
+                                        TextEditingController(
+                                      text: widget.secondLanguageText,
+                                    ),
+                                    firstLanguageText: widget.firstLanguageText,
+                                    secondLanguageText:
+                                        widget.secondLanguageText,
+                                    currentUserEmail: email,
+                                    language: language,
+                                    wordId: widget.word.wordId,
+                                    onWordUpdated: (
+                                      String wordId,
+                                      String secondLang,
+                                      String firstLang,
+                                    ) async {
+                                      String updateKelime = language
+                                          ? widget.word.sirpca ?? ""
+                                          : widget.word.turkce ?? "";
+
+                                      /// Firestore 'da güncelleme
+                                      /// burada yapılıyor.
+                                      await firestoreService.updateWord(
+                                        wordId,
+                                        firstLang,
+                                        secondLang,
+                                      );
+                                      Navigator.pop(buildContext);
+                                      log("Kelime düzeltildi");
+
+                                      if (mounted) {
+                                        setState(
+                                          () {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              buildSnackBar(
+                                                updateKelime,
+                                                updateMsg,
+                                                MyAuthService.currentUserEmail,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.edit),
+                      tooltip: "kelime düzelt",
+                      color: Colors.green,
+                    ),
+
+                    /// kelime silme için buton ve silme metodu
+                    IconButton(
+                      onPressed: () {
+                        log("Kelime silme seçildi");
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return buildAlertDialog(
+                              context,
+                              language,
+                              firestoreService,
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.delete),
+                      tooltip: "kelime sil",
+                      color: Colors.red,
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-          Row(
-            children: [
-              /// kelime düzeltme işlemi için buton
-              IconButton(
-                onPressed: () {
-                  log("Kelime düzeltme seçildi");
-                  buildWordEditDialog(
-                    context,
-                    email,
-                    language,
-                    firestoreService,
-                  );
-                },
-                icon: const Icon(Icons.edit),
-                tooltip: "kelime düzelt",
-                color: Colors.green,
-              ),
-
-              /// kelime silme için buton ve silme metodu
-              IconButton(
-                onPressed: () {
-                  log("Kelime silme seçildi");
-                  buildDeleteWordDialog(
-                    context,
-                    language,
-                    firestoreService,
-                  );
-                },
-                icon: const Icon(Icons.delete),
-                tooltip: "kelime sil",
-                color: Colors.red,
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
-    );
-  }
-
-  /// Kelime silme işlemi için dialog kutusu burada oluşturuluyor
-  Future<dynamic> buildDeleteWordDialog(
-    BuildContext context,
-    bool language,
-    FirestoreService firestoreService,
-  ) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return buildAlertDialog(
-          context,
-          language,
-          firestoreService,
-        );
-      },
-    );
-  }
-
-  /// Kelime düzeltme işlemi için Dialog kutusu burada oluşturuluyor.
-  Future<Object?> buildWordEditDialog(
-    BuildContext context,
-    String email,
-    bool language,
-    FirestoreService firestoreService,
-  ) {
-    return showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      barrierColor: Colors.black54,
-      transitionDuration: const Duration(milliseconds: 200),
-      pageBuilder: (BuildContext buildContext, Animation animation,
-          Animation secondaryAnimation) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.red,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Material(
-                child: EditWordBox(
-                  firstLanguageController: TextEditingController(
-                    text: widget.firstLanguageText,
-                  ),
-                  secondLanguageController: TextEditingController(
-                    text: widget.secondLanguageText,
-                  ),
-                  firstLanguageText: widget.firstLanguageText,
-                  secondLanguageText: widget.secondLanguageText,
-                  currentUserEmail: email,
-                  language: language,
-                  wordId: widget.word.wordId,
-                  onWordUpdated: (
-                    String wordId,
-                    String secondLang,
-                    String firstLang,
-                  ) async {
-                    String updateKelime = language
-                        ? widget.word.sirpca ?? ""
-                        : widget.word.turkce ?? "";
-
-                    /// Firestore 'da güncelleme
-                    /// burada yapılıyor.
-                    await firestoreService.updateWord(
-                      wordId,
-                      firstLang,
-                      secondLang,
-                    );
-                    Navigator.pop(buildContext);
-                    log("Kelime düzeltildi");
-
-                    if (mounted) {
-                      setState(
-                        () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            buildSnackBar(
-                              updateKelime,
-                              updateMsg,
-                              MyAuthService.currentUserEmail,
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 

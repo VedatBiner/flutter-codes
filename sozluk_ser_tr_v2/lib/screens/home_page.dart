@@ -78,9 +78,9 @@ class _HomePageState extends State<HomePage> {
         .collection(collectionName)
         .orderBy(fsYardimciDil)
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+      toFirestore: (word, _) => word.toJson(),
+    );
     collection = collectionRef as CollectionReference<FsWords>;
   }
 
@@ -105,9 +105,9 @@ class _HomePageState extends State<HomePage> {
         .where(orderByField, isGreaterThanOrEqualTo: aramaKelimesi)
         .where(orderByField, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
         .withConverter<FsWords>(
-          fromFirestore: (snapshot, _) => FsWords.fromDocument(snapshot),
-          toFirestore: (word, _) => word.toJson(),
-        );
+      fromFirestore: (snapshot, _) => FsWords.fromDocument(snapshot),
+      toFirestore: (word, _) => word.toJson(),
+    );
   }
 
   /// kelime listesi oluşturma
@@ -172,17 +172,17 @@ class _HomePageState extends State<HomePage> {
     const options = GetOptions(source: Source.cache);
     return language == true
         ? await Future.wait(
-            [
-              queryForSerbian.get(options),
-              queryForTurkish.get(options),
-            ],
-          )
+      [
+        queryForSerbian.get(options),
+        queryForTurkish.get(options),
+      ],
+    )
         : await Future.wait(
-            [
-              queryForTurkish.get(options),
-              queryForSerbian.get(options),
-            ],
-          );
+      [
+        queryForTurkish.get(options),
+        queryForSerbian.get(options),
+      ],
+    );
   }
 
   /// ana kodumuz bu şekilde
@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage> {
       },
       onLanguageChange: (bool newLanguage) {
         setState(
-          () {
+              () {
             language = newLanguage;
             if (language) {
               firstLanguageCode = secondCountry;
@@ -302,9 +302,9 @@ class _HomePageState extends State<HomePage> {
   /// FAB ile kelime ekleme işlemi burada yapılıyor
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
     final TextEditingController firstLanguageController =
-        TextEditingController();
+    TextEditingController();
     final TextEditingController secondLanguageController =
-        TextEditingController();
+    TextEditingController();
 
     /// theme kontrolü
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -318,7 +318,7 @@ class _HomePageState extends State<HomePage> {
           context: context,
           barrierDismissible: false,
           barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
+          MaterialLocalizations.of(context).modalBarrierDismissLabel,
           barrierColor: Colors.black54,
           transitionDuration: const Duration(milliseconds: 200),
           pageBuilder: (BuildContext buildContext, Animation animation,
@@ -339,12 +339,12 @@ class _HomePageState extends State<HomePage> {
 
   /// Yeni kelime ekleme kutusu buradan çıkıyor
   Widget buildCenter(
-    TextEditingController firstLanguageController,
-    TextEditingController secondLanguageController,
-    email,
-    language,
-    BuildContext context,
-  ) {
+      TextEditingController firstLanguageController,
+      TextEditingController secondLanguageController,
+      email,
+      language,
+      BuildContext context,
+      ) {
     TextEditingController tempLanguageController;
     String tempLanguageText;
 
@@ -382,10 +382,10 @@ class _HomePageState extends State<HomePage> {
               currentUserEmail: email,
               language: language,
               onWordAdded: (
-                String firstLang,
-                String secondLang,
-                String email,
-              ) async {
+                  String firstLang,
+                  String secondLang,
+                  String email,
+                  ) async {
                 await _firestoreService.addWord(
                   context,
                   language == true ? firstLang : secondLang,
@@ -393,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                   email,
                 );
                 setState(
-                  () {
+                      () {
                     _wordListFuture = _fetchWordList();
                     var message = addMsg;
                     ScaffoldMessenger.of(context).showSnackBar(
