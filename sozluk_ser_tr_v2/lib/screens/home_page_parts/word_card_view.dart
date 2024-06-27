@@ -96,7 +96,7 @@ class _WordCardViewState extends State<WordCardView> {
                             ? widget.firstLanguageText ?? ""
                             : widget.secondLanguageText ?? "",
                         style: TextStyle(
-                          color: widget.isDarkMode
+                          color: themeProvider.isDarkMode
                               ? cardDarkModeText1
                               : cardLightModeText1,
                           fontWeight: FontWeight.bold,
@@ -105,15 +105,16 @@ class _WordCardViewState extends State<WordCardView> {
                       ),
                       Divider(
                         thickness: 1,
-                        color:
-                            themeProvider.isDarkMode ? Colors.white60 : Colors.black45,
+                        color: themeProvider.isDarkMode
+                            ? Colors.white60
+                            : Colors.black45,
                       ),
                       Text(
                         widget.displayedTranslation == yardimciDil
                             ? widget.secondLanguageText ?? ""
                             : widget.firstLanguageText ?? "",
                         style: TextStyle(
-                          color: widget.isDarkMode
+                          color: themeProvider.isDarkMode
                               ? cardDarkModeText2
                               : cardLightModeText2,
                           fontWeight: FontWeight.bold,
