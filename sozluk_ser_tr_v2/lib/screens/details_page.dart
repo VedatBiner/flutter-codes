@@ -155,6 +155,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  /// Carousel Slider burada oluşturuluyor
   Widget showCarousel(BuildContext context) {
     return Column(
       children: [
