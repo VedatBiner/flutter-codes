@@ -28,6 +28,7 @@ import '../services/word_service.dart';
 import '../services/providers/icon_provider.dart';
 import '../utils/snackbar_helper.dart';
 import 'home_page_parts/bottom_sheet.dart';
+import 'home_page_parts/build_center.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/language_selector.dart';
@@ -76,10 +77,12 @@ class _HomePageState extends State<HomePage> {
   /// kelimeler sırpça 'ya göre sıralı olarak
   /// pagination ile listelenir.
   Future<void> _initializeFirestore() async {
-    collection = FirebaseFirestore.instance.collection(collectionName).withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-      toFirestore: (word, _) => word.toJson(),
-    );
+    collection = FirebaseFirestore.instance
+        .collection(collectionName)
+        .withConverter<FsWords>(
+          fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+          toFirestore: (word, _) => word.toJson(),
+        );
   }
 
   /// Başlangıç düzenlemesi
@@ -100,12 +103,18 @@ class _HomePageState extends State<HomePage> {
     return FirebaseFirestore.instance
         .collection(collectionName)
         .orderBy(orderByField)
-        .where(orderByField, isGreaterThanOrEqualTo: aramaKelimesi)
-        .where(orderByField, isLessThanOrEqualTo: '$aramaKelimesi\uf8ff')
+        .where(
+          orderByField,
+          isGreaterThanOrEqualTo: aramaKelimesi,
+        )
+        .where(
+          orderByField,
+          isLessThanOrEqualTo: '$aramaKelimesi\uf8ff',
+        )
         .withConverter<FsWords>(
-      fromFirestore: (snapshot, _) => FsWords.fromDocument(snapshot),
-      toFirestore: (word, _) => word.toJson(),
-    );
+          fromFirestore: (snapshot, _) => FsWords.fromDocument(snapshot),
+          toFirestore: (word, _) => word.toJson(),
+        );
   }
 
   /// kelime listesi oluşturma
@@ -149,19 +158,24 @@ class _HomePageState extends State<HomePage> {
                 .addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
           }
           return ValueListenableBuilder(
-            valueListenable: _refreshNotifier,
-            builder: (context, refresh, child,) {
-              return WordListBuilder(
-                snapshot: snapshot.data!,
-                isListView: isListView,
-                languageParams: languageParams,
-                language: language,
-                mergedResults: allWords,
-                refreshNotifier: _refreshNotifier,
-                onRefresh: _refreshWordList, /// Callback ekledik
-              );
-            }
-          );
+              valueListenable: _refreshNotifier,
+              builder: (
+                context,
+                refresh,
+                child,
+              ) {
+                return WordListBuilder(
+                  snapshot: snapshot.data!,
+                  isListView: isListView,
+                  languageParams: languageParams,
+                  language: language,
+                  mergedResults: allWords,
+                  refreshNotifier: _refreshNotifier,
+
+                  /// Callback ekledik
+                  onRefresh: _refreshWordList,
+                );
+              });
         } else {
           return const CircularProgressIndicator();
         }
@@ -185,17 +199,17 @@ class _HomePageState extends State<HomePage> {
     const options = GetOptions(source: Source.cache);
     return language == true
         ? await Future.wait(
-      [
-        queryForSerbian.get(options),
-        queryForTurkish.get(options),
-      ],
-    )
+            [
+              queryForSerbian.get(options),
+              queryForTurkish.get(options),
+            ],
+          )
         : await Future.wait(
-      [
-        queryForTurkish.get(options),
-        queryForSerbian.get(options),
-      ],
-    );
+            [
+              queryForTurkish.get(options),
+              queryForSerbian.get(options),
+            ],
+          );
   }
 
   /// ana kodumuz bu şekilde
@@ -256,7 +270,7 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height * 0.08,
           child: buildLanguageSelector(
             context: context,
-            languageParams: languageParams,
+            // languageParams: languageParams,
           ),
         ),
 
@@ -274,8 +288,9 @@ class _HomePageState extends State<HomePage> {
   /// dil değişimi burada yapılıyor
   Widget buildLanguageSelector({
     required BuildContext context,
-    required LanguageParams languageParams,
+    // required LanguageParams languageParams,
   }) {
+    final languageParams = Provider.of<LanguageParams>(context);
     return LanguageSelector(
       firstLanguageCode: languageParams.secondLanguageCode,
       firstLanguageText: languageParams.secondLanguageText,
@@ -291,7 +306,7 @@ class _HomePageState extends State<HomePage> {
       },
       onLanguageChange: (bool newLanguage) {
         setState(
-              () {
+          () {
             language = newLanguage;
             if (language) {
               firstLanguageCode = secondCountry;
@@ -315,14 +330,15 @@ class _HomePageState extends State<HomePage> {
   /// FAB ile kelime ekleme işlemi burada yapılıyor
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
     final TextEditingController firstLanguageController =
-    TextEditingController();
+        TextEditingController();
     final TextEditingController secondLanguageController =
-    TextEditingController();
+        TextEditingController();
 
     /// theme kontrolü
     final themeProvider = Provider.of<ThemeProvider>(context);
     return FloatingActionButton(
-      backgroundColor: themeProvider.isDarkMode ? Colors.green.shade900 : drawerColor,
+      backgroundColor:
+          themeProvider.isDarkMode ? Colors.green.shade900 : drawerColor,
       foregroundColor: menuColor,
       onPressed: () {
         log("Kelime ekleme seçildi");
@@ -331,99 +347,36 @@ class _HomePageState extends State<HomePage> {
           context: context,
           barrierDismissible: false,
           barrierLabel:
-          MaterialLocalizations.of(context).modalBarrierDismissLabel,
+              MaterialLocalizations.of(context).modalBarrierDismissLabel,
           barrierColor: Colors.black54,
           transitionDuration: const Duration(milliseconds: 200),
-          pageBuilder: (BuildContext buildContext, Animation animation,
-              Animation secondaryAnimation) {
+          pageBuilder: (
+            BuildContext buildContext,
+            Animation animation,
+            Animation secondaryAnimation,
+          ) {
             return buildCenter(
               firstLanguageController,
               secondLanguageController,
               email,
               language,
               context,
+              firstLanguageText,
+              secondLanguageText,
+              _firestoreService,
+              _refreshWordList,
+              _fetchWordList,
+                  /// yeni callback fonksiyonu olarak gönderelim.
+                  (Future<List<QuerySnapshot<FsWords>>> newWordListFuture) {
+                setState(() {
+                  _wordListFuture = newWordListFuture;
+                });
+              },
             );
           },
         );
       },
       child: const Icon(Icons.add),
-    );
-  }
-
-  /// Yeni kelime ekleme kutusu buradan çıkıyor
-  Widget buildCenter(
-      TextEditingController firstLanguageController,
-      TextEditingController secondLanguageController,
-      email,
-      language,
-      BuildContext context,
-      ) {
-    TextEditingController tempLanguageController;
-    String tempLanguageText;
-
-    if (language) {
-      tempLanguageController = secondLanguageController;
-      firstLanguageController = secondLanguageController;
-      firstLanguageText = secondLanguageText;
-      secondLanguageController = firstLanguageController;
-      secondLanguageText = firstLanguageText;
-    } else {
-      tempLanguageController = firstLanguageController;
-      tempLanguageText = firstLanguageText;
-      firstLanguageController = secondLanguageController;
-      firstLanguageText = secondLanguageText;
-      secondLanguageController = tempLanguageController;
-      secondLanguageText = tempLanguageText;
-    }
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.red,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Material(
-            borderRadius: BorderRadius.circular(16.0),
-            child: AddWordBox(
-              firstLanguageText: yardimciDil,
-              secondLanguageText: anaDil,
-              currentUserEmail: email,
-              language: language,
-              onWordAdded: (
-                  String firstLang,
-                  String secondLang,
-                  String email,
-                  ) async {
-                await _firestoreService.addWord(
-                  context,
-                  language == true ? firstLang : secondLang,
-                  language == true ? secondLang : firstLang,
-                  email,
-                );
-                setState(
-                      () {
-                    _wordListFuture = _fetchWordList();
-                    var message = addMsg;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      buildSnackBar(
-                        firstLang,
-                        message,
-                        MyAuthService.currentUserEmail,
-                      ),
-                    );
-                    Navigator.of(context).pop();
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
