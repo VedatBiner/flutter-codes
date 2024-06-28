@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
-import '../../screens/home_page_parts/word_card_view.dart';
-import '../../screens/home_page_parts/word_list_view.dart';
-import '../../models/fs_words.dart';
-import '../../services/providers/theme_provider.dart';
-import '../../models/language_params.dart';
+import 'word_card_view.dart';
+import 'word_list_view.dart';
+import '../../../models/fs_words.dart';
+import '../../../services/providers/theme_provider.dart';
+import '../../../models/language_params.dart';
 
 class WordListBuilder extends StatefulWidget {
   final List<QuerySnapshot<FsWords>> snapshot;

@@ -8,16 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer';
 
-import '../../constants/app_constants/constants.dart';
-import '../../constants/app_constants/color_constants.dart';
-import '../../models/fs_words.dart';
-import '../../models/language_params.dart';
-import '../../services/firebase_services/auth_services.dart';
-import '../../services/firebase_services/firestore_services.dart';
-import '../../services/providers/theme_provider.dart';
-import '../../utils/snackbar_helper.dart';
-import '../details_page.dart';
-import 'edit_word_box.dart';
+import '../../../constants/app_constants/constants.dart';
+import '../../../constants/app_constants/color_constants.dart';
+import '../../../models/fs_words.dart';
+import '../../../models/language_params.dart';
+import '../../../services/firebase_services/auth_services.dart';
+import '../../../services/firebase_services/firestore_services.dart';
+import '../../../services/providers/theme_provider.dart';
+import '../../../utils/snackbar_helper.dart';
+import '../../details_page.dart';
+import '../edit_word_box.dart';
 
 class WordCardView extends StatefulWidget {
   final FsWords word;
