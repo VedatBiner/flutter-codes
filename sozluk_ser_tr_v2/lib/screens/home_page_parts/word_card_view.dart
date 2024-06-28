@@ -308,6 +308,8 @@ class _WordCardViewState extends State<WordCardView> {
             widget.onDelete();
             if (mounted) {
               setState(() {
+
+                /// seçilen kelimenin silindiğini belirten uyarı
                 ScaffoldMessenger.of(context).showSnackBar(
                   buildSnackBar(
                     silinecekKelime,
@@ -315,6 +317,8 @@ class _WordCardViewState extends State<WordCardView> {
                     MyAuthService.currentUserEmail,
                   ),
                 );
+
+                /// listenin yenilenmesi ?
               });
             }
             Navigator.pop(context);
