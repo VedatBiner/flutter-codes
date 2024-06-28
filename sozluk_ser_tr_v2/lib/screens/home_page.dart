@@ -12,27 +12,22 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/app_constants/color_constants.dart';
 import '../constants/app_constants/constants.dart';
 import '../constants/app_constants/drawer_constants.dart';
 import '../models/fs_words.dart';
 import '../models/language_params.dart';
 import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
-import '../services/providers/theme_provider.dart';
 import '../services/word_service.dart';
 import '../services/providers/icon_provider.dart';
-import '../utils/snackbar_helper.dart';
 import 'home_page_parts/bottom_sheet.dart';
-import 'home_page_parts/build_center.dart';
+import 'home_page_parts/build_fab_button.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/language_selector.dart';
-import 'home_page_parts/add_word_box.dart';
 import 'home_page_parts/word_list_builder.dart';
 
 late CollectionReference<FsWords> collection;
@@ -225,8 +220,22 @@ class _HomePageState extends State<HomePage> {
         appBar: buildHomeCustomAppBar(),
         body: showBody(context, languageParams),
         drawer: buildDrawer(context),
-        floatingActionButton: buildFloatingActionButton(context),
         bottomSheet: const BottomSheetWidget(),
+        floatingActionButton: buildFloatingActionButton(
+          context,
+          email,
+          language,
+          firstLanguageText,
+          secondLanguageText,
+          _firestoreService,
+          _refreshWordList,
+          _fetchWordList,
+          (Future<List<QuerySnapshot<FsWords>>> newWordListFuture) {
+            setState(() {
+              _wordListFuture = newWordListFuture;
+            });
+          },
+        ),
       ),
     );
   }
@@ -288,7 +297,6 @@ class _HomePageState extends State<HomePage> {
   /// dil değişimi burada yapılıyor
   Widget buildLanguageSelector({
     required BuildContext context,
-    // required LanguageParams languageParams,
   }) {
     final languageParams = Provider.of<LanguageParams>(context);
     return LanguageSelector(
@@ -324,59 +332,6 @@ class _HomePageState extends State<HomePage> {
           },
         );
       },
-    );
-  }
-
-  /// FAB ile kelime ekleme işlemi burada yapılıyor
-  FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    final TextEditingController firstLanguageController =
-        TextEditingController();
-    final TextEditingController secondLanguageController =
-        TextEditingController();
-
-    /// theme kontrolü
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return FloatingActionButton(
-      backgroundColor:
-          themeProvider.isDarkMode ? Colors.green.shade900 : drawerColor,
-      foregroundColor: menuColor,
-      onPressed: () {
-        log("Kelime ekleme seçildi");
-
-        showGeneralDialog(
-          context: context,
-          barrierDismissible: false,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          barrierColor: Colors.black54,
-          transitionDuration: const Duration(milliseconds: 200),
-          pageBuilder: (
-            BuildContext buildContext,
-            Animation animation,
-            Animation secondaryAnimation,
-          ) {
-            return buildCenter(
-              firstLanguageController,
-              secondLanguageController,
-              email,
-              language,
-              context,
-              firstLanguageText,
-              secondLanguageText,
-              _firestoreService,
-              _refreshWordList,
-              _fetchWordList,
-                  /// yeni callback fonksiyonu olarak gönderelim.
-                  (Future<List<QuerySnapshot<FsWords>>> newWordListFuture) {
-                setState(() {
-                  _wordListFuture = newWordListFuture;
-                });
-              },
-            );
-          },
-        );
-      },
-      child: const Icon(Icons.add),
     );
   }
 }
