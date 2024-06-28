@@ -76,15 +76,6 @@ class _HomePageState extends State<HomePage> {
   /// kelimeler sırpça 'ya göre sıralı olarak
   /// pagination ile listelenir.
   Future<void> _initializeFirestore() async {
-    // final collectionRef = FirebaseFirestore.instance
-    //     .collection(collectionName)
-    //     .orderBy(fsYardimciDil)
-    //     .withConverter<FsWords>(
-    //   fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
-    //   toFirestore: (word, _) => word.toJson(),
-    // );
-    // collection = collectionRef as CollectionReference<FsWords>;
-
     collection = FirebaseFirestore.instance.collection(collectionName).withConverter<FsWords>(
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
