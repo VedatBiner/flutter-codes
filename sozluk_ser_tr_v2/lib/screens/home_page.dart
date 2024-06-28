@@ -22,10 +22,9 @@ import '../models/language_params.dart';
 import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
 import '../services/word_service.dart';
-import '../services/providers/icon_provider.dart';
 import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/build_fab_button.dart';
-import 'home_page_parts/build_language_selector.dart';
+import 'home_page_parts/build_show_body.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
 import 'home_page_parts/word_list_builder.dart';
@@ -219,9 +218,22 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: buildHomeCustomAppBar(),
-        body: showBody(context, languageParams),
         drawer: buildDrawer(context),
         bottomSheet: const BottomSheetWidget(),
+        body: showBody(
+          context,
+          languageParams,
+          isListView,
+          language,
+          firstLanguageCode,
+          firstLanguageText,
+          secondLanguageCode,
+          secondLanguageText,
+          appBarTitle,
+          _buildWordList,
+          _refreshWordList,
+          setState,
+        ),
         floatingActionButton: buildFloatingActionButton(
           context,
           email,
@@ -269,64 +281,6 @@ class _HomePageState extends State<HomePage> {
         });
       },
       appBarTitle: appBarTitle,
-    );
-  }
-
-  /// Sayfa düzeni burada oluşuyor.
-  Column showBody(BuildContext context, LanguageParams languageParams) {
-    return Column(
-      children: [
-        /// burada sayfa başlığı ve
-        /// dil değişimi, görünüm ayarı var
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.08,
-          child: buildLanguageSelector(
-            context: context,
-            isListView: isListView,
-            language: language,
-            firstLanguageCode: firstLanguageCode,
-            firstLanguageText: firstLanguageText,
-            secondLanguageCode: secondLanguageCode,
-            secondLanguageText: secondLanguageText,
-            appBarTitle: appBarTitle,
-            setState: setState,
-            onIconPressed: () {
-              setState(() {
-                Provider.of<IconProvider>(context, listen: false).changeIcon();
-                isListView = !isListView;
-              });
-            },
-            onLanguageChange: (bool newLanguage) {
-              setState(
-                () {
-                  language = newLanguage;
-                  if (language) {
-                    firstLanguageCode = secondCountry;
-                    firstLanguageText = yardimciDil;
-                    secondLanguageCode = firstCountry;
-                    secondLanguageText = anaDil;
-                    appBarTitle = appBarMainTitleSecond;
-                  } else {
-                    firstLanguageCode = firstCountry;
-                    firstLanguageText = anaDil;
-                    secondLanguageCode = secondCountry;
-                    secondLanguageText = yardimciDil;
-                    appBarTitle = appBarMainTitleFirst;
-                  }
-                },
-              );
-            },
-          ),
-        ),
-
-        /// burada sıralı kelime listesi gelsin
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.78,
-
-          /// kelimeleri listeleyen metod
-          child: _buildWordList(),
-        ),
-      ],
     );
   }
 }
