@@ -25,9 +25,9 @@ import '../services/word_service.dart';
 import '../services/providers/icon_provider.dart';
 import 'home_page_parts/bottom_sheet.dart';
 import 'home_page_parts/build_fab_button.dart';
+import 'home_page_parts/build_language_selector.dart';
 import 'home_page_parts/drawer_items.dart';
 import 'home_page_parts/home_app_bar.dart';
-import 'home_page_parts/language_selector.dart';
 import 'home_page_parts/word_list_builder.dart';
 
 late CollectionReference<FsWords> collection;
@@ -153,24 +153,25 @@ class _HomePageState extends State<HomePage> {
                 .addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
           }
           return ValueListenableBuilder(
-              valueListenable: _refreshNotifier,
-              builder: (
-                context,
-                refresh,
-                child,
-              ) {
-                return WordListBuilder(
-                  snapshot: snapshot.data!,
-                  isListView: isListView,
-                  languageParams: languageParams,
-                  language: language,
-                  mergedResults: allWords,
-                  refreshNotifier: _refreshNotifier,
+            valueListenable: _refreshNotifier,
+            builder: (
+              context,
+              refresh,
+              child,
+            ) {
+              return WordListBuilder(
+                snapshot: snapshot.data!,
+                isListView: isListView,
+                languageParams: languageParams,
+                language: language,
+                mergedResults: allWords,
+                refreshNotifier: _refreshNotifier,
 
-                  /// Callback ekledik
-                  onRefresh: _refreshWordList,
-                );
-              });
+                /// Callback ekledik
+                onRefresh: _refreshWordList,
+              );
+            },
+          );
         } else {
           return const CircularProgressIndicator();
         }
@@ -231,9 +232,11 @@ class _HomePageState extends State<HomePage> {
           _refreshWordList,
           _fetchWordList,
           (Future<List<QuerySnapshot<FsWords>>> newWordListFuture) {
-            setState(() {
-              _wordListFuture = newWordListFuture;
-            });
+            setState(
+              () {
+                _wordListFuture = newWordListFuture;
+              },
+            );
           },
         ),
       ),
@@ -279,7 +282,40 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height * 0.08,
           child: buildLanguageSelector(
             context: context,
-            // languageParams: languageParams,
+            isListView: isListView,
+            language: language,
+            firstLanguageCode: firstLanguageCode,
+            firstLanguageText: firstLanguageText,
+            secondLanguageCode: secondLanguageCode,
+            secondLanguageText: secondLanguageText,
+            appBarTitle: appBarTitle,
+            setState: setState,
+            onIconPressed: () {
+              setState(() {
+                Provider.of<IconProvider>(context, listen: false).changeIcon();
+                isListView = !isListView;
+              });
+            },
+            onLanguageChange: (bool newLanguage) {
+              setState(
+                () {
+                  language = newLanguage;
+                  if (language) {
+                    firstLanguageCode = secondCountry;
+                    firstLanguageText = yardimciDil;
+                    secondLanguageCode = firstCountry;
+                    secondLanguageText = anaDil;
+                    appBarTitle = appBarMainTitleSecond;
+                  } else {
+                    firstLanguageCode = firstCountry;
+                    firstLanguageText = anaDil;
+                    secondLanguageCode = secondCountry;
+                    secondLanguageText = yardimciDil;
+                    appBarTitle = appBarMainTitleFirst;
+                  }
+                },
+              );
+            },
           ),
         ),
 
@@ -291,47 +327,6 @@ class _HomePageState extends State<HomePage> {
           child: _buildWordList(),
         ),
       ],
-    );
-  }
-
-  /// dil değişimi burada yapılıyor
-  Widget buildLanguageSelector({
-    required BuildContext context,
-  }) {
-    final languageParams = Provider.of<LanguageParams>(context);
-    return LanguageSelector(
-      firstLanguageCode: languageParams.secondLanguageCode,
-      firstLanguageText: languageParams.secondLanguageText,
-      secondLanguageCode: languageParams.firstLanguageCode,
-      secondLanguageText: languageParams.firstLanguageText,
-      isListView: isListView,
-      language: language,
-      onIconPressed: () {
-        setState(() {
-          Provider.of<IconProvider>(context, listen: false).changeIcon();
-          isListView = !isListView;
-        });
-      },
-      onLanguageChange: (bool newLanguage) {
-        setState(
-          () {
-            language = newLanguage;
-            if (language) {
-              firstLanguageCode = secondCountry;
-              firstLanguageText = yardimciDil;
-              secondLanguageCode = firstCountry;
-              secondLanguageText = anaDil;
-              appBarTitle = appBarMainTitleSecond;
-            } else {
-              firstLanguageCode = firstCountry;
-              firstLanguageText = anaDil;
-              secondLanguageCode = secondCountry;
-              secondLanguageText = yardimciDil;
-              appBarTitle = appBarMainTitleFirst;
-            }
-          },
-        );
-      },
     );
   }
 }
