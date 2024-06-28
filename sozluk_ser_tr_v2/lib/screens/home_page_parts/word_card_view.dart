@@ -29,6 +29,7 @@ class WordCardView extends StatefulWidget {
   final VoidCallback onDelete;
   final List<FsWords> mergedResults;
   final bool language;
+  final ValueNotifier<bool> refreshNotifier;
 
   const WordCardView({
     super.key,
@@ -41,6 +42,7 @@ class WordCardView extends StatefulWidget {
     required this.onDelete,
     required this.mergedResults,
     required this.language,
+    required this.refreshNotifier,
   });
 
   @override
@@ -307,8 +309,8 @@ class _WordCardViewState extends State<WordCardView> {
             await firestoreService.deleteWord(widget.word.wordId);
             widget.onDelete();
             if (mounted) {
+              widget.refreshNotifier.value = !widget.refreshNotifier.value;
               setState(() {
-
                 /// seçilen kelimenin silindiğini belirten uyarı
                 ScaffoldMessenger.of(context).showSnackBar(
                   buildSnackBar(
@@ -317,8 +319,6 @@ class _WordCardViewState extends State<WordCardView> {
                     MyAuthService.currentUserEmail,
                   ),
                 );
-
-                /// listenin yenilenmesi ?
               });
             }
             Navigator.pop(context);

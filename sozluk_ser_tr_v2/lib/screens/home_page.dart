@@ -52,6 +52,8 @@ class _HomePageState extends State<HomePage> {
   /// Firestore servisi için değişken oluşturalım
   final FirestoreService _firestoreService = FirestoreService();
 
+  final ValueNotifier<bool> _refreshNotifier = ValueNotifier(false);
+
   bool isListView = false;
   bool aramaYapiliyorMu = false;
 
@@ -74,14 +76,19 @@ class _HomePageState extends State<HomePage> {
   /// kelimeler sırpça 'ya göre sıralı olarak
   /// pagination ile listelenir.
   Future<void> _initializeFirestore() async {
-    final collectionRef = FirebaseFirestore.instance
-        .collection(collectionName)
-        .orderBy(fsYardimciDil)
-        .withConverter<FsWords>(
+    // final collectionRef = FirebaseFirestore.instance
+    //     .collection(collectionName)
+    //     .orderBy(fsYardimciDil)
+    //     .withConverter<FsWords>(
+    //   fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+    //   toFirestore: (word, _) => word.toJson(),
+    // );
+    // collection = collectionRef as CollectionReference<FsWords>;
+
+    collection = FirebaseFirestore.instance.collection(collectionName).withConverter<FsWords>(
       fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
       toFirestore: (word, _) => word.toJson(),
     );
-    collection = collectionRef as CollectionReference<FsWords>;
   }
 
   /// Başlangıç düzenlemesi
@@ -150,18 +157,33 @@ class _HomePageState extends State<HomePage> {
             allWords
                 .addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
           }
-          return WordListBuilder(
-            snapshot: snapshot.data!,
-            isListView: isListView,
-            languageParams: languageParams,
-            language: language,
-            mergedResults: allWords,
+          return ValueListenableBuilder(
+            valueListenable: _refreshNotifier,
+            builder: (context, refresh, child,) {
+              return WordListBuilder(
+                snapshot: snapshot.data!,
+                isListView: isListView,
+                languageParams: languageParams,
+                language: language,
+                mergedResults: allWords,
+                refreshNotifier: _refreshNotifier,
+                onRefresh: _refreshWordList, /// Callback ekledik
+              );
+            }
           );
         } else {
           return const CircularProgressIndicator();
         }
       },
     );
+  }
+
+  /// Kelime listesi güncelleme
+  void _refreshWordList() {
+    setState(() {
+      _wordListFuture = _fetchWordList();
+      _refreshNotifier.value = !_refreshNotifier.value;
+    });
   }
 
   /// ekrana listelenecek yapı burada oluşturuluyor

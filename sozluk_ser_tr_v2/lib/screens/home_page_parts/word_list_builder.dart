@@ -21,6 +21,8 @@ class WordListBuilder extends StatefulWidget {
   final bool language;
   final LanguageParams languageParams;
   final List<FsWords> mergedResults;
+  final ValueNotifier<bool> refreshNotifier;
+  final VoidCallback onRefresh;
 
   const WordListBuilder({
     super.key,
@@ -29,6 +31,8 @@ class WordListBuilder extends StatefulWidget {
     required this.language,
     required this.languageParams,
     required this.mergedResults,
+    required this.refreshNotifier,
+    required this.onRefresh,
   });
 
   @override
@@ -41,9 +45,9 @@ class _WordListBuilderState extends State<WordListBuilder> {
   @override
   Widget build(BuildContext context) {
     final serbianResults =
-    widget.snapshot[0].docs.map((doc) => doc.data()).toList();
+        widget.snapshot[0].docs.map((doc) => doc.data()).toList();
     final turkishResults =
-    widget.snapshot[1].docs.map((doc) => doc.data()).toList();
+        widget.snapshot[1].docs.map((doc) => doc.data()).toList();
 
     /// mergedResults listesini sadece ilk oluşturulduğunda doldur.
     if (mergedResults.isEmpty) {
@@ -77,7 +81,7 @@ class _WordListBuilderState extends State<WordListBuilder> {
                 mergedResults: widget.mergedResults,
                 onDelete: () {
                   setState(
-                        () {
+                    () {
                       mergedResults.remove(word);
                     },
                   );
@@ -114,46 +118,50 @@ class _WordListBuilderState extends State<WordListBuilder> {
     /// görünümü burada belirleniyor.
     final firstLanguageText = language
         ? (displayedLanguage == languageParams.firstLanguageText
-        ? word.sirpca
-        : word.turkce)
+            ? word.sirpca
+            : word.turkce)
         : (displayedLanguage == languageParams.firstLanguageText
-        ? word.turkce
-        : word.sirpca);
+            ? word.turkce
+            : word.sirpca);
     final secondLanguageText = language
         ? (displayedLanguage == languageParams.firstLanguageText
-        ? word.turkce
-        : word.sirpca)
+            ? word.turkce
+            : word.sirpca)
         : (displayedLanguage == languageParams.firstLanguageText
-        ? word.sirpca
-        : word.turkce);
+            ? word.sirpca
+            : word.turkce);
 
     final wordWidgetChild = isListView
         ? WordListView(
-      word: word,
-      isDarkMode: isDarkMode,
-      displayedTranslation: displayedTranslation,
-      displayedLanguage: displayedLanguage,
-      firstLanguageText: firstLanguageText,
-      secondLanguageText: secondLanguageText,
-      mergedResults: mergedResults,
-      language: language,
-    )
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText: firstLanguageText,
+            secondLanguageText: secondLanguageText,
+            mergedResults: mergedResults,
+            language: language,
+          )
         : WordCardView(
-      word: word,
-      isDarkMode: isDarkMode,
-      displayedTranslation: displayedTranslation,
-      displayedLanguage: displayedLanguage,
-      firstLanguageText: firstLanguageText,
-      secondLanguageText: secondLanguageText,
-      mergedResults: mergedResults,
-      language: language,
-      onDelete: () {
-        setState(() {
-          /// silinen kelimeyi listeden çıkartalım
-          mergedResults.remove(word);
-        });
-      },
-    );
+            word: word,
+            isDarkMode: isDarkMode,
+            displayedTranslation: displayedTranslation,
+            displayedLanguage: displayedLanguage,
+            firstLanguageText: firstLanguageText,
+            secondLanguageText: secondLanguageText,
+            mergedResults: mergedResults,
+            language: language,
+            refreshNotifier: widget.refreshNotifier,
+            onDelete: () {
+              setState(
+                () {
+                  /// silinen kelimeyi listeden çıkartalım
+                  mergedResults.remove(word);
+                },
+              );
+              widget.onRefresh();  /// Callback burada çağırılır
+            },
+          );
 
     return ChangeNotifierProvider.value(
       value: languageParams,
