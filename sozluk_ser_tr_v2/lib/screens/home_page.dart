@@ -225,36 +225,45 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// arama kutusunu içeren Appbar burada
-  HomeCustomAppBar buildHomeCustomAppBar() {
-    return HomeCustomAppBar(
-      aramaYapiliyorMu: aramaYapiliyorMu,
-      aramaKelimesi: aramaKelimesi,
-      onAramaKelimesiChanged: (aramaSonucu) {
-        setState(() {
-          aramaKelimesi = aramaSonucu;
-          if (aramaKelimesi.isNotEmpty) {
-            aramaKelimesi =
-                aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
-          }
-        });
-      },
-      onCancelPressed: () {
-        setState(() {
-          aramaYapiliyorMu = false;
-          aramaKelimesi = "";
-        });
-      },
-      onSearchPressed: () {
-        setState(() {
-          aramaYapiliyorMu = true;
-        });
-      },
-      appBarTitle: appBarTitle,
+  AppBar buildHomeCustomAppBar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: HomeCustomAppBar(
+          aramaYapiliyorMu: aramaYapiliyorMu,
+          aramaKelimesi: aramaKelimesi,
+          onAramaKelimesiChanged: (aramaSonucu) {
+            setState(() {
+              aramaKelimesi = aramaSonucu;
+              if (aramaKelimesi.isNotEmpty) {
+                aramaKelimesi =
+                    aramaKelimesi[0].toUpperCase() + aramaKelimesi.substring(1);
+              }
+            });
+          },
+          onCancelPressed: () {
+            setState(() {
+              aramaYapiliyorMu = false;
+              aramaKelimesi = "";
+            });
+          },
+          onSearchPressed: () {
+            setState(() {
+              aramaYapiliyorMu = true;
+            });
+          },
+          appBarTitle: appBarTitle,
+        ),
+      ),
     );
   }
 
   /// Sayfa düzeni burada oluşuyor.
-  Column showBody(BuildContext context, LanguageParams languageParams) {
+  Widget showBody(
+    BuildContext context,
+    LanguageParams languageParams,
+  ) {
     return Column(
       children: [
         /// burada sayfa başlığı ve

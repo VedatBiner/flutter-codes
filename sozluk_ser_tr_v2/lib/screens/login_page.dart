@@ -42,13 +42,13 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: drawerColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 10),
+                const SizedBox(height: 30),
 
                 /// logo gösterelim
                 const LogoWidget(),
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: teControllerMail,
                   obscureText: false, // Bu alanı false olarak ayarla
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
 
                 /// Kontrolcüyü parola TextField 'ına atayalım
                 AuthPageWidget(
