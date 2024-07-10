@@ -169,10 +169,22 @@ class _DetailsPageState extends State<DetailsPage> {
               /// sonsuz kaydırma devre dışı
               enableInfiniteScroll: false,
               aspectRatio: 16 / 9,
+              viewportFraction: 0.8,
               onPageChanged: (index, reason) {
                 setState(
                   () {
-                    _currentIndex = index;
+                    if (index < _currentIndex) {
+                      /// sola kaydırma
+                      _currentIndex =
+                          _currentIndex + 1.clamp(0, _wordList.length - 1);
+                    } else if (index > _currentIndex) {
+                      /// sağa kaydırma
+                      _currentIndex =
+                          _currentIndex - 1.clamp(0, _wordList.length - 1);
+                    } else {
+                      _currentIndex = index;
+                    }
+                    log("Current Index : $_currentIndex");
                   },
                 );
               },
