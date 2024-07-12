@@ -184,6 +184,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     } else {
                       _currentIndex = index;
                     }
+                    log("Index : $index");
                     log("Current Index : $_currentIndex");
                   },
                 );
