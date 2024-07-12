@@ -119,7 +119,10 @@ class _DetailsPageState extends State<DetailsPage> {
       log("Bu ilk kelime");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Bu ilk kelime!"),
+          content: Text(
+            ilkKelimeMsg,
+            style: dikkatText,
+          ),
         ),
       );
     }
@@ -131,14 +134,19 @@ class _DetailsPageState extends State<DetailsPage> {
       setState(
         () {
           _currentIndex++;
-          word = _wordList[_currentIndex]; // Sonraki kelimeyi yükle
+
+          /// Sonraki kelimeyi yükle
+          word = _wordList[_currentIndex];
         },
       );
     } else {
       log("Bu son kelime");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Bu son kelime!"),
+          content: Text(
+            sonKelimeMsg,
+            style: dikkatText,
+          ),
         ),
       );
     }
@@ -189,13 +197,19 @@ class _DetailsPageState extends State<DetailsPage> {
                     if (_currentIndex == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text("Bu ilk kelime!"),
+                          content: Text(
+                            ilkKelimeMsg,
+                            style: dikkatText,
+                          ),
                         ),
                       );
                     } else if (_currentIndex == _wordList.length - 1) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text("Bu son kelime!"),
+                          content: Text(
+                            sonKelimeMsg,
+                            style: dikkatText,
+                          ),
                         ),
                       );
                     }

@@ -182,3 +182,9 @@ const eminText = TextStyle(
   color: Colors.red,
   fontWeight: FontWeight.bold,
 );
+
+/// ilk kelime mesajı
+const String ilkKelimeMsg = "Bu ilk kelime!!!";
+
+/// son kelime mesajı
+const String sonKelimeMsg = "Bu son kelime!!!";
