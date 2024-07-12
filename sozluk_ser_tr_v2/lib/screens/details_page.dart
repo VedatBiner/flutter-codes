@@ -66,6 +66,18 @@ class _DetailsPageState extends State<DetailsPage> {
     _currentIndex = selectedWordIndex;
   }
 
+  /// ilk veya son kelimeye ulaşılınca çıkacak mesaj
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: dikkatText,
+        ),
+      ),
+    );
+  }
+
   /// index bulan metod
   int findIndex(String selectedWord) {
     int index = -1;
@@ -117,14 +129,7 @@ class _DetailsPageState extends State<DetailsPage> {
       );
     } else {
       log("Bu ilk kelime");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            ilkKelimeMsg,
-            style: dikkatText,
-          ),
-        ),
-      );
+      _showMessage(ilkKelimeMsg);
     }
   }
 
@@ -141,14 +146,7 @@ class _DetailsPageState extends State<DetailsPage> {
       );
     } else {
       log("Bu son kelime");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            sonKelimeMsg,
-            style: dikkatText,
-          ),
-        ),
-      );
+      _showMessage(sonKelimeMsg);
     }
   }
 
@@ -195,23 +193,9 @@ class _DetailsPageState extends State<DetailsPage> {
 
                     /// İlk ve son kelimeye ulaşıldıysa mesaj ver
                     if (_currentIndex == 0) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            ilkKelimeMsg,
-                            style: dikkatText,
-                          ),
-                        ),
-                      );
+                      _showMessage(ilkKelimeMsg);
                     } else if (_currentIndex == _wordList.length - 1) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            sonKelimeMsg,
-                            style: dikkatText,
-                          ),
-                        ),
-                      );
+                      _showMessage(sonKelimeMsg);
                     }
 
                     log("Index : $index");
