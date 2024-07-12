@@ -176,14 +176,30 @@ class _DetailsPageState extends State<DetailsPage> {
                     if (index < _currentIndex) {
                       /// sola kaydırma
                       _currentIndex =
-                          _currentIndex + 1.clamp(0, _wordList.length - 1);
+                          _currentIndex - 1.clamp(0, _wordList.length - 1);
                     } else if (index > _currentIndex) {
                       /// sağa kaydırma
                       _currentIndex =
-                          _currentIndex - 1.clamp(0, _wordList.length - 1);
+                          _currentIndex + 1.clamp(0, _wordList.length - 1);
                     } else {
                       _currentIndex = index;
                     }
+
+                    /// İlk ve son kelimeye ulaşıldıysa mesaj ver
+                    if (_currentIndex == 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Bu ilk kelime!"),
+                        ),
+                      );
+                    } else if (_currentIndex == _wordList.length - 1) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Bu son kelime!"),
+                        ),
+                      );
+                    }
+
                     log("Index : $index");
                     log("Current Index : $_currentIndex");
                   },
