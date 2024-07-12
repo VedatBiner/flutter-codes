@@ -230,6 +230,7 @@ class _HomePageState extends State<HomePage> {
   AppBar buildHomeCustomAppBar() {
     return AppBar(
       automaticallyImplyLeading: false,
+      titleSpacing: 0,
       title: Padding(
         padding: const EdgeInsets.only(top: 16),
         child: HomeCustomAppBar(
