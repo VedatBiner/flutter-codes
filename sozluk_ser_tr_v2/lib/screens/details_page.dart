@@ -1,7 +1,7 @@
 /// <----- details_page.dart ----->
 /// Burada kelimeleri tek tek gösteriyoruz
 /// Bu kelimeler bir liste olarak geldiği için
-/// Firestore veri tabına erişim yapılmıyor.
+/// Firestore veri tabanına erişim yapılmıyor.
 library;
 
 import 'package:carousel_slider/carousel_slider.dart';

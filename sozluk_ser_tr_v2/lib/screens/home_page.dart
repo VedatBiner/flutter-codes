@@ -136,9 +136,10 @@ class _HomePageState extends State<HomePage> {
           );
         }
         if (snapshot.hasError) {
+          /// Hata durumunda hata mesajı göster
           return Text(
             'Hata: ${snapshot.error}',
-          ); // Hata durumunda hata mesajı göster
+          );
         }
 
         /// languageParams nesnesini oluşturun
@@ -151,24 +152,25 @@ class _HomePageState extends State<HomePage> {
                 .addAll(querySnapshot.docs.map((doc) => doc.data()).toList());
           }
           return ValueListenableBuilder(
-              valueListenable: _refreshNotifier,
-              builder: (
-                context,
-                refresh,
-                child,
-              ) {
-                return WordListBuilder(
-                  snapshot: snapshot.data!,
-                  isListView: isListView,
-                  languageParams: languageParams,
-                  language: language,
-                  mergedResults: allWords,
-                  refreshNotifier: _refreshNotifier,
-                  onRefresh: _refreshWordList,
+            valueListenable: _refreshNotifier,
+            builder: (
+              context,
+              refresh,
+              child,
+            ) {
+              return WordListBuilder(
+                snapshot: snapshot.data!,
+                isListView: isListView,
+                languageParams: languageParams,
+                language: language,
+                mergedResults: allWords,
+                refreshNotifier: _refreshNotifier,
+                onRefresh: _refreshWordList,
 
-                  /// Callback ekledik
-                );
-              });
+                /// Callback ekledik
+              );
+            },
+          );
         } else {
           return const CircularProgressIndicator();
         }
