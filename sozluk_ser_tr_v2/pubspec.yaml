@@ -22,7 +22,7 @@ dependencies:
   package_info_plus: ^8.0.0
   flag:
   firebase_ui_firestore:
-  carousel_slider:
+  carousel_slider: ^5.0.0
   path_provider:
   fluttertoast:
 

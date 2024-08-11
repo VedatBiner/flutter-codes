@@ -16,6 +16,7 @@ final List<Map<String, dynamic>> drawerItems = [
   {"title": "İşaret Sıfatları", "page": AppRoute.isaretSifatlari},
   {"title": "Sahiplik Sıfatları", "page": AppRoute.sahiplikSifatlari},
   {"title": "Gelecek Zaman", "page": AppRoute.gelecekZaman},
+  {"title": "Sık Kullanılan Fiiler", "page": AppRoute.fiillerDict},
 ];
 
 /// Drawer titles
@@ -34,4 +35,5 @@ const String appBarGecisliDonusluFillerTitle = "Geçişli ve Dönüşlü Fiiller
 const String appBarIsaretSifatlariTitle = "İşaret Sıfatları";
 const String appBarSahiplikSifatlariTitle = "Sahiplik Sıfatları";
 const String appBarGelecekZamanTitle = "Gelecek Zaman";
+const String appBarFiilTitle = "Sırpça 'da Çok Kullanılan Fiiller";
 const String appBarSettingsTitle = "Settings Page";

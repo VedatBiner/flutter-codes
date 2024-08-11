@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../help_pages/sayfa_cinsiyet.dart';
 import '../help_pages/sayfa_cogul.dart';
+import '../help_pages/sayfa_fiiller_dict.dart';
 import '../help_pages/sayfa_gecisli_donuslu_fiiller.dart';
 import '../help_pages/sayfa_gelecek_zaman.dart';
 import '../help_pages/sayfa_isaret_sifatlari.dart';
@@ -44,6 +45,7 @@ final class AppRoute {
   static String isaretSifatlari = "/home/isaretSifatlari";
   static String sahiplikSifatlari = "/home/sahiplikSifatlari";
   static String gelecekZaman = "/home/gelecekZaman";
+  static String fiillerDict = "/home/fiilerDict";
 
   static FsWords? word;
 
@@ -68,6 +70,8 @@ final class AppRoute {
         _buildSahiplikSifatlari(context),
     gelecekZaman: (context) =>
         _buildGelecekZaman(context),
+    fiillerDict: (context) =>
+        _buildFiillerDict(context),
   };
 
   static Widget _buildSayfaLatin(BuildContext context) {
@@ -112,6 +116,10 @@ final class AppRoute {
 
   static Widget _buildGelecekZaman(BuildContext context) {
     return const SayfaGelecekZaman();
+  }
+
+  static Widget _buildFiillerDict(BuildContext context) {
+    return const SayfaFiillerDict();
   }
 
 }
