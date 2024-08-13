@@ -1,6 +1,6 @@
 /// Latin Harfleri
 final List<Map<String, String>> fiilListA = [
-  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı'},
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
   {'turkce': "Açmak", 'sirpca': 'Otvorati'},
   {'turkce': "Ağlamak", 'sirpca': 'Plakati'},
   {'turkce': "Akmak", 'sirpca': 'Teči'},
@@ -16,7 +16,7 @@ final List<Map<String, String>> fiilListA = [
 ];
 
 final List<Map<String, String>> fiilListB = [
-  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı'},
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
   {'turkce': "Bağırmak", 'sirpca': 'Vikati'},
   {'turkce': "Bağlamak", 'sirpca': 'Povezivati'},
   {'turkce': "Bakmak", 'sirpca': 'Gledati'},
@@ -33,7 +33,85 @@ final List<Map<String, String>> fiilListB = [
 ];
 
 final List<Map<String, String>> fiilListC = [
-  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı'},
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
+  {'turkce': "Çalışmak", 'sirpca': 'Raditi'},
+  {'turkce': "Çalışmak (Ders çalışmak)", 'sirpca': 'Studirati'},
+  {'turkce': "Çalmak (Hırsızlık yapmak)", 'sirpca': 'Krasti'},
+  {'turkce': "Çalmak (Müzik aleti çalmak)", 'sirpca': 'Svirati'},
+  {'turkce': "Çekmek (birini çekmek)", 'sirpca': 'Potezati'},
+  {'turkce': "Çevirmek (Dil çevirisi)", 'sirpca': 'Predoviti'},
+  {'turkce': "Çevirmek (yön çevirmek)", 'sirpca': 'okretati'},
+  {'turkce': "Çıkarmak", 'sirpca': 'Vaditi'},
+  {
+    'turkce': "Çıkmak (evden çıkmak) / Çıkmak (yeni sayı çıkarmak)",
+    'sirpca': 'izlaziti'
+  },
+];
+
+final List<Map<String, String>> fiilListD = [
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
+  {'turkce': "Dayanmak (ağrıya/cezaya)", 'sirpca': 'Izdržavati'},
+  {'turkce': "Değiştirmek", 'sirpca': 'Mijenjati / Promeniti'},
+  {'turkce': "Devam Etmek", 'sirpca': 'Nastavljati'},
+  {'turkce': "Dikkat Etmek", 'sirpca': 'Paziti'},
+  {'turkce': "Dinlemek", 'sirpca': 'Slušati'},
+  {'turkce': "Doğurmak", 'sirpca': 'Roditi'},
+  {'turkce': "Dolaşmak-", 'sirpca': 'Lutati'},
+  {'turkce': "Doldurmak", 'sirpca': 'Puniti'},
+  {'turkce': "Döndürmek", 'sirpca': 'Okrenuti (perfekt)'},
+  {'turkce': "Durdurmak", 'sirpca': 'Zaustavljati'},
+  {'turkce': "Duymak", 'sirpca': 'čuti'},
+  {'turkce': "Düşmek", 'sirpca': 'Padati'},
+  {'turkce': "Düşünmek", 'sirpca': 'Misliti'},
+  {'turkce': "Düzeltmek", 'sirpca': 'Ispravljati'},
+];
+
+final List<Map<String, String>> fiilListE = [
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
+  {'turkce': "Eklemek", 'sirpca': 'Dodavati'},
+  {'turkce': "Etkilemek", 'sirpca': 'uticati'},
+  {'turkce': "Evlendirmek (erkek)", 'sirpca': 'Ženiti'},
+  {'turkce': "Evlendirmek (kadın)", 'sirpca': 'udavati'},
+  {'turkce': "Evlenmek (kadın)", 'sirpca': 'udavati se'},
+  {'turkce': "Evlenmek (erkek)", 'sirpca': 'Ženiti se'},
+];
+
+final List<Map<String, String>> fiilListG = [
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
+  {'turkce': "Geçirmek / Harcamak", 'Prodoviti': '---'},
+  {'turkce': "Geçmek", 'Prolaziti': '---'},
+  {'turkce': "Geliştirmek", 'sirpca': 'Razvijati'},
+  {'turkce': "Gelmek", 'sirpca': 'Dolaziti'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "---", 'sirpca': '---'},
   {'turkce': "---", 'sirpca': '---'},
   {'turkce': "---", 'sirpca': '---'},
   {'turkce': "---", 'sirpca': '---'},

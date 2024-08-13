@@ -109,7 +109,8 @@ const String blankMailAndPassword =
     "E-mail ve şifre alanları boş bırakılamaz !!!";
 const String passwordSize = "Şifreler sekiz (8) karakterden küçük olamaz !!!";
 const String registrationOk =
-    "Kayıt başarıyla tamamlandı. Giriş yapabilirsiniz.";
+    "Kayıt başarıyla tamamlandı. Giriş yap"
+    "abilirsiniz.";
 const String checkPasswords = "Şifreler eşleşmiyor ...";
 const String googleSignInMsg = "Google ile Giriş";
 const String googleSignInFailMsg = "Google ile oturum açma işlemi başarısız.";
