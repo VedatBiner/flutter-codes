@@ -80,6 +80,14 @@ class _SayfaFiillerDictState extends State<SayfaFiillerDict> {
                         (user) => user['sirpca']!,
                   ],
                 ),
+                buildTable(
+                  fiilListH,
+                  "Sırpça Fiiller Sözlüğü (H-İ)",
+                  [
+                        (user) => user['turkce']!,
+                        (user) => user['sirpca']!,
+                  ],
+                ),
               ],
             ),
           ),
