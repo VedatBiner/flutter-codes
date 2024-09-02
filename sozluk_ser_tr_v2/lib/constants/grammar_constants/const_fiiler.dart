@@ -178,17 +178,21 @@ final List<Map<String, String>> fiilListS = [
 
 final List<Map<String, String>> fiilListT = [
   {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
-  {'turkce': "---", 'sirpca': '---'},
+  {'turkce': "Tanımak / Bilmek", 'sirpca': 'Poznavati'},
+  {'turkce': "Taşımak", 'sirpca': 'Nositi'},
+  {'turkce': "Toplamak", 'sirpca': 'Nakupljati'},
+  {'turkce': "Toplamak (İşlem)", 'sirpca': 'Sabirati'},
+  {'turkce': "Uğraşmak / Başa çıkmak", 'sirpca': 'Baviti se'},
+  {'turkce': "Unutmak", 'sirpca': 'Zaboravljati'},
+  {'turkce': "Uyumak", 'sirpca': 'Spavati'},
+  {'turkce': "Uzanmak / Yatmak", 'sirpca': 'Leći'},
+  {'turkce': "Üretmek", 'sirpca': 'Proizvoditi'},
+  {'turkce': "Üzmek", 'sirpca': 'Rastuživati'},
+  {'turkce': "Üzülmek", 'sirpca': 'Rastuživati se'},
+  ];
+
+final List<Map<String, String>> fiilListV = [
+  {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
   {'turkce': "---", 'sirpca': '---'},
   {'turkce': "---", 'sirpca': '---'},
   {'turkce': "---", 'sirpca': '---'},
