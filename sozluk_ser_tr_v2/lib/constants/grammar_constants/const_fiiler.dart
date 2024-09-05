@@ -174,7 +174,7 @@ final List<Map<String, String>> fiilListS = [
   {'turkce': "Sürmek (süreç)", 'sirpca': 'Trajati'},
   {'turkce': "Sürmek (araç)", 'sirpca': 'voziti '},
   {'turkce': "Şarkı söylemek", 'sirpca': 'şarkı söylemek'},
-  ];
+];
 
 final List<Map<String, String>> fiilListT = [
   {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
@@ -189,7 +189,7 @@ final List<Map<String, String>> fiilListT = [
   {'turkce': "Üretmek", 'sirpca': 'Proizvoditi'},
   {'turkce': "Üzmek", 'sirpca': 'Rastuživati'},
   {'turkce': "Üzülmek", 'sirpca': 'Rastuživati se'},
-  ];
+];
 
 final List<Map<String, String>> fiilListV = [
   {'turkce': "Türkçe Fiil", 'sirpca': 'Sırpça Karşılığı (Imperfekt)'},
