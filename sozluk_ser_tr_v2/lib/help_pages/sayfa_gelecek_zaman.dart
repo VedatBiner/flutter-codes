@@ -160,6 +160,26 @@ class _SayfaGelecekZamanState extends State<SayfaGelecekZaman> {
                   (user) => user['çekim']!,
                 ],
               ),
+              const Divider(),
+              buildTable(
+                gelecekZamanSampleJ,
+                "Özne düşürerek kullanım Örnekleri",
+                [
+                  (user) => user['normal']!,
+                  (user) => user['turkce']!,
+                  (user) => user['oznesiz']!,
+                ],
+              ),
+              buildRichTextRule(
+                "Özne düşünce fiilin çekimini sona atıp, fiil ile "
+                "birleştiriyoruz. Sırpça 'da fiilden 'ti' ekini atıp, "
+                "çekim ile birleştiriyoruz. Örneğin 'pripremati' de "
+                "'ti' eki atılıyor.",
+                dashTextA: "'ti'",
+                dashTextB: "'pripremati'",
+                dashTextC: "'ti'",
+                context,
+              ),
             ],
           ),
         ),

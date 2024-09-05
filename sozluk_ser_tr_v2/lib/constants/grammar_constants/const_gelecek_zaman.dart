@@ -336,3 +336,47 @@ final List<Map<String, String>> gelecekZamanSampleI = [
     'çekim': 'su',
   },
 ];
+
+/// Özne Düşürme Alıştırması
+final List<Map<String, String>> gelecekZamanSampleJ = [
+  {
+    'normal': 'normal',
+    'turkce': 'turkce',
+    'oznesiz': 'oznesiz',
+  },
+  {
+    'normal': 'Ja ću pripremati',
+    'turkce': 'Hazırlayacağım',
+    'oznesiz': 'Pripremaću',
+  },
+
+  {
+    'normal': 'Ti ćeš pripremati',
+    'turkce': 'hazırlayacaksın',
+    'oznesiz': 'Pripremaćeš',
+  },
+
+  {
+    'normal': 'On/ona će pripremati',
+    'turkce': 'Hazırlayacak',
+    'oznesiz': 'Pripremaće',
+  },
+
+  {
+    'normal': 'mi ćemo pripremati',
+    'turkce': 'Hazırlayacağız',
+    'oznesiz': 'Pripremaćemo',
+  },
+
+  {
+    'normal': 'vi ćete pripremati',
+    'turkce': 'Hazırlayacaksınız',
+    'oznesiz': 'pripremaćete',
+  },
+
+  {
+    'normal': 'oni/one će pripremati',
+    'turkce': 'hazırlayacaklar',
+    'oznesiz': 'pripremaće',
+  },
+];

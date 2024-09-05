@@ -15,6 +15,7 @@ import '../help_pages/sayfa_latin.dart';
 import '../help_pages/sayfa_sahiplik_sifatlari.dart';
 import '../help_pages/sayfa_simdiki_genis_zaman.dart';
 import '../help_pages/sayfa_soru.dart';
+import '../help_pages/sayfa_uzun_kisa_kelimeler.dart';
 import '../help_pages/sayfa_zamir.dart';
 import '../models/fs_words.dart';
 import '../screens/home_page.dart';
@@ -45,6 +46,7 @@ final class AppRoute {
   static String isaretSifatlari = "/home/isaretSifatlari";
   static String sahiplikSifatlari = "/home/sahiplikSifatlari";
   static String gelecekZaman = "/home/gelecekZaman";
+  static String uzunKisaKelimeler = "/home/uzunKisaKelimeler";
   static String fiillerDict = "/home/fiilerDict";
 
   static FsWords? word;
@@ -70,6 +72,8 @@ final class AppRoute {
         _buildSahiplikSifatlari(context),
     gelecekZaman: (context) =>
         _buildGelecekZaman(context),
+    uzunKisaKelimeler: (context) =>
+        _buildUzunKisaKelimler(context),
     fiillerDict: (context) =>
         _buildFiillerDict(context),
   };
@@ -116,6 +120,10 @@ final class AppRoute {
 
   static Widget _buildGelecekZaman(BuildContext context) {
     return const SayfaGelecekZaman();
+  }
+
+  static Widget _buildUzunKisaKelimler(BuildContext context) {
+    return const SayfaUzunKisaKelimeler();
   }
 
   static Widget _buildFiillerDict(BuildContext context) {
