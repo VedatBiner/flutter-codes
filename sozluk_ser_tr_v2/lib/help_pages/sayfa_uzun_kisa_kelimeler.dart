@@ -56,12 +56,49 @@ class _SayfaUzunKisaKelimelerState extends State<SayfaUzunKisaKelimeler> {
               ),
               buildTable(
                 uzunKisaSampleA,
-                "Örnek - Olmak fiili",
+                "Örnek - biti (Olmak) fiili",
                 [
-                      (user) => user['şahıs']!,
-                      (user) => user['kısa']!,
-                      (user) => user['uzun']!,
-                      (user) => user['olumsuz']!,
+                  (user) => user['şahıs']!,
+                  (user) => user['kısa']!,
+                  (user) => user['uzun']!,
+                  (user) => user['olumsuz']!,
+                ],
+              ),
+              buildTable(
+                uzunKisaSampleB,
+                "Şahıs zamirli ve zamirsiz kullanım",
+                [
+                  (user) => user['zamirli']!,
+                  (user) => user['zamirsiz']!,
+                  (user) => user['turkce']!,
+                ],
+              ),
+              buildTable(
+                uzunKisaSampleC,
+                "da li ve fiil + li kullanım",
+                [
+                  (user) => user['da li']!,
+                  (user) => user['fiil + li']!,
+                  (user) => user['turkce']!,
+                ],
+              ),
+              buildTable(
+                uzunKisaSampleD,
+                "Olumsuz hallerde uzun fiil gibi kullanılacağı için fiil + li "
+                "kalıbı tercih edilir.",
+                [
+                  (user) => user['fiil + li']!,
+                  (user) => user['turkce']!,
+                ],
+              ),
+              buildTable(
+                uzunKisaSampleE,
+                "-",
+                [
+                  (user) => user['şahıs']!,
+                  (user) => user['kısa']!,
+                  (user) => user['uzun']!,
+                  (user) => user['olumsuz']!,
                 ],
               ),
             ],
