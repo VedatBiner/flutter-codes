@@ -23,17 +23,37 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     context.read<LocaleProvider>().setTurkish();
                   },
-                  child: const Text("Türkçe"),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/icons/tr_TR_language_icon.png",
+                        width: 36,
+                        height: 36,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text("Türkçe"),
+                    ],
+                  ),
                 ),
                 const SizedBox(width: 24),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     context.read<LocaleProvider>().setEnglish();
                   },
-                  child: const Text("İngilizce"),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        "assets/icons/en_US_language_icon.png",
+                        width: 36,
+                        height: 36,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text("İngilizce"),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -43,4 +63,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
