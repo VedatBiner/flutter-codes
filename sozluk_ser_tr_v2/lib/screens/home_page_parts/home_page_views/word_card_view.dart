@@ -147,6 +147,14 @@ class _WordCardViewState extends State<WordCardView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(20),
                                 child: Material(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                    side: const BorderSide(
+                                      color: Colors.green, // Çerçeve rengi
+                                      width: 2.0, // Çerçeve kalınlığı
+                                    ),
+                                  ),
+                                  color: themeProvider.isDarkMode ? Colors.black38 : menuColor,
                                   child: EditWordBox(
                                     firstLanguageController:
                                         TextEditingController(

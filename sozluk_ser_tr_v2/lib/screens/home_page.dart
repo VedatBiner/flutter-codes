@@ -409,6 +409,7 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Material(
             borderRadius: BorderRadius.circular(16.0),
+            color: Colors.black38,
             child: AddWordBox(
               firstLanguageText: yardimciDil,
               secondLanguageText: anaDil,

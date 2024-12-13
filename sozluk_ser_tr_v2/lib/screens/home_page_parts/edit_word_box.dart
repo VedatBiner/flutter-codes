@@ -44,6 +44,7 @@ class _EditWordBoxState extends State<EditWordBox> {
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing: 10,
         children: [
           Text(
             'Kelime Düzelt',
@@ -53,8 +54,9 @@ class _EditWordBoxState extends State<EditWordBox> {
               color: themeProvider.isDarkMode ? menuColor : drawerColor,
             ),
           ),
-          const Divider(),
-          const SizedBox(height: 8),
+          Divider(
+            color: themeProvider.isDarkMode ? menuColor : drawerColor,
+          ),
           TextField(
             controller: widget.language == true
                 ? widget.secondLanguageController
@@ -87,7 +89,6 @@ class _EditWordBoxState extends State<EditWordBox> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
           TextField(
             controller: widget.language == true
                 ? widget.firstLanguageController
@@ -120,11 +121,11 @@ class _EditWordBoxState extends State<EditWordBox> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 20,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -138,7 +139,6 @@ class _EditWordBoxState extends State<EditWordBox> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                const SizedBox(width: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: drawerColor,

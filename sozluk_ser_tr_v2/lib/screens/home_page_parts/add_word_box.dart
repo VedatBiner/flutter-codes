@@ -19,7 +19,7 @@ class AddWordBox extends StatelessWidget {
   })  : firstLanguageController = TextEditingController(),
         secondLanguageController = TextEditingController();
 
-  /// burada TextEditingController 'lat tekrar tanımlandı
+  /// burada TextEditingController 'lar tekrar tanımlandı
   /// aksi halde iki text kutusuna da aynı değer yazılır.
   final TextEditingController firstLanguageController;
   final TextEditingController secondLanguageController;
@@ -49,6 +49,7 @@ class AddWordBox extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        spacing: 10,
         children: [
           Text(
             'Kelime Ekle',
@@ -58,8 +59,9 @@ class AddWordBox extends StatelessWidget {
               color: themeProvider.isDarkMode ? menuColor : drawerColor,
             ),
           ),
-          const Divider(),
-          const SizedBox(height: 8),
+          Divider(
+            color: themeProvider.isDarkMode ? menuColor : drawerColor,
+          ),
           TextField(
             controller: firstLanguageController,
             style: TextStyle(
@@ -76,7 +78,6 @@ class AddWordBox extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
           TextField(
             controller: secondLanguageController,
             style: TextStyle(
@@ -93,11 +94,11 @@ class AddWordBox extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 20,
               children: [
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -111,7 +112,6 @@ class AddWordBox extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                const SizedBox(width: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: drawerColor,
