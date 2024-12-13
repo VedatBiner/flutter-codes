@@ -16,7 +16,7 @@ dependencies:
   firebase_core:
   firebase_auth:
   cloud_firestore:
-  google_sign_in:
+  google_sign_in: ^6.2.1
   google_fonts:
   provider:
   package_info_plus: ^8.0.0
@@ -24,13 +24,13 @@ dependencies:
   firebase_ui_firestore:
   carousel_slider: ^5.0.0
   path_provider:
-  fluttertoast:
+  fluttertoast: ^8.2.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
 
