@@ -4,6 +4,8 @@
 /// kelime bilgileri word_list_builder.dart dosyasından geliyor.
 library;
 
+import 'package:elegant_notification/elegant_notification.dart';
+import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer';
@@ -15,7 +17,6 @@ import '../../../models/language_params.dart';
 import '../../../services/firebase_services/auth_services.dart';
 import '../../../services/firebase_services/firestore_services.dart';
 import '../../../services/providers/theme_provider.dart';
-import '../../../utils/snackbar_helper.dart';
 import '../../details_page.dart';
 import '../edit_word_box.dart';
 
@@ -154,7 +155,9 @@ class _WordCardViewState extends State<WordCardView> {
                                       width: 2.0, // Çerçeve kalınlığı
                                     ),
                                   ),
-                                  color: themeProvider.isDarkMode ? Colors.black38 : menuColor,
+                                  color: themeProvider.isDarkMode
+                                      ? Colors.black38
+                                      : menuColor,
                                   child: EditWordBox(
                                     firstLanguageController:
                                         TextEditingController(
@@ -190,16 +193,36 @@ class _WordCardViewState extends State<WordCardView> {
                                       log("Kelime düzeltildi");
 
                                       if (mounted) {
+                                        /// Value Notifier güncelleniyor
+                                        widget.refreshNotifier.value = !widget.refreshNotifier.value;
                                         setState(
                                           () {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              buildSnackBar(
-                                                updateKelime,
-                                                updateMsg,
-                                                MyAuthService.currentUserEmail,
+                                            /// kelime düzeltildi mesajı burada veriliyor
+                                            ElegantNotification.success(
+                                              key: const Key('value'),
+                                              position: Alignment.bottomRight,
+                                              animation: AnimationType.fromRight,
+                                              description: Row(
+                                                children: [
+                                                  Text(
+                                                    updateKelime,
+                                                    style: kelimeStil,
+                                                  ),
+                                                  const Text(' kelimesi '),
+                                                  Text(
+                                                    MyAuthService.currentUserEmail,
+                                                    style: userStil,
+                                                  ),
+                                                  const Text(updateMsg),
+                                                ],
                                               ),
-                                            );
+                                              progressBarHeight: 10,
+                                              progressBarPadding: const EdgeInsets.symmetric(
+                                                horizontal: 20,
+                                              ),
+                                              progressIndicatorBackground: Colors.blue[100]!,
+                                            ).show(context);
+
                                           },
                                         );
                                       }
@@ -319,14 +342,31 @@ class _WordCardViewState extends State<WordCardView> {
             if (mounted) {
               widget.refreshNotifier.value = !widget.refreshNotifier.value;
               setState(() {
-                /// seçilen kelimenin silindiğini belirten uyarı
-                ScaffoldMessenger.of(context).showSnackBar(
-                  buildSnackBar(
-                    silinecekKelime,
-                    deleteMsg,
-                    MyAuthService.currentUserEmail,
+                /// Kelimenin silindiği mesajı burada veriliyor.
+                ElegantNotification.error(
+                  key: const Key('value'),
+                  position: Alignment.bottomRight,
+                  animation: AnimationType.fromRight,
+                  description: Row(
+                    children: [
+                      Text(
+                        silinecekKelime,
+                        style: kelimeStil,
+                      ),
+                      Text(' kelimesi '),
+                      Text(
+                        MyAuthService.currentUserEmail,
+                        style: userStil,
+                      ),
+                      Text(deleteMsg),
+                    ],
                   ),
-                );
+                  progressBarHeight: 10,
+                  progressBarPadding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                  ),
+                  progressIndicatorBackground: Colors.blue[100]!,
+                ).show(context);
               });
             }
             Navigator.pop(context);
