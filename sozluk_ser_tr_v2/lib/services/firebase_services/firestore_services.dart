@@ -30,23 +30,16 @@ class FirestoreService {
     birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
 
     try {
-      var result = await words.where(fsYardimciDil, isEqualTo: ikinciDil).get();
+      var result = await words
+          .where(fsYardimciDil, isEqualTo: ikinciDil)
+          .where(fsAnaDil, isEqualTo: birinciDil)
+          .get();
 
       /// kelime veri tabanında varsa ekleme
       if (result.docs.isNotEmpty) {
 
-        // Fluttertoast.showToast(
-        //   msg: "Bu kelime zaten var",
-        //   toastLength: Toast.LENGTH_SHORT,
-        //   gravity: ToastGravity.CENTER,
-        //   timeInSecForIosWeb: 1,
-        //   backgroundColor: Colors.black,
-        //   textColor: Colors.red,
-        //   fontSize: 16,
-        // );
-
         /// Kelime var mesajı
-        ElegantNotification.info(
+        ElegantNotification(
           width: 360,
           stackedOptions: StackedOptions(
             key: 'left',
@@ -67,10 +60,11 @@ class FirestoreService {
           showProgressIndicator: false,
           onDismiss: () {},
           icon: const Icon(
-            Icons.ac_unit_rounded,
+            Icons.info_outline, // Daha uygun bir ikon
             color: Colors.amber,
           ),
-        );
+        ).show(context); // show() metodu çağrıldı
+
 
         return;
       }
