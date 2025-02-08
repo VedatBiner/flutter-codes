@@ -4,26 +4,25 @@ library;
 import 'dart:developer';
 
 import 'package:elegant_notification/elegant_notification.dart';
-import 'package:elegant_notification/resources/arrays.dart';
-import 'package:elegant_notification/resources/stacked_options.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../constants/app_constants/constants.dart';
+import '../notification_service.dart';
 import 'auth_services.dart';
 
 class FirestoreService {
   final CollectionReference words =
-  FirebaseFirestore.instance.collection("kelimeler");
+      FirebaseFirestore.instance.collection("kelimeler");
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   late ElegantNotification notification;
 
   Future<void> addWord(
-      BuildContext context,
-      String ikinciDil,
-      String birinciDil,
-      String userEmail,
-      ) async {
+    BuildContext context,
+    String ikinciDil,
+    String birinciDil,
+    String userEmail,
+  ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
@@ -37,34 +36,20 @@ class FirestoreService {
 
       /// kelime veri tabanında varsa ekleme
       if (result.docs.isNotEmpty) {
-
         /// Kelime var mesajı
-        ElegantNotification(
-          width: 360,
-          stackedOptions: StackedOptions(
-            key: 'left',
-            type: StackedType.same,
-            scaleFactor: 0.2,
-            itemOffset: const Offset(-20, 10),
+        NotificationService.showCustomNotification(
+          context: context,
+          title: 'Kelime var',
+          message: RichText(
+            text: TextSpan(
+              text: 'Bu kelime zaten var',
+            ),
           ),
-          toastDuration: const Duration(seconds: 5),
-          position: Alignment.centerLeft,
-          animation: AnimationType.fromLeft,
-          title: const Text('Info'),
-          description: const Text(
-            'Bu kelime zaten var',
-          ),
-          onNotificationPressed: () {
-            notification.dismiss();
-          },
-          showProgressIndicator: false,
-          onDismiss: () {},
-          icon: const Icon(
-            Icons.info_outline, // Daha uygun bir ikon
-            color: Colors.amber,
-          ),
-        ).show(context); // show() metodu çağrıldı
-
+          icon: Icons.warning,
+          iconColor: Colors.amber,
+          progressIndicatorColor: Colors.amber[600],
+          progressIndicatorBackground: Colors.amber[100]!,
+        );
 
         return;
       }
@@ -94,7 +79,8 @@ class FirestoreService {
     return wordsStream;
   }
 
-  Future<void> updateWord(String wordId, String firstLang, String secondLang) async {
+  Future<void> updateWord(
+      String wordId, String firstLang, String secondLang) async {
     if (wordId.isEmpty) {
       throw ArgumentError('wordId must be a non-empty string');
     }

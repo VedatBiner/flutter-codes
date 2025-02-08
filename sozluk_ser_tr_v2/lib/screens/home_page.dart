@@ -11,7 +11,6 @@
 /// --------------------------------------------------
 library;
 
-import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
@@ -25,6 +24,7 @@ import '../models/fs_words.dart';
 import '../models/language_params.dart';
 import '../services/firebase_services/auth_services.dart';
 import '../services/firebase_services/firestore_services.dart';
+import '../services/notification_service.dart';
 import '../services/providers/theme_provider.dart';
 import '../services/word_service.dart';
 import '../services/providers/icon_provider.dart';
@@ -432,30 +432,37 @@ class _HomePageState extends State<HomePage> {
                     _wordListFuture = _fetchWordList();
 
                     /// Kelimenin eklendiği mesajı burada veriliyor.
-                    ElegantNotification.success(
-                      key: const Key('value'),
+                    NotificationService.showCustomNotification(
+                      context: context,
+                      title: 'Kelime eklendi',
+                      // message: 'Kelime eklenmiştir',
+                      message: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: firstLang,
+                              style: kelimeStil,
+                            ),
+                            const TextSpan(
+                              text: ' kelimesi ',
+                            ),
+                            TextSpan(
+                              text: MyAuthService.currentUserEmail,
+                              style: userStil,
+                            ),
+                            TextSpan(
+                              text: addMsg,
+                            ),
+                          ],
+                        ),
+                      ),
+                      icon: Icons.check_circle_rounded,
+                      iconColor: Colors.green,
                       position: Alignment.bottomLeft,
                       animation: AnimationType.fromLeft,
-                      description: Row(
-                        children: [
-                          Text(
-                            firstLang,
-                            style: kelimeStil,
-                          ),
-                          Text(' kelimesi '),
-                          Text(
-                            MyAuthService.currentUserEmail,
-                            style: userStil,
-                          ),
-                          Text(addMsg),
-                        ],
-                      ),
-                      progressBarHeight: 10,
-                      progressBarPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      progressIndicatorBackground: Colors.blue[100]!,
-                    ).show(context);
+                      progressIndicatorColor: Colors.green[600],
+                      progressIndicatorBackground: Colors.green[100]!,
+                    );
 
                     Navigator.of(context).pop();
                   },

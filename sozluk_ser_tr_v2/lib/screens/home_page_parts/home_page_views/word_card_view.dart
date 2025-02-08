@@ -4,7 +4,6 @@
 /// kelime bilgileri word_list_builder.dart dosyasından geliyor.
 library;
 
-import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +15,7 @@ import '../../../models/fs_words.dart';
 import '../../../models/language_params.dart';
 import '../../../services/firebase_services/auth_services.dart';
 import '../../../services/firebase_services/firestore_services.dart';
+import '../../../services/notification_service.dart';
 import '../../../services/providers/theme_provider.dart';
 import '../../details_page.dart';
 import '../edit_word_box.dart';
@@ -194,35 +194,44 @@ class _WordCardViewState extends State<WordCardView> {
 
                                       if (mounted) {
                                         /// Value Notifier güncelleniyor
-                                        widget.refreshNotifier.value = !widget.refreshNotifier.value;
+                                        widget.refreshNotifier.value =
+                                            !widget.refreshNotifier.value;
                                         setState(
                                           () {
                                             /// kelime düzeltildi mesajı burada veriliyor
-                                            ElegantNotification.success(
-                                              key: const Key('value'),
-                                              position: Alignment.bottomRight,
-                                              animation: AnimationType.fromRight,
-                                              description: Row(
-                                                children: [
-                                                  Text(
-                                                    updateKelime,
-                                                    style: kelimeStil,
-                                                  ),
-                                                  const Text(' kelimesi '),
-                                                  Text(
-                                                    MyAuthService.currentUserEmail,
-                                                    style: userStil,
-                                                  ),
-                                                  const Text(updateMsg),
-                                                ],
+                                            NotificationService
+                                                .showCustomNotification(
+                                              context: context,
+                                              title: 'Kelime düzeltildi',
+                                              message: RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: firstLang,
+                                                      style: kelimeStil,
+                                                    ),
+                                                    const TextSpan(
+                                                      text: ' kelimesi ',
+                                                    ),
+                                                    TextSpan(
+                                                      text: MyAuthService
+                                                          .currentUserEmail,
+                                                      style: userStil,
+                                                    ),
+                                                    TextSpan(
+                                                      text: updateMsg,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                              progressBarHeight: 10,
-                                              progressBarPadding: const EdgeInsets.symmetric(
-                                                horizontal: 20,
-                                              ),
-                                              progressIndicatorBackground: Colors.blue[100]!,
-                                            ).show(context);
-
+                                              icon: Icons.check_circle_rounded,
+                                              iconColor: Colors.blueAccent,
+                                              position: Alignment.bottomLeft,
+                                              animation: AnimationType.fromLeft,
+                                              progressIndicatorColor: Colors.blue[600],
+                                              progressIndicatorBackground:
+                                                  Colors.blue[100]!,
+                                            );
                                           },
                                         );
                                       }
@@ -343,30 +352,36 @@ class _WordCardViewState extends State<WordCardView> {
               widget.refreshNotifier.value = !widget.refreshNotifier.value;
               setState(() {
                 /// Kelimenin silindiği mesajı burada veriliyor.
-                ElegantNotification.error(
-                  key: const Key('value'),
-                  position: Alignment.bottomRight,
-                  animation: AnimationType.fromRight,
-                  description: Row(
-                    children: [
-                      Text(
-                        silinecekKelime,
-                        style: kelimeStil,
-                      ),
-                      Text(' kelimesi '),
-                      Text(
-                        MyAuthService.currentUserEmail,
-                        style: userStil,
-                      ),
-                      Text(deleteMsg),
-                    ],
+                NotificationService.showCustomNotification(
+                  context: context,
+                  title: 'Kelime silindi',
+                  message: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: silinecekKelime,
+                          style: kelimeStil,
+                        ),
+                        const TextSpan(
+                          text: ' kelimesi ',
+                        ),
+                        TextSpan(
+                          text: MyAuthService.currentUserEmail,
+                          style: userStil,
+                        ),
+                        TextSpan(
+                          text: deleteMsg,
+                        ),
+                      ],
+                    ),
                   ),
-                  progressBarHeight: 10,
-                  progressBarPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  progressIndicatorBackground: Colors.blue[100]!,
-                ).show(context);
+                  icon: Icons.delete,
+                  iconColor: Colors.red,
+                  position: Alignment.bottomLeft,
+                  animation: AnimationType.fromLeft,
+                  progressIndicatorColor: Colors.red[600],
+                  progressIndicatorBackground: Colors.red[100]!,
+                );
               });
             }
             Navigator.pop(context);
