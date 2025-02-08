@@ -434,7 +434,6 @@ class _HomePageState extends State<HomePage> {
                     /// Kelimenin eklendiği mesajı burada veriliyor.
                     ElegantNotification.success(
                       key: const Key('value'),
-                      // width: 360,
                       position: Alignment.bottomLeft,
                       animation: AnimationType.fromLeft,
                       description: Row(

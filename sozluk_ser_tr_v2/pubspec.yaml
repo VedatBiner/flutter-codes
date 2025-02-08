@@ -24,7 +24,6 @@ dependencies:
   firebase_ui_firestore:
   carousel_slider: ^5.0.0
   path_provider:
-  fluttertoast: ^8.2.8
   elegant_notification:
 
 dev_dependencies:

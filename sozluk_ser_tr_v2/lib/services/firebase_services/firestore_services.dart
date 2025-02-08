@@ -3,9 +3,12 @@ library;
 
 import 'dart:developer';
 
+import 'package:elegant_notification/elegant_notification.dart';
+import 'package:elegant_notification/resources/arrays.dart';
+import 'package:elegant_notification/resources/stacked_options.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../constants/app_constants/constants.dart';
 import 'auth_services.dart';
 
@@ -13,6 +16,7 @@ class FirestoreService {
   final CollectionReference words =
   FirebaseFirestore.instance.collection("kelimeler");
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  late ElegantNotification notification;
 
   Future<void> addWord(
       BuildContext context,
@@ -30,15 +34,44 @@ class FirestoreService {
 
       /// kelime veri tabanında varsa ekleme
       if (result.docs.isNotEmpty) {
-        Fluttertoast.showToast(
-          msg: "Bu kelime zaten var",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black,
-          textColor: Colors.red,
-          fontSize: 16,
+
+        // Fluttertoast.showToast(
+        //   msg: "Bu kelime zaten var",
+        //   toastLength: Toast.LENGTH_SHORT,
+        //   gravity: ToastGravity.CENTER,
+        //   timeInSecForIosWeb: 1,
+        //   backgroundColor: Colors.black,
+        //   textColor: Colors.red,
+        //   fontSize: 16,
+        // );
+
+        /// Kelime var mesajı
+        ElegantNotification.info(
+          width: 360,
+          stackedOptions: StackedOptions(
+            key: 'left',
+            type: StackedType.same,
+            scaleFactor: 0.2,
+            itemOffset: const Offset(-20, 10),
+          ),
+          toastDuration: const Duration(seconds: 5),
+          position: Alignment.centerLeft,
+          animation: AnimationType.fromLeft,
+          title: const Text('Info'),
+          description: const Text(
+            'Bu kelime zaten var',
+          ),
+          onNotificationPressed: () {
+            notification.dismiss();
+          },
+          showProgressIndicator: false,
+          onDismiss: () {},
+          icon: const Icon(
+            Icons.ac_unit_rounded,
+            color: Colors.amber,
+          ),
         );
+
         return;
       }
 
