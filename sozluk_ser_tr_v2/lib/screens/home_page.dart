@@ -182,8 +182,14 @@ class _HomePageState extends State<HomePage> {
   /// Kelime listesi güncelleme
   void _refreshWordList() {
     setState(() {
+      /// listeyi çek
       _wordListFuture = _fetchWordList();
-      _refreshNotifier.value = !_refreshNotifier.value;
+      if (mounted) {
+        setState(() {});
+      }
+      // _refreshNotifier.value = !_refreshNotifier.value;
+      // /// Bildirim gönder
+      // _refreshNotifier.notifyListeners();
     });
   }
 

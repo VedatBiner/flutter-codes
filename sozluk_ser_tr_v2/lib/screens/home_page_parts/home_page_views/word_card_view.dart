@@ -228,7 +228,8 @@ class _WordCardViewState extends State<WordCardView> {
                                               iconColor: Colors.blueAccent,
                                               position: Alignment.bottomLeft,
                                               animation: AnimationType.fromLeft,
-                                              progressIndicatorColor: Colors.blue[600],
+                                              progressIndicatorColor:
+                                                  Colors.blue[600],
                                               progressIndicatorBackground:
                                                   Colors.blue[100]!,
                                             );
