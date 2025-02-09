@@ -33,7 +33,7 @@ Yapılan Düzeltmeler
 16. Eğer Web erişimli girerse firestore 'doğrudan yazma ve düzeltme olsun, aksi halde liste yapısı kullanılsın.'
 17. ekleme, düzeltme ve silem işlemlerinde alttaki mesajların kütüphanesi değiştirildi. elegant_notification paketi kullanılıyor.
 18. flutter_toast kütüphanesi kaldırıldı.
-19. kelime varsa mesaj çıkmasında bir problem var. Aynı andaa var ve eklenid mesajı çıkıyor
-20. snacbar_helper.dart dosyası silindi.
-21. notificatio_service.dart dosyası ile tüm notificasyonlar tek fonksiyon ile çalışır hale geldi.
+19. snackbar_helper.dart dosyası silindi.
+20. notificatio_service.dart dosyası ile tüm notificasyonlar tek fonksiyon ile çalışır hale geldi.
+21. kelime kontrol hataları giderildi.
 

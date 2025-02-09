@@ -3,57 +3,31 @@ library;
 
 import 'dart:developer';
 
-import 'package:elegant_notification/elegant_notification.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../constants/app_constants/constants.dart';
-import '../notification_service.dart';
+import '../../models/fs_words.dart';
 import 'auth_services.dart';
 
 class FirestoreService {
   final CollectionReference words =
-      FirebaseFirestore.instance.collection("kelimeler");
+  FirebaseFirestore.instance.collection(collectionName);
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  late ElegantNotification notification;
 
+  /// Kelime ekleme metodu
   Future<void> addWord(
-    BuildContext context,
-    String ikinciDil,
-    String birinciDil,
-    String userEmail,
-  ) async {
+      BuildContext context,
+      String ikinciDil,
+      String birinciDil,
+      String userEmail,
+      ) async {
     /// eklenecek kelimelerin baş harfleri
     /// büyük harfe çevriliyor
     ikinciDil = ikinciDil[0].toUpperCase() + ikinciDil.substring(1);
     birinciDil = birinciDil[0].toUpperCase() + birinciDil.substring(1);
 
     try {
-      var result = await words
-          .where(fsYardimciDil, isEqualTo: ikinciDil)
-          .where(fsAnaDil, isEqualTo: birinciDil)
-          .get();
-
-      /// kelime veri tabanında varsa ekleme
-      if (result.docs.isNotEmpty) {
-        /// Kelime var mesajı
-        NotificationService.showCustomNotification(
-          context: context,
-          title: 'Kelime var',
-          message: RichText(
-            text: TextSpan(
-              text: 'Bu kelime zaten var',
-            ),
-          ),
-          icon: Icons.warning,
-          iconColor: Colors.amber,
-          progressIndicatorColor: Colors.amber[600],
-          progressIndicatorBackground: Colors.amber[100]!,
-        );
-
-        return;
-      }
-
       /// kelime veri tabanında yoksa ekle
       await words.add({
         fsYardimciDil: ikinciDil,
@@ -63,6 +37,28 @@ class FirestoreService {
       log("Bu kelime, ${MyAuthService.currentUserEmail} tarafından eklenmiştir.");
     } catch (e) {
       log("Error adding word: $e");
+    }
+  }
+
+  /// Kelime var mı kontrolü
+  Future<bool> checkWordExists(String firstLang, String secondLang) async {
+    try {
+      final collection = FirebaseFirestore.instance
+          .collection(collectionName)
+          .withConverter<FsWords>(
+        fromFirestore: (snapshot, _) => FsWords.fromJson(snapshot.data()!),
+        toFirestore: (word, _) => word.toJson(),
+      );
+
+      final querySnapshot = await collection
+          .where(fsYardimciDil, isEqualTo: firstLang)
+          .where(fsAnaDil, isEqualTo: secondLang)
+          .get();
+
+      return querySnapshot.docs.isNotEmpty; // Eğer belge varsa true, yoksa false
+    } catch (e) {
+      log("Hata: $e");
+      return false; // Hata durumunda false döndür
     }
   }
 
@@ -86,9 +82,9 @@ class FirestoreService {
     }
 
     try {
-      await _db.collection('kelimeler').doc(wordId).update({
-        'sirpca': firstLang,
-        'turkce': secondLang,
+      await _db.collection(collectionName).doc(wordId).update({
+        fsYardimciDil: firstLang,
+        fsAnaDil: secondLang,
       });
     } catch (e) {
       log('Error updating word: $e');

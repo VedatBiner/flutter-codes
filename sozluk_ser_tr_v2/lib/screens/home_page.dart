@@ -421,21 +421,42 @@ class _HomePageState extends State<HomePage> {
                 String secondLang,
                 String email,
               ) async {
-                await _firestoreService.addWord(
-                  context,
+                /// Kelime var mı kontrol et
+                bool wordExists = await _firestoreService.checkWordExists(
                   language == true ? firstLang : secondLang,
                   language == true ? secondLang : firstLang,
-                  email,
                 );
-                setState(
-                  () {
+
+                if (wordExists) {
+                  /// Kelime varsa "Kelime var" mesajını göster
+                  NotificationService.showCustomNotification(
+                    context: context,
+                    title: 'Kelime var',
+                    message: RichText(
+                      text: const TextSpan(
+                        text: 'Bu kelime zaten var',
+                      ),
+                    ),
+                    icon: Icons.warning,
+                    iconColor: Colors.amber,
+                    progressIndicatorColor: Colors.amber[600],
+                    progressIndicatorBackground: Colors.amber[100]!,
+                  );
+                } else {
+                  /// Kelime yoksa ekleme işlemini yap
+                  await _firestoreService.addWord(
+                    context,
+                    language == true ? firstLang : secondLang,
+                    language == true ? secondLang : firstLang,
+                    email,
+                  );
+                  setState(() {
                     _wordListFuture = _fetchWordList();
 
                     /// Kelimenin eklendiği mesajı burada veriliyor.
                     NotificationService.showCustomNotification(
                       context: context,
                       title: 'Kelime eklendi',
-                      // message: 'Kelime eklenmiştir',
                       message: RichText(
                         text: TextSpan(
                           children: [
@@ -463,10 +484,10 @@ class _HomePageState extends State<HomePage> {
                       progressIndicatorColor: Colors.green[600],
                       progressIndicatorBackground: Colors.green[100]!,
                     );
+                  });
+                }
 
-                    Navigator.of(context).pop();
-                  },
-                );
+                Navigator.of(context).pop();
               },
             ),
           ),
