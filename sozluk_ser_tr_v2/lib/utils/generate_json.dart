@@ -1,4 +1,7 @@
 /// <----- generate_json.dart ----->
+/// JSON formatında sözlük listesi
+/// burada oluşturuluyor.
+///
 library;
 
 import 'dart:convert';
@@ -25,7 +28,7 @@ Future<void> generateAndWriteJson() async {
 /// JSON formatına dönüştürme fonksiyonu
 String convertToJson(List<FsWords> words) {
   List<Map<String, dynamic>> wordList =
-  words.map((word) => word.toJson()).toList();
+      words.map((word) => word.toJson()).toList();
   return jsonEncode(wordList);
 }
 

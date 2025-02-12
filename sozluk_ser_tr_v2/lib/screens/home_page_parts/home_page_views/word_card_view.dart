@@ -160,24 +160,24 @@ class _WordCardViewState extends State<WordCardView> {
                                       : menuColor,
                                   child: EditWordBox(
                                     firstLanguageController:
-                                    TextEditingController(
+                                        TextEditingController(
                                       text: widget.firstLanguageText,
                                     ),
                                     secondLanguageController:
-                                    TextEditingController(
+                                        TextEditingController(
                                       text: widget.secondLanguageText,
                                     ),
                                     firstLanguageText: widget.firstLanguageText,
                                     secondLanguageText:
-                                    widget.secondLanguageText,
+                                        widget.secondLanguageText,
                                     currentUserEmail: email,
                                     language: language,
                                     wordId: widget.word.wordId,
                                     onWordUpdated: (
-                                        String wordId,
-                                        String secondLang,
-                                        String firstLang,
-                                        ) async {
+                                      String wordId,
+                                      String secondLang,
+                                      String firstLang,
+                                    ) async {
                                       String updateKelime = language
                                           ? widget.word.sirpca ?? ""
                                           : widget.word.turkce ?? "";
@@ -195,9 +195,9 @@ class _WordCardViewState extends State<WordCardView> {
                                       if (mounted) {
                                         /// Value Notifier güncelleniyor
                                         widget.refreshNotifier.value =
-                                        !widget.refreshNotifier.value;
+                                            !widget.refreshNotifier.value;
                                         setState(
-                                              () {
+                                          () {
                                             /// kelime düzeltildi mesajı burada veriliyor
                                             NotificationService
                                                 .showCustomNotification(
@@ -229,9 +229,9 @@ class _WordCardViewState extends State<WordCardView> {
                                               position: Alignment.bottomLeft,
                                               animation: AnimationType.fromLeft,
                                               progressIndicatorColor:
-                                              Colors.blue[600],
+                                                  Colors.blue[600],
                                               progressIndicatorBackground:
-                                              Colors.blue[100]!,
+                                                  Colors.blue[100]!,
                                             );
                                           },
                                         );
@@ -282,15 +282,15 @@ class _WordCardViewState extends State<WordCardView> {
   /// Burada kelime silme işlemi için
   /// dialog kutusu oluşturuyoruz.
   AlertDialog buildAlertDialog(
-      BuildContext context,
-      bool language,
-      FirestoreService firestoreService,
-      ) {
+    BuildContext context,
+    bool language,
+    FirestoreService firestoreService,
+  ) {
     String silinecekKelime =
-    language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
+        language ? widget.word.sirpca ?? "" : widget.word.turkce ?? "";
     return AlertDialog(
       backgroundColor:
-      Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+          Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
         side: const BorderSide(
