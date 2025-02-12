@@ -199,40 +199,8 @@ class _WordCardViewState extends State<WordCardView> {
                                         setState(
                                           () {
                                             /// kelime düzeltildi mesajı burada veriliyor
-                                            NotificationService
-                                                .showCustomNotification(
-                                              context: context,
-                                              title: 'Kelime düzeltildi',
-                                              message: RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text: firstLang,
-                                                      style: kelimeStil,
-                                                    ),
-                                                    const TextSpan(
-                                                      text: ' kelimesi ',
-                                                    ),
-                                                    TextSpan(
-                                                      text: MyAuthService
-                                                          .currentUserEmail,
-                                                      style: userStil,
-                                                    ),
-                                                    TextSpan(
-                                                      text: updateMsg,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              icon: Icons.check_circle_rounded,
-                                              iconColor: Colors.blueAccent,
-                                              position: Alignment.bottomLeft,
-                                              animation: AnimationType.fromLeft,
-                                              progressIndicatorColor:
-                                                  Colors.blue[600],
-                                              progressIndicatorBackground:
-                                                  Colors.blue[100]!,
-                                            );
+                                            showUpdateNotification(
+                                                context, firstLang);
                                           },
                                         );
                                       }
@@ -276,6 +244,40 @@ class _WordCardViewState extends State<WordCardView> {
           ),
         ),
       ),
+    );
+  }
+
+  /// Güncelleme işlemi için Notification burada veriliyor
+  void showUpdateNotification(BuildContext context, String firstLang) {
+    return NotificationService.showCustomNotification(
+      context: context,
+      title: 'Kelime düzeltildi',
+      message: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: firstLang,
+              style: kelimeStil,
+            ),
+            const TextSpan(
+              text: ' kelimesi ',
+            ),
+            TextSpan(
+              text: MyAuthService.currentUserEmail,
+              style: userStil,
+            ),
+            TextSpan(
+              text: updateMsg,
+            ),
+          ],
+        ),
+      ),
+      icon: Icons.check_circle_rounded,
+      iconColor: Colors.blueAccent,
+      position: Alignment.bottomLeft,
+      animation: AnimationType.fromLeft,
+      progressIndicatorColor: Colors.blue[600],
+      progressIndicatorBackground: Colors.blue[100]!,
     );
   }
 
@@ -353,36 +355,7 @@ class _WordCardViewState extends State<WordCardView> {
               widget.refreshNotifier.value = !widget.refreshNotifier.value;
               setState(() {
                 /// Kelimenin silindiği mesajı burada veriliyor.
-                NotificationService.showCustomNotification(
-                  context: context,
-                  title: 'Kelime silindi',
-                  message: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: silinecekKelime,
-                          style: kelimeStil,
-                        ),
-                        const TextSpan(
-                          text: ' kelimesi ',
-                        ),
-                        TextSpan(
-                          text: MyAuthService.currentUserEmail,
-                          style: userStil,
-                        ),
-                        TextSpan(
-                          text: deleteMsg,
-                        ),
-                      ],
-                    ),
-                  ),
-                  icon: Icons.delete,
-                  iconColor: Colors.red,
-                  position: Alignment.bottomLeft,
-                  animation: AnimationType.fromLeft,
-                  progressIndicatorColor: Colors.red[600],
-                  progressIndicatorBackground: Colors.red[100]!,
-                );
+                showDeleteNotification(context, silinecekKelime);
               });
             }
             Navigator.pop(context);
@@ -398,6 +371,40 @@ class _WordCardViewState extends State<WordCardView> {
           ),
         ),
       ],
+    );
+  }
+
+  /// Silme işlemi için notification
+  void showDeleteNotification(BuildContext context, String silinecekKelime) {
+    return NotificationService.showCustomNotification(
+      context: context,
+      title: 'Kelime silindi',
+      message: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: silinecekKelime,
+              style: kelimeStil,
+            ),
+            const TextSpan(
+              text: ' kelimesi ',
+            ),
+            TextSpan(
+              text: MyAuthService.currentUserEmail,
+              style: userStil,
+            ),
+            TextSpan(
+              text: deleteMsg,
+            ),
+          ],
+        ),
+      ),
+      icon: Icons.delete,
+      iconColor: Colors.red,
+      position: Alignment.bottomLeft,
+      animation: AnimationType.fromLeft,
+      progressIndicatorColor: Colors.red[600],
+      progressIndicatorBackground: Colors.red[100]!,
     );
   }
 }
