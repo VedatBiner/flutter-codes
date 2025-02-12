@@ -134,4 +134,23 @@ class FirestoreService {
       log("Error adding field to all documents: $e");
     }
   }
+
+  /// Firestore'dan kelimeleri çek
+  Future<List<FsWords>> fetchWords() async {
+    try {
+      QuerySnapshot querySnapshot = await words.orderBy("sirpca").get();
+      return querySnapshot.docs.map((doc) {
+        return FsWords(
+          wordId: doc.id,
+          turkce: doc['turkce'] ?? '',
+          sirpca: doc['sirpca'] ?? '',
+          userEmail: doc['userEmail'],
+        );
+      }).toList();
+    } catch (e) {
+      log("Firestore'dan kelimeler çekilemedi: $e");
+      return [];
+    }
+  }
+
 }

@@ -46,7 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             onPressed: () async {
               /// Firestore verisinden JSON dosya oluşturup yazıyoruz
-              await generateAndWriteJson(_wordService);
+              await generateAndWriteJson();
             },
             child: Text(
               jsonMsg,

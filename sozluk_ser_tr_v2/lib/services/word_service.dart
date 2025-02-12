@@ -24,13 +24,7 @@ class WordService {
   }
 
   Future<void> jsonInit() async {
-    await generateAndWriteJson(this);
-  }
-
-  /// firestore 'dan verileri çekiyoruz
-  Future<List<FsWords>> fetchWords() async {
-    final querySnapshot = await collection.orderBy("sirpca").get();
-    return querySnapshot.docs.map((doc) => doc.data()).toList();
+    await generateAndWriteJson();
   }
 
   /// json dosyası burada oluşturuluyor
