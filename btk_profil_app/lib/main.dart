@@ -30,7 +30,11 @@ class MyApp extends StatelessWidget {
   }
 
   /// Kullanıcı bilgisini oluşturan fonksiyon
-  Widget _buildUserAndTitle(String userInfo, int fontSize, Color colorInfo) {
+  Widget _buildUserAndTitle(
+    String userInfo,
+    int fontSize, {
+    required Color colorInfo,
+  }) {
     return Text(
       userInfo,
       style: TextStyle(
@@ -65,8 +69,12 @@ class MyApp extends StatelessWidget {
           spacing: 10,
           children: [
             buildCircleAvatar(),
-            _buildUserAndTitle("Vedat Biner", 24, Colors.black87),
-            _buildUserAndTitle("Flutter Developer", 18, Colors.black54),
+            _buildUserAndTitle("Vedat Biner", 24, colorInfo: Colors.black87),
+            _buildUserAndTitle(
+              "Flutter Developer",
+              18,
+              colorInfo: Colors.black54,
+            ),
             buildCard(),
             buildCard2(),
           ],
@@ -102,20 +110,19 @@ class MyApp extends StatelessWidget {
 
   /// İkinci Card burada oluşuyor
   Card buildCard2() {
-    return const Card(
+    return Card(
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           spacing: 20,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Hakkımda ",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Text(
+            _buildUserAndTitle("Hakkımda", 18, colorInfo: Colors.black87),
+            _buildUserAndTitle(
               "Flutter ile mobil uygulama geliştirmeyi seviyorum. "
               "Yeni teknolojiler öğrenmek çok keyifli",
+              16,
+              colorInfo: Colors.black54,
             ),
           ],
         ),
