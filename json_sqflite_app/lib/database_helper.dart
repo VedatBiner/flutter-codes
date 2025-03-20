@@ -1,3 +1,9 @@
+/// <----- database_helper.dart ----->
+///
+library;
+
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -17,7 +23,7 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'ser_tr_dict.db');
 
-    print("📂 SQLite veritabanı konumu: $path"); // Veritabanı yolunu yazdır
+    log("📂 SQLite veritabanı konumu: $path"); // Veritabanı yolunu yazdır
 
     return await openDatabase(
       path,
@@ -59,18 +65,18 @@ class DatabaseHelper {
           'userEmail': item['userEmail'],
         });
       } else {
-        print("⚠️ Bu veri zaten var: ${item['sirpca']} - ${item['turkce']}");
+        log("⚠️ Bu veri zaten var: ${item['sirpca']} - ${item['turkce']}");
       }
     }
 
-    print("Veriler SQLite veritabanına eklendi.");
+    log("Veriler SQLite veritabanına eklendi.");
   }
 
   /// 📌 **Bu yeni metodu ekledik!**
   Future<void> resetDatabase() async {
     final db = await instance.database;
     await db.delete('words'); // Veritabanındaki tüm verileri siler
-    print("🗑️ Veritabanı sıfırlandı!");
+    log("🗑️ Veritabanı sıfırlandı!");
   }
 
   /// 📌 **Bu yeni metodu ekledik!**
@@ -87,7 +93,7 @@ class DatabaseHelper {
       conflictAlgorithm: ConflictAlgorithm.ignore, // Tekrar eden verileri önlemek için
     );
 
-    print("📥 Tekil veri eklendi: ${item['sirpca']} - ${item['turkce']}");
+    log("📥 Tekil veri eklendi: ${item['sirpca']} - ${item['turkce']}");
   }
 
 
