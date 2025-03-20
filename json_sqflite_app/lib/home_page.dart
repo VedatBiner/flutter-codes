@@ -1,13 +1,12 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'database_helper.dart';
-import 'dart:developer';
+/// <----- main.dart ----->
+///
+library;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await DatabaseHelper.instance.database;
-  runApp(HomePage());
-}
+import 'package:flutter/material.dart';
+import 'dart:developer';
+import 'dart:convert';
+
+import 'database_helper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,14 +17,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> dbData = [];
-  List<Map<String, dynamic>> filteredData = [];
   int itemCount = 0;
   double progress = 0.0;
   bool isLoading = true;
-  TextEditingController searchController = TextEditingController();
-  TextEditingController sirpcaController = TextEditingController();
-  TextEditingController turkceController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
 
   @override
   void initState() {
@@ -38,49 +32,65 @@ class _HomePageState extends State<HomePage> {
     final data = await DatabaseHelper.instance.getAllData();
     log("📊 SQLite 'den gelen veri sayısı: ${data.length}");
 
-    setState(() {
-      dbData = data;
-      filteredData = data;
-      itemCount = data.length;
-      progress = 1.0;
-      isLoading = false;
-    });
-  }
+    if (data.isEmpty) {
+      log("📂 Veritabanı boş, JSON 'dan veri ekleniyor...");
+      setState(() {
+        progress = 0.0;
+        isLoading = true;
+      });
 
-  void filterSearchResults(String query) {
-    List<Map<String, dynamic>> tempList = [];
-    if (query.isNotEmpty) {
-      tempList = dbData
-          .where((item) => item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
-          item['turkce'].toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      try {
+        log("🟢 JSON dosyası yükleniyor...");
+        final jsonString = await DefaultAssetBundle.of(
+          context,
+        ).loadString('assets/database/ser_tr_dict.json');
+        log("✅ JSON Yükleme Başarılı!");
+
+        final List<dynamic> jsonData = json.decode(jsonString);
+        log("📝 JSON içinde ${jsonData.length} veri var.");
+
+        for (int i = 0; i < jsonData.length; i++) {
+          await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
+
+          // UI Güncellemesi: Her 500 kayıttan sonra ekranı güncelle
+          if (i % 500 == 0 || i == jsonData.length - 1) {
+            final updatedData = await DatabaseHelper.instance.getAllData();
+            setState(() {
+              dbData = updatedData;
+              itemCount = updatedData.length;
+              progress = (i + 1) / jsonData.length;
+            });
+          }
+        }
+
+        setState(() {
+          isLoading = false;
+          progress = 1.0;
+        });
+        log("📥 JSON verisi SQLite'a kaydedildi.");
+      } catch (e) {
+        log("❌ Hata oluştu: $e");
+      }
     } else {
-      tempList = dbData;
+      log("📊 Veriler bulundu, ekrana yükleniyor...");
+      setState(() {
+        dbData = data;
+        itemCount = data.length;
+        progress = 1.0;
+        isLoading = false;
+      });
     }
-    setState(() {
-      filteredData = tempList;
-      itemCount = filteredData.length;
-    });
   }
 
-  Future<void> addNewWord() async {
-    if (sirpcaController.text.isEmpty || turkceController.text.isEmpty || emailController.text.isEmpty) {
-      return;
-    }
-
-    Map<String, dynamic> newWord = {
-      'sirpca': sirpcaController.text,
-      'turkce': turkceController.text,
-      'userEmail': emailController.text,
-    };
-
-    await DatabaseHelper.instance.insertSingleItem(newWord);
-    log("✅ Yeni veri eklendi: ${newWord['sirpca']} - ${newWord['turkce']}");
-
-    sirpcaController.clear();
-    turkceController.clear();
-    emailController.clear();
-
+  Future<void> resetDatabase() async {
+    await DatabaseHelper.instance.resetDatabase();
+    setState(() {
+      dbData = [];
+      itemCount = 0;
+      progress = 0.0;
+      isLoading = true;
+    });
+    log("🗑️ Veritabanı sıfırlandı!");
     loadDataFromDatabase();
   }
 
@@ -89,57 +99,35 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("SQLite Veri Listeleme ($itemCount madde)")),
-        body: Column(
+        body:
+        isLoading
+            ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  labelText: "Ara",
-                  hintText: "Kelimeyi girin",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                onChanged: (value) {
-                  filterSearchResults(value);
-                },
-              ),
+            Text(
+              "Veriler ekleniyor... %${(progress * 100).toInt()}",
+              style: TextStyle(fontSize: 18),
             ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: sirpcaController,
-                    decoration: InputDecoration(labelText: "Sırpça Kelime"),
-                  ),
-                  TextField(
-                    controller: turkceController,
-                    decoration: InputDecoration(labelText: "Türkçe Karşılık"),
-                  ),
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(labelText: "Email"),
-                  ),
-                  SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: addNewWord,
-                    child: Text("Yeni Kelime Ekle"),
-                  ),
-                ],
-              ),
+            SizedBox(height: 10),
+            LinearProgressIndicator(value: progress),
+          ],
+        )
+            : Column(
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                await resetDatabase();
+              },
+              child: Text("Veritabanını Sıfırla ve Yeniden Yükle"),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: filteredData.length,
+                itemCount: dbData.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(filteredData[index]['sirpca']),
+                    title: Text(dbData[index]['sirpca']),
                     subtitle: Text(
-                      "Türkçe: ${filteredData[index]['turkce']} \nEmail: ${filteredData[index]['userEmail']}",
+                      "Türkçe: ${dbData[index]['turkce']} \nEmail: ${dbData[index]['userEmail']}",
                     ),
                   );
                 },
@@ -150,4 +138,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
+} 
