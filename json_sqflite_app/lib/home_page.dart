@@ -1,12 +1,13 @@
-/// <----- main.dart ----->
-///
-library;
-
-import 'package:flutter/material.dart';
-import 'dart:developer';
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'database_helper.dart';
+import 'dart:developer';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.instance.database;
+  runApp(HomePage());
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadDataFromDatabase() async {
     log("🔄 Veritabanından veri okunuyor...");
     final data = await DatabaseHelper.instance.getAllData();
-    log("📊 SQLite 'den gelen veri sayısı: ${data.length}");
+    log("📊 SQLite 'den gelen veri sayısı: \${data.length}");
 
     if (data.isEmpty) {
       log("📂 Veritabanı boş, JSON 'dan veri ekleniyor...");
@@ -47,13 +48,14 @@ class _HomePageState extends State<HomePage> {
         log("✅ JSON Yükleme Başarılı!");
 
         final List<dynamic> jsonData = json.decode(jsonString);
-        log("📝 JSON içinde ${jsonData.length} veri var.");
+        log("📝 JSON içinde \${jsonData.length} veri var.");
 
         for (int i = 0; i < jsonData.length; i++) {
           await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
 
-          // UI Güncellemesi: Her 500 kayıttan sonra ekranı güncelle
-          if (i % 500 == 0 || i == jsonData.length - 1) {
+          // İlk 10 kayıt için her birinde güncelleme yap
+          // 10'dan sonra her 100 kayıtta bir güncelleme yap
+          if (i < 10 || i % 100 == 0 || i == jsonData.length - 1) {
             final updatedData = await DatabaseHelper.instance.getAllData();
             setState(() {
               dbData = updatedData;
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> {
         });
         log("📥 JSON verisi SQLite'a kaydedildi.");
       } catch (e) {
-        log("❌ Hata oluştu: $e");
+        log("❌ Hata oluştu: \$e");
       }
     } else {
       log("📊 Veriler bulundu, ekrana yükleniyor...");
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<void> resetDatabase() async {
+  Future<void> resetDatabase(BuildContext context) async {
     await DatabaseHelper.instance.resetDatabase();
     setState(() {
       dbData = [];
@@ -91,6 +93,7 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
     log("🗑️ Veritabanı sıfırlandı!");
+    Navigator.pop(context); // Drawer'ı kapat
     loadDataFromDatabase();
   }
 
@@ -98,44 +101,60 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text("SQLite Veri Listeleme ($itemCount madde)")),
-        body:
-        isLoading
-            ? Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Veriler ekleniyor... %${(progress * 100).toInt()}",
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 10),
-            LinearProgressIndicator(value: progress),
-          ],
-        )
-            : Column(
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                await resetDatabase();
-              },
-              child: Text("Veritabanını Sıfırla ve Yeniden Yükle"),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: dbData.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(dbData[index]['sirpca']),
-                    subtitle: Text(
-                      "Türkçe: ${dbData[index]['turkce']} \nEmail: ${dbData[index]['userEmail']}",
-                    ),
-                  );
+        appBar: AppBar(
+          title: Text("SQLite Veri Listeleme (\$itemCount madde)"),
+          leading: Builder(
+            builder:
+                (context) => IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                child: Text(
+                  'Menü',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.delete, color: Colors.red),
+                title: Text('Veritabanını Sıfırla ve Yeniden Yükle'),
+                onTap: () async {
+                  await resetDatabase(context);
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        body:
+            isLoading
+                ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Veriler ekleniyor... %\${(progress * 100).toInt()}",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SizedBox(height: 10),
+                    LinearProgressIndicator(value: progress),
+                  ],
+                )
+                : ListView.builder(
+                  itemCount: dbData.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(dbData[index]['sirpca']),
+                      subtitle: Text(dbData[index]['turkce']),
+                    );
+                  },
+                ),
       ),
     );
   }
-} 
+}
