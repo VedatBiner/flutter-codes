@@ -2,13 +2,13 @@
 ///
 library;
 import 'package:flutter/material.dart';
-import 'database_helper.dart';
-import 'home_page.dart';
+import 'data/database/database_helper.dart';
+import 'features/dictionary/presentation/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database;
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sırpça-Türkçe Sözlük',
       home: HomePage(), // sadece widget 'ı döndürüyor
