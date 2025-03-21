@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadDataFromDatabase() async {
     log("🔄 Veritabanından veri okunuyor...");
     final data = await DatabaseHelper.instance.getAllData();
-    log("📊 SQLite 'den gelen veri sayısı: \${data.length}");
+    log("📊 SQLite 'den gelen veri sayısı: ${data.length}");
 
     if (data.isEmpty) {
       log("📂 Veritabanı boş, JSON 'dan veri ekleniyor...");
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         log("✅ JSON Yükleme Başarılı!");
 
         final List<dynamic> jsonData = json.decode(jsonString);
-        log("📝 JSON içinde \${jsonData.length} veri var.");
+        log("📝 JSON içinde ${jsonData.length} veri var.");
 
         for (int i = 0; i < jsonData.length; i++) {
           await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("SQLite Veri Listeleme (\$itemCount madde)"),
+          title: Text("Sırpça-Türkçe Sözlük\nSQLite ($itemCount madde)"),
           leading: Builder(
             builder:
                 (context) => IconButton(
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Veriler ekleniyor... %\${(progress * 100).toInt()}",
+                      "Veriler ekleniyor... ${(progress * 100).toStringAsFixed(1)}%",
                       style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(height: 10),
