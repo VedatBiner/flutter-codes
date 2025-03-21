@@ -97,6 +97,31 @@ class _HomePageState extends State<HomePage> {
     await loadDataFromDatabase();
   }
 
+  void showResetConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Veritabanını Sıfırla"),
+            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text("İptal"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  await resetDatabase();
+                },
+                child: const Text("Sil"),
+              ),
+            ],
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -151,17 +176,7 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
                 title: const Text('Veritabanını Sıfırla ve Yeniden Yükle'),
-                onTap: () async {
-                  Navigator.of(context).pop();
-
-                  /// Önce drawer 'ı kapat
-                  await Future.delayed(const Duration(milliseconds: 300));
-
-                  /// Küçük bir gecikme
-                  await resetDatabase();
-
-                  /// Sonra veritabanını sıfırla
-                },
+                onTap:  () => showResetConfirmationDialog(),
               ),
             ],
           ),
@@ -196,12 +211,14 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.red.shade800,
                           ),
                         ),
-                        subtitle: Text(dbData[index]['turkce'],
+                        subtitle: Text(
+                          dbData[index]['turkce'],
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Colors.blue.shade600,
-                          ),),
+                          ),
+                        ),
                       ),
                     );
                   },
