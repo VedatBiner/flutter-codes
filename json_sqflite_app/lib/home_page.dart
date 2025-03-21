@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   int itemCount = 0;
   double progress = 0.0;
   bool isLoading = true;
+  bool showLoadedMessage = false;
 
   @override
   void initState() {
@@ -53,8 +54,6 @@ class _HomePageState extends State<HomePage> {
         for (int i = 0; i < jsonData.length; i++) {
           await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
 
-          // İlk 10 kayıt için her birinde güncelleme yap
-          // 10'dan sonra her 100 kayıtta bir güncelleme yap
           if (i < 10 || i % 100 == 0 || i == jsonData.length - 1) {
             final updatedData = await DatabaseHelper.instance.getAllData();
             setState(() {
@@ -68,10 +67,18 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           isLoading = false;
           progress = 1.0;
+          showLoadedMessage = true;
         });
+
+        Future.delayed(const Duration(seconds: 2), () {
+          setState(() {
+            showLoadedMessage = false;
+          });
+        });
+
         log("📥 JSON verisi SQLite'a kaydedildi.");
       } catch (e) {
-        log("❌ Hata oluştu: \$e");
+        log("❌ Hata oluştu: $e");
       }
     } else {
       log("📊 Veriler bulundu, ekrana yükleniyor...");
@@ -142,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.amber, // Başlık amber
+                  color: Colors.amber,
                 ),
               ),
               Text(
@@ -150,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.amber, // Başlık amber
+                  color: Colors.amber,
                 ),
               ),
             ],
@@ -187,10 +194,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
         ),
-        body:
+        body: Stack(
+          children: [
             isLoading
                 ? Center(
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     margin: const EdgeInsets.all(20),
                     elevation: 4,
                     child: Padding(
@@ -198,6 +209,9 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          const SizedBox(height: 10),
+                          const CircularProgressIndicator(),
+                          const SizedBox(height: 16),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -223,6 +237,9 @@ class _HomePageState extends State<HomePage> {
                   itemCount: dbData.length,
                   itemBuilder: (context, index) {
                     return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       margin: const EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 6,
@@ -248,6 +265,35 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
+            if (showLoadedMessage)
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Card(
+                    color: Colors.green.shade600,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
+                      child: Text(
+                        "✅ Yüklendi!",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
