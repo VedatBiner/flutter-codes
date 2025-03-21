@@ -9,5 +9,9 @@ Veri kontrol edilip, SQFlite veritabanına dönüştürülüyor.
 Sonra veri listeleniyor.
 Drawer menü oluşturulup, veritabanını sıfırlama seçeneği buraya eklendi.
 Yeni veri tabanı oluşturulurken okunan veri ve işlem yüzdesi eklendi.
+Veri silme işlemi için dialog kutusu oluşturuldu.
+Veriler silindikten sonra tekrar yüklendiğini gösteren ekran Card widget ile sarıldı
+Kelimeler renklendirilip, Card Widget ile sarıldı.
+
 
 

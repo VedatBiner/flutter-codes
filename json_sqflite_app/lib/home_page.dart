@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
     await loadDataFromDatabase();
   }
 
-  void showResetConfirmationDialog() {
+  void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
       builder:
@@ -112,6 +112,7 @@ class _HomePageState extends State<HomePage> {
               ElevatedButton(
                 onPressed: () async {
                   Navigator.of(context).pop();
+                  Navigator.of(drawerContext).pop();
                   await Future.delayed(const Duration(milliseconds: 300));
                   await resetDatabase();
                 },
@@ -162,37 +163,61 @@ class _HomePageState extends State<HomePage> {
                 ),
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(color: Colors.blue),
-                child: Text(
-                  'Menü',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
+        drawer: Builder(
+          builder:
+              (drawerContext) => Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Text(
+                        'Menü',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.delete, color: Colors.red),
+                      title: const Text(
+                        'Veritabanını Sıfırla ve Yeniden Yükle',
+                      ),
+                      onTap: () => showResetConfirmationDialog(drawerContext),
+                    ),
+                  ],
                 ),
               ),
-              ListTile(
-                leading: const Icon(Icons.delete, color: Colors.red),
-                title: const Text('Veritabanını Sıfırla ve Yeniden Yükle'),
-                onTap:  () => showResetConfirmationDialog(),
-              ),
-            ],
-          ),
         ),
         body:
             isLoading
-                ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Veriler ekleniyor... ${(progress * 100).toStringAsFixed(1)}%",
-                      style: const TextStyle(fontSize: 18),
+                ? Center(
+                  child: Card(
+                    margin: const EdgeInsets.all(20),
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Veriler ekleniyor... "),
+                              Text(
+                                "${(progress * 100).toStringAsFixed(1)}%",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          LinearProgressIndicator(value: progress),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    LinearProgressIndicator(value: progress),
-                  ],
+                  ),
                 )
                 : ListView.builder(
                   itemCount: dbData.length,
