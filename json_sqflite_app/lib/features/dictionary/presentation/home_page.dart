@@ -15,10 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> dbData = [];
+  List<Map<String, dynamic>> filteredData = [];
   int itemCount = 0;
   double progress = 0.0;
   bool isLoading = true;
   bool showLoadedMessage = false;
+  bool isSearching = false;
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _HomePageState extends State<HomePage> {
             final updatedData = await DatabaseHelper.instance.getAllData();
             setState(() {
               dbData = updatedData;
+              filteredData = updatedData;
               itemCount = updatedData.length;
               progress = (i + 1) / jsonData.length;
             });
@@ -77,6 +81,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       setState(() {
         dbData = data;
+        filteredData = data;
         itemCount = data.length;
         progress = 1.0;
         isLoading = false;
@@ -84,10 +89,26 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void filterSearchResults(String query) {
+    List<Map<String, dynamic>> tempList = [];
+    if (query.isNotEmpty) {
+      tempList = dbData.where((item) =>
+      item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
+          item['turkce'].toLowerCase().contains(query.toLowerCase())
+      ).toList();
+    } else {
+      tempList = dbData;
+    }
+    setState(() {
+      filteredData = tempList;
+    });
+  }
+
   Future<void> resetDatabase() async {
     await DatabaseHelper.instance.resetDatabase();
     setState(() {
       dbData = [];
+      filteredData = [];
       itemCount = 0;
       progress = 0.0;
       isLoading = true;
@@ -99,29 +120,28 @@ class _HomePageState extends State<HomePage> {
   void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text("Veritabanını Sıfırla"),
-            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop(); // Drawer'ı da kapat
-                },
-                child: const Text("İptal"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(); // Dialog kapat
-                  Navigator.of(drawerContext).pop(); // Drawer kapat
-                  await Future.delayed(const Duration(milliseconds: 300));
-                  await resetDatabase();
-                },
-                child: const Text("Sil"),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text("Veritabanını Sıfırla"),
+        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+            },
+            child: const Text("İptal"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+              await Future.delayed(const Duration(milliseconds: 300));
+              await resetDatabase();
+            },
+            child: const Text("Sil"),
+          ),
+        ],
+      ),
     );
   }
 
@@ -134,7 +154,19 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueAccent,
           iconTheme: const IconThemeData(color: Colors.amber),
           centerTitle: true,
-          title: Column(
+          title: isSearching
+              ? TextField(
+            controller: searchController,
+            autofocus: true,
+            style: const TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              hintText: 'Ara...',
+              hintStyle: TextStyle(color: Colors.white70),
+              border: InputBorder.none,
+            ),
+            onChanged: filterSearchResults,
+          )
+              : Column(
             children: [
               const SizedBox(height: 12),
               const Text(
@@ -146,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Text(
-                "SQLite (\$itemCount madde)",
+                "SQLite ($itemCount madde)",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -156,50 +188,62 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           leading: Builder(
-            builder:
-                (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
+          actions: [
+            IconButton(
+              icon: Icon(isSearching ? Icons.close : Icons.search),
+              onPressed: () {
+                setState(() {
+                  isSearching = !isSearching;
+                  if (!isSearching) {
+                    searchController.clear();
+                    filterSearchResults('');
+                  }
+                });
+              },
+            )
+          ],
         ),
         drawer: Builder(
-          builder:
-              (drawerContext) => Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Text(
-                        'Menü',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.delete, color: Colors.red),
-                      title: const Text(
-                        'Veritabanını Sıfırla ve Yeniden Yükle',
-                      ),
-                      onTap: () => showResetConfirmationDialog(drawerContext),
-                    ),
-                  ],
+          builder: (drawerContext) => Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.blue),
+                  child: Text(
+                    'Menü',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
                 ),
-              ),
+                ListTile(
+                  leading: const Icon(Icons.delete, color: Colors.red),
+                  title: const Text(
+                    'Veritabanını Sıfırla ve Yeniden Yükle',
+                  ),
+                  onTap: () => showResetConfirmationDialog(drawerContext),
+                ),
+              ],
+            ),
+          ),
         ),
         body: Stack(
           children: [
             isLoading
                 ? LoadingCard(progress: progress)
                 : ListView.builder(
-                  itemCount: dbData.length,
-                  itemBuilder: (context, index) {
-                    return WordCard(
-                      sirpca: dbData[index]['sirpca'],
-                      turkce: dbData[index]['turkce'],
-                    );
-                  },
-                ),
+              itemCount: filteredData.length,
+              itemBuilder: (context, index) {
+                return WordCard(
+                  sirpca: filteredData[index]['sirpca'],
+                  turkce: filteredData[index]['turkce'],
+                );
+              },
+            ),
             if (showLoadedMessage)
               Positioned(
                 bottom: 20,
