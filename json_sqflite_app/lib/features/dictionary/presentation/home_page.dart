@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> dbData = [];
+  Map<String, List<Map<String, dynamic>>> groupedData = {};
   List<Map<String, dynamic>> filteredData = [];
   int itemCount = 0;
   double progress = 0.0;
@@ -59,6 +60,7 @@ class _HomePageState extends State<HomePage> {
               filteredData = updatedData;
               itemCount = updatedData.length;
               progress = (i + 1) / jsonData.length;
+              groupedData = groupData(filteredData);
             });
           }
         }
@@ -83,6 +85,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         dbData = data;
         filteredData = data;
+        groupedData = groupData(data);
         itemCount = data.length;
         progress = 1.0;
         isLoading = false;
@@ -90,24 +93,31 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
+    final Map<String, List<Map<String, dynamic>>> grouped = {};
+    for (var item in data) {
+      final key = item['sirpca'].toString().substring(0, 1).toUpperCase();
+      if (!grouped.containsKey(key)) {
+        grouped[key] = [];
+      }
+      grouped[key]!.add(item);
+    }
+    return grouped;
+  }
+
   void filterSearchResults(String query) {
     List<Map<String, dynamic>> tempList = [];
     if (query.isNotEmpty) {
-      tempList =
-          dbData
-              .where(
-                (item) =>
-                    item['sirpca'].toLowerCase().contains(
-                      query.toLowerCase(),
-                    ) ||
-                    item['turkce'].toLowerCase().contains(query.toLowerCase()),
-              )
-              .toList();
+      tempList = dbData.where((item) =>
+      item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
+          item['turkce'].toLowerCase().contains(query.toLowerCase())
+      ).toList();
     } else {
       tempList = dbData;
     }
     setState(() {
       filteredData = tempList;
+      groupedData = groupData(filteredData);
     });
   }
 
@@ -116,6 +126,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       dbData = [];
       filteredData = [];
+      groupedData = {};
       itemCount = 0;
       progress = 0.0;
       isLoading = true;
@@ -127,29 +138,28 @@ class _HomePageState extends State<HomePage> {
   void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text("Veritabanını Sıfırla"),
-            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                },
-                child: const Text("İptal"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                  await Future.delayed(const Duration(milliseconds: 300));
-                  await resetDatabase();
-                },
-                child: const Text("Sil"),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text("Veritabanını Sıfırla"),
+        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+            },
+            child: const Text("İptal"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+              await Future.delayed(const Duration(milliseconds: 300));
+              await resetDatabase();
+            },
+            child: const Text("Sil"),
+          ),
+        ],
+      ),
     );
   }
 
@@ -162,39 +172,37 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueAccent,
           iconTheme: const IconThemeData(color: Colors.amber),
           centerTitle: true,
-          title:
-              isSearching
-                  ? SearchInput(
-                    controller: searchController,
-                    onChanged: filterSearchResults,
-                  )
-                  : const Column(
-                    children: [
-                      SizedBox(height: 12),
-                      Text(
-                        "Sırpça-Türkçe Sözlük",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                        ),
-                      ),
-                      Text(
-                        "SQLite (\$itemCount madde)",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ],
-                  ),
-          leading: Builder(
-            builder:
-                (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
+          title: isSearching
+              ? SearchInput(
+            controller: searchController,
+            onChanged: filterSearchResults,
+          )
+              : Column(
+            children: [
+              const SizedBox(height: 12),
+              const Text(
+                "Sırpça-Türkçe Sözlük",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
                 ),
+              ),
+              Text(
+                "SQLite (\$itemCount madde)",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                ),
+              ),
+            ],
+          ),
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
           actions: [
             IconButton(
@@ -208,46 +216,58 @@ class _HomePageState extends State<HomePage> {
                   }
                 });
               },
-            ),
+            )
           ],
         ),
         drawer: Builder(
-          builder:
-              (drawerContext) => Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Text(
-                        'Menü',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.delete, color: Colors.red),
-                      title: const Text(
-                        'Veritabanını Sıfırla ve Yeniden Yükle',
-                      ),
-                      onTap: () => showResetConfirmationDialog(drawerContext),
-                    ),
-                  ],
+          builder: (drawerContext) => Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.blue),
+                  child: Text(
+                    'Menü',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
                 ),
-              ),
+                ListTile(
+                  leading: const Icon(Icons.delete, color: Colors.red),
+                  title: const Text(
+                    'Veritabanını Sıfırla ve Yeniden Yükle',
+                  ),
+                  onTap: () => showResetConfirmationDialog(drawerContext),
+                ),
+              ],
+            ),
+          ),
         ),
         body: Stack(
           children: [
             isLoading
                 ? LoadingCard(progress: progress)
-                : ListView.builder(
-                  itemCount: filteredData.length,
-                  itemBuilder: (context, index) {
-                    return WordCard(
-                      sirpca: filteredData[index]['sirpca'],
-                      turkce: filteredData[index]['turkce'],
-                    );
-                  },
-                ),
+                : ListView(
+              children: groupedData.entries.expand((entry) {
+                return [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 4),
+                    child: Text(
+                      entry.key,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
+                  ),
+                  ...entry.value.map((item) => WordCard(
+                    sirpca: item['sirpca'],
+                    turkce: item['turkce'],
+                  ))
+                ];
+              }).toList(),
+            ),
             if (showLoadedMessage)
               Positioned(
                 bottom: 20,
