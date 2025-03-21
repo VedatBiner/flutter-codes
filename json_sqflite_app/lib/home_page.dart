@@ -105,8 +105,10 @@ class _HomePageState extends State<HomePage> {
           toolbarHeight: 80,
           backgroundColor: Colors.blueAccent,
           iconTheme: const IconThemeData(color: Colors.amber),
+          centerTitle: true,
           title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 12),
               const Text(
@@ -180,9 +182,27 @@ class _HomePageState extends State<HomePage> {
                 : ListView.builder(
                   itemCount: dbData.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(dbData[index]['sirpca']),
-                      subtitle: Text(dbData[index]['turkce']),
+                    return Card(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          dbData[index]['sirpca'],
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red.shade800,
+                          ),
+                        ),
+                        subtitle: Text(dbData[index]['turkce'],
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue.shade600,
+                          ),),
+                      ),
                     );
                   },
                 ),
