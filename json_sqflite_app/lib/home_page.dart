@@ -125,9 +125,9 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.delete, color: Colors.red),
               title: Text('Veritabanını Sıfırla ve Yeniden Yükle'),
               onTap: () async {
-                Navigator.of(context).pop(); // Önce drawer'ı kapat
-                await Future.delayed(Duration(milliseconds: 300)); // Küçük bir gecikme
-                await resetDatabase(); // Sonra veritabanını sıfırla
+                Navigator.of(context).pop(); /// Önce drawer 'ı kapat
+                await Future.delayed(Duration(milliseconds: 300)); /// Küçük bir gecikme
+                await resetDatabase(); /// Sonra veritabanını sıfırla
               },
             ),
           ],
