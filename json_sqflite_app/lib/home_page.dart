@@ -6,7 +6,7 @@ import 'dart:developer';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DatabaseHelper.instance.database;
-  runApp(HomePage());
+  runApp(const HomePage());
 }
 
 class HomePage extends StatefulWidget {
@@ -99,62 +99,94 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sırpça-Türkçe Sözlük\nSQLite ($itemCount madde)"),
-        leading: Builder(
-          builder:
-              (context) => IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          backgroundColor: Colors.blueAccent,
+          iconTheme: const IconThemeData(color: Colors.amber),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+              const Text(
+                "Sırpça-Türkçe Sözlük",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber, // Başlık amber
+                ),
               ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text(
-                'Menü',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+              Text(
+                "SQLite ($itemCount madde)",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber, // Başlık amber
+                ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.delete, color: Colors.red),
-              title: Text('Veritabanını Sıfırla ve Yeniden Yükle'),
-              onTap: () async {
-                Navigator.of(context).pop(); /// Önce drawer 'ı kapat
-                await Future.delayed(Duration(milliseconds: 300)); /// Küçük bir gecikme
-                await resetDatabase(); /// Sonra veritabanını sıfırla
-              },
-            ),
-          ],
+            ],
+          ),
+          leading: Builder(
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
+          ),
         ),
-      ),
-      body:
-          isLoading
-              ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Veriler ekleniyor... ${(progress * 100).toStringAsFixed(1)}%",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(height: 10),
-                  LinearProgressIndicator(value: progress),
-                ],
-              )
-              : ListView.builder(
-                itemCount: dbData.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(dbData[index]['sirpca']),
-                    subtitle: Text(dbData[index]['turkce']),
-                  );
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.blue),
+                child: Text(
+                  'Menü',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.delete, color: Colors.red),
+                title: const Text('Veritabanını Sıfırla ve Yeniden Yükle'),
+                onTap: () async {
+                  Navigator.of(context).pop();
+
+                  /// Önce drawer 'ı kapat
+                  await Future.delayed(const Duration(milliseconds: 300));
+
+                  /// Küçük bir gecikme
+                  await resetDatabase();
+
+                  /// Sonra veritabanını sıfırla
                 },
               ),
+            ],
+          ),
+        ),
+        body:
+            isLoading
+                ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Veriler ekleniyor... ${(progress * 100).toStringAsFixed(1)}%",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                    const SizedBox(height: 10),
+                    LinearProgressIndicator(value: progress),
+                  ],
+                )
+                : ListView.builder(
+                  itemCount: dbData.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(dbData[index]['sirpca']),
+                      subtitle: Text(dbData[index]['turkce']),
+                    );
+                  },
+                ),
+      ),
     );
   }
 }
