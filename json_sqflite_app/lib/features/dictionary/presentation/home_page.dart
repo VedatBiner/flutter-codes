@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../data/database/database_helper.dart';
 import '../../../widgets/word_card.dart';
 import '../../../widgets/loading_card.dart';
+import 'widgets/search_input.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -92,10 +93,16 @@ class _HomePageState extends State<HomePage> {
   void filterSearchResults(String query) {
     List<Map<String, dynamic>> tempList = [];
     if (query.isNotEmpty) {
-      tempList = dbData.where((item) =>
-      item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
-          item['turkce'].toLowerCase().contains(query.toLowerCase())
-      ).toList();
+      tempList =
+          dbData
+              .where(
+                (item) =>
+                    item['sirpca'].toLowerCase().contains(
+                      query.toLowerCase(),
+                    ) ||
+                    item['turkce'].toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
     } else {
       tempList = dbData;
     }
@@ -120,28 +127,29 @@ class _HomePageState extends State<HomePage> {
   void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Veritabanını Sıfırla"),
-        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(drawerContext).pop();
-            },
-            child: const Text("İptal"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Veritabanını Sıfırla"),
+            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(drawerContext).pop();
+                },
+                child: const Text("İptal"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Navigator.of(drawerContext).pop();
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  await resetDatabase();
+                },
+                child: const Text("Sil"),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              Navigator.of(drawerContext).pop();
-              await Future.delayed(const Duration(milliseconds: 300));
-              await resetDatabase();
-            },
-            child: const Text("Sil"),
-          ),
-        ],
-      ),
     );
   }
 
@@ -154,44 +162,39 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueAccent,
           iconTheme: const IconThemeData(color: Colors.amber),
           centerTitle: true,
-          title: isSearching
-              ? TextField(
-            controller: searchController,
-            autofocus: true,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              hintText: 'Ara...',
-              hintStyle: TextStyle(color: Colors.white70),
-              border: InputBorder.none,
-            ),
-            onChanged: filterSearchResults,
-          )
-              : Column(
-            children: [
-              const SizedBox(height: 12),
-              const Text(
-                "Sırpça-Türkçe Sözlük",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-              Text(
-                "SQLite ($itemCount madde)",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-            ],
-          ),
+          title:
+              isSearching
+                  ? SearchInput(
+                    controller: searchController,
+                    onChanged: filterSearchResults,
+                  )
+                  : const Column(
+                    children: [
+                      SizedBox(height: 12),
+                      Text(
+                        "Sırpça-Türkçe Sözlük",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                        ),
+                      ),
+                      Text(
+                        "SQLite (\$itemCount madde)",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                        ),
+                      ),
+                    ],
+                  ),
           leading: Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
           ),
           actions: [
             IconButton(
@@ -205,45 +208,46 @@ class _HomePageState extends State<HomePage> {
                   }
                 });
               },
-            )
+            ),
           ],
         ),
         drawer: Builder(
-          builder: (drawerContext) => Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.blue),
-                  child: Text(
-                    'Menü',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
+          builder:
+              (drawerContext) => Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Text(
+                        'Menü',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.delete, color: Colors.red),
+                      title: const Text(
+                        'Veritabanını Sıfırla ve Yeniden Yükle',
+                      ),
+                      onTap: () => showResetConfirmationDialog(drawerContext),
+                    ),
+                  ],
                 ),
-                ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text(
-                    'Veritabanını Sıfırla ve Yeniden Yükle',
-                  ),
-                  onTap: () => showResetConfirmationDialog(drawerContext),
-                ),
-              ],
-            ),
-          ),
+              ),
         ),
         body: Stack(
           children: [
             isLoading
                 ? LoadingCard(progress: progress)
                 : ListView.builder(
-              itemCount: filteredData.length,
-              itemBuilder: (context, index) {
-                return WordCard(
-                  sirpca: filteredData[index]['sirpca'],
-                  turkce: filteredData[index]['turkce'],
-                );
-              },
-            ),
+                  itemCount: filteredData.length,
+                  itemBuilder: (context, index) {
+                    return WordCard(
+                      sirpca: filteredData[index]['sirpca'],
+                      turkce: filteredData[index]['turkce'],
+                    );
+                  },
+                ),
             if (showLoadedMessage)
               Positioned(
                 bottom: 20,

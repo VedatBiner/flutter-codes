@@ -13,7 +13,7 @@ Veri silme işlemi için dialog kutusu oluşturuldu.
 Veriler silindikten sonra tekrar yüklendiğini gösteren ekran Card widget ile sarıldı
 Kelimeler renklendirilip, Card Widget ile sarıldı.
 Biraz daha modüler yapıya kavuşturuldu.
-Arama kutusu eklendi.
+Arama kutusu eklendi. Arama kutusu ayrı bir dosyaya alındı
 
 
 
