@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
   bool showLoadedMessage = false;
   bool isSearching = false;
   TextEditingController searchController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -164,26 +163,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void scrollToLetter(String letter) {
-    final allKeys = groupedData.keys.toList()..sort();
-    final index = allKeys.indexOf(letter);
-    if (index != -1) {
-      double offset = 0;
-      for (int i = 0; i < index; i++) {
-        offset += (groupedData[allKeys[i]]!.length + 1) * 72;
-      }
-      _scrollController.animateTo(
-        offset,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final alphabet = groupedData.keys.toList()..sort();
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -208,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Text(
-                "SQLite ($itemCount madde)",
+                "SQLite (\$itemCount madde)",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -265,66 +246,27 @@ class _HomePageState extends State<HomePage> {
           children: [
             isLoading
                 ? LoadingCard(progress: progress)
-                : Row(
-              children: [
-                Expanded(
-                  child: ListView(
-                    controller: _scrollController,
-                    children: groupedData.entries.expand((entry) {
-                      return [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 4),
-                          child: Text(
-                            entry.key,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
-                            ),
-                          ),
-                        ),
-                        ...entry.value.map((item) => WordCard(
-                          sirpca: item['sirpca'],
-                          turkce: item['turkce'],
-                        ))
-                      ];
-                    }).toList(),
+                : ListView(
+              children: groupedData.entries.expand((entry) {
+                return [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 4),
+                    child: Text(
+                      entry.key,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 40,
-                  color: Colors.blue.shade900,
-                  child: ListView.builder(
-                    itemCount: alphabet.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => scrollToLetter(alphabet[index]),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Container(
-                            width: 32,
-                            height: 32,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              alphabet[index],
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueAccent,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                  ...entry.value.map((item) => WordCard(
+                    sirpca: item['sirpca'],
+                    turkce: item['turkce'],
+                  ))
+                ];
+              }).toList(),
             ),
             if (showLoadedMessage)
               Positioned(
