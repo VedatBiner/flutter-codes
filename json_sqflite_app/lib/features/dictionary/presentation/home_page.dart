@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:alphabet_list_view/alphabet_list_view.dart';
 
 import '../../../data/database/database_helper.dart';
 import '../../../widgets/word_card.dart';
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadDataFromDatabase() async {
     log("🔄 Veritabanından veri okunuyor...");
     final data = await DatabaseHelper.instance.getAllData();
-    log("📊 SQLite 'den gelen veri sayısı: \${data.length}");
+    log("📊 SQLite 'den gelen veri sayısı: ${data.length}");
 
     if (data.isEmpty) {
       log("📂 Veritabanı boş, JSON 'dan veri ekleniyor...");
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       try {
         final jsonString = await DefaultAssetBundle.of(context).loadString('assets/database/ser_tr_dict.json');
         final List<dynamic> jsonData = json.decode(jsonString);
-        log("📝 JSON içinde \${jsonData.length} veri var.");
+        log("📝 JSON içinde ${jsonData.length} veri var.");
 
         for (int i = 0; i < jsonData.length; i++) {
           await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
 
         log("📥 JSON verisi SQLite'a kaydedildi.");
       } catch (e) {
-        log("❌ Hata oluştu: \$e");
+        log("❌ Hata oluştu: $e");
       }
     } else {
       setState(() {
@@ -143,8 +144,20 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
+    final Map<String, List<Map<String, dynamic>>> grouped = {};
+    for (var item in data) {
+      final key = item['sirpca'][0].toUpperCase();
+      grouped.putIfAbsent(key, () => []);
+      grouped[key]!.add(item);
+    }
+    return grouped;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final groupedData = groupData(filteredData);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -222,18 +235,20 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Stack(
           children: [
-            isLoading
-                ? LoadingCard(progress: progress)
-                : ListView.builder(
-              itemCount: filteredData.length,
-              itemBuilder: (context, index) {
-                final item = filteredData[index];
-                return WordCard(
-                  sirpca: item['sirpca'],
-                  turkce: item['turkce'],
-                );
-              },
-            ),
+            if (isLoading)
+              LoadingCard(progress: progress)
+            else
+              AlphabetListView(
+                items: groupedData.entries.map((entry) {
+                  return AlphabetListViewItemGroup(
+                    tag: entry.key,
+                    children: entry.value.map((item) => WordCard(
+                      sirpca: item['sirpca'],
+                      turkce: item['turkce'],
+                    )).toList(),
+                  );
+                }).toList(),
+              ),
             if (showLoadedMessage)
               Positioned(
                 bottom: 20,

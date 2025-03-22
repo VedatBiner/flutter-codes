@@ -17,6 +17,7 @@ dependencies:
   sqflite:
   path_provider:
   path:
+  alphabet_list_view: ^1.0.0
 
 dev_dependencies:
   flutter_test:
