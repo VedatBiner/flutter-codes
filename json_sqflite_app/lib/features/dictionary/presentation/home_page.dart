@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> dbData = [];
-  Map<String, List<Map<String, dynamic>>> groupedData = {};
   List<Map<String, dynamic>> filteredData = [];
   int itemCount = 0;
   double progress = 0.0;
@@ -44,9 +43,7 @@ class _HomePageState extends State<HomePage> {
       });
 
       try {
-        final jsonString = await DefaultAssetBundle.of(
-          context,
-        ).loadString('assets/database/ser_tr_dict.json');
+        final jsonString = await DefaultAssetBundle.of(context).loadString('assets/database/ser_tr_dict.json');
         final List<dynamic> jsonData = json.decode(jsonString);
         log("📝 JSON içinde \${jsonData.length} veri var.");
 
@@ -60,7 +57,6 @@ class _HomePageState extends State<HomePage> {
               filteredData = updatedData;
               itemCount = updatedData.length;
               progress = (i + 1) / jsonData.length;
-              groupedData = groupData(filteredData);
             });
           }
         }
@@ -85,7 +81,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         dbData = data;
         filteredData = data;
-        groupedData = groupData(data);
         itemCount = data.length;
         progress = 1.0;
         isLoading = false;
@@ -93,31 +88,17 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
-    final Map<String, List<Map<String, dynamic>>> grouped = {};
-    for (var item in data) {
-      final key = item['sirpca'].toString().substring(0, 1).toUpperCase();
-      if (!grouped.containsKey(key)) {
-        grouped[key] = [];
-      }
-      grouped[key]!.add(item);
-    }
-    return grouped;
-  }
-
   void filterSearchResults(String query) {
     List<Map<String, dynamic>> tempList = [];
     if (query.isNotEmpty) {
       tempList = dbData.where((item) =>
       item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
-          item['turkce'].toLowerCase().contains(query.toLowerCase())
-      ).toList();
+          item['turkce'].toLowerCase().contains(query.toLowerCase())).toList();
     } else {
       tempList = dbData;
     }
     setState(() {
       filteredData = tempList;
-      groupedData = groupData(filteredData);
     });
   }
 
@@ -126,7 +107,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       dbData = [];
       filteredData = [];
-      groupedData = {};
       itemCount = 0;
       progress = 0.0;
       isLoading = true;
@@ -189,7 +169,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Text(
-                "SQLite (\$itemCount madde)",
+                "SQLite ($itemCount madde)",
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -233,9 +213,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text(
-                    'Veritabanını Sıfırla ve Yeniden Yükle',
-                  ),
+                  title: const Text('Veritabanını Sıfırla ve Yeniden Yükle'),
                   onTap: () => showResetConfirmationDialog(drawerContext),
                 ),
               ],
@@ -246,27 +224,15 @@ class _HomePageState extends State<HomePage> {
           children: [
             isLoading
                 ? LoadingCard(progress: progress)
-                : ListView(
-              children: groupedData.entries.expand((entry) {
-                return [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 4),
-                    child: Text(
-                      entry.key,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
-                  ),
-                  ...entry.value.map((item) => WordCard(
-                    sirpca: item['sirpca'],
-                    turkce: item['turkce'],
-                  ))
-                ];
-              }).toList(),
+                : ListView.builder(
+              itemCount: filteredData.length,
+              itemBuilder: (context, index) {
+                final item = filteredData[index];
+                return WordCard(
+                  sirpca: item['sirpca'],
+                  turkce: item['turkce'],
+                );
+              },
             ),
             if (showLoadedMessage)
               Positioned(
@@ -280,10 +246,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Text(
                         "✅ Yüklendi!",
                         style: TextStyle(
