@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> {
       });
 
       try {
-        final jsonString = await DefaultAssetBundle.of(context).loadString('assets/database/ser_tr_dict.json');
+        final jsonString = await DefaultAssetBundle.of(
+          context,
+        ).loadString('assets/database/ser_tr_dict.json');
         final List<dynamic> jsonData = json.decode(jsonString);
         log("📝 JSON içinde ${jsonData.length} veri var.");
 
@@ -92,9 +94,16 @@ class _HomePageState extends State<HomePage> {
   void filterSearchResults(String query) {
     List<Map<String, dynamic>> tempList = [];
     if (query.isNotEmpty) {
-      tempList = dbData.where((item) =>
-      item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
-          item['turkce'].toLowerCase().contains(query.toLowerCase())).toList();
+      tempList =
+          dbData
+              .where(
+                (item) =>
+                    item['sirpca'].toLowerCase().contains(
+                      query.toLowerCase(),
+                    ) ||
+                    item['turkce'].toLowerCase().contains(query.toLowerCase()),
+              )
+              .toList();
     } else {
       tempList = dbData;
     }
@@ -119,32 +128,35 @@ class _HomePageState extends State<HomePage> {
   void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Veritabanını Sıfırla"),
-        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(drawerContext).pop();
-            },
-            child: const Text("İptal"),
+      builder:
+          (context) => AlertDialog(
+            title: const Text("Veritabanını Sıfırla"),
+            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(drawerContext).pop();
+                },
+                child: const Text("İptal"),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  Navigator.of(drawerContext).pop();
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  await resetDatabase();
+                },
+                child: const Text("Sil"),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              Navigator.of(context).pop();
-              Navigator.of(drawerContext).pop();
-              await Future.delayed(const Duration(milliseconds: 300));
-              await resetDatabase();
-            },
-            child: const Text("Sil"),
-          ),
-        ],
-      ),
     );
   }
 
-  Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
+  Map<String, List<Map<String, dynamic>>> groupData(
+    List<Map<String, dynamic>> data,
+  ) {
     final Map<String, List<Map<String, dynamic>>> grouped = {};
     for (var item in data) {
       final key = item['sirpca'][0].toUpperCase();
@@ -165,37 +177,39 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blueAccent,
           iconTheme: const IconThemeData(color: Colors.amber),
           centerTitle: true,
-          title: isSearching
-              ? SearchInput(
-            controller: searchController,
-            onChanged: filterSearchResults,
-          )
-              : Column(
-            children: [
-              const SizedBox(height: 12),
-              const Text(
-                "Sırpça-Türkçe Sözlük",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-              Text(
-                "SQLite ($itemCount madde)",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-            ],
-          ),
+          title:
+              isSearching
+                  ? SearchInput(
+                    controller: searchController,
+                    onChanged: filterSearchResults,
+                  )
+                  : Column(
+                    children: [
+                      const SizedBox(height: 12),
+                      const Text(
+                        "Sırpça-Türkçe Sözlük",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                        ),
+                      ),
+                      Text(
+                        "SQLite ($itemCount madde)",
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                        ),
+                      ),
+                    ],
+                  ),
           leading: Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
           ),
           actions: [
             IconButton(
@@ -209,29 +223,32 @@ class _HomePageState extends State<HomePage> {
                   }
                 });
               },
-            )
+            ),
           ],
         ),
         drawer: Builder(
-          builder: (drawerContext) => Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.blue),
-                  child: Text(
-                    'Menü',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
+          builder:
+              (drawerContext) => Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Text(
+                        'Menü',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.delete, color: Colors.red),
+                      title: const Text(
+                        'Veritabanını Sıfırla ve Yeniden Yükle',
+                      ),
+                      onTap: () => showResetConfirmationDialog(drawerContext),
+                    ),
+                  ],
                 ),
-                ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text('Veritabanını Sıfırla ve Yeniden Yükle'),
-                  onTap: () => showResetConfirmationDialog(drawerContext),
-                ),
-              ],
-            ),
-          ),
+              ),
         ),
         body: Stack(
           children: [
@@ -239,15 +256,53 @@ class _HomePageState extends State<HomePage> {
               LoadingCard(progress: progress)
             else
               AlphabetListView(
-                items: groupedData.entries.map((entry) {
-                  return AlphabetListViewItemGroup(
-                    tag: entry.key,
-                    children: entry.value.map((item) => WordCard(
-                      sirpca: item['sirpca'],
-                      turkce: item['turkce'],
-                    )).toList(),
-                  );
-                }).toList(),
+                items:
+                    groupedData.entries.map((entry) {
+                      return AlphabetListViewItemGroup(
+                        tag: entry.key,
+                        children:
+                            entry.value
+                                .map(
+                                  (item) => WordCard(
+                                    sirpca: item['sirpca'],
+                                    turkce: item['turkce'],
+                                  ),
+                                )
+                                .toList(),
+                      );
+                    }).toList(),
+
+                /// Harfe tıklanınca görünen büyük harfin renkleri
+                options: AlphabetListViewOptions(
+                  overlayOptions: OverlayOptions(
+                    alignment: Alignment.centerRight,
+                    overlayBuilder: (context, symbol) {
+                      return Container(
+                        width: 100,
+                        height: 100,
+                        decoration: const BoxDecoration(
+                          color: Colors.green, //Theme.of(context).colorScheme.secondary,
+                          borderRadius: BorderRadius.horizontal(
+                            left: Radius.circular(100),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12),
+                          child: FittedBox(
+                            child: Text(
+                              symbol,
+                              textScaler: TextScaler.noScaling,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.amber //Theme.of(context).colorScheme.primary,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             if (showLoadedMessage)
               Positioned(
@@ -261,7 +316,10 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 10,
+                      ),
                       child: Text(
                         "✅ Yüklendi!",
                         style: TextStyle(
