@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../data/database/database_helper.dart';
 import 'widgets/app_drawer.dart';
@@ -143,6 +144,58 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void showAddWordDialog() {
+    final TextEditingController serbianController = TextEditingController();
+    final TextEditingController turkishController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Yeni Kelime Ekle"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: serbianController,
+              decoration: const InputDecoration(labelText: 'Sırpça'),
+            ),
+            TextField(
+              controller: turkishController,
+              decoration: const InputDecoration(labelText: 'Türkçe'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("İptal"),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              final sirpca = serbianController.text.trim();
+              final turkce = turkishController.text.trim();
+
+              if (sirpca.isEmpty || turkce.isEmpty) return;
+
+              final exists = dbData.any((element) => element['sirpca'].toLowerCase() == sirpca.toLowerCase());
+
+              if (exists) {
+                Fluttertoast.showToast(msg: '⚠️ Bu kelime zaten var!');
+              } else {
+                await DatabaseHelper.instance.insertSingleItem({'sirpca': sirpca, 'turkce': turkce});
+                Fluttertoast.showToast(msg: '✅ Kelime eklendi');
+                await loadDataFromDatabase();
+              }
+
+              Navigator.of(context).pop();
+            },
+            child: const Text("Ekle"),
+          )
+        ],
+      ),
+    );
+  }
+
   Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
     final Map<String, List<Map<String, dynamic>>> grouped = {};
     for (var item in data) {
@@ -182,6 +235,11 @@ class _HomePageState extends State<HomePage> {
           progress: progress,
           showLoadedMessage: showLoadedMessage,
           groupedData: groupedData,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: showAddWordDialog,
+          backgroundColor: Colors.amber,
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ),
     );
