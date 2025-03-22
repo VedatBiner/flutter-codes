@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:alphabet_list_view/alphabet_list_view.dart';
 
 import '../../../data/database/database_helper.dart';
 import '../../../widgets/word_card.dart';
 import '../../../widgets/loading_card.dart';
 import 'widgets/search_input.dart';
+import 'widgets/alphabet_list_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -98,11 +98,11 @@ class _HomePageState extends State<HomePage> {
           dbData
               .where(
                 (item) =>
-                    item['sirpca'].toLowerCase().contains(
-                      query.toLowerCase(),
-                    ) ||
-                    item['turkce'].toLowerCase().contains(query.toLowerCase()),
-              )
+            item['sirpca'].toLowerCase().contains(
+              query.toLowerCase(),
+            ) ||
+                item['turkce'].toLowerCase().contains(query.toLowerCase()),
+          )
               .toList();
     } else {
       tempList = dbData;
@@ -130,33 +130,33 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Veritabanını Sıfırla"),
-            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                },
-                child: const Text("İptal"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                  await Future.delayed(const Duration(milliseconds: 300));
-                  await resetDatabase();
-                },
-                child: const Text("Sil"),
-              ),
-            ],
+        title: const Text("Veritabanını Sıfırla"),
+        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+            },
+            child: const Text("İptal"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+              await Future.delayed(const Duration(milliseconds: 300));
+              await resetDatabase();
+            },
+            child: const Text("Sil"),
+          ),
+        ],
+      ),
     );
   }
 
   Map<String, List<Map<String, dynamic>>> groupData(
-    List<Map<String, dynamic>> data,
-  ) {
+      List<Map<String, dynamic>> data,
+      ) {
     final Map<String, List<Map<String, dynamic>>> grouped = {};
     for (var item in data) {
       final key = item['sirpca'][0].toUpperCase();
@@ -178,38 +178,38 @@ class _HomePageState extends State<HomePage> {
           iconTheme: const IconThemeData(color: Colors.amber),
           centerTitle: true,
           title:
-              isSearching
-                  ? SearchInput(
-                    controller: searchController,
-                    onChanged: filterSearchResults,
-                  )
-                  : Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      const Text(
-                        "Sırpça-Türkçe Sözlük",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                        ),
-                      ),
-                      Text(
-                        "SQLite ($itemCount madde)",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ],
-                  ),
+          isSearching
+              ? SearchInput(
+            controller: searchController,
+            onChanged: filterSearchResults,
+          )
+              : Column(
+            children: [
+              const SizedBox(height: 12),
+              const Text(
+                "Sırpça-Türkçe Sözlük",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                ),
+              ),
+              Text(
+                "SQLite ($itemCount madde)",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                ),
+              ),
+            ],
+          ),
           leading: Builder(
             builder:
                 (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
+              icon: const Icon(Icons.menu),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
           ),
           actions: [
             IconButton(
@@ -229,170 +229,33 @@ class _HomePageState extends State<HomePage> {
         drawer: Builder(
           builder:
               (drawerContext) => Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    const DrawerHeader(
-                      decoration: BoxDecoration(color: Colors.blue),
-                      child: Text(
-                        'Menü',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.delete, color: Colors.red),
-                      title: const Text(
-                        'Veritabanını Sıfırla ve Yeniden Yükle',
-                      ),
-                      onTap: () => showResetConfirmationDialog(drawerContext),
-                    ),
-                  ],
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(color: Colors.blue),
+                  child: Text(
+                    'Menü',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
                 ),
-              ),
+                ListTile(
+                  leading: const Icon(Icons.delete, color: Colors.red),
+                  title: const Text(
+                    'Veritabanını Sıfırla ve Yeniden Yükle',
+                  ),
+                  onTap: () => showResetConfirmationDialog(drawerContext),
+                ),
+              ],
+            ),
+          ),
         ),
         body: Stack(
           children: [
             if (isLoading)
               LoadingCard(progress: progress)
             else
-              AlphabetListView(
-                items:
-                    groupedData.entries.map((entry) {
-                      return AlphabetListViewItemGroup(
-                        tag: entry.key,
-                        children:
-                            entry.value
-                                .map(
-                                  (item) => WordCard(
-                                    sirpca: item['sirpca'],
-                                    turkce: item['turkce'],
-                                  ),
-                                )
-                                .toList(),
-                      );
-                    }).toList(),
-
-                options: AlphabetListViewOptions(
-                  /// Harfe tıklanınca görünen büyük harfin renkleri
-                  overlayOptions: OverlayOptions(
-                    alignment: Alignment.centerRight,
-                    overlayBuilder: (context, symbol) {
-                      return Container(
-                        width: 100,
-                        height: 100,
-                        decoration: const BoxDecoration(
-                          color:
-                              Colors
-                                  .green, //Theme.of(context).colorScheme.secondary,
-                          borderRadius: BorderRadius.horizontal(
-                            left: Radius.circular(100),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: FittedBox(
-                            child: Text(
-                              symbol,
-                              textScaler: TextScaler.noScaling,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color:
-                                    Colors
-                                        .amber, //Theme.of(context).colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-
-                  /// liste arka plan renkleri
-                  listOptions: ListOptions(
-                    backgroundColor: Colors.blueGrey,
-                    stickySectionHeader: false,
-                    showSectionHeaderForEmptySections: true,
-                    listHeaderBuilder:
-                        (context, symbol) => Padding(
-                          padding: const EdgeInsets.only(
-                            right: 18,
-                            top: 4,
-                            bottom: 4,
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.horizontal(
-                                  right: Radius.circular(100),
-                                ),
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 8,
-                                  top: 8,
-                                  right: 16,
-                                  bottom: 8,
-                                ),
-                                child: Text(
-                                  symbol,
-                                  textScaler: TextScaler.noScaling,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 30,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                  ),
-
-                  /// Scrollbar renkleri
-                  scrollbarOptions: ScrollbarOptions(
-                    jumpToSymbolsWithNoEntries: true,
-                    backgroundColor:
-                        Colors
-                            .indigo, //Theme.of(context).colorScheme.secondary,
-                    symbolBuilder: (context, symbol, state) {
-                      final color = switch (state) {
-                        AlphabetScrollbarItemState.active => Colors.black87,
-                        AlphabetScrollbarItemState.deactivated => Colors.blue,
-                        _ =>
-                          Colors.amber, //Theme.of(context).colorScheme.primary,
-                      };
-
-                      return Container(
-                        padding: const EdgeInsets.only(
-                          left: 4,
-                          top: 2,
-                          bottom: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.horizontal(
-                            left: Radius.circular(100),
-                          ),
-                          color:
-                              state == AlphabetScrollbarItemState.active
-                                  ? Colors.lightGreen
-                                  /// fihrist harfi rengi (aktif)
-                                  : null,
-                        ),
-                        child: Center(
-                          child: FittedBox(
-                            child: Text(
-                              symbol,
-                              style: TextStyle(color: color, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
+              AlphabetListWidget(groupedData: groupedData),
             if (showLoadedMessage)
               Positioned(
                 bottom: 20,
