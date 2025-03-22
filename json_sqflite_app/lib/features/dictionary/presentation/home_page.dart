@@ -272,8 +272,8 @@ class _HomePageState extends State<HomePage> {
                       );
                     }).toList(),
 
-                /// Harfe tıklanınca görünen büyük harfin renkleri
                 options: AlphabetListViewOptions(
+                  /// Harfe tıklanınca görünen büyük harfin renkleri
                   overlayOptions: OverlayOptions(
                     alignment: Alignment.centerRight,
                     overlayBuilder: (context, symbol) {
@@ -281,7 +281,9 @@ class _HomePageState extends State<HomePage> {
                         width: 100,
                         height: 100,
                         decoration: const BoxDecoration(
-                          color: Colors.green, //Theme.of(context).colorScheme.secondary,
+                          color:
+                              Colors
+                                  .green, //Theme.of(context).colorScheme.secondary,
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(100),
                           ),
@@ -294,8 +296,95 @@ class _HomePageState extends State<HomePage> {
                               textScaler: TextScaler.noScaling,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.amber //Theme.of(context).colorScheme.primary,
+                                color:
+                                    Colors
+                                        .amber, //Theme.of(context).colorScheme.primary,
                               ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+                  /// liste arka plan renkleri
+                  listOptions: ListOptions(
+                    backgroundColor: Colors.blueGrey,
+                    stickySectionHeader: false,
+                    showSectionHeaderForEmptySections: true,
+                    listHeaderBuilder:
+                        (context, symbol) => Padding(
+                          padding: const EdgeInsets.only(
+                            right: 18,
+                            top: 4,
+                            bottom: 4,
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.horizontal(
+                                  right: Radius.circular(100),
+                                ),
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 8,
+                                  top: 8,
+                                  right: 16,
+                                  bottom: 8,
+                                ),
+                                child: Text(
+                                  symbol,
+                                  textScaler: TextScaler.noScaling,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                  ),
+
+                  /// Scrollbar renkleri
+                  scrollbarOptions: ScrollbarOptions(
+                    jumpToSymbolsWithNoEntries: true,
+                    backgroundColor:
+                        Colors
+                            .indigo, //Theme.of(context).colorScheme.secondary,
+                    symbolBuilder: (context, symbol, state) {
+                      final color = switch (state) {
+                        AlphabetScrollbarItemState.active => Colors.black87,
+                        AlphabetScrollbarItemState.deactivated => Colors.blue,
+                        _ =>
+                          Colors.amber, //Theme.of(context).colorScheme.primary,
+                      };
+
+                      return Container(
+                        padding: const EdgeInsets.only(
+                          left: 4,
+                          top: 2,
+                          bottom: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.horizontal(
+                            left: Radius.circular(100),
+                          ),
+                          color:
+                              state == AlphabetScrollbarItemState.active
+                                  ? Colors.lightGreen
+                                  /// fihrist harfi rengi (aktif)
+                                  : null,
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            child: Text(
+                              symbol,
+                              style: TextStyle(color: color, fontSize: 20),
                             ),
                           ),
                         ),
