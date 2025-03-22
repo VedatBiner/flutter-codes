@@ -3,10 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../../../data/database/database_helper.dart';
-import '../../../widgets/word_card.dart';
-import '../../../widgets/loading_card.dart';
-import 'widgets/search_input.dart';
-import 'widgets/alphabet_list_widget.dart';
+import 'widgets/app_drawer.dart';
+import 'widgets/stack_body.dart';
+import 'widgets/custom_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> loadDataFromDatabase() async {
     log("🔄 Veritabanından veri okunuyor...");
     final data = await DatabaseHelper.instance.getAllData();
-    log("📊 SQLite 'den gelen veri sayısı: ${data.length}");
+    log("📊 SQLite 'den gelen veri sayısı: \${data.length}");
 
     if (data.isEmpty) {
       log("📂 Veritabanı boş, JSON 'dan veri ekleniyor...");
@@ -44,11 +43,9 @@ class _HomePageState extends State<HomePage> {
       });
 
       try {
-        final jsonString = await DefaultAssetBundle.of(
-          context,
-        ).loadString('assets/database/ser_tr_dict.json');
+        final jsonString = await DefaultAssetBundle.of(context).loadString('assets/database/ser_tr_dict.json');
         final List<dynamic> jsonData = json.decode(jsonString);
-        log("📝 JSON içinde ${jsonData.length} veri var.");
+        log("📝 JSON içinde \${jsonData.length} veri var.");
 
         for (int i = 0; i < jsonData.length; i++) {
           await DatabaseHelper.instance.insertSingleItem(jsonData[i]);
@@ -78,7 +75,7 @@ class _HomePageState extends State<HomePage> {
 
         log("📥 JSON verisi SQLite'a kaydedildi.");
       } catch (e) {
-        log("❌ Hata oluştu: $e");
+        log("❌ Hata oluştu: \$e");
       }
     } else {
       setState(() {
@@ -94,16 +91,9 @@ class _HomePageState extends State<HomePage> {
   void filterSearchResults(String query) {
     List<Map<String, dynamic>> tempList = [];
     if (query.isNotEmpty) {
-      tempList =
-          dbData
-              .where(
-                (item) =>
-            item['sirpca'].toLowerCase().contains(
-              query.toLowerCase(),
-            ) ||
-                item['turkce'].toLowerCase().contains(query.toLowerCase()),
-          )
-              .toList();
+      tempList = dbData.where((item) =>
+      item['sirpca'].toLowerCase().contains(query.toLowerCase()) ||
+          item['turkce'].toLowerCase().contains(query.toLowerCase())).toList();
     } else {
       tempList = dbData;
     }
@@ -128,8 +118,7 @@ class _HomePageState extends State<HomePage> {
   void showResetConfirmationDialog(BuildContext drawerContext) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
+      builder: (context) => AlertDialog(
         title: const Text("Veritabanını Sıfırla"),
         content: const Text("Veritabanı silinecektir. Emin misiniz?"),
         actions: [
@@ -154,9 +143,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Map<String, List<Map<String, dynamic>>> groupData(
-      List<Map<String, dynamic>> data,
-      ) {
+  Map<String, List<Map<String, dynamic>>> groupData(List<Map<String, dynamic>> data) {
     final Map<String, List<Map<String, dynamic>>> grouped = {};
     for (var item in data) {
       final key = item['sirpca'][0].toUpperCase();
@@ -172,118 +159,29 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 80,
-          backgroundColor: Colors.blueAccent,
-          iconTheme: const IconThemeData(color: Colors.amber),
-          centerTitle: true,
-          title:
-          isSearching
-              ? SearchInput(
-            controller: searchController,
-            onChanged: filterSearchResults,
-          )
-              : Column(
-            children: [
-              const SizedBox(height: 12),
-              const Text(
-                "Sırpça-Türkçe Sözlük",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-              Text(
-                "SQLite ($itemCount madde)",
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.amber,
-                ),
-              ),
-            ],
-          ),
-          leading: Builder(
-            builder:
-                (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: Icon(isSearching ? Icons.close : Icons.search),
-              onPressed: () {
-                setState(() {
-                  isSearching = !isSearching;
-                  if (!isSearching) {
-                    searchController.clear();
-                    filterSearchResults('');
-                  }
-                });
-              },
-            ),
-          ],
+        appBar: CustomAppBar(
+          isSearching: isSearching,
+          searchController: searchController,
+          onSearchChanged: filterSearchResults,
+          onSearchToggle: () {
+            setState(() {
+              isSearching = !isSearching;
+              if (!isSearching) {
+                searchController.clear();
+                filterSearchResults('');
+              }
+            });
+          },
+          itemCount: itemCount,
         ),
-        drawer: Builder(
-          builder:
-              (drawerContext) => Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  decoration: BoxDecoration(color: Colors.blue),
-                  child: Text(
-                    'Menü',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: const Text(
-                    'Veritabanını Sıfırla ve Yeniden Yükle',
-                  ),
-                  onTap: () => showResetConfirmationDialog(drawerContext),
-                ),
-              ],
-            ),
-          ),
+        drawer: AppDrawer(
+          onResetDatabase: () => showResetConfirmationDialog(context),
         ),
-        body: Stack(
-          children: [
-            if (isLoading)
-              LoadingCard(progress: progress)
-            else
-              AlphabetListWidget(groupedData: groupedData),
-            if (showLoadedMessage)
-              Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: Center(
-                  child: Card(
-                    color: Colors.green.shade600,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      child: Text(
-                        "✅ Yüklendi!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
+        body: StackBody(
+          isLoading: isLoading,
+          progress: progress,
+          showLoadedMessage: showLoadedMessage,
+          groupedData: groupedData,
         ),
       ),
     );
