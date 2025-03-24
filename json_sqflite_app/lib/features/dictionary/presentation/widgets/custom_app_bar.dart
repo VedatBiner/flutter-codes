@@ -1,3 +1,8 @@
+// <----- 📜 custom_app_bar.dart ----->
+// -----------------------------------------------------------------------------
+// AppBar oluşturmak için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 
 import 'search_input.dart';

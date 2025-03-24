@@ -1,3 +1,8 @@
+// <----- 📜 alphabet_list_widget.dart ----->
+// -----------------------------------------------------------------------------
+// Alfabetik fihrist görünümü için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 
@@ -18,11 +23,13 @@ class AlphabetListWidget extends StatelessWidget {
               .map((item) => WordCard(
             sirpca: item['sirpca'],
             turkce: item['turkce'],
-          ))
+          ),)
               .toList(),
         );
       }).toList(),
       options: AlphabetListViewOptions(
+        /// Sağdaki çubuk üzerinde seçilen harfin görünümü
+        ///
         overlayOptions: OverlayOptions(
           alignment: Alignment.centerRight,
           overlayBuilder: (context, symbol) {
@@ -51,6 +58,8 @@ class AlphabetListWidget extends StatelessWidget {
             );
           },
         ),
+        /// listeleme seçenekleri
+        ///
         listOptions: ListOptions(
           backgroundColor: Colors.blueGrey,
           stickySectionHeader: false,
@@ -83,6 +92,8 @@ class AlphabetListWidget extends StatelessWidget {
             ),
           ),
         ),
+        /// scrollbar seçenekleri
+        ///
         scrollbarOptions: ScrollbarOptions(
           jumpToSymbolsWithNoEntries: true,
           backgroundColor: Colors.indigo,
@@ -118,3 +129,4 @@ class AlphabetListWidget extends StatelessWidget {
     );
   }
 }
+

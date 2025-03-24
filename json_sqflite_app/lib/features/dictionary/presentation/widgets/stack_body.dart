@@ -1,3 +1,8 @@
+// <----- 📜 stack_body.dart ----->
+// -----------------------------------------------------------------------------
+// Body oluşturmak için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 import 'alphabet_list_widget.dart';
 

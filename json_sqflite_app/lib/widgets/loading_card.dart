@@ -1,3 +1,10 @@
+// <----- 📜 loading_card.dart ----->
+// -----------------------------------------------------------------------------
+// Kelime listesi oluşturmak için kullanılan widget
+// Burada kelimelerin veri tabanına eklenmesi yüzde ve bir progress bar
+// olarak görüntüleniyor.
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 
 class LoadingCard extends StatelessWidget {
@@ -44,3 +51,13 @@ class LoadingCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

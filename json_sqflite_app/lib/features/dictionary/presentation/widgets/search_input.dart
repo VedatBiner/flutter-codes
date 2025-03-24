@@ -1,3 +1,8 @@
+// <----- 📜 search_input.dart ----->
+// -----------------------------------------------------------------------------
+// AppBar içindeki arama kutusunu oluşturmak için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 
 class SearchInput extends StatelessWidget {

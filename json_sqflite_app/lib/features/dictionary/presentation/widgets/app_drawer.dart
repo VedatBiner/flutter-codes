@@ -1,3 +1,8 @@
+// <----- 📜 app_drawer.dart ----->
+// -----------------------------------------------------------------------------
+// Drawer menüsünü oluşturmak için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -31,3 +36,5 @@ class AppDrawer extends StatelessWidget {
     );
   }
 }
+
+

@@ -1,3 +1,8 @@
+// <----- 📜 word_card.dart ----->
+// -----------------------------------------------------------------------------
+// Kelime ve kaşılığını Card içinde göstermek için kullanılan widget
+// -----------------------------------------------------------------------------
+//
 import 'package:flutter/material.dart';
 
 class WordCard extends StatelessWidget {
@@ -32,3 +37,4 @@ class WordCard extends StatelessWidget {
     );
   }
 }
+

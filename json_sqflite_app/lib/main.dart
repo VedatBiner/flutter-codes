@@ -1,6 +1,7 @@
 /// <----- main.dart ----->
 ///
 library;
+
 import 'package:flutter/material.dart';
 import 'data/database/database_helper.dart';
 import 'features/dictionary/presentation/home_page.dart';
