@@ -28,7 +28,7 @@ class AlphabetListWidget extends StatelessWidget {
         );
       }).toList(),
       options: AlphabetListViewOptions(
-        /// Sağdaki çubuk üzerinde seçilen harfin görünümü
+        /// 📌 Sağdaki çubuk üzerinde seçilen harfin görünümü
         ///
         overlayOptions: OverlayOptions(
           alignment: Alignment.centerRight,
@@ -58,7 +58,7 @@ class AlphabetListWidget extends StatelessWidget {
             );
           },
         ),
-        /// listeleme seçenekleri
+        /// 📌 listeleme seçenekleri
         ///
         listOptions: ListOptions(
           backgroundColor: Colors.blueGrey,
@@ -92,7 +92,7 @@ class AlphabetListWidget extends StatelessWidget {
             ),
           ),
         ),
-        /// scrollbar seçenekleri
+        /// 📌 scrollbar seçenekleri
         ///
         scrollbarOptions: ScrollbarOptions(
           jumpToSymbolsWithNoEntries: true,

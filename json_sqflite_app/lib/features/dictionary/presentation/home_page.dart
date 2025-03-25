@@ -107,11 +107,11 @@ class _HomePageState extends State<HomePage> {
           dbData
               .where(
                 (item) =>
-                    item['sirpca'].toLowerCase().contains(
-                      query.toLowerCase(),
-                    ) ||
-                    item['turkce'].toLowerCase().contains(query.toLowerCase()),
-              )
+            item['sirpca'].toLowerCase().contains(
+              query.toLowerCase(),
+            ) ||
+                item['turkce'].toLowerCase().contains(query.toLowerCase()),
+          )
               .toList();
     } else {
       tempList = dbData;
@@ -143,27 +143,27 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Veritabanını Sıfırla"),
-            content: const Text("Veritabanı silinecektir. Emin misiniz?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                },
-                child: const Text("İptal"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  Navigator.of(drawerContext).pop();
-                  await Future.delayed(const Duration(milliseconds: 300));
-                  await resetDatabase();
-                },
-                child: const Text("Sil"),
-              ),
-            ],
+        title: const Text("Veritabanını Sıfırla"),
+        content: const Text("Veritabanı silinecektir. Emin misiniz?"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+            },
+            child: const Text("İptal"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.of(drawerContext).pop();
+              await Future.delayed(const Duration(milliseconds: 300));
+              await resetDatabase();
+            },
+            child: const Text("Sil"),
+          ),
+        ],
+      ),
     );
   }
 
@@ -177,64 +177,69 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text("Yeni Kelime Ekle"),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: serbianController,
-                  decoration: const InputDecoration(labelText: 'Sırpça'),
-                ),
-                TextField(
-                  controller: turkishController,
-                  decoration: const InputDecoration(labelText: 'Türkçe'),
-                ),
-              ],
+        title: const Text("Yeni Kelime Ekle"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: serbianController,
+              decoration: const InputDecoration(labelText: 'Sırpça'),
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text("İptal"),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final sirpca = serbianController.text.trim();
-                  final turkce = turkishController.text.trim();
-
-                  if (sirpca.isEmpty || turkce.isEmpty) return;
-
-                  final exists = dbData.any(
-                    (element) =>
-                        element['sirpca'].toLowerCase() == sirpca.toLowerCase(),
-                  );
-
-                  if (exists) {
-                    Fluttertoast.showToast(msg: '⚠️ Bu kelime zaten var!');
-                  } else {
-                    await DatabaseHelper.instance.insertSingleItem({
-                      'sirpca': sirpca,
-                      'turkce': turkce,
-                    });
-                    Fluttertoast.showToast(msg: '✅ Kelime eklendi');
-                    searchController.clear();
-                    filterSearchResults('');
-                    await loadDataFromDatabase();
-                  }
-
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Ekle"),
-              ),
-            ],
+            TextField(
+              controller: turkishController,
+              decoration: const InputDecoration(labelText: 'Türkçe'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("İptal"),
           ),
+          ElevatedButton(
+            onPressed: () async {
+              final sirpca = serbianController.text.trim();
+              final turkce = turkishController.text.trim();
+
+              if (sirpca.isEmpty || turkce.isEmpty) return;
+
+              final exists = dbData.any(
+                    (element) =>
+                element['sirpca'].toLowerCase() == sirpca.toLowerCase(),
+              );
+
+              if (exists) {
+                Fluttertoast.showToast(msg: '⚠️ Bu kelime zaten var!');
+              } else {
+                final newWord = {'sirpca': sirpca, 'turkce': turkce};
+                await DatabaseHelper.instance.insertSingleItem(newWord);
+
+                Fluttertoast.showToast(msg: '✅ Kelime eklendi');
+
+                setState(() {
+                  dbData.insert(0, newWord);
+                  filteredData = dbData;
+                  itemCount = dbData.length;
+                });
+
+                searchController.clear();
+                filterSearchResults('');
+              }
+
+              Navigator.of(context).pop();
+            },
+            child: const Text("Ekle"),
+          ),
+        ],
+      ),
     );
   }
 
   /// 📃 Verileri Alfabetik gruplama
   ///
   Map<String, List<Map<String, dynamic>>> groupData(
-    List<Map<String, dynamic>> data,
-  ) {
+      List<Map<String, dynamic>> data,
+      ) {
     final Map<String, List<Map<String, dynamic>>> grouped = {};
     for (var item in data) {
       final key = item['sirpca'][0].toUpperCase();
@@ -252,7 +257,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Scaffold(
-        /// AppBar burada oluşturuluyor
+        /// 📌 AppBar burada oluşturuluyor
         ///
         appBar: CustomAppBar(
           isSearching: isSearching,
@@ -270,13 +275,13 @@ class _HomePageState extends State<HomePage> {
           itemCount: itemCount,
         ),
 
-        /// Drawer burada oluşturuluyor
+        /// 📌 Drawer burada oluşturuluyor
         ///
         drawer: AppDrawer(
           onResetDatabase: () => showResetConfirmationDialog(context),
         ),
 
-        /// Body burada oluşturuluyor
+        /// 📌 Body burada oluşturuluyor
         ///
         body: StackBody(
           isLoading: isLoading,
@@ -285,7 +290,7 @@ class _HomePageState extends State<HomePage> {
           groupedData: groupedData,
         ),
 
-        /// FloatingActionButton burada oluşturuluyor
+        /// 📌 FloatingActionButton burada oluşturuluyor
         ///
         floatingActionButton: FloatingActionButton(
           onPressed: showAddWordDialog,
