@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'db/word_database.dart';
 import 'models/word_model.dart';
 import 'widgets/word_dialog.dart';
@@ -19,11 +20,20 @@ class _HomePageState extends State<HomePage> {
 
   bool isSearching = false;
   final TextEditingController searchController = TextEditingController();
+  String appVersion = '';
 
   @override
   void initState() {
     super.initState();
     _loadWords();
+    _getAppVersion();
+  }
+
+  void _getAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = 'Versiyon: ${info.version} (${info.buildNumber})';
+    });
   }
 
   Future<void> _loadWords() async {
@@ -38,16 +48,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _filterWords(String query) {
-    final filtered = allWords.where((word) {
-      final q = query.toLowerCase();
-      return word.word.toLowerCase().contains(q) ||
-          word.meaning.toLowerCase().contains(q);
-    }).toList();
+    final filtered =
+        allWords.where((word) {
+          final q = query.toLowerCase();
+          return word.word.toLowerCase().contains(q) ||
+              word.meaning.toLowerCase().contains(q);
+        }).toList();
 
     setState(() {
       words = filtered;
     });
-
   }
 
   void _clearSearch() {
@@ -67,9 +77,9 @@ class _HomePageState extends State<HomePage> {
     if (result != null) {
       final existing = await WordDatabase.instance.getWord(result.word);
       if (existing != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Bu kelime zaten var')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Bu kelime zaten var')));
         return;
       }
 
@@ -81,62 +91,61 @@ class _HomePageState extends State<HomePage> {
   void _showResetDatabaseDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Veritabanını Sıfırla'),
-        content: const Text('Tüm kelimeler silinecek. Emin misiniz?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).maybePop();
-            },
-            child: const Text('İptal'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Veritabanını Sıfırla'),
+            content: const Text('Tüm kelimeler silinecek. Emin misiniz?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).maybePop();
+                },
+                child: const Text('İptal'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final db = await WordDatabase.instance.database;
+                  await db.delete('words');
+                  Navigator.of(context).pop();
+                  Navigator.of(context).maybePop();
+                  _loadWords();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Veritabanı sıfırlandı')),
+                  );
+                },
+                child: const Text('Sil'),
+              ),
+            ],
           ),
-          ElevatedButton(
-            onPressed: () async {
-              final db = await WordDatabase.instance.database;
-              await db.delete('words');
-              Navigator.of(context).pop();
-              Navigator.of(context).maybePop();
-              _loadWords();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Veritabanı sıfırlandı')),
-              );
-            },
-            child: const Text('Sil'),
-          ),
-        ],
-      ),
     );
   }
 
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
-      title: isSearching
-          ? TextField(
-        controller: searchController,
-        autofocus: true,
-        decoration: const InputDecoration(
-          hintText: 'Ara...',
-          border: InputBorder.none,
-        ),
-        onChanged: _filterWords,
-      )
-          : const Text('Kelimelik'),
+      title:
+          isSearching
+              ? TextField(
+                controller: searchController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: 'Ara...',
+                  border: InputBorder.none,
+                ),
+                onChanged: _filterWords,
+              )
+              : const Text('Kelimelik'),
       actions: [
         isSearching
-            ? IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: _clearSearch,
-        )
+            ? IconButton(icon: const Icon(Icons.clear), onPressed: _clearSearch)
             : IconButton(
-          icon: const Icon(Icons.search),
-          onPressed: () {
-            setState(() {
-              isSearching = true;
-            });
-          },
-        ),
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  isSearching = true;
+                });
+              },
+            ),
       ],
     );
   }
@@ -160,6 +169,13 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.delete),
               title: const Text('Veritabanını Sıfırla'),
               onTap: _showResetDatabaseDialog,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                appVersion,
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
+              ),
             ),
           ],
         ),
