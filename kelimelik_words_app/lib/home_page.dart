@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onChanged: _filterWords,
               )
-              : const Text('Kelimelik'),
+              : Text('Kelimelik (${words.length})'), // ← burada
       actions: [
         isSearching
             ? IconButton(icon: const Icon(Icons.clear), onPressed: _clearSearch)
