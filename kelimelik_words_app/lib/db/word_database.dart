@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/word_model.dart';
@@ -17,6 +19,8 @@ class WordDatabase {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
+
+    log('📁 SQLite veritabanı konumu: $path');
 
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
@@ -51,4 +55,13 @@ class WordDatabase {
     final db = await instance.database;
     return await db.insert('words', word.toMap());
   }
+
+  Future<int> countWords() async {
+    final db = await instance.database;
+    final result = Sqflite.firstIntValue(
+      await db.rawQuery('SELECT COUNT(*) FROM words'),
+    );
+    return result ?? 0;
+  }
+
 }

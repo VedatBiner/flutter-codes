@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'db/word_database.dart';
 import 'models/word_model.dart';
@@ -13,6 +15,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Word> words = [];
+  List<Word> allWords = [];
+
+  bool isSearching = false;
+  final TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
@@ -21,8 +27,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _loadWords() async {
-    final allWords = await WordDatabase.instance.getWords();
+    allWords = await WordDatabase.instance.getWords();
+    final count = await WordDatabase.instance.countWords();
+
     setState(() {
+      words = allWords;
+    });
+
+    log('📦 Toplam kayıt sayısı: $count');
+  }
+
+  void _filterWords(String query) {
+    final filtered = allWords.where((word) {
+      final q = query.toLowerCase();
+      return word.word.toLowerCase().contains(q) ||
+          word.meaning.toLowerCase().contains(q);
+    }).toList();
+
+    setState(() {
+      words = filtered;
+    });
+
+  }
+
+  void _clearSearch() {
+    searchController.clear();
+    setState(() {
+      isSearching = false;
       words = allWords;
     });
   }
@@ -79,12 +110,41 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  PreferredSizeWidget _buildAppBar() {
+    return AppBar(
+      title: isSearching
+          ? TextField(
+        controller: searchController,
+        autofocus: true,
+        decoration: const InputDecoration(
+          hintText: 'Ara...',
+          border: InputBorder.none,
+        ),
+        onChanged: _filterWords,
+      )
+          : const Text('Kelimelik'),
+      actions: [
+        isSearching
+            ? IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: _clearSearch,
+        )
+            : IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            setState(() {
+              isSearching = true;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Kelimelik'),
-      ),
+      appBar: _buildAppBar(),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
