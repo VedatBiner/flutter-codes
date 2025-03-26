@@ -60,6 +60,21 @@ class WordDatabase {
     return await db.insert('words', word.toMap());
   }
 
+  Future<int> updateWord(Word word) async {
+    final db = await instance.database;
+    return await db.update(
+      'words',
+      word.toMap(),
+      where: 'id = ?',
+      whereArgs: [word.id],
+    );
+  }
+
+  Future<int> deleteWord(int id) async {
+    final db = await instance.database;
+    return await db.delete('words', where: 'id = ?', whereArgs: [id]);
+  }
+
   Future<int> countWords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
@@ -84,5 +99,38 @@ class WordDatabase {
     log('📁 Dosya yolu: $filePath', name: 'Backup');
 
     return filePath;
+  }
+
+  Future<void> importWordsFromJson() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/kelimelik_backup.json';
+      final file = File(filePath);
+
+      if (!(await file.exists())) {
+        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Import');
+        return;
+      }
+
+      final jsonString = await file.readAsString();
+      final List<dynamic> jsonList = jsonDecode(jsonString);
+
+      // İstersen önce veritabanını temizleyebilirsin:
+      final db = await database;
+      await db.delete('words');
+
+      for (var item in jsonList) {
+        final word = Word.fromMap(item);
+        await insertWord(word);
+      }
+
+      log(
+        '✅ Yedek başarıyla geri yüklendi. (${jsonList.length} kayıt)',
+        name: 'Import',
+      );
+      log('📂 Kaynak dosya: $filePath', name: 'Import');
+    } catch (e) {
+      log('🚨 Geri yükleme hatası: $e', name: 'Import');
+    }
   }
 }

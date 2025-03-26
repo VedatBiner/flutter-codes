@@ -178,6 +178,19 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.upload_file),
+              title: const Text('Yedekten Geri Yükle'),
+              onTap: () async {
+                await WordDatabase.instance.importWordsFromJson();
+                await _loadWords();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Yedek geri yüklendi')),
+                );
+                Navigator.of(context).maybePop();
+              },
+            ),
+
+            ListTile(
               leading: const Icon(Icons.delete),
               title: const Text('Veritabanını Sıfırla'),
               onTap: _showResetDatabaseDialog,
@@ -197,7 +210,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: WordList(words: words),
+      body: WordList(words: words, onUpdated: _loadWords),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddWordDialog,
         child: const Icon(Icons.add),

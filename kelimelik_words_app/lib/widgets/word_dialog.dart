@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../models/word_model.dart';
 
 class WordDialog extends StatefulWidget {
-  const WordDialog({super.key});
+  final Word? word; // <-- Eklendi
+
+  const WordDialog({super.key, this.word}); // <-- Eklendi
 
   @override
   State<WordDialog> createState() => _WordDialogState();
@@ -10,55 +13,71 @@ class WordDialog extends StatefulWidget {
 
 class _WordDialogState extends State<WordDialog> {
   final _formKey = GlobalKey<FormState>();
-  final wordController = TextEditingController();
-  final meaningController = TextEditingController();
+  late TextEditingController _wordController;
+  late TextEditingController _meaningController;
 
-  /// İlk harfi büyük yapan yardımcı fonksiyon
-  String capitalize(String input) {
-    if (input.isEmpty) return '';
-    return input[0].toUpperCase() + input.substring(1);
+  @override
+  void initState() {
+    super.initState();
+    _wordController = TextEditingController(text: widget.word?.word ?? '');
+    _meaningController = TextEditingController(
+      text: widget.word?.meaning ?? '',
+    );
   }
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {
-      final word = capitalize(wordController.text.trim());
-      final meaning = capitalize(meaningController.text.trim());
-
-      Navigator.pop(
-        context,
-        Word(word: word, meaning: meaning),
-      );
-    }
+  @override
+  void dispose() {
+    _wordController.dispose();
+    _meaningController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Yeni Kelime Ekle'),
+      title: Text(
+        widget.word == null ? 'Yeni Kelime Ekle' : 'Kelimeyi Düzenle',
+      ),
       content: Form(
         key: _formKey,
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          TextFormField(
-            controller: wordController,
-            decoration: const InputDecoration(labelText: 'Kelime'),
-            validator: (val) => val == null || val.isEmpty ? 'Boş olamaz' : null,
-          ),
-          TextFormField(
-            controller: meaningController,
-            decoration: const InputDecoration(labelText: 'Anlamı'),
-            validator: (val) => val == null || val.isEmpty ? 'Boş olamaz' : null,
-          ),
-        ]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: _wordController,
+              decoration: const InputDecoration(labelText: 'Kelime'),
+              validator:
+                  (value) =>
+                      value == null || value.isEmpty ? 'Boş olamaz' : null,
+            ),
+            TextFormField(
+              controller: _meaningController,
+              decoration: const InputDecoration(labelText: 'Anlamı'),
+              validator:
+                  (value) =>
+                      value == null || value.isEmpty ? 'Boş olamaz' : null,
+            ),
+          ],
+        ),
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context).pop(),
           child: const Text('İptal'),
         ),
         ElevatedButton(
-          onPressed: _submit,
-          child: const Text('Ekle'),
-        )
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              final updatedWord = Word(
+                id: widget.word?.id, // id varsa koru (güncelleme için)
+                word: _wordController.text.trim(),
+                meaning: _meaningController.text.trim(),
+              );
+              Navigator.of(context).pop(updatedWord);
+            }
+          },
+          child: const Text('Kaydet'),
+        ),
       ],
     );
   }
