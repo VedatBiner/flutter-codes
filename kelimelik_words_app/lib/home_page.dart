@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
 import 'db/word_database.dart';
 import 'models/word_model.dart';
 import 'widgets/word_dialog.dart';
@@ -166,15 +167,31 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.download),
+              title: const Text('JSON Yedeği Oluştur'),
+              onTap: () async {
+                final path = await WordDatabase.instance.exportWordsToJson();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Yedek oluşturuldu:\n$path')),
+                );
+                Navigator.of(context).maybePop();
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.delete),
               title: const Text('Veritabanını Sıfırla'),
               onTap: _showResetDatabaseDialog,
             ),
+            const Divider(),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Text(
                 appVersion,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

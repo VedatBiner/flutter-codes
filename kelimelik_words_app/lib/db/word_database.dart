@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '../models/word_model.dart';
 
 class WordDatabase {
@@ -64,4 +68,21 @@ class WordDatabase {
     return result ?? 0;
   }
 
+  Future<String> exportWordsToJson() async {
+    final words = await getWords(); // tüm kelimeleri al
+    final wordMaps = words.map((w) => w.toMap()).toList();
+    final jsonString = jsonEncode(wordMaps);
+
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/kelimelik_backup.json';
+
+    final file = File(filePath);
+    await file.writeAsString(jsonString);
+
+    // 📢 Konsola tam dosya yolunu yaz
+    log('📤 JSON yedeği başarıyla oluşturuldu.', name: 'Backup');
+    log('📁 Dosya yolu: $filePath', name: 'Backup');
+
+    return filePath;
+  }
 }
