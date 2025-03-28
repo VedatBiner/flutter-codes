@@ -108,7 +108,7 @@ class _WordListState extends State<WordList> {
             ),
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onDoubleTap: () {
+              onLongPress: () {
                 setState(() {
                   selectedIndex = isSelected ? null : index;
                 });
