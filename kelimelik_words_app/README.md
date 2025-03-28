@@ -10,6 +10,8 @@ bir chatGPT ortak çalışması :)
 - Versiyon bilgisi var.
 - Drawer menu ayrı dosyaya alındı
 - Home_page daha sadeleşti
+- Kelime kartına iki kez tıklanınca düzeltme ve silme butonları çıkıyor.
+- Kart görünümü renklendirildi.
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek

@@ -19,6 +19,8 @@ class WordList extends StatefulWidget {
 class _WordListState extends State<WordList> {
   int? selectedIndex;
 
+  /// 📌 Kelime silme dialog açar.
+  ///
   void _confirmDelete(BuildContext context, Word word) {
     showDialog(
       context: context,
@@ -44,7 +46,7 @@ class _WordListState extends State<WordList> {
                   }
 
                   setState(() {
-                    selectedIndex = null; // ✅ Butonları kapat!
+                    selectedIndex = null;
                   });
                 },
                 child: const Text('Evet'),
@@ -54,6 +56,8 @@ class _WordListState extends State<WordList> {
     );
   }
 
+  /// 📌 Kelime güncelleme dialog açar.
+  ///
   void _editWord(BuildContext context, Word word) async {
     final updated = await showDialog<Word>(
       context: context,
@@ -71,7 +75,7 @@ class _WordListState extends State<WordList> {
       }
 
       setState(() {
-        selectedIndex = null; // 🔒 Butonları kapat!
+        selectedIndex = null;
       });
     }
   }
@@ -90,7 +94,7 @@ class _WordListState extends State<WordList> {
           });
         }
       },
-      behavior: HitTestBehavior.translucent, // boşluklar dahil tık algılar
+      behavior: HitTestBehavior.translucent,
       child: ListView.builder(
         itemCount: widget.words.length,
         itemBuilder: (context, index) {
@@ -110,7 +114,6 @@ class _WordListState extends State<WordList> {
                 });
               },
               onTap: () {
-                // Aynı karta tekrar tıklarsan bir şey yapma
                 if (selectedIndex != null && selectedIndex != index) {
                   setState(() {
                     selectedIndex = null;
@@ -119,29 +122,46 @@ class _WordListState extends State<WordList> {
               },
               child: Card(
                 elevation: 3,
+                color: const Color(0xFFE3F2FD),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
+                    // 🔤 Kelime + Anlam + Çizgi bölümü
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 12,
                       ),
-                      title: Text(
-                        word.word,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      subtitle: Text(
-                        word.meaning,
-                        style: const TextStyle(fontSize: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            word.word,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.red,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Divider(thickness: 1.2),
+                          const SizedBox(height: 8),
+                          Text(
+                            word.meaning,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.blueAccent,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+
+                    // 🔧 Butonlar
                     if (isSelected)
                       Padding(
                         padding: const EdgeInsets.only(
