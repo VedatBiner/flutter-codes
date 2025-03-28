@@ -4,73 +4,20 @@ import 'package:flutter/material.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
-import '../widgets/word_dialog.dart';
+import 'word_dialog.dart';
 
-class WordList extends StatelessWidget {
+class WordList extends StatefulWidget {
   final List<Word> words;
-  final Function() onUpdated;
+  final VoidCallback onUpdated;
 
   const WordList({super.key, required this.words, required this.onUpdated});
 
   @override
-  Widget build(BuildContext context) {
-    if (words.isEmpty) {
-      return const Center(child: Text('Henüz kelime eklenmedi.'));
-    }
+  State<WordList> createState() => _WordListState();
+}
 
-    return ListView.builder(
-      itemCount: words.length,
-      itemBuilder: (context, index) {
-        final word = words[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          child: Card(
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              title: Text(
-                word.word,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              subtitle: Text(
-                word.meaning,
-                style: const TextStyle(fontSize: 16),
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete, color: Colors.red),
-                onPressed: () {
-                  _confirmDelete(context, word);
-                },
-              ),
-              onTap: () async {
-                final updated = await showDialog<Word>(
-                  context: context,
-                  builder: (_) => WordDialog(word: word),
-                );
-
-                if (updated != null) {
-                  await WordDatabase.instance.updateWord(updated);
-                  onUpdated();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Kelime güncellendi')),
-                  );
-                }
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
+class _WordListState extends State<WordList> {
+  int? selectedIndex;
 
   void _confirmDelete(BuildContext context, Word word) {
     showDialog(
@@ -88,7 +35,8 @@ class WordList extends StatelessWidget {
                 onPressed: () async {
                   await WordDatabase.instance.deleteWord(word.id!);
                   Navigator.of(context).pop();
-                  onUpdated();
+                  widget.onUpdated();
+
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Kelime silindi')),
@@ -99,6 +47,127 @@ class WordList extends StatelessWidget {
               ),
             ],
           ),
+    );
+  }
+
+  void _editWord(BuildContext context, Word word) async {
+    final updated = await showDialog<Word>(
+      context: context,
+      builder: (_) => WordDialog(word: word),
+    );
+
+    if (updated != null) {
+      await WordDatabase.instance.updateWord(updated);
+      widget.onUpdated();
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Kelime güncellendi')));
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.words.isEmpty) {
+      return const Center(child: Text('Henüz kelime eklenmedi.'));
+    }
+
+    return GestureDetector(
+      onTap: () {
+        if (selectedIndex != null) {
+          setState(() {
+            selectedIndex = null;
+          });
+        }
+      },
+      behavior: HitTestBehavior.translucent, // boşluklar dahil tık algılar
+      child: ListView.builder(
+        itemCount: widget.words.length,
+        itemBuilder: (context, index) {
+          final word = widget.words[index];
+          final isSelected = selectedIndex == index;
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 6.0,
+            ),
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onDoubleTap: () {
+                setState(() {
+                  selectedIndex = isSelected ? null : index;
+                });
+              },
+              onTap: () {
+                // Aynı karta tekrar tıklarsan bir şey yapma
+                if (selectedIndex != null && selectedIndex != index) {
+                  setState(() {
+                    selectedIndex = null;
+                  });
+                }
+              },
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                      title: Text(
+                        word.word,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      subtitle: Text(
+                        word.meaning,
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    if (isSelected)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                          bottom: 12,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () => _editWord(context, word),
+                              icon: const Icon(Icons.edit),
+                              label: const Text('Düzenle'),
+                            ),
+                            const SizedBox(width: 8),
+                            ElevatedButton.icon(
+                              onPressed: () => _confirmDelete(context, word),
+                              icon: const Icon(Icons.delete),
+                              label: const Text('Sil'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
