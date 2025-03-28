@@ -19,3 +19,14 @@ JSON Verisini okuyup, sqflite verisine dönüştüren basit kod
 - Yeni kelime ekleme butonu oluşturuldu.
 
 
+Yapılacaklar :
+- Arama ve ekleme düzeltilecek
+- İkon eklenecek
+- CSV Export eklenecek.
+- SQLite Backup eklenecek
+- Ekleme Çıkarma Güncelleme animasyonu eklenecek
+- Versiyon bilgisi eklenecek
+- Fihrist görünümünü düzelt
+- Uygulama adını değiştir
+- 
+
