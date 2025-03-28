@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
   void _showAddWordDialog() async {
     final result = await showDialog<Word>(
       context: context,
-      builder: (_) => WordDialog(),
+      builder: (_) => const WordDialog(),
     );
 
     if (result != null) {
