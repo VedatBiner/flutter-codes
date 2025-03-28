@@ -1,3 +1,5 @@
+// 📃 <----- home_page.dart ----->
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -5,8 +7,9 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'db/word_database.dart';
 import 'models/word_model.dart';
+import 'widgets/add_word_dialog_handler.dart';
+import 'widgets/custom_app_bar.dart';
 import 'widgets/custom_drawer.dart';
-import 'widgets/word_dialog.dart';
 import 'widgets/word_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,6 +34,8 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
   }
 
+  /// ❓ Uygulamanın versiyonunu alır.
+  ///
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
@@ -49,6 +54,8 @@ class _HomePageState extends State<HomePage> {
     log('📦 Toplam kayıt sayısı: $count');
   }
 
+  /// 🔎 Aramayı filtreler.
+  ///
   void _filterWords(String query) {
     final filtered =
         allWords.where((word) {
@@ -62,6 +69,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  /// 🗑️ Aramayı temizler.
+  ///
   void _clearSearch() {
     searchController.clear();
     setState(() {
@@ -70,74 +79,38 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _showAddWordDialog() async {
-    final result = await showDialog<Word>(
-      context: context,
-      builder: (_) => const WordDialog(),
-    );
-
-    if (result != null) {
-      final existing = await WordDatabase.instance.getWord(result.word);
-      if (existing != null) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Bu kelime zaten var')));
-        return;
-      }
-
-      await WordDatabase.instance.insertWord(result);
-      _loadWords();
-    }
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title:
-          isSearching
-              ? TextField(
-                controller: searchController,
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'Ara...',
-                  border: InputBorder.none,
-                ),
-                onChanged: _filterWords,
-              )
-              : Text('Kelimelik (${words.length})'), // ← burada
-      actions: [
-        isSearching
-            ? IconButton(icon: const Icon(Icons.clear), onPressed: _clearSearch)
-            : IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                setState(() {
-                  isSearching = true;
-                });
-              },
-            ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      /// 📜 AppBar burada
-      appBar: _buildAppBar(),
+    return SafeArea(
+      child: Scaffold(
+        /// 📜 AppBar burada
+        appBar: CustomAppBar(
+          isSearching: isSearching,
+          searchController: searchController,
+          onSearchChanged: _filterWords,
+          onClearSearch: _clearSearch,
+          onStartSearch: () {
+            setState(() {
+              isSearching = true;
+            });
+          },
+          itemCount: words.length,
+        ),
 
-      /// 📁 Drawer burada
-      drawer: CustomDrawer(
-        onDatabaseUpdated: _loadWords,
-        appVersion: appVersion,
-      ),
+        /// 📁 Drawer burada
+        drawer: CustomDrawer(
+          onDatabaseUpdated: _loadWords,
+          appVersion: appVersion,
+        ),
 
-      /// 📄 Body burada
-      body: WordList(words: words, onUpdated: _loadWords),
+        /// 📄 Body burada
+        body: WordList(words: words, onUpdated: _loadWords),
 
-      /// ➕ FloatingActionButton burada
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddWordDialog,
-        child: const Icon(Icons.add),
+        /// ➕ FloatingActionButton burada
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => showAddWordDialog(context, _loadWords),
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

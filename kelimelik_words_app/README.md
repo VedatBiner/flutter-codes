@@ -8,13 +8,12 @@ bir chatGPT ortak çalışması :)
 - Kelime ekleme, silme, güncelleme kontrolü var.
 - Aynı kelime tekrar girilemiyor.
 - Versiyon bilgisi var.
-
-
+- Drawer menu ayrı dosyaya alındı
+- Home_page daha sadeleşti
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek
 - İkon eklenecek
-- CSV Export eklenecek.
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
 - Ekleme Çıkarma Güncelleme animasyonu eklenecek
@@ -23,5 +22,3 @@ Yapılacaklar :
 - Çift tıklama ile silinecek veya güncelenecek kelime kutusunda silme veya düzeltme butonu oluştur.
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Ekrana sığma olayı
-- açıklama güzellikleri (emoji)
