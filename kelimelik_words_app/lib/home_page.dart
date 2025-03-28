@@ -178,6 +178,17 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.table_chart),
+              title: const Text('CSV Yedeği Oluştur'),
+              onTap: () async {
+                final path = await WordDatabase.instance.exportWordsToCsv();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('CSV yedeği oluşturuldu:\n$path')),
+                );
+                Navigator.of(context).maybePop();
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.upload_file),
               title: const Text('Yedekten Geri Yükle'),
               onTap: () async {

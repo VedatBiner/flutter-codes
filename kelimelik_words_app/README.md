@@ -3,6 +3,11 @@
 Kelimelik oyunu için basit bir sqflite uygulaması
 bir chatGPT ortak çalışması :)
 
+- SQfLite ile veri girişi yapılıyor. 
+- Girilen verilerin yedekleri SQL, JSON ve CSV olarak alınabiliyor.
+- Kelime ekleme, silme, güncelleme kontrolü var.
+- Aynı kelime tekrar girilemiyor.
+- Versiyon bilgisi var.
 
 
 

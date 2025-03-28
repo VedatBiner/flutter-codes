@@ -14,12 +14,16 @@ class WordDatabase {
 
   WordDatabase._init();
 
+  /// 📌 SQLite veritabanı nesnesini alır.
+  ///
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB('words.db');
     return _database!;
   }
 
+  /// 📌 Yeni bir veritabanı oluşturur.
+  ///
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
@@ -29,6 +33,8 @@ class WordDatabase {
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
+  /// 📌 Yeni bir veritabanı oluşturur.
+  ///
   Future _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE words (
@@ -39,12 +45,16 @@ class WordDatabase {
     ''');
   }
 
+  /// 📌 Tüm kelimeleri alır.
+  ///
   Future<List<Word>> getWords() async {
     final db = await instance.database;
     final result = await db.query('words', orderBy: 'word ASC');
     return result.map((e) => Word.fromMap(e)).toList();
   }
 
+  /// 📌 Kelimeyi aramak için kullanılır.
+  ///
   Future<Word?> getWord(String word) async {
     final db = await instance.database;
     final result = await db.query(
@@ -55,11 +65,14 @@ class WordDatabase {
     return result.isNotEmpty ? Word.fromMap(result.first) : null;
   }
 
+  /// 📌 Yeni kelimeyi ekler.
+  ///
   Future<int> insertWord(Word word) async {
     final db = await instance.database;
     return await db.insert('words', word.toMap());
   }
 
+  /// 📌 ID ye göre kelimeyi günceller.
   Future<int> updateWord(Word word) async {
     final db = await instance.database;
     return await db.update(
@@ -70,6 +83,8 @@ class WordDatabase {
     );
   }
 
+  /// 📌 ID ye göre kelimeyi siler.
+  ///
   Future<int> deleteWord(int id) async {
     final db = await instance.database;
     return await db.delete('words', where: 'id = ?', whereArgs: [id]);
@@ -83,6 +98,8 @@ class WordDatabase {
     return result ?? 0;
   }
 
+  /// 📌 JSON yedeği burada alınıyor.
+  ///
   Future<String> exportWordsToJson() async {
     final words = await getWords(); // tüm kelimeleri al
     final wordMaps = words.map((w) => w.toMap()).toList();
@@ -101,6 +118,35 @@ class WordDatabase {
     return filePath;
   }
 
+  /// 📌 CSV yedeği burada alınıyor.
+  ///
+  Future<String> exportWordsToCsv() async {
+    final words = await WordDatabase.instance.getWords();
+    final buffer = StringBuffer();
+
+    buffer.writeln('Kelime,Anlam');
+
+    for (var word in words) {
+      final kelime = word.word.replaceAll(',', '');
+      final anlam = word.meaning.replaceAll(',', '');
+      buffer.writeln('$kelime,$anlam');
+    }
+
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/kelimelik_backup.csv';
+    final file = File(filePath);
+
+    await file.writeAsString(buffer.toString());
+
+    // 🔥 Konsola yaz
+    log('📤 CSV yedeği başarıyla oluşturuldu.', name: 'Backup');
+    log('📁 CSV dosya yolu: $filePath', name: 'Backup');
+
+    return filePath;
+  }
+
+  /// 📌 JSON yedeği burada geri yükleniyor.
+  ///
   Future<void> importWordsFromJson() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
