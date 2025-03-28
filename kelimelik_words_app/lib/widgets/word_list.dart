@@ -42,6 +42,10 @@ class _WordListState extends State<WordList> {
                       const SnackBar(content: Text('Kelime silindi')),
                     );
                   }
+
+                  setState(() {
+                    selectedIndex = null; // ✅ Butonları kapat!
+                  });
                 },
                 child: const Text('Evet'),
               ),
@@ -65,6 +69,10 @@ class _WordListState extends State<WordList> {
           context,
         ).showSnackBar(const SnackBar(content: Text('Kelime güncellendi')));
       }
+
+      setState(() {
+        selectedIndex = null; // 🔒 Butonları kapat!
+      });
     }
   }
 
