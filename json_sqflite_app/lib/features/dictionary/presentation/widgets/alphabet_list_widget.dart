@@ -129,4 +129,3 @@ class AlphabetListWidget extends StatelessWidget {
     );
   }
 }
-

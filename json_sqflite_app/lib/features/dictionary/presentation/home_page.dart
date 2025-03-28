@@ -210,6 +210,7 @@ class _HomePageState extends State<HomePage> {
 
               if (exists) {
                 Fluttertoast.showToast(msg: '⚠️ Bu kelime zaten var!');
+                Navigator.of(context).pop();
               } else {
                 final newWord = {'sirpca': sirpca, 'turkce': turkce};
                 await DatabaseHelper.instance.insertSingleItem(newWord);
@@ -217,16 +218,17 @@ class _HomePageState extends State<HomePage> {
                 Fluttertoast.showToast(msg: '✅ Kelime eklendi');
 
                 setState(() {
-                  dbData.insert(0, newWord);
+                  dbData.add(newWord);
+                  dbData.sort((a, b) => a['sirpca'].toString().compareTo(b['sirpca'].toString()));
                   filteredData = dbData;
                   itemCount = dbData.length;
                 });
 
-                searchController.clear();
-                filterSearchResults('');
+                Navigator.of(context).pop();
               }
 
-              Navigator.of(context).pop();
+              searchController.clear();
+              filterSearchResults('');
             },
             child: const Text("Ekle"),
           ),
