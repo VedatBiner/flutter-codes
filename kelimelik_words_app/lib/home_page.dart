@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'db/word_database.dart';
 import 'models/word_model.dart';
+import 'widgets/custom_drawer.dart';
 import 'widgets/word_dialog.dart';
 import 'widgets/word_list.dart';
 
@@ -89,39 +90,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _showResetDatabaseDialog() {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Veritabanını Sıfırla'),
-            content: const Text('Tüm kelimeler silinecek. Emin misiniz?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).maybePop();
-                },
-                child: const Text('İptal'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final db = await WordDatabase.instance.database;
-                  await db.delete('words');
-                  Navigator.of(context).pop();
-                  Navigator.of(context).maybePop();
-                  _loadWords();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Veritabanı sıfırlandı')),
-                  );
-                },
-                child: const Text('Sil'),
-              ),
-            ],
-          ),
-    );
-  }
-
   PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title:
@@ -154,74 +122,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// 📜 AppBar burada
       appBar: _buildAppBar(),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.indigo),
-              child: Text(
-                'Menü',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.download),
-              title: const Text('JSON Yedeği Oluştur'),
-              onTap: () async {
-                final path = await WordDatabase.instance.exportWordsToJson();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Yedek oluşturuldu:\n$path')),
-                );
-                Navigator.of(context).maybePop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.table_chart),
-              title: const Text('CSV Yedeği Oluştur'),
-              onTap: () async {
-                final path = await WordDatabase.instance.exportWordsToCsv();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('CSV yedeği oluşturuldu:\n$path')),
-                );
-                Navigator.of(context).maybePop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.upload_file),
-              title: const Text('Yedekten Geri Yükle'),
-              onTap: () async {
-                await WordDatabase.instance.importWordsFromJson();
-                await _loadWords();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Yedek geri yüklendi')),
-                );
-                Navigator.of(context).maybePop();
-              },
-            ),
 
-            ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Veritabanını Sıfırla'),
-              onTap: _showResetDatabaseDialog,
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Text(
-                appVersion,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+      /// 📁 Drawer burada
+      drawer: CustomDrawer(
+        onDatabaseUpdated: _loadWords,
+        appVersion: appVersion,
       ),
+
+      /// 📄 Body burada
       body: WordList(words: words, onUpdated: _loadWords),
+
+      /// ➕ FloatingActionButton burada
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddWordDialog,
         child: const Icon(Icons.add),

@@ -111,36 +111,9 @@ class WordDatabase {
     final file = File(filePath);
     await file.writeAsString(jsonString);
 
-    // 📢 Konsola tam dosya yolunu yaz
+    /// 🔥 Konsola yaz
     log('📤 JSON yedeği başarıyla oluşturuldu.', name: 'Backup');
     log('📁 Dosya yolu: $filePath', name: 'Backup');
-
-    return filePath;
-  }
-
-  /// 📌 CSV yedeği burada alınıyor.
-  ///
-  Future<String> exportWordsToCsv() async {
-    final words = await WordDatabase.instance.getWords();
-    final buffer = StringBuffer();
-
-    buffer.writeln('Kelime,Anlam');
-
-    for (var word in words) {
-      final kelime = word.word.replaceAll(',', '');
-      final anlam = word.meaning.replaceAll(',', '');
-      buffer.writeln('$kelime,$anlam');
-    }
-
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/kelimelik_backup.csv';
-    final file = File(filePath);
-
-    await file.writeAsString(buffer.toString());
-
-    // 🔥 Konsola yaz
-    log('📤 CSV yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 CSV dosya yolu: $filePath', name: 'Backup');
 
     return filePath;
   }
@@ -170,6 +143,7 @@ class WordDatabase {
         await insertWord(word);
       }
 
+      /// 🔥 Konsola yaz
       log(
         '✅ Yedek başarıyla geri yüklendi. (${jsonList.length} kayıt)',
         name: 'Import',
@@ -177,6 +151,84 @@ class WordDatabase {
       log('📂 Kaynak dosya: $filePath', name: 'Import');
     } catch (e) {
       log('🚨 Geri yükleme hatası: $e', name: 'Import');
+    }
+  }
+
+  /// 📌 CSV yedeği burada alınıyor.
+  ///
+  Future<String> exportWordsToCsv() async {
+    final words = await WordDatabase.instance.getWords();
+    final buffer = StringBuffer();
+
+    buffer.writeln('Kelime,Anlam');
+
+    for (var word in words) {
+      final kelime = word.word.replaceAll(',', '');
+      final anlam = word.meaning.replaceAll(',', '');
+      buffer.writeln('$kelime,$anlam');
+    }
+
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/kelimelik_backup.csv';
+    final file = File(filePath);
+
+    await file.writeAsString(buffer.toString());
+
+    /// 🔥 Konsola yaz
+    log('📤 CSV yedeği başarıyla oluşturuldu.', name: 'Backup');
+    log('📁 CSV dosya yolu: $filePath', name: 'Backup');
+
+    return filePath;
+  }
+
+  /// 📌 CSV yedeği burada geri yükleniyor.
+  Future<void> importWordsFromCsv() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/kelimelik_backup.csv';
+      final file = File(filePath);
+
+      if (!(await file.exists())) {
+        log('❌ CSV dosyası bulunamadı: $filePath', name: 'Import');
+        return;
+      }
+
+      final lines = await file.readAsLines();
+
+      if (lines.isEmpty) {
+        log('❌ CSV dosyası boş.', name: 'Import');
+        return;
+      }
+
+      // Veritabanını temizle
+      final db = await database;
+      await db.delete('words');
+
+      // İlk satır başlık, atla
+      int count = 0;
+      for (int i = 1; i < lines.length; i++) {
+        final line = lines[i].trim();
+        if (line.isEmpty) continue;
+
+        final parts = line.split(',');
+        if (parts.length < 2) continue;
+
+        final kelime = parts[0].trim();
+        final anlam =
+            parts.sublist(1).join(',').trim(); // anlamda virgül olabilir
+
+        if (kelime.isNotEmpty && anlam.isNotEmpty) {
+          final word = Word(word: kelime, meaning: anlam);
+          await insertWord(word);
+          count++;
+        }
+      }
+
+      /// 🔥 Konsola yaz
+      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'Import');
+      log('📂 CSV dosya konumu: $filePath', name: 'Import');
+    } catch (e) {
+      log('🚨 CSV yükleme hatası: $e', name: 'Import');
     }
   }
 }
