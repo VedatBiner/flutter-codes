@@ -1,12 +1,13 @@
 // 📃 <----- word_dialog.dart ----->
+
 import 'package:flutter/material.dart';
 
 import '../models/word_model.dart';
 
 class WordDialog extends StatefulWidget {
-  final Word? word; // <-- Eklendi
+  final Word? word;
 
-  const WordDialog({super.key, this.word}); // <-- Eklendi
+  const WordDialog({super.key, this.word});
 
   @override
   State<WordDialog> createState() => _WordDialogState();
@@ -33,6 +34,12 @@ class _WordDialogState extends State<WordDialog> {
     super.dispose();
   }
 
+  /// 🔠 İlk harfi büyük yap
+  String _capitalize(String text) {
+    if (text.isEmpty) return '';
+    return text[0].toUpperCase() + text.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -47,6 +54,8 @@ class _WordDialogState extends State<WordDialog> {
             TextFormField(
               controller: _wordController,
               decoration: const InputDecoration(labelText: 'Kelime'),
+              autofocus: true,
+              textInputAction: TextInputAction.next,
               validator:
                   (value) =>
                       value == null || value.isEmpty ? 'Boş olamaz' : null,
@@ -54,6 +63,7 @@ class _WordDialogState extends State<WordDialog> {
             TextFormField(
               controller: _meaningController,
               decoration: const InputDecoration(labelText: 'Anlamı'),
+              textInputAction: TextInputAction.done,
               validator:
                   (value) =>
                       value == null || value.isEmpty ? 'Boş olamaz' : null,
@@ -70,9 +80,9 @@ class _WordDialogState extends State<WordDialog> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               final updatedWord = Word(
-                id: widget.word?.id, // id varsa koru (güncelleme için)
-                word: _wordController.text.trim(),
-                meaning: _meaningController.text.trim(),
+                id: widget.word?.id,
+                word: _capitalize(_wordController.text.trim()),
+                meaning: _capitalize(_meaningController.text.trim()),
               );
               Navigator.of(context).pop(updatedWord);
             }
