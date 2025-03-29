@@ -12,6 +12,7 @@ bir chatGPT ortak çalışması :)
 - Home_page daha sadeleşti
 - Kelime kartına iki kez tıklanınca düzeltme ve silme butonları çıkıyor.
 - Kart görünümü renklendirildi.
+- Kelime eklemeye notification eklendi
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek
