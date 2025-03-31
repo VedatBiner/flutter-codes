@@ -109,7 +109,8 @@ class _WordDialogState extends State<WordDialog> {
                       ],
                     ),
                   ),
-
+                  icon: Icons.check_circle,
+                  iconColor: Colors.blue.shade700,
                   progressIndicatorColor: Colors.blue,
                   progressIndicatorBackground: Colors.blue.shade200,
                 );
