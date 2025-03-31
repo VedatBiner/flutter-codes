@@ -31,6 +31,7 @@ Future<void> showAddWordDialog(
                 text: result.word,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 18,
                   color: Colors.orange,
                 ),
               ),
@@ -55,7 +56,7 @@ Future<void> showAddWordDialog(
     // ✅ Başarılı ekleme bildirimi göster
     NotificationService.showCustomNotification(
       context: context,
-      title: 'Kelime Eklendi',
+      title: 'Kelime Ekleme İşlemi',
       message: RichText(
         text: TextSpan(
           children: [
@@ -63,6 +64,7 @@ Future<void> showAddWordDialog(
               text: result.word,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
+                fontSize: 18,
                 color: Colors.blue,
               ),
             ),

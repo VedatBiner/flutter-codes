@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
+import 'notification_service.dart';
 import 'word_dialog.dart';
 
 class WordList extends StatefulWidget {
@@ -20,7 +21,6 @@ class _WordListState extends State<WordList> {
   int? selectedIndex;
 
   /// 📌 Kelime silme dialog açar.
-  ///
   void _confirmDelete(BuildContext context, Word word) {
     showDialog(
       context: context,
@@ -40,8 +40,32 @@ class _WordListState extends State<WordList> {
                   widget.onUpdated();
 
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Kelime silindi')),
+                    NotificationService.showCustomNotification(
+                      context: context,
+                      title: 'Kelime Silme İşlemi',
+                      message: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: word.word,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.red,
+                              ),
+                            ),
+                            const TextSpan(
+                              text: ' kelimesi silinmiştir.',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // message: Text('${word.word} silindi.'),
+                      icon: Icons.delete,
+                      iconColor: Colors.red,
+                      progressIndicatorColor: Colors.red,
+                      progressIndicatorBackground: Colors.red.shade100,
                     );
                   }
 
@@ -57,7 +81,6 @@ class _WordListState extends State<WordList> {
   }
 
   /// 📌 Kelime güncelleme dialog açar.
-  ///
   void _editWord(BuildContext context, Word word) async {
     final updated = await showDialog<Word>(
       context: context,
@@ -69,9 +92,32 @@ class _WordListState extends State<WordList> {
       widget.onUpdated();
 
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Kelime güncellendi')));
+        NotificationService.showCustomNotification(
+          context: context,
+          title: 'Kelime Güncelleme İşlemi',
+          message: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: updated.word,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                    fontSize: 18,
+                  ),
+                ),
+                const TextSpan(
+                  text: ' kelimesi güncellendi.',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+          icon: Icons.check_circle,
+          iconColor: Colors.green,
+          progressIndicatorColor: Colors.green,
+          progressIndicatorBackground: Colors.green.shade100,
+        );
       }
 
       setState(() {
@@ -129,7 +175,6 @@ class _WordListState extends State<WordList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 🔤 Kelime + Anlam + Çizgi bölümü
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -160,8 +205,6 @@ class _WordListState extends State<WordList> {
                         ],
                       ),
                     ),
-
-                    // 🔧 Butonlar
                     if (isSelected)
                       Padding(
                         padding: const EdgeInsets.only(
