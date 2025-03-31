@@ -86,18 +86,36 @@ class _WordDialogState extends State<WordDialog> {
                 meaning: _capitalize(_meaningController.text.trim()),
               );
 
-              // ✅ Eğer yeni kelime ekleniyorsa önce bildirimi göster
+              /// ✅ Eğer yeni kelime ekleniyorsa önce bildirimi göster
+              /// mavi renkli eklendi bilgisi
               if (widget.word == null) {
                 NotificationService.showCustomNotification(
                   context: context,
-                  title: 'Başarılı',
-                  message: Text('${updatedWord.word} kelimesi eklendi'),
+                  title: 'Kelime Ekleme İşlemi',
+                  message: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: updatedWord.word,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        const TextSpan(
+                          text: ' kelimesi eklendi',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   progressIndicatorColor: Colors.blue,
                   progressIndicatorBackground: Colors.blue.shade200,
                 );
               }
 
-              // ✅ Dialog 'u en son kapat (context geçerli iken)
+              /// ✅ Dialog 'u en son kapat (context geçerli iken)
               Navigator.of(context).pop(updatedWord);
             }
           },

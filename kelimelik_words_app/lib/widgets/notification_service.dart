@@ -9,14 +9,14 @@ class NotificationService {
     required String title,
     required Widget message,
     IconData icon = Icons.check_circle,
-    Color iconColor = Colors.green,
+    Color iconColor = Colors.blue,
     Alignment position = Alignment.centerLeft,
     AnimationType animation = AnimationType.fromLeft,
     required Color progressIndicatorBackground,
     required Color progressIndicatorColor,
   }) {
     ElegantNotification(
-      // width: 360,
+      width: 360,
       stackedOptions: StackedOptions(
         key: 'left',
         type: StackedType.same,
