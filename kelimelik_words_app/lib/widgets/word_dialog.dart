@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/word_model.dart';
-import 'notification_service.dart';
 
 class WordDialog extends StatefulWidget {
   final Word? word;
@@ -86,37 +85,6 @@ class _WordDialogState extends State<WordDialog> {
                 meaning: _capitalize(_meaningController.text.trim()),
               );
 
-              /// ✅ Eğer yeni kelime ekleniyorsa önce bildirimi göster
-              /// mavi renkli eklendi bilgisi
-              if (widget.word == null) {
-                NotificationService.showCustomNotification(
-                  context: context,
-                  title: 'Kelime Ekleme İşlemi',
-                  message: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: updatedWord.word,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        const TextSpan(
-                          text: ' kelimesi eklendi',
-                          style: TextStyle(color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                  icon: Icons.check_circle,
-                  iconColor: Colors.blue.shade700,
-                  progressIndicatorColor: Colors.blue,
-                  progressIndicatorBackground: Colors.blue.shade200,
-                );
-              }
-
-              /// ✅ Dialog 'u en son kapat (context geçerli iken)
               Navigator.of(context).pop(updatedWord);
             }
           },
