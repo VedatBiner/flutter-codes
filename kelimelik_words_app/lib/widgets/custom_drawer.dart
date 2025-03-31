@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../db/word_database.dart';
+import 'notification_service.dart'; // 🆕 Eklenmeli
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -16,7 +17,6 @@ class CustomDrawer extends StatelessWidget {
     required this.appVersion,
   });
 
-  /// 🗑️ Veritabanını Sıfırla dialog
   void _showResetDatabaseDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -39,8 +39,15 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.of(context).pop();
                   Navigator.of(context).maybePop();
                   onDatabaseUpdated();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Veritabanı sıfırlandı')),
+
+                  NotificationService.showCustomNotification(
+                    context: context,
+                    title: 'Veritabanı Sıfırlandı',
+                    message: const Text('Tüm kayıtlar silindi.'),
+                    icon: Icons.delete_forever,
+                    iconColor: Colors.red,
+                    progressIndicatorColor: Colors.red,
+                    progressIndicatorBackground: Colors.red.shade100,
                   );
                 },
                 child: const Text('Sil'),
@@ -64,63 +71,95 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
 
-          /// 📜JSON Export
+          // JSON Export
           ListTile(
             leading: const Icon(Icons.download),
             title: const Text('JSON Yedeği Oluştur'),
             onTap: () async {
               final path = await WordDatabase.instance.exportWordsToJson();
               log('📁 JSON dosya konumu: $path', name: 'JSON');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('JSON yedeği oluşturuldu:\n$path')),
+
+              NotificationService.showCustomNotification(
+                context: context,
+                title: 'JSON Yedeği Oluşturuldu',
+                message: Text(path),
+                icon: Icons.download,
+                iconColor: Colors.blue,
+                progressIndicatorColor: Colors.blue,
+                progressIndicatorBackground: Colors.blue.shade100,
               );
+
               Navigator.of(context).maybePop();
             },
           ),
 
-          /// 📜JSON Import
+          // JSON Import
           ListTile(
             leading: const Icon(Icons.upload_file),
             title: const Text('JSON Yedekten Geri Yükle'),
             onTap: () async {
               await WordDatabase.instance.importWordsFromJson();
               onDatabaseUpdated();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('JSON yedek geri yüklendi')),
+
+              NotificationService.showCustomNotification(
+                context: context,
+                title: 'JSON Yedeği Yüklendi',
+                message: const Text('Yedek başarıyla geri yüklendi.'),
+                icon: Icons.upload,
+                iconColor: Colors.green,
+                progressIndicatorColor: Colors.green,
+                progressIndicatorBackground: Colors.green.shade100,
               );
+
               Navigator.of(context).maybePop();
             },
           ),
 
-          /// 📜CSV Export
+          // CSV Export
           ListTile(
             leading: const Icon(Icons.table_chart),
             title: const Text('CSV Yedeği Oluştur'),
             onTap: () async {
               final path = await WordDatabase.instance.exportWordsToCsv();
               log('📁 CSV dosya konumu: $path', name: 'CSV');
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('CSV yedeği oluşturuldu:\n$path')),
+
+              NotificationService.showCustomNotification(
+                context: context,
+                title: 'CSV Yedeği Oluşturuldu',
+                message: Text(path),
+                icon: Icons.file_download,
+                iconColor: Colors.teal,
+                progressIndicatorColor: Colors.teal,
+                progressIndicatorBackground: Colors.teal.shade100,
               );
+
               Navigator.of(context).maybePop();
             },
           ),
 
-          /// 📜CSV Import
+          // CSV Import
           ListTile(
             leading: const Icon(Icons.upload_file),
             title: const Text('CSV Yedekten Geri Yükle'),
             onTap: () async {
               await WordDatabase.instance.importWordsFromCsv();
               onDatabaseUpdated();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('CSV yedek geri yüklendi')),
+
+              NotificationService.showCustomNotification(
+                context: context,
+                title: 'CSV Yedeği Yüklendi',
+                message: const Text('CSV dosyasından veriler yüklendi.'),
+                icon: Icons.upload_file,
+                iconColor: Colors.deepPurple,
+                progressIndicatorColor: Colors.deepPurple,
+                progressIndicatorBackground: Colors.deepPurple.shade100,
               );
+
               Navigator.of(context).maybePop();
             },
           ),
 
-          /// 🗑️ Veritabanını Sıfırla
+          // Veritabanını sıfırla
           ListTile(
             leading: const Icon(Icons.delete),
             title: const Text('Veritabanını Sıfırla'),
