@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import '../db/word_database.dart';
-import 'notification_service.dart'; // 🆕 Eklenmeli
+import 'notification_service.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -60,139 +60,152 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.indigo),
-            child: Text(
-              'Menü',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+      child: Container(
+        color: Colors.indigo,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        alignment: Alignment.centerLeft,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.indigo),
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.only(bottom: 0),
+              child: Text(
+                'Menü',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
 
-          // JSON Export
-          ListTile(
-            leading: const Icon(Icons.download),
-            title: const Text('JSON Yedeği Oluştur'),
-            onTap: () async {
-              final path = await WordDatabase.instance.exportWordsToJson();
-              log('📁 JSON dosya konumu: $path', name: 'JSON');
+            const Divider(thickness: 2, color: Colors.amber, height: 0),
 
-              NotificationService.showCustomNotification(
-                context: context,
-                title: 'JSON Yedeği Oluşturuldu',
-                message: Text(path),
-                icon: Icons.download,
-                iconColor: Colors.blue,
-                progressIndicatorColor: Colors.blue,
-                progressIndicatorBackground: Colors.blue.shade100,
-              );
+            // JSON Export
+            ListTile(
+              leading: const Icon(Icons.download),
+              title: const Text('JSON Yedeği Oluştur'),
+              onTap: () async {
+                final path = await WordDatabase.instance.exportWordsToJson();
+                log('📁 JSON dosya konumu: $path', name: 'JSON');
 
-              Navigator.of(context).maybePop();
-            },
-          ),
+                NotificationService.showCustomNotification(
+                  context: context,
+                  title: 'JSON Yedeği Oluşturuldu',
+                  message: Text(path),
+                  icon: Icons.download,
+                  iconColor: Colors.blue,
+                  progressIndicatorColor: Colors.blue,
+                  progressIndicatorBackground: Colors.blue.shade100,
+                );
 
-          // JSON Import
-          ListTile(
-            leading: const Icon(Icons.upload_file),
-            title: const Text('JSON Yedekten Geri Yükle'),
-            onTap: () async {
-              await WordDatabase.instance.importWordsFromJson();
-              onDatabaseUpdated();
+                Navigator.of(context).maybePop();
+              },
+            ),
 
-              NotificationService.showCustomNotification(
-                context: context,
-                title: 'JSON Yedeği Yüklendi',
-                message: const Text('Yedek başarıyla geri yüklendi.'),
-                icon: Icons.upload,
-                iconColor: Colors.green,
-                progressIndicatorColor: Colors.green,
-                progressIndicatorBackground: Colors.green.shade100,
-              );
+            // JSON Import
+            ListTile(
+              leading: const Icon(Icons.upload_file),
+              title: const Text('JSON Yedekten Geri Yükle'),
+              onTap: () async {
+                await WordDatabase.instance.importWordsFromJson();
+                onDatabaseUpdated();
 
-              Navigator.of(context).maybePop();
-            },
-          ),
+                NotificationService.showCustomNotification(
+                  context: context,
+                  title: 'JSON Yedeği Yüklendi',
+                  message: const Text('Yedek başarıyla geri yüklendi.'),
+                  icon: Icons.upload,
+                  iconColor: Colors.green,
+                  progressIndicatorColor: Colors.green,
+                  progressIndicatorBackground: Colors.green.shade100,
+                );
 
-          // CSV Export
-          ListTile(
-            leading: const Icon(Icons.table_chart),
-            title: const Text('CSV Yedeği Oluştur'),
-            onTap: () async {
-              final path = await WordDatabase.instance.exportWordsToCsv();
-              log('📁 CSV dosya konumu: $path', name: 'CSV');
+                Navigator.of(context).maybePop();
+              },
+            ),
 
-              NotificationService.showCustomNotification(
-                context: context,
-                title: 'CSV Yedeği Oluşturuldu',
-                message: Text(path),
-                icon: Icons.file_download,
-                iconColor: Colors.teal,
-                progressIndicatorColor: Colors.teal,
-                progressIndicatorBackground: Colors.teal.shade100,
-              );
+            // CSV Export
+            ListTile(
+              leading: const Icon(Icons.table_chart),
+              title: const Text('CSV Yedeği Oluştur'),
+              onTap: () async {
+                final path = await WordDatabase.instance.exportWordsToCsv();
+                log('📁 CSV dosya konumu: $path', name: 'CSV');
 
-              Navigator.of(context).maybePop();
-            },
-          ),
+                NotificationService.showCustomNotification(
+                  context: context,
+                  title: 'CSV Yedeği Oluşturuldu',
+                  message: Text(path),
+                  icon: Icons.file_download,
+                  iconColor: Colors.teal,
+                  progressIndicatorColor: Colors.teal,
+                  progressIndicatorBackground: Colors.teal.shade100,
+                );
 
-          // CSV Import
-          ListTile(
-            leading: const Icon(Icons.upload_file),
-            title: const Text('CSV Yedekten Geri Yükle'),
-            onTap: () async {
-              await WordDatabase.instance.importWordsFromCsv();
-              onDatabaseUpdated();
+                Navigator.of(context).maybePop();
+              },
+            ),
 
-              NotificationService.showCustomNotification(
-                context: context,
-                title: 'CSV Yedeği Yüklendi',
-                message: const Text('CSV dosyasından veriler yüklendi.'),
-                icon: Icons.upload_file,
-                iconColor: Colors.deepPurple,
-                progressIndicatorColor: Colors.deepPurple,
-                progressIndicatorBackground: Colors.deepPurple.shade100,
-              );
+            // CSV Import
+            ListTile(
+              leading: const Icon(Icons.upload_file),
+              title: const Text('CSV Yedekten Geri Yükle'),
+              onTap: () async {
+                await WordDatabase.instance.importWordsFromCsv();
+                onDatabaseUpdated();
 
-              Navigator.of(context).maybePop();
-            },
-          ),
+                NotificationService.showCustomNotification(
+                  context: context,
+                  title: 'CSV Yedeği Yüklendi',
+                  message: const Text('CSV dosyasından veriler yüklendi.'),
+                  icon: Icons.upload_file,
+                  iconColor: Colors.deepPurple,
+                  progressIndicatorColor: Colors.deepPurple,
+                  progressIndicatorBackground: Colors.deepPurple.shade100,
+                );
 
-          // Veritabanını sıfırla
-          ListTile(
-            leading: const Icon(Icons.delete),
-            title: const Text('Veritabanını Sıfırla'),
-            onTap: () => _showResetDatabaseDialog(context),
-          ),
+                Navigator.of(context).maybePop();
+              },
+            ),
 
-          const Divider(),
+            // Veritabanını sıfırla
+            ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text('Veritabanını Sıfırla'),
+              onTap: () => _showResetDatabaseDialog(context),
+            ),
 
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16.0),
-            child: Column(
-              children: [
-                Text(
-                  appVersion,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
+            const Divider(color: Colors.amber),
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Column(
+                children: [
+                  Text(
+                    appVersion,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const Text(
-                  "Vedat Biner",
-                  style: TextStyle(fontSize: 12, color: Colors.black45),
-                ),
-                const Text(
-                  "vbiner@gmail.com",
-                  style: TextStyle(fontSize: 12, color: Colors.black45),
-                ),
-              ],
+                  const Text(
+                    "Vedat Biner",
+                    style: TextStyle(fontSize: 12, color: Colors.black45),
+                  ),
+                  const Text(
+                    "vbiner@gmail.com",
+                    style: TextStyle(fontSize: 12, color: Colors.black45),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
