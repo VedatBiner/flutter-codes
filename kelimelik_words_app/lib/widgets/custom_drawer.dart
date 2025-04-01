@@ -170,14 +170,26 @@ class CustomDrawer extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
-            child: Text(
-              appVersion,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.black54,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  appVersion,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Text(
+                  "Vedat Biner",
+                  style: TextStyle(fontSize: 12, color: Colors.black45),
+                ),
+                const Text(
+                  "vbiner@gmail.com",
+                  style: TextStyle(fontSize: 12, color: Colors.black45),
+                ),
+              ],
             ),
           ),
         ],

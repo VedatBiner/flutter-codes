@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
-import 'notification_service.dart'; // 👈 bunu ekle
+import 'notification_service.dart';
 import 'word_dialog.dart';
 
 Future<void> showAddWordDialog(
   BuildContext context,
   VoidCallback onWordAdded,
+  VoidCallback onCancelSearch, // arama kutusunu kapatmak için
 ) async {
+  onCancelSearch(); // arama kutusunu kapat
   final result = await showDialog<Word>(
     context: context,
     builder: (_) => const WordDialog(),

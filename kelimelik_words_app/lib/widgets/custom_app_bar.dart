@@ -23,25 +23,50 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.indigo,
+      iconTheme: const IconThemeData(color: Colors.amber),
+      titleTextStyle: const TextStyle(color: Colors.amber),
       title:
           isSearching
               ? TextField(
                 controller: searchController,
                 autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: 'Ara...',
-                  border: InputBorder.none,
+                decoration: InputDecoration(
+                  hintText: 'Kelime veya anlamını ara ...',
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.amber, width: 2),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.amber, width: 2),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
                 onChanged: onSearchChanged,
               )
-              : Text('Kelimelik ($itemCount)'),
+              : Text(
+                'Kelimelik ($itemCount)',
+                style: const TextStyle(
+                  color: Colors.amber,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
       actions: [
         isSearching
             ? IconButton(
+              color: Colors.amber,
               icon: const Icon(Icons.clear),
               onPressed: onClearSearch,
             )
             : IconButton(
+              color: Colors.amber,
               icon: const Icon(Icons.search),
               onPressed: onStartSearch,
             ),

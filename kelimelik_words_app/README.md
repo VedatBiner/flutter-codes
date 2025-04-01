@@ -13,15 +13,17 @@ bir chatGPT ortak çalışması :)
 - Kelime kartına iki kez tıklanınca düzeltme ve silme butonları çıkıyor.
 - Kart görünümü renklendirildi.
 - Kelime eklemeye notification eklendi
+- Kelime silmeye notification eklendi
+- Kelime güncellemeye notification eklendi
+- Kelime ekleme kutusu açılınca rama kutusu kapatılıyor.
+- Biraz renklendirme yapıldı
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek
 - İkon eklenecek
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
-- Ekleme Çıkarma Güncelleme animasyonu eklenecek
 - Fihrist görünümünü ekle ve düzelt
-- güncelleme ve silme yöntemini düzelt. 
-- Çift tıklama ile silinecek veya güncelenecek kelime kutusunda silme veya düzeltme butonu oluştur.
+- güncelleme ve silme yöntemini düzelt.
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle

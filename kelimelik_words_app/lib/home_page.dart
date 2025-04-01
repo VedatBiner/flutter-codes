@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
-      appVersion = 'Versiyon: ${info.version} (${info.buildNumber})';
+      appVersion = 'Versiyon: ${info.version}';
     });
   }
 
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
 
         /// ➕ FloatingActionButton burada
         floatingActionButton: FloatingActionButton(
-          onPressed: () => showAddWordDialog(context, _loadWords),
+          onPressed: () => showAddWordDialog(context, _loadWords, _clearSearch),
           child: const Icon(Icons.add),
         ),
       ),
