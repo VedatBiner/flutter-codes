@@ -1,6 +1,7 @@
 // 📃 <----- custom_app_bar.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
@@ -23,9 +24,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.indigo,
-      iconTheme: const IconThemeData(color: Colors.amber),
-      titleTextStyle: const TextStyle(color: Colors.amber),
+      backgroundColor: drawerColor,
+      iconTheme: IconThemeData(color: menuColor),
+      titleTextStyle: TextStyle(color: menuColor),
       title:
           isSearching
               ? TextField(
@@ -39,11 +40,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(color: Colors.amber, width: 2),
+                    borderSide: BorderSide(color: menuColor, width: 2),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    borderSide: const BorderSide(color: Colors.amber, width: 2),
+                    borderSide: BorderSide(color: menuColor, width: 2),
                   ),
                   filled: true,
                   fillColor: Colors.white,
@@ -52,8 +53,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
               : Text(
                 'Kelimelik ($itemCount)',
-                style: const TextStyle(
-                  color: Colors.amber,
+                style: TextStyle(
+                  color: menuColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -61,12 +62,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         isSearching
             ? IconButton(
-              color: Colors.amber,
+              color: menuColor,
               icon: const Icon(Icons.clear),
               onPressed: onClearSearch,
             )
             : IconButton(
-              color: Colors.amber,
+              color: menuColor,
               icon: const Icon(Icons.search),
               onPressed: onStartSearch,
             ),

@@ -1,6 +1,8 @@
 // 📃 <----- word_list.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
+import 'package:kelimelik_words_app/constants/text_constants.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
@@ -46,14 +48,7 @@ class _WordListState extends State<WordList> {
                       message: RichText(
                         text: TextSpan(
                           children: [
-                            TextSpan(
-                              text: word.word,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.red,
-                              ),
-                            ),
+                            TextSpan(text: word.word, style: kelimeText),
                             const TextSpan(
                               text: ' kelimesi silinmiştir.',
                               style: TextStyle(color: Colors.black),
@@ -61,7 +56,6 @@ class _WordListState extends State<WordList> {
                           ],
                         ),
                       ),
-                      // message: Text('${word.word} silindi.'),
                       icon: Icons.delete,
                       iconColor: Colors.red,
                       progressIndicatorColor: Colors.red,
@@ -167,49 +161,34 @@ class _WordListState extends State<WordList> {
                 }
               },
               child: Card(
-                elevation: 3,
-                color: const Color(0xFFE3F2FD),
+                elevation: 5,
+                color: cardLightColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
+                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
+                        horizontal: 12,
                         vertical: 12,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            word.word,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Colors.red,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Divider(thickness: 1.2),
-                          const SizedBox(height: 8),
-                          Text(
-                            word.meaning,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.blueAccent,
-                            ),
-                          ),
+                          Text(word.word, style: kelimeText),
+                          const Divider(thickness: 1),
+                          Text(word.meaning, style: anlamText),
                         ],
                       ),
                     ),
                     if (isSelected)
                       Padding(
                         padding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
+                          left: 12,
+                          right: 12,
                           bottom: 12,
                         ),
                         child: Row(

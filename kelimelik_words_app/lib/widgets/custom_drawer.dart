@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 import '../db/word_database.dart';
 import 'notification_service.dart';
@@ -62,31 +63,31 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Colors.indigo,
+        color: drawerColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         alignment: Alignment.centerLeft,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.indigo),
+            DrawerHeader(
+              decoration: BoxDecoration(color: drawerColor),
               margin: EdgeInsets.zero,
-              padding: EdgeInsets.only(bottom: 0),
+              padding: const EdgeInsets.only(bottom: 0),
               child: Text(
                 'Menü',
                 style: TextStyle(
-                  color: Colors.amber,
+                  color: menuColor,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
 
-            const Divider(thickness: 2, color: Colors.amber, height: 0),
+            Divider(thickness: 2, color: menuColor, height: 0),
 
             // JSON Export
             ListTile(
-              leading: const Icon(Icons.download, color: Colors.amberAccent),
+              leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
                 'JSON Yedeği Oluştur',
                 style: TextStyle(
@@ -115,7 +116,7 @@ class CustomDrawer extends StatelessWidget {
 
             // JSON Import
             ListTile(
-              leading: const Icon(Icons.upload_file, color: Colors.blueAccent),
+              leading: Icon(Icons.upload_file, color: upLoadButtonColor),
               title: const Text(
                 'JSON Yedekten Geri Yükle',
                 style: TextStyle(
@@ -143,7 +144,7 @@ class CustomDrawer extends StatelessWidget {
 
             // CSV Export
             ListTile(
-              leading: const Icon(Icons.table_chart, color: Colors.amberAccent),
+              leading: Icon(Icons.table_chart, color: downLoadButtonColor),
               title: const Text(
                 'CSV Yedeği Oluştur',
                 style: TextStyle(
@@ -171,7 +172,7 @@ class CustomDrawer extends StatelessWidget {
 
             // CSV Import
             ListTile(
-              leading: const Icon(Icons.upload_file, color: Colors.blueAccent),
+              leading: Icon(Icons.upload_file, color: upLoadButtonColor),
               title: const Text(
                 'CSV Yedekten Geri Yükle',
                 style: TextStyle(
@@ -199,7 +200,7 @@ class CustomDrawer extends StatelessWidget {
 
             // Veritabanını sıfırla
             ListTile(
-              leading: const Icon(Icons.delete, color: Colors.redAccent),
+              leading: Icon(Icons.delete, color: deleteButtonColor),
               title: const Text(
                 'Veritabanını Sıfırla',
                 style: TextStyle(
@@ -210,7 +211,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () => _showResetDatabaseDialog(context),
             ),
 
-            const Divider(color: Colors.amber, thickness: 2),
+            Divider(color: menuColor, thickness: 2),
 
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
@@ -225,13 +226,13 @@ class CustomDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text(
+                  Text(
                     "Vedat Biner",
-                    style: TextStyle(fontSize: 12, color: Colors.amber),
+                    style: TextStyle(fontSize: 12, color: menuColor),
                   ),
-                  const Text(
+                  Text(
                     "vbiner@gmail.com",
-                    style: TextStyle(fontSize: 12, color: Colors.amber),
+                    style: TextStyle(fontSize: 12, color: menuColor),
                   ),
                 ],
               ),
