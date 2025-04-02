@@ -79,6 +79,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  /// 📌 Ara yüz burada oluşturuluyor
+  ///
   @override
   Widget build(BuildContext context) {
     return SafeArea(

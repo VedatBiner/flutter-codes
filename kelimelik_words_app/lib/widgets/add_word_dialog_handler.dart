@@ -23,6 +23,7 @@ Future<void> showAddWordDialog(
 
     if (existing != null) {
       // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
+      if (!context.mounted) return;
       NotificationService.showCustomNotification(
         context: context,
         title: 'Uyarı',
@@ -56,6 +57,7 @@ Future<void> showAddWordDialog(
     onWordAdded();
 
     // ✅ Başarılı ekleme bildirimi göster
+    if (!context.mounted) return;
     NotificationService.showCustomNotification(
       context: context,
       title: 'Kelime Ekleme İşlemi',

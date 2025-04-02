@@ -36,6 +36,7 @@ class CustomDrawer extends StatelessWidget {
                 onPressed: () async {
                   final db = await WordDatabase.instance.database;
                   await db.delete('words');
+                  if (!context.mounted) return;
                   Navigator.of(context).pop();
                   Navigator.of(context).maybePop();
                   onDatabaseUpdated();
@@ -85,12 +86,19 @@ class CustomDrawer extends StatelessWidget {
 
             // JSON Export
             ListTile(
-              leading: const Icon(Icons.download),
-              title: const Text('JSON Yedeği Oluştur'),
+              leading: const Icon(Icons.download, color: Colors.amberAccent),
+              title: const Text(
+                'JSON Yedeği Oluştur',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: () async {
                 final path = await WordDatabase.instance.exportWordsToJson();
                 log('📁 JSON dosya konumu: $path', name: 'JSON');
 
+                if (!context.mounted) return;
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'JSON Yedeği Oluşturuldu',
@@ -107,12 +115,18 @@ class CustomDrawer extends StatelessWidget {
 
             // JSON Import
             ListTile(
-              leading: const Icon(Icons.upload_file),
-              title: const Text('JSON Yedekten Geri Yükle'),
+              leading: const Icon(Icons.upload_file, color: Colors.blueAccent),
+              title: const Text(
+                'JSON Yedekten Geri Yükle',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: () async {
                 await WordDatabase.instance.importWordsFromJson();
                 onDatabaseUpdated();
-
+                if (!context.mounted) return;
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'JSON Yedeği Yüklendi',
@@ -129,12 +143,18 @@ class CustomDrawer extends StatelessWidget {
 
             // CSV Export
             ListTile(
-              leading: const Icon(Icons.table_chart),
-              title: const Text('CSV Yedeği Oluştur'),
+              leading: const Icon(Icons.table_chart, color: Colors.amberAccent),
+              title: const Text(
+                'CSV Yedeği Oluştur',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: () async {
                 final path = await WordDatabase.instance.exportWordsToCsv();
                 log('📁 CSV dosya konumu: $path', name: 'CSV');
-
+                if (!context.mounted) return;
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'CSV Yedeği Oluşturuldu',
@@ -151,12 +171,18 @@ class CustomDrawer extends StatelessWidget {
 
             // CSV Import
             ListTile(
-              leading: const Icon(Icons.upload_file),
-              title: const Text('CSV Yedekten Geri Yükle'),
+              leading: const Icon(Icons.upload_file, color: Colors.blueAccent),
+              title: const Text(
+                'CSV Yedekten Geri Yükle',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: () async {
                 await WordDatabase.instance.importWordsFromCsv();
                 onDatabaseUpdated();
-
+                if (!context.mounted) return;
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'CSV Yedeği Yüklendi',
@@ -173,12 +199,18 @@ class CustomDrawer extends StatelessWidget {
 
             // Veritabanını sıfırla
             ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Veritabanını Sıfırla'),
+              leading: const Icon(Icons.delete, color: Colors.redAccent),
+              title: const Text(
+                'Veritabanını Sıfırla',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: () => _showResetDatabaseDialog(context),
             ),
 
-            const Divider(color: Colors.amber),
+            const Divider(color: Colors.amber, thickness: 2),
 
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
@@ -189,17 +221,17 @@ class CustomDrawer extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 12,
-                      color: Colors.black54,
+                      color: Colors.amberAccent,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Text(
                     "Vedat Biner",
-                    style: TextStyle(fontSize: 12, color: Colors.black45),
+                    style: TextStyle(fontSize: 12, color: Colors.amber),
                   ),
                   const Text(
                     "vbiner@gmail.com",
-                    style: TextStyle(fontSize: 12, color: Colors.black45),
+                    style: TextStyle(fontSize: 12, color: Colors.amber),
                   ),
                 ],
               ),
