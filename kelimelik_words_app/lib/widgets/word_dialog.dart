@@ -70,7 +70,10 @@ class _WordDialogState extends State<WordDialog> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: drawerColor, width: 2.5),
+                  borderSide: BorderSide(
+                    color: Colors.amber.shade600,
+                    width: 2.5,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -89,7 +92,10 @@ class _WordDialogState extends State<WordDialog> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: drawerColor, width: 2.5),
+                  borderSide: BorderSide(
+                    color: Colors.amber.shade600,
+                    width: 2.5,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
