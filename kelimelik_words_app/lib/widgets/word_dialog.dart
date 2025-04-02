@@ -1,7 +1,9 @@
 // 📃 <----- word_dialog.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 
+import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 
 class WordDialog extends StatefulWidget {
@@ -72,11 +74,13 @@ class _WordDialogState extends State<WordDialog> {
         ),
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: cancelButtonColor),
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('İptal'),
+          child: const Text('İptal', style: editButtonText),
         ),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: addButtonColor),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               final updatedWord = Word(
@@ -88,7 +92,7 @@ class _WordDialogState extends State<WordDialog> {
               Navigator.of(context).pop(updatedWord);
             }
           },
-          child: const Text('Kaydet'),
+          child: const Text('Kaydet', style: editButtonText),
         ),
       ],
     );

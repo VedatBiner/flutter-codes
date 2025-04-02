@@ -16,7 +16,10 @@ bir chatGPT ortak çalışması :)
 - Kelime silmeye notification eklendi
 - Kelime güncellemeye notification eklendi
 - Kelime ekleme kutusu açılınca rama kutusu kapatılıyor.
-- Biraz renklendirme yapıldı
+- Biraz renklendirme yapıldı.
+- Butonlar renklendirildi.
+- Sık kullanılan renk ve stiller sabit dosyalara alındı. 
+  Böylece renk değişimi tek yerden yapılabilecek.
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek

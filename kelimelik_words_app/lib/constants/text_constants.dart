@@ -13,3 +13,10 @@ const anlamText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.blue,
 );
+
+/// 📌 Edit Button Text  stili
+const editButtonText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.amberAccent,
+);

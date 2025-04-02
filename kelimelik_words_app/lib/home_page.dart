@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'db/word_database.dart';
@@ -110,6 +111,8 @@ class _HomePageState extends State<HomePage> {
 
         /// ➕ FloatingActionButton burada
         floatingActionButton: FloatingActionButton(
+          backgroundColor: fabColor,
+          foregroundColor: buttonIconColor,
           onPressed: () => showAddWordDialog(context, _loadWords, _clearSearch),
           child: const Icon(Icons.add),
         ),

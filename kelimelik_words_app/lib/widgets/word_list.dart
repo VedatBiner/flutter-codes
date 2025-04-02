@@ -31,13 +31,20 @@ class _WordListState extends State<WordList> {
             title: const Text('Sil'),
             content: Text('"${word.word}" kelimesini silmek istiyor musunuz?'),
             actions: [
-              TextButton(
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: cancelButtonColor,
+                ),
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('İptal'),
+                child: const Text('İptal', style: editButtonText),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: deleteButtonColor,
+                ),
                 onPressed: () async {
                   await WordDatabase.instance.deleteWord(word.id!);
+                  if (!context.mounted) return;
                   Navigator.of(context).pop();
                   widget.onUpdated();
 
@@ -67,7 +74,7 @@ class _WordListState extends State<WordList> {
                     selectedIndex = null;
                   });
                 },
-                child: const Text('Evet'),
+                child: const Text('Evet', style: editButtonText),
               ),
             ],
           ),
@@ -197,15 +204,23 @@ class _WordListState extends State<WordList> {
                             ElevatedButton.icon(
                               onPressed: () => _editWord(context, word),
                               icon: const Icon(Icons.edit),
-                              label: const Text('Düzenle'),
+                              label: const Text(
+                                'Düzenle',
+                                style: editButtonText,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: editButtonColor,
+                                foregroundColor: buttonIconColor,
+                              ),
                             ),
                             const SizedBox(width: 8),
                             ElevatedButton.icon(
                               onPressed: () => _confirmDelete(context, word),
                               icon: const Icon(Icons.delete),
-                              label: const Text('Sil'),
+                              label: const Text('Sil', style: editButtonText),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
+                                backgroundColor: deleteButtonColor,
+                                foregroundColor: buttonIconColor,
                               ),
                             ),
                           ],

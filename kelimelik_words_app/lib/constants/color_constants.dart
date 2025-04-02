@@ -17,3 +17,18 @@ Color deleteButtonColor = const Color(0xFF941A02);
 
 /// 📌 Card Light rengi burada belirleniyor.
 Color cardLightColor = const Color(0xFFE3F2FD);
+
+/// 📌 Düzenle Buton rengi burada belirleniyor.
+Color editButtonColor = const Color(0xFF194221);
+
+/// 📌 buton ikon rengi burada belirleniyor.
+Color buttonIconColor = const Color(0xFFddf30a);
+
+/// 📌 FAB Buton rengi burada belirleniyor.
+Color fabColor = drawerColor;
+
+/// 📌 İptal Buton rengi burada belirleniyor.
+Color cancelButtonColor = const Color(0xFF8798AA);
+
+/// 📌 Ekle Buton rengi burada belirleniyor.
+Color addButtonColor = const Color(0xFF0277BD);
