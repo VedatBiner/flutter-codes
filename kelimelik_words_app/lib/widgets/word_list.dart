@@ -26,6 +26,7 @@ class _WordListState extends State<WordList> {
   void _confirmDelete(BuildContext context, Word word) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder:
           (context) => AlertDialog(
             title: const Text('Sil'),

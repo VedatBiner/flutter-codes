@@ -51,16 +51,33 @@ class _WordDialogState extends State<WordDialog> {
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: drawerColor, width: 3),
       ),
-      title: Text(
-        widget.word == null ? 'Yeni Kelime Ekle' : 'Kelimeyi Düzenle',
-        style: const TextStyle(fontWeight: FontWeight.bold),
+      titlePadding: EdgeInsets.zero,
+      title: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          color: drawerColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(13),
+            topRight: Radius.circular(13),
+          ),
+        ),
+        child: Text(
+          widget.word == null ? 'Yeni Kelime Ekle' : 'Kelimeyi Düzenle',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: menuColor,
+          ),
+          textAlign: TextAlign.center,
+        ),
       ),
       content: Form(
         key: _formKey,
         child: Column(
-          spacing: 20,
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 12),
             TextFormField(
               controller: _wordController,
               decoration: InputDecoration(
@@ -83,6 +100,7 @@ class _WordDialogState extends State<WordDialog> {
                   (value) =>
                       value == null || value.isEmpty ? 'Boş olamaz' : null,
             ),
+            const SizedBox(height: 12),
             TextFormField(
               controller: _meaningController,
               decoration: InputDecoration(
@@ -122,7 +140,6 @@ class _WordDialogState extends State<WordDialog> {
                 word: _capitalize(_wordController.text.trim()),
                 meaning: _capitalize(_meaningController.text.trim()),
               );
-
               Navigator.of(context).pop(updatedWord);
             }
           },

@@ -16,6 +16,7 @@ Future<void> showAddWordDialog(
   onCancelSearch(); // arama kutusunu kapat
   final result = await showDialog<Word>(
     context: context,
+    barrierDismissible: false,
     builder: (_) => const WordDialog(),
   );
 
