@@ -58,11 +58,22 @@ class _WordDialogState extends State<WordDialog> {
       content: Form(
         key: _formKey,
         child: Column(
+          spacing: 20,
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
               controller: _wordController,
-              decoration: const InputDecoration(labelText: 'Kelime'),
+              decoration: InputDecoration(
+                labelText: 'Kelime',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: drawerColor, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: drawerColor, width: 2.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               autofocus: true,
               textInputAction: TextInputAction.next,
               validator:
@@ -71,7 +82,17 @@ class _WordDialogState extends State<WordDialog> {
             ),
             TextFormField(
               controller: _meaningController,
-              decoration: const InputDecoration(labelText: 'Anlamı'),
+              decoration: InputDecoration(
+                labelText: 'Anlamı',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: drawerColor, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: drawerColor, width: 2.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               textInputAction: TextInputAction.done,
               validator:
                   (value) =>
