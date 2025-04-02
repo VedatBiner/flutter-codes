@@ -45,8 +45,15 @@ class _WordDialogState extends State<WordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: cardLightColor,
+      elevation: 6,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: drawerColor, width: 3),
+      ),
       title: Text(
         widget.word == null ? 'Yeni Kelime Ekle' : 'Kelimeyi Düzenle',
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Form(
         key: _formKey,

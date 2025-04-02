@@ -1,6 +1,7 @@
 // 📃 <----- add_word_dialog.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/text_constants.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
@@ -64,18 +65,8 @@ Future<void> showAddWordDialog(
       message: RichText(
         text: TextSpan(
           children: [
-            TextSpan(
-              text: result.word,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                color: Colors.blue,
-              ),
-            ),
-            const TextSpan(
-              text: ' kelimesi eklendi.',
-              style: TextStyle(color: Colors.black),
-            ),
+            TextSpan(text: result.word, style: kelimeText),
+            const TextSpan(text: ' kelimesi eklendi.', style: normalBlackText),
           ],
         ),
       ),

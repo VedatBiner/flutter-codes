@@ -1,3 +1,5 @@
+// 📃 <----- text_constants.dart ----->
+
 import 'package:flutter/material.dart';
 
 /// 📌 Kelime text stili
@@ -19,4 +21,11 @@ const editButtonText = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
   color: Colors.amberAccent,
+);
+
+/// 📌 Siyah Text  stili
+const normalBlackText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
 );

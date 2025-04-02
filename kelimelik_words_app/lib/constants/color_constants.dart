@@ -1,3 +1,5 @@
+// 📃 <----- color_constants.dart ----->
+
 import 'package:flutter/material.dart';
 
 /// 📌 Tüm menü arka plan rengi burada belirleniyor.
