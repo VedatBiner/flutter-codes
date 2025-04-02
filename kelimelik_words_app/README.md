@@ -20,6 +20,7 @@ bir chatGPT ortak çalışması :)
 - Butonlar renklendirildi.
 - Sık kullanılan renk ve stiller sabit dosyalara alındı. 
   Böylece renk değişimi tek yerden yapılabilecek.
+- Türkçe sıralama yapıldı
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek

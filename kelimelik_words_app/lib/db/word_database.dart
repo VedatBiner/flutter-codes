@@ -51,8 +51,10 @@ class WordDatabase {
   ///
   Future<List<Word>> getWords() async {
     final db = await instance.database;
-    final result = await db.query('words', orderBy: 'word ASC');
-    return result.map((e) => Word.fromMap(e)).toList();
+    final result = await db.query('words'); // OrderBy kaldırıldı
+    final words = result.map((e) => Word.fromMap(e)).toList();
+
+    return _sortTurkish(words); // 👈 Türkçe sıralamayı uygula
   }
 
   /// 📌 Kelimeyi aramak için kullanılır.
@@ -232,5 +234,23 @@ class WordDatabase {
     } catch (e) {
       log('🚨 CSV yükleme hatası: $e', name: 'Import');
     }
+  }
+
+  /// 📌 Türkçe sıralama yöntemi.
+  List<Word> _sortTurkish(List<Word> words) {
+    const turkishAlphabet =
+        'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz';
+
+    int turkishCompare(String a, String b) {
+      for (int i = 0; i < a.length && i < b.length; i++) {
+        final ai = turkishAlphabet.indexOf(a[i]);
+        final bi = turkishAlphabet.indexOf(b[i]);
+        if (ai != bi) return ai.compareTo(bi);
+      }
+      return a.length.compareTo(b.length);
+    }
+
+    words.sort((a, b) => turkishCompare(a.word, b.word));
+    return words;
   }
 }
