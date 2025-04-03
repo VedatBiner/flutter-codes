@@ -64,11 +64,7 @@ class _WordDialogState extends State<WordDialog> {
         ),
         child: Text(
           widget.word == null ? 'Yeni Kelime Ekle' : 'Kelimeyi Düzenle',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: menuColor,
-          ),
+          style: dialogTitle,
           textAlign: TextAlign.center,
         ),
       ),

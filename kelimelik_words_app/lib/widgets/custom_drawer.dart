@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 
+import '../constants/text_constants.dart';
 import '../db/word_database.dart';
 import 'notification_service.dart';
 
@@ -23,17 +24,48 @@ class CustomDrawer extends StatelessWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('Veritabanını Sıfırla'),
-            content: const Text('Tüm kelimeler silinecek. Emin misiniz?'),
+            backgroundColor: cardLightColor,
+            elevation: 6,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(color: drawerColor, width: 3),
+            ),
+            titlePadding: EdgeInsets.zero,
+            title: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: drawerColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(13),
+                  topRight: Radius.circular(13),
+                ),
+              ),
+              child: Text(
+                'Veritabanını Sıfırla',
+                style: dialogTitle,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            content: const Text(
+              'Tüm kelimeler silinecek. Emin misiniz?',
+              style: kelimeText,
+            ),
             actions: [
-              TextButton(
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: cancelButtonColor,
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).maybePop();
                 },
-                child: const Text('İptal'),
+                child: const Text('İptal', style: editButtonText),
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: deleteButtonColor,
+                ),
                 onPressed: () async {
                   final db = await WordDatabase.instance.database;
                   await db.delete('words');
@@ -42,6 +74,8 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.of(context).maybePop();
                   onDatabaseUpdated();
 
+                  /// 📌 Notification göster - Veritabanı sıfırlandı
+                  ///
                   NotificationService.showCustomNotification(
                     context: context,
                     title: 'Veritabanı Sıfırlandı',
@@ -52,7 +86,7 @@ class CustomDrawer extends StatelessWidget {
                     progressIndicatorBackground: Colors.red.shade100,
                   );
                 },
-                child: const Text('Sil'),
+                child: const Text('Sil', style: editButtonText),
               ),
             ],
           ),
@@ -218,7 +252,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.delete, color: deleteButtonColor),
               title: const Text(
-                'Veritabanını Sıfırla',
+                'Veritabanını Sıfırla (SQL)',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

@@ -20,7 +20,9 @@ bir chatGPT ortak çalışması :)
 - Butonlar renklendirildi.
 - Sık kullanılan renk ve stiller sabit dosyalara alındı. 
   Böylece renk değişimi tek yerden yapılabilecek.
-- Türkçe sıralama yapıldı
+- Türkçe sıralama yapıldı.
+- Bazı notification hataları düzeltildi.
+- Veri tabanı silme dialog kutusu düzeltildi
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek

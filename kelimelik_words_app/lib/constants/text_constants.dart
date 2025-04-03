@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'color_constants.dart';
+
 /// 📌 Kelime text stili
 const kelimeText = TextStyle(
   fontSize: 16,
@@ -35,4 +37,11 @@ const normalBlackText = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
   color: Colors.black,
+);
+
+/// 📌 Dialog Başlığı
+var dialogTitle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+  color: menuColor,
 );
