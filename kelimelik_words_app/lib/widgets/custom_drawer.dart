@@ -157,29 +157,16 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.upload_file, color: upLoadButtonColor),
               title: const Text(
-                'JSON Yedekten Geri Yükle',
+                'JSON Yedekten Geri Yükle (SQL)',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               onTap: () async {
-                await WordDatabase.instance.importWordsFromJson();
+                await WordDatabase.instance.importWordsFromJson(context);
                 onDatabaseUpdated();
                 if (!context.mounted) return;
-
-                /// 📌 Notification göster
-                ///
-                NotificationService.showCustomNotification(
-                  context: context,
-                  title: 'JSON Yedeği Yüklendi',
-                  message: const Text('Yedek başarıyla geri yüklendi.'),
-                  icon: Icons.upload,
-                  iconColor: Colors.green,
-                  progressIndicatorColor: Colors.green,
-                  progressIndicatorBackground: Colors.green.shade100,
-                );
-
                 Navigator.of(context).maybePop();
               },
             ),

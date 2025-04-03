@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/word_model.dart';
+import '../widgets/notification_service.dart';
 
 class WordDatabase {
   static final WordDatabase instance = WordDatabase._init();
@@ -124,7 +126,7 @@ class WordDatabase {
 
   /// 📌 JSON yedeği burada geri yükleniyor.
   ///
-  Future<void> importWordsFromJson() async {
+  Future<void> importWordsFromJson(BuildContext context) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/kelimelik_backup.json';
@@ -132,13 +134,24 @@ class WordDatabase {
 
       if (!(await file.exists())) {
         log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Import');
+
+        if (context.mounted) {
+          NotificationService.showCustomNotification(
+            context: context,
+            title: 'Dosya Bulunamadı',
+            message: const Text('JSON yedek dosyası bulunamadı.'),
+            icon: Icons.error_outline,
+            iconColor: Colors.red,
+            progressIndicatorColor: Colors.red,
+            progressIndicatorBackground: Colors.red.shade100,
+          );
+        }
         return;
       }
 
       final jsonString = await file.readAsString();
       final List<dynamic> jsonList = jsonDecode(jsonString);
 
-      // İstersen önce veritabanını temizleyebilirsin:
       final db = await database;
       await db.delete('words');
 
@@ -147,14 +160,36 @@ class WordDatabase {
         await insertWord(word);
       }
 
-      /// 🔥 Konsola yaz
       log(
-        '✅ Yedek başarıyla geri yüklendi. (${jsonList.length} kayıt)',
+        '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
         name: 'Import',
       );
-      log('📂 Kaynak dosya: $filePath', name: 'Import');
+
+      if (context.mounted) {
+        NotificationService.showCustomNotification(
+          context: context,
+          title: 'JSON Yedeği Yüklendi',
+          message: Text('${jsonList.length} kelime başarıyla yüklendi.'),
+          icon: Icons.upload_file,
+          iconColor: Colors.green,
+          progressIndicatorColor: Colors.green,
+          progressIndicatorBackground: Colors.green.shade100,
+        );
+      }
     } catch (e) {
       log('🚨 Geri yükleme hatası: $e', name: 'Import');
+
+      if (context.mounted) {
+        NotificationService.showCustomNotification(
+          context: context,
+          title: 'Yükleme Hatası',
+          message: Text('Bir hata oluştu: $e'),
+          icon: Icons.error,
+          iconColor: Colors.red,
+          progressIndicatorColor: Colors.red,
+          progressIndicatorBackground: Colors.red.shade100,
+        );
+      }
     }
   }
 
