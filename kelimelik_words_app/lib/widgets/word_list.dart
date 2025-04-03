@@ -23,6 +23,7 @@ class _WordListState extends State<WordList> {
   int? selectedIndex;
 
   /// 📌 Kelime silme dialog açar.
+  ///
   void _confirmDelete(BuildContext context, Word word) {
     showDialog(
       context: context,
@@ -50,6 +51,8 @@ class _WordListState extends State<WordList> {
                   widget.onUpdated();
 
                   if (context.mounted) {
+                    /// 📌 Notification göster - Kelime silindi
+                    ///
                     NotificationService.showCustomNotification(
                       context: context,
                       title: 'Kelime Silme İşlemi',
@@ -59,7 +62,7 @@ class _WordListState extends State<WordList> {
                             TextSpan(text: word.word, style: kelimeText),
                             const TextSpan(
                               text: ' kelimesi silinmiştir.',
-                              style: TextStyle(color: Colors.black),
+                              style: normalBlackText,
                             ),
                           ],
                         ),
@@ -83,9 +86,11 @@ class _WordListState extends State<WordList> {
   }
 
   /// 📌 Kelime güncelleme dialog açar.
+  ///
   void _editWord(BuildContext context, Word word) async {
     final updated = await showDialog<Word>(
       context: context,
+      barrierDismissible: false,
       builder: (_) => WordDialog(word: word),
     );
 
@@ -94,6 +99,8 @@ class _WordListState extends State<WordList> {
       widget.onUpdated();
 
       if (context.mounted) {
+        /// 📌 Notification göster - Kelime güncellendi
+        ///
         NotificationService.showCustomNotification(
           context: context,
           title: 'Kelime Güncelleme İşlemi',
@@ -110,7 +117,7 @@ class _WordListState extends State<WordList> {
                 ),
                 const TextSpan(
                   text: ' kelimesi güncellendi.',
-                  style: TextStyle(color: Colors.black),
+                  style: normalBlackText,
                 ),
               ],
             ),

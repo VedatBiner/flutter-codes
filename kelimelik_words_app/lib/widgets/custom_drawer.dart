@@ -85,7 +85,8 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(thickness: 2, color: menuColor, height: 0),
 
-            // JSON Export
+            /// 📌 JSON Export
+            ///
             ListTile(
               leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
@@ -98,8 +99,10 @@ class CustomDrawer extends StatelessWidget {
               onTap: () async {
                 final path = await WordDatabase.instance.exportWordsToJson();
                 log('📁 JSON dosya konumu: $path', name: 'JSON');
-
                 if (!context.mounted) return;
+
+                /// 📌 Notification göster
+                ///
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'JSON Yedeği Oluşturuldu',
@@ -114,7 +117,8 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            // JSON Import
+            /// 📌 JSON Import
+            ///
             ListTile(
               leading: Icon(Icons.upload_file, color: upLoadButtonColor),
               title: const Text(
@@ -128,6 +132,9 @@ class CustomDrawer extends StatelessWidget {
                 await WordDatabase.instance.importWordsFromJson();
                 onDatabaseUpdated();
                 if (!context.mounted) return;
+
+                /// 📌 Notification göster
+                ///
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'JSON Yedeği Yüklendi',
@@ -142,7 +149,8 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            // CSV Export
+            /// 📌 CSV Export
+            ///
             ListTile(
               leading: Icon(Icons.table_chart, color: downLoadButtonColor),
               title: const Text(
@@ -156,6 +164,9 @@ class CustomDrawer extends StatelessWidget {
                 final path = await WordDatabase.instance.exportWordsToCsv();
                 log('📁 CSV dosya konumu: $path', name: 'CSV');
                 if (!context.mounted) return;
+
+                /// 📌 Notification göster
+                ///
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'CSV Yedeği Oluşturuldu',
@@ -170,7 +181,8 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            // CSV Import
+            /// 📌 CSV Import
+            ///
             ListTile(
               leading: Icon(Icons.upload_file, color: upLoadButtonColor),
               title: const Text(
@@ -184,6 +196,9 @@ class CustomDrawer extends StatelessWidget {
                 await WordDatabase.instance.importWordsFromCsv();
                 onDatabaseUpdated();
                 if (!context.mounted) return;
+
+                /// 📌 Notification göster
+                ///
                 NotificationService.showCustomNotification(
                   context: context,
                   title: 'CSV Yedeği Yüklendi',
@@ -198,7 +213,8 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            // Veritabanını sıfırla
+            /// 📌 Veritabanını sıfırla
+            ///
             ListTile(
               leading: Icon(Icons.delete, color: deleteButtonColor),
               title: const Text(

@@ -26,9 +26,12 @@ Future<void> showAddWordDialog(
     if (existing != null) {
       // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
       if (!context.mounted) return;
+
+      /// 📌 Notification göster - Kelime var
+      ///
       NotificationService.showCustomNotification(
         context: context,
-        title: 'Uyarı',
+        title: 'Uyarı Mesajı',
         message: RichText(
           text: TextSpan(
             children: [
@@ -40,10 +43,7 @@ Future<void> showAddWordDialog(
                   color: Colors.orange,
                 ),
               ),
-              const TextSpan(
-                text: ' zaten var!',
-                style: TextStyle(color: Colors.black),
-              ),
+              const TextSpan(text: ' zaten var!', style: normalBlackText),
             ],
           ),
         ),
@@ -60,13 +60,16 @@ Future<void> showAddWordDialog(
 
     // ✅ Başarılı ekleme bildirimi göster
     if (!context.mounted) return;
+
+    /// 📌 Notification göster - Kelime eklendi
+    ///
     NotificationService.showCustomNotification(
       context: context,
       title: 'Kelime Ekleme İşlemi',
       message: RichText(
         text: TextSpan(
           children: [
-            TextSpan(text: result.word, style: kelimeText),
+            TextSpan(text: result.word, style: kelimeAddText),
             const TextSpan(text: ' kelimesi eklendi.', style: normalBlackText),
           ],
         ),

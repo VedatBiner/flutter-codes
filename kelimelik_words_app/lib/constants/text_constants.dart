@@ -9,6 +9,13 @@ const kelimeText = TextStyle(
   color: Colors.red,
 );
 
+/// 📌 Kelime eklendi text stili
+const kelimeAddText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.blueAccent,
+);
+
 /// 📌 anlam text stili
 const anlamText = TextStyle(
   fontSize: 14,
