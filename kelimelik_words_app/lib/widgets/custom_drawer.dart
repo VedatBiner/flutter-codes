@@ -22,6 +22,7 @@ class CustomDrawer extends StatelessWidget {
   void _showResetDatabaseDialog(BuildContext context) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder:
           (context) => AlertDialog(
             backgroundColor: cardLightColor,
