@@ -17,11 +17,12 @@ JSON Verisini okuyup, sqflite verisine dönüştüren basit kod
 - Alfabetik fihrist görünümü verildi. (alphabet_list?view 1.0.0.0)
 - Home_page.dart dosyasından bazı modüller ayrı dosya olarak çıkarılıp, okunurluk arttırldı.
 - Yeni kelime ekleme butonu oluşturuldu.
+- İkon değiştirildi
+- 
 
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek
-- İkon eklenecek
 - CSV Export eklenecek.
 - SQLite Backup eklenecek
 - Ekleme Çıkarma Güncelleme animasyonu eklenecek
