@@ -23,10 +23,11 @@ bir chatGPT ortak çalışması :)
 - Türkçe sıralama yapıldı.
 - Bazı notification hataları düzeltildi.
 - Veri tabanı silme dialog kutusu düzeltildi
+- Uygulama ikonu değiştirildi.
+- Uygulama adı değiştirildi
 
 Yapılacaklar :
 - Arama ve ekleme düzeltilecek
-- İkon eklenecek
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
 - Fihrist görünümünü ekle ve düzelt
