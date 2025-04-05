@@ -12,11 +12,15 @@ import 'notification_service.dart';
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
   final String appVersion;
+  final bool isFihristMode;
+  final VoidCallback onToggleViewMode;
 
   const CustomDrawer({
     super.key,
     required this.onDatabaseUpdated,
     required this.appVersion,
+    required this.isFihristMode,
+    required this.onToggleViewMode,
   });
 
   void _showResetDatabaseDialog(BuildContext context) {
@@ -119,6 +123,21 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             Divider(thickness: 2, color: menuColor, height: 0),
+
+            ListTile(
+              leading: Icon(Icons.swap_horiz, color: menuColor),
+              title: Text(
+                isFihristMode ? 'Klasik Görünüm' : 'Fihristli Görünüm',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {
+                onToggleViewMode();
+                Navigator.of(context).maybePop();
+              },
+            ),
 
             /// 📌 JSON Export
             ///

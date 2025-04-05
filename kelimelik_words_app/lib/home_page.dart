@@ -4,6 +4,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
+import 'package:kelimelik_words_app/widgets/alphabet_word_list.dart';
+import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'db/word_database.dart';
@@ -11,7 +13,6 @@ import 'models/word_model.dart';
 import 'widgets/add_word_dialog_handler.dart';
 import 'widgets/custom_app_bar.dart';
 import 'widgets/custom_drawer.dart';
-import 'widgets/word_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   List<Word> allWords = [];
 
   bool isSearching = false;
+  bool isFihristMode = true;
   final TextEditingController searchController = TextEditingController();
   String appVersion = '';
 
@@ -104,10 +106,20 @@ class _HomePageState extends State<HomePage> {
         drawer: CustomDrawer(
           onDatabaseUpdated: _loadWords,
           appVersion: appVersion,
+          isFihristMode: isFihristMode,
+          onToggleViewMode: () {
+            setState(() {
+              isFihristMode = !isFihristMode;
+            });
+          },
         ),
 
         /// 📄 Body burada
-        body: WordList(words: words, onUpdated: _loadWords),
+        // body: WordList(words: words, onUpdated: _loadWords),
+        body:
+            isFihristMode
+                ? AlphabetWordList(words: words, onUpdated: _loadWords)
+                : WordList(words: words, onUpdated: _loadWords),
 
         /// ➕ FloatingActionButton burada
         floatingActionButton: FloatingActionButton(

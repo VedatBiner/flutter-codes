@@ -30,8 +30,36 @@ class _WordListState extends State<WordList> {
       barrierDismissible: false,
       builder:
           (context) => AlertDialog(
-            title: const Text('Sil'),
-            content: Text('"${word.word}" kelimesini silmek istiyor musunuz?'),
+            backgroundColor: cardLightColor,
+            elevation: 6,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(color: drawerColor, width: 3),
+            ),
+            titlePadding: EdgeInsets.zero,
+            title: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              decoration: BoxDecoration(
+                color: drawerColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(13),
+                  topRight: Radius.circular(13),
+                ),
+              ),
+              child: const Text('Kelimeyi Sil'),
+            ),
+            content: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(text: word.word, style: kelimeText),
+                  const TextSpan(
+                    text: ' kelimesini silmek istiyor musunuz?',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
             actions: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -25,12 +25,12 @@ bir chatGPT ortak çalışması :)
 - Veri tabanı silme dialog kutusu düzeltildi
 - Uygulama ikonu değiştirildi.
 - Uygulama adı değiştirildi
-
+- Fihrist ve klasik liste görünümü eklendi.
 Yapılacaklar :
-- Arama ve ekleme düzeltilecek
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
-- Fihrist görünümünü ekle ve düzelt
-- güncelleme ve silme yöntemini düzelt.
+- Fihrist görünümünü düzelt
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
+- Veri Tabanı Sıfırla ve kelime sil dialog kutularını tek yerden kontrol edebilir miyiz? Şu ana üç kere tekrarlıyor bu dialoglar
+- Fihrist görünümünün renkleri düzenlenecek

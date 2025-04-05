@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 1.1.0+1
+version: 1.1.2+1
 
 environment:
   sdk: ^3.7.2
@@ -19,6 +19,9 @@ dependencies:
   path:
   package_info_plus:
   elegant_notification:
+
+  alphabet_list_view:
+    path: ./lib/external/alphabet_list_view
 
 dev_dependencies:
   flutter_test:
