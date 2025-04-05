@@ -1,0 +1,26 @@
+name: alphabet_list_view
+description: A ListView with sticky headers and an iOS-like clickable sidebar.
+version: 1.1.4
+repository: https://github.com/cosee/alphabet_list_view/tree/main
+issue_tracker: https://github.com/cosee/alphabet_list_view/issues
+homepage: https://pub.dev/publishers/cosee.biz/packages
+screenshots:
+  - description: 'Default appearance of AlphabetListView'
+    path: example/screenshots/default.webp
+topics:
+  - list
+
+environment:
+  sdk: ^3.6.0
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_sticky_header: ^0.7.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  cosee_lints: ^0.8.0
+  dart_code_linter: ^2.0.0
