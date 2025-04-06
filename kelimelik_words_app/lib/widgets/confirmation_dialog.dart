@@ -1,3 +1,10 @@
+// 📃 <----- confirmation_dialog.dart ----->
+// Kelime silme ve veri tabanı işlemleri için ortak
+// bir widget oluşturuldu.
+// Bu dosya alphabet_word_list.dart, word_list.dart ve
+// custom_drawer.dart dosyaları tarafından kullanılıyor.
+//
+
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/constants/text_constants.dart';

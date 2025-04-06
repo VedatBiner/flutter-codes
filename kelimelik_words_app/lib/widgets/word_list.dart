@@ -8,6 +8,7 @@ import '../db/word_database.dart';
 import '../models/word_model.dart';
 import 'confirmation_dialog.dart';
 import 'notification_service.dart';
+import 'word_action_buttons.dart';
 import 'word_dialog.dart';
 
 class WordList extends StatefulWidget {
@@ -23,8 +24,6 @@ class WordList extends StatefulWidget {
 class _WordListState extends State<WordList> {
   int? selectedIndex;
 
-  /// 📌 Kelime silme dialog açar.
-  ///
   void _confirmDelete(BuildContext context, Word word) async {
     final confirm = await showConfirmationDialog(
       context: context,
@@ -51,27 +50,25 @@ class _WordListState extends State<WordList> {
       if (!context.mounted) return;
       widget.onUpdated();
 
-      if (context.mounted) {
-        NotificationService.showCustomNotification(
-          context: context,
-          title: 'Kelime Silme İşlemi',
-          message: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(text: word.word, style: kelimeText),
-                const TextSpan(
-                  text: ' kelimesi silinmiştir.',
-                  style: normalBlackText,
-                ),
-              ],
-            ),
+      NotificationService.showCustomNotification(
+        context: context,
+        title: 'Kelime Silme İşlemi',
+        message: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: word.word, style: kelimeText),
+              const TextSpan(
+                text: ' kelimesi silinmiştir.',
+                style: normalBlackText,
+              ),
+            ],
           ),
-          icon: Icons.delete,
-          iconColor: Colors.red,
-          progressIndicatorColor: Colors.red,
-          progressIndicatorBackground: Colors.red.shade100,
-        );
-      }
+        ),
+        icon: Icons.delete,
+        iconColor: Colors.red,
+        progressIndicatorColor: Colors.red,
+        progressIndicatorBackground: Colors.red.shade100,
+      );
 
       setState(() {
         selectedIndex = null;
@@ -79,8 +76,6 @@ class _WordListState extends State<WordList> {
     }
   }
 
-  /// 📌 Kelime güncelleme dialog açar.
-  ///
   void _editWord(BuildContext context, Word word) async {
     final updated = await showDialog<Word>(
       context: context,
@@ -92,36 +87,32 @@ class _WordListState extends State<WordList> {
       await WordDatabase.instance.updateWord(updated);
       widget.onUpdated();
 
-      if (context.mounted) {
-        /// 📌 Notification göster - Kelime güncellendi
-        ///
-        NotificationService.showCustomNotification(
-          context: context,
-          title: 'Kelime Güncelleme İşlemi',
-          message: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: updated.word,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green,
-                    fontSize: 18,
-                  ),
+      NotificationService.showCustomNotification(
+        context: context,
+        title: 'Kelime Güncelleme İşlemi',
+        message: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: updated.word,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                  fontSize: 18,
                 ),
-                const TextSpan(
-                  text: ' kelimesi güncellendi.',
-                  style: normalBlackText,
-                ),
-              ],
-            ),
+              ),
+              const TextSpan(
+                text: ' kelimesi güncellendi.',
+                style: normalBlackText,
+              ),
+            ],
           ),
-          icon: Icons.check_circle,
-          iconColor: Colors.green,
-          progressIndicatorColor: Colors.green,
-          progressIndicatorBackground: Colors.green.shade100,
-        );
-      }
+        ),
+        icon: Icons.check_circle,
+        iconColor: Colors.green,
+        progressIndicatorColor: Colors.green,
+        progressIndicatorBackground: Colors.green.shade100,
+      );
 
       setState(() {
         selectedIndex = null;
@@ -176,7 +167,6 @@ class _WordListState extends State<WordList> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
-                  spacing: 8,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -200,40 +190,9 @@ class _WordListState extends State<WordList> {
                           right: 12,
                           bottom: 12,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton.icon(
-                              onPressed: () => _editWord(context, word),
-                              icon: Image.asset(
-                                'assets/images/pen.png',
-                                width: 32,
-                                height: 32,
-                              ),
-                              label: const Text(
-                                'Düzelt',
-                                style: editButtonText,
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: editButtonColor,
-                                foregroundColor: buttonIconColor,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            ElevatedButton.icon(
-                              onPressed: () => _confirmDelete(context, word),
-                              icon: Image.asset(
-                                'assets/images/trash.png',
-                                width: 32,
-                                height: 32,
-                              ),
-                              label: const Text('Sil', style: editButtonText),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: deleteButtonColor,
-                                foregroundColor: buttonIconColor,
-                              ),
-                            ),
-                          ],
+                        child: WordActionButtons(
+                          onEdit: () => _editWord(context, word),
+                          onDelete: () => _confirmDelete(context, word),
                         ),
                       ),
                   ],

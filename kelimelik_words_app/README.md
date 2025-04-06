@@ -32,6 +32,8 @@ kutusunu kullanması sağlandı.
 - Arama kutusu ikonları görselleştirildi.
 - Silme ve düzenleme ikonları değiştirildi.
 - FAB butonu biraz sola çekildi.
+- Silme ve düzenleme ortak butonları tek dosyaya ayrıldı.
+- JSON ve CSV yedek alma işlemi iki ayrı dosyaya ayrılıp, tek menü seçeneğine indirildi.
 
 Yapılacaklar :
 - SQLite Backup eklenecek

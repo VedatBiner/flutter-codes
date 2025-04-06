@@ -1,3 +1,5 @@
+// 📃 <----- alphabet_word_list.dart ----->
+
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
@@ -8,6 +10,7 @@ import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
 import 'confirmation_dialog.dart';
+import 'word_action_buttons.dart';
 
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
@@ -206,44 +209,9 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                               right: 12,
                               bottom: 12,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton.icon(
-                                  onPressed: () => _editWord(context, word),
-                                  icon: Image.asset(
-                                    'assets/images/pen.png',
-                                    width: 32,
-                                    height: 32,
-                                  ),
-                                  label: const Text(
-                                    'Düzelt',
-                                    style: editButtonText,
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: editButtonColor,
-                                    foregroundColor: buttonIconColor,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                ElevatedButton.icon(
-                                  onPressed:
-                                      () => _confirmDelete(context, word),
-                                  icon: Image.asset(
-                                    'assets/images/trash.png',
-                                    width: 32,
-                                    height: 32,
-                                  ),
-                                  label: const Text(
-                                    'Sil',
-                                    style: editButtonText,
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: deleteButtonColor,
-                                    foregroundColor: buttonIconColor,
-                                  ),
-                                ),
-                              ],
+                            child: WordActionButtons(
+                              onEdit: () => _editWord(context, word),
+                              onDelete: () => _confirmDelete(context, word),
                             ),
                           ),
                       ],

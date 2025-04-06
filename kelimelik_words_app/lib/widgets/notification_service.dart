@@ -18,8 +18,8 @@ class NotificationService {
     required Color progressIndicatorColor,
   }) {
     ElegantNotification(
-      width: 400,
-      height: 150,
+      width: 380,
+      height: 180,
       stackedOptions: StackedOptions(
         key: 'left',
         type: StackedType.same,

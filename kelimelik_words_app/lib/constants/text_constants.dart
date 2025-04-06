@@ -45,3 +45,19 @@ var dialogTitle = TextStyle(
   fontSize: 18,
   color: menuColor,
 );
+
+/// 📌 Drawer menü stil
+const drawerMenuText = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+);
+
+/// 📌 Versiyon stili
+const versionText = TextStyle(
+  fontSize: 12,
+  color: Colors.amberAccent,
+  fontWeight: FontWeight.bold,
+);
+
+/// 📌 name stili
+var nameText = TextStyle(fontSize: 12, color: menuColor);
