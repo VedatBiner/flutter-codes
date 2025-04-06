@@ -34,10 +34,10 @@ kutusunu kullanması sağlandı.
 - FAB butonu biraz sola çekildi.
 - Silme ve düzenleme ortak butonları tek dosyaya ayrıldı.
 - JSON ve CSV yedek alma işlemi iki ayrı dosyaya ayrılıp, tek menü seçeneğine indirildi.
+- Verilerin SQL 'den silinip, JSON ile yeniden yüklenmesi sağlandı.
 
 Yapılacaklar :
 - SQLite Backup eklenecek
-- Veri silip yeniden yüklemeye slider ekle
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
 - Fihrist görünümünün renkleri düzenlenecek

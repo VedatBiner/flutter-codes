@@ -33,14 +33,17 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
   String appVersion = '';
 
+  bool isLoadingJson = false;
+  double progress = 0.0;
+  String? loadingWord;
+
   @override
   void initState() {
     super.initState();
-    loadDataFromDatabase(); // 👈 JSON'dan yükleme yapılabilir
+    loadDataFromDatabase();
     _getAppVersion();
   }
 
-  /// Uygulamanın versiyonunu alır.
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
@@ -48,7 +51,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// Veritabanından kelimeleri yükler.
   Future<void> _loadWords() async {
     allWords = await WordDatabase.instance.getWords();
     final count = await WordDatabase.instance.countWords();
@@ -60,7 +62,6 @@ class _HomePageState extends State<HomePage> {
     log('📦 Toplam kayıt sayısı: $count');
   }
 
-  /// Eğer veritabanı boşsa cihazdaki JSON dosyasından yükleme yapar.
   Future<void> loadDataFromDatabase() async {
     log("🔄 Veritabanından veri okunuyor...");
 
@@ -79,14 +80,35 @@ class _HomePageState extends State<HomePage> {
           final jsonStr = await file.readAsString();
           final List<dynamic> jsonList = json.decode(jsonStr);
 
-          final words = jsonList.map((e) => Word.fromJson(e)).toList();
+          final loadedWords =
+              jsonList.map((e) {
+                final map = e as Map<String, dynamic>;
+                return Word(word: map['word'], meaning: map['meaning']);
+              }).toList();
 
-          for (var word in words) {
+          setState(() {
+            isLoadingJson = true;
+            progress = 0.0;
+          });
+
+          for (int i = 0; i < loadedWords.length; i++) {
+            final word = loadedWords[i];
+            setState(() {
+              progress = (i + 1) / loadedWords.length;
+              loadingWord = word.word;
+            });
+            log("📥 ${word.word} (${i + 1}/${loadedWords.length})");
             await WordDatabase.instance.insertWord(word);
-            log("✅ Yüklenen kelime: ${word.word} - ${word.meaning}");
+            await Future.delayed(const Duration(milliseconds: 30));
           }
 
-          log("✅ ${words.length} kelime JSON dosyasından yüklendi.");
+          setState(() {
+            isLoadingJson = false;
+            loadingWord = null;
+            progress = 0.0;
+          });
+
+          log("✅ ${loadedWords.length} kelime JSON dosyasından yüklendi.");
         } else {
           log("⚠️ kelimelik_backup.json dosyası bulunamadı: $filePath");
         }
@@ -100,7 +122,6 @@ class _HomePageState extends State<HomePage> {
     await _loadWords();
   }
 
-  /// Aramayı filtreler.
   void _filterWords(String query) {
     final filtered =
         allWords.where((word) {
@@ -114,7 +135,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// Arama kutusunu temizler.
   void _clearSearch() {
     searchController.clear();
     setState(() {
@@ -123,55 +143,113 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// 📌 Ara yüz burada oluşturuluyor
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        /// 📜 AppBar burada
-        appBar: CustomAppBar(
-          isSearching: isSearching,
-          searchController: searchController,
-          onSearchChanged: _filterWords,
-          onClearSearch: _clearSearch,
-          onStartSearch: () {
-            setState(() {
-              isSearching = true;
-            });
-          },
-          itemCount: words.length,
-        ),
-
-        /// 📁 Drawer burada
-        drawer: CustomDrawer(
-          onDatabaseUpdated: _loadWords,
-          appVersion: appVersion,
-          isFihristMode: isFihristMode,
-          onToggleViewMode: () {
-            setState(() {
-              isFihristMode = !isFihristMode;
-            });
-          },
-        ),
-
-        /// 📄 Body burada
-        body:
-            isFihristMode
-                ? AlphabetWordList(words: words, onUpdated: _loadWords)
-                : WordList(words: words, onUpdated: _loadWords),
-
-        /// ➕ FloatingActionButton burada
-        floatingActionButton: Transform.translate(
-          offset: const Offset(-20, 0),
-          child: FloatingActionButton(
-            backgroundColor: Colors.transparent,
-            foregroundColor: buttonIconColor,
-            onPressed:
-                () => showAddWordDialog(context, _loadWords, _clearSearch),
-            child: Image.asset('assets/images/add.png', width: 56, height: 56),
+    return Stack(
+      children: [
+        SafeArea(
+          child: Scaffold(
+            appBar: CustomAppBar(
+              isSearching: isSearching,
+              searchController: searchController,
+              onSearchChanged: _filterWords,
+              onClearSearch: _clearSearch,
+              onStartSearch: () {
+                setState(() {
+                  isSearching = true;
+                });
+              },
+              itemCount: words.length,
+            ),
+            drawer: CustomDrawer(
+              onDatabaseUpdated: _loadWords,
+              appVersion: appVersion,
+              isFihristMode: isFihristMode,
+              onToggleViewMode: () {
+                setState(() {
+                  isFihristMode = !isFihristMode;
+                });
+              },
+            ),
+            body:
+                isFihristMode
+                    ? AlphabetWordList(words: words, onUpdated: _loadWords)
+                    : WordList(words: words, onUpdated: _loadWords),
+            floatingActionButton: Transform.translate(
+              offset: const Offset(-20, 0),
+              child: FloatingActionButton(
+                backgroundColor: Colors.transparent,
+                foregroundColor: buttonIconColor,
+                onPressed:
+                    () => showAddWordDialog(context, _loadWords, _clearSearch),
+                child: Image.asset(
+                  'assets/images/add.png',
+                  width: 56,
+                  height: 56,
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+
+        // 🔄 JSON'dan veri yükleniyor ekranı
+        if (isLoadingJson)
+          Center(
+            child: Card(
+              color: Colors.white,
+              elevation: 8,
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 32,
+                ),
+                width: 300,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Veriler Yükleniyor...",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          "${(progress * 100).toStringAsFixed(0)}%",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    LinearProgressIndicator(value: progress),
+                    const SizedBox(height: 12),
+                    if (loadingWord != null)
+                      Text(
+                        loadingWord!,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.deepOrange,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }
