@@ -26,13 +26,14 @@ bir chatGPT ortak çalışması :)
 - Uygulama ikonu değiştirildi.
 - Uygulama adı değiştirildi
 - Fihrist ve klasik liste görünümü eklendi.
-- iki kod da tekrarlanan kelime silme dialog bölümü tek kod ile ortak kullanılır hale getirildi
+- iki kod da da tekrarlanan kelime silme dialog bölümü tek kod ile ortak kullanılır hale getirildi.
+- veritabanı silme dialog box 'da önceki dialog ile birleştirilip, üç ayrı kodun aynı ortak dialog 
+kutusunu kullanması sağlandı.
+- Arama kutusu ikonları görselleştirildi.
 
 Yapılacaklar :
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
-- Fihrist görünümünü düzelt
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Veri Tabanı Sıfırla ve kelime sil dialog kutularını tek yerden kontrol edebilir miyiz? Şu ana üç kere tekrarlıyor bu dialoglar
 - Fihrist görünümünün renkleri düzenlenecek
