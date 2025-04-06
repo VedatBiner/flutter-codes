@@ -7,6 +7,7 @@ import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
+import 'confirmation_dialog.dart';
 import 'notification_service.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -23,79 +24,41 @@ class CustomDrawer extends StatelessWidget {
     required this.onToggleViewMode,
   });
 
-  void _showResetDatabaseDialog(BuildContext context) {
-    showDialog(
+  /// 📌 Veri tabanı silme kutusu burada açılıyor.
+  ///
+  void _showResetDatabaseDialog(BuildContext context) async {
+    final confirm = await showConfirmationDialog(
       context: context,
-      barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: cardLightColor,
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: drawerColor, width: 3),
-            ),
-            titlePadding: EdgeInsets.zero,
-            title: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: drawerColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
-                ),
-              ),
-              child: Text(
-                'Veritabanını Sıfırla',
-                style: dialogTitle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            content: const Text(
-              'Tüm kelimeler silinecek. Emin misiniz?',
-              style: kelimeText,
-            ),
-            actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: cancelButtonColor,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).maybePop();
-                },
-                child: const Text('İptal', style: editButtonText),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: deleteButtonColor,
-                ),
-                onPressed: () async {
-                  final db = await WordDatabase.instance.database;
-                  await db.delete('words');
-                  if (!context.mounted) return;
-                  Navigator.of(context).pop();
-                  Navigator.of(context).maybePop();
-                  onDatabaseUpdated();
-
-                  /// 📌 Notification göster - Veritabanı sıfırlandı
-                  ///
-                  NotificationService.showCustomNotification(
-                    context: context,
-                    title: 'Veritabanı Sıfırlandı',
-                    message: const Text('Tüm kayıtlar silindi.'),
-                    icon: Icons.delete_forever,
-                    iconColor: Colors.red,
-                    progressIndicatorColor: Colors.red,
-                    progressIndicatorBackground: Colors.red.shade100,
-                  );
-                },
-                child: const Text('Sil', style: editButtonText),
-              ),
-            ],
-          ),
+      title: 'Veritabanını Sıfırla',
+      content: const Text(
+        'Tüm kelimeler silinecek. Emin misiniz?',
+        style: kelimeText,
+      ),
+      confirmText: 'Sil',
+      cancelText: 'İptal',
+      confirmColor: deleteButtonColor,
+      cancelColor: cancelButtonColor,
     );
+
+    if (confirm == true) {
+      final db = await WordDatabase.instance.database;
+      await db.delete('words');
+
+      if (!context.mounted) return;
+      Navigator.of(context).maybePop();
+
+      onDatabaseUpdated();
+
+      NotificationService.showCustomNotification(
+        context: context,
+        title: 'Veritabanı Sıfırlandı',
+        message: const Text('Tüm kayıtlar silindi.'),
+        icon: Icons.delete_forever,
+        iconColor: Colors.red,
+        progressIndicatorColor: Colors.red,
+        progressIndicatorBackground: Colors.red.shade100,
+      );
+    }
   }
 
   @override
@@ -124,6 +87,8 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(thickness: 2, color: menuColor, height: 0),
 
+            /// 📌 Görünüm değiştirme seçeneği
+            ///
             ListTile(
               leading: Icon(Icons.swap_horiz, color: menuColor),
               title: Text(
