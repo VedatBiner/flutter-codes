@@ -34,3 +34,6 @@ Color cancelButtonColor = const Color(0xFF8798AA);
 
 /// 📌 Ekle Buton rengi burada belirleniyor.
 Color addButtonColor = const Color(0xFF0277BD);
+
+/// 📌 Card diziliminin arka planı burada belirleniyor.
+Color cardPageColor = Colors.blue.shade200;

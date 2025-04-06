@@ -211,9 +211,13 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                               children: [
                                 ElevatedButton.icon(
                                   onPressed: () => _editWord(context, word),
-                                  icon: const Icon(Icons.edit),
+                                  icon: Image.asset(
+                                    'assets/images/pen.png',
+                                    width: 32,
+                                    height: 32,
+                                  ),
                                   label: const Text(
-                                    'Düzenle',
+                                    'Düzelt',
                                     style: editButtonText,
                                   ),
                                   style: ElevatedButton.styleFrom(
@@ -225,7 +229,11 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                                 ElevatedButton.icon(
                                   onPressed:
                                       () => _confirmDelete(context, word),
-                                  icon: const Icon(Icons.delete),
+                                  icon: Image.asset(
+                                    'assets/images/trash.png',
+                                    width: 32,
+                                    height: 32,
+                                  ),
                                   label: const Text(
                                     'Sil',
                                     style: editButtonText,
@@ -263,10 +271,13 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
       behavior: HitTestBehavior.translucent,
       child: AlphabetListView(
         items: _buildGroupedItems(),
-        options: const AlphabetListViewOptions(
-          scrollbarOptions: ScrollbarOptions(symbols: turkishAlphabet),
-          listOptions: ListOptions(),
-          overlayOptions: OverlayOptions(),
+        options: AlphabetListViewOptions(
+          scrollbarOptions: ScrollbarOptions(
+            symbols: turkishAlphabet,
+            backgroundColor: drawerColor,
+          ),
+          listOptions: ListOptions(backgroundColor: cardPageColor),
+          overlayOptions: const OverlayOptions(),
         ),
       ),
     );

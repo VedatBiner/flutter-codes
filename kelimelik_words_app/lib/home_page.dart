@@ -122,11 +122,19 @@ class _HomePageState extends State<HomePage> {
                 : WordList(words: words, onUpdated: _loadWords),
 
         /// ➕ FloatingActionButton burada
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: fabColor,
-          foregroundColor: buttonIconColor,
-          onPressed: () => showAddWordDialog(context, _loadWords, _clearSearch),
-          child: const Icon(Icons.add),
+        floatingActionButton: Transform.translate(
+          offset: const Offset(-20, 0),
+          child: FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            foregroundColor: buttonIconColor,
+            onPressed:
+                () => showAddWordDialog(context, _loadWords, _clearSearch),
+            child: Image.asset(
+              'assets/images/add.png',
+              width: 56, // FAB boyutuna göre ayarla
+              height: 56,
+            ),
+          ),
         ),
       ),
     );

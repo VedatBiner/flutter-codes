@@ -30,6 +30,8 @@ bir chatGPT ortak çalışması :)
 - veritabanı silme dialog box 'da önceki dialog ile birleştirilip, üç ayrı kodun aynı ortak dialog 
 kutusunu kullanması sağlandı.
 - Arama kutusu ikonları görselleştirildi.
+- Silme ve düzenleme ikonları değiştirildi.
+- FAB butonu biraz sola çekildi.
 
 Yapılacaklar :
 - SQLite Backup eklenecek

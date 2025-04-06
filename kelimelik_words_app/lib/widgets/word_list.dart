@@ -205,9 +205,13 @@ class _WordListState extends State<WordList> {
                           children: [
                             ElevatedButton.icon(
                               onPressed: () => _editWord(context, word),
-                              icon: const Icon(Icons.edit),
+                              icon: Image.asset(
+                                'assets/images/pen.png',
+                                width: 32,
+                                height: 32,
+                              ),
                               label: const Text(
-                                'Düzenle',
+                                'Düzelt',
                                 style: editButtonText,
                               ),
                               style: ElevatedButton.styleFrom(
@@ -218,7 +222,11 @@ class _WordListState extends State<WordList> {
                             const SizedBox(width: 8),
                             ElevatedButton.icon(
                               onPressed: () => _confirmDelete(context, word),
-                              icon: const Icon(Icons.delete),
+                              icon: Image.asset(
+                                'assets/images/trash.png',
+                                width: 32,
+                                height: 32,
+                              ),
                               label: const Text('Sil', style: editButtonText),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: deleteButtonColor,
