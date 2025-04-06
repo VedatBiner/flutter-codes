@@ -6,6 +6,7 @@ import 'package:kelimelik_words_app/constants/text_constants.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
+import 'confirmation_dialog.dart';
 import 'notification_service.dart';
 import 'word_dialog.dart';
 
@@ -24,93 +25,58 @@ class _WordListState extends State<WordList> {
 
   /// 📌 Kelime silme dialog açar.
   ///
-  void _confirmDelete(BuildContext context, Word word) {
-    showDialog(
+  void _confirmDelete(BuildContext context, Word word) async {
+    final confirm = await showConfirmationDialog(
       context: context,
-      barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: cardLightColor,
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: drawerColor, width: 3),
+      title: 'Kelimeyi Sil',
+      content: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(text: word.word, style: kelimeText),
+            const TextSpan(
+              text: ' kelimesini silmek istiyor musunuz?',
+              style: TextStyle(fontSize: 16, color: Colors.black),
             ),
-            titlePadding: EdgeInsets.zero,
-            title: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: drawerColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
-                ),
-              ),
-              child: const Text('Kelimeyi Sil'),
-            ),
-            content: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: word.word, style: kelimeText),
-                  const TextSpan(
-                    text: ' kelimesini silmek istiyor musunuz?',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: cancelButtonColor,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('İptal', style: editButtonText),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: deleteButtonColor,
-                ),
-                onPressed: () async {
-                  await WordDatabase.instance.deleteWord(word.id!);
-                  if (!context.mounted) return;
-                  Navigator.of(context).pop();
-                  widget.onUpdated();
-
-                  if (context.mounted) {
-                    /// 📌 Notification göster - Kelime silindi
-                    ///
-                    NotificationService.showCustomNotification(
-                      context: context,
-                      title: 'Kelime Silme İşlemi',
-                      message: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(text: word.word, style: kelimeText),
-                            const TextSpan(
-                              text: ' kelimesi silinmiştir.',
-                              style: normalBlackText,
-                            ),
-                          ],
-                        ),
-                      ),
-                      icon: Icons.delete,
-                      iconColor: Colors.red,
-                      progressIndicatorColor: Colors.red,
-                      progressIndicatorBackground: Colors.red.shade100,
-                    );
-                  }
-
-                  setState(() {
-                    selectedIndex = null;
-                  });
-                },
-                child: const Text('Evet', style: editButtonText),
-              ),
-            ],
-          ),
+          ],
+        ),
+      ),
+      confirmText: 'Evet',
+      cancelText: 'İptal',
+      confirmColor: deleteButtonColor,
+      cancelColor: cancelButtonColor,
     );
+
+    if (confirm == true) {
+      await WordDatabase.instance.deleteWord(word.id!);
+      if (!context.mounted) return;
+      widget.onUpdated();
+
+      if (context.mounted) {
+        NotificationService.showCustomNotification(
+          context: context,
+          title: 'Kelime Silme İşlemi',
+          message: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(text: word.word, style: kelimeText),
+                const TextSpan(
+                  text: ' kelimesi silinmiştir.',
+                  style: normalBlackText,
+                ),
+              ],
+            ),
+          ),
+          icon: Icons.delete,
+          iconColor: Colors.red,
+          progressIndicatorColor: Colors.red,
+          progressIndicatorBackground: Colors.red.shade100,
+        );
+      }
+
+      setState(() {
+        selectedIndex = null;
+      });
+    }
   }
 
   /// 📌 Kelime güncelleme dialog açar.

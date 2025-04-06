@@ -7,6 +7,8 @@ import 'package:kelimelik_words_app/models/word_model.dart';
 import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
+import 'confirmation_dialog.dart';
+
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
   final VoidCallback onUpdated;
@@ -33,6 +35,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
     'E',
     'F',
     'G',
+    'Ğ',
     'H',
     'I',
     'İ',
@@ -53,8 +56,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
     'V',
     'Y',
     'Z',
-    '#',
-    '#',
   ];
 
   void _editWord(BuildContext context, Word word) async {
@@ -94,91 +95,53 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
     }
   }
 
-  void _confirmDelete(BuildContext context, Word word) {
-    showDialog(
+  void _confirmDelete(BuildContext context, Word word) async {
+    final confirm = await showConfirmationDialog(
       context: context,
-      barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            backgroundColor: cardLightColor,
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: drawerColor, width: 3),
+      title: 'Kelimeyi Sil',
+      content: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(text: word.word, style: kelimeText),
+            const TextSpan(
+              text: ' kelimesini silmek istiyor musunuz?',
+              style: TextStyle(fontSize: 16, color: Colors.black),
             ),
-            titlePadding: EdgeInsets.zero,
-            title: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: drawerColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(13),
-                  topRight: Radius.circular(13),
-                ),
-              ),
-              child: Text(
-                'Kelimeyi Sil',
-                style: dialogTitle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            content: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: word.word, style: kelimeText),
-                  const TextSpan(
-                    text: ' kelimesini silmek istiyor musunuz?',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: cancelButtonColor,
-                ),
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('İptal', style: editButtonText),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: deleteButtonColor,
-                ),
-                onPressed: () async {
-                  await WordDatabase.instance.deleteWord(word.id!);
-                  if (!context.mounted) return;
-                  Navigator.of(context).pop();
-                  widget.onUpdated();
+          ],
+        ),
+      ),
+      confirmText: 'Sil',
+      cancelText: 'İptal',
+      confirmColor: deleteButtonColor,
+    );
 
-                  NotificationService.showCustomNotification(
-                    context: context,
-                    title: 'Kelime Silindi',
-                    message: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(text: word.word, style: kelimeText),
-                          const TextSpan(
-                            text: ' kelimesi silinmiştir.',
-                            style: normalBlackText,
-                          ),
-                        ],
-                      ),
-                    ),
-                    icon: Icons.delete,
-                    iconColor: Colors.red,
-                    progressIndicatorColor: Colors.red,
-                    progressIndicatorBackground: Colors.red.shade100,
-                  );
+    if (confirm == true) {
+      await WordDatabase.instance.deleteWord(word.id!);
+      if (!context.mounted) return;
+      widget.onUpdated();
 
-                  setState(() => selectedIndex = null);
-                },
-                child: const Text('Sil', style: editButtonText),
+      NotificationService.showCustomNotification(
+        context: context,
+        title: 'Kelime Silindi',
+        message: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: word.word, style: kelimeText),
+              const TextSpan(
+                text: ' kelimesi silinmiştir.',
+                style: normalBlackText,
               ),
             ],
           ),
-    );
+        ),
+        icon: Icons.delete,
+        iconColor: Colors.red,
+        progressIndicatorColor: Colors.red,
+        progressIndicatorBackground: Colors.red.shade100,
+      );
+
+      setState(() => selectedIndex = null);
+    }
   }
 
   List<AlphabetListViewItemGroup> _buildGroupedItems() {
@@ -301,10 +264,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
       child: AlphabetListView(
         items: _buildGroupedItems(),
         options: const AlphabetListViewOptions(
-          scrollbarOptions: ScrollbarOptions(
-            symbols: turkishAlphabet,
-            // thumbColor: Colors.indigo,
-          ),
+          scrollbarOptions: ScrollbarOptions(symbols: turkishAlphabet),
           listOptions: ListOptions(),
           overlayOptions: OverlayOptions(),
         ),

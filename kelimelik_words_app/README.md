@@ -26,6 +26,8 @@ bir chatGPT ortak çalışması :)
 - Uygulama ikonu değiştirildi.
 - Uygulama adı değiştirildi
 - Fihrist ve klasik liste görünümü eklendi.
+- iki kod da tekrarlanan kelime silme dialog bölümü tek kod ile ortak kullanılır hale getirildi
+
 Yapılacaklar :
 - SQLite Backup eklenecek
 - Veri silip yeniden yüklemeye slider ekle
