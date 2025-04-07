@@ -1,6 +1,7 @@
 // 📃 <----- main.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/theme.dart';
 
 import 'home_page.dart';
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Kelimelik',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
+      // theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
+      theme: CustomTheme.theme,
       home: const HomePage(),
     );
   }
