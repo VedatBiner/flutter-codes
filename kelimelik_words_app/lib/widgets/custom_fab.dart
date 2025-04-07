@@ -1,0 +1,31 @@
+// 📃 <----- custom_fab.dart ----->
+
+import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
+
+import 'add_word_dialog_handler.dart';
+
+class CustomFAB extends StatelessWidget {
+  final VoidCallback refreshWords;
+  final VoidCallback clearSearch;
+
+  const CustomFAB({
+    super.key,
+    required this.refreshWords,
+    required this.clearSearch,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform.translate(
+      offset: const Offset(-20, 0),
+      child: FloatingActionButton(
+        tooltip: "Yeni kelime ekle",
+        backgroundColor: Colors.transparent,
+        foregroundColor: buttonIconColor,
+        onPressed: () => showAddWordDialog(context, refreshWords, clearSearch),
+        child: Image.asset('assets/images/add.png', width: 56, height: 56),
+      ),
+    );
+  }
+}

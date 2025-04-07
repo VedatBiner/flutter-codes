@@ -5,8 +5,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/widgets/alphabet_word_list.dart';
+import 'package:kelimelik_words_app/widgets/custom_fab.dart';
 import 'package:kelimelik_words_app/widgets/sql_loadind_card.dart';
 import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,7 +14,6 @@ import 'package:path_provider/path_provider.dart';
 
 import 'db/word_database.dart';
 import 'models/word_model.dart';
-import 'widgets/add_word_dialog_handler.dart';
 import 'widgets/custom_app_bar.dart';
 import 'widgets/custom_drawer.dart';
 
@@ -190,20 +189,9 @@ class _HomePageState extends State<HomePage> {
 
             ///📌 FAB Buton burada oluşturuluyor
             ///
-            floatingActionButton: Transform.translate(
-              offset: const Offset(-20, 0),
-              child: FloatingActionButton(
-                tooltip: "Yeni kelime ekle",
-                backgroundColor: Colors.transparent,
-                foregroundColor: buttonIconColor,
-                onPressed:
-                    () => showAddWordDialog(context, _loadWords, _clearSearch),
-                child: Image.asset(
-                  'assets/images/add.png',
-                  width: 56,
-                  height: 56,
-                ),
-              ),
+            floatingActionButton: CustomFAB(
+              refreshWords: _loadWords,
+              clearSearch: _clearSearch,
             ),
           ),
         ),
