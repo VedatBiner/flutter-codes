@@ -146,46 +146,29 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            /// 📌 Yedekten geri yükleme (JSON)
+            /// 📌 Veritabanını yenile
             ///
             ListTile(
-              leading: Icon(Icons.upload_file, color: upLoadButtonColor),
+              leading: const Icon(Icons.refresh, color: Colors.amber),
               title: const Text(
-                'JSON Yedekten Geri Yükle (SQL)',
-                style: drawerMenuText,
+                'Veritabanını Yenile (SQL)',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              onTap: () async {
-                await WordDatabase.instance.importWordsFromJson(context);
+              onTap: () {
                 onDatabaseUpdated();
-                if (!context.mounted) return;
                 Navigator.of(context).maybePop();
-              },
-            ),
-
-            /// 📌 Yedekten geri yükleme (JSON)
-            ///
-            ListTile(
-              leading: Icon(Icons.upload_file, color: upLoadButtonColor),
-              title: const Text(
-                'CSV Yedekten Geri Yükle',
-                style: drawerMenuText,
-              ),
-              onTap: () async {
-                await WordDatabase.instance.importWordsFromCsv();
-                onDatabaseUpdated();
-                if (!context.mounted) return;
-
                 NotificationService.showCustomNotification(
                   context: context,
-                  title: 'CSV Yedeği Yüklendi',
-                  message: const Text('CSV dosyasından veriler yüklendi.'),
-                  icon: Icons.upload_file,
-                  iconColor: Colors.deepPurple,
-                  progressIndicatorColor: Colors.deepPurple,
-                  progressIndicatorBackground: Colors.deepPurple.shade100,
+                  title: 'Veritabanı Yenilendi',
+                  message: const Text('Veritabanı yeniden yüklendi.'),
+                  icon: Icons.refresh,
+                  iconColor: Colors.amber,
+                  progressIndicatorColor: Colors.amber,
+                  progressIndicatorBackground: Colors.amber.shade100,
                 );
-
-                Navigator.of(context).maybePop();
               },
             ),
 
