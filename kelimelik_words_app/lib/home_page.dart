@@ -7,11 +7,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/widgets/alphabet_word_list.dart';
+import 'package:kelimelik_words_app/widgets/sql_loadind_card.dart';
 import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'constants/text_constants.dart';
 import 'db/word_database.dart';
 import 'models/word_model.dart';
 import 'widgets/add_word_dialog_handler.dart';
@@ -165,6 +165,9 @@ class _HomePageState extends State<HomePage> {
                 itemCount: words.length,
               ),
             ),
+
+            /// 📌 Drawer menü burada oluşturuluyor
+            ///
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
               appVersion: appVersion,
@@ -175,10 +178,16 @@ class _HomePageState extends State<HomePage> {
                 });
               },
             ),
+
+            /// 📌 body burada oluşturuluyor
+            ///
             body:
                 isFihristMode
                     ? AlphabetWordList(words: words, onUpdated: _loadWords)
                     : WordList(words: words, onUpdated: _loadWords),
+
+            ///📌 FAB Buton burada oluşturuluyor
+            ///
             floatingActionButton: Transform.translate(
               offset: const Offset(-20, 0),
               child: FloatingActionButton(
@@ -199,54 +208,7 @@ class _HomePageState extends State<HomePage> {
 
         // 🔄 JSON 'dan veri yükleniyor ekranı
         if (isLoadingJson)
-          Center(
-            child: Card(
-              color: Colors.white,
-              elevation: 8,
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 32,
-                ),
-                width: 300,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Veriler Yükleniyor...",
-                          style: veriYukleniyor,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          "${(progress * 100).toStringAsFixed(0)}%",
-                          style: veriYuzdesi,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    LinearProgressIndicator(value: progress),
-                    const SizedBox(height: 12),
-                    if (loadingWord != null)
-                      Text(
-                        loadingWord!,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.deepOrange,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          SQLLoadingCard(progress: progress, loadingWord: loadingWord),
       ],
     );
   }
