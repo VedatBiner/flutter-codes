@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 
+import '../constants/text_constants.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
   final TextEditingController searchController;
@@ -33,10 +35,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 controller: searchController,
                 autofocus: true,
                 decoration: InputDecoration(
+                  isDense: true,
                   hintText: 'Kelime ara ...',
+                  hintStyle: hintStil,
                   contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
+                    horizontal: 12,
+                    vertical: 8,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -51,32 +55,27 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 onChanged: onSearchChanged,
               )
-              : Text(
-                'Kelimelik ($itemCount)',
-                style: TextStyle(
-                  color: menuColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              : Text('Kelimelik ($itemCount)', style: itemCountStil),
       actions: [
         isSearching
             ? IconButton(
+              tooltip: "Aramayı kapat",
               color: menuColor,
               icon: Image.asset(
                 "assets/images/close.png",
-                width: 32,
-                height: 32,
+                width: 48,
+                height: 48,
               ),
               // icon: const Icon(Icons.clear),
               onPressed: onClearSearch,
             )
             : IconButton(
               color: menuColor,
+              tooltip: "Aramayı başlat",
               icon: Image.asset(
                 "assets/images/search.png",
-                width: 32,
-                height: 32,
+                width: 48,
+                height: 48,
               ),
               onPressed: onStartSearch,
             ),

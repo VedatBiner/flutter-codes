@@ -85,6 +85,7 @@ class _WordListState extends State<WordList> {
 
     if (updated != null) {
       await WordDatabase.instance.updateWord(updated);
+      if (!context.mounted) return;
       widget.onUpdated();
 
       NotificationService.showCustomNotification(

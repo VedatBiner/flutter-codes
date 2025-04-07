@@ -61,3 +61,23 @@ const versionText = TextStyle(
 
 /// 📌 name stili
 var nameText = TextStyle(fontSize: 12, color: menuColor);
+
+/// 📌 Veri Yükleniyor stili
+const veriYukleniyor = TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+
+/// 📌 Veri Yüzdesi stili
+const veriYuzdesi = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+  color: Colors.blueAccent,
+);
+
+/// 📌 Arama kutusu hint text stili
+const hintStil = TextStyle(color: Colors.grey, fontSize: 16);
+
+/// 📌 AppBar Item Count text stili
+var itemCountStil = TextStyle(
+  color: menuColor,
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+);

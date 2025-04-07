@@ -11,6 +11,7 @@ import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'constants/text_constants.dart';
 import 'db/word_database.dart';
 import 'models/word_model.dart';
 import 'widgets/add_word_dialog_handler.dart';
@@ -149,17 +150,20 @@ class _HomePageState extends State<HomePage> {
       children: [
         SafeArea(
           child: Scaffold(
-            appBar: CustomAppBar(
-              isSearching: isSearching,
-              searchController: searchController,
-              onSearchChanged: _filterWords,
-              onClearSearch: _clearSearch,
-              onStartSearch: () {
-                setState(() {
-                  isSearching = true;
-                });
-              },
-              itemCount: words.length,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(64),
+              child: CustomAppBar(
+                isSearching: isSearching,
+                searchController: searchController,
+                onSearchChanged: _filterWords,
+                onClearSearch: _clearSearch,
+                onStartSearch: () {
+                  setState(() {
+                    isSearching = true;
+                  });
+                },
+                itemCount: words.length,
+              ),
             ),
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
@@ -178,6 +182,7 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton: Transform.translate(
               offset: const Offset(-20, 0),
               child: FloatingActionButton(
+                tooltip: "Yeni kelime ekle",
                 backgroundColor: Colors.transparent,
                 foregroundColor: buttonIconColor,
                 onPressed:
@@ -192,7 +197,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        // 🔄 JSON'dan veri yükleniyor ekranı
+        // 🔄 JSON 'dan veri yükleniyor ekranı
         if (isLoadingJson)
           Center(
             child: Card(
@@ -216,19 +221,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         const Text(
                           "Veriler Yükleniyor...",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: veriYukleniyor,
                         ),
                         const SizedBox(width: 8),
                         Text(
                           "${(progress * 100).toStringAsFixed(0)}%",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blueAccent,
-                          ),
+                          style: veriYuzdesi,
                         ),
                       ],
                     ),
