@@ -10,24 +10,8 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 1,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('AlphabetListView'),
-          bottom: TabBar(
-            indicatorColor: Theme.of(context).colorScheme.secondary,
-            isScrollable: true,
-            tabs: const [Tab(text: 'WidgetBuilder')],
-          ),
-        ),
-        body: const SafeArea(
-          child: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: [ExampleWidgetBuilder()],
-          ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: Theme.of(context).colorScheme.primary,
-          child: const SizedBox.shrink(),
-        ),
+        appBar: AppBar(title: const Text('AlphabetListView')),
+        body: const SafeArea(child: ExampleWidgetBuilder()),
       ),
     );
   }
