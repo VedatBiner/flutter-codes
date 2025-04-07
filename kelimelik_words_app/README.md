@@ -35,9 +35,10 @@ kutusunu kullanması sağlandı.
 - Silme ve düzenleme ortak butonları tek dosyaya ayrıldı.
 - JSON ve CSV yedek alma işlemi iki ayrı dosyaya ayrılıp, tek menü seçeneğine indirildi.
 - Verilerin SQL 'den silinip, JSON ile yeniden yüklenmesi sağlandı.
+- Verilerin silindikten sonra Drawer menü den de geri yüklenebilmesi sağlandı.
+- Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
 
 Yapılacaklar :
-- SQLite Backup eklenecek
 - dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
 - Fihrist görünümünün renkleri düzenlenecek

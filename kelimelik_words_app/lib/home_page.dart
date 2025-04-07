@@ -1,16 +1,14 @@
 // 📃 <----- home_page.dart ----->
 
-import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/utils/json_loader.dart';
 import 'package:kelimelik_words_app/widgets/alphabet_word_list.dart';
 import 'package:kelimelik_words_app/widgets/custom_fab.dart';
-import 'package:kelimelik_words_app/widgets/sql_loadind_card.dart';
+import 'package:kelimelik_words_app/widgets/sql_loading_card.dart';
 import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'db/word_database.dart';
 import 'models/word_model.dart';
@@ -40,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadDataFromDatabase();
+    _loadInitialData();
     _getAppVersion();
   }
 
@@ -49,6 +47,25 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       appVersion = 'Versiyon: ${info.version}';
     });
+  }
+
+  void _loadInitialData() async {
+    await loadDataFromDatabase(
+      context: context,
+      onLoaded: (loadedWords) {
+        setState(() {
+          allWords = loadedWords;
+          words = loadedWords;
+        });
+      },
+      onLoadingStatusChange: (loading, prog, currentWord) {
+        setState(() {
+          isLoadingJson = loading;
+          progress = prog;
+          loadingWord = currentWord;
+        });
+      },
+    );
   }
 
   Future<void> _loadWords() async {
@@ -60,66 +77,6 @@ class _HomePageState extends State<HomePage> {
     });
 
     log('📦 Toplam kayıt sayısı: $count');
-  }
-
-  Future<void> loadDataFromDatabase() async {
-    log("🔄 Veritabanından veri okunuyor...");
-
-    final count = await WordDatabase.instance.countWords();
-    log("🧮 Veritabanındaki kelime sayısı: $count");
-
-    if (count == 0) {
-      log("📭 Veritabanı boş. Cihazdaki JSON yedeğinden veri yükleniyor...");
-
-      try {
-        final directory = await getApplicationDocumentsDirectory();
-        final filePath = '${directory.path}/kelimelik_backup.json';
-        final file = File(filePath);
-
-        if (await file.exists()) {
-          final jsonStr = await file.readAsString();
-          final List<dynamic> jsonList = json.decode(jsonStr);
-
-          final loadedWords =
-              jsonList.map((e) {
-                final map = e as Map<String, dynamic>;
-                return Word(word: map['word'], meaning: map['meaning']);
-              }).toList();
-
-          setState(() {
-            isLoadingJson = true;
-            progress = 0.0;
-          });
-
-          for (int i = 0; i < loadedWords.length; i++) {
-            final word = loadedWords[i];
-            setState(() {
-              progress = (i + 1) / loadedWords.length;
-              loadingWord = word.word;
-            });
-            log("📥 ${word.word} (${i + 1}/${loadedWords.length})");
-            await WordDatabase.instance.insertWord(word);
-            await Future.delayed(const Duration(milliseconds: 30));
-          }
-
-          setState(() {
-            isLoadingJson = false;
-            loadingWord = null;
-            progress = 0.0;
-          });
-
-          log("✅ ${loadedWords.length} kelime JSON dosyasından yüklendi.");
-        } else {
-          log("⚠️ kelimelik_backup.json dosyası bulunamadı: $filePath");
-        }
-      } catch (e) {
-        log("❌ JSON dosyasından veri yüklenirken hata oluştu: $e");
-      }
-    } else {
-      log("📦 Veritabanında zaten veri var. JSON yüklemesi yapılmadı.");
-    }
-
-    await _loadWords();
   }
 
   void _filterWords(String query) {
@@ -150,7 +107,6 @@ class _HomePageState extends State<HomePage> {
         SafeArea(
           child: Scaffold(
             /// 📌 AppBar burada oluşturuluyor
-            ///
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(64),
               child: CustomAppBar(
@@ -168,7 +124,6 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// 📌 Drawer menü burada oluşturuluyor
-            ///
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
               appVersion: appVersion,
@@ -178,17 +133,33 @@ class _HomePageState extends State<HomePage> {
                   isFihristMode = !isFihristMode;
                 });
               },
+              onLoadJsonData: ({required BuildContext context}) async {
+                await loadDataFromDatabase(
+                  context: context,
+                  onLoaded: (loadedWords) {
+                    setState(() {
+                      allWords = loadedWords;
+                      words = loadedWords;
+                    });
+                  },
+                  onLoadingStatusChange: (loading, prog, currentWord) {
+                    setState(() {
+                      isLoadingJson = loading;
+                      progress = prog;
+                      loadingWord = currentWord;
+                    });
+                  },
+                );
+              },
             ),
 
             /// 📌 body burada oluşturuluyor
-            ///
             body:
                 isFihristMode
                     ? AlphabetWordList(words: words, onUpdated: _loadWords)
                     : WordList(words: words, onUpdated: _loadWords),
 
-            ///📌 FAB Buton burada oluşturuluyor
-            ///
+            /// 📌 FAB burada
             floatingActionButton: CustomFAB(
               refreshWords: _loadWords,
               clearSearch: _clearSearch,
@@ -196,7 +167,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        // 🔄 JSON 'dan veri yükleniyor ekranı
+        /// 🔄 JSON 'dan veri yükleniyor ekranı
         if (isLoadingJson)
           SQLLoadingCard(progress: progress, loadingWord: loadingWord),
       ],

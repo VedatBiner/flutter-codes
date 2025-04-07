@@ -1,4 +1,5 @@
 // 📃 <----- custom_drawer.dart ----->
+// Drawer menüye buradan erişiliyor.
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
@@ -15,6 +16,7 @@ class CustomDrawer extends StatelessWidget {
   final String appVersion;
   final bool isFihristMode;
   final VoidCallback onToggleViewMode;
+  final Future<void> Function({required BuildContext context}) onLoadJsonData;
 
   const CustomDrawer({
     super.key,
@@ -22,6 +24,7 @@ class CustomDrawer extends StatelessWidget {
     required this.appVersion,
     required this.isFihristMode,
     required this.onToggleViewMode,
+    required this.onLoadJsonData,
   });
 
   void _showResetDatabaseDialog(BuildContext context) async {
@@ -86,7 +89,6 @@ class CustomDrawer extends StatelessWidget {
             Divider(thickness: 2, color: menuColor, height: 0),
 
             /// 📌 Görünüm değiştirme
-            ///
             ListTile(
               leading: Icon(Icons.swap_horiz, color: menuColor),
               title: Text(
@@ -100,7 +102,6 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             /// 📌 Yedekleme (JSON/CSV)
-            ///
             ListTile(
               leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
@@ -133,7 +134,6 @@ class CustomDrawer extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     icon: Icons.download,
                     iconColor: Colors.blue,
                     progressIndicatorColor: Colors.blue,
@@ -146,8 +146,7 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            /// 📌 Veritabanını yenile
-            ///
+            /// 📌 Veritabanını Yenile (JSON 'dan yükle)
             ListTile(
               leading: const Icon(Icons.refresh, color: Colors.amber),
               title: const Text(
@@ -157,23 +156,15 @@ class CustomDrawer extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onTap: () {
-                onDatabaseUpdated();
+              onTap: () async {
                 Navigator.of(context).maybePop();
-                NotificationService.showCustomNotification(
-                  context: context,
-                  title: 'Veritabanı Yenilendi',
-                  message: const Text('Veritabanı yeniden yüklendi.'),
-                  icon: Icons.refresh,
-                  iconColor: Colors.amber,
-                  progressIndicatorColor: Colors.amber,
-                  progressIndicatorBackground: Colors.amber.shade100,
-                );
+                await Future.delayed(const Duration(milliseconds: 300));
+                if (!context.mounted) return;
+                await onLoadJsonData(context: context);
               },
             ),
 
-            /// 📌 Veri tabanını sıfırla
-            ///
+            /// 📌 Veritabanını Sıfırla
             ListTile(
               leading: Icon(Icons.delete, color: deleteButtonColor),
               title: const Text(

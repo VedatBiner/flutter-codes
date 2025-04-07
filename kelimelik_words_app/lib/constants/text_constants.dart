@@ -81,3 +81,10 @@ var itemCountStil = TextStyle(
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
+
+/// 📌 Loading Card word text stili
+var loadingWordText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.red[700],
+);

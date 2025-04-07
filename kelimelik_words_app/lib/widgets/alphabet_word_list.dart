@@ -38,7 +38,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
     'E',
     'F',
     'G',
-    'Ğ',
     'H',
     'I',
     'İ',

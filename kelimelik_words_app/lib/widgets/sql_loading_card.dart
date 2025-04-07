@@ -1,4 +1,5 @@
 // 📃 <----- sql_loading_card.dart ----->
+// Verilerin tekrar yüklenmesi cihazda buradan izleniyor
 
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,8 @@ class SQLLoadingCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-          width: 300,
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 32),
+          width: 320,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -43,14 +44,7 @@ class SQLLoadingCard extends StatelessWidget {
               LinearProgressIndicator(value: progress),
               const SizedBox(height: 12),
               if (loadingWord != null)
-                Text(
-                  loadingWord!,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.deepOrange,
-                  ),
-                ),
+                Text(loadingWord!, style: loadingWordText),
             ],
           ),
         ),
