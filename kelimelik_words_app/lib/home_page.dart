@@ -150,6 +150,8 @@ class _HomePageState extends State<HomePage> {
       children: [
         SafeArea(
           child: Scaffold(
+            /// 📌 AppBar burada oluşturuluyor
+            ///
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(64),
               child: CustomAppBar(
