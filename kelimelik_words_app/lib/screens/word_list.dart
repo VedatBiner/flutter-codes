@@ -1,16 +1,15 @@
 // 📃 <----- word_list.dart ----->
-// klasik görünümlü listeleme için kullanılır
+// Klasik görünümlü listeleme için kullanılır.
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/constants/text_constants.dart';
-
-import '../db/word_database.dart';
-import '../models/word_model.dart';
-import '../widgets/confirmation_dialog.dart';
-import '../widgets/notification_service.dart';
-import '../widgets/word_action_buttons.dart';
-import '../widgets/word_dialog.dart';
+import 'package:kelimelik_words_app/db/word_database.dart';
+import 'package:kelimelik_words_app/models/word_model.dart';
+import 'package:kelimelik_words_app/widgets/confirmation_dialog.dart';
+import 'package:kelimelik_words_app/widgets/notification_service.dart';
+import 'package:kelimelik_words_app/widgets/word_card.dart';
+import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
 class WordList extends StatefulWidget {
   final List<Word> words;
@@ -24,6 +23,42 @@ class WordList extends StatefulWidget {
 
 class _WordListState extends State<WordList> {
   int? selectedIndex;
+
+  void _editWord(BuildContext context, Word word) async {
+    final updated = await showDialog<Word>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => WordDialog(word: word),
+    );
+
+    if (updated != null) {
+      await WordDatabase.instance.updateWord(updated);
+      if (!context.mounted) return;
+      widget.onUpdated();
+
+      NotificationService.showCustomNotification(
+        context: context,
+        title: 'Kelime Güncellendi',
+        message: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: updated.word, style: kelimeAddText),
+              const TextSpan(
+                text: ' kelimesi güncellendi.',
+                style: normalBlackText,
+              ),
+            ],
+          ),
+        ),
+        icon: Icons.check_circle,
+        iconColor: Colors.green,
+        progressIndicatorColor: Colors.green,
+        progressIndicatorBackground: Colors.green.shade100,
+      );
+
+      setState(() => selectedIndex = null);
+    }
+  }
 
   void _confirmDelete(BuildContext context, Word word) async {
     final confirm = await showConfirmationDialog(
@@ -53,7 +88,7 @@ class _WordListState extends State<WordList> {
 
       NotificationService.showCustomNotification(
         context: context,
-        title: 'Kelime Silme İşlemi',
+        title: 'Kelime Silindi',
         message: RichText(
           text: TextSpan(
             children: [
@@ -71,54 +106,7 @@ class _WordListState extends State<WordList> {
         progressIndicatorBackground: Colors.red.shade100,
       );
 
-      setState(() {
-        selectedIndex = null;
-      });
-    }
-  }
-
-  void _editWord(BuildContext context, Word word) async {
-    final updated = await showDialog<Word>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => WordDialog(word: word),
-    );
-
-    if (updated != null) {
-      await WordDatabase.instance.updateWord(updated);
-      if (!context.mounted) return;
-      widget.onUpdated();
-
-      NotificationService.showCustomNotification(
-        context: context,
-        title: 'Kelime Güncelleme İşlemi',
-        message: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: updated.word,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                  fontSize: 18,
-                ),
-              ),
-              const TextSpan(
-                text: ' kelimesi güncellendi.',
-                style: normalBlackText,
-              ),
-            ],
-          ),
-        ),
-        icon: Icons.check_circle,
-        iconColor: Colors.green,
-        progressIndicatorColor: Colors.green,
-        progressIndicatorBackground: Colors.green.shade100,
-      );
-
-      setState(() {
-        selectedIndex = null;
-      });
+      setState(() => selectedIndex = null);
     }
   }
 
@@ -131,9 +119,7 @@ class _WordListState extends State<WordList> {
     return GestureDetector(
       onTap: () {
         if (selectedIndex != null) {
-          setState(() {
-            selectedIndex = null;
-          });
+          setState(() => selectedIndex = null);
         }
       },
       behavior: HitTestBehavior.translucent,
@@ -143,64 +129,19 @@ class _WordListState extends State<WordList> {
           final word = widget.words[index];
           final isSelected = selectedIndex == index;
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12.0,
-              vertical: 6.0,
-            ),
-            child: GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onLongPress: () {
-                setState(() {
-                  selectedIndex = isSelected ? null : index;
-                });
-              },
-              onTap: () {
-                if (selectedIndex != null && selectedIndex != index) {
-                  setState(() {
-                    selectedIndex = null;
-                  });
-                }
-              },
-              child: Card(
-                elevation: 5,
-                color: cardLightColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 12,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(word.word, style: kelimeText),
-                          const Divider(thickness: 1),
-                          Text(word.meaning, style: anlamText),
-                        ],
-                      ),
-                    ),
-                    if (isSelected)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 12,
-                          bottom: 12,
-                        ),
-                        child: WordActionButtons(
-                          onEdit: () => _editWord(context, word),
-                          onDelete: () => _confirmDelete(context, word),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
+          return WordCard(
+            word: word,
+            isSelected: isSelected,
+            onTap: () {
+              if (selectedIndex != null) {
+                setState(() => selectedIndex = null);
+              }
+            },
+            onLongPress: () {
+              setState(() => selectedIndex = isSelected ? null : index);
+            },
+            onEdit: () => _editWord(context, word),
+            onDelete: () => _confirmDelete(context, word),
           );
         },
       ),

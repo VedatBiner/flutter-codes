@@ -11,7 +11,7 @@ import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
 import '../widgets/confirmation_dialog.dart';
-import '../widgets/word_action_buttons.dart';
+import '../widgets/word_card.dart';
 
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
@@ -167,57 +167,19 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
               final index = widget.words.indexOf(word);
               final isSelected = selectedIndex == index;
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 6.0,
-                ),
-                child: GestureDetector(
-                  onLongPress:
-                      () => setState(
-                        () => selectedIndex = isSelected ? null : index,
-                      ),
-                  onTap: () {
-                    if (selectedIndex != null) {
-                      setState(() => selectedIndex = null);
-                    }
-                  },
-                  child: Card(
-                    elevation: 5,
-                    color: cardLightColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(word.word, style: kelimeText),
-                              const Divider(thickness: 1),
-                              Text(word.meaning, style: anlamText),
-                            ],
-                          ),
-                        ),
-                        if (isSelected)
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 12,
-                              right: 12,
-                              bottom: 12,
-                            ),
-                            child: WordActionButtons(
-                              onEdit: () => _editWord(context, word),
-                              onDelete: () => _confirmDelete(context, word),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+              return WordCard(
+                word: word,
+                isSelected: isSelected,
+                onTap: () {
+                  if (selectedIndex != null) {
+                    setState(() => selectedIndex = null);
+                  }
+                },
+                onLongPress: () {
+                  setState(() => selectedIndex = isSelected ? null : index);
+                },
+                onEdit: () => _editWord(context, word),
+                onDelete: () => _confirmDelete(context, word),
               );
             }).toList(),
       );
