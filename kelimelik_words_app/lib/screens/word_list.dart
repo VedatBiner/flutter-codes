@@ -1,5 +1,5 @@
 // 📃 <----- word_list.dart ----->
-// klasik görünüm burada oluşturuluyor
+// klasik görünümlü listeleme için kullanılır
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';

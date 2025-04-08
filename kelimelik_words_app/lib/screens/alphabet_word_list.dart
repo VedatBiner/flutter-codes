@@ -1,4 +1,5 @@
 // 📃 <----- alphabet_word_list.dart ----->
+// Fihrist görünümlü listeleme için kullanılır.
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
