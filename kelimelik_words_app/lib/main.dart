@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Kelimelik',
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
       theme: CustomTheme.theme,
       home: const HomePage(),
     );

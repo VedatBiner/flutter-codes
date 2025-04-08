@@ -1,4 +1,6 @@
 // 📃 <----- color_constants.dart ----->
+// kullanılan renkleri sabitleştirerek, değişimi tek
+// noktadan yapabilmeyi sağlıyoruz.
 
 import 'package:flutter/material.dart';
 

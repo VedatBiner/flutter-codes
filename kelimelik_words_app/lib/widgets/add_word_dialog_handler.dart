@@ -1,4 +1,6 @@
 // 📃 <----- add_word_dialog.dart ----->
+// Kelime varsa mesaj verip uyarıyor
+// Kelime yoksa listeye ekliyor.
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/text_constants.dart';

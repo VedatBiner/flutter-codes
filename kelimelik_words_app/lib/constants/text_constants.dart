@@ -1,4 +1,6 @@
 // 📃 <----- text_constants.dart ----->
+// Sık kullanılan text formatlarını burada belirliyoruz.
+// böylece tek noktadan tüm formata müdahale etme şansımız var.
 
 import 'package:flutter/material.dart';
 

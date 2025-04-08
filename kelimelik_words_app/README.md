@@ -39,6 +39,6 @@ kutusunu kullanması sağlandı.
 - Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
 
 Yapılacaklar :
-- dokümante et
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
 - Fihrist görünümünün renkleri düzenlenecek
+- Gözden kaçan bazı kod tekrarları azaltılacak
