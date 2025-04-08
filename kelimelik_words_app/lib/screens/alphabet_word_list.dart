@@ -4,14 +4,10 @@
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
-import 'package:kelimelik_words_app/constants/text_constants.dart';
-import 'package:kelimelik_words_app/db/word_database.dart';
 import 'package:kelimelik_words_app/models/word_model.dart';
-import 'package:kelimelik_words_app/widgets/notification_service.dart';
 
-import '../widgets/confirmation_dialog.dart';
+import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';
-import '../widgets/word_edit_handler.dart';
 
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
@@ -61,55 +57,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
     'Z',
   ];
 
-  void _confirmDelete(BuildContext context, Word word) async {
-    final confirm = await showConfirmationDialog(
-      context: context,
-      title: 'Kelimeyi Sil',
-      content: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: word.word, style: kelimeText),
-            const TextSpan(
-              text: ' kelimesini silmek istiyor musunuz?',
-              style: TextStyle(fontSize: 16, color: Colors.black),
-            ),
-          ],
-        ),
-      ),
-      confirmText: 'Sil',
-      cancelText: 'İptal',
-      confirmColor: deleteButtonColor,
-    );
-
-    if (confirm == true) {
-      await WordDatabase.instance.deleteWord(word.id!);
-      if (!context.mounted) return;
-      widget.onUpdated();
-
-      NotificationService.showCustomNotification(
-        context: context,
-        title: 'Kelime Silindi',
-        message: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(text: word.word, style: kelimeText),
-              const TextSpan(
-                text: ' kelimesi silinmiştir.',
-                style: normalBlackText,
-              ),
-            ],
-          ),
-        ),
-        icon: Icons.delete,
-        iconColor: Colors.red,
-        progressIndicatorColor: Colors.red,
-        progressIndicatorBackground: Colors.red.shade100,
-      );
-
-      setState(() => selectedIndex = null);
-    }
-  }
-
   List<AlphabetListViewItemGroup> _buildGroupedItems() {
     Map<String, List<Word>> grouped = {};
 
@@ -142,12 +89,17 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                   setState(() => selectedIndex = isSelected ? null : index);
                 },
                 onEdit:
-                    () => handleEditWord(
+                    () => editWord(
                       context: context,
                       word: word,
                       onUpdated: widget.onUpdated,
                     ),
-                onDelete: () => _confirmDelete(context, word),
+                onDelete:
+                    () => confirmDelete(
+                      context: context,
+                      word: word,
+                      onDeleted: widget.onUpdated,
+                    ),
               );
             }).toList(),
       );
