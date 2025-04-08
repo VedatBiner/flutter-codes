@@ -7,10 +7,10 @@ import 'package:kelimelik_words_app/constants/text_constants.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
-import 'confirmation_dialog.dart';
-import 'notification_service.dart';
-import 'word_action_buttons.dart';
-import 'word_dialog.dart';
+import '../widgets/confirmation_dialog.dart';
+import '../widgets/notification_service.dart';
+import '../widgets/word_action_buttons.dart';
+import '../widgets/word_dialog.dart';
 
 class WordList extends StatefulWidget {
   final List<Word> words;

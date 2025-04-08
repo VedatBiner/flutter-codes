@@ -3,17 +3,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/screens/alphabet_word_list.dart';
+import 'package:kelimelik_words_app/screens/word_list.dart';
 import 'package:kelimelik_words_app/utils/json_loader.dart';
-import 'package:kelimelik_words_app/widgets/alphabet_word_list.dart';
 import 'package:kelimelik_words_app/widgets/custom_fab.dart';
 import 'package:kelimelik_words_app/widgets/sql_loading_card.dart';
-import 'package:kelimelik_words_app/widgets/word_list.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import 'db/word_database.dart';
-import 'models/word_model.dart';
-import 'widgets/custom_app_bar.dart';
-import 'widgets/custom_drawer.dart';
+import '../db/word_database.dart';
+import '../models/word_model.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

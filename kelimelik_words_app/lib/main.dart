@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/theme.dart';
 
-import 'home_page.dart';
+import 'screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());

@@ -9,8 +9,8 @@ import 'package:kelimelik_words_app/models/word_model.dart';
 import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
-import 'confirmation_dialog.dart';
-import 'word_action_buttons.dart';
+import '../widgets/confirmation_dialog.dart';
+import '../widgets/word_action_buttons.dart';
 
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
