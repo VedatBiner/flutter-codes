@@ -9,7 +9,8 @@ import 'package:kelimelik_words_app/models/word_model.dart';
 import 'package:kelimelik_words_app/widgets/confirmation_dialog.dart';
 import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_card.dart';
-import 'package:kelimelik_words_app/widgets/word_dialog.dart';
+
+import '../widgets/word_edit_handler.dart';
 
 class WordList extends StatefulWidget {
   final List<Word> words;
@@ -23,42 +24,6 @@ class WordList extends StatefulWidget {
 
 class _WordListState extends State<WordList> {
   int? selectedIndex;
-
-  void _editWord(BuildContext context, Word word) async {
-    final updated = await showDialog<Word>(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => WordDialog(word: word),
-    );
-
-    if (updated != null) {
-      await WordDatabase.instance.updateWord(updated);
-      if (!context.mounted) return;
-      widget.onUpdated();
-
-      NotificationService.showCustomNotification(
-        context: context,
-        title: 'Kelime Güncellendi',
-        message: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(text: updated.word, style: kelimeAddText),
-              const TextSpan(
-                text: ' kelimesi güncellendi.',
-                style: normalBlackText,
-              ),
-            ],
-          ),
-        ),
-        icon: Icons.check_circle,
-        iconColor: Colors.green,
-        progressIndicatorColor: Colors.green,
-        progressIndicatorBackground: Colors.green.shade100,
-      );
-
-      setState(() => selectedIndex = null);
-    }
-  }
 
   void _confirmDelete(BuildContext context, Word word) async {
     final confirm = await showConfirmationDialog(
@@ -140,7 +105,12 @@ class _WordListState extends State<WordList> {
             onLongPress: () {
               setState(() => selectedIndex = isSelected ? null : index);
             },
-            onEdit: () => _editWord(context, word),
+            onEdit:
+                () => handleEditWord(
+                  context: context,
+                  word: word,
+                  onUpdated: widget.onUpdated,
+                ),
             onDelete: () => _confirmDelete(context, word),
           );
         },
