@@ -1,4 +1,8 @@
 // 📃 <----- word_database.dart ----->
+// Tüm veri tabanı işlemleri
+// Tüm CSV JSON işlemleri
+// Türkçe harflere göre sıralama metodu burada tanımlanıyor
+//
 
 import 'dart:convert';
 import 'dart:developer';
