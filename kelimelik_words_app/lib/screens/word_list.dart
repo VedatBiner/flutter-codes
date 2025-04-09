@@ -47,15 +47,22 @@ class _WordListState extends State<WordList> {
                 setState(() => selectedIndex = null);
               }
             },
+
+            /// 📌 kelime kartına uzun basılınca
+            /// düzeltme ve silme butonları çıkıyor.
             onLongPress: () {
               setState(() => selectedIndex = isSelected ? null : index);
             },
+
+            /// 📌 düzeltme metodu
             onEdit:
                 () => editWord(
                   context: context,
                   word: word,
                   onUpdated: widget.onUpdated,
                 ),
+
+            /// 📌 silme metodu
             onDelete:
                 () => confirmDelete(
                   context: context,

@@ -10,6 +10,8 @@ import 'package:kelimelik_words_app/widgets/confirmation_dialog.dart';
 import 'package:kelimelik_words_app/widgets/notification_service.dart';
 import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
+// 📌 kelime güncelleme metodu
+//
 Future<void> editWord({
   required BuildContext context,
   required Word word,
@@ -48,6 +50,8 @@ Future<void> editWord({
   }
 }
 
+// 📌 kelime silme metodu
+//
 Future<void> confirmDelete({
   required BuildContext context,
   required Word word,

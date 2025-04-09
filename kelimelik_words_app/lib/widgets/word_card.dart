@@ -25,6 +25,8 @@ class WordCard extends StatelessWidget {
     required this.onDelete,
   });
 
+  // 📌 Kart görünümü
+  //
   @override
   Widget build(BuildContext context) {
     return Padding(
