@@ -2,6 +2,7 @@ import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
 
 import '../repository.dart';
+import '../turkish_alhabet.dart';
 
 class ExampleWidgetBuilder extends StatelessWidget {
   const ExampleWidgetBuilder({super.key});
@@ -86,6 +87,7 @@ class ExampleWidgetBuilder extends StatelessWidget {
           },
         ),
         scrollbarOptions: ScrollbarOptions(
+          symbols: turkishAlphabet,
           jumpToSymbolsWithNoEntries: true,
           backgroundColor: Theme.of(context).colorScheme.secondary,
           symbolBuilder: (context, symbol, state) {
