@@ -39,8 +39,10 @@ kutusunu kullanması sağlandı.
 - Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
 - Bazı kod tekrarları optimize edildi.
 - Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
+- Fihrist görünümünde renk ve font düzenlemeleri yapıldı
+
+- Simdilik yapılanlar yeterli.
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Fihrist görünümünün renkleri düzenlenecek
-- Fihrist görünümü için kod değişikliği gerekebilir.
+
