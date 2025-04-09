@@ -4,6 +4,7 @@ import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:elegant_notification/resources/stacked_options.dart';
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 class NotificationService {
   static void showCustomNotification({
@@ -18,7 +19,8 @@ class NotificationService {
     required Color progressIndicatorColor,
   }) {
     ElegantNotification(
-      width: 360,
+      background: notificationColor,
+      width: 340,
       height: 180,
       stackedOptions: StackedOptions(
         key: 'left',

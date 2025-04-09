@@ -38,4 +38,7 @@ Color cancelButtonColor = const Color(0xFF8798AA);
 Color addButtonColor = const Color(0xFF0277BD);
 
 /// 📌 Card diziliminin arka planı burada belirleniyor.
-Color cardPageColor = Colors.blue.shade200;
+Color cardPageColor = const Color(0xFFC8E6C9);
+
+/// 📌 Notification rengi burada belirleniyor.
+Color notificationColor = Colors.white;
