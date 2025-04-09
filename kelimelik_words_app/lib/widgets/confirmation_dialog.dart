@@ -27,7 +27,7 @@ Future<bool?> showConfirmationDialog({
           elevation: 6,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: drawerColor, width: 3),
+            side: BorderSide(color: drawerColor, width: 5),
           ),
           titlePadding: EdgeInsets.zero,
           title: Container(
@@ -46,6 +46,8 @@ Future<bool?> showConfirmationDialog({
           actions: [
             ElevatedButton(
               style: ElevatedButton.styleFrom(
+                elevation: 8,
+                shadowColor: Colors.black54,
                 backgroundColor: cancelColor ?? cancelButtonColor,
               ),
               onPressed: () => Navigator.of(context).pop(false),
@@ -53,6 +55,8 @@ Future<bool?> showConfirmationDialog({
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
+                elevation: 8,
+                shadowColor: Colors.black54,
                 backgroundColor: confirmColor ?? deleteButtonColor,
               ),
               onPressed: () => Navigator.of(context).pop(true),

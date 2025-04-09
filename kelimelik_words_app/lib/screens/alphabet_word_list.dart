@@ -106,13 +106,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
             jumpToSymbolsWithNoEntries: true,
             backgroundColor: drawerColor,
             symbolBuilder: (context, symbol, state) {
-              final color = switch (state) {
-                AlphabetScrollbarItemState.active => Colors.black,
-                AlphabetScrollbarItemState.deactivated => Theme.of(
-                  context,
-                ).colorScheme.primary.withValues(alpha: 0.4),
-                _ => Theme.of(context).colorScheme.primary,
-              };
               return Container(
                 padding: const EdgeInsets.only(left: 4, top: 2, bottom: 2),
                 decoration: BoxDecoration(

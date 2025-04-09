@@ -28,6 +28,8 @@ class WordActionButtons extends StatelessWidget {
           icon: Image.asset('assets/images/pen.png', width: 32, height: 32),
           label: const Text('Düzelt', style: editButtonText),
           style: ElevatedButton.styleFrom(
+            elevation: 8,
+            shadowColor: Colors.black54,
             backgroundColor: editButtonColor,
             foregroundColor: buttonIconColor,
           ),
@@ -38,6 +40,8 @@ class WordActionButtons extends StatelessWidget {
           icon: Image.asset('assets/images/trash.png', width: 32, height: 32),
           label: const Text('Sil', style: editButtonText),
           style: ElevatedButton.styleFrom(
+            elevation: 8,
+            shadowColor: Colors.black54,
             backgroundColor: deleteButtonColor,
             foregroundColor: buttonIconColor,
           ),

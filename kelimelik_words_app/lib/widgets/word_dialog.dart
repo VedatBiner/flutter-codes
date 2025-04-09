@@ -49,7 +49,7 @@ class _WordDialogState extends State<WordDialog> {
       elevation: 6,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: drawerColor, width: 3),
+        side: BorderSide(color: drawerColor, width: 5),
       ),
       titlePadding: EdgeInsets.zero,
       title: Container(
@@ -123,12 +123,20 @@ class _WordDialogState extends State<WordDialog> {
       ),
       actions: [
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: cancelButtonColor),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: cancelButtonColor,
+            elevation: 8,
+            shadowColor: Colors.black54,
+          ),
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('İptal', style: editButtonText),
         ),
         ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: addButtonColor),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: addButtonColor,
+            elevation: 8,
+            shadowColor: Colors.black54,
+          ),
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               final updatedWord = Word(
