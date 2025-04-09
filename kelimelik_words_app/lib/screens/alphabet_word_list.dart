@@ -99,10 +99,49 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
       child: AlphabetListView(
         items: _buildGroupedItems(),
         options: AlphabetListViewOptions(
+          /// 📌 Fihrist görünümünde küçük harfleri göstermek için
+          /// burası kullanılıyor.
           scrollbarOptions: ScrollbarOptions(
             symbols: turkishAlphabet,
+            jumpToSymbolsWithNoEntries: true,
             backgroundColor: drawerColor,
+            symbolBuilder: (context, symbol, state) {
+              final color = switch (state) {
+                AlphabetScrollbarItemState.active => Colors.black,
+                AlphabetScrollbarItemState.deactivated => Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.4),
+                _ => Theme.of(context).colorScheme.primary,
+              };
+              return Container(
+                padding: const EdgeInsets.only(left: 4, top: 2, bottom: 2),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(100),
+                  ),
+                  color:
+                      state == AlphabetScrollbarItemState.active
+                          ? Theme.of(
+                            context,
+                          ).colorScheme.secondary.withValues(alpha: 0.6)
+                          : null,
+                ),
+                child: Center(
+                  child: FittedBox(
+                    child: Text(
+                      symbol,
+                      style: TextStyle(
+                        color: menuColor /*color*/,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
+
           listOptions: ListOptions(backgroundColor: cardPageColor),
 
           /// 📌 Fihrist görünümünde büyük görünen harfler ile ilgili
