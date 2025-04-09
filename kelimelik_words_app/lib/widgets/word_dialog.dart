@@ -123,24 +123,31 @@ class _WordDialogState extends State<WordDialog> {
         ),
       ),
       actions: [
-        ElevatedButton(
-          style: elevatedCancelButtonStyle,
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('İptal', style: editButtonText),
-        ),
-        ElevatedButton(
-          style: elevatedAddButtonStyle,
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              final updatedWord = Word(
-                id: widget.word?.id,
-                word: _capitalize(_wordController.text.trim()),
-                meaning: _capitalize(_meaningController.text.trim()),
-              );
-              Navigator.of(context).pop(updatedWord);
-            }
-          },
-          child: const Text('Kaydet', style: editButtonText),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              style: elevatedCancelButtonStyle,
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('İptal', style: editButtonText),
+            ),
+            const SizedBox(width: 16),
+            ElevatedButton(
+              style: elevatedAddButtonStyle,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  final updatedWord = Word(
+                    id: widget.word?.id,
+                    word: _capitalize(_wordController.text.trim()),
+                    meaning: _capitalize(_meaningController.text.trim()),
+                  );
+                  Navigator.of(context).pop(updatedWord);
+                }
+              },
+              child: const Text('Kaydet', style: editButtonText),
+            ),
+            const SizedBox(width: 12),
+          ],
         ),
       ],
     );
