@@ -37,7 +37,8 @@ kutusunu kullanması sağlandı.
 - Verilerin SQL 'den silinip, JSON ile yeniden yüklenmesi sağlandı.
 - Verilerin silindikten sonra Drawer menü den de geri yüklenebilmesi sağlandı.
 - Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
-- Bazı kod tekrarları optimize edildi
+- Bazı kod tekrarları optimize edildi.
+- Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/models/word_model.dart';
 
+import '../constants/turkish_alphabet.dart';
 import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';
 
@@ -25,37 +26,6 @@ class AlphabetWordList extends StatefulWidget {
 
 class _AlphabetWordListState extends State<AlphabetWordList> {
   int? selectedIndex;
-
-  static const List<String> turkishAlphabet = [
-    'A',
-    'B',
-    'C',
-    'Ç',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'İ',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'Ö',
-    'P',
-    'R',
-    'S',
-    'Ş',
-    'T',
-    'U',
-    'Ü',
-    'V',
-    'Y',
-    'Z',
-  ];
 
   List<AlphabetListViewItemGroup> _buildGroupedItems() {
     Map<String, List<Word>> grouped = {};
