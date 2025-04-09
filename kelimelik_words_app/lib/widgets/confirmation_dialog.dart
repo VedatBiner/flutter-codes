@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/constants/text_constants.dart';
 
+import '../constants/Button_constants.dart';
+
 Future<bool?> showConfirmationDialog({
   required BuildContext context,
   required String title,
@@ -44,23 +46,22 @@ Future<bool?> showConfirmationDialog({
           ),
           content: content,
           actions: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 8,
-                shadowColor: Colors.black54,
-                backgroundColor: cancelColor ?? cancelButtonColor,
-              ),
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(cancelText, style: editButtonText),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 8,
-                shadowColor: Colors.black54,
-                backgroundColor: confirmColor ?? deleteButtonColor,
-              ),
-              onPressed: () => Navigator.of(context).pop(true),
-              child: Text(confirmText, style: editButtonText),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  style: elevatedCancelButtonStyle,
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text(cancelText, style: editButtonText),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  style: elevatedConfirmButtonStyle,
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text(confirmText, style: editButtonText),
+                ),
+                const SizedBox(width: 12),
+              ],
             ),
           ],
         ),

@@ -5,8 +5,9 @@
 // dosyaları tarafından kullanılıyor.
 //
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:kelimelik_words_app/constants/text_constants.dart';
+
+import '../constants/Button_constants.dart';
 
 class WordActionButtons extends StatelessWidget {
   final VoidCallback onEdit;
@@ -27,25 +28,16 @@ class WordActionButtons extends StatelessWidget {
           onPressed: onEdit,
           icon: Image.asset('assets/images/pen.png', width: 32, height: 32),
           label: const Text('Düzelt', style: editButtonText),
-          style: ElevatedButton.styleFrom(
-            elevation: 8,
-            shadowColor: Colors.black54,
-            backgroundColor: editButtonColor,
-            foregroundColor: buttonIconColor,
-          ),
+          style: elevatedUpdateButtonStyle,
         ),
         const SizedBox(width: 8),
         ElevatedButton.icon(
           onPressed: onDelete,
           icon: Image.asset('assets/images/trash.png', width: 32, height: 32),
           label: const Text('Sil', style: editButtonText),
-          style: ElevatedButton.styleFrom(
-            elevation: 8,
-            shadowColor: Colors.black54,
-            backgroundColor: deleteButtonColor,
-            foregroundColor: buttonIconColor,
-          ),
+          style: elevateDeleteButtonStyle,
         ),
+        const SizedBox(width: 8),
       ],
     );
   }
