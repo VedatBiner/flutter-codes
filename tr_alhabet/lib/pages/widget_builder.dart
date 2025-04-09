@@ -57,7 +57,12 @@ class ExampleWidgetBuilder extends StatelessWidget {
 
     return AlphabetListView(
       items: animalGroups,
+
+      /// 📌 AlphabetListViewOptions ayarları
+      ///
       options: AlphabetListViewOptions(
+        /// 📌 OverlayOptions ayarları
+        ///
         overlayOptions: OverlayOptions(
           alignment: Alignment.centerRight,
           overlayBuilder: (context, symbol) {
@@ -86,6 +91,9 @@ class ExampleWidgetBuilder extends StatelessWidget {
             );
           },
         ),
+
+        /// 📌 Scroll bar ayarları
+        ///
         scrollbarOptions: ScrollbarOptions(
           symbols: turkishAlphabet,
           jumpToSymbolsWithNoEntries: true,
@@ -109,7 +117,7 @@ class ExampleWidgetBuilder extends StatelessWidget {
                     state == AlphabetScrollbarItemState.active
                         ? Theme.of(
                           context,
-                        ).colorScheme.secondary.withOpacity(0.6)
+                        ).colorScheme.secondary.withValues(alpha: 0.6)
                         : null,
               ),
               child: Center(
@@ -123,12 +131,18 @@ class ExampleWidgetBuilder extends StatelessWidget {
             );
           },
         ),
+
+        /// 📌 ListOptions ayarları
+        ///
         listOptions: ListOptions(
+          /// 📌 liste sayfasının  arka plan ayarları
           backgroundColor: Theme.of(
             context,
-          ).colorScheme.secondary.withOpacity(0.05),
+          ).colorScheme.secondary.withValues(alpha: 0.05),
           stickySectionHeader: false,
           showSectionHeaderForEmptySections: true,
+
+          /// 📌 Liste başı Harfi ayarları
           listHeaderBuilder:
               (context, symbol) => Padding(
                 padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
@@ -153,7 +167,7 @@ class ExampleWidgetBuilder extends StatelessWidget {
                         symbol,
                         textScaler: TextScaler.noScaling,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.white, // 📌 liste başı harf rengi
                           fontSize: 30,
                         ),
                       ),
