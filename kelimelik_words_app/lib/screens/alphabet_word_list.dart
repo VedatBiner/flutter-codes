@@ -104,7 +104,37 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
             backgroundColor: drawerColor,
           ),
           listOptions: ListOptions(backgroundColor: cardPageColor),
-          overlayOptions: const OverlayOptions(),
+
+          /// 📌 Fihrist görünümünde büyük görünen harfler ile ilgili
+          /// düzenlemeler için burası kullanılıyor.
+          overlayOptions: OverlayOptions(
+            alignment: Alignment.centerRight,
+            overlayBuilder: (context, symbol) {
+              return Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(100),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: FittedBox(
+                    child: Text(
+                      symbol,
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
