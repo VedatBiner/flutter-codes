@@ -142,7 +142,48 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
             },
           ),
 
-          listOptions: ListOptions(backgroundColor: cardPageColor),
+          /// 📌 Fihrist görünümünde liste görünümü ayarları için
+          /// burası kullanılıyor.
+          listOptions: ListOptions(
+            backgroundColor: cardPageColor,
+            stickySectionHeader: false,
+            showSectionHeaderForEmptySections: true,
+
+            /// 📌 Liste başı Harfi ayarları
+            listHeaderBuilder:
+                (context, symbol) => Padding(
+                  padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.horizontal(
+                          right: Radius.circular(100),
+                        ),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8,
+                          top: 8,
+                          right: 16,
+                          bottom: 8,
+                        ),
+                        child: Text(
+                          symbol,
+                          textScaler: TextScaler.noScaling,
+                          style: TextStyle(
+                            color: menuColor, // 📌 liste başı harf rengi
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+          ),
 
           /// 📌 Fihrist görünümünde büyük görünen harfler ile ilgili
           /// düzenlemeler için burası kullanılıyor.
