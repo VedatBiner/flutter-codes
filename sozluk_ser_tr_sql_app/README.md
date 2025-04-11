@@ -5,4 +5,6 @@ SQL lite Versiyonu
 
 - Genel kod yapısı oluşturuldu
 - Dosya adları ayrı bir dosya ile sabitlendi
+- Sırpça sıralama metodu eklendi
+- ikon değiştirildi.
 - 
