@@ -81,7 +81,7 @@ const hintStil = TextStyle(color: Colors.grey, fontSize: 16);
 /// 📌 AppBar Item Count text stili
 var itemCountStil = TextStyle(
   color: menuColor,
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: FontWeight.bold,
 );
 
