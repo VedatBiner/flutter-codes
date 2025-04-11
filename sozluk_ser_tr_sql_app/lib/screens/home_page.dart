@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             /// 📌 AppBar burada oluşturuluyor
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(64),
+              preferredSize: const Size.fromHeight(72),
               child: CustomAppBar(
                 isSearching: isSearching,
                 searchController: searchController,

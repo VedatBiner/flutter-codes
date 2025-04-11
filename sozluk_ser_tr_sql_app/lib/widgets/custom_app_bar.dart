@@ -1,4 +1,9 @@
 // 📃 <----- custom_app_bar.dart ----->
+// AppBar özelleştirme
+// - Başlık ortalanmış
+// - Başlık ve arama aşağı kaydırılmış
+// - Drawer (hamburger) ikonu büyütülmüş ve aşağı kaydırılmış
+// - Action iconlar aşağı kaydırılmış
 
 import 'package:flutter/material.dart';
 
@@ -27,58 +32,93 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: drawerColor,
-      iconTheme: IconThemeData(color: menuColor),
+      centerTitle: true,
+
+      /// 📌 Drawer ikon ayarları (büyütüldü & aşağı kaydırıldı)
+      leading: Transform.translate(
+        offset: const Offset(0, 6), // 👈 Hafif aşağı kaydırıldı
+        child: Builder(
+          builder:
+              (context) => IconButton(
+                tooltip: 'Menüyü Aç',
+                icon: const Icon(Icons.menu),
+                iconSize: 36, // 👈 İkon büyütüldü
+                color: menuColor,
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
+        ),
+      ),
+
+      iconTheme: IconThemeData(
+        color: menuColor,
+        size: 36, // Yedek amaçlı büyütme burada da dursun
+      ),
+
       titleTextStyle: TextStyle(color: menuColor),
+
       title:
           isSearching
-              ? TextField(
-                controller: searchController,
-                autofocus: true,
-                decoration: InputDecoration(
-                  isDense: true,
-                  hintText: 'Kelime ara ...',
-                  hintStyle: hintStil,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
+              ? Transform.translate(
+                offset: const Offset(0, 8), // 👈 Arama aşağı kaydırıldı
+                child: TextField(
+                  controller: searchController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    hintText: 'Kelime ara ...',
+                    hintStyle: hintStil,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: menuColor, width: 2),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: menuColor, width: 2),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: menuColor, width: 2),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: menuColor, width: 2),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
+                  onChanged: onSearchChanged,
                 ),
-                onChanged: onSearchChanged,
               )
-              : Text('Sırpça-Türkçe Sözlük ($itemCount)', style: itemCountStil),
+              : Transform.translate(
+                offset: const Offset(0, 8), // 👈 Başlık aşağı kaydırıldı
+                child: Text(
+                  'Sırpça-Türkçe\nSözlük ($itemCount)',
+                  style: itemCountStil,
+                ),
+              ),
+
       actions: [
-        isSearching
-            ? IconButton(
-              tooltip: "Aramayı kapat",
-              color: menuColor,
-              icon: Image.asset(
-                "assets/images/close.png",
-                width: 48,
-                height: 48,
-              ),
-              // icon: const Icon(Icons.clear),
-              onPressed: onClearSearch,
-            )
-            : IconButton(
-              color: menuColor,
-              tooltip: "Aramayı başlat",
-              icon: Image.asset(
-                "assets/images/search.png",
-                width: 48,
-                height: 48,
-              ),
-              onPressed: onStartSearch,
-            ),
+        Transform.translate(
+          offset: const Offset(0, 8), // 👈 Action iconları da aşağı kaydırıldı
+          child:
+              isSearching
+                  ? IconButton(
+                    tooltip: "Aramayı kapat",
+                    color: menuColor,
+                    icon: Image.asset(
+                      "assets/images/close.png",
+                      width: 64,
+                      height: 64,
+                    ),
+                    onPressed: onClearSearch,
+                  )
+                  : IconButton(
+                    tooltip: "Aramayı başlat",
+                    color: menuColor,
+                    icon: Image.asset(
+                      "assets/images/search.png",
+                      width: 64,
+                      height: 64,
+                    ),
+                    onPressed: onStartSearch,
+                  ),
+        ),
       ],
     );
   }
