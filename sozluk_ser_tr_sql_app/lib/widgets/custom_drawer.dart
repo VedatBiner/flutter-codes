@@ -72,10 +72,9 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: drawerColor),
-              margin: EdgeInsets.zero,
-              padding: const EdgeInsets.only(bottom: 0),
+            Container(
+              color: drawerColor,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: Text(
                 'Menü',
                 style: TextStyle(

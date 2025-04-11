@@ -95,7 +95,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       actions: [
         Transform.translate(
-          offset: const Offset(0, 8), // 👈 Action iconları da aşağı kaydırıldı
+          offset: const Offset(0, 8), // 👈 Action ikonları da aşağı kaydırıldı
           child:
               isSearching
                   ? IconButton(
