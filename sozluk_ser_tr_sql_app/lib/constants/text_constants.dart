@@ -52,6 +52,7 @@ var dialogTitle = TextStyle(
 const drawerMenuText = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
+  fontSize: 18,
 );
 
 /// 📌 Versiyon stili

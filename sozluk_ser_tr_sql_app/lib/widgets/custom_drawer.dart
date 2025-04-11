@@ -89,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Görünüm değiştirme
             ListTile(
-              leading: Icon(Icons.swap_horiz, color: menuColor),
+              leading: Icon(Icons.swap_horiz, color: menuColor, size: 32),
               title: Text(
                 isFihristMode ? 'Klasik Görünüm' : 'Fihristli Görünüm',
                 style: drawerMenuText,
@@ -102,9 +102,13 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Yedekleme (JSON/CSV)
             ListTile(
-              leading: Icon(Icons.download, color: downLoadButtonColor),
+              leading: Icon(
+                Icons.download,
+                color: downLoadButtonColor,
+                size: 32,
+              ),
               title: const Text(
-                'Yedek Oluştur (JSON/CSV)',
+                'Yedek Oluştur \n(JSON/CSV)',
                 style: drawerMenuText,
               ),
               onTap: () async {
@@ -147,13 +151,10 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Veritabanını Yenile (JSON 'dan yükle)
             ListTile(
-              leading: const Icon(Icons.refresh, color: Colors.amber),
+              leading: const Icon(Icons.refresh, color: Colors.amber, size: 32),
               title: const Text(
                 'Veritabanını Yenile (SQL)',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: drawerMenuText,
               ),
               onTap: () async {
                 Navigator.of(context).maybePop();
@@ -165,13 +166,10 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Veritabanını Sıfırla
             ListTile(
-              leading: Icon(Icons.delete, color: deleteButtonColor),
+              leading: Icon(Icons.delete, color: deleteButtonColor, size: 32),
               title: const Text(
                 'Veritabanını Sıfırla (SQL)',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: drawerMenuText,
               ),
               onTap: () => _showResetDatabaseDialog(context),
             ),
