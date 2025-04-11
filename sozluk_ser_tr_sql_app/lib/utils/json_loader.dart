@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sozluk_ser_tr_sql_app/constants/file_info.dart';
 
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
@@ -26,7 +27,7 @@ Future<void> loadDataFromDatabase({
 
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/ser_tr_dict.json';
+      final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
 
       if (await file.exists()) {
