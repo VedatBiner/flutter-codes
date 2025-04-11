@@ -62,7 +62,7 @@ class WordDatabase {
     final result = await db.query('words'); // OrderBy kaldırıldı
     final words = result.map((e) => Word.fromMap(e)).toList();
 
-    return _sortTurkish(words); // 👈 Türkçe sıralamayı uygula
+    return _sortSerbian(words); // 👈 Sırpça sıralamayı uygula
   }
 
   /// 📌 Kelimeyi aramak için kullanılır.
@@ -281,6 +281,108 @@ class WordDatabase {
     }
 
     words.sort((a, b) => turkishCompare(a.sirpca, b.sirpca));
+    return words;
+  }
+
+  /// 📌 Sırpça sıralama yöntemi.
+  ///
+  List<Word> _sortSerbian(List<Word> words) {
+    const serbianAlphabet = [
+      'A',
+      'a',
+      'B',
+      'b',
+      'C',
+      'c',
+      'Č',
+      'č',
+      'Ć',
+      'ć',
+      'D',
+      'd',
+      'Dž',
+      'dž',
+      'Đ',
+      'đ',
+      'E',
+      'e',
+      'F',
+      'f',
+      'G',
+      'g',
+      'H',
+      'h',
+      'I',
+      'i',
+      'J',
+      'j',
+      'K',
+      'k',
+      'L',
+      'l',
+      'Lj',
+      'lj',
+      'M',
+      'm',
+      'N',
+      'n',
+      'Nj',
+      'nj',
+      'O',
+      'o',
+      'P',
+      'p',
+      'R',
+      'r',
+      'S',
+      's',
+      'Š',
+      'š',
+      'T',
+      't',
+      'U',
+      'u',
+      'V',
+      'v',
+      'Z',
+      'z',
+      'Ž',
+      'ž',
+    ];
+
+    int serbianCompare(String a, String b) {
+      int i = 0;
+      while (i < a.length && i < b.length) {
+        String aChar = a[i];
+        String bChar = b[i];
+
+        // Özel ikili harf kontrolleri (Dž, Lj, Nj)
+        if (i + 1 < a.length) {
+          final doubleChar = a.substring(i, i + 2);
+          if (serbianAlphabet.contains(doubleChar)) {
+            aChar = doubleChar;
+          }
+        }
+
+        if (i + 1 < b.length) {
+          final doubleChar = b.substring(i, i + 2);
+          if (serbianAlphabet.contains(doubleChar)) {
+            bChar = doubleChar;
+          }
+        }
+
+        final ai = serbianAlphabet.indexOf(aChar);
+        final bi = serbianAlphabet.indexOf(bChar);
+
+        if (ai != bi) return ai.compareTo(bi);
+
+        i += aChar.length; // Tek veya çift harf olabilir
+      }
+
+      return a.length.compareTo(b.length);
+    }
+
+    words.sort((a, b) => serbianCompare(a.sirpca, b.sirpca));
     return words;
   }
 }
