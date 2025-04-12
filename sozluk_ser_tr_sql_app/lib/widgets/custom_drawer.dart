@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
+import '../constants/help_pages/page_kiril.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/csv_backup_helper.dart';
@@ -101,6 +102,59 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.of(context).maybePop();
                 },
               ),
+            ),
+
+            /// 📌 Yardımcı Bilgiler - Alt Menülü
+            ExpansionTile(
+              leading: Icon(
+                Icons.info_outline_rounded,
+                color: menuColor,
+                size: 32,
+              ),
+              title: const Text('Yardımcı Bilgiler', style: drawerMenuText),
+              childrenPadding: const EdgeInsets.only(left: 24),
+
+              children: [
+                /// 📌 Alfabe - İçinde Latin ve Kril seçenekleri
+                ExpansionTile(
+                  leading: const Icon(Icons.sort_by_alpha, color: Colors.amber),
+                  title: const Text('Alfabe', style: drawerMenuText),
+                  childrenPadding: const EdgeInsets.only(left: 24),
+
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.language, color: Colors.green),
+                      title: const Text('Latin', style: drawerMenuText),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        // Latin Alfabe sayfasına yönlendir
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.language, color: Colors.orange),
+                      title: const Text('Kiril', style: drawerMenuText),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaKiril(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+
+                /// 📌 Gramer
+                ListTile(
+                  leading: const Icon(Icons.menu_book, color: Colors.lightBlue),
+                  title: const Text('Gramer', style: drawerMenuText),
+                  onTap: () {
+                    Navigator.of(context).maybePop();
+                    // Gramer sayfasına yönlendir
+                  },
+                ),
+              ],
             ),
 
             /// 📌 Yedekleme (JSON/CSV)
