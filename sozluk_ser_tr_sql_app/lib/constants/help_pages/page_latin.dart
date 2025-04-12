@@ -1,4 +1,4 @@
-// 📃 <----- page_kiril.dart ----->
+// 📃 <----- sayfa_latin.dart ----->
 //
 
 import 'package:flutter/material.dart';
@@ -8,14 +8,14 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_drawer.dart';
 import 'alphabet_constants.dart';
 
-class SayfaKiril extends StatefulWidget {
-  const SayfaKiril({super.key});
+class SayfaLatin extends StatefulWidget {
+  const SayfaLatin({super.key});
 
   @override
-  State<SayfaKiril> createState() => _SayfaKirilState();
+  State<SayfaLatin> createState() => _SayfaLatinState();
 }
 
-class _SayfaKirilState extends State<SayfaKiril> {
+class _SayfaLatinState extends State<SayfaLatin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class _SayfaKirilState extends State<SayfaKiril> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: buildTable(kirilAlphabet, "Sırpça 'da Kiril Harfleri", [
+        child: buildTable(latinAlphabet, "Sırpça 'da  Latin Harfleri", [
           (user) => user['turkce']!,
           (user) => user['sirpca']!,
         ]),

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
+import '../screens/home_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
@@ -93,9 +94,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       actions: [
         Transform.translate(
-          offset: const Offset(0, 8), // Action iconları aşağı kaydır
+          offset: const Offset(0, 8), // 👈 Action ikonlarını aşağı kaydır
           child:
               isSearching
+                  /// 📌 aramayı kapat
                   ? IconButton(
                     tooltip: "Aramayı kapat",
                     color: menuColor,
@@ -106,6 +108,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     onPressed: onClearSearch,
                   )
+                  /// 📌 aramayı başlat
                   : IconButton(
                     tooltip: "Aramayı başlat",
                     color: menuColor,
@@ -116,6 +119,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     onPressed: onStartSearch,
                   ),
+        ),
+
+        /// 📌 Ana Sayfa ikonu
+        Transform.translate(
+          offset: const Offset(0, 8),
+          child: IconButton(
+            tooltip: "Ana Sayfa",
+            icon: Image.asset("assets/images/home.png", width: 64, height: 64),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
         ),
       ],
     );

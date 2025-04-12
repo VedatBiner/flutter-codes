@@ -2,8 +2,7 @@
 library;
 
 import 'package:flutter/material.dart';
-
-// import '../../constants/app_constants/constants.dart';
+import 'package:sozluk_ser_tr_sql_app/constants/text_constants.dart';
 
 Widget buildTable(
   List<Map<String, String>> pageSample,
@@ -16,11 +15,7 @@ Widget buildTable(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            baslik,
-            //  style: androidTextStyle,
-            textAlign: TextAlign.left,
-          ),
+          Text(baslik, style: tableHeaderText, textAlign: TextAlign.left),
           Table(
             columnWidths: {
               for (var index in List.generate(

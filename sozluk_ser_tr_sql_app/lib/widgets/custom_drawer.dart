@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/help_pages/page_kiril.dart';
+import '../constants/help_pages/page_latin.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/csv_backup_helper.dart';
@@ -115,21 +116,28 @@ class CustomDrawer extends StatelessWidget {
               childrenPadding: const EdgeInsets.only(left: 24),
 
               children: [
-                /// 📌 Alfabe - İçinde Latin ve Kril seçenekleri
+                /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
                 ExpansionTile(
                   leading: const Icon(Icons.sort_by_alpha, color: Colors.amber),
                   title: const Text('Alfabe', style: drawerMenuText),
                   childrenPadding: const EdgeInsets.only(left: 24),
 
                   children: [
+                    /// 📌 Latin harfleri sayfası
                     ListTile(
                       leading: const Icon(Icons.language, color: Colors.green),
                       title: const Text('Latin', style: drawerMenuText),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        // Latin Alfabe sayfasına yönlendir
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaLatin(),
+                          ),
+                        );
                       },
                     ),
+
+                    /// 📌 Kiril harfleri sayfası
                     ListTile(
                       leading: const Icon(Icons.language, color: Colors.orange),
                       title: const Text('Kiril', style: drawerMenuText),

@@ -7,4 +7,5 @@ SQL lite Versiyonu
 - Dosya adları ayrı bir dosya ile sabitlendi
 - Sırpça sıralama metodu eklendi
 - ikon değiştirildi.
-- 
+- Yardım Yapısı Drawer menüye ekleniyor.
+- Appbar 'a home ikon eklendi

@@ -41,6 +41,13 @@ const normalBlackText = TextStyle(
   color: Colors.black,
 );
 
+/// 📌 Tablo başlığı Text  stili
+const tableHeaderText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+);
+
 /// 📌 Dialog Başlığı
 var dialogTitle = TextStyle(
   fontWeight: FontWeight.bold,
