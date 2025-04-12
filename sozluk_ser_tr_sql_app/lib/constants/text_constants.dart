@@ -98,3 +98,10 @@ var loadingWordText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.red[700],
 );
+
+/// 📌 detay başlığı text stili
+const detailTextBlue = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 24,
+  color: Colors.blue,
+);

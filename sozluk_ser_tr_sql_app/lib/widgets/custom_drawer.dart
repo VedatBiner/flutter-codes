@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
+import '../constants/help_pages/page_cinsiyet.dart';
 import '../constants/help_pages/page_kiril.dart';
 import '../constants/help_pages/page_latin.dart';
 import '../constants/text_constants.dart';
@@ -154,13 +155,28 @@ class CustomDrawer extends StatelessWidget {
                 ),
 
                 /// 📌 Gramer
-                ListTile(
+                ExpansionTile(
                   leading: const Icon(Icons.menu_book, color: Colors.lightBlue),
                   title: const Text('Gramer', style: drawerMenuText),
-                  onTap: () {
-                    Navigator.of(context).maybePop();
-                    // Gramer sayfasına yönlendir
-                  },
+                  childrenPadding: const EdgeInsets.only(left: 24),
+
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.wc, color: Colors.pink),
+                      title: const Text(
+                        'Kelimelerde Cinsiyet',
+                        style: drawerMenuText,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaCinsiyet(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

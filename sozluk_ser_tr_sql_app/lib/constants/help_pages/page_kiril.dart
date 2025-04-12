@@ -3,9 +3,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../../widgets/build_table.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_drawer.dart';
+import '../../widgets/help_page_widgets/build_table.dart';
 import 'alphabet_constants.dart';
 
 class SayfaKiril extends StatefulWidget {
