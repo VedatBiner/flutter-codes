@@ -106,9 +106,9 @@ const detailTextBlue = TextStyle(
   color: Colors.blue,
 );
 
-/// 📌 Word Count text stili
-var wordCountText = TextStyle(
-  fontSize: 14,
-  fontWeight: FontWeight.bold,
+/// 📌 Word Count başlık text stili
+var dbLoadingMsgText = TextStyle(
   color: menuColor,
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
 );

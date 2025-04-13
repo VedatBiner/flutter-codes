@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 
 class SQLLoadingCard extends StatelessWidget {
@@ -23,45 +24,66 @@ class SQLLoadingCard extends StatelessWidget {
         elevation: 8,
         margin: const EdgeInsets.symmetric(horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 32),
-          width: 320,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              /// 📌 Tepeye dönen yükleniyor ikonu
-              const SizedBox(
-                width: 36,
-                height: 36,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                  strokeWidth: 4,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            /// 📌 Mavi arka planlı başlık
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              decoration: BoxDecoration(
+                color: drawerColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
                 ),
               ),
+              child: Center(
+                child: Text("Veriler Yenileniyor", style: dbLoadingMsgText),
+              ),
+            ),
 
-              const SizedBox(height: 16), // 👈 Buraya boşluk ekledim
-              /// 📌 Yüzdelik bilgi ve yazı
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text("Veriler Yükleniyor...", style: veriYukleniyor),
-                  const SizedBox(width: 8),
-                  Text(
-                    "${(progress * 100).toStringAsFixed(2)}%",
-                    style: veriYuzdesi,
+                  const SizedBox(
+                    width: 36,
+                    height: 36,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                      strokeWidth: 4,
+                    ),
                   ),
+
+                  const SizedBox(height: 16),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Veriler Yükleniyor...",
+                        style: veriYukleniyor,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        "${(progress * 100).toStringAsFixed(2)}%",
+                        style: veriYuzdesi,
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 12),
+                  LinearProgressIndicator(value: progress),
+                  const SizedBox(height: 12),
+
+                  if (loadingWord != null)
+                    Text(loadingWord!, style: loadingWordText),
                 ],
               ),
-
-              const SizedBox(height: 12),
-              LinearProgressIndicator(value: progress),
-              const SizedBox(height: 12),
-
-              /// 📌 Yüklenen kelime gösterimi
-              if (loadingWord != null)
-                Text(loadingWord!, style: loadingWordText),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
