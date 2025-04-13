@@ -32,10 +32,12 @@ class SQLLoadingCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  /// 📌 Veriler Yükleniyor...
+                  ///
                   const Text("Veriler Yükleniyor...", style: veriYukleniyor),
                   const SizedBox(width: 8),
                   Text(
-                    "${(progress * 100).toStringAsFixed(0)}%",
+                    "${(progress * 100).toStringAsFixed(2)}%",
                     style: veriYuzdesi,
                   ),
                 ],

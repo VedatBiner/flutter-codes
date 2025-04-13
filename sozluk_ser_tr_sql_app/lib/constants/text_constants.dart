@@ -105,3 +105,10 @@ const detailTextBlue = TextStyle(
   fontSize: 24,
   color: Colors.blue,
 );
+
+/// 📌 Word Count text stili
+var wordCountText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.bold,
+  color: menuColor,
+);

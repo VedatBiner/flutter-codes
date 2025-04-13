@@ -9,3 +9,5 @@ SQL lite Versiyonu
 - ikon değiştirildi.
 - Yardım Yapısı Drawer menüye ekleniyor.
 - Appbar 'a home ikon eklendi
+- 
+- 
