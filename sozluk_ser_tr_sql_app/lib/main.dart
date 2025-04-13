@@ -1,4 +1,4 @@
-// 📃 <----- main.dart ----->
+// 📜 <----- main.dart ----->
 
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_sql_app/theme.dart';

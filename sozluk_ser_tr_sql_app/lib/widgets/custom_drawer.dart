@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/help_pages/pages/page_cinsiyet.dart';
 import '../constants/help_pages/pages/page_cogul.dart';
+import '../constants/help_pages/pages/page_gecisli_donuslu_fiiler.dart';
 import '../constants/help_pages/pages/page_kiril.dart';
 import '../constants/help_pages/pages/page_latin.dart';
+import '../constants/help_pages/pages/page_simdiki_genis_zaman.dart';
 import '../constants/help_pages/pages/page_soru.dart';
 import '../constants/help_pages/pages/page_zamirler.dart';
 import '../constants/text_constants.dart';
@@ -233,6 +235,61 @@ class CustomDrawer extends StatelessWidget {
                           ),
                         );
                       },
+                    ),
+
+                    /// 📌 Fiiller
+                    ExpansionTile(
+                      leading: Icon(Icons.menu, color: menuColor),
+                      title: const Text('Fiiler', style: drawerMenuText),
+                      childrenPadding: const EdgeInsets.only(left: 24),
+                      collapsedIconColor: menuColor,
+
+                      children: [
+                        /// 📌 Geniş zaman / Şimdiki zaman
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'Geniş ve Şimdiki Zaman Kullanımı',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const SayfaSimdikiGenisZaman(),
+                              ),
+                            );
+                          },
+                        ),
+
+                        /// 📌 Geçişli ve Dönüşlü Fiiller
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'Geçişli ve Dönüşlü Fiiller',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        const SayfaGecisliDonusluFiiller(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+
+                    /// 📌 Sıfatlar
+                    ExpansionTile(
+                      leading: Icon(Icons.menu, color: menuColor),
+                      title: const Text('Sıfatlar', style: drawerMenuText),
+                      childrenPadding: const EdgeInsets.only(left: 24),
+                      collapsedIconColor: menuColor,
                     ),
                   ],
                 ),
