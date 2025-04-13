@@ -29,11 +29,21 @@ class SQLLoadingCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              /// 📌 Tepeye dönen yükleniyor ikonu
+              const SizedBox(
+                width: 36,
+                height: 36,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  strokeWidth: 4,
+                ),
+              ),
+
+              const SizedBox(height: 16), // 👈 Buraya boşluk ekledim
+              /// 📌 Yüzdelik bilgi ve yazı
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /// 📌 Veriler Yükleniyor...
-                  ///
                   const Text("Veriler Yükleniyor...", style: veriYukleniyor),
                   const SizedBox(width: 8),
                   Text(
@@ -42,9 +52,12 @@ class SQLLoadingCard extends StatelessWidget {
                   ),
                 ],
               ),
+
               const SizedBox(height: 12),
               LinearProgressIndicator(value: progress),
               const SizedBox(height: 12),
+
+              /// 📌 Yüklenen kelime gösterimi
               if (loadingWord != null)
                 Text(loadingWord!, style: loadingWordText),
             ],
