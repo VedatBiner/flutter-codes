@@ -4,9 +4,12 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
-import '../constants/help_pages/page_cinsiyet.dart';
-import '../constants/help_pages/page_kiril.dart';
-import '../constants/help_pages/page_latin.dart';
+import '../constants/help_pages/pages/page_cinsiyet.dart';
+import '../constants/help_pages/pages/page_cogul.dart';
+import '../constants/help_pages/pages/page_kiril.dart';
+import '../constants/help_pages/pages/page_latin.dart';
+import '../constants/help_pages/pages/page_soru.dart';
+import '../constants/help_pages/pages/page_zamirler.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/csv_backup_helper.dart';
@@ -115,18 +118,20 @@ class CustomDrawer extends StatelessWidget {
               ),
               title: const Text('Yardımcı Bilgiler', style: drawerMenuText),
               childrenPadding: const EdgeInsets.only(left: 24),
+              collapsedIconColor: menuColor,
 
               children: [
                 /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
                 ExpansionTile(
-                  leading: const Icon(Icons.sort_by_alpha, color: Colors.amber),
+                  leading: Icon(Icons.sort_by_alpha, color: menuColor),
                   title: const Text('Alfabe', style: drawerMenuText),
                   childrenPadding: const EdgeInsets.only(left: 24),
+                  collapsedIconColor: menuColor,
 
                   children: [
                     /// 📌 Latin harfleri sayfası
                     ListTile(
-                      leading: const Icon(Icons.language, color: Colors.green),
+                      leading: Icon(Icons.sort_by_alpha, color: menuColor),
                       title: const Text('Latin', style: drawerMenuText),
                       onTap: () {
                         Navigator.of(context).maybePop();
@@ -140,7 +145,7 @@ class CustomDrawer extends StatelessWidget {
 
                     /// 📌 Kiril harfleri sayfası
                     ListTile(
-                      leading: const Icon(Icons.language, color: Colors.orange),
+                      leading: Icon(Icons.sort_by_alpha, color: menuColor),
                       title: const Text('Kiril', style: drawerMenuText),
                       onTap: () {
                         Navigator.of(context).maybePop();
@@ -156,13 +161,15 @@ class CustomDrawer extends StatelessWidget {
 
                 /// 📌 Gramer
                 ExpansionTile(
-                  leading: const Icon(Icons.menu_book, color: Colors.lightBlue),
+                  leading: Icon(Icons.menu_book, color: menuColor),
                   title: const Text('Gramer', style: drawerMenuText),
                   childrenPadding: const EdgeInsets.only(left: 24),
+                  collapsedIconColor: menuColor,
 
                   children: [
+                    /// 📌 Kelimelerde cinsiyet
                     ListTile(
-                      leading: const Icon(Icons.wc, color: Colors.pink),
+                      leading: Icon(Icons.wc, color: menuColor),
                       title: const Text(
                         'Kelimelerde Cinsiyet',
                         style: drawerMenuText,
@@ -172,6 +179,57 @@ class CustomDrawer extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => const SayfaCinsiyet(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    /// 📌 Kelimelerde çoğul kullanımı
+                    ListTile(
+                      leading: Icon(Icons.wc, color: menuColor),
+                      title: const Text(
+                        'Kelimelerde Çoğul Kullanımı',
+                        style: drawerMenuText,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaCogul(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    /// 📌 Şahıs zamirleri kullanımı
+                    ListTile(
+                      leading: Icon(Icons.wc, color: menuColor),
+                      title: const Text(
+                        'Şahıs Zamirleri Kullanımı',
+                        style: drawerMenuText,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaZamir(),
+                          ),
+                        );
+                      },
+                    ),
+
+                    /// 📌 Soru cümleleri kullanımı
+                    ListTile(
+                      leading: Icon(Icons.question_mark, color: menuColor),
+                      title: const Text(
+                        'Soru Cümleleri Kullanımı',
+                        style: drawerMenuText,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SayfaSoru(),
                           ),
                         );
                       },
