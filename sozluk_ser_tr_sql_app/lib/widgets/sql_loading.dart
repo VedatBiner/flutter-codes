@@ -2,6 +2,7 @@
 // Verilerin tekrar yüklenmesi cihazda buradan izleniyor
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
@@ -48,12 +49,13 @@ class SQLLoadingCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(
-                    width: 36,
-                    height: 36,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                      strokeWidth: 4,
+                  /// 📌 Veri yükleniyor animasyonu
+                  SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Lottie.asset(
+                      'assets/animations/fileupload.json',
+                      repeat: true,
                     ),
                   ),
 

@@ -20,6 +20,7 @@ dependencies:
   package_info_plus:
   elegant_notification:
   alphabet_list_view:
+  lottie:
 
 dev_dependencies:
   flutter_test:
@@ -33,4 +34,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/animations/
 

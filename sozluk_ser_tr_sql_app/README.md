@@ -11,4 +11,5 @@ SQL lite Versiyonu
 - Appbar 'a home ikon eklendi
 - Firebase versiyonundaki sabit doküman buraya da aktarıldı.
 - Gerekli yardımcı doküman düzenlemeleri ve menü yapısı oluşturuldu.
+- Veri tabanı yenileme animasyonu eklendi
 - 
