@@ -4,19 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
-import '../constants/help_pages/pages/page_cinsiyet.dart';
-import '../constants/help_pages/pages/page_cogul.dart';
-import '../constants/help_pages/pages/page_fiiller.dart';
-import '../constants/help_pages/pages/page_gecisli_donuslu_fiiler.dart';
-import '../constants/help_pages/pages/page_gelecek_zaman.dart';
-import '../constants/help_pages/pages/page_isaret_sifatlari.dart';
-import '../constants/help_pages/pages/page_kiril.dart';
-import '../constants/help_pages/pages/page_latin.dart';
-import '../constants/help_pages/pages/page_sahiplik_sifatlari.dart';
-import '../constants/help_pages/pages/page_simdiki_genis_zaman.dart';
-import '../constants/help_pages/pages/page_soru.dart';
 import '../constants/help_pages/pages/page_uzun_kisa_kelimeler.dart';
-import '../constants/help_pages/pages/page_zamirler.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/csv_backup_helper.dart';
@@ -142,11 +130,7 @@ class CustomDrawer extends StatelessWidget {
                       title: const Text('Latin', style: drawerMenuText),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaLatin(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaLatin');
                       },
                     ),
 
@@ -156,11 +140,7 @@ class CustomDrawer extends StatelessWidget {
                       title: const Text('Kiril', style: drawerMenuText),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaKiril(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaKiril');
                       },
                     ),
                   ],
@@ -183,11 +163,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaCinsiyet(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaCinsiyet');
                       },
                     ),
 
@@ -200,11 +176,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaCogul(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaCogul');
                       },
                     ),
 
@@ -217,11 +189,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaZamir(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaZamir');
                       },
                     ),
 
@@ -234,11 +202,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const SayfaSoru(),
-                          ),
-                        );
+                        Navigator.of(context).pushNamed('/sayfaSoru');
                       },
                     ),
 
@@ -259,12 +223,9 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => const SayfaSimdikiGenisZaman(),
-                              ),
-                            );
+                            Navigator.of(
+                              context,
+                            ).pushNamed('/sayfaSimdikiGenisZaman');
                           },
                         ),
 
@@ -277,13 +238,9 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) =>
-                                        const SayfaGecisliDonusluFiiller(),
-                              ),
-                            );
+                            Navigator.of(
+                              context,
+                            ).pushNamed('/sayfaGecisliDonusluFiiller');
                           },
                         ),
 
@@ -296,11 +253,9 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SayfaGelecekZaman(),
-                              ),
-                            );
+                            Navigator.of(
+                              context,
+                            ).pushNamed('/sayfaGelecekZaman');
                           },
                         ),
 
@@ -313,11 +268,7 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SayfaFiillerDict(),
-                              ),
-                            );
+                            Navigator.of(context).pushNamed('/sayfaFiilerDict');
                           },
                         ),
                       ],
@@ -339,12 +290,9 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => const SayfaIsaretSifatlari(),
-                              ),
-                            );
+                            Navigator.of(
+                              context,
+                            ).pushNamed('/sayfaIsaretSifatlari');
                           },
                         ),
 
@@ -357,12 +305,9 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.of(context).maybePop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => const SayfaSahiplikSifatlari(),
-                              ),
-                            );
+                            Navigator.of(
+                              context,
+                            ).pushNamed('/sayfaSahiplikSifatlari');
                           },
                         ),
                       ],

@@ -1,6 +1,8 @@
 // 📜 <----- main.dart ----->
+//
 
 import 'package:flutter/material.dart';
+import 'package:sozluk_ser_tr_sql_app/routes.dart';
 import 'package:sozluk_ser_tr_sql_app/theme.dart';
 
 import 'screens/home_page.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Kelimelik',
       debugShowCheckedModeBanner: false,
       theme: CustomTheme.theme,
+      routes: appRoutes,
       home: const HomePage(),
     );
   }
