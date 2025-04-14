@@ -76,7 +76,7 @@ class _WordDialogState extends State<WordDialog> {
             TextFormField(
               controller: _wordController,
               decoration: InputDecoration(
-                labelText: 'Kelime',
+                labelText: 'Sırpça kelime',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: drawerColor, width: 2),
                   borderRadius: BorderRadius.circular(8),
@@ -99,7 +99,7 @@ class _WordDialogState extends State<WordDialog> {
             TextFormField(
               controller: _meaningController,
               decoration: InputDecoration(
-                labelText: 'Anlamı',
+                labelText: 'Türkçe karşılığı',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: drawerColor, width: 2),
                   borderRadius: BorderRadius.circular(8),

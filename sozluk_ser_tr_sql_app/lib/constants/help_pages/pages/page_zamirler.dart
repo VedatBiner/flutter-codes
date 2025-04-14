@@ -8,7 +8,7 @@ import '../../../widgets/help_page_widgets/build_table.dart';
 import '../../../widgets/help_page_widgets/help_custom_drawer.dart';
 import '../../../widgets/help_page_widgets/rich_text_rule.dart';
 import '../../text_constants.dart';
-import '../constants/cons_zamirler.dart';
+import '../constants/const_zamirler.dart';
 
 class SayfaZamir extends StatefulWidget {
   const SayfaZamir({super.key});

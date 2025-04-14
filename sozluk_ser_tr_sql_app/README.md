@@ -9,5 +9,6 @@ SQL lite Versiyonu
 - ikon değiştirildi.
 - Yardım Yapısı Drawer menüye ekleniyor.
 - Appbar 'a home ikon eklendi
-- 
+- Firebase versiyonundaki sabit doküman buraya da aktarıldı.
+- Gerekli yardımcı doküman düzenlemeleri ve menü yapısı oluşturuldu.
 - 

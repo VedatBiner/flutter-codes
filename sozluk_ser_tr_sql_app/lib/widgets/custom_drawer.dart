@@ -6,11 +6,16 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/help_pages/pages/page_cinsiyet.dart';
 import '../constants/help_pages/pages/page_cogul.dart';
+import '../constants/help_pages/pages/page_fiiller.dart';
 import '../constants/help_pages/pages/page_gecisli_donuslu_fiiler.dart';
+import '../constants/help_pages/pages/page_gelecek_zaman.dart';
+import '../constants/help_pages/pages/page_isaret_sifatlari.dart';
 import '../constants/help_pages/pages/page_kiril.dart';
 import '../constants/help_pages/pages/page_latin.dart';
+import '../constants/help_pages/pages/page_sahiplik_sifatlari.dart';
 import '../constants/help_pages/pages/page_simdiki_genis_zaman.dart';
 import '../constants/help_pages/pages/page_soru.dart';
+import '../constants/help_pages/pages/page_uzun_kisa_kelimeler.dart';
 import '../constants/help_pages/pages/page_zamirler.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
@@ -281,6 +286,40 @@ class CustomDrawer extends StatelessWidget {
                             );
                           },
                         ),
+
+                        /// 📌 Gelecek zaman
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'Gelecek Zaman Kullanımı',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const SayfaGelecekZaman(),
+                              ),
+                            );
+                          },
+                        ),
+
+                        /// 📌 Sık kullanılan fiiler
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'Sık Kullanılan Fiiler',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const SayfaFiillerDict(),
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
 
@@ -290,6 +329,61 @@ class CustomDrawer extends StatelessWidget {
                       title: const Text('Sıfatlar', style: drawerMenuText),
                       childrenPadding: const EdgeInsets.only(left: 24),
                       collapsedIconColor: menuColor,
+                      children: [
+                        /// 📌 İşaret Sıfatları
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'İşaret Sıfatları Kullanımı',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const SayfaIsaretSifatlari(),
+                              ),
+                            );
+                          },
+                        ),
+
+                        /// 📌 Sahiplik Sıfatları
+                        ListTile(
+                          leading: Icon(Icons.menu_book, color: menuColor),
+                          title: const Text(
+                            'Sahiplik Sıfatları Kullanımı',
+                            style: drawerMenuText,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const SayfaSahiplikSifatlari(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+
+                    /// 📌 Uzun kısa kelime kullanımı
+                    ListTile(
+                      leading: Icon(Icons.question_mark, color: menuColor),
+                      title: const Text(
+                        'Uzun Kısa Kelime Kullanımı',
+                        style: drawerMenuText,
+                      ),
+                      onTap: () {
+                        Navigator.of(context).maybePop();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder:
+                                (context) => const SayfaUzunKisaKelimeler(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
