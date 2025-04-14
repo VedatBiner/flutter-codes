@@ -22,12 +22,14 @@ class _SayfaLatinState extends State<SayfaLatin> {
     return Scaffold(
       appBar: buildHelpAppBar(),
       drawer: buildHelpDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: buildTable(latinAlphabet, "Sırpça 'da  Latin Harfleri", [
-          (user) => user['turkce']!,
-          (user) => user['sirpca']!,
-        ]),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: buildTable(latinAlphabet, "Sırpça 'da  Latin Harfleri", [
+            (user) => user['turkce']!,
+            (user) => user['sirpca']!,
+          ]),
+        ),
       ),
     );
   }

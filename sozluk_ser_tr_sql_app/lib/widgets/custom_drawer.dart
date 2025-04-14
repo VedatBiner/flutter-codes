@@ -4,12 +4,12 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
-import '../constants/help_pages/pages/page_uzun_kisa_kelimeler.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/csv_backup_helper.dart';
 import '../utils/json_backup_helper.dart';
 import 'confirmation_dialog.dart';
+import 'help_page_widgets/drawer_list_tile.dart';
 import 'notification_service.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -155,55 +155,35 @@ class CustomDrawer extends StatelessWidget {
 
                   children: [
                     /// 📌 Kelimelerde cinsiyet
-                    ListTile(
-                      leading: Icon(Icons.wc, color: menuColor),
-                      title: const Text(
-                        'Kelimelerde Cinsiyet',
-                        style: drawerMenuText,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaCinsiyet');
-                      },
+                    DrawerListTile(
+                      icon: Icons.wc,
+                      title: 'Kelimelerde Cinsiyet',
+                      routeName: '/sayfaCinsiyet',
+                      iconColor: menuColor,
                     ),
 
                     /// 📌 Kelimelerde çoğul kullanımı
-                    ListTile(
-                      leading: Icon(Icons.wc, color: menuColor),
-                      title: const Text(
-                        'Kelimelerde Çoğul Kullanımı',
-                        style: drawerMenuText,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaCogul');
-                      },
+                    DrawerListTile(
+                      icon: Icons.wc,
+                      title: 'Çoğul Kullanımı',
+                      routeName: '/sayfaCogul',
+                      iconColor: menuColor,
                     ),
 
                     /// 📌 Şahıs zamirleri kullanımı
-                    ListTile(
-                      leading: Icon(Icons.wc, color: menuColor),
-                      title: const Text(
-                        'Şahıs Zamirleri Kullanımı',
-                        style: drawerMenuText,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaZamir');
-                      },
+                    DrawerListTile(
+                      icon: Icons.question_mark,
+                      title: 'Şahıs Zamirleri Kullanımı',
+                      routeName: '/sayfaZamir',
+                      iconColor: menuColor,
                     ),
 
                     /// 📌 Soru cümleleri kullanımı
-                    ListTile(
-                      leading: Icon(Icons.question_mark, color: menuColor),
-                      title: const Text(
-                        'Soru Cümleleri Kullanımı',
-                        style: drawerMenuText,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaSoru');
-                      },
+                    DrawerListTile(
+                      icon: Icons.question_mark,
+                      title: 'Soru Cümleleri Kullanımı',
+                      routeName: '/sayfaSoru',
+                      iconColor: menuColor,
                     ),
 
                     /// 📌 Fiiller
@@ -215,61 +195,35 @@ class CustomDrawer extends StatelessWidget {
 
                       children: [
                         /// 📌 Geniş zaman / Şimdiki zaman
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'Geniş ve Şimdiki Zaman Kullanımı',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(
-                              context,
-                            ).pushNamed('/sayfaSimdikiGenisZaman');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'Şimdiki Zaman Kullanımı',
+                          routeName: '/sayfaSimdikiZaman',
+                          iconColor: menuColor,
                         ),
 
                         /// 📌 Geçişli ve Dönüşlü Fiiller
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'Geçişli ve Dönüşlü Fiiller',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(
-                              context,
-                            ).pushNamed('/sayfaGecisliDonusluFiiller');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'Geçişli ve Dönüşlü Fiiler',
+                          routeName: '/sayfaGecisliDonusluFiiller',
+                          iconColor: menuColor,
                         ),
 
                         /// 📌 Gelecek zaman
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'Gelecek Zaman Kullanımı',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(
-                              context,
-                            ).pushNamed('/sayfaGelecekZaman');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'Gelecek Zaman Kullanımı',
+                          routeName: '/sayfaGelecekZaman',
+                          iconColor: menuColor,
                         ),
 
                         /// 📌 Sık kullanılan fiiler
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'Sık Kullanılan Fiiler',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(context).pushNamed('/sayfaFiilerDict');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'Sık Kullanılan Fiiler',
+                          routeName: '/sayfaFiiller',
+                          iconColor: menuColor,
                         ),
                       ],
                     ),
@@ -282,53 +236,29 @@ class CustomDrawer extends StatelessWidget {
                       collapsedIconColor: menuColor,
                       children: [
                         /// 📌 İşaret Sıfatları
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'İşaret Sıfatları Kullanımı',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(
-                              context,
-                            ).pushNamed('/sayfaIsaretSifatlari');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'İşaret Sıfatları Kullanımı',
+                          routeName: '/sayfaIsaretSifatlari',
+                          iconColor: menuColor,
                         ),
 
                         /// 📌 Sahiplik Sıfatları
-                        ListTile(
-                          leading: Icon(Icons.menu_book, color: menuColor),
-                          title: const Text(
-                            'Sahiplik Sıfatları Kullanımı',
-                            style: drawerMenuText,
-                          ),
-                          onTap: () {
-                            Navigator.of(context).maybePop();
-                            Navigator.of(
-                              context,
-                            ).pushNamed('/sayfaSahiplikSifatlari');
-                          },
+                        DrawerListTile(
+                          icon: Icons.question_mark,
+                          title: 'Sahiplik Sıfatları Kullanımı',
+                          routeName: '/sayfaSahiplikSifatlari',
+                          iconColor: menuColor,
                         ),
                       ],
                     ),
 
                     /// 📌 Uzun kısa kelime kullanımı
-                    ListTile(
-                      leading: Icon(Icons.question_mark, color: menuColor),
-                      title: const Text(
-                        'Uzun Kısa Kelime Kullanımı',
-                        style: drawerMenuText,
-                      ),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder:
-                                (context) => const SayfaUzunKisaKelimeler(),
-                          ),
-                        );
-                      },
+                    DrawerListTile(
+                      icon: Icons.question_mark,
+                      title: 'Uzun Kısa Kelime Kullanımı',
+                      routeName: '/sayfaUzunKisa',
+                      iconColor: menuColor,
                     ),
                   ],
                 ),

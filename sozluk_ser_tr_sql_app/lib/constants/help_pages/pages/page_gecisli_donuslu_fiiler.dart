@@ -25,7 +25,14 @@ class _SayfaGecisliDonusluFiillerState
     return Scaffold(
       appBar: buildHelpAppBar(),
       drawer: buildHelpDrawer(),
-      body: SingleChildScrollView(
+      body: buildBody(context),
+    );
+  }
+
+  /// 📌 Body bloğu
+  SafeArea buildBody(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(

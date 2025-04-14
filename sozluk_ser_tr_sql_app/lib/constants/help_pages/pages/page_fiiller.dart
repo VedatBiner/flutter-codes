@@ -26,65 +26,67 @@ class _SayfaFiillerDictState extends State<SayfaFiillerDict> {
   }
 
   /// 📌 Body bloğu
-  Padding buildBody() {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTable(fiilListA, "Sırpça Fiiller Sözlüğü (A)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListB, "Sırpça Fiiller Sözlüğü (B)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListC, "Sırpça Fiiller Sözlüğü (C-Ç)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListD, "Sırpça Fiiller Sözlüğü (D)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListE, "Sırpça Fiiller Sözlüğü (E-F)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListG, "Sırpça Fiiller Sözlüğü (G)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListH, "Sırpça Fiiller Sözlüğü (H-İ)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListK, "Sırpça Fiiller Sözlüğü (K)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListO, "Sırpça Fiiller Sözlüğü (O-Ö-P)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListS, "Sırpça Fiiller Sözlüğü (S)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListT, "Sırpça Fiiller Sözlüğü (T-U)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-              buildTable(fiilListV, "Sırpça Fiiller Sözlüğü (V-Y)", [
-                (user) => user['turkce']!,
-                (user) => user['sirpca']!,
-              ]),
-            ],
+  SafeArea buildBody() {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildTable(fiilListA, "Sırpça Fiiller Sözlüğü (A)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListB, "Sırpça Fiiller Sözlüğü (B)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListC, "Sırpça Fiiller Sözlüğü (C-Ç)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListD, "Sırpça Fiiller Sözlüğü (D)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListE, "Sırpça Fiiller Sözlüğü (E-F)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListG, "Sırpça Fiiller Sözlüğü (G)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListH, "Sırpça Fiiller Sözlüğü (H-İ)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListK, "Sırpça Fiiller Sözlüğü (K)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListO, "Sırpça Fiiller Sözlüğü (O-Ö-P)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListS, "Sırpça Fiiller Sözlüğü (S)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListT, "Sırpça Fiiller Sözlüğü (T-U)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+                buildTable(fiilListV, "Sırpça Fiiller Sözlüğü (V-Y)", [
+                  (user) => user['turkce']!,
+                  (user) => user['sirpca']!,
+                ]),
+              ],
+            ),
           ),
         ),
       ),

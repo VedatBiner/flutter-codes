@@ -29,56 +29,61 @@ class _SayfaCinsiyetState extends State<SayfaCinsiyet> {
   }
 
   /// 📌 Body bloğu
-  SingleChildScrollView buildBody(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "İsimlerde cinsiyette dört kural var",
-              style: detailTextBlue,
-            ),
-            const Divider(),
-            buildRichTextRule(
-              "1. Kelime sessiz harf ile bitiyorsa erkek",
-              dashTextA: "sessiz harf",
-              dashTextB: "erkek",
-              context,
-            ),
-            buildRichTextRule(
-              "2. -a harfi ile bitiyorsa dişi,",
-              dashTextA: "-a",
-              dashTextB: "dişi",
-              context,
-            ),
-            buildRichTextRule(
-              "3. -o veya -e harfi ile bitiyorsa nötr,",
-              dashTextA: "-o",
-              dashTextB: "-e",
-              dashTextC: "nötr,",
-              context,
-            ),
-            const Divider(),
-            const Text("Örnekler", style: normalBlackText),
+  SafeArea buildBody(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "İsimlerde cinsiyette dört kural var",
+                style: detailTextBlue,
+              ),
+              const Divider(),
+              buildRichTextRule(
+                "1. Kelime sessiz harf ile bitiyorsa erkek",
+                dashTextA: "sessiz harf",
+                dashTextB: "erkek",
+                context,
+              ),
+              buildRichTextRule(
+                "2. -a harfi ile bitiyorsa dişi,",
+                dashTextA: "-a",
+                dashTextB: "dişi",
+                context,
+              ),
+              buildRichTextRule(
+                "3. -o veya -e harfi ile bitiyorsa nötr,",
+                dashTextA: "-o",
+                dashTextB: "-e",
+                dashTextC: "nötr,",
+                context,
+              ),
+              const Divider(),
+              const Text("Örnekler", style: normalBlackText),
 
-            /// 📜 Kelimelerde Cinsiyet
-            buildTable(cinsiyetSample, "- 'o' veya 'e' ile Bitenler", [
-              (user) => user['erkek']!,
-              (user) => user['dişi']!,
-              (user) => user['nötr']!,
-            ]),
+              /// 📜 Kelimelerde Cinsiyet
+              buildTable(cinsiyetSample, "- 'o' veya 'e' ile Bitenler", [
+                (user) => user['erkek']!,
+                (user) => user['dişi']!,
+                (user) => user['nötr']!,
+              ]),
 
-            const Text("İstisnalar", style: normalBlackText),
-            const Text(
-              "- Sto – stol (Hırvatça) (masa) – erkek",
-              style: normalBlackText,
-            ),
-            const Text("- Krv (kan) – Dişi", style: normalBlackText),
-            const Text("- Kolega (meslekdaş) – erkek", style: normalBlackText),
-          ],
+              const Text("İstisnalar", style: normalBlackText),
+              const Text(
+                "- Sto – stol (Hırvatça) (masa) – erkek",
+                style: normalBlackText,
+              ),
+              const Text("- Krv (kan) – Dişi", style: normalBlackText),
+              const Text(
+                "- Kolega (meslekdaş) – erkek",
+                style: normalBlackText,
+              ),
+            ],
+          ),
         ),
       ),
     );
