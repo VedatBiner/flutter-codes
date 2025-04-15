@@ -25,7 +25,8 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/sayfaZamir': (context) => const SayfaZamir(),
   '/sayfaSoru': (context) => const SayfaSoru(),
   '/sayfaFiiller': (context) => const SayfaFiillerDict(),
-  '/sayfaGecisliDonuslu': (context) => const SayfaGecisliDonusluFiiller(),
+  '/sayfaGecisliDonusluFiiller':
+      (context) => const SayfaGecisliDonusluFiiller(),
   '/sayfaGelecekZaman': (context) => const SayfaGelecekZaman(),
   '/sayfaIsaretSifatlari': (context) => const SayfaIsaretSifatlari(),
   '/sayfaSahiplikSifatlari': (context) => const SayfaSahiplikSifatlari(),

@@ -198,7 +198,7 @@ class CustomDrawer extends StatelessWidget {
                         DrawerListTile(
                           icon: Icons.question_mark,
                           title: 'Şimdiki Zaman Kullanımı',
-                          routeName: '/sayfaSimdikiZaman',
+                          routeName: '/sayfaSimdikiGenisZaman',
                           iconColor: menuColor,
                         ),
 
