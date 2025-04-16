@@ -2,13 +2,20 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/routes.dart';
-import 'package:sozluk_ser_tr_sql_app/theme.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/word_count_provider.dart';
+import '../routes.dart';
+import '../theme.dart';
 import 'screens/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => WordCountProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

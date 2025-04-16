@@ -20,7 +20,7 @@ class _SayfaSahiplikSifatlariState extends State<SayfaSahiplikSifatlari> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildHelpAppBar(),
+      appBar: buildHelpAppBar(context),
       drawer: buildHelpDrawer(),
       body: buildBody(context),
     );

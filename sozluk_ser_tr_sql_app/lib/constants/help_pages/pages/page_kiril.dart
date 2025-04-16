@@ -20,7 +20,7 @@ class _SayfaKirilState extends State<SayfaKiril> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildHelpAppBar(),
+      appBar: buildHelpAppBar(context),
       drawer: buildHelpDrawer(),
       body: SafeArea(
         child: Padding(

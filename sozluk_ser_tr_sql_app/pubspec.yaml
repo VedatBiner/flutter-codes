@@ -21,6 +21,7 @@ dependencies:
   elegant_notification:
   alphabet_list_view:
   lottie:
+  provider:
 
 dev_dependencies:
   flutter_test:

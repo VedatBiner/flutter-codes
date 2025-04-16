@@ -12,4 +12,10 @@ SQL lite Versiyonu
 - Firebase versiyonundaki sabit doküman buraya da aktarıldı.
 - Gerekli yardımcı doküman düzenlemeleri ve menü yapısı oluşturuldu.
 - Veri tabanı yenileme animasyonu eklendi
+- provider paketi eklenerek AppBar 'da kelime sayısının güncel görünmesi sağlandı.
+
+
+
+Düzeltilecekler.
+- Yardım sayfalarında kelime sayısı görünmüyor ?
 - 

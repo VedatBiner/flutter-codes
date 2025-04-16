@@ -19,7 +19,7 @@ class _SayfaFiillerDictState extends State<SayfaFiillerDict> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildHelpAppBar(),
+      appBar: buildHelpAppBar(context),
       drawer: buildHelpDrawer(),
       body: buildBody(),
     );

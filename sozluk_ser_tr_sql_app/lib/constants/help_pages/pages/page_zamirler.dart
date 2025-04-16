@@ -22,7 +22,7 @@ class _SayfaZamirState extends State<SayfaZamir> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildHelpAppBar(),
+      appBar: buildHelpAppBar(context),
       drawer: buildHelpDrawer(),
       body: buildBody(context),
     );

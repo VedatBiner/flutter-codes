@@ -21,7 +21,7 @@ class _SayfaSimdikiGenisZamanState extends State<SayfaSimdikiGenisZaman> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildHelpAppBar(),
+      appBar: buildHelpAppBar(context),
       drawer: buildHelpDrawer(),
       body: buildBody(context),
     );

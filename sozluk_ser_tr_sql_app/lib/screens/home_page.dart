@@ -1,12 +1,15 @@
 // 📜 <----- home_page.dart ----->
+//
 
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
+import '../providers/word_count_provider.dart';
 import '../utils/json_loader.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -57,6 +60,11 @@ class _HomePageState extends State<HomePage> {
           allWords = loadedWords;
           words = loadedWords;
         });
+        // 🔥 Kelime sayısını güncelle
+        Provider.of<WordCountProvider>(
+          context,
+          listen: false,
+        ).setCount(words.length);
       },
       onLoadingStatusChange: (loading, prog, currentWord) {
         setState(() {
