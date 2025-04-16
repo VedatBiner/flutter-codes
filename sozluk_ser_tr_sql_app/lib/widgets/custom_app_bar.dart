@@ -7,9 +7,11 @@
 // - Gerçek cihazda yazı ve arama kutusu kesilme sorunu çözüldü
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
+import '../providers/word_count_provider.dart';
 import '../screens/home_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +20,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onClearSearch;
   final VoidCallback onStartSearch;
-  final int itemCount;
 
   const CustomAppBar({
     super.key,
@@ -27,7 +28,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onSearchChanged,
     required this.onClearSearch,
     required this.onStartSearch,
-    required this.itemCount,
   });
 
   @override
@@ -85,10 +85,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               )
               : Transform.translate(
-                offset: const Offset(0, 4), // Başlığı aşağı kaydır
-                child: Text(
-                  'Sırpça-Türkçe\nSözlük ($itemCount)',
-                  style: itemCountStil,
+                offset: const Offset(0, 4),
+                child: Consumer<WordCountProvider>(
+                  builder: (context, wordCountProvider, _) {
+                    return Text(
+                      'Sırpça-Türkçe\nSözlük (${wordCountProvider.count})',
+                      style: itemCountStil,
+                    );
+                  },
                 ),
               ),
 

@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                     isSearching = true;
                   });
                 },
-                itemCount: words.length,
+                // itemCount: words.length,
               ),
             ),
 
@@ -150,6 +150,14 @@ class _HomePageState extends State<HomePage> {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
+
+                    /// ✅ AppBar sayacı da güncellensin
+                    if (context.mounted) {
+                      Provider.of<WordCountProvider>(
+                        context,
+                        listen: false,
+                      ).setCount(loadedWords.length);
+                    }
                   },
                   onLoadingStatusChange: (loading, prog, currentWord) {
                     setState(() {
