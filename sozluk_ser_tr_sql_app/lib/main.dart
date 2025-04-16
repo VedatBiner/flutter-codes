@@ -12,7 +12,11 @@ import 'screens/home_page.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => WordCountProvider())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => WordCountProvider()..updateCount(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );

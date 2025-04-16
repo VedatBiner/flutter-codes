@@ -60,11 +60,12 @@ class _HomePageState extends State<HomePage> {
           allWords = loadedWords;
           words = loadedWords;
         });
-        // 🔥 Kelime sayısını güncelle
+
+        /// 🔥 Kelime sayısını güncelle Provider
         Provider.of<WordCountProvider>(
           context,
           listen: false,
-        ).setCount(words.length);
+        ).setCount(loadedWords.length);
       },
       onLoadingStatusChange: (loading, prog, currentWord) {
         setState(() {

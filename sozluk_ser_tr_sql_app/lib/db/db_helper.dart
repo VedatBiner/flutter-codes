@@ -15,6 +15,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
+import '../providers/word_count_provider.dart';
 import '../widgets/notification_service.dart';
 
 class WordDatabase {
@@ -81,7 +82,12 @@ class WordDatabase {
   ///
   Future<int> insertWord(Word word) async {
     final db = await instance.database;
-    return await db.insert('words', word.toMap());
+    final result = await db.insert('words', word.toMap());
+
+    // ✅ Kelime sayısını güncelle
+    WordCountProvider().updateCount(); // Bu çalışmaz çünkü context yok
+
+    return result;
   }
 
   /// 📌 ID ye göre kelimeyi günceller.

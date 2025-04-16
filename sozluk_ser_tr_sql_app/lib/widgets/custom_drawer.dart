@@ -2,10 +2,12 @@
 // Drawer menüye buradan erişiliyor.
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
+import '../providers/word_count_provider.dart';
 import '../utils/csv_backup_helper.dart';
 import '../utils/json_backup_helper.dart';
 import 'confirmation_dialog.dart';
@@ -47,6 +49,8 @@ class CustomDrawer extends StatelessWidget {
       await db.delete('words');
 
       if (!context.mounted) return;
+      Provider.of<WordCountProvider>(context, listen: false).updateCount();
+
       Navigator.of(context).maybePop();
 
       onDatabaseUpdated();

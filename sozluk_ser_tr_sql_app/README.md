@@ -13,9 +13,10 @@ SQL lite Versiyonu
 - Gerekli yardımcı doküman düzenlemeleri ve menü yapısı oluşturuldu.
 - Veri tabanı yenileme animasyonu eklendi
 - provider paketi eklenerek AppBar 'da kelime sayısının güncel görünmesi sağlandı.
+- Veri Tabanı sıfırlama yenileme bölümüne de provider eklendi
 
 
 
 Düzeltilecekler.
 - Yardım sayfalarında kelime sayısı görünmüyor ?
-- 
+- Veri tabanını silip, Veri tabanını yenile seçince çalışmıyor ? Kod baştan çalışınca güncelliyor.
