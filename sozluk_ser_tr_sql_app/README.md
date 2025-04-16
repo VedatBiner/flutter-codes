@@ -19,4 +19,4 @@ SQL lite Versiyonu
 
 Düzeltilecekler.
 - Yardım sayfalarında kelime sayısı görünmüyor ?
-- Veri tabanını silip, Veri tabanını yenile seçince çalışmıyor ? Kod baştan çalışınca güncelliyor.
+- asset/ içine en güncel veriyi nasıl ekleyeceğiz ?
