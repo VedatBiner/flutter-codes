@@ -129,23 +129,19 @@ class CustomDrawer extends StatelessWidget {
 
                   children: [
                     /// 📌 Latin harfleri sayfası
-                    ListTile(
-                      leading: Icon(Icons.sort_by_alpha, color: menuColor),
-                      title: const Text('Latin', style: drawerMenuText),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaLatin');
-                      },
+                    DrawerListTile(
+                      icon: Icons.wc,
+                      title: 'Latin',
+                      routeName: '/sayfaLatin',
+                      iconColor: menuColor,
                     ),
 
                     /// 📌 Kiril harfleri sayfası
-                    ListTile(
-                      leading: Icon(Icons.sort_by_alpha, color: menuColor),
-                      title: const Text('Kiril', style: drawerMenuText),
-                      onTap: () {
-                        Navigator.of(context).maybePop();
-                        Navigator.of(context).pushNamed('/sayfaKiril');
-                      },
+                    DrawerListTile(
+                      icon: Icons.wc,
+                      title: 'Kiril',
+                      routeName: '/sayfaKiril',
+                      iconColor: menuColor,
                     ),
                   ],
                 ),
@@ -266,6 +262,8 @@ class CustomDrawer extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                /// 📌 Yardımcı Kavramlar
               ],
             ),
 

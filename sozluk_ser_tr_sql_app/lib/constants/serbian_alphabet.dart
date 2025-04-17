@@ -1,4 +1,5 @@
 const List<String> serbianAlphabet = [
+  '-',
   'A',
   'B',
   'C',
@@ -27,6 +28,7 @@ const List<String> serbianAlphabet = [
   'T',
   'U',
   'V',
+  'W',
   'Z',
   'Ž',
 ];
