@@ -264,6 +264,40 @@ class CustomDrawer extends StatelessWidget {
                 ),
 
                 /// 📌 Yardımcı Kavramlar
+                ExpansionTile(
+                  leading: Icon(Icons.menu, color: menuColor),
+                  title: const Text(
+                    'Yardımcı Kavramlar',
+                    style: drawerMenuText,
+                  ),
+                  childrenPadding: const EdgeInsets.only(left: 24),
+                  collapsedIconColor: menuColor,
+                  children: [
+                    /// 📌 Sayılar
+                    DrawerListTile(
+                      icon: Icons.numbers,
+                      title: 'Sayılar',
+                      routeName: '/sayfaSayilar',
+                      iconColor: menuColor,
+                    ),
+
+                    /// 📌 Günler
+                    DrawerListTile(
+                      icon: Icons.question_mark,
+                      title: 'Günler',
+                      routeName: '/sayfaGunler',
+                      iconColor: menuColor,
+                    ),
+
+                    /// 📌 Saatler
+                    DrawerListTile(
+                      icon: Icons.question_mark,
+                      title: 'Saatler',
+                      routeName: '/sayfaSaatler',
+                      iconColor: menuColor,
+                    ),
+                  ],
+                ),
               ],
             ),
 
