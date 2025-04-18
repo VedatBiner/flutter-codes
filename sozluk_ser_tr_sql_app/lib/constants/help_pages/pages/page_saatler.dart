@@ -4,10 +4,9 @@ library;
 import 'package:flutter/material.dart';
 import 'package:sozluk_ser_tr_sql_app/widgets/help_page_widgets/help_custom_app_bar.dart';
 
-import '../../../widgets/help_page_widgets/build_table.dart';
 import '../../../widgets/help_page_widgets/help_custom_drawer.dart';
+import '../../../widgets/help_page_widgets/rich_text_rule.dart';
 import '../../text_constants.dart';
-import '../constants/const_sayilar.dart';
 
 class SayfaSaatler extends StatefulWidget {
   const SayfaSaatler({super.key});
@@ -37,13 +36,36 @@ class _SayfaSaatlerState extends State<SayfaSaatler> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Sayılar", style: detailTextBlue),
+              const Text("Saatler", style: detailTextBlue),
               const Divider(),
 
-              buildTable(sayilarSampleA, "Sayılar", [
-                (user) => user['sayı']!,
-                (user) => user['sırpça']!,
-              ]),
+              buildRichTextRule(
+                "Koliko je sati ?  - saat kaç?",
+                dashTextA: "Koliko je sati ?",
+                context,
+              ),
+              const Text("saat bu şekilde soruluyor.", style: normalBlackText),
+              const SizedBox(height: 10),
+              buildRichTextRule(
+                "1 sat - Jedan (čas)  - 1 saat için kullanılır.",
+                dashTextA: "1 sat - Jedan (čas)",
+                context,
+              ),
+              buildRichTextRule(
+                "2, 3, 4,  - Eğer saat değeri bu aralıkta ise sata kullanılır.",
+                dashTextA: "2, 3, 4,",
+                dashTextB: 'sata',
+                context,
+              ),
+              buildRichTextRule(
+                "5, 6, ... sati veya časova - çoğunlukla sati kullanılır. ",
+                dashTextA: "5, 6, ...",
+                dashTextB: 'sati',
+                dashTextC: 'časova',
+                dashTextD: 'sati',
+                context,
+              ),
+              const Divider(),
             ],
           ),
         ),
