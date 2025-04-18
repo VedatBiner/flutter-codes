@@ -1,7 +1,10 @@
 # sozluk_ser_tr_sql_app
 
 Sırpça-Türkçe sözlük 
-SQL lite Versiyonu
+SQL lite Versiyonu 
+Bu kod bir başka uygulama olan kelimelik-words-app uygulamasından 
+türetilmiş ve daha geliştirilmiştir.
+
 
 - Genel kod yapısı oluşturuldu
 - Dosya adları ayrı bir dosya ile sabitlendi
@@ -14,9 +17,9 @@ SQL lite Versiyonu
 - Veri tabanı yenileme animasyonu eklendi
 - provider paketi eklenerek AppBar 'da kelime sayısının güncel görünmesi sağlandı.
 - Veri Tabanı sıfırlama yenileme bölümüne de provider eklendi
-
+- Veri güncelleme uygulama yeniden başlatılıp, tüm veriler silinince çalışıyor?
 
 
 Düzeltilecekler.
-- Yardım sayfalarında kelime sayısı görünmüyor ?
-- asset/ içine en güncel veriyi nasıl ekleyeceğiz ?
+- arama kutusunda bir kelime varken sağda bir çarpı işareti olsun ona dokununca 
+kutu boşaltılsın

@@ -1,10 +1,5 @@
 // 📃 <----- custom_app_bar.dart ----->
 // AppBar özelleştirme
-// - Başlık ortalanmış
-// - Başlık ve arama aşağı kaydırılmış
-// - Drawer (hamburger) ikonu büyütülmüş ve aşağı kaydırılmış
-// - Action iconlar aşağı kaydırılmış
-// - Gerçek cihazda yazı ve arama kutusu kesilme sorunu çözüldü
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,9 +31,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: drawerColor,
       centerTitle: true,
 
-      /// 📌 Drawer ikon ayarları (büyütüldü & aşağı kaydırıldı)
       leading: Transform.translate(
-        offset: const Offset(0, 2), // Hafif aşağı kaydırıldı
+        offset: const Offset(0, 2),
         child: Builder(
           builder:
               (context) => IconButton(
@@ -52,13 +46,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
 
       iconTheme: IconThemeData(color: menuColor, size: 36),
-
       titleTextStyle: TextStyle(color: menuColor),
 
       title:
           isSearching
               ? Transform.translate(
-                offset: const Offset(0, 6), // Arama kutusunu aşağı kaydır
+                offset: const Offset(0, 6),
                 child: TextField(
                   controller: searchController,
                   autofocus: true,
@@ -69,6 +62,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 8,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      color: Colors.red,
+                      onPressed: () {
+                        searchController.clear();
+                        onSearchChanged('');
+                      },
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -98,10 +99,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       actions: [
         Transform.translate(
-          offset: const Offset(0, 8), // 👈 Action ikonlarını aşağı kaydır
+          offset: const Offset(0, 8),
           child:
               isSearching
-                  /// 📌 aramayı kapat
                   ? IconButton(
                     tooltip: "Aramayı kapat",
                     color: menuColor,
@@ -112,7 +112,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     onPressed: onClearSearch,
                   )
-                  /// 📌 aramayı başlat
                   : IconButton(
                     tooltip: "Aramayı başlat",
                     color: menuColor,
@@ -125,7 +124,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
         ),
 
-        /// 📌 Ana Sayfa ikonu
+        /// Ana Sayfa ikonu
         Transform.translate(
           offset: const Offset(0, 8),
           child: IconButton(
@@ -143,7 +142,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  /// 📌 AppBar yüksekliği arttırıldı → Gerçek cihazda kesilme sorunu çözümü
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 12);
 }
