@@ -64,7 +64,7 @@ Future<void> loadDataFromDatabase({
         log("📥 ${word.word} (${i + 1}/${loadedWords.length})");
         await Future.delayed(const Duration(milliseconds: 30));
       }
-      onLoadingStatusChange(true, 0.0, null);
+      onLoadingStatusChange(false, 0.0, null);
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
       log("✅ ${loadedWords.length} kelime başarıyla yüklendi.");

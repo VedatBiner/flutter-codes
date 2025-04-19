@@ -41,14 +41,15 @@ kutusunu kullanması sağlandı.
 - Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
 - Fihrist görünümünde renk ve font düzenlemeleri yapıldı.
 - Kelime veri tabanı yüklenirken animasyon eklendi. Dialog kutusu düzeltildi.
-- 
+- Arama kutusu içinde silme eklendi
+- provider eklendi (kelime sayacı) veri silinip uygulama baştan çalışınca görülebiliyor.
+- kelime sayacı animasyonlu olsun
+- Kelime sayacı assets 'den de okunabilsin
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Arama kutusu içinde silme ekle
-- provider ekle (kelime sayacı)
-- kelime sayacı animasyonlu olsun
-- Kelime sayacı assets 'den de okunabilsin
+- 
+
 
