@@ -13,6 +13,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../widgets/notification_service.dart';
 
@@ -26,7 +27,7 @@ class WordDatabase {
   ///
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('words.db');
+    _database = await _initDB(fileNameSql);
     return _database!;
   }
 
@@ -116,7 +117,7 @@ class WordDatabase {
     final jsonString = jsonEncode(wordMaps);
 
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/kelimelik_backup.json';
+    final filePath = '${directory.path}/$fileNameJson';
 
     final file = File(filePath);
     await file.writeAsString(jsonString);
@@ -133,7 +134,7 @@ class WordDatabase {
   Future<void> importWordsFromJson(BuildContext context) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/kelimelik_backup.json';
+      final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
 
       if (!(await file.exists())) {
@@ -212,7 +213,7 @@ class WordDatabase {
     }
 
     final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/kelimelik_backup.csv';
+    final filePath = '${directory.path}/$fileNameCsv';
     final file = File(filePath);
 
     await file.writeAsString(buffer.toString());
@@ -228,7 +229,7 @@ class WordDatabase {
   Future<void> importWordsFromCsv() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/kelimelik_backup.csv';
+      final filePath = '${directory.path}/$fileNameCsv';
       final file = File(filePath);
 
       if (!(await file.exists())) {

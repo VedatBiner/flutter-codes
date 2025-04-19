@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/text_constants.dart';
+import '../providers/word_count_provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
@@ -42,6 +44,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     horizontal: 12,
                     vertical: 8,
                   ),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.clear),
+                    color: Colors.red,
+                    onPressed: () {
+                      searchController.clear();
+                      onSearchChanged('');
+                    },
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(color: menuColor, width: 2),
@@ -55,7 +65,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 onChanged: onSearchChanged,
               )
-              : Text('Kelimelik ($itemCount)', style: itemCountStil),
+              : Consumer<WordCountProvider>(
+                builder: (context, wordCountProvider, _) {
+                  return Text(
+                    'Kelimelik (${wordCountProvider.count})',
+                    style: itemCountStil,
+                  );
+                },
+              ),
+
       actions: [
         isSearching
             ? IconButton(

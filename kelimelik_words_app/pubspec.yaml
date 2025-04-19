@@ -1,9 +1,9 @@
 name: kelimelik_words_app
-description: "A new Flutter project."
+description: "Kelimelik uygulaması kelime listesi"
 
 publish_to: 'none'
 
-version: 1.2.1+1
+version: 1.2.4+1
 
 environment:
   sdk: ^3.7.2
@@ -20,6 +20,8 @@ dependencies:
   package_info_plus:
   elegant_notification:
   alphabet_list_view:
+  lottie:
+  provider:
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +35,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/animations/
+    - assets/database/kelimelik_backup.json

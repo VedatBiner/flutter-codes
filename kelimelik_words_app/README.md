@@ -39,10 +39,16 @@ kutusunu kullanması sağlandı.
 - Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
 - Bazı kod tekrarları optimize edildi.
 - Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
-- Fihrist görünümünde renk ve font düzenlemeleri yapıldı
+- Fihrist görünümünde renk ve font düzenlemeleri yapıldı.
+- Kelime veri tabanı yüklenirken animasyon eklendi. Dialog kutusu düzeltildi.
+- 
 
-- Simdilik yapılanlar yeterli.
+- Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
+- Arama kutusu içinde silme ekle
+- provider ekle (kelime sayacı)
+- kelime sayacı animasyonlu olsun
+- Kelime sayacı assets 'den de okunabilsin
 

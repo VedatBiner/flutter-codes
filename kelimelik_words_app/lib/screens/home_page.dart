@@ -9,9 +9,11 @@ import 'package:kelimelik_words_app/utils/json_loader.dart';
 import 'package:kelimelik_words_app/widgets/custom_fab.dart';
 import 'package:kelimelik_words_app/widgets/sql_loading_card.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:provider/provider.dart';
 
 import '../db/word_database.dart';
 import '../models/word_model.dart';
+import '../providers/word_count_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 
@@ -57,6 +59,12 @@ class _HomePageState extends State<HomePage> {
           allWords = loadedWords;
           words = loadedWords;
         });
+
+        /// 🔥 Kelime sayısını güncelle Provider
+        Provider.of<WordCountProvider>(
+          context,
+          listen: false,
+        ).setCount(loadedWords.length);
       },
       onLoadingStatusChange: (loading, prog, currentWord) {
         setState(() {
@@ -141,6 +149,14 @@ class _HomePageState extends State<HomePage> {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
+
+                    /// ✅ AppBar sayacı da güncellensin
+                    if (context.mounted) {
+                      Provider.of<WordCountProvider>(
+                        context,
+                        listen: false,
+                      ).setCount(loadedWords.length);
+                    }
                   },
                   onLoadingStatusChange: (loading, prog, currentWord) {
                     setState(() {

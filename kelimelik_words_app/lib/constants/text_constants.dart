@@ -90,3 +90,10 @@ var loadingWordText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.red[700],
 );
+
+/// 📌 Word Count başlık text stili
+var dbLoadingMsgText = TextStyle(
+  color: menuColor,
+  fontWeight: FontWeight.bold,
+  fontSize: 18,
+);

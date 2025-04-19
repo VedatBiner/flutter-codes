@@ -3,9 +3,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
+import '../providers/word_count_provider.dart';
 import '../utils/csv_backup_helper.dart';
 import '../utils/json_backup_helper.dart';
 import 'confirmation_dialog.dart';
@@ -46,6 +48,7 @@ class CustomDrawer extends StatelessWidget {
       await db.delete('words');
 
       if (!context.mounted) return;
+      Provider.of<WordCountProvider>(context, listen: false).updateCount();
       Navigator.of(context).maybePop();
 
       onDatabaseUpdated();
@@ -72,10 +75,9 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: drawerColor),
-              margin: EdgeInsets.zero,
-              padding: const EdgeInsets.only(bottom: 0),
+            Container(
+              color: drawerColor,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: Text(
                 'Menü',
                 style: TextStyle(
