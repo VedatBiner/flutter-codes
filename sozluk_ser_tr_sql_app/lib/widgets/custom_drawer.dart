@@ -283,7 +283,7 @@ class CustomDrawer extends StatelessWidget {
 
                     /// 📌 Günler
                     DrawerListTile(
-                      icon: Icons.question_mark,
+                      icon: Icons.calendar_month_sharp,
                       title: 'Günler',
                       routeName: '/sayfaGunler',
                       iconColor: menuColor,
@@ -291,7 +291,7 @@ class CustomDrawer extends StatelessWidget {
 
                     /// 📌 Saatler
                     DrawerListTile(
-                      icon: Icons.question_mark,
+                      icon: Icons.watch_later_outlined,
                       title: 'Saatler',
                       routeName: '/sayfaSaatler',
                       iconColor: menuColor,
