@@ -84,6 +84,11 @@ class _HomePageState extends State<HomePage> {
       words = allWords;
     });
 
+    /// 🔥 Provider ile sayacı güncelle
+    if (mounted) {
+      Provider.of<WordCountProvider>(context, listen: false).setCount(count);
+    }
+
     log('📦 Toplam kayıt sayısı: $count');
   }
 
