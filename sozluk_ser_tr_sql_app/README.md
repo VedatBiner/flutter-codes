@@ -17,9 +17,9 @@ türetilmiş ve daha geliştirilmiştir.
 - Veri tabanı yenileme animasyonu eklendi
 - provider paketi eklenerek AppBar 'da kelime sayısının güncel görünmesi sağlandı.
 - Veri Tabanı sıfırlama yenileme bölümüne de provider eklendi
+- App bar arama kutusuna kutu içine silme seçeneği eklendi
 - Veri güncelleme uygulama yeniden başlatılıp, tüm veriler silinince çalışıyor?
 
 
 Düzeltilecekler.
-- arama kutusunda bir kelime varken sağda bir çarpı işareti olsun ona dokununca 
-kutu boşaltılsın
+- 
