@@ -9,6 +9,7 @@ import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../providers/word_count_provider.dart';
 import '../utils/csv_backup_helper.dart';
+import '../utils/external_copy.dart';
 import '../utils/json_backup_helper.dart';
 import 'confirmation_dialog.dart';
 import 'help_page_widgets/drawer_list_tile.dart';
@@ -349,6 +350,9 @@ class CustomDrawer extends StatelessWidget {
                       progressIndicatorBackground: Colors.blue.shade100,
                     );
                   });
+
+                  /// ✅ Harici dizine kopyalama işlemi
+                  await exportAppDataToExternal();
 
                   if (!context.mounted) return;
                   Navigator.of(context).maybePop();

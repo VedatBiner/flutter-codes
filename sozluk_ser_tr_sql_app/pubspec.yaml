@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 1.0.4+1
+version: 1.0.5+1
 
 environment:
   sdk: ^3.7.2
@@ -22,6 +22,7 @@ dependencies:
   alphabet_list_view:
   lottie:
   provider:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

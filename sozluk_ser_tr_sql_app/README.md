@@ -19,7 +19,8 @@ türetilmiş ve daha geliştirilmiştir.
 - Veri Tabanı sıfırlama yenileme bölümüne de provider eklendi
 - App bar arama kutusuna kutu içine silme seçeneği eklendi
 - Veri güncelleme uygulama yeniden başlatılıp, tüm veriler silinince çalışıyor?
+- Verilerin harici dizine yedeklenmesi sağlandı.
 
 
 Düzeltilecekler.
-- 
+- SQL verinin yedeği alınmıyor?
