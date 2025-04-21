@@ -34,13 +34,21 @@ class WordDatabase {
 
   /// 📌 Yeni bir veritabanı oluşturur.
   ///
-  Future<Database> _initDB(String filePath) async {
+  Future<Database> _initDB(String fileName) async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    final fullPath = join(dbPath, fileName);
 
-    log('📁 SQLite veritabanı konumu: $path');
+    log('📁 Veritabanı hedef konumu: $fullPath');
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    final internalDbFile = File(fullPath);
+
+    if (await internalDbFile.exists()) {
+      log('📦 Yerel veritabanı zaten var. Doğrudan açılıyor...');
+    } else {
+      log('🆕 Yerel veritabanı bulunamadı. Yeni veritabanı oluşturulacak.');
+    }
+
+    return await openDatabase(fullPath, version: 1, onCreate: _createDB);
   }
 
   /// 📌 Yeni bir veritabanı oluşturur.
