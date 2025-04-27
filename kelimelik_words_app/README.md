@@ -41,7 +41,7 @@ kutusunu kullanması sağlandı.
 - Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
 - Fihrist görünümünde renk ve font düzenlemeleri yapıldı.
 - Kelime veri tabanı yüklenirken animasyon eklendi. Dialog kutusu düzeltildi.
-- Arama kutusu içinde silme eklendi
+- Arama kutusu içinde silme eklendi. Fontawesome
 - provider eklendi (kelime sayacı) veri silinip uygulama baştan çalışınca görülebiliyor.
 - kelime sayacı animasyonlu olsun
 - Kelime sayacı assets 'den de okunabilsin

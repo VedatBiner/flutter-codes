@@ -1,9 +1,10 @@
 // 📃 <----- custom_app_bar.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../providers/word_count_provider.dart';
 
@@ -45,8 +46,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     vertical: 8,
                   ),
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    color: Colors.red,
+                    icon: const FaIcon(
+                      FontAwesomeIcons.eraser,
+                      color: Colors.red,
+                    ),
                     onPressed: () {
                       searchController.clear();
                       onSearchChanged('');

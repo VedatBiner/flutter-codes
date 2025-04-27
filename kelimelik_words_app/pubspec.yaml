@@ -22,6 +22,7 @@ dependencies:
   alphabet_list_view:
   lottie:
   provider:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

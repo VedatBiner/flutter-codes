@@ -29,12 +29,15 @@ Ad,İsim / Nam
 Ada,Deniz ile çevrili küçük kara parçası
 Adak,Adanılan şey / Nezir
 Adaş,Adları aynı olan
+Aday,Namzet
 Adet,Sayı / Tane
 Adıl,Zamir
 Adım,Yürüme hareketi
+Adi,Aşağılık / Alçak / Bayağı
 Adil,Adaletli
 Af,Bağışlama
 Afak,Ufuklar
+Afi,Gösteriş / Çalım / Caka
 Agah,Bilir / Bilgili
 Ağ,Kafes şeklinde örgü
 Ağa,toprak sahibi
@@ -43,7 +46,7 @@ Ağı,Zehir
 Ağıl,Küçükbaş hayvan barınağı
 Ağılı,Içinde ağı bulunan / Zehirli
 Ağış,Ağma işi / Yağış karşıtı
-Ağıt,Ölümdrn duyulan acıyı ifade eden ezgi
+Ağıt,Ölümden duyulan acıyı ifade eden ezgi
 Ah,Beddua
 Aha,Işte
 Ahali,Bir yerde toplanan kalabalık
@@ -53,6 +56,7 @@ Ahu,Ceylan
 Ak,Beyaz / Temiz
 Akı,Güç çizgileri / Seyelan
 Akıl,Bellek / Düşünce
+Akın,Düşman topraklarına yapılan vaskın
 Akide,Şeker
 Akil,Akıllı
 Akim,Kısır / Verimsiz / Başarısız
@@ -85,6 +89,7 @@ Amel,Iş / İshal
 Amil,Etken / Sebep / Faktör
 Amin,Dua kabul sözü
 Amir,Buyuran / Buyurucu
+Amit,Amonyaklı bileşik
 An,Zihin
 Ana,Anne
 Anaç,Anne gibi / Kurnaz
@@ -124,6 +129,7 @@ Aş,Yemek
 Aşarcı,Aşar toplayan kişi
 Aşı,Tedavi sıvısı
 Aşım,Aşma işi
+Aşure,Bir tür tatlı
 At,satranç taşı / bir hayvan
 Ata,Büyükler / Babalar
 Atama,Tayin / Nasıp
@@ -136,14 +142,18 @@ Atış,Atma işi
 Ati,Gelecek
 Atik,Çabuk davranan / Çevik
 Av,Hayvan vurma işi
+Avar,Bir Kafkas halkı
 Avaz,Yüksek ses
+Avcı,Avı kendine iş edinen kimse
 Avuç,Elin parmak ucu bilek arası bölümü / Hapaz / Koşam
 Avurt,Yanağın ağız boşluğuna denk gelen bölgesi
 Ay,Zaman birimi
 Aya,Avuç içi
 Ayak,Bacakların yere basan bölümü
+Ayar,Değer / Derece / Ölçü
 Ayaş,Ankara ilçesi
 Ayaz,Çok soğuk
+Ayet,Kur'an'ın surelerinin kısımları
 Aygıt,Alet / cihaz
 Ayı,Hayvan
 Ayıcı,Ayı oynatıcı
@@ -158,6 +168,7 @@ Azat,Serbest bırakma
 Azel,Oligopol / Piyasa türü
 Azı,Diş türü
 Azık,Nevale
+Azış,Azma işi
 Azimli,Azmi olan
 Babi,Babilik yanlısı
 Bacı,Kızkardeş
@@ -166,7 +177,9 @@ Bad,Rüzgar
 Bade,Şarap / İçki
 Badem,Yemiş
 Badik,Ördek / Palaz
+Bağa,Kaplumbağa
 Bağıl,Görece
+Baht,Şans / Kader / Talih
 Bal,Arıların bal özünden ürettiği madde
 Bala,Yavru / Çocuk
 Balina,Deniz canlısı
@@ -175,6 +188,7 @@ Bam,Sazın en kalın teli
 Ban,Osmanlı'da Macar ve Hırvat prens ünvanı
 Banal,Bayağı / Sıradan
 Bani,Kurucu / Yapan
+Bant,Yaraya yapıştırılan ilaçlı şerit
 Bap,Kapı
 Bar,Eğlence yeri
 Bara,İletken çubuk
@@ -184,15 +198,20 @@ Barem,Maaş çizelgesi
 Bari,Keşke
 Bas,En kalın erkek sesi
 Basık,Basılmış / Yassılaşmış
+Baş,Başlangıç / Topluluk yöneticisi
 Bat,Boru ağzı açmaya yarar takoz
 Batı,Güneşin battığı yön
+Batış,Batma işi
 Bav,Avcılığa alıştırma
+Bay,Erkek
+Bayi,Belli ürünleri satma izni olan kişi veya kuruluş
 Baz,Temel
 Be,Seslenme sözü / Harf
 Bed,Kötü / Çirkin
 Beğeni,Duygu / Zevk
 Bej,Bir renk
 Bek,Savunma oyuncusu / Sağlam
+Beka,Kalıcılık / Ölmezlik
 Bel,Işaret / Sırt altı
 Bela,Güç sıkıntılı durum
 Belli,Belirli
@@ -204,9 +223,11 @@ Beş,Sayı
 Bet,Beniz ile birlikte yüz rengi anlamında
 Beta,Yunan harfi
 Bez,Pamuktan düz dokuma
+Bide,Bir tuvalet aracı
 Bilye,Misket / Cıncık / Zıpzıp
 Bilyeli,Bilyesi olan
 Bin,Sayı
+Bina,Yapı / Çatı
 Binek,Binmeye yarayan
 Biniş,Binme işi
 Bir,Sayı
@@ -215,15 +236,18 @@ Bis,İkinci kez
 Bişi,Çörek
 Bit,Asalak böcek
 Bitim,Son / Bitme işi
+Biz,Birinci çoğul şahıs
 Boğa,Damızlık erkek sığır
 Boğak,Anjin
 Bok,Dışkı
+Boksör,Boks yapan kimse
 Bol,Dar karşıtı
 Bone,Başlık çeşidi
 Bora,Rüzgar
 Boru,Sıvı aktarmaya yarayan silindir
 Boş,Anlamsız / İlgisiz / İşsiz
 Bot,Küçük gemi / Ayakkabı türü
+Boza,Arpa darı ve mısır gibi tahıllardan yapılan tatlı ve mayhoş içecek
 Bozum,Bozulma işi / Mahçupluk
 Böğ,Örümcek türü
 Böke,Şampiyon / Kahraman
@@ -240,16 +264,21 @@ Büro,Bölüm / Şube
 Büve,Bir çeşit saldırgan sinek
 Büz,Künk
 Cağ,Parmaklık / Korkuluk
+Cahil,Öğrenim görmemiş
 Caiz,Dince yapılmasında sakınca olmayan
 Caka,Gösteriş / Çalım / Fiyaka / Kabadayılık
 Can,Kişi / Birey
 Cani,Acımasız / Gaddar
 Canik,Samsun ilçesi
+Canlı,Canı olan / diri yaşayan
 Car,Çağrı
 Cari,Geçerli
+Carlı,Cat giyinmiş olan
+Caz,Bir müzik türü
 Ce,Harf
 Cedi,Oğlak
 Celi,Açık / Aşikar
+Celp,Çağrı belgesi
 Cem,Toplama/ Çokluk
 Cemal,Yüz güzelliği
 Cemil,Güzel erkek
@@ -259,6 +288,7 @@ Cer,Çekme / Sürükleme
 Cet,Ata / Büyükbaba
 Ceza,Suç işleyen kişilere uygulanan yaptırım
 Cık,Yok olmaz anlamında bir söz
+Cıs,Çocukları ateşe karşı uyarma
 Cız,Ateş
 Cızık,Çizik
 Cici,Sevimli / Cana yakın
@@ -272,6 +302,7 @@ Cins,Tür / Çeşit
 Cip,Arazi aracı
 Cop,Kalın kısa değnek
 Cuk,Denk gelmek
+Cukka,Hayvan veya insan memesi
 Cuma,Haftanın günlerinden
 Cup,Suya düşme sesi
 Cüce,boyu kısa olan
@@ -298,7 +329,9 @@ Cüce,boyu kısa olan
 Çekiş,Motor gücü
 Çelik,Demir karbon alaşımı
 Çığa,Mersin balığı türü
+Çıkı,Çıkın
 Çıma,Halat ucu
+Çın,Doğru / Gerçek
 Çıra,Çabuk yanabilen ağaç bölümü
 Çırak,Dükkanda usta yanında çalışan
 Çıt,Hafif ve anlık ses
@@ -319,19 +352,22 @@ Cüce,boyu kısa olan
 Çita,Etçil bir hayvan
 Çiy,Küçük su damlası
 Çoğu,Büyük bölümü
+Çokal,Savaşta giyilen zırh
 Çöl,Issız geniş arazi / Sahra / Badiye
-Çul,Kan dokuma
+Çul,Kaba dokuma
 Çük,Erkeklik organı
 Çüş,Hayvan durdurma sözü
 Dağ,Yer şekli
 Daği,Dağ türküsü
 Dağlık,Birçok dağ olan yer
+Dal,Branş / Arka / Kol / Sırt
 Dalan,Lobi / Biçim / Şekil
 Dam,Kiremit ile örtülü yer / Cezaevi
 Dama,Kareli zeminde oynanan bir oyun
 Dank,Birden ayılmak
 Dans,Müzik temposuna uyularak yapılan estetik hareketler / Raks
 Dar,Az / Sınırlı
+Dayak,Insan ya da hayvanı dövmek
 Daz,Dazlak
 De,Harf
 Def,Savma
@@ -340,20 +376,26 @@ Deha,Dahi
 Dek,Sağlam / Düzen / Hile / Entrika
 Dekan,Fakülte yönetiminden sorumlu profesör
 Deli,Aklını kaybetmiş
+Delil,Kanıt / Rehber
 Dem,Zaman / Çağ
 Demir,Bir element
+Demo,Tanıtım gösterisi
 Dert,Üzüntü / Hastalık
 Dertop,Getirilmek / Büzülmek
 Derz,Duvar taşlarının harçla doldurulup mala çekilen aralığı
 Deşik,Deşilmiş olan
 Dev,Olağan üstü iri olan
 Deve,Hörgüçlü bir hayvan
+Dil,Tat alma organı
 Dimi,Pamuklu kumaş türü
 Din,İnanç
 Dinek,Dinlenmek için durulan yer
 Dip,Taban / alt bölüm
+Diri,Güçlü / Canlı / Zinde
 Diş,Çiğneme organı
+Dişi,Kadın / Doğurgan birey
 Dişlek,Dişleri dışarı çıkık kimse
+Diya,Slayt
 Diz,Kaval baldır ve uyluk kemiklerinin birleşim yeri
 Dize,Mısra
 Dizel,Motor çeşidi
@@ -365,6 +407,7 @@ Doru,Kızıl / Yağız at
 Dost,Zamazingo / Evlilik dışı ilişki kurulan kimse
 Döl,Yavru / Çocuk
 Dul,Eşi ölmüş kadın veya erkek
+Duma,Rus parlementosunun alt kanadı
 Dun,Alçak / Aşağılık
 Dur,Biraz zaman geçsin anlamında söz
 Duş,Suyu yukardan püskürtme ile yıkanma
@@ -376,8 +419,9 @@ Dün,Geçmiş / Önceki gün
 Düş,Rüya
 Ebat,Boyut
 Ecel,Ölüm zamanı
-Eder,Fiyat / paha / Değer
+Eder,Fiyat / Paha / Değer
 Edik,Kısa çizme
+Edilmek,Etme işine konu olmak
 Efe,Yiğit
 Efes,Antik kent
 Ege,Veli
@@ -400,21 +444,29 @@ Ela,Göz rengi
 Elan,Şimdi / Şu anda
 Elek,Yabancı madde ayıklama aracı
 Eleniş,Elenme işi
+Elik,Dağ keçisi
 Em,İlaç / Merhem
 Eman,Radyoaktif ölçü birimi
 Emek,Uzun yorucu çalışma
+Emet,Kütahya ilçesi
+Emici,Emme özelliği olan
 En,Genişlik / Damga
 Enkaz,Yıkıntı / Döküntü
+Enli,Geniş
 Epe,Kılıç oyunu
+Epey,Az denemeyevek kadar / Oldukça / Hayli
 Er,Erkek
 Erat,Erler
+Eren,Ermiş
 Erg,Büyük Sahra 'da kumullarla örtülü belge
 Eril,Müzekker / Erkek cins
 Eriten,Katı veya sıvı eriyebilen madde
 Eriyik,Solüsyon
 Erk,Kudret / İktidar
 Erme,Ernek işi
+Eruh,Siirt ilçesi
 Es,Notada duraklama
+Esami,Esame
 Esen,Sağlıklı
 Esenlik,Esen olma durumu
 Esik,Çukur
@@ -424,6 +476,8 @@ Eşek,Atgillerden hayvan / Odun kesme sehpası
 Et,Besin maddesi
 Eter,Yağ çözücü / Lokman ruhu
 Eti,Hitit
+Etil,Organik bileşiklerin birleşimine giren hidro karbon grubu
+Etüt,Ön çalışma / Araştırma
 Ev,Konut / Aile
 Evç,En yüce yer / Yer öte / Gün öte
 Ey,Usanç ifadesi
@@ -447,11 +501,14 @@ Fe,Harf
 Feci,Acı / Trajik
 Fecir,Tan Kızıllığı
 Fen,Bilim / Bilgi
+Fena,Üzücü / Kötü / İyi olmayan
 Fenik,Alman markının kuruşu
 Fer,Canlılık / Güç / Kuvvet
 Feri,İkinci derece / Ayrıntı niteliğinde
 Ferik,Tümgeneral
+Fert,Birey
 Fes,Şapka yerine kullanılan kırmızı başlık
+Fıkra,Nükteli hikaye
 Fır,Piç / Fırlama
 Fırın,Pişirme aracı/ ekmek pasta üretilen yer
 Fiğ,Baklagillerden bir bitki
@@ -469,8 +526,10 @@ Fit,Ödeşme / Razı olma
 Fitil,Tutuşturucu madde
 Flanel,Keten ve yünden dokunan kumaş
 Flüt,Üflemeli çalgı / Flavta
+Fol,Tavuğun istenen yere yumurtlaması için gereken araç
 Fon,Mali kaynak göstergesi
 Font,Dökme demir / Yazı karakteri
+Foto,Işık / Fotoğraf
 Foya,Elmasın parlak görünmesi için altına konan metal yaprak
 Fuaye,Dinlenmelik
 Fut,Ayak
@@ -479,6 +538,7 @@ Gaf,Yersiz beceriksiz davranış / Pot
 Gah,Bazen / Kah
 Gak,Karga sesi
 Gala,Ön gösterim
+Gam,Tasa / Kaygı / Üzüntü
 Gama,Yunan harflarinden biri
 Gar,Büyük tren istasyonu
 Gark,Suya batma / Boğulma
@@ -492,8 +552,12 @@ Gen,Geniş
 Genç,Ihtiyar karşıtı
 Gene,Yine
 Genel,Bütünü bakımından ele alınan
+Gerzek,Geri zekalı
 Gey,Eşcinsel erkek
+Gez,Okun kirişe geçen ucundaki kertik
+Gık,Ses Çıkarmamak anlamında bir söz
 Gır,Söz / Lakırdı / Yalan / Uydurma
+Girim,Girme işi
 Girme,Girmek işi
 Go,Japon oyunu
 Gol,Futbol vs. sayısı
@@ -511,11 +575,13 @@ Ha,Şaşma sözü
 Hab,Uyku
 Haç,Hıristiyanlık sembolü / İstavroz
 Had,Sınır / uç
+Hadi,Haydi
 Hafi,Gizli / Saklı
 Hain,Hıyanet eden
 Hak,Adalet / Pay
 Haki,Yeşile çalan toprak rengi
 Hal,Sebze meyve toptancısı
+Halı,Yere serilen yaygı
 Halt,Uygun olmayan / Beğenilmeyen
 Ham,Yenecek kadar olgun olmayan
 Hamel,Koç
@@ -523,6 +589,7 @@ Hami,Koruyucu
 Hamil,Elinde bulunduran
 Hamut,Araba koşum malzemesi
 Hane,Ev / Konut
+Hani,Nerede / Ne oldu
 Hara,Hare / At yetiştirilen yer
 Haraç,Zorbalıkla alınan para
 Hasır,Sazdan örülen örtü
@@ -540,10 +607,13 @@ Hey,Dikkat çekme sözü
 Heyet,Kurul
 Hık,Hıçkırık sesi
 Hırt,Sersem / Budala / Ahmak
+Hız,Boş / Değersiz
 Hiç,Boş / Değersiz
 Hin,Kurnaz / Cin fikirli
 His,Duygu / Duyu
+Hiş,Hişt
 Hol,Sofa
+Höt,Korkutma sözü
 Hu,Tanrı / Neredesin anlamında
 Hun,Kan
 Huni,Ağızlık / Sıvıyı dar kaba aktarmak için kullanılan araç
@@ -551,15 +621,21 @@ Huş,Kerestelik ağaç cinsi
 Huylu,Işkilli / Kuşkulu
 Hür,Özgür
 Ih,Deve çöktürme sesi
+Ikram,Sunulan şey / Konuk ağırlama
 Ilca,Zorlama / Zorunda bırakma
 Ilıca,Erzurum ilçesi
 Ilık,Sıcak ve soğuk arası
 Ilım,Itidal / Ölçülülük
+Illaki,Illa
+Imbat,Deniz yeli
+Ip,Iplik / Asarak öldürme cezası
 Ir,Şiir
 Ira,Karakter
 Irak,Uzak
+Iri,Olağanı aşan büyüklük
 Irk,Soy
 Irmak,Nehir
+Irz,Dokunulmaması ve saygı gösterilmesi gereken iffet
 Is,Açıklık / Doğruluk
 Isın,Kalori
 Işın,Işık kaynağından yayılan ışık
@@ -576,9 +652,12 @@ Izaç,Bunaltma / Tedirgin etme
 İçlik,Içe giyilen çamaşır
 İçme,İçmek işi
 İd,İlkel benlik
+İde,Düşünce
+İdil,Şırnak ilçesi
 İfa,Yapma / Yerine getirme
 İflas,Yenilgiye uğrama / Değerini yitirmr
 İğ,İplik
+İğne,Dikiş aracı
 İğsi,İğ şeklinde olan
 İkaz,Uyandırma / Uyarma
 İkbal,Odalık / İstek / Arzu
@@ -589,6 +668,7 @@ Izaç,Bunaltma / Tedirgin etme
 İlaç,Çare / Önlem
 İlam,Bildirme / Anlatma
 İlan,Duyuru
+İlave,Ekleme / Ulama
 İle,Bağlama sözcüğü
 İlek,Incir dölleyen sinek
 İleti,Bilgi / Mesaj
@@ -613,6 +693,7 @@ Izaç,Bunaltma / Tedirgin etme
 İsot,Kırmızı biber
 İş,Bir değer yaratan emek
 İşar,Yazı ile bildirme
+İşkence,Aşırı eziyet çektirme
 İşve,Eda / Naz / Kırıtma / Cilve
 İt,Köpek
 İta,Verme / Ödeme
@@ -624,6 +705,7 @@ Izaç,Bunaltma / Tedirgin etme
 İzbe,Sapa / Kuytu
 İzin,Ruhsat / Müsade
 Jak,Kulaklık girişi
+Janti,Zarif / Kibar
 Je,Harf
 Jel,Jöle
 Jet,Tepkili motorlar ile çalışan uçak
@@ -671,6 +753,7 @@ Kara,Siyah
 Kare,Eşit kenarlı dörtgen
 Karı,Kadın / Yaşlı / Refika / Zevce
 Kari,Okuyucu / Okur
+Karlı,Üzerine kar yağan
 Karne,Öğrenci belgesi
 Kaset,Manyetik şerit olan kayıt aracı
 Kasır,Köşk
@@ -686,6 +769,7 @@ Katil,Insan öldüren kişi / Cani
 Kav,İçki Mahzeni
 Kavi,Dayanıklı / Güçlü
 Kavun,Tatlı meyve çeşidi
+Kay,Yağmur / Kusma
 Kaya,Sert taş kütlesi / Kayaç
 Kayak,Kar su çim üzerinde kayma aracı
 Kayın,Ağaç türü
@@ -702,6 +786,7 @@ Kek,Tatlı çörek
 Keka,Ne güzel / Ne iyi
 Keke,Kekeme
 Kel,Saçsız
+Kelem,Lahana
 Keleş,Çirkin / Kötü
 Kem,Kötü / Fena
 Keme,Büyük Sıçan
@@ -730,6 +815,7 @@ Kığ,Koyun keçi pisliği / Kığı
 Kıl,Keçi tüyü
 Kımıl,Zararlı böcek
 Kın,Kesici araç kabı
+Kına,Kına ağacından elde edilen boya
 Kır,Renk
 Kırım,Toplu katliam
 Kırk,Sayı
@@ -738,18 +824,24 @@ Kısmet,Talih / Kader
 Kıta,Dörtlük / Parça / Tane
 Kıtır,Patlamış mısır
 Kıyas,Karşılaştırma / Mukayese
+Kıyı,Kara ile suyun birleştiği yer / Issız yer
+Kıyık,Yorgan iğnesi / Çuvaldız
 Ki,Bağlaç
 Kil,Yumuşak yağlı toprak
 Kile,Tahıl ölçme kabı
 Kilim,Yere serilen desenli dokuma
 Kilise,Ibadet yeri
 Killi,Içinde kil olan
+Kilo,Ağırlık ölçü birimi / Kilogram
 Kim,Kişi sorusu
 Kimi,Bazı / Birtakımı
 Kin,Garaz
+Kinin,Sıtma tedavisinde kullanılır
+Kininli,Içinde kinin bulunan
 Kip,Sağlam / Dayanıklı
 Kir,Leke / Şaibe
 Kirli,Pis
+Kist,Patalojik kitle
 Kiş,Fransız hamur yemeği
 Kişi,Şahıs / Zat / Eş
 Kit,Macun
@@ -761,6 +853,7 @@ Kola,İçecek türü
 Kolan,İnce kuşak
 Koli,Posta paketi
 Kolik,Barsak ve böbreklerde güçlü sancı
+Kolit,Kalın bağırsak yangısı
 Kom,Yayla evi
 Koma,Hastalıklarda bilinç kaybı durumu
 Komi,Garson yardımcısı
@@ -782,6 +875,7 @@ Köri,Baharat çeşidi
 Kös,Büyük davul
 Köz,Küçük kor parçası
 Krem,Açık saman rengi
+Krep,Yumurta süt ve un ile tavada yapılan bir yiyecek
 Kriko,Kaldırıcı
 Krom,Havada oksitlenmeyen element
 Kuğu,Perde ayaklı bir su kuşu
@@ -789,6 +883,8 @@ Kuka,Dantel ipi yumağı
 Kul,Köle / Karavaş
 Kula,Manisa ilçesi
 Kulaç,Gerli iki kol parmak uçları arasındaki uzaklık
+Kule,Cihannüma / kare veya silindir şeklinde yüksek yapı
+Kulle,Büyük bağ evi
 Kum,Ufak silisyum tanecikleri
 Kuma,Aynı erkekle evli kadınlar
 Kup,Giysi kesimi
@@ -807,6 +903,7 @@ Küf,Yeşil renkli mantar
 Kül,Yanık kalıntısı
 Külot,Don
 Künk,Kalın beton boru / Büz
+Küpe,Süs eşyası
 Kür,Tedavi yöntemi
 Kürdan,Diş temizleme aracı
 Küre,Yeryüzü / Dünya
@@ -815,6 +912,7 @@ Küs,Küsmüş / Dargın
 Küt,Kısa / Kalınca
 La,Nota
 Laf,Söz
+Lağım,Pis suların gitmesi için açılmış kanal / Geriz
 Lak,Bir çeşit zamk
 Lake,Lak ile cilalama
 Lal,Bir taş cinsi ve rengi
@@ -825,6 +923,7 @@ Lama,Buda rahibi / Güney Amerika'da bir hayvan türü
 Lan,Ulan / Argoda seslenme şekli
 Lantan,Element türü
 Lapçın,Meşin tabanlı mest / Edik
+Lari,Gürcistan parası
 Lata,Dar ve kalın tahta
 Lav,Yanardağ püskürtüsü
 Lavaş,Yufka inceliğinde açılmış pide
@@ -833,7 +932,10 @@ Laza,Bal teknesi
 Lazer,Değişik alanlarda kullanılan güçlü ışık kaynağı
 Le,Harf
 Leb,Çabuk anlamak anlamında
+Leçek,Başörtüsü
 Led,Diyotlu aydınlatma kısaltması
+Lef,Içine sokma / İliştirme
+Leğen,Içinde bir şey yıkamak için kullanılan yayvan kap
 Leh,Polonyalı
 Lenf,Ak kan / Lenfa
 Lep,Dudak / Kenar
@@ -845,13 +947,15 @@ Lig,Yarışma grubu
 Liga,Üç deniz mili uzunluğunda ölçü birimi
 Lim,Küçük limon
 Lima,Peru başkenti
+Link,Ilişim / Atın eşkin yürüyüşü
 Lir,Mitolojik çalgı
 Lise,Okul türü
 Loca,Masonluk bölümleri
 Logo,İmlek
-Loğ,Silindir biçimli ağır taş
+Loğ,Silindir biçimli ağır taş / Yuvgu / Yuvak
 Lok,Gemiler için havuz
 Lop,Yumuşak / Yuvarlak
+Lor,Peynir cinsi
 Lort,Süslü gösterişli kişi / İngiliz soyluluk ünvanı
 Loş,Yarı karanlık
 Lot,Tutam
@@ -860,25 +964,33 @@ Lök,Deve
 Lös,Sarı renkli verimli balçık
 Lup,Büyüteç
 Lük,Hint zamkı
+Lüks,Aşırı / Fazla / Gereksinim dışı
 Lüle,Bükülmüş / Dürülmüş
 Lüp,Kolayca yutma
 Macar,Macaristan hakından olan
 Maç,Karşılaşma
 Maça,Oyun kağıdı serisi
 Maço,Sert karakterli kaba erkek
+Maden,Çok değerli şeyleri kapsayan alan
 Mah,Ay
 Mai,Mavi
 Maki,Akdeniz bölgesi bitki türü
 Mal,Büyükbaş hayvan
 Mala,Sıva aracı
 Malaz,Sulak yer
+Male,Maldivler başkenti
+Malen,Malca
 Mali,Parasal / Maliyeye ilişkin
 Malt,Bira için hazırlanan arpa
 Malta,Bir ülke
 Mamak,Ankara ilçesi
 Mana,Anlam
+Manas,Zararlı böcek türü
 Manat,Azerbaycan parası
+Mani,Bir çeşit ruh hastalığı
+Mania,Mani / Engel
 Mantı,Hamur yemeği çeşidi
+Marj,Pay
 Marke,Markaja almak / Gölgelemek
 Market,Özellikle yiyecek maddeleri satılan dükkan
 Marul,Salatalık bitki
@@ -890,6 +1002,7 @@ Maşa,Küçük metal tutacak
 Maşalı,Maşası olan
 Mat,Parlak olmayan
 Maya,Yaradılış / Öznitelij
+Mayın,Bir tür patlayıcı
 Mayo,Deniz kıyafeti
 Mazı,Süs bitkisi
 Me,Harf / Kuzu sesi
@@ -898,11 +1011,13 @@ Meç,Saçın değişik renklerde boyanması
 Medar,Dayanak / Yardımcı / Dönence
 Meğer,Oysa / Oysaki
 Meke,Yaban ördeği cinsi
+Melik,Padişah / Hükümdar / Hakan
 Men,Yasaklama / Engelleme
 Mera,Otlak
 Mesir,Bahar Bayramı'nda dağıtılan baharlı şeker
 Mest,Sarhoş / Kısa konçlu ayakkabı
 Mesut,Mutlu / Sevinçli / Ongun
+Meşe,Ağaç türü
 Meşk,Yazı veya müzik dersi
 Met,Kabarma
 Metal,Elektrik ve ısı iletim aracı
@@ -913,6 +1028,7 @@ Meyil,Eğim
 Mıcır,Yol yspımında kullanılan yaş parçası / Mucur
 Mıh,Büyük çivi
 Mi,Nota
+Miço,Tayfa yamağı / Muço
 Mide,Karın bölgesi
 Mik,Ince uzun metal çubuk / Mesafe birimi
 Mika,Ateşe dayanıklı parlak mineral
@@ -926,17 +1042,20 @@ Misel,Koloid iyonların bütünlüğü
 Mit,Efsaneleşen kavram ya da kişi
 Mizaç,Huy / Yaradılış
 Moda,Geçici olarak toplumsal beğeniye uygun olan
+Moka,Hoş kokulu bir tür kahve
 Mol,Molekül ağırlığı
 Mola,Duraklama / Dinlenme
 Mor,Bir renk
 Morina,Balık cinsi
 Motel,Küçük otel
 Mö,İnek sesi
+Mucuk,Bir tür küçük sinek
 Muf,Uç uca eklenen boru parçası
 Mum,Aydınlanma aracı
 Mus,Köpük şeklinde tatlı
 Muş,Bir ilimiz
 Mut,Mutluluk
+Muti,Yumuşak başlı / İtaat eden
 Muz,Meyve cinsi
 Mül,Şarap
 Mülk,Şevk / Heves
@@ -948,6 +1067,7 @@ Nal,Atların  ayağına çakılan demir
 Nale,Inleme / İnilti
 Namaz,İbadet
 Name,Mektup
+Namlı,Ünlü
 Namus,Dürüstlük / Doğruluk
 Nar,Meyve
 Narin,İnce Yapılı
@@ -969,21 +1089,25 @@ Nev,Şekil / Cins / Tür
 Ney,Çalgı
 Nice,Birçok
 Nida,Çağırma / Bağırma / Ünlem
+Nifak,Ara bozuculuk
 Nil,Mısır'da nehir
 Nim,Yarı
 Niş,Duvar içinde bırakılan oyuk
 Nitel,Nitelik bakımından / Kalitatif
 Nitrat,Nitrik asit tuzu
+Niye,Niçin / Neden
 Nod,Düğüm
 Nom,Mısır şehir devleti
 Not,Kısa yazı
 Nota,Muhtıra
 Notam,Pilot bülteni
+Nova,Parlaklığı birden değişen yıldız
 Nur,Aydınlık / Işık / Ziya
 Nü,Çıplak
 Nüve,Bir şeyin özü
 Od,Ateş
 Oda,Serbest meslek üyelerini toplayan birlik
+Odak,Mihrak / Fokus
 Of,Trabzon ilçesi
 Oğuz,Türk boyu
 Oh,Sevinç sözü
@@ -991,7 +1115,9 @@ Oha,Kaba söz / Hayvan durdurma sözü
 Oje,Tırnak cilası
 Ojeli,Oje sürülmüş
 Ok,Yayla atılan tahta çubuk / Silah çeşidi
+Okçu,Okçuluk yapan kimse / Kemankeş
 Okey,Konkene benzer taşla oynanan oyun
+Okka,Eski ölçü birimi / Kıyye
 Ol,Gösterme sıfatı
 Ole,Yaşa
 Oley,Yaşa
@@ -999,11 +1125,14 @@ Oma,Kalça kemiği
 Omur,Omurgayı oluşturan kemiklerden her biri
 Omuz,Boynun iki yanındaki bölüm
 On,Sayı
+Ona,O zamirinin yönelme durumu almış hali
 Onur,Şeref / İtibar
 Ora,O yer
+Orak,Ekin biçme işi / biçme aracı
 Oral,Ağızcıl
 Oran,Büyüklük / Nicelik
 Orası,O yer / Ora
+Ortaç,Sıfat-fiil
 Oruç,İbadet türü
 Ot,İlaç / Zehir
 Otacı,Hekim ya da eczacı anlamında ünvan
@@ -1011,6 +1140,7 @@ Otağ,Büyük süslü çadır / Çerge
 Otel,Turistik işletme
 Oto,Otomobil
 Otuz,Sayı
+Ova,Düz alan
 Oy,Tercih / Seçim
 Oya,Ince dantel
 Oyma,Oyma işi
@@ -1026,11 +1156,14 @@ Oyma,Oyma işi
 Öksüz,Kimsesiz
 Ön,Yakın zaman
 Öneri,Teklif / İleri sürülen şey
+Öreke,Bir ucu çatal değnek
 Örs,Üzerinde maden dövülen araç
 Örü,Örme işi
 Öte,Bir şeyin arka bölümü / Daha fazla / Daha çok
+Ötme,Örnek işi
 Öyle,Ona benzer / o tarzda
 Öz,Benlik
+Öze,Özgü
 Özen,Itina / ihtimam
 Özet,Fezleke / Hülasa
 Özüt,Madde özü
@@ -1051,26 +1184,31 @@ Pasif,Çekingen / Durgun / Edilgen
 Pat,Yassı/ Basık
 Paylı,Hisseli
 Pazı,İspanakgillerden bitki
+Pazılı,Pazısı olan
 Pe,Harf
 Peç,Rus mimarisinde oda ısıtmak için kullanılan ocak
 Peh,Şaşırma / küçümseme
 Peni,Sterlinin yüzde biri
+Peri,Doğa üstü güçleri olan varlık
 Peru,Güney Amerika ülkesi
 Peş,Arka / Art
 Peşin,Çalışmadan verilen ücret
 Pet,Evcil hayvan
 Pır,Kanat sesi
 Pışık,Kuşku belirten el göz işareti
+Pıt,Su damlası sesi
 Pi,Pi sayısı
 Piç,Babası belli olmayan
 Pik,Dökme demir / Maça
 Pil,Batarya
 Pili,Kumaş kıvrımı
+Piliç,Genç güzel kız veya kadın
 Pim,Bir tür tahta veya metal çivi
 Pinti,Cimri / hasis
 Pir,Yaşlı / Kurucu / Guru
 Pire,Asalak bir böcek türü
 Pis,Çirkin / Sevimsiz
+Pişek,Pişeğen
 Pişim,Pişirme işi
 Planör,Uçağa benzer motorsuz hava taşıtı
 Poşu,Baş örtüsü türü
@@ -1089,7 +1227,7 @@ Racon,Yol / Yöntem / Usul
 Raf,Levha
 Rahat,Aldırmaz / Gamsız
 Raket,Tenis ve masatenisinde topa vurma aracı
-Rakı,Aslan sütü / İçki
+Rakı,Aslan sütü / İçki / İmamsuyu
 Rakit,Durgun su
 Ram,Boyun eğen
 Rami,ısırgangilerden bir bitki
@@ -1112,6 +1250,9 @@ Ret,Kabul etmeme
 Reva,Yakışır / Uygun
 Revani,Bir tatlı çeşidi
 Revü,Dans ve sahne gösterisi türü
+Rey,Oy / Düşünce
+Reye,Çizgili kumaş
+Reyon,Mağaza bölümleri
 Rıh,Mürekkep kurutmak için kullanılan ince kum
 Rika,Arap harfi elyazısı biçimi
 Riya,Iki yüzlülük
@@ -1136,20 +1277,24 @@ Sac,Yassı demir çelik ürünü
 Saç,Baş derisini kaplayan kıllar
 Saçı,Düğün armağanı
 Sada,Seda
+Sadak,Içine ok konulan kılıf
 Sadet,Asıl konu / Asıl madde
 Sağ,Yön / Yaşam / Gekenekçi
 Sah,Birşeyin doğru olduğunu belirtir işaret
 Sak,Gözü açık / Uyanık
 Saka,Kuş cinsi
 Sakim,Bozuk / Yanlış
+Salık,Tavsiye
 Salik,bir yola giren
 Sam,Sam yeli
 Samoa,Ülke adı
 San,Ün
 Sanı,Sanma durumu / Zehab
 Sara,Epilepsi
+Sari,Hint kadınlarının giysisi
 Sarp,Güç / Zor
 Satı,Satm işi / Adanmış
+Satış,Satma işi
 Sav,Savunulan düşünce
 Saz,Müzik aleti / Kamış / Kiliz / Kofa
 Sazlı,Daz çalınarak yapılan
@@ -1158,6 +1303,7 @@ Seçki,Seçme eserler / Antoloji / Güldeste
 Sek,Su katılmamış
 Sel,Su baskını
 Sela,Cenaze namazı habercisi
+Selam,Merhaba / Esenleme
 Sema,Gök
 Seme,Sersem
 Sene,Yıl
@@ -1166,6 +1312,7 @@ Serap,Göz yanılması / Pusarık / Ilgım / Yalgın
 Ses,Seda / duygu
 Set,Masa tenisi voleybol gibi oyunlarda maç bölümleri
 Sevi,Aşk
+Sevinç,Istenen bir şeyin olması ile duyulan coşku
 Seza,Uygun / Yaraşır
 Sık,Çok bulunan
 Sıkım,Sıkma işi
@@ -1173,6 +1320,7 @@ Sıla,Yakınlara kavuşma
 Sır,Gizli yöntem
 Sırım,Ince uzun esnek deri parçası
 Si,Müzik notası
+Sik,Erkeklik organı
 Sille,Elin içiyle vurulan tokat
 Silo,Ambar
 Sim,Gümüş / İşaret
@@ -1181,11 +1329,13 @@ Sin,Mezar / Kabir / Ölü gömülen yer
 Sine,Göğüs / Bağır
 Sinek,Uçucu böcek türü / İskambil deseni / İspati
 Sinik,Sinmiş / Yılık
+Siren,Tiz ses çıkaran uyarıcı alet / Deniz kızı
 Siret,Özgeçmiş
 Sis,Hava olayı
 Sit,Tarihi eser
 Site,Şehir
 Siz,Şahıs zamiri
+Sizce,Size göre
 Smaç,Voleybolda vuruş stili
 Soba,Isınma aracı
 Soda,Temizlik tuzu
@@ -1199,6 +1349,7 @@ Soma,Manisa ilçesi
 Somun,Yuvarlak tombul ekmek
 Son,Uç / Sınır olanca
 Soru,Sual / Karşılık gerektiren söz
+Sos,Yemeklerde kullanılan karışım
 Soy,Cins / Tür / Çeşit
 Soya,Protein değeri zengin fasulye türü
 Sör,İngiliz soyluluk ünvanı
@@ -1206,11 +1357,16 @@ Söz,Kelam / Laf / Kavikil
 Stil,Üslup / Biçem
 Su,Sıvı
 Sucu,Su satan kişi / Saka
+Suç,Yasalara aykırı davranış / Cürüm
+Sulh,Barış
 Sunmak,Radyo TV programı takdim etmek / Arz etmek
 Sur,Kale duvarı
 Sura,Ipekli kumaş türü
+Sure,Kur'an'ın bölümleri
+Suskun,Sessiz / Sakin
 Sut,Sodyum karbonatın ticari adı
 Sü,Asker/ çeri
+Sülün,Bir kuş türü
 Sürat,Hız
 Süre,Olayın başı ile sonu arasındaki zaman
 Süs,Süsleme / Süslenme
@@ -1233,6 +1389,7 @@ Süt,Memelilerin yavru besleme sıvısı
 Şarj,Yükleme
 Şark,Doğu
 Şarki,Doğuya özgü
+Şasi,Motorlu taşıtların iskeleti
 Şaşı,Gözleri çarpıtmak
 Şat,Düz tekne
 Şato,Kuleler ile çevrili konak
@@ -1250,13 +1407,17 @@ Süt,Memelilerin yavru besleme sıvısı
 Şey,Nesne / Madde
 Şık,Güzel / Zarif / Uygun
 Şia,Şiilik
+Şiar,Ülkü / Düstur / Deyiş
+Şile,İstanbul ilçesi / Mercanköşk
 Şilt,Armağan olarak verilen levha / Ergilik
 Şimal,Kuzey
 Şip,Biz
 Şiş,Şişkin / Et pişirme aracı
+Şita,Kış
 Şive,Söyleyiş özelliği / Naz / Eda
 Şok,Ani şaşkınlık
 Şom,Uğursuz
+Şor,Batı sibirya'da Türk topluluğu
 Şov,Gösteri
 Şu,İşaret
 Şua,Işın
@@ -1265,6 +1426,7 @@ Süt,Memelilerin yavru besleme sıvısı
 Ta,Dek / Değin
 Taalluk,İlgi / İlinti
 Tab,Bası / Huy / Karakter / Mizaç
+Taba,Tütün rengi
 Tabak,Yiyecek koymaya yarayan kap
 Tabi,Bağımlı
 Tabip,Hekim
@@ -1285,14 +1447,18 @@ Talaş,Rende / Matkap gibi araçlar ile işlenen bir şeylerden dökülen kırı
 Tali,Ikinci derece / İkincil
 Tam,Bütün / Tüm / Eksiksiz
 Tamah,Açgözlülük
+Tamahkar,Aç gözlü
 Tan,Alacakaranlık / Fecir
 Tane,Tohum / Adet
 Tanı,Teşhis
 Tank,Savaş aracı
+Tapulu,Tapusu olan
 Tar,Çalgı türü
+Taraç,Teras / Seki
 Taraça,Teras
 Taraf,Yön / Yer
 Tarak,Saç düzeltme aracı
+Tart,Bir tür meyveli pasta
 Tartı,Ağırlık / Tartma aleti
 Tartılı,Tartılmış / Ölçülü / Dengeli
 Tarz,Biçim / Yol / Stil / Janr
@@ -1301,10 +1467,12 @@ Taş,Sert ve katı madde
 Tat,Duyum
 Tav,Isının nemin yeterli olma durumu
 Tava,Mutfak eşyası
+Tavan,En üst seviye fiyat
 Tavcı,Birini yüzüne gülerek kandırma
 Tay,At yavrusu / Denk / Eşit / Eş
 Tayt,Bacakları sıkı saran kumaş türü
 Taze,Bozulmamış / Dinç
+Tazı,Çevik bir tür köpek
 Te,Harf
 Tef,Kasnaklı çalgı
 Teğet,bir eğrinin kenarından geçen doğru
@@ -1340,12 +1508,15 @@ Tike,Parça / Lokma
 Tim,Küçük güvenlik birliği
 Tin,Ruh
 Tiner,Inceltici
+Tip,Tür / Çeşit
 Tirit,Yaşlı ve zayıf kimse / Et suyu na bayat ekmekle yapılan yemek
 Titr,San
 Tiz,İnce ses
+Tok,Kalın ve gür ses / Açlığını gidermiş
 Tol,Küçük köy / kulübe
 Ton,Ağırlık birimi
 Tonik,Losyon türü
+Topu,Hepsi
 Tos,Akın veya boynuzla vuruş
 Toy,Deneyimsiz/ Çaylak / Acemi
 Toz,küçük parçacıklar
@@ -1363,9 +1534,11 @@ Tuna,Avrupa'nın ikinci büyük ırmağı
 Tur,Dolaşma / Seyahat
 Turaç,Bir kuş cinsi
 Turan,Türklerin Ortasya'daki eski yurtları
+Turanlı,Orta Anadolu ' da yaşamış halk / Turani
 Tuş,Vurulan düğme
 Tuz,Sodyum klorür
 Tüf,Yanardağların püskürttüğü çökelti taşı
+Tül,Çok ince sentetik dokuma
 Tüm,Tümsek / Tümü / Tamamı
 Tümce,Cümle
 Tün,Gece
@@ -1387,6 +1560,7 @@ Ulvi,Yüce / Eşsiz
 Un,Öğütülmüş tahıl
 Ur,Tümör
 Uran,Sanayi
+Uray,Belediye
 Urba,Giysi
 Urum,Azak kıyısında yaşayan Türk halkı
 Us,Akıl
@@ -1403,6 +1577,7 @@ Uzi,Makineli tüfek türü
 Üç,Sayı
 Üf,Usanç / Bezginlik
 Ülke,Devlet / Diyar / Memleket
+Ümmet,Hz. Muhammed çevresinde toplanan müslümanların tümü
 Ün,Şöhret / Şan
 Üre,Azotlu madde
 Üretim,Istihsal / Tüketim karşıtı
@@ -1416,6 +1591,7 @@ Vale,Iskambil kağıdında bacak
 Van,Bir ilimiz
 Var,Mevcut
 Varak,Yaprak
+Vasi,Akulca zayıf birinin malını yöneten kimse
 Vaşak,Yırtıcı bir hayvan
 Vay,Şaşma anlatan söz
 Ve,Harf
@@ -1433,14 +1609,18 @@ Yağ,Güzel kokulu uçucu madde
 Yağlı,Yağı çok olan
 Yağlık,Yağ için ayrılmış
 Yak,Tibet öküzü
+Yakım,Yakma işi
 Yakın,Uzak olmayan
 Yal,Köpek yiyeceği
 Yalaka,Dalkavuk / Sırnaşık
 Yalı,Su kıyısında büyük görkemli ev
 Yalman,Eğik / Sarp / Dik
 Yaman,olağandışı
+Yan,Yön / Taraf / Cihet
+Yani,Demek oluyor ki
 Yar,Uçurum
 Yara,Dert / Acı / Üzüntü
+Yarı,Devre arası
 Yas,Matem / Ölüm acısı
 Yasak,Yok / Memnu / Haram
 Yaş,Hayatın evrelerinin her biri
@@ -1454,6 +1634,7 @@ Yatış,Yatma işi
 Yave,Saçma
 Yaz,Mevsim
 Yazın,Edebiyat / Yaz mevsiminde
+Yazış,Yazma işi
 Ye,Harf
 Yedi,Sayı
 Yeğ,Üstün görülen / Müreccah
@@ -1472,6 +1653,7 @@ Yıl,Oniki aylık dönem
 Yır,Şiir
 Yo,Hayır anlamında kullanılır
 Yogi,Yoga felsefesini uygulayan kişi
+Yoğ,Eski Türklerde ölü töreni
 Yok,Hayır anlamında kullanılır
 Yol,Kara hava denizde gidilen mesafe / Tarik
 Yom,Iyi talih / İyi haber
@@ -1487,7 +1669,9 @@ Yün,Koyun tüyü
 Zaç,Kükürt demir birleşimi
 Zağ,Kılağı
 Zahter,Bir çeşit kekik
+Zalim,Acımasız / Zulmeden
 Zam,Fiyat arttırma / Bindirim
+Zaman,Dönem / Devir / Vakit
 Zamane,Içinde bulunulan zaman
 Zamir,Iç yüz / Adıl
 Zamk,Yapıştırıcı
