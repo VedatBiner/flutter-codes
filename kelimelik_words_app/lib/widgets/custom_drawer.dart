@@ -20,9 +20,9 @@ class CustomDrawer extends StatelessWidget {
   final VoidCallback onToggleViewMode;
 
   /// 📌 JSON’dan veri yüklemek için üst bileşenden gelen fonksiyon
-  ///    Yeni imza:  (context, onStatus) -> Future<void>
+  ///    İmza → ({ctx, onStatus})
   final Future<void> Function({
-    required BuildContext context,
+    required BuildContext ctx,
     required void Function(bool, double, String?, Duration) onStatus,
   })
   onLoadJsonData;
@@ -36,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
     required this.onLoadJsonData,
   });
 
-  // 📌 Veritabanını tamamen silmek için onay diyaloğu
+  // 📌 Veritabanını tamamen silmek için onay kutusu
   void _showResetDatabaseDialog(BuildContext context) async {
     final confirm = await showConfirmationDialog(
       context: context,
@@ -58,11 +58,13 @@ class CustomDrawer extends StatelessWidget {
       if (!context.mounted) return;
       Provider.of<WordCountProvider>(context, listen: false).updateCount();
       Navigator.of(context).maybePop();
-
       onDatabaseUpdated();
 
+      // 🔑  Kök bağlam (MediaQuery garantili)
+      final rootContext = Navigator.of(context, rootNavigator: true).context;
+
       NotificationService.showCustomNotification(
-        context: context,
+        context: rootContext,
         title: 'Veritabanı Sıfırlandı',
         message: const Text('Tüm kayıtlar silindi.'),
         icon: Icons.delete_forever,
@@ -79,11 +81,10 @@ class CustomDrawer extends StatelessWidget {
       child: Container(
         color: drawerColor,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        alignment: Alignment.centerLeft,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            // 📌 Drawer başlığı
+            // 📌 Başlık
             Container(
               color: drawerColor,
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -99,7 +100,7 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(thickness: 2, color: menuColor, height: 0),
 
-            /// 📌 Görünüm değiştirme
+            /// 📌 Görünüm değiştir
             ListTile(
               leading: Icon(Icons.swap_horiz, color: menuColor),
               title: Text(
@@ -112,7 +113,7 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            /// 📌 Yedekleme (JSON/CSV)
+            /// 📌 Yedek oluştur (JSON/CSV)
             ListTile(
               leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
@@ -125,9 +126,13 @@ class CustomDrawer extends StatelessWidget {
                 final csvPath = await createCsvBackup(context);
                 if (!context.mounted) return;
 
+                // 🔑 Kök bağlam
+                final rootContext =
+                    Navigator.of(context, rootNavigator: true).context;
+
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   NotificationService.showCustomNotification(
-                    context: context,
+                    context: rootContext,
                     title: 'JSON/CSV Yedeği Oluşturuldu',
                     message: RichText(
                       text: TextSpan(
@@ -152,12 +157,11 @@ class CustomDrawer extends StatelessWidget {
                   );
                 });
 
-                if (!context.mounted) return;
                 Navigator.of(context).maybePop();
               },
             ),
 
-            /// 📌 Veritabanını Yenile (JSON 'dan yükle)
+            /// 📌 Veritabanını Yenile
             ListTile(
               leading: const Icon(Icons.refresh, color: Colors.amber),
               title: const Text(
@@ -168,25 +172,12 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () async {
-                /// Drawer ’ı kapat
                 Navigator.of(context).maybePop();
-
-                /// Küçük bir gecikme; Drawer kapanma animasyonu bitsin
                 await Future.delayed(const Duration(milliseconds: 300));
                 if (!context.mounted) return;
-
-                /// Yeni imzalı fonksiyona boş bir onStatus geri-çağrısı ilet
                 await onLoadJsonData(
-                  context: context,
-                  onStatus: (
-                    bool loading,
-                    double prog,
-                    String? currentWord,
-                    Duration elapsedTime,
-                  ) {
-                    ///  Bu drawer içinde göstereceğimiz ek bir durum yok,
-                    ///  geri-çağrı HomePage tarafından ele alınıyor.
-                  },
+                  ctx: context,
+                  onStatus: (_, __, ___, ____) {},
                 );
               },
             ),
@@ -206,15 +197,15 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(color: menuColor, thickness: 2),
 
-            /// 📌 Sürüm ve yazar bilgisi
+            // 📌 Versiyon / yazar
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Column(
                 children: [
                   Text(
                     appVersion,
-                    textAlign: TextAlign.center,
                     style: versionText,
+                    textAlign: TextAlign.center,
                   ),
                   Text("Vedat Biner", style: nameText),
                   Text("vbiner@gmail.com", style: nameText),

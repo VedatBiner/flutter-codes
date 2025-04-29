@@ -159,9 +159,9 @@ class _HomePageState extends State<HomePage> {
                 setState(() => isFihristMode = !isFihristMode);
               },
 
-              //  ⬇️  DÖRT parametreli onStatus geri-çağrısı!
+              //  ⬇️  Yeni imzalı geri-çağrı
               onLoadJsonData: ({
-                required BuildContext context,
+                required BuildContext ctx, // Drawer’dan gelir, kullanmıyoruz
                 required void Function(
                   bool loading,
                   double prog,
@@ -171,15 +171,14 @@ class _HomePageState extends State<HomePage> {
                 onStatus,
               }) async {
                 await loadDataFromDatabase(
-                  context: context,
+                  context: context, //  ⚠️  HomePage’in context’i
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
 
-                    //  AppBar’daki sayaç da güncellensin
-                    if (context.mounted) {
+                    if (mounted) {
                       Provider.of<WordCountProvider>(
                         context,
                         listen: false,
@@ -187,22 +186,20 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
 
-                  //  ⬇️  BURASI Artık elapsedTime’ı da alıyor
+                  //  ⬇️  Drawer’a da aynı geri-bildirimi ilet
                   onLoadingStatusChange: (
                     bool loading,
                     double prog,
                     String? currentWord,
-                    Duration elapsedTime,
+                    Duration elapsed,
                   ) {
                     setState(() {
                       isLoadingJson = loading;
                       progress = prog;
                       loadingWord = currentWord;
-                      this.elapsedTime = elapsedTime; // <— ekledik
+                      elapsedTime = elapsed;
                     });
-
-                    //  Drawer’daki arayan fonksiyona geri bildirim verelim
-                    onStatus(loading, prog, currentWord, elapsedTime);
+                    onStatus(loading, prog, currentWord, elapsed); // ↩︎ ilet
                   },
                 );
               },
