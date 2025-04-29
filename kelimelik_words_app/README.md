@@ -44,7 +44,8 @@ kutusunu kullanması sağlandı.
 - Arama kutusu içinde silme eklendi. Fontawesome
 - provider eklendi (kelime sayacı) veri silinip uygulama baştan çalışınca görülebiliyor.
 - kelime sayacı animasyonlu olsun
-- Kelime sayacı assets 'den de okunabilsin
+- Kelime sayacı assets 'den de okunabilsin.
+- Süre sayacı eklendi
 
 - Simdilik yapılanlar yeterli mi?
 

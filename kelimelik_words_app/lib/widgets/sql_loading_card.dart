@@ -1,5 +1,10 @@
 // 📃 <----- sql_loading_card.dart ----->
-// Verilerin tekrar yüklenmesi cihazda buradan izleniyor
+//
+// Verilerin tekrar yüklenmesi cihaz ekranında bu kart ile gösteriliyor.
+//  • progress      → 0‒1 arası yüzde
+//  • loadingWord   → O an eklenen kelime (null → gizli)
+//  • elapsedTime   → Kronometre; her yeniden-build’de güncellenir.
+//
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -10,12 +15,21 @@ import '../constants/text_constants.dart';
 class SQLLoadingCard extends StatelessWidget {
   final double progress;
   final String? loadingWord;
+  final Duration elapsedTime;
 
   const SQLLoadingCard({
     super.key,
     required this.progress,
     required this.loadingWord,
+    required this.elapsedTime,
   });
+
+  /// 🔠 mm:ss formatına çevir
+  String _formatDuration(Duration d) {
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$m:$s';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +42,7 @@ class SQLLoadingCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// 📌 Mavi arka planlı başlık
+            // 📌 Mavi arka planlı başlık
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -49,7 +63,7 @@ class SQLLoadingCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  /// 📌 Veri yükleniyor animasyonu
+                  // 📌 Lottie animasyonu
                   SizedBox(
                     width: 100,
                     height: 100,
@@ -61,6 +75,15 @@ class SQLLoadingCard extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
+                  // 📌 Kronometre
+                  Text(
+                    "Geçen Süre: ${_formatDuration(elapsedTime)}",
+                    style: veriYukleniyor,
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // 📌 İlerleme yüzdesi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -80,6 +103,7 @@ class SQLLoadingCard extends StatelessWidget {
                   LinearProgressIndicator(value: progress),
                   const SizedBox(height: 12),
 
+                  // 📌 Eklenen kelime
                   if (loadingWord != null)
                     Text(loadingWord!, style: loadingWordText),
                 ],
