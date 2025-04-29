@@ -70,14 +70,14 @@ class _HomePageState extends State<HomePage> {
           words = loadedWords;
         });
 
-        // 🔥 Provider ile kelime sayısını güncelle
+        /// 🔥 Provider ile kelime sayısını güncelle
         Provider.of<WordCountProvider>(
           context,
           listen: false,
         ).setCount(loadedWords.length);
       },
 
-      // 🔄 Yükleme ekranı değiştikçe tetiklenir
+      /// 🔄 Yükleme ekranı değiştikçe tetiklenir
       onLoadingStatusChange: (
         bool loading,
         double prog,
@@ -150,16 +150,26 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            // 📁 Drawer
+            /// 📁 Drawer
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
               appVersion: appVersion,
               isFihristMode: isFihristMode,
-              onToggleViewMode:
-                  () => setState(() => isFihristMode = !isFihristMode),
+              onToggleViewMode: () {
+                setState(() => isFihristMode = !isFihristMode);
+              },
 
-              // 🔁 JSON’dan veritabanını yenile
-              onLoadJsonData: ({required BuildContext context}) async {
+              //  ⬇️  DÖRT parametreli onStatus geri-çağrısı!
+              onLoadJsonData: ({
+                required BuildContext context,
+                required void Function(
+                  bool loading,
+                  double prog,
+                  String? currentWord,
+                  Duration elapsedTime,
+                )
+                onStatus,
+              }) async {
                 await loadDataFromDatabase(
                   context: context,
                   onLoaded: (loadedWords) {
@@ -167,6 +177,8 @@ class _HomePageState extends State<HomePage> {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
+
+                    //  AppBar’daki sayaç da güncellensin
                     if (context.mounted) {
                       Provider.of<WordCountProvider>(
                         context,
@@ -174,19 +186,29 @@ class _HomePageState extends State<HomePage> {
                       ).setCount(loadedWords.length);
                     }
                   },
-                  onLoadingStatusChange: (loading, prog, currentWord, elapsed) {
+
+                  //  ⬇️  BURASI Artık elapsedTime’ı da alıyor
+                  onLoadingStatusChange: (
+                    bool loading,
+                    double prog,
+                    String? currentWord,
+                    Duration elapsedTime,
+                  ) {
                     setState(() {
                       isLoadingJson = loading;
                       progress = prog;
                       loadingWord = currentWord;
-                      elapsedTime = elapsed;
+                      this.elapsedTime = elapsedTime; // <— ekledik
                     });
+
+                    //  Drawer’daki arayan fonksiyona geri bildirim verelim
+                    onStatus(loading, prog, currentWord, elapsedTime);
                   },
                 );
               },
             ),
 
-            // 📄  Liste gövdesi
+            /// 📄  Liste gövdesi
             body:
                 isFihristMode
                     ? AlphabetWordList(words: words, onUpdated: _loadWords)

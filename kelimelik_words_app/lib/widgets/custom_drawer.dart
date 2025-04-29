@@ -18,7 +18,14 @@ class CustomDrawer extends StatelessWidget {
   final String appVersion;
   final bool isFihristMode;
   final VoidCallback onToggleViewMode;
-  final Future<void> Function({required BuildContext context}) onLoadJsonData;
+
+  /// 📌 JSON’dan veri yüklemek için üst bileşenden gelen fonksiyon
+  ///    Yeni imza:  (context, onStatus) -> Future<void>
+  final Future<void> Function({
+    required BuildContext context,
+    required void Function(bool, double, String?, Duration) onStatus,
+  })
+  onLoadJsonData;
 
   const CustomDrawer({
     super.key,
@@ -29,6 +36,7 @@ class CustomDrawer extends StatelessWidget {
     required this.onLoadJsonData,
   });
 
+  // 📌 Veritabanını tamamen silmek için onay diyaloğu
   void _showResetDatabaseDialog(BuildContext context) async {
     final confirm = await showConfirmationDialog(
       context: context,
@@ -75,6 +83,7 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
+            // 📌 Drawer başlığı
             Container(
               color: drawerColor,
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
@@ -159,10 +168,26 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               onTap: () async {
+                /// Drawer ’ı kapat
                 Navigator.of(context).maybePop();
+
+                /// Küçük bir gecikme; Drawer kapanma animasyonu bitsin
                 await Future.delayed(const Duration(milliseconds: 300));
                 if (!context.mounted) return;
-                await onLoadJsonData(context: context);
+
+                /// Yeni imzalı fonksiyona boş bir onStatus geri-çağrısı ilet
+                await onLoadJsonData(
+                  context: context,
+                  onStatus: (
+                    bool loading,
+                    double prog,
+                    String? currentWord,
+                    Duration elapsedTime,
+                  ) {
+                    ///  Bu drawer içinde göstereceğimiz ek bir durum yok,
+                    ///  geri-çağrı HomePage tarafından ele alınıyor.
+                  },
+                );
               },
             ),
 
@@ -181,6 +206,7 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(color: menuColor, thickness: 2),
 
+            /// 📌 Sürüm ve yazar bilgisi
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Column(
