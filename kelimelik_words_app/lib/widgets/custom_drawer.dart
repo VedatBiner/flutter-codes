@@ -2,9 +2,9 @@
 // Drawer menüye buradan erişiliyor.
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
 import '../providers/word_count_provider.dart';
@@ -19,7 +19,7 @@ class CustomDrawer extends StatelessWidget {
   final bool isFihristMode;
   final VoidCallback onToggleViewMode;
 
-  /// 📌 JSON’dan veri yüklemek için üst bileşenden gelen fonksiyon
+  /// 📌 JSON ’dan veri yüklemek için üst bileşenden gelen fonksiyon
   ///    İmza → ({ctx, onStatus})
   final Future<void> Function({
     required BuildContext ctx,
@@ -36,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
     required this.onLoadJsonData,
   });
 
-  // 📌 Veritabanını tamamen silmek için onay kutusu
+  /// 📌 Veritabanını tamamen silmek için onay kutusu
   void _showResetDatabaseDialog(BuildContext context) async {
     final confirm = await showConfirmationDialog(
       context: context,
@@ -60,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
       Navigator.of(context).maybePop();
       onDatabaseUpdated();
 
-      // 🔑  Kök bağlam (MediaQuery garantili)
+      /// 🔑  Kök bağlam (MediaQuery garantili)
       final rootContext = Navigator.of(context, rootNavigator: true).context;
 
       NotificationService.showCustomNotification(
@@ -126,7 +126,7 @@ class CustomDrawer extends StatelessWidget {
                 final csvPath = await createCsvBackup(context);
                 if (!context.mounted) return;
 
-                // 🔑 Kök bağlam
+                /// 🔑 Kök bağlam
                 final rootContext =
                     Navigator.of(context, rootNavigator: true).context;
 
@@ -197,7 +197,7 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(color: menuColor, thickness: 2),
 
-            // 📌 Versiyon / yazar
+            /// 📌 Versiyon / yazar
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Column(

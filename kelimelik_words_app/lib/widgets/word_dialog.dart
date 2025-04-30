@@ -1,9 +1,9 @@
 // 📃 <----- word_dialog.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/Button_constants.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
 
+import '../constants/Button_constants.dart';
+import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 

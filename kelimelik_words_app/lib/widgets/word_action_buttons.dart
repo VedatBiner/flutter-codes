@@ -5,9 +5,9 @@
 // dosyaları tarafından kullanılıyor.
 //
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/text_constants.dart';
 
 import '../constants/Button_constants.dart';
+import '../constants/text_constants.dart';
 
 class WordActionButtons extends StatelessWidget {
   final VoidCallback onEdit;

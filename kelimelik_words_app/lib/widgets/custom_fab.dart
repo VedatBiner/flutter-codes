@@ -1,8 +1,8 @@
 // 📃 <----- custom_fab.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
 
+import '../constants/color_constants.dart';
 import 'add_word_dialog_handler.dart';
 
 class CustomFAB extends StatelessWidget {

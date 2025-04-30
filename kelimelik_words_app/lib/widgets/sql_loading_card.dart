@@ -3,7 +3,7 @@
 // Verilerin tekrar yüklenmesi cihaz ekranında bu kart ile gösteriliyor.
 //  • progress      → 0‒1 arası yüzde
 //  • loadingWord   → O an eklenen kelime (null → gizli)
-//  • elapsedTime   → Kronometre; her yeniden-build’de güncellenir.
+//  • elapsedTime   → Kronometre; her yeniden-build ’de güncellenir.
 //
 
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class SQLLoadingCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // 📌 Mavi arka planlı başlık
+            /// 📌 Mavi arka planlı başlık
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -75,7 +75,7 @@ class SQLLoadingCard extends StatelessWidget {
 
                   const SizedBox(height: 16),
 
-                  // 📌 Kronometre
+                  /// 📌 Kronometre
                   Text(
                     "Geçen Süre: ${_formatDuration(elapsedTime)}",
                     style: veriYukleniyor,
@@ -83,7 +83,7 @@ class SQLLoadingCard extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  // 📌 İlerleme yüzdesi
+                  /// 📌 İlerleme yüzdesi
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

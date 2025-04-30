@@ -3,8 +3,8 @@
 // Kelime yoksa listeye ekliyor.
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/text_constants.dart';
 
+import '../constants/text_constants.dart';
 import '../db/word_database.dart';
 import '../models/word_model.dart';
 import 'notification_service.dart';
@@ -26,7 +26,7 @@ Future<void> showAddWordDialog(
     final existing = await WordDatabase.instance.getWord(result.word);
 
     if (existing != null) {
-      // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
+      /// ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
       if (!context.mounted) return;
 
       /// 📌 Notification göster - Kelime var
@@ -60,7 +60,7 @@ Future<void> showAddWordDialog(
     await WordDatabase.instance.insertWord(result);
     onWordAdded();
 
-    // ✅ Başarılı ekleme bildirimi göster
+    /// ✅ Başarılı ekleme bildirimi göster
     if (!context.mounted) return;
 
     /// 📌 Notification göster - Kelime eklendi

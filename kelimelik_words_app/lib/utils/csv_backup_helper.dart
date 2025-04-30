@@ -5,7 +5,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/db/word_database.dart';
+
+import '../db/word_database.dart';
 
 Future<String> createCsvBackup(BuildContext context) async {
   final path = await WordDatabase.instance.exportWordsToCsv();

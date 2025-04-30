@@ -3,7 +3,7 @@
 // Verilerin tekrar yüklenmesi, hem konsoldan hem de ekrandaki
 // SQLLoadingCard bileşeninden takip ediliyor.
 //
-//  • Veri tabanı boş ise: cihaza/asset’e gömülü JSON dosyası okunur,
+//  • Veri tabanı boş ise: cihaza/asset ’e gömülü JSON dosyası okunur,
 //    kelimeler tek tek eklenir, ilerleme ve süre kullanıcıya gösterilir.
 //  • Veri tabanı dolu ise: yalnızca kelimeler okunup geri-döndürülür.
 //  • Her adımda onLoadingStatusChange → (loading, progress, word, elapsed)
@@ -22,7 +22,7 @@ import '../db/word_database.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 
-/// 📌 Verileri (gerekirse) JSON’dan okuyup veritabanına yazar.
+/// 📌 Verileri (gerekirse) JSON ’dan okuyup veritabanına yazar.
 /// [onLoaded]     – Yükleme bittikten sonra tüm kelimeleri döner.
 /// [onLoadingStatusChange]
 ///   loading      – Kart görünür/gizlenir (true/false)
@@ -40,12 +40,12 @@ Future<void> loadDataFromDatabase({
   final count = await WordDatabase.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
-  // 🔸 Veritabanı boşsa JSON’dan doldur
+  /// 🔸 Veritabanı boşsa JSON ’dan doldur
   if (count == 0) {
     log("📭 Veritabanı boş. Cihaz/asset JSON yedeğinden veri yükleniyor...");
 
     try {
-      // JSON dosyasını bul (önce cihaz, yoksa asset)
+      /// JSON dosyasını bul (önce cihaz, yoksa asset)
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/kelimelik_backup.json';
       final file = File(filePath);
@@ -55,13 +55,13 @@ Future<void> loadDataFromDatabase({
         log("📁 Cihazdaki JSON yedeği bulundu: $filePath");
         jsonStr = await file.readAsString();
       } else {
-        log("📦 Cihazda JSON bulunamadı, asset’ten yükleniyor...");
+        log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...");
         jsonStr = await rootBundle.loadString(
           'assets/database/kelimelik_backup.json',
         );
       }
 
-      // JSON → Liste<Word>
+      /// JSON → Liste<Word>
       final List<dynamic> jsonList = json.decode(jsonStr);
       final loadedWords =
           jsonList.map<Word>((e) {
@@ -69,17 +69,17 @@ Future<void> loadDataFromDatabase({
             return Word(word: map['word'], meaning: map['meaning']);
           }).toList();
 
-      // ⏱ süre ölçümü için kronometre
+      /// ⏱ süre ölçümü için kronometre
       final stopwatch = Stopwatch()..start();
 
-      // Yükleme başlıyor
+      /// Yükleme başlıyor
       onLoadingStatusChange(true, 0.0, null, Duration.zero);
 
       for (int i = 0; i < loadedWords.length; i++) {
         final word = loadedWords[i];
         await WordDatabase.instance.insertWord(word);
 
-        // Provider ile sayaç güncelle
+        /// Provider ile sayaç güncelle
         if (context.mounted) {
           Provider.of<WordCountProvider>(
             context,
@@ -87,7 +87,7 @@ Future<void> loadDataFromDatabase({
           ).setCount(i + 1);
         }
 
-        // Kullanıcıya ilerlemeyi bildir
+        /// Kullanıcıya ilerlemeyi bildir
         final progress = (i + 1) / loadedWords.length;
         onLoadingStatusChange(true, progress, word.word, stopwatch.elapsed);
 
@@ -97,10 +97,10 @@ Future<void> loadDataFromDatabase({
 
       stopwatch.stop();
 
-      // Yükleme bitti, kartı kapat
+      /// Yükleme bitti, kartı kapat
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
-      // Son kelime listesi
+      // /Son kelime listesi
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
 
@@ -112,7 +112,7 @@ Future<void> loadDataFromDatabase({
       log("❌ JSON yükleme hatası: $e");
     }
   } else {
-    // 🔹 Veritabanı dolu ise sadece listeyi döndür
+    /// 🔹 Veritabanı dolu ise sadece listeyi döndür
     log("📦 Veritabanında veri var, yükleme yapılmadı.");
     final existingWords = await WordDatabase.instance.getWords();
     onLoaded(existingWords);

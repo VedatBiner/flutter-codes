@@ -3,10 +3,10 @@
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
-import 'package:kelimelik_words_app/models/word_model.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/turkish_alphabet.dart';
+import '../models/word_model.dart';
 import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';
 

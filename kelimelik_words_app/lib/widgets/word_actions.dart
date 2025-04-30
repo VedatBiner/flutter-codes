@@ -2,16 +2,17 @@
 // kelime güncelleme ve silme metodu
 //
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/color_constants.dart';
-import 'package:kelimelik_words_app/constants/text_constants.dart';
-import 'package:kelimelik_words_app/db/word_database.dart';
-import 'package:kelimelik_words_app/models/word_model.dart';
-import 'package:kelimelik_words_app/widgets/confirmation_dialog.dart';
-import 'package:kelimelik_words_app/widgets/notification_service.dart';
-import 'package:kelimelik_words_app/widgets/word_dialog.dart';
 
-// 📌 kelime güncelleme metodu
-//
+import '../constants/color_constants.dart';
+import '../constants/text_constants.dart';
+import '../db/word_database.dart';
+import '../models/word_model.dart';
+import '../widgets/confirmation_dialog.dart';
+import '../widgets/notification_service.dart';
+import '../widgets/word_dialog.dart';
+
+/// 📌 kelime güncelleme metodu
+///
 Future<void> editWord({
   required BuildContext context,
   required Word word,
@@ -50,8 +51,8 @@ Future<void> editWord({
   }
 }
 
-// 📌 kelime silme metodu
-//
+/// 📌 kelime silme metodu
+///
 Future<void> confirmDelete({
   required BuildContext context,
   required Word word,

@@ -2,10 +2,10 @@
 // Klasik görünümlü listeleme için kullanılır.
 
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/models/word_model.dart';
-import 'package:kelimelik_words_app/widgets/word_card.dart';
 
+import '../models/word_model.dart';
 import '../widgets/word_actions.dart';
+import '../widgets/word_card.dart';
 
 class WordList extends StatefulWidget {
   final List<Word> words;
