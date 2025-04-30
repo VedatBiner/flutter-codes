@@ -1,7 +1,7 @@
 // 📃 <----- database_reset_helper.dart ----->
 //
 // Veritabanını tamamen temizlemek için ortak fonksiyon.
-// İstediğiniz widget’tan ‟await showResetDatabaseDialog(context, onAfterReset);”
+// İstediğiniz widget ’tan ‟await showResetDatabaseDialog(context, onAfterReset);”
 // şeklinde çağırabilirsiniz.
 
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ Future<void> showResetDatabaseDialog(
 
   if (!context.mounted) return;
 
-  // Provider’daki sayaç sıfırlansın
+  // Provider ’daki sayaç sıfırlansın
   Provider.of<WordCountProvider>(context, listen: false).setCount(0);
 
   // Drawer kapalıysa MediaQuery garantili kök context
