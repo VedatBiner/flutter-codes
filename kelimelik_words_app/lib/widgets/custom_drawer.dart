@@ -2,15 +2,11 @@
 // Drawer menüye buradan erişiliyor.
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../db/word_database.dart';
-import '../providers/word_count_provider.dart';
 import '../utils/backup_notification_helper.dart';
-import 'confirmation_dialog.dart';
-import 'notification_service.dart';
+import '../utils/database_reset_helper.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -34,45 +30,6 @@ class CustomDrawer extends StatelessWidget {
     required this.onToggleViewMode,
     required this.onLoadJsonData,
   });
-
-  /// 📌 Veritabanını tamamen silmek için onay kutusu
-  void _showResetDatabaseDialog(BuildContext context) async {
-    final confirm = await showConfirmationDialog(
-      context: context,
-      title: 'Veritabanını Sıfırla',
-      content: const Text(
-        'Tüm kelimeler silinecek. Emin misiniz?',
-        style: kelimeText,
-      ),
-      confirmText: 'Sil',
-      cancelText: 'İptal',
-      confirmColor: deleteButtonColor,
-      cancelColor: cancelButtonColor,
-    );
-
-    if (confirm == true) {
-      final db = await WordDatabase.instance.database;
-      await db.delete('words');
-
-      if (!context.mounted) return;
-      Provider.of<WordCountProvider>(context, listen: false).updateCount();
-      Navigator.of(context).maybePop();
-      onDatabaseUpdated();
-
-      /// 🔑  Kök bağlam (MediaQuery garantili)
-      final rootContext = Navigator.of(context, rootNavigator: true).context;
-
-      NotificationService.showCustomNotification(
-        context: rootContext,
-        title: 'Veritabanı Sıfırlandı',
-        message: const Text('Tüm kayıtlar silindi.'),
-        icon: Icons.delete_forever,
-        iconColor: Colors.red,
-        progressIndicatorColor: Colors.red,
-        progressIndicatorBackground: Colors.red.shade100,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +114,14 @@ class CustomDrawer extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              onTap: () => _showResetDatabaseDialog(context),
+              onTap: () async {
+                await showResetDatabaseDialog(
+                  context,
+                  onAfterReset: () {
+                    onDatabaseUpdated(); // listeyi yenile
+                  },
+                );
+              },
             ),
 
             Divider(color: menuColor, thickness: 2),
