@@ -8,8 +8,7 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
 import '../providers/word_count_provider.dart';
-import '../utils/csv_backup_helper.dart';
-import '../utils/json_backup_helper.dart';
+import '../utils/backup_notification_helper.dart';
 import 'confirmation_dialog.dart';
 import 'notification_service.dart';
 
@@ -121,42 +120,8 @@ class CustomDrawer extends StatelessWidget {
                 style: drawerMenuText,
               ),
               onTap: () async {
-                final jsonPath = await createJsonBackup(context);
+                await createAndNotifyBackup(context);
                 if (!context.mounted) return;
-                final csvPath = await createCsvBackup(context);
-                if (!context.mounted) return;
-
-                /// 🔑 Kök bağlam
-                final rootContext =
-                    Navigator.of(context, rootNavigator: true).context;
-
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  NotificationService.showCustomNotification(
-                    context: rootContext,
-                    title: 'JSON/CSV Yedeği Oluşturuldu',
-                    message: RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: "JSON yedeği : ",
-                            style: kelimeAddText,
-                          ),
-                          TextSpan(text: ' $jsonPath', style: normalBlackText),
-                          const TextSpan(
-                            text: "\nCSV yedeği : ",
-                            style: kelimeAddText,
-                          ),
-                          TextSpan(text: ' $csvPath', style: normalBlackText),
-                        ],
-                      ),
-                    ),
-                    icon: Icons.download,
-                    iconColor: Colors.blue,
-                    progressIndicatorColor: Colors.blue,
-                    progressIndicatorBackground: Colors.blue.shade100,
-                  );
-                });
-
                 Navigator.of(context).maybePop();
               },
             ),
