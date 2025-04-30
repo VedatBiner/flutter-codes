@@ -3,7 +3,7 @@ description: "Kelimelik uygulaması kelime listesi"
 
 publish_to: 'none'
 
-version: 1.2.4+1
+version: 1.2.6+1
 
 environment:
   sdk: ^3.7.2
@@ -23,6 +23,7 @@ dependencies:
   lottie:
   provider:
   font_awesome_flutter:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:
