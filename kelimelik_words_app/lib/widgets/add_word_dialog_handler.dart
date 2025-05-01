@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
 import '../models/word_model.dart';

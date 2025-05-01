@@ -4,18 +4,24 @@
 //  ve JSON-dan veritabanı yenileme işlemlerini içerir.
 //
 
+// 📌 Flutter hazır paketleri
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../db/word_database.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
+
+/// 📌 iki ana ekran burada
 import '../screens/alphabet_word_list.dart';
 import '../screens/word_list.dart';
 import '../utils/json_loader.dart';
+
+/// 📌 AppBar, Drawer, FAB yüklemeleri burada
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';

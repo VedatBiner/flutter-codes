@@ -1,8 +1,10 @@
 // 📃 <----- custom_drawer.dart ----->
 // Drawer menüye buradan erişiliyor.
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../utils/backup_notification_helper.dart';

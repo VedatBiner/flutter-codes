@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import 'add_word_dialog_handler.dart';
 

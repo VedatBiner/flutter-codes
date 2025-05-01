@@ -2,10 +2,14 @@
 // Fihrist görünümlü listeleme için kullanılır.
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 sabitler burada
 import '../constants/color_constants.dart';
 import '../constants/turkish_alphabet.dart';
+
+/// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
 import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';

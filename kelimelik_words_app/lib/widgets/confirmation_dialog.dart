@@ -2,11 +2,13 @@
 // Kelime silme ve veri tabanı işlemleri için ortak
 // bir widget oluşturuldu.
 // Bu dosya alphabet_word_list.dart, word_list.dart ve
-// custom_drawer.dart dosyaları tarafından kullanılıyor.
+// word_actions.dart ve database_reset_helper.dart dosyaları
+// tarafından kullanılıyor.
 //
 
 import 'package:flutter/material.dart';
 
+/// 📌 sabitler burada
 import '../constants/Button_constants.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';

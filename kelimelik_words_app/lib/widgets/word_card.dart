@@ -3,8 +3,11 @@
 
 import 'package:flutter/material.dart';
 
+/// 📌 sabitler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
+
+/// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
 import '../widgets/word_action_buttons.dart';
 

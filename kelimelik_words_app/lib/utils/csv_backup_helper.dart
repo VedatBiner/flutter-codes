@@ -2,8 +2,10 @@
 // custom_drawer.dart içinden çağırılıyor.
 // CSV formatında yedek alıyor.
 
+// 📌 Flutter hazır paketleri
 import 'dart:developer';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../db/word_database.dart';
 
 Future<String> createCsvBackup() async {

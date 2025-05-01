@@ -1,9 +1,11 @@
 // 📃 <----- custom_app_bar.dart ----->
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../providers/word_count_provider.dart';

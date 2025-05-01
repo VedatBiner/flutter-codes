@@ -4,9 +4,11 @@
 // İstediğiniz widget ’tan ‟await showResetDatabaseDialog(context, onAfterReset);”
 // şeklinde çağırabilirsiniz.
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/word_database.dart';
