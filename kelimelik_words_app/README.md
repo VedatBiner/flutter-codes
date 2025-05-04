@@ -63,4 +63,6 @@ Ekran Görüntüleri
 
 <BR>
 
+| Resim 1 | Resim 2 | Resim 3 |
+|---------|---------|---------|
 | ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-01.png) | ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-02.png) | ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-03.png) |
