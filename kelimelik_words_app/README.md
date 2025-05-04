@@ -61,21 +61,21 @@ Ekran Görüntüleri
 <BR>
 <table>
   <tr>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-01.png" height="400em"/>
       <br><em>Ana ekran</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-02.png" height="400em"/>
       <br><em>Arama kutusu</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-03.png" height="400em"/>
       <br><em>Drawer Menu</em>
     </td>
   </tr>
 <tr>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-04.png" height="400em"/>
       <br><em>Klasik görünüm</em>
     </td>
@@ -83,27 +83,27 @@ Ekran Görüntüleri
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-05.png" height="400em"/>
       <br><em>Yedek oluşturma</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-06.png" height="400em"/>
       <br><em>Veritabanı sıfırlama</em>
     </td>
   </tr>
 <tr>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-07.png" height="400em"/>
       <br><em>Silinme mesajı</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-08.png" height="400em"/>
       <br><em>Boş ekran</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-09.png" height="400em"/>
       <br><em>Veritabanı yenileniyor</em>
     </td>
   </tr>
 <tr>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-10.png" height="400em"/>
       <br><em>Sağdan herhangi bir harfe dokununca o harf ile ilgili kelimeler geliyor</em>
     </td>
@@ -111,7 +111,7 @@ Ekran Görüntüleri
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-11.png" height="400em"/>
       <br><em>Kelime giriş ekranı</em>
     </td>
-    <td align="center">
+    <td align="center" width="320px">
       <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-12.png" height="400em"/>
       <br><em>Kelimeye uzun basılınca çıkan seçenekler</em>
     </td>
