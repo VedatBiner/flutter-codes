@@ -60,3 +60,7 @@ Ekran Görüntüleri
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/kelimelik_words_app/screen_shots/img-01.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/kelimelik_words_app/screen_shots/img-02.png" height="400em"/>
 <img src="https://github.com/VedatBiner/flutter-codes/blob/master/kelimelik_words_app/screen_shots/img-03.png" height="400em"/>
+
+<BR>
+
+| ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-01.png) | ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-02.png) | ![](https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-03.png) |
