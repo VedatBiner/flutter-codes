@@ -60,14 +60,14 @@ Ekran Görüntüleri
 
 <BR>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-01.png" height="400em" style="margin: 0 10px;"/>
-  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-02.png" height="400em" style="margin: 0 10px;"/>
-  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-03.png" height="400em" style="margin: 0 10px;"/>
+  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-01.png" height="400em" style="margin: 0 20px;"/>
+  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-02.png" height="400em" style="margin: 0 20px;"/>
+  <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-03.png" height="400em" style="margin: 0 20px;"/>
 </p>
 
 <p align="center">
-  <span style="display: inline-block; width: 400px; margin: 0 10px;">Açıklama 1</span>
-  <span style="display: inline-block; width: 400px; margin: 0 10px;">Açıklama 2</span>
-  <span style="display: inline-block; width: 400px; margin: 0 10px;">Açıklama 3</span>
+  <span style="display: inline-block; width: 400px; margin: 0 10px;">Ana ekran ..........</span>
+  <span style="display: inline-block; width: 400px; margin: 0 10px;">Arama kutusu .......</span>
+  <span style="display: inline-block; width: 400px; margin: 0 10px;">Drawer Menu ........</span>
 </p>
 
