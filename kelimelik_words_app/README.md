@@ -116,5 +116,19 @@ Ekran Görüntüleri
       <br><em>Kelimeye uzun basılınca çıkan seçenekler</em>
     </td>
   </tr>
+<tr>
+    <td align="center" width="320px">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-13.png" height="400em"/>
+      <br><em>Kelime düzeltme ekranı</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-14.png" height="400em"/>
+      <br><em>Kelime silme mesajı</em>
+    </td>
+    <td align="center" width="320px">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-15.png" height="400em"/>
+      <br><em>Kelime silinihor</em>
+    </td>
+  </tr>
 </table>
 
