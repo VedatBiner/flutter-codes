@@ -102,5 +102,19 @@ Ekran Görüntüleri
       <br><em>Veritabanı yenileniyor</em>
     </td>
   </tr>
+<tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-10.png" height="400em"/>
+      <br><em>Sağdan herhangi bir harfe dokununca o harf ile ilgili kelimeler geliyor</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-11.png" height="400em"/>
+      <br><em>Kelime giriş ekranı</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-12.png" height="400em"/>
+      <br><em>Kelimeye uzun basılınca çıkan seçenekler</em>
+    </td>
+  </tr>
 </table>
 
