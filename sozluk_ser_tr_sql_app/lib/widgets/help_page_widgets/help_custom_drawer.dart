@@ -10,6 +10,12 @@ Widget buildHelpDrawer() {
     appVersion: '',
     isFihristMode: true,
     onToggleViewMode: () {},
-    onLoadJsonData: ({required BuildContext context}) async {},
+    onLoadJsonData: ({
+      required BuildContext ctx,
+      required void Function(bool, double, String?, Duration) onStatus,
+    }) async {
+      // Bir şey yapmıyorsan bile, boş bir işlem tanımlanmalı:
+      onStatus(false, 0.0, null, Duration.zero);
+    },
   );
 }

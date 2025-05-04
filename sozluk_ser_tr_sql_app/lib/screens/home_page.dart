@@ -26,17 +26,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  /// 🔢  Veri listeleri
   List<Word> words = [];
   List<Word> allWords = [];
 
+  /// 🔎  Arama & görünüm durumları
   bool isSearching = false;
   bool isFihristMode = true;
   final TextEditingController searchController = TextEditingController();
+
+  /// ℹ️  Uygulama versiyonu
   String appVersion = '';
 
+  /// ⏳  Yükleme ekranı durumları
   bool isLoadingJson = false;
   double progress = 0.0;
   String? loadingWord;
+  Duration elapsedTime = Duration.zero;
 
   @override
   void initState() {
@@ -45,6 +51,7 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
   }
 
+  /// 📌 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() {
@@ -52,6 +59,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  /// 📌 İlk açılışta verileri (gerekirse) yükle
   void _loadInitialData() async {
     await loadDataFromDatabase(
       context: context,
@@ -61,29 +69,36 @@ class _HomePageState extends State<HomePage> {
           words = loadedWords;
         });
 
-        /// 🔥 Kelime sayısını güncelle Provider
+        /// 🔥 Provider ile kelime sayısını güncelle
         Provider.of<WordCountProvider>(
           context,
           listen: false,
         ).setCount(loadedWords.length);
       },
-      onLoadingStatusChange: (loading, prog, currentWord) {
+
+      /// 🔄 Yükleme ekranı değiştikçe tetiklenir
+      onLoadingStatusChange: (
+        bool loading,
+        double prog,
+        String? currentWord,
+        Duration elapsed,
+      ) {
         setState(() {
           isLoadingJson = loading;
           progress = prog;
           loadingWord = currentWord;
+          elapsedTime = elapsed;
         });
       },
     );
   }
 
+  /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
     allWords = await WordDatabase.instance.getWords();
     final count = await WordDatabase.instance.countWords();
 
-    setState(() {
-      words = allWords;
-    });
+    setState(() => words = allWords);
 
     /// 🔥 Provider ile sayacı güncelle
     if (mounted) {
@@ -93,6 +108,7 @@ class _HomePageState extends State<HomePage> {
     log('📦 Toplam kayıt sayısı: $count');
   }
 
+  /// 🔍  Arama filtreleme
   void _filterWords(String query) {
     final filtered =
         allWords.where((word) {
@@ -101,11 +117,10 @@ class _HomePageState extends State<HomePage> {
               word.turkce.toLowerCase().contains(q);
         }).toList();
 
-    setState(() {
-      words = filtered;
-    });
+    setState(() => words = filtered);
   }
 
+  /// ❌  Aramayı temizle
   void _clearSearch() {
     searchController.clear();
     setState(() {
@@ -114,6 +129,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // 🖼️  UI
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -128,12 +144,8 @@ class _HomePageState extends State<HomePage> {
                 searchController: searchController,
                 onSearchChanged: _filterWords,
                 onClearSearch: _clearSearch,
-                onStartSearch: () {
-                  setState(() {
-                    isSearching = true;
-                  });
-                },
-                // itemCount: words.length,
+                onStartSearch: () => setState(() => isSearching = true),
+                itemCount: words.length,
               ),
             ),
 
@@ -143,33 +155,49 @@ class _HomePageState extends State<HomePage> {
               appVersion: appVersion,
               isFihristMode: isFihristMode,
               onToggleViewMode: () {
-                setState(() {
-                  isFihristMode = !isFihristMode;
-                });
+                setState(() => isFihristMode = !isFihristMode);
               },
-              onLoadJsonData: ({required BuildContext context}) async {
+              //  ⬇️  Yeni imzalı geri-çağrı
+              onLoadJsonData: ({
+                required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
+                required void Function(
+                  bool loading,
+                  double prog,
+                  String? currentWord,
+                  Duration elapsedTime,
+                )
+                onStatus,
+              }) async {
                 await loadDataFromDatabase(
-                  context: context,
+                  context: context, //  ⚠️  HomePage’in context ’i
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
 
-                    /// ✅ AppBar sayacı da güncellensin
-                    if (context.mounted) {
+                    if (mounted) {
                       Provider.of<WordCountProvider>(
                         context,
                         listen: false,
                       ).setCount(loadedWords.length);
                     }
                   },
-                  onLoadingStatusChange: (loading, prog, currentWord) {
+
+                  //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
+                  onLoadingStatusChange: (
+                    bool loading,
+                    double prog,
+                    String? currentWord,
+                    Duration elapsed,
+                  ) {
                     setState(() {
                       isLoadingJson = loading;
                       progress = prog;
                       loadingWord = currentWord;
+                      elapsedTime = elapsed;
                     });
+                    onStatus(loading, prog, currentWord, elapsed); // ↩︎ ilet
                   },
                 );
               },
@@ -191,7 +219,11 @@ class _HomePageState extends State<HomePage> {
 
         /// 🔄 JSON 'dan veri yükleniyor ekranı
         if (isLoadingJson)
-          SQLLoadingCard(progress: progress, loadingWord: loadingWord),
+          SQLLoadingCard(
+            progress: progress,
+            loadingWord: loadingWord,
+            elapsedTime: elapsedTime,
+          ),
       ],
     );
   }

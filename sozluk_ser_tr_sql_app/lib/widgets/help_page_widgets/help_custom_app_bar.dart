@@ -15,5 +15,6 @@ PreferredSizeWidget buildHelpAppBar(BuildContext context) {
     onSearchChanged: (value) {},
     onClearSearch: () {},
     onStartSearch: () {},
+    itemCount: wordCount,
   );
 }

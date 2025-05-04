@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Kelimelik',
+      title: 'Sırpça-Türkçe Sözlük (SQL)',
       debugShowCheckedModeBanner: false,
       theme: CustomTheme.theme,
       routes: appRoutes,

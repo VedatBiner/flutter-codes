@@ -2,6 +2,7 @@
 // AppBar özelleştirme
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/color_constants.dart';
@@ -15,6 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onClearSearch;
   final VoidCallback onStartSearch;
+  final int itemCount;
 
   const CustomAppBar({
     super.key,
@@ -23,6 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onSearchChanged,
     required this.onClearSearch,
     required this.onStartSearch,
+    required this.itemCount,
   });
 
   @override
@@ -64,8 +67,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       vertical: 8,
                     ),
                     suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      color: Colors.red,
+                      icon: const FaIcon(
+                        FontAwesomeIcons.eraser,
+                        color: Colors.red,
+                      ),
                       onPressed: () {
                         searchController.clear();
                         onSearchChanged('');

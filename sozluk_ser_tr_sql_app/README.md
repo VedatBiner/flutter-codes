@@ -20,6 +20,10 @@ türetilmiş ve daha geliştirilmiştir.
 - App bar arama kutusuna kutu içine silme seçeneği eklendi
 - Veri güncelleme uygulama yeniden başlatılıp, tüm veriler silinince çalışıyor?
 - Verilerin harici dizine yedeklenmesi sağlandı.
+- Veri tabanı sıfırlama ayrı kod olarak çıkarıldı. 
+- Veri tabanı yenileme işlemine kronometre eklendi
+
+Yapılacak başka bir şey var mı ?
 
 
 Düzeltilecekler.

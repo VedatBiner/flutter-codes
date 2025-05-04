@@ -4,11 +4,9 @@
 
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
-
 import '../db/db_helper.dart';
 
-Future<String> createJsonBackup(BuildContext context) async {
+Future<String> createJsonBackup() async {
   final path = await WordDatabase.instance.exportWordsToJson();
   log('📁 JSON dosya konumu: $path', name: 'JSON');
   return path;
