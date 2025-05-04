@@ -18,6 +18,8 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/file_info.dart';
+
 /// 📌 Yardımcı yüklemeler burada
 import '../db/word_database.dart';
 import '../models/word_model.dart';
@@ -48,7 +50,7 @@ Future<void> loadDataFromDatabase({
     try {
       /// JSON dosyasını bul (önce cihaz, yoksa asset)
       final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/kelimelik_backup.json';
+      final filePath = '${directory.path}/fileNameJson';
       final file = File(filePath);
 
       String jsonStr;
@@ -57,9 +59,7 @@ Future<void> loadDataFromDatabase({
         jsonStr = await file.readAsString();
       } else {
         log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...");
-        jsonStr = await rootBundle.loadString(
-          'assets/database/kelimelik_backup.json',
-        );
+        jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
       /// JSON → Liste<Word>

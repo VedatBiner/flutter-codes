@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import '../constants/file_info.dart';
+
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
 import '../widgets/notification_service.dart';
@@ -44,8 +46,8 @@ Future<(String, String)> createAndNotifyBackup(BuildContext context) async {
       final backupDir = Directory(p.join(downloadsDir.path, 'kelimelik_words'));
       await backupDir.create(recursive: true);
 
-      jsonPathDownload = p.join(backupDir.path, 'kelimelik_backup.json');
-      csvPathDownload = p.join(backupDir.path, 'kelimelik_backup.csv');
+      jsonPathDownload = p.join(backupDir.path, fileNameJson);
+      csvPathDownload = p.join(backupDir.path, fileNameCsv);
 
       await File(jsonPathInApp).copy(jsonPathDownload);
       await File(csvPathInApp).copy(csvPathDownload);
