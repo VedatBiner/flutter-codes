@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
 
               //  ⬇️  Yeni imzalı geri-çağrı
               onLoadJsonData: ({
-                required BuildContext ctx, // Drawer’dan gelir, kullanmıyoruz
+                required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
                 required void Function(
                   bool loading,
                   double prog,
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                 onStatus,
               }) async {
                 await loadDataFromDatabase(
-                  context: context, //  ⚠️  HomePage’in context’i
+                  context: context, //  ⚠️  HomePage’in context ’i
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                     }
                   },
 
-                  //  ⬇️  Drawer’a da aynı geri-bildirimi ilet
+                  //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
                   onLoadingStatusChange: (
                     bool loading,
                     double prog,
