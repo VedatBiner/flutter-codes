@@ -38,20 +38,28 @@ Future<void> showResetDatabaseDialog(
     cancelColor: cancelButtonColor,
   );
 
+  /// Eğer kullanıcı vazgeçtiyse hemen çık
   if (confirm != true) return;
 
-  // 🔥 Tablodaki tüm verileri sil
+  /// 🔄 1️⃣ Drawer ’ı kapat
+  ///    showConfirmationDialog sadece AlertDialog 'ı kapatır,
+  ///    bu adım Drawer’ için gerekiyor.
+  Navigator.of(context).maybePop();
+
+  // 🔥 2️⃣ Tablodaki tüm verileri sil
   final db = await WordDatabase.instance.database;
   await db.delete('words');
 
+  /// 3️⃣ Eğer widget tree ’den ayrıldıysak işleme devam etmeyelim
   if (!context.mounted) return;
 
-  // Provider ’daki sayaç sıfırlansın
+  /// 4️⃣ Provider ’daki sayaç sıfırlansın
   Provider.of<WordCountProvider>(context, listen: false).setCount(0);
 
-  // Drawer kapalıysa MediaQuery garantili kök context
+  /// 🔑 5️⃣ MediaQuery garantisi için rootContext
   final rootCtx = Navigator.of(context, rootNavigator: true).context;
 
+  /// 🔔 6️⃣ Bildirimi göster
   NotificationService.showCustomNotification(
     context: rootCtx,
     title: 'Veritabanı Sıfırlandı',
@@ -62,5 +70,6 @@ Future<void> showResetDatabaseDialog(
     progressIndicatorBackground: Colors.red.shade100,
   );
 
+  /// 🔁 7️⃣ İşlem sonrası callback
   onAfterReset();
 }
