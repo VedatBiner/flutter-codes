@@ -88,5 +88,19 @@ Ekran Görüntüleri
       <br><em>Veritabanı sıfırlama</em>
     </td>
   </tr>
+<tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-07.png" height="400em"/>
+      <br><em>Silinme mesajı</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-08.png" height="400em"/>
+      <br><em>Boş ekran</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-09.png" height="400em"/>
+      <br><em>Veritabanı yenileniyor</em>
+    </td>
+  </tr>
 </table>
 
