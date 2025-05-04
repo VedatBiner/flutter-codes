@@ -74,5 +74,19 @@ Ekran Görüntüleri
       <br><em>Drawer Menu</em>
     </td>
   </tr>
+<tr>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-04.png" height="400em"/>
+      <br><em>Klasik görünüm</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-05.png" height="400em"/>
+      <br><em>Yedek oluşturma</em>
+    </td>
+    <td align="center">
+      <img src="https://raw.githubusercontent.com/VedatBiner/flutter-codes/master/kelimelik_words_app/screen_shots/img-06.png" height="400em"/>
+      <br><em>Veritabanı sıfırlama</em>
+    </td>
+  </tr>
 </table>
 
