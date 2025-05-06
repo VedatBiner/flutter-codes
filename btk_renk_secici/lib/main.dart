@@ -50,7 +50,9 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
               height: 200,
               decoration: BoxDecoration(
                 color: _secilenRenk,
-                borderRadius: BorderRadius.circular(10),
+
+                /// Şeklin tipini değiştir
+                borderRadius: BorderRadius.circular(isCircular ? 100 : 10),
                 boxShadow: [
                   BoxShadow(
                     color: _secilenRenk.withValues(alpha: 0.5),
@@ -98,15 +100,19 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
                   ),
                   ElevatedButton(
                     onPressed: _rastgeleRenkSec,
-                    child: Text("Rastgele"),
+                    child: const Text("Rastgele"),
                   ),
                   IconButton(
                     onPressed: _renginKodunuGoster,
-                    icon: Icon(Icons.info),
+                    icon: const Icon(Icons.info),
                   ),
                   IconButton(
-                    onPressed: _containerSekliniDegistir(),
-                    icon: Icon(Icons.circle_outlined),
+                    onPressed: _containerSekliniDegistir,
+                    icon: Icon(
+                      isCircular
+                          ? Icons.square_outlined
+                          : Icons.circle_outlined,
+                    ),
                   ),
                 ],
               ),
@@ -137,5 +143,9 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
     );
   }
 
-  _containerSekliniDegistir() {}
+  void _containerSekliniDegistir() {
+    setState(() {
+      isCircular = !isCircular;
+    });
+  }
 }
