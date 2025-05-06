@@ -35,11 +35,46 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
 
   Color _secilenRenk = Colors.blue;
   bool isCircular = false;
+  bool isShowColorName = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Renk Seçici"), centerTitle: true),
+      appBar: AppBar(
+        title: const Text("Renk Seçici"),
+        centerTitle: true,
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              setState(() {
+                isShowColorName = !isShowColorName;
+              });
+            },
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  value: "a",
+                  child: Row(
+                    children: [
+                      Icon(
+                        isShowColorName
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      Text(
+                        isShowColorName
+                            ? " Renk adını gizle"
+                            : " Renk adını göster",
+                      ),
+                    ],
+                  ),
+                ),
+              ];
+            },
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -63,7 +98,12 @@ class _ColorPickerPageState extends State<ColorPickerPage> {
               ),
             ),
             const SizedBox(height: 10),
-            Text(renkler[_secilenRenk]!, style: const TextStyle(fontSize: 18)),
+            isShowColorName
+                ? Text(
+                  renkler[_secilenRenk] ?? "seçilen renk",
+                  style: TextStyle(fontSize: 20, color: _secilenRenk),
+                )
+                : const SizedBox(),
             const SizedBox(height: 20),
 
             /* Renk seçici açılır liste */
