@@ -21,6 +21,21 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
+  final assetCount = await getWordCountFromAssetJson();
+  final dbCount = await WordDatabase.instance.countWords();
+
+  log("📊 Asset JSON: $assetCount kelime");
+  log("📊 Veritabanı : $dbCount kelime");
+
+  if (assetCount > dbCount) {
+    log(
+      "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
+    );
+
+    final db = await WordDatabase.instance.database;
+    await db.delete('words');
+  }
+
   log("🔄 Veritabanından veri okunuyor...");
 
   final count = await WordDatabase.instance.countWords();
@@ -78,7 +93,6 @@ Future<void> loadDataFromDatabase({
         }
 
         /// Kullanıcıya ilerlemeyi bildir
-        /// final progress = (i + 1) / loadedWords.length;
         onLoadingStatusChange(
           true,
           (i + 1) / loadedWords.length,
@@ -116,5 +130,20 @@ Future<void> loadDataFromDatabase({
         listen: false,
       ).setCount(finalWords.length);
     }
+  }
+}
+
+/// 📌 Asset JSON içindeki kelime sayısını hesapla
+Future<int> getWordCountFromAssetJson() async {
+  try {
+    final jsonStr = await rootBundle.loadString(
+      'assets/database/$fileNameJson',
+    );
+    final List<dynamic> jsonList = jsonDecode(jsonStr);
+    log("📌 Asset içindeki kelime sayısı : ${jsonList.length}");
+    return jsonList.length;
+  } catch (e) {
+    log("❌ Asset JSON okunamadı: $e");
+    return 0;
   }
 }
