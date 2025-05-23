@@ -24,6 +24,7 @@ türetilmiş ve daha geliştirilmiştir.
 - Veri tabanı yenileme işlemine kronometre eklendi
 
 Yapılacak başka bir şey var mı ?
+Verilerin firebase 'den json olarak çekilmesi deneniyor.
 
 
 Düzeltilecekler.

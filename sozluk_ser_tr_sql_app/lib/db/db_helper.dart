@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -398,5 +399,52 @@ class WordDatabase {
 
     words.sort((a, b) => serbianCompare(a.sirpca, b.sirpca));
     return words;
+  }
+
+  /// 📌 Firestore 'dan verileri alıp JSON 'a kaydeder.
+  ///
+  Future<void> fetchWordsFromFirestoreAndSaveAsJson() async {
+    final firestore = FirebaseFirestore.instance;
+    final snapshot = await firestore.collection('kelimeler').get();
+
+    final List<Map<String, dynamic>> wordList =
+        snapshot.docs.map((doc) {
+          final data = doc.data();
+          return {
+            'sirpca': data['sirpca'],
+            'turkce': data['turkce'],
+            'userEmail': data['userEmail'] ?? '',
+          };
+        }).toList();
+
+    final jsonStr = jsonEncode(wordList);
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/$fileNameJson');
+
+    await file.writeAsString(jsonStr);
+
+    log(
+      '✅ Firestore verileri JSON olarak kaydedildi (${wordList.length} kayıt).',
+    );
+  }
+
+  /// 📌 Firestore 'dan verileri alır.
+  Future<void> syncFirestoreIfDatabaseEmpty(BuildContext context) async {
+    final count = await countWords();
+
+    if (count > 0) {
+      log(
+        "📦 Veritabanı zaten dolu ($count kayıt). Firestore 'dan veri çekilmeyecek.",
+      );
+      return;
+    }
+
+    log("📭 Veritabanı boş. Firestore 'dan veriler çekilecek...");
+
+    await fetchWordsFromFirestoreAndSaveAsJson();
+
+    if (context.mounted) {
+      await importWordsFromJson(context);
+    }
   }
 }

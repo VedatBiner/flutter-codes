@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -31,18 +32,18 @@ Future<void> loadDataFromDatabase({
     log(
       "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
     );
-
     final db = await WordDatabase.instance.database;
     await db.delete('words');
   }
 
   log("🔄 Veritabanından veri okunuyor...");
-
   final count = await WordDatabase.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
-  /// 🔸 Veritabanı boşsa JSON ’dan doldur
+  /// 🔸 Veritabanı boşsa Firestore'dan doldur
   if (count == 0) {
+    await importFromFirestoreToSqlite();
+
     log("📭 Veritabanı boş. JSON 'dan veri yükleniyor...");
 
     try {
@@ -68,9 +69,9 @@ Future<void> loadDataFromDatabase({
           jsonList.map((e) {
             final map = e as Map<String, dynamic>;
             return Word(
-              sirpca: map['sirpca'],
-              turkce: map['turkce'],
-              userEmail: map['userEmail'],
+              sirpca: map['sirpca'] ?? '',
+              turkce: map['turkce'] ?? '',
+              userEmail: map['userEmail'] ?? '',
             );
           }).toList();
 
@@ -112,8 +113,7 @@ Future<void> loadDataFromDatabase({
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
       log(
-        "✅ ${loadedWords.length} kelime yüklendi "
-        "(${stopwatch.elapsed.inMilliseconds} ms).",
+        "✅ ${loadedWords.length} kelime yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
       );
     } catch (e) {
       log("❌ JSON yükleme hatası: $e");
@@ -145,5 +145,37 @@ Future<int> getWordCountFromAssetJson() async {
   } catch (e) {
     log("❌ Asset JSON okunamadı: $e");
     return 0;
+  }
+}
+
+/// 📌 Firestore 'dan verileri SQLite 'a yaz
+Future<void> importFromFirestoreToSqlite() async {
+  log("📭 Veritabanı boş. Firestore 'dan veriler çekilecek...");
+
+  try {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('kelimeler').get();
+
+    final documents = querySnapshot.docs;
+    log("📥 Firestore 'dan çekilen toplam kayıt: ${documents.length}");
+
+    int i = 0;
+    for (final doc in documents) {
+      final data = doc.data();
+      final word = Word(
+        sirpca: data['sirpca'] ?? '',
+        turkce: data['turkce'] ?? '',
+        userEmail: data['userEmail'] ?? '',
+      );
+
+      await WordDatabase.instance.insertWord(word);
+
+      i++;
+      log("✅ [$i/${documents.length}] ${word.sirpca} eklendi.");
+    }
+
+    log("🎉 Firestore 'dan alınan tüm veriler SQLite 'a yazıldı.");
+  } catch (e) {
+    log("❌ Firestore 'dan veri çekerken hata oluştu: $e");
   }
 }

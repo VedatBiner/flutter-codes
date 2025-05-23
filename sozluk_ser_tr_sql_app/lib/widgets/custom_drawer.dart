@@ -32,43 +32,6 @@ class CustomDrawer extends StatelessWidget {
     required this.onLoadJsonData,
   });
 
-  // void _showResetDatabaseDialog(BuildContext context) async {
-  //   final confirm = await showConfirmationDialog(
-  //     context: context,
-  //     title: 'Veritabanını Sıfırla',
-  //     content: const Text(
-  //       'Tüm kelimeler silinecek. Emin misiniz?',
-  //       style: kelimeText,
-  //     ),
-  //     confirmText: 'Sil',
-  //     cancelText: 'İptal',
-  //     confirmColor: deleteButtonColor,
-  //     cancelColor: cancelButtonColor,
-  //   );
-  //
-  //   if (confirm == true) {
-  //     final db = await WordDatabase.instance.database;
-  //     await db.delete('words');
-  //
-  //     if (!context.mounted) return;
-  //     Provider.of<WordCountProvider>(context, listen: false).updateCount();
-  //
-  //     Navigator.of(context).maybePop();
-  //
-  //     onDatabaseUpdated();
-  //
-  //     NotificationService.showCustomNotification(
-  //       context: context,
-  //       title: 'Veritabanı Sıfırlandı',
-  //       message: const Text('Tüm kayıtlar silindi.'),
-  //       icon: Icons.delete_forever,
-  //       iconColor: Colors.red,
-  //       progressIndicatorColor: Colors.red,
-  //       progressIndicatorBackground: Colors.red.shade100,
-  //     );
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Drawer(

@@ -61,36 +61,52 @@ class _HomePageState extends State<HomePage> {
 
   /// 📌 İlk açılışta verileri (gerekirse) yükle
   void _loadInitialData() async {
-    await loadDataFromDatabase(
-      context: context,
-      onLoaded: (loadedWords) {
-        setState(() {
-          allWords = loadedWords;
-          words = loadedWords;
-        });
+    await WordDatabase.instance.syncFirestoreIfDatabaseEmpty(context);
 
-        /// 🔥 Provider ile kelime sayısını güncelle
-        Provider.of<WordCountProvider>(
-          context,
-          listen: false,
-        ).setCount(loadedWords.length);
-      },
+    final finalWords = await WordDatabase.instance.getWords();
 
-      /// 🔄 Yükleme ekranı değiştikçe tetiklenir
-      onLoadingStatusChange: (
-        bool loading,
-        double prog,
-        String? currentWord,
-        Duration elapsed,
-      ) {
-        setState(() {
-          isLoadingJson = loading;
-          progress = prog;
-          loadingWord = currentWord;
-          elapsedTime = elapsed;
-        });
-      },
-    );
+    setState(() {
+      allWords = finalWords;
+      words = finalWords;
+    });
+
+    if (mounted) {
+      Provider.of<WordCountProvider>(
+        context,
+        listen: false,
+      ).setCount(finalWords.length);
+    }
+
+    // await loadDataFromDatabase(
+    //   context: context,
+    //   onLoaded: (loadedWords) {
+    //     setState(() {
+    //       allWords = loadedWords;
+    //       words = loadedWords;
+    //     });
+    //
+    //     /// 🔥 Provider ile kelime sayısını güncelle
+    //     Provider.of<WordCountProvider>(
+    //       context,
+    //       listen: false,
+    //     ).setCount(loadedWords.length);
+    //   },
+    //
+    //   /// 🔄 Yükleme ekranı değiştikçe tetiklenir
+    //   onLoadingStatusChange: (
+    //     bool loading,
+    //     double prog,
+    //     String? currentWord,
+    //     Duration elapsed,
+    //   ) {
+    //     setState(() {
+    //       isLoadingJson = loading;
+    //       progress = prog;
+    //       loadingWord = currentWord;
+    //       elapsedTime = elapsed;
+    //     });
+    //   },
+    // );
   }
 
   /// 🔄  Kelimeleri veritabanından yeniden oku

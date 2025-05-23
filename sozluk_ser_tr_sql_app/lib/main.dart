@@ -1,15 +1,19 @@
 // 📜 <----- main.dart ----->
 //
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/word_count_provider.dart';
 import '../routes.dart';
 import '../theme.dart';
+import 'firebase_options.dart';
 import 'screens/home_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [
