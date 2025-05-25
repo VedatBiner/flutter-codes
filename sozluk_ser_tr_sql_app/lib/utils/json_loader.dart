@@ -6,14 +6,14 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-/// 📌 Flutter paketleri
+// 📌 Flutter paketleri
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-/// 📌 Yardımcı yüklemeler burada
+// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
@@ -24,13 +24,13 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
-  /// 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
+  // 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
   final firestoreCount = await getFirestoreWordCount();
   final assetCount = await getWordCountFromAssetJson();
   final dbCount = await WordDatabase.instance.countWords();
 
-  log("📦 Firestore 'daki kayıt sayısı: $firestoreCount");
-  log("📁 Asset JSON 'daki kayıt sayısı: $assetCount");
+  log("📦 Firestore'daki kayıt sayısı: $firestoreCount");
+  log("📁 Asset JSON'daki kayıt sayısı: $assetCount");
   log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount");
 
   if (assetCount > dbCount) {
@@ -45,13 +45,13 @@ Future<void> loadDataFromDatabase({
   final count = await WordDatabase.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
-  /// 🔸 Veritabanı boşsa Firestore 'dan doldur
+  // 🔸 Veritabanı boşsa Firestore'dan doldur
   if (count == 0) {
     await importFromFirestoreToSqlite(context, onLoadingStatusChange);
 
     final newCount = await WordDatabase.instance.countWords();
     if (newCount > 0) {
-      log("✅ Firestore 'dan veriler yüklendi. JSON' dan yükleme atlandı.");
+      log("✅ Firestore'dan veriler yüklendi. JSON'dan yükleme atlandı.");
 
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
@@ -64,6 +64,7 @@ Future<void> loadDataFromDatabase({
       }
       return;
     }
+
     log("📭 Firestore boş. JSON 'dan veri yükleniyor...");
   } else {
     log("📦 Veritabanında veri var, yükleme yapılmadı.");
@@ -139,7 +140,7 @@ Future<void> loadDataFromDatabase({
   }
 }
 
-/// 📌 Asset JSON içindeki kelime sayısını hesapla
+// 📌 Asset JSON içindeki kelime sayısını hesapla
 Future<int> getWordCountFromAssetJson() async {
   try {
     final jsonStr = await rootBundle.loadString(
@@ -154,7 +155,7 @@ Future<int> getWordCountFromAssetJson() async {
   }
 }
 
-/// 📌 Firestore 'dan verileri SQLite 'a yaz
+// 📌 Firestore 'dan verileri SQLite 'a yaz
 Future<void> importFromFirestoreToSqlite(
   BuildContext context,
   Function(bool, double, String?, Duration) onLoadingStatusChange,
@@ -168,7 +169,6 @@ Future<void> importFromFirestoreToSqlite(
     log("📥 Firestore 'dan çekilen toplam kayıt: ${documents.length}");
 
     final stopwatch = Stopwatch()..start();
-
     onLoadingStatusChange(true, 0.0, null, Duration.zero);
 
     for (int i = 0; i < documents.length; i++) {
@@ -197,14 +197,13 @@ Future<void> importFromFirestoreToSqlite(
 
     stopwatch.stop();
     onLoadingStatusChange(false, 0.0, null, stopwatch.elapsed);
-
     log("🎉 Firestore 'dan alınan tüm veriler SQLite 'a yazıldı.");
   } catch (e) {
     log("❌ Firestore 'dan veri çekerken hata oluştu: $e");
   }
 }
 
-/// 📌 Firestore 'daki kelime sayısını hesapla
+// 📌 Firestore'daki kelime sayısını hesapla
 Future<int> getFirestoreWordCount() async {
   try {
     final snapshot =
