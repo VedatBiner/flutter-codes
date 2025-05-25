@@ -43,3 +43,4 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/database/ser_tr_dict.json
+    - assets/database/ser_tr_dict.db
