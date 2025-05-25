@@ -24,10 +24,9 @@ class Word {
 
   factory Word.fromMap(Map<String, dynamic> map) {
     return Word(
-      id: map['id'],
-      sirpca: map['sirpca'],
-      turkce: map['turkce'],
-      userEmail: map['userEmail'],
+      sirpca: map['sirpca'] ?? '',
+      turkce: map['turkce'] ?? '',
+      userEmail: map['userEmail'] ?? '',
     );
   }
 

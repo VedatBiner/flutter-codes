@@ -179,7 +179,13 @@ class WordDatabase {
       await db.delete('words');
 
       for (var item in jsonList) {
-        final word = Word.fromMap(item);
+        final map = item as Map<String, dynamic>;
+        final word = Word(
+          sirpca: map['sirpca'] ?? '',
+          turkce: map['turkce'] ?? '',
+          userEmail: map['userEmail'] ?? '',
+        );
+
         await insertWord(word);
       }
 
@@ -446,5 +452,16 @@ class WordDatabase {
     if (context.mounted) {
       await importWordsFromJson(context);
     }
+  }
+
+  /// 📌 Veritabanında aynı Sırpça kelime varsa true döner
+  Future<bool> wordExists(String sirpca) async {
+    final db = await database;
+    final result = await db.query(
+      'words',
+      where: 'sirpca = ?',
+      whereArgs: [sirpca],
+    );
+    return result.isNotEmpty;
   }
 }
