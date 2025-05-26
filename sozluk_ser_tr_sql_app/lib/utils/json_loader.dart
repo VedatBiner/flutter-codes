@@ -1,19 +1,19 @@
 // 📃 <----- json_loader.dart ----->
 // Verilerin tekrar yuklenmesi konsolda ve AppBar'da buradan izleniyor
 
-/// 📌 Dart paketleri
+// 📌 Dart paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-/// 📌 Flutter paketleri
+// 📌 Flutter paketleri
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-/// 📌 Yardımcı yüklemeler burada
+// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
@@ -24,13 +24,13 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
-  /// 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
+  // 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
   final firestoreCount = await getFirestoreWordCount();
   final assetCount = await getWordCountFromAssetJson();
   final dbCount = await WordDatabase.instance.countWords();
 
-  log("📦 Firestore 'daki kayıt sayısı: $firestoreCount");
-  log("📁 Asset JSON 'daki kayıt sayısı: $assetCount");
+  log("📦 Firestore'daki kayıt sayısı: $firestoreCount");
+  log("📁 Asset JSON'daki kayıt sayısı: $assetCount");
   log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount");
 
   if (assetCount > dbCount) {
@@ -45,13 +45,13 @@ Future<void> loadDataFromDatabase({
   final count = await WordDatabase.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
-  /// 🔸 Veritabanı boşsa Firestore 'dan doldur
+  // 🔸 Veritabanı boşsa Firestore'dan doldur
   if (count == 0) {
     await importFromFirestoreToSqlite(context, onLoadingStatusChange);
 
     final newCount = await WordDatabase.instance.countWords();
     if (newCount > 0) {
-      log("✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.");
+      log("✅ Firestore'dan veriler yüklendi. JSON'dan yükleme atlandı.");
 
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
@@ -64,7 +64,6 @@ Future<void> loadDataFromDatabase({
       }
       return;
     }
-
     log("📭 Firestore boş. JSON 'dan veri yükleniyor...");
   } else {
     log("📦 Veritabanında veri var, yükleme yapılmadı.");
@@ -81,6 +80,7 @@ Future<void> loadDataFromDatabase({
     return;
   }
 
+  // 🔁 JSON'dan yükleme (Fallback)
   try {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$fileNameJson';
@@ -140,21 +140,6 @@ Future<void> loadDataFromDatabase({
   }
 }
 
-/// 📌 Asset JSON içindeki kelime sayısını hesapla
-Future<int> getWordCountFromAssetJson() async {
-  try {
-    final jsonStr = await rootBundle.loadString(
-      'assets/database/$fileNameJson',
-    );
-    final List<dynamic> jsonList = jsonDecode(jsonStr);
-    log("📌 Asset içindeki kelime sayısı : ${jsonList.length}");
-    return jsonList.length;
-  } catch (e) {
-    log("❌ Asset JSON okunamadı: $e");
-    return 0;
-  }
-}
-
 /// 📌 Firestore 'dan verileri SQLite 'a yaz
 Future<void> importFromFirestoreToSqlite(
   BuildContext context,
@@ -191,12 +176,14 @@ Future<void> importFromFirestoreToSqlite(
         word.sirpca,
         stopwatch.elapsed,
       );
+
       log("✅ [${i + 1}/${documents.length}] ${word.sirpca} eklendi.");
       await Future.delayed(const Duration(milliseconds: 25));
     }
 
     stopwatch.stop();
     onLoadingStatusChange(false, 0.0, null, stopwatch.elapsed);
+
     log("🎉 Firestore 'dan alınan tüm veriler SQLite 'a yazıldı.");
   } catch (e) {
     log("❌ Firestore 'dan veri çekerken hata oluştu: $e");
@@ -211,6 +198,21 @@ Future<int> getFirestoreWordCount() async {
     return snapshot.docs.length;
   } catch (e) {
     log("❌ Firestore sayımı başarısız: $e");
+    return 0;
+  }
+}
+
+/// 📌 Asset JSON içindeki kelime sayısını hesapla
+Future<int> getWordCountFromAssetJson() async {
+  try {
+    final jsonStr = await rootBundle.loadString(
+      'assets/database/$fileNameJson',
+    );
+    final List<dynamic> jsonList = jsonDecode(jsonStr);
+    log("📌 Asset içindeki kelime sayısı : ${jsonList.length}");
+    return jsonList.length;
+  } catch (e) {
+    log("❌ Asset JSON okunamadı: $e");
     return 0;
   }
 }

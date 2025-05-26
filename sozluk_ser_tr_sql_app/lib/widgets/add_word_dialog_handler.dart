@@ -1,12 +1,12 @@
 // 📃 <----- add_word_dialog_handler.dart ----->
 // Kelime varsa mesaj verip uyarıyor
-// Kelime yoksa listeye ekliyor.
+// Kelime yoksa hem SQLite 'a hem Firestore 'a ekliyor
 
 import 'package:flutter/material.dart';
 
 import '../constants/text_constants.dart';
-import '../db/db_helper.dart';
 import '../models/word_model.dart';
+import '../services/word_service.dart'; // 👈 yeni eklendi
 import 'notification_service.dart';
 import 'word_dialog.dart';
 
@@ -23,14 +23,12 @@ Future<void> showAddWordDialog(
   );
 
   if (result != null) {
-    final existing = await WordDatabase.instance.getWord(result.sirpca);
+    final exists = await WordService.wordExists(result.sirpca);
 
-    if (existing != null) {
+    if (exists) {
       // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
       if (!context.mounted) return;
 
-      /// 📌 Notification göster - Kelime var
-      ///
       NotificationService.showCustomNotification(
         context: context,
         title: 'Uyarı Mesajı',
@@ -57,14 +55,13 @@ Future<void> showAddWordDialog(
       return;
     }
 
-    await WordDatabase.instance.insertWord(result);
+    // ✅ Yeni kelimeyi hem SQLite hem Firestore ’a ekle
+    await WordService.addWord(result);
+
     onWordAdded();
 
-    // ✅ Başarılı ekleme bildirimi göster
     if (!context.mounted) return;
 
-    /// 📌 Notification göster - Kelime eklendi
-    ///
     NotificationService.showCustomNotification(
       context: context,
       title: 'Kelime Ekleme İşlemi',

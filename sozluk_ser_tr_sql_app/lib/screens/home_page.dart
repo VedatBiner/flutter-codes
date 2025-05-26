@@ -1,5 +1,4 @@
 // 📜 <----- home_page.dart ----->
-//
 
 import 'dart:developer';
 
@@ -61,52 +60,36 @@ class _HomePageState extends State<HomePage> {
 
   /// 📌 İlk açılışta verileri (gerekirse) yükle
   void _loadInitialData() async {
-    await WordDatabase.instance.syncFirestoreIfDatabaseEmpty(context);
+    await loadDataFromDatabase(
+      context: context,
+      onLoaded: (loadedWords) {
+        setState(() {
+          allWords = loadedWords;
+          words = loadedWords;
+        });
 
-    final finalWords = await WordDatabase.instance.getWords();
+        if (mounted) {
+          Provider.of<WordCountProvider>(
+            context,
+            listen: false,
+          ).setCount(loadedWords.length);
+        }
+      },
 
-    setState(() {
-      allWords = finalWords;
-      words = finalWords;
-    });
-
-    if (mounted) {
-      Provider.of<WordCountProvider>(
-        context,
-        listen: false,
-      ).setCount(finalWords.length);
-    }
-
-    // await loadDataFromDatabase(
-    //   context: context,
-    //   onLoaded: (loadedWords) {
-    //     setState(() {
-    //       allWords = loadedWords;
-    //       words = loadedWords;
-    //     });
-    //
-    //     /// 🔥 Provider ile kelime sayısını güncelle
-    //     Provider.of<WordCountProvider>(
-    //       context,
-    //       listen: false,
-    //     ).setCount(loadedWords.length);
-    //   },
-    //
-    //   /// 🔄 Yükleme ekranı değiştikçe tetiklenir
-    //   onLoadingStatusChange: (
-    //     bool loading,
-    //     double prog,
-    //     String? currentWord,
-    //     Duration elapsed,
-    //   ) {
-    //     setState(() {
-    //       isLoadingJson = loading;
-    //       progress = prog;
-    //       loadingWord = currentWord;
-    //       elapsedTime = elapsed;
-    //     });
-    //   },
-    // );
+      onLoadingStatusChange: (
+        bool loading,
+        double prog,
+        String? currentWord,
+        Duration elapsed,
+      ) {
+        setState(() {
+          isLoadingJson = loading;
+          progress = prog;
+          loadingWord = currentWord;
+          elapsedTime = elapsed;
+        });
+      },
+    );
   }
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
@@ -116,7 +99,6 @@ class _HomePageState extends State<HomePage> {
 
     setState(() => words = allWords);
 
-    /// 🔥 Provider ile sayacı güncelle
     if (mounted) {
       Provider.of<WordCountProvider>(context, listen: false).setCount(count);
     }
@@ -145,14 +127,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // 🖼️  UI
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         SafeArea(
           child: Scaffold(
-            /// 📌 AppBar burada oluşturuluyor
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(76),
               child: CustomAppBar(
@@ -164,8 +144,6 @@ class _HomePageState extends State<HomePage> {
                 itemCount: words.length,
               ),
             ),
-
-            /// 📌 Drawer menü burada oluşturuluyor
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
               appVersion: appVersion,
@@ -173,9 +151,8 @@ class _HomePageState extends State<HomePage> {
               onToggleViewMode: () {
                 setState(() => isFihristMode = !isFihristMode);
               },
-              //  ⬇️  Yeni imzalı geri-çağrı
               onLoadJsonData: ({
-                required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
+                required BuildContext ctx,
                 required void Function(
                   bool loading,
                   double prog,
@@ -185,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                 onStatus,
               }) async {
                 await loadDataFromDatabase(
-                  context: context, //  ⚠️  HomePage’in context ’i
+                  context: context,
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;
@@ -199,8 +176,6 @@ class _HomePageState extends State<HomePage> {
                       ).setCount(loadedWords.length);
                     }
                   },
-
-                  //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
                   onLoadingStatusChange: (
                     bool loading,
                     double prog,
@@ -213,27 +188,21 @@ class _HomePageState extends State<HomePage> {
                       loadingWord = currentWord;
                       elapsedTime = elapsed;
                     });
-                    onStatus(loading, prog, currentWord, elapsed); // ↩︎ ilet
+                    onStatus(loading, prog, currentWord, elapsed);
                   },
                 );
               },
             ),
-
-            /// 📌 body burada oluşturuluyor
             body:
                 isFihristMode
                     ? AlphabetWordList(words: words, onUpdated: _loadWords)
                     : WordList(words: words, onUpdated: _loadWords),
-
-            /// 📌 FAB burada
             floatingActionButton: CustomFAB(
               refreshWords: _loadWords,
               clearSearch: _clearSearch,
             ),
           ),
         ),
-
-        /// 🔄 JSON 'dan veri yükleniyor ekranı
         if (isLoadingJson)
           SQLLoadingCard(
             progress: progress,
