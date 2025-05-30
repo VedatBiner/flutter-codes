@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';
@@ -18,11 +19,27 @@ class WordList extends StatefulWidget {
 }
 
 class _WordListState extends State<WordList> {
+  List<Word> localWords = [];
   int? selectedIndex;
 
   @override
+  void initState() {
+    super.initState();
+    localWords = widget.words;
+  }
+
+  Future<void> _refreshWords() async {
+    final updatedWords = await WordDatabase.instance.getWords();
+    setState(() {
+      localWords = updatedWords;
+      selectedIndex = null;
+    });
+    widget.onUpdated(); // varsa üst seviyeye de bildir
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (widget.words.isEmpty) {
+    if (localWords.isEmpty) {
       return const Center(child: Text('Henüz kelime eklenmedi.'));
     }
 
@@ -34,9 +51,9 @@ class _WordListState extends State<WordList> {
       },
       behavior: HitTestBehavior.translucent,
       child: ListView.builder(
-        itemCount: widget.words.length,
+        itemCount: localWords.length,
         itemBuilder: (context, index) {
-          final word = widget.words[index];
+          final word = localWords[index];
           final isSelected = selectedIndex == index;
 
           return WordCard(
@@ -48,26 +65,22 @@ class _WordListState extends State<WordList> {
               }
             },
 
-            /// 📌 kelime kartına uzun basılınca
-            /// düzeltme ve silme butonları çıkıyor.
             onLongPress: () {
               setState(() => selectedIndex = isSelected ? null : index);
             },
 
-            /// 📌 düzeltme metodu
             onEdit:
                 () => editWord(
                   context: context,
                   word: word,
-                  onUpdated: widget.onUpdated,
+                  onUpdated: _refreshWords,
                 ),
 
-            /// 📌 silme metodu
             onDelete:
                 () => confirmDelete(
                   context: context,
                   word: word,
-                  onDeleted: widget.onUpdated,
+                  onDeleted: _refreshWords,
                 ),
           );
         },

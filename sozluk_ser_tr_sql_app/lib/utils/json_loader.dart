@@ -26,14 +26,16 @@ Future<void> loadDataFromDatabase({
 }) async {
   // 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
   final firestoreCount = await getFirestoreWordCount();
-  final assetCount = await getWordCountFromAssetJson();
+  final assetJsonCount = await getWordCountFromAssetJson();
   final dbCount = await WordDatabase.instance.countWords();
+  final assetSqlCount = await WordDatabase.instance.countWordsAssetSql();
 
-  log("📦 Firestore'daki kayıt sayısı: $firestoreCount");
-  log("📁 Asset JSON'daki kayıt sayısı: $assetCount");
+  log("📦 Firestore 'daki kayıt sayısı: $firestoreCount");
+  log("📁 Asset JSON 'daki kayıt sayısı: $assetJsonCount");
   log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount");
+  log('🧮 Asset SQL veritabanındaki kayıt sayısı: $assetSqlCount');
 
-  if (assetCount > dbCount) {
+  if (assetJsonCount > dbCount) {
     log(
       "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
     );
@@ -45,13 +47,13 @@ Future<void> loadDataFromDatabase({
   final count = await WordDatabase.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
-  // 🔸 Veritabanı boşsa Firestore'dan doldur
+  // 🔸 Veritabanı boşsa Firestore 'dan doldur
   if (count == 0) {
     await importFromFirestoreToSqlite(context, onLoadingStatusChange);
 
     final newCount = await WordDatabase.instance.countWords();
     if (newCount > 0) {
-      log("✅ Firestore'dan veriler yüklendi. JSON'dan yükleme atlandı.");
+      log("✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.");
 
       final finalWords = await WordDatabase.instance.getWords();
       onLoaded(finalWords);
@@ -209,7 +211,7 @@ Future<int> getWordCountFromAssetJson() async {
       'assets/database/$fileNameJson',
     );
     final List<dynamic> jsonList = jsonDecode(jsonStr);
-    log("📌 Asset içindeki kelime sayısı : ${jsonList.length}");
+    // log("📌 Asset içindeki kelime sayısı (json) : ${jsonList.length}");
     return jsonList.length;
   } catch (e) {
     log("❌ Asset JSON okunamadı: $e");

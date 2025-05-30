@@ -10,6 +10,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -463,5 +464,36 @@ class WordDatabase {
       whereArgs: [sirpca],
     );
     return result.isNotEmpty;
+  }
+
+  /// 📌 Asset içindeki SQL veritabanındaki kayıt sayısını döndürür.
+  ///    (Sadece okuma amaçlı; uygulama veritabanına dokunmaz.)
+  Future<int> countWordsAssetSql() async {
+    // 1️⃣ Asset dosyasını belleğe yükle
+    final byteData = await rootBundle.load('assets/database/ser_tr_dict.db');
+
+    // 2️⃣ Geçici dizine kopyala
+    final tmpDir = await getTemporaryDirectory();
+    final tempPath = join(tmpDir.path, 'asset_temp.db');
+    final tempFile = File(tempPath);
+    await tempFile.writeAsBytes(
+      byteData.buffer.asUint8List(
+        byteData.offsetInBytes,
+        byteData.lengthInBytes,
+      ),
+      flush: true,
+    );
+
+    // 3️⃣ Sadece okuma modunda aç ve COUNT(*) yap
+    final db = await openDatabase(tempPath, readOnly: true);
+    final result = Sqflite.firstIntValue(
+      await db.rawQuery('SELECT COUNT(*) FROM words'),
+    );
+    await db.close();
+
+    // 4️⃣ (İsteğe bağlı) geçici dosyayı sil
+    await tempFile.delete();
+
+    return result ?? 0;
   }
 }

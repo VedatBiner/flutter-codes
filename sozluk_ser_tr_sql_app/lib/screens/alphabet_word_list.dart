@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/serbian_alphabet.dart';
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../widgets/word_actions.dart';
 import '../widgets/word_card.dart';
@@ -25,12 +26,40 @@ class AlphabetWordList extends StatefulWidget {
 }
 
 class _AlphabetWordListState extends State<AlphabetWordList> {
+  List<Word> localWords = [];
   int? selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    localWords = widget.words;
+  }
+
+  // 🔄 Kelime listesi dışarıdan değiştiğinde State'i tazele
+  @override
+  void didUpdateWidget(covariant AlphabetWordList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.words != widget.words) {
+      setState(() {
+        localWords = widget.words;
+        selectedIndex = null; // önceki seçim geçersiz olsun
+      });
+    }
+  }
+
+  Future<void> _refreshWords() async {
+    final updatedWords = await WordDatabase.instance.getWords();
+    setState(() {
+      localWords = updatedWords;
+      selectedIndex = null;
+    });
+    widget.onUpdated(); // üst seviyeyi de bilgilendir
+  }
 
   List<AlphabetListViewItemGroup> _buildGroupedItems() {
     Map<String, List<Word>> grouped = {};
 
-    for (var word in widget.words) {
+    for (var word in localWords) {
       final trimmed = word.sirpca.trim();
       final firstLetter = trimmed.isNotEmpty ? trimmed[0].toUpperCase() : '-';
       final tag = serbianAlphabet.contains(firstLetter) ? firstLetter : '-';
@@ -44,38 +73,33 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
         tag: letter,
         children:
             items.map((word) {
-              final index = widget.words.indexOf(word);
+              final index = localWords.indexOf(word);
               final isSelected = selectedIndex == index;
 
               return WordCard(
                 word: word,
                 isSelected: isSelected,
                 onTap: () {
+                  // Karta dokununca seçim temizlensin
                   if (selectedIndex != null) {
                     setState(() => selectedIndex = null);
                   }
                 },
-
-                /// 📌 kelime kartına uzun basılınca
-                /// düzeltme ve silme butonları çıkıyor.
                 onLongPress: () {
+                  // Uzun basınca seçimi değiştir
                   setState(() => selectedIndex = isSelected ? null : index);
                 },
-
-                /// 📌 düzeltme metodu
                 onEdit:
                     () => editWord(
                       context: context,
                       word: word,
-                      onUpdated: widget.onUpdated,
+                      onUpdated: _refreshWords,
                     ),
-
-                /// 📌 silme metodu
                 onDelete:
                     () => confirmDelete(
                       context: context,
                       word: word,
-                      onDeleted: widget.onUpdated,
+                      onDeleted: _refreshWords,
                     ),
               );
             }).toList(),
@@ -85,12 +109,13 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.words.isEmpty) {
+    if (localWords.isEmpty) {
       return const Center(child: Text('Henüz kelime eklenmedi.'));
     }
 
     return GestureDetector(
       onTap: () {
+        // Ekrandaki boş alana dokunulunca seçim kaldırılsın
         if (selectedIndex != null) {
           setState(() => selectedIndex = null);
         }
@@ -99,8 +124,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
       child: AlphabetListView(
         items: _buildGroupedItems(),
         options: AlphabetListViewOptions(
-          /// 📌 Fihrist görünümünde küçük harfleri göstermek için
-          /// burası kullanılıyor.
           scrollbarOptions: ScrollbarOptions(
             symbols: serbianAlphabet,
             jumpToSymbolsWithNoEntries: true,
@@ -116,7 +139,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                       state == AlphabetScrollbarItemState.active
                           ? Theme.of(
                             context,
-                          ).colorScheme.secondary.withValues(alpha: 0.6)
+                          ).colorScheme.secondary.withAlpha(150)
                           : null,
                 ),
                 child: Center(
@@ -124,7 +147,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                     child: Text(
                       symbol,
                       style: TextStyle(
-                        color: menuColor /*color*/,
+                        color: menuColor,
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
                       ),
@@ -134,15 +157,10 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
               );
             },
           ),
-
-          /// 📌 Fihrist görünümünde liste görünümü ayarları için
-          /// burası kullanılıyor.
           listOptions: ListOptions(
             backgroundColor: cardPageColor,
             stickySectionHeader: false,
             showSectionHeaderForEmptySections: true,
-
-            /// 📌 Liste başı Harfi ayarları
             listHeaderBuilder:
                 (context, symbol) => Padding(
                   padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
@@ -167,7 +185,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                           symbol,
                           textScaler: TextScaler.noScaling,
                           style: TextStyle(
-                            color: menuColor, // 📌 liste başı harf rengi
+                            color: menuColor,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
@@ -177,9 +195,6 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                   ),
                 ),
           ),
-
-          /// 📌 Fihrist görünümünde büyük görünen harfler ile ilgili
-          /// düzenlemeler için burası kullanılıyor.
           overlayOptions: OverlayOptions(
             alignment: Alignment.centerRight,
             overlayBuilder: (context, symbol) {

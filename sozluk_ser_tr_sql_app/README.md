@@ -22,9 +22,10 @@ türetilmiş ve daha geliştirilmiştir.
 - Verilerin harici dizine yedeklenmesi sağlandı.
 - Veri tabanı sıfırlama ayrı kod olarak çıkarıldı. 
 - Veri tabanı yenileme işlemine kronometre eklendi
+- Verilerin Firebase 'den json olarak çekilmesi eklendi.
 
 Yapılacak başka bir şey var mı ?
-Verilerin firebase 'den json olarak çekilmesi deneniyor.
+Verilerin firebase ve sql 'den aynı anda silinmesi deneniyor
 
 
 Düzeltilecekler.

@@ -8,10 +8,11 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
+import '../services/word_service.dart';
 import 'confirmation_dialog.dart';
 import 'notification_service.dart';
 
-// 📌 kelime güncelleme metodu
+// 📜 kelime güncelleme metodu
 //
 Future<void> editWord({
   required BuildContext context,
@@ -26,6 +27,8 @@ Future<void> editWord({
 
   if (updated != null) {
     await WordDatabase.instance.updateWord(updated);
+    await WordService.updateWord(updated);
+
     if (!context.mounted) return;
     onUpdated();
 
@@ -51,7 +54,7 @@ Future<void> editWord({
   }
 }
 
-// 📌 kelime silme metodu
+// 📜 kelime silme metodu
 //
 Future<void> confirmDelete({
   required BuildContext context,
@@ -78,7 +81,11 @@ Future<void> confirmDelete({
   );
 
   if (confirm == true) {
+    // Önce SQLite 'tan sil
     await WordDatabase.instance.deleteWord(word.id!);
+    // Ardından Firestore 'dan sil
+    await WordService.deleteWord(word);
+
     if (!context.mounted) return;
     onDeleted();
 
