@@ -2,15 +2,15 @@
 // kelime güncelleme ve silme metodu
 //
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/widgets/word_dialog.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
-import 'confirmation_dialog.dart';
-import 'notification_service.dart';
+import '../widgets/confirmation_dialog.dart';
+import '../widgets/notification_service.dart';
+import '../widgets/word_dialog.dart';
 
 // 📜 kelime güncelleme metodu
 //
@@ -26,6 +26,7 @@ Future<void> editWord({
   );
 
   if (updated != null) {
+    // 🔹 SQLite ve Firestore üzerinde güncelle
     await WordDatabase.instance.updateWord(updated);
     await WordService.updateWord(updated);
 
@@ -81,9 +82,17 @@ Future<void> confirmDelete({
   );
 
   if (confirm == true) {
-    // Önce SQLite 'tan sil
-    await WordDatabase.instance.deleteWord(word.id!);
-    // Ardından Firestore 'dan sil
+    // 🔹 SQLite silme – id null ise sirpca’dan bul
+    if (word.id != null) {
+      await WordDatabase.instance.deleteWord(word.id!);
+    } else {
+      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      if (dbWord != null) {
+        await WordDatabase.instance.deleteWord(dbWord.id!);
+      }
+    }
+
+    // 🔹 Firestore silme
     await WordService.deleteWord(word);
 
     if (!context.mounted) return;

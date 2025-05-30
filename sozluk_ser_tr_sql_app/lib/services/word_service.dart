@@ -13,7 +13,12 @@ class WordService {
   /// 📌 SQLite ve Firestore 'a yeni kelime ekler
   static Future<void> addWord(Word word) async {
     // 🔹 SQLite
-    await WordDatabase.instance.insertWord(word);
+    final rowId = await WordDatabase.instance.insertWord(word);
+
+    // 🔄 id alanı null ise güncelle (UI’de sonraki işlemler sorunsuz çalışır)
+    if (word.id == null && rowId > 0) {
+      word = word.copyWith(id: rowId); // copyWith() yoksa modelinize ekleyin
+    }
 
     // 🔹 Firestore
     try {
@@ -28,10 +33,18 @@ class WordService {
 
   /// 📌 SQLite ve Firestore 'dan kelimeyi siler (Sırpça adına göre)
   static Future<void> deleteWord(Word word) async {
-    /// 🔹 SQLite verisini sil
-    await WordDatabase.instance.deleteWord(word.id!);
+    // 🔹 SQLite verisini sil
+    if (word.id != null) {
+      await WordDatabase.instance.deleteWord(word.id!);
+    } else {
+      // id null ise sirpca adına göre sorgula
+      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      if (dbWord != null) {
+        await WordDatabase.instance.deleteWord(dbWord.id!);
+      }
+    }
 
-    /// 🔹 Firestore (sirpca alanına göre eşleşeni sil)
+    // 🔹 Firestore (sirpca alanına göre eşleşeni sil)
     try {
       final query =
           await FirebaseFirestore.instance
@@ -51,7 +64,14 @@ class WordService {
   /// 📌 SQLite ve Firestore 'da kelimeyi günceller
   static Future<void> updateWord(Word word) async {
     // 🔹 SQLite
-    await WordDatabase.instance.updateWord(word);
+    if (word.id != null) {
+      await WordDatabase.instance.updateWord(word);
+    } else {
+      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      if (dbWord != null) {
+        await WordDatabase.instance.updateWord(word.copyWith(id: dbWord.id));
+      }
+    }
 
     // 🔹 Firestore (sirpca’ya göre güncelleme)
     try {
