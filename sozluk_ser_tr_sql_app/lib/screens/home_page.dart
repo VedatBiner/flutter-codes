@@ -1,7 +1,5 @@
 // 📜 <----- home_page.dart ----->
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -103,7 +101,7 @@ class _HomePageState extends State<HomePage> {
       Provider.of<WordCountProvider>(context, listen: false).setCount(count);
     }
 
-    log('📦 Toplam kayıt sayısı: $count');
+    // log('📦 Toplam kayıt sayısı: $count');
   }
 
   /// 🔍  Arama filtreleme

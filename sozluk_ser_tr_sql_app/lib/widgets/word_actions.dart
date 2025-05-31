@@ -28,7 +28,7 @@ Future<void> editWord({
   if (updated != null) {
     // 🔹 SQLite ve Firestore üzerinde güncelle
     await WordDatabase.instance.updateWord(updated);
-    await WordService.updateWord(updated);
+    await WordService.updateWord(updated, oldSirpca: word.sirpca);
 
     if (!context.mounted) return;
     onUpdated();

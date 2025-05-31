@@ -10,41 +10,57 @@ import '../db/db_helper.dart';
 import '../models/word_model.dart';
 
 class WordService {
+  /// -----------------------------------------------------------------
   /// 📌 SQLite ve Firestore 'a yeni kelime ekler
+  /// -----------------------------------------------------------------
   static Future<void> addWord(Word word) async {
-    // 🔹 SQLite
+    /// 🔹 SQLite 'a ekle
     final rowId = await WordDatabase.instance.insertWord(word);
+    log("💾 (id = $rowId): ${word.sirpca} Kelimesi, SQLite ’e eklendi.");
 
-    // 🔄 id alanı null ise güncelle (UI’de sonraki işlemler sorunsuz çalışır)
+    // 🔄 id alanı null ise güncelle (UI ’de sonraki işlemler sorunsuz çalışır)
     if (word.id == null && rowId > 0) {
-      word = word.copyWith(id: rowId); // copyWith() yoksa modelinize ekleyin
+      word = word.copyWith(id: rowId); // copyWith() varsa id ’yi set et
     }
 
-    // 🔹 Firestore
+    /// 🔹 Firestore 'a ekle
     try {
       await FirebaseFirestore.instance
           .collection('kelimeler')
           .add(word.toMap());
-      log("✅ Firestore ’a eklendi: ${word.sirpca}");
+      log("✅ ${word.sirpca} Kelimesi, Firestore ’a eklendi.");
     } catch (e) {
       log("❌ Firestore ekleme hatası: $e");
     }
+
+    /// 🔄 Toplam sayıları logla
+    await _logTotals();
   }
 
+  /// -----------------------------------------------------------------
   /// 📌 SQLite ve Firestore 'dan kelimeyi siler (Sırpça adına göre)
+  /// -----------------------------------------------------------------
   static Future<void> deleteWord(Word word) async {
-    // 🔹 SQLite verisini sil
+    bool sqliteDeleted = false; // 🔄 silindi mi?
+
+    /// 🔹 SQLite verisini sil
     if (word.id != null) {
       await WordDatabase.instance.deleteWord(word.id!);
+      sqliteDeleted = true;
     } else {
-      // id null ise sirpca adına göre sorgula
+      /// ❓ id null ise sirpca adına göre sorgula
       final dbWord = await WordDatabase.instance.getWord(word.sirpca);
       if (dbWord != null) {
         await WordDatabase.instance.deleteWord(dbWord.id!);
+        sqliteDeleted = true;
       }
     }
 
-    // 🔹 Firestore (sirpca alanına göre eşleşeni sil)
+    if (sqliteDeleted) {
+      log("💾 ${word.sirpca} Kelimesi, SQLite ’ten silindi.");
+    }
+
+    /// 🔹 Firestore (sirpca alanına göre eşleşeni sil)
     try {
       final query =
           await FirebaseFirestore.instance
@@ -54,45 +70,81 @@ class WordService {
 
       for (var doc in query.docs) {
         await doc.reference.delete();
-        log("🗑️ Firestore ’dan silindi: ${word.sirpca}");
+        log("🗑️ ${word.sirpca} Kelimesi, Firestore ’dan silindi.");
       }
     } catch (e) {
       log("❌ Firestore silme hatası: $e");
     }
+
+    /// 🔄 Toplam sayıları logla
+    await _logTotals();
   }
 
+  /// -----------------------------------------------------------------
   /// 📌 SQLite ve Firestore 'da kelimeyi günceller
-  static Future<void> updateWord(Word word) async {
-    // 🔹 SQLite
+  /// -----------------------------------------------------------------
+  static Future<void> updateWord(Word word, {required String oldSirpca}) async {
+    bool sqliteUpdated = false; // 🔄 güncellendi mi?
+
+    /// 🔹 SQLite Güncelle
     if (word.id != null) {
       await WordDatabase.instance.updateWord(word);
+      sqliteUpdated = true;
     } else {
       final dbWord = await WordDatabase.instance.getWord(word.sirpca);
       if (dbWord != null) {
         await WordDatabase.instance.updateWord(word.copyWith(id: dbWord.id));
+        sqliteUpdated = true;
       }
     }
 
-    // 🔹 Firestore (sirpca’ya göre güncelleme)
+    if (sqliteUpdated) {
+      log("💾 ${word.sirpca} Kelimesi, SQLite ’ta güncellendi.");
+    }
+
+    /// 🔹 Firestore (sirpca ’ya göre güncelleme)
     try {
       final query =
           await FirebaseFirestore.instance
               .collection('kelimeler')
-              .where('sirpca', isEqualTo: word.sirpca)
+              .where('sirpca', isEqualTo: oldSirpca)
               .get();
 
       for (var doc in query.docs) {
         await doc.reference.update(word.toMap());
-        log("✏️ Firestore ’da güncellendi: ${word.sirpca}");
       }
     } catch (e) {
       log("❌ Firestore güncelleme hatası: $e");
     }
+
+    log("✏️ ${word.sirpca} kelimesi, Firestore ’da güncellendi.");
+
+    /// 🔄 Toplam sayıları logla
+    await _logTotals();
   }
 
   /// 📌 SQLite içinde bu kelime var mı? (sırpça adına göre kontrol)
   static Future<bool> wordExists(String sirpca) async {
     final word = await WordDatabase.instance.getWord(sirpca);
     return word != null;
+  }
+
+  /// -----------------------------------------------------------------
+  /// 🔧 YARDIMCI: Hem SQLite hem Firestore ’daki toplam kayıt sayısını logla
+  /// -----------------------------------------------------------------
+  static Future<void> _logTotals() async {
+    try {
+      /// SQLite toplamı
+      final sqliteTotal = await WordDatabase.instance.countWords();
+
+      /// Firestore toplamı (basit get — veri çoksa count aggregation kullanabilirsiniz)
+      final fsSnap =
+          await FirebaseFirestore.instance.collection('kelimeler').get();
+      final firestoreTotal = fsSnap.size;
+
+      log('📊 Toplam kayıt — SQLite: $sqliteTotal, Firestore: $firestoreTotal');
+    } catch (e) {
+      log('⚠️ Toplam kayıt sayısı alınırken hata: $e');
+    }
   }
 }

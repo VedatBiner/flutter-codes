@@ -23,6 +23,7 @@ türetilmiş ve daha geliştirilmiştir.
 - Veri tabanı sıfırlama ayrı kod olarak çıkarıldı. 
 - Veri tabanı yenileme işlemine kronometre eklendi
 - Verilerin Firebase 'den json olarak çekilmesi eklendi.
+- Verilerin SQL ve Firebase 'den eklenmesi ve silinmesi düzeltildi.
 
 Yapılacak başka bir şey var mı ?
 Verilerin firebase ve sql 'den aynı anda silinmesi deneniyor
