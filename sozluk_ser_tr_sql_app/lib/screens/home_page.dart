@@ -41,9 +41,13 @@ class _HomePageState extends State<HomePage> {
   String? loadingWord;
   Duration elapsedTime = Duration.zero;
 
+  /// ⏳  Basit bekleme katmanı (🆕)
+  bool isUpdating = false; // 🆕
+
   @override
   void initState() {
     super.initState();
+    setState(() => isUpdating = true); // 🆕 katmanı aç
     _loadInitialData();
     _getAppVersion();
   }
@@ -64,6 +68,7 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           allWords = loadedWords;
           words = loadedWords;
+          isUpdating = false; // 🆕 katmanı kapat
         });
 
         if (mounted) {
@@ -92,10 +97,14 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
+    setState(() => isUpdating = true);
     allWords = await WordDatabase.instance.getWords();
     final count = await WordDatabase.instance.countWords();
 
-    setState(() => words = allWords);
+    setState(() {
+      words = allWords;
+      isUpdating = false; // 🆕 katman KAPAT
+    });
 
     if (mounted) {
       Provider.of<WordCountProvider>(context, listen: false).setCount(count);
@@ -201,11 +210,29 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        // SQL JSON yükleme kartı (mevcut)
         if (isLoadingJson)
           SQLLoadingCard(
             progress: progress,
             loadingWord: loadingWord,
             elapsedTime: elapsedTime,
+          ),
+        // Basit bekleme katmanı (🆕)
+        if (isUpdating)
+          Positioned.fill(
+            child: Container(
+              color: Colors.white.withOpacity(0.8),
+              child: const Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 24),
+                    Text('Lütfen bekleyiniz…', style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ),
+            ),
           ),
       ],
     );

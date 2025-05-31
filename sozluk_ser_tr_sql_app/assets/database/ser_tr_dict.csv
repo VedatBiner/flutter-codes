@@ -1,6 +1,5 @@
 Sirpca,Turkce
 ,
--001,Fho
 WC šolje,Tuvalet Klozetleri / Klozetler
 Wc solja,Tuvalet kolozeti / Klozet
 -ica,Küçültme eki
@@ -183,6 +182,7 @@ Atletičarka ,Atlet (kadın) (spor)
 Atmosferi,Atmosfer
 Atmosferu,Atmosferi (akuzativ)
 Atrakcija,Cazibe
+Atraktivnu,Cazip
 Atrijumu,Atriyum
 Attachment / Dodatak / Doplata,Ek
 Austrije / Austrija / Austrijskih,Avusturya
@@ -218,6 +218,8 @@ Avganistana,Afganistan
 Avgust,Ağustos (ay)
 Avio,Hava / Uçakla ilgili / Havacılık
 Avio-kartu,Uçak bileti
+Avio-kompanije,Havayolu şirketleri
+Avio-prevoznik,Havayolu taşıyıcısı
 Avion,Uçak
 Aviona,Uçağın (genitiv)
 Avionom,Uçakla / Uçak ile (instrumental)
@@ -298,8 +300,8 @@ Bazen,Yüzme havuzu
 Bazične / Osnivanje / Podloga / Osnovna / Osnovu ,Temel
 Bazna stanica,Baz istasyonu
 Baznih,Baz / Temel (genitiv) (çoğul)
-Baznih stanica,Baz istasyonlarının (genitiv)
 Baznih stanica,Baz istasyonlarının
+Baznih stanica,Baz istasyonlarının (genitiv)
 Beba,Bebek
 Beč,Viyana
 Bečićima,Bečići'ye / Bečići'de (lokativ)
@@ -1226,8 +1228,8 @@ Doma,Evin / Meclisin (genitiv)
 Domaća,Yerel / Ev yapımı (kadın)
 Domaće,Yerel / Yerli / Ev Yapımı (nötr) (çoğul)
 Domaće tržište,Iç pazar
-Domaćem,Yerel / iç / Ulusal
 Domaćem,Yerli / İç
+Domaćem,Yerel / iç / Ulusal
 Domaći,Yerel / Ev yapımı / Yerli (erkek)
 Domaćica,Ev hanımı
 Domaćinstva,Hane halkı
@@ -1251,9 +1253,9 @@ Donijeće,Getirecek
 Donijela,Karar aldı (kadın)
 Donijeti,Getirmek / Karar almak (fiil) (Hırvatça) (Karadağça)
 Donose,Getiriyorlar (onlar)
-Donoseći,Getirirken
-Donosi,Sunuyor / Getiriyor (sana)
+Donoseći,Getirerek
 Donosi,Getiriyor (o)
+Donosi,Sunuyor / Getiriyor (sana)
 Donosim,Getiriyorum (ben)
 Donositi,Getirmek / Sağlamak (fiil)
 Donošenja,Yapma
@@ -1343,8 +1345,8 @@ Drugovi,Arkadaşlar (erkek)
 Drugovima,Arkadaşlarıyla / Erkek arkadaşlarıyla
 Drugu,Diğer (dişi) (akuzativ) (dativ)
 Drugu noć ,Ikinci gece
-Društva,Toplumun / Toplumu (genitiv)
 Društva,Toplumlar / Gruplar
+Društva,Toplumun / Toplumu (genitiv)
 Društva jednakih šansi ,Eşit fırsatlar toplumunu
 Društven,Sosyal / Toplumsal
 Društvena mreža,Sosyal medya
@@ -1524,6 +1526,7 @@ Ekrana,Ekranın (genitiv)
 Ekrani,Ekranlar
 Ekranu,Ekrana (dativ)
 Ekskluzivna,Özel / Lüks / Ayrıcalıklı (kadın)
+Ekskluzivne,Ayrıcalıklı (akuzativ)
 Ekskluzivno,Münhasıran
 Ekskluzivnoj,Özel bir şeye / Özel bir kişiye (dativ) (Kadın)
 Ekspanziju,Genişleme
@@ -1841,8 +1844,8 @@ Glukoza,Glukoza
 Glukozu,Glikoz
 Glumac,Oyuncu / Aktör (erkek)
 Glumca,Oyunculuk / Oyuncunun
-Glumica,Oyuncu / Aktris (kadın)
 Glumica,Aktris (kadın)
+Glumica,Oyuncu / Aktris (kadın)
 Glup,Aptal (sıfat)
 Gljiva,Mantar
 Godina,Yıl (kadın)
@@ -1991,8 +1994,8 @@ Hidrometeorologiju,Hidrometeoroloji
 Higijena,Hijyen
 Higijeničarka,Hijyenist
 Hiljada,Bin (sayı) / Binlerce
-Hiljade,Bin (çoğul) (dişi) (sayı)
 Hiljade,Binler / Binlerce (sayı) (kadın)
+Hiljade,Bin (çoğul) (dişi) (sayı)
 Hiljadu,Bin (sayı)
 Hiljadu devetsto šezdeset četiri,1964 (sayı)
 Hipotekarna,İpotek şirketi
@@ -2039,8 +2042,8 @@ Hristovog,İsa'nın (peygamber)
 Hrskavi,Gevrek
 Hrvatska,Hırvatistan
 Hrvatske,Hırvatistan'ın (genitiv)
-Hrvatski,Hırvat
 Hrvatski,Hırvatça
+Hrvatski,Hırvat
 Hrvatsku,Hırvatistan / Hırvatistan'ı (akuzativ) (lokativ)
 Htjela bih,Ben istiyorum
 Htjela bih nešto da vas pitam,Sana bir şey sormak istiyorum
@@ -2111,6 +2114,7 @@ Imam,Sahibim (ben)
 Imam dobre vijesti,İyi haberlerim var
 Imam temperatura ,Ataşim var
 Imamo,Sahibiz / var (bizim)
+Imao,Sahip oldum (geçmiş)
 Imaš,Sahipsin (sen)
 Imate,Sahipsiniz (siz)
 Imate li,Var mı? (siz)
@@ -2157,8 +2161,8 @@ Inicijativi,Girişime (dativ) (kadın)
 Inicijativu,Girişimi (akuzativ)
 Inicijator,Başlatan kişi / Girişimci
 Inicijatora,Başlatanın (genitiv)
-Inovacija,İnovasyonların (genitiv)
 Inovacija,Yenilik / İnovasyon (kadın)
+Inovacija,İnovasyonların (genitiv)
 Inovacije,Yenilikler
 Inovativan,Yenilikçi / İnovatif
 Inovativnim,Yenilikçi (dativ) (lokativ)
@@ -2177,8 +2181,8 @@ Instruktora,Eğitmeni / Eğitmenin (genitiv)
 Integracija,Entegrasyon /  Bütünleşme / Uyum sağlama
 Integracije,Entegrasyonlar / Bütünleşmeler
 Integracioni,Entegrasyon ile ilgili (erkek)
-Integracionom,Entegrasyon ile ilgili (dativ)
 Integracionom,Entegrasyon ile ilgili
+Integracionom,Entegrasyon ile ilgili (dativ)
 Integrisan / Udružile / Udruženog / Objedinjena,Birleşik
 Inteligancije,İstihbarat
 Inteligencija / Inteligencijom,Istihbarat
@@ -2199,6 +2203,7 @@ Interesima,Ilgi alanları
 Interesovanj / Kamata,Faiz
 Interesovanja,İlgi alanları
 Interesovanje,İlgi / Merak / Dikkat (nötr)
+Interesovanju,İlgiye (lokativ)
 Internacionalna,Uluslararası
 Internacionalnog,Uluslararası (genitiv) (modern)
 Internet pretraga,Internet araması
@@ -2206,8 +2211,8 @@ Interneta,Internetin (genitiv) / internete (dativ)
 Internetu,Internette
 Intervjua,Röportaj
 Investicija,Yatırım
-Investicije,Yatırımlar (akuzativ)
 Investicije,Yatırımlar
+Investicije,Yatırımlar (akuzativ)
 Investicionom / Investmentu,Yatırım
 Inženjer,Mühendis (erkek)
 Inženjeri,Mühendisler (erkek) (karma)
@@ -2220,6 +2225,7 @@ Irkćnja,İrlandalı (kadın)
 Irkinje,İrlandalılar (kadın)
 Irski,İrlandaca / İrlanda'ya ait
 Isao,Gitmiş
+Iskazanom,Gösterilen / İfade edilen
 Iskaze,Ifadeler / Açıklamalar
 Isključivo,Münhasıran
 Iskoracima / Koraci,Adımlar
@@ -2302,8 +2308,10 @@ Istraži ponudu,Teklifi araştır / Fırsatları incele
 Istražite,Araştırmanı yap
 Istražiti,Araştırmak / Keşfetmek (fiil)
 Istraživačkim,Araştırma ile ilgili / Araştırmacı (instrumental) (dativ)
+Istraživali,Keşfettiler
 Istraživanja,Araştırmalar (nominativ)
 Istraživanje,Araştırma (nötr) (akuzativ)
+Istraživati,Keşfetmek (fiil)
 Istražujemo,Araştırıyoruz
 Istu,Aynısını / Onu
 Išli,Gitmiş (biz)
@@ -2311,8 +2319,8 @@ Italija,İtalya
 Italijan,İtalyan (erkek)
 Italijanka,İtalyan (kadın)
 Italijanska,İtalyanca / İtalya ile ilgili (kadın)
-Italijanski,İtalyanca / İtalya ile ilgili
 Italijanski,İtalyanca / İtalya ile ilgili (erkek)
+Italijanski,İtalyanca / İtalya ile ilgili
 Italijansko,İtalyanca / İtalya ile ilgili (nötr)
 Italijanskog,İtalyan
 Italije,İtalya'nın
@@ -2384,6 +2392,7 @@ Izjašnjenje ,Resmi açıklama / Görüş bildirimi
 Izjava,Ifade / Beyan / Açıklama (kadın)
 Izjave,İfadeler
 Izjavljuju,İfade ederler / İletirler
+Izlagača,Katılımcının
 Izlagači,Sergileyiciler / Katılımcılar
 Izlagačkih,Sergi
 Izlazak,Çıkış / Dışarı çıkış
@@ -2626,6 +2635,7 @@ Još više,Daha fazla
 Jubileja,Jübile
 Juče,Dün
 Jug,Güney (yön)
+Jugoistočne,Güneydoğu (yön)
 Jugoistok,Güneydoğu (yön)
 Jugoslovenskih,Yugoslavya
 Jugozapad,Güneybatı (yön)
@@ -2719,7 +2729,7 @@ Kanta,Çöp Kutusu
 Kantri,Ülke (gayrıresmi dilde)
 Kantri / Zemlya,Ülke
 Kanjon,Kanyon
-Kao,Gibi / Olarak / Kadar
+Kao,Gibi / Olarak / Kadar (edat)
 Kao da se ništa nije dogodilo.,Hiçbir şey olmamış gibi
 Kao i,Ayrıca / Yanı sıra
 Kao i do sada,Bugüne kadar olduğu gibi
@@ -3126,8 +3136,8 @@ Kotoru,Kotor 'da
 Kovrdžava,Kıvırcık saç
 Koža,Deri / Ten
 Kožan,Deri (giysi)
-Kože,Derinin / Deriler (çoğul) 7 Deriden (genitiv)
 Kože,Deriden (genitiv)
+Kože,Derinin / Deriler (çoğul) 7 Deriden (genitiv)
 Kožna,Deri (giysi) (kadın) (tekil) (nötr) (çoğul)
 Kožno,Deri (giysi) (nötr)
 Krači,Daha kısa
@@ -3742,8 +3752,8 @@ Min,Dakika (kısaltma)
 Mineralne,Mineral / Mineralli
 Mineralne vode,Maden suyu
 Minimalnoj,En az
-Ministar,Bakan (siyaset) (erkek)
 Ministar,Bakan olarak
+Ministar,Bakan (siyaset) (erkek)
 Ministar vanjskih poslova,Dışişleri bakanı
 Ministar za kulturu,Kültür Bakanı
 Ministarka,Bakan (kadın)
@@ -3802,8 +3812,8 @@ Mjesto gdje uspomene počinju,Anıların başladığı yer
 Mjestu,Yere / Yerde / Sıra
 Mješavina,Karışım
 Mjileko,Hafifçe
-Mlad,Genç (erkek)
 Mlad,Genç (kadın)
+Mlad,Genç (erkek)
 Mladi,Gençler
 Mladić,Genç adam / delikanlı
 Mladića,Gençlerin
@@ -3836,8 +3846,8 @@ Mobilnih aplikacija,Mobil Uygulamaların (genitiv)
 Mobilnog,Mobil
 Mobilnog telefona,Cep telefonu
 Mobilnoj,Mobil (lokativ) (kadın)
-Moć,Güç
 Moć,Güç / Kudret 
+Moć,Güç
 Moćan,Güçlü / Kudretli / Etkili (erkek)
 Moći,Yapabilmek (fiil)
 Moćna,Güçlü / Dayanıklı / Etkili / Kudretli (kadın)
@@ -3874,7 +3884,7 @@ Mogu pomoći,Yardım edebilirim
 Mogu zamijeniti,Değiştirebilir miyim?
 Moguće,Olası / Mümkün
 Mogućnost,Olasılık / Olanak / Fırsat
-Mogućnosti,Olasılıklar
+Mogućnosti,Olasılıkları / İmkanları (akuzativ)
 Mogućnostima,İmkânlarla / Olanaklarla / Fırsatlarla
 Moj,Benim (erkek)
 Moja,Benim (kadın)
@@ -4015,8 +4025,8 @@ Nadamo,Umut ediyoruz
 Naddušek,Aşırı nefes alma
 Nadležan,Yetkili / Sorumlu
 Nadležne institucije,Yetkili kurumlar
-Nadležni,Organlar / Makamlar / Kurumlar
 Nadležni,Yetkili / Sorumlu
+Nadležni,Organlar / Makamlar / Kurumlar
 Nadležnim,Yetkili / Sorumlu (çoğul)
 Nadležnost,Yetki / Yetki alanı (kadın)
 Nadležnosti,Yetki / Yetkililik
@@ -4100,11 +4110,12 @@ Najvecih,En büyüklerin
 Najveća,En büyük
 Najveće,En büyük
 Najveći,En büyük (erkek)
-Najvećim,En büyük / En fazla (erkek) (instrumental)
 Najvećim,En büyükle / En büyüğe (dativ) (lokativ)
+Najvećim,En büyük / En fazla (erkek) (instrumental)
 Najviše,En çok / en fazla
 Najvišem,En yüksek
 Najvišim / Najviših,En yüksek
+Najznačajnijoj,En önemli
 Najzrelije,En olgun
 Naknada,Ücret
 Nakon,Sonra / Sonrasında
@@ -4127,7 +4138,7 @@ Nalog,Talimat / Emir
 Nalog Platioca,Ödeme emri
 Naloga,Emir
 Nam,Bize (dativ)
-Nama,Bize / Bizde (zamir)
+Nama,Bize / Bizde / Bizimle (zamir)
 Namaz,Yaymak
 Namazati,Sürmek / Yaymak (fiil)
 Namenjen,Yönelik
@@ -4238,8 +4249,8 @@ Naš,Bizim (erkek)
 Naš takmičar,Rakibimiz
 Naša (2),Bizim (nötr - çoğul)
 Naša (1),Bizim (dişi)
-Naše (2),Bizim (nötr)
 Naše (1),Bizim (dişi - çoğul)
+Naše (2),Bizim (nötr)
 Našeg,Bizim (erkek) (nötr) (tekil) (zamir)
 Našem,Bizim (dativ) (erkek veya nötr)
 Našem timu,Ekibimize
@@ -4286,8 +4297,8 @@ Nazovi,Ara (sen) (emir)
 Nazovite,Arayın (siz)
 Nazvati,Aramak (fiil) (telefonla)
 Nažalost,Maalesef / Ne yazık ki (zarf)
-Ne,Hayır
 Ne,Olumsuz (ek)
+Ne,Hayır
 Ne brinite,Merak etme
 Ne može,Mümkün değil
 Ne možete pričati,Konuşamazsın
@@ -4561,8 +4572,8 @@ Njegoševog,Njegoš'un (genitiv)
 Njegov,Onun (erkek - erkek)
 Njegova,Onun (erkek - nötr - çoğul)
 Njegova (1),Onun (erkek - dişi)
-Njegove (1),Onun (erkek - erkek - çoğul)
 Njegove (2),Onun (erkek - nötr)
+Njegove (1),Onun (erkek - erkek - çoğul)
 Njegovi,Onun (erkek - erkek - çoğul)
 Njegovom,Onun (erkek) (nötr) (dtiv)
 Njegovu / Njegovo,Onun
@@ -4579,8 +4590,8 @@ Njemica,Alman (kadın)
 Njemice,Almanlar (kadın)
 Njemu,Ona / Onda / Onun içinde (lokativ) (erkek) (nötr)
 Njen,Onun (dişi - erkek)
-Njena (1),Onun (dişi - dişi)
 Njena (2),Onun (dişi - nötr - çoğul)
+Njena (1),Onun (dişi - dişi)
 Njene,Onun (dişi - dişi - çoğul)
 Njeni,Onun (dişi - erkek - çoğul)
 Njenih,Onunki
@@ -4590,8 +4601,8 @@ Njenog,Onun
 Njezine,Onun (kadın)
 Nježnost,Hassasiyet
 Njih,Onlara
-Njihova (2),Onların (nötr - çoğul)
 Njihova (1),Onların (kadın)
+Njihova (2),Onların (nötr - çoğul)
 Njihove,Onların (dişi - çoğul)
 Njihovi,Onların (erkek - çoğul)
 Njihovim / Njihovom / Njihovog,Onların
@@ -4670,8 +4681,8 @@ Objedinjen,Birleştirilmiş
 Objedinjena,Birleştirilmiş / Entegre (kadın)
 Objedinjena naplata,Birleştirilmiş tahsilat sistemi (vergi + SGK primleri tek hesap)
 Objekat,Nesne / Yer / Bina
-Objekata,Yer / Bina (çoğul) (genitiv)
 Objekata,Nesneler
+Objekata,Yer / Bina (çoğul) (genitiv)
 Objekta,Binanın (genitiv)
 Objekti,Binalar / Tesisler / Nesneler
 Oblači,Giyiyor (o)
@@ -4886,7 +4897,9 @@ Odrični oblik,Negatif (olumsuz) biçim
 Održaće,Alacak
 Održala,Gerçekleştirdi / Düzenledi (geçmiş)
 Održano / Održana / Držala,Tutulmuş
+Održao,Düzenlendi (geçmiş)
 Održati,Sürdürmek / Düzenlemek (fiil) (bir kez yapılır)
+Održati se,Düzenlemek (fiil)
 Održava se,Düzenleniyor (o)
 Održavaju se,Düzenleniyor / Gerçekleştiriliyor (onlar)
 Održavanja,Bakım
@@ -4903,8 +4916,8 @@ Odslušaj,Tamamını dinle
 Odsto,Yüzde (%)
 Odštampaj,Yazdır / Bas (emir)
 Oduzimanja,El koymanın (genitiv)
-Oduzimanje,El koyma
 Oduzimanje,El koyma / Mal varlığının alınması
+Oduzimanje,El koyma
 Odvaja,Ayırır
 Odvodit,Götürmek (birini) (fiil)
 Odvojena,Ayrılmış
@@ -4946,6 +4959,7 @@ Okupana,Yıkanmış
 Okupe se,Toplandılar / Bir araya geldiler
 Okupila,Bir araya getirdi (geçmiş)
 Okupilo,Toplandı (geçmiş)
+Okupio,Topladı / Bir araya getirdi (geçmiş)
 Okupiti,Bir araya getirmek / Toplamak (fiil)
 Okupiti se,Toplanmak / Bir araya gelmek (fiil)
 Okupljeni,Toplanan insanlar
@@ -5028,8 +5042,8 @@ Opstanak,Hayatta kalmak / Varlığını sürdürmek
 Opširnije,Daha kapsamlı
 Opšti / Opštem / Generalne,Genel
 Opština,İlçe / Mahalle
-Opštine,Belediye / İlçe
 Opštine,İlçe / Mahalle (kadın)
+Opštine,Belediye / İlçe
 Opštine Budva,Budva Belediyesi
 Opštini / Opština,Belediye
 Opterećivati,Yüklemek (fiil)
@@ -5396,8 +5410,8 @@ Pejzaža,Manzara
 Pek,Gaga
 Pekar,Fırıncı (erkek)
 Pekara,Fırın / Ekmek börek vs. satılan yer
-Pekari,Fırıncılar
 Pekari,Fırıncılar (erkek) (karma)
+Pekari,Fırıncılar
 Pekarke,Fırıncılar (kadın)
 Penušavih,Köpüklü / (çoğul)
 Penzija,Emekli maaşı
@@ -5407,8 +5421,8 @@ Penzioner,Emekli
 Penzionere,Emeklilere yönelik
 Penzioneri,Emekliler (erkek)
 Pere,Fırçalıyor (o)
-Period,Dönme / Süre / Periyot
 Period,Dönem  / Periyot
+Period,Dönme / Süre / Periyot
 Period promocije,Promosyon dönemi
 Periodu,Dönemde / Periyotta
 Periv,Yıkanabilir
@@ -5535,8 +5549,8 @@ Planirane,Planlanmış (kadın)
 Planirani,Planlanan
 Planirati,Planlamak (fiil)
 Planirati se,Planlanmak / Organize edilmek (fiil)
-Plantaža,Plantasyon
 Plantaža,Bağ / Tarım alanı
+Plantaža,Plantasyon
 Plantažama,Bağlarda / Tarım alanlarında (lokativ)
 Plantaže,Bağlar / Tarım arazileri
 Planu,Plana / Planda (dativ) (lokativ)
@@ -5938,7 +5952,6 @@ Ponosna,Gurulu (kadın)
 Ponosni,Gururlular (erkek)
 Ponosni smo,Gurur duyuyoruz
 Ponosno,Gururla
-Ponosno,Gururlu (nötr)
 Ponosom,Gururla
 Ponovi,Tekrarla (emir) (sen)
 Ponovilo se,Tekrar etti
@@ -5978,8 +5991,8 @@ Popusti,Indirimler (nominativ) / Kaçırma
 Popustima,İndirimlere (dativ) / İndirimlerle (instrumental)
 Popustom,Indirimli / İndirimle
 Popustom za studente,Öğrencile için indirim
-Poput,Gibi / Benzeri (Genitiv)
 Poput,Beğenmek
+Poput,Gibi / Benzeri (Genitiv)
 Porcelan,Porselen
 Porcija,Porsiyon
 Porcije,Porsiyonlar
@@ -5999,16 +6012,16 @@ Poreski kredit,Vergi kredisi
 Poreski obveznik,Vergi Mükellefi
 Poreski propisi,Vergi Mevzuatı
 Poreskog,Vergi (genitiv) (erkek)
-Porez,Vergi (genitiv)
 Porez,Vergi
+Porez,Vergi (genitiv)
 Porez i doprinos na dohodak,Vergi ve gelir katkısı
 Porez i doprinos na dohodak fizičkih lica,Gerçek kişilerin gelirine ilişkin vergi ve prim (SGK / sosyal güvenlik katkısı)
 Porez na dobit ,Kurumlar vergisi
 Porez na dodatu vrijednost,Katma değer vergisi
 Porez na imovinu,Emlak Vergisi
 Porez na lična primanja po osnovu zaposlenja,Istihdama dayalı kişisel gelir vergisi
-Poreza,Vergilerin (genitiv)
 Poreza,Vergi (çoğul)
+Poreza,Vergilerin (genitiv)
 Porezi,Vergiler
 Porodica,Aile
 Porodicama,Ailelelere (Dativ) / Ailelerde (Genitiv) / Ailelerle (instrumental)
@@ -6054,6 +6067,7 @@ Posjeta,Ziyaret (kadın)
 Posjete,Ziyaretler
 Posjeti,Ziyaret et (emir)
 Posjetilaca,Ziyaretçilerin
+Posjetili,Ziyaret ettiler
 Posjetioci,Ziyaretçiler (erkek)
 Posjetiš,Ziyaret et (sen) (emir)
 Posjetite,Ziyaret edin (siz)
@@ -6246,6 +6260,7 @@ Povećanje,Artış
 Povećati,Arttırmak (fiil)
 Povezana,Bağlantılı / İlişkili (kadın)
 Povezati,Bağlamak / Birleştirmek / İlişkilendirmek (fiil)
+Povezivanja,Bağlantılarının (genitiv)
 Povezivati / Povežite,Bağlamak (fiil)
 Povezujući,Bağlanıyor
 Povežite,Bağlayın / Birleştirin / Eşleştirin (emir) (siz)
@@ -6289,6 +6304,7 @@ Pozajmice,Ödünç / Borç (çoğul)
 Pozajmici,Ödünce / Ödünçte / Borca / Borçta (lokativ)
 Pozdrav,Selam (erkek)
 Pozdrava,Selamların / Sevgilerin
+Pozdrave,Selamları (akuzativ)
 Pozdravi,Selamlar / Saygılar
 Pozdravljam,Takdir eddiyorum / Destekliyorum (ben)
 Pozdravljamo,Selamlıyoruz / Memnuniyetle Karşılıyoruz (biz)
@@ -6534,8 +6550,8 @@ Preko puta,Karşısında
 Preko računa,Banka havalesi / Hesaptan ödeme
 Prekrasne,Harika / Çok güzel (kadın) (çoğul)
 Prekretnica,Dönüm noktası / Kilometre taşı (kadın)
-Prekrivač,Kapak / Yatak örtüsü
 Prekrivač,Yatak örtüsü
+Prekrivač,Kapak / Yatak örtüsü
 Prekršila,İhlal etti (geçmiş)
 Prekršio,İhlal etti / Çiğnedi (o)
 Prekršiti,İhlal etmek / çiğnemek (fiil)
@@ -6551,12 +6567,14 @@ Prema,Buna göre / -e doğru / -e yönünde / Uyarınca (edat)
 Prema strogim pravilima,Katı kurallara göre
 Premijer,Başbakan
 Premijerom,Başbakan ile
+Prenesem,Ileteyim
+Prenijeti,İletmek (fiil)
 Preostalo,Geriye kalan
 Prepisaće,Reçete yazacak (o) (gelecek)
 Prepisati,Reçete yazmak / Tavsiye etmek  / Kopya etmek (fiil)
 Prepisivanje,Sınavda kopya çekme
-Prepisivati,Reçete etmek / Yazmak (fiil)
 Prepisivati,Kopya etmeye devam etmek (sürekli)
+Prepisivati,Reçete etmek / Yazmak (fiil)
 Prepiska,Yazışma / Mektuplaşma
 Prepisuje,Reçete ediyor / Yazıyor (o)
 Preporučili,Önerdiler / Tavsiye ettiler (geçmiş)
@@ -6581,12 +6599,13 @@ Preskupo,Çok pahalı
 Prestanak,Sonlanma / Sona erme
 Prestižan,Prestijli
 Prestižna,Prestijli / Saygın (kadın)
+Prestižni,Prestijli
 Prestižnim,Prestijli (lokativ) (çoğul)
 Prestižnom,Prestijli
 Preteći,Sollayıp geçmek (fiil) (tekrarsız)
 Prethodna,Önceki (kadın)
-Prethodne,Öncekinin (genitiv) (kadın)
 Prethodne,Önceki (kadın) (genitiv)
+Prethodne,Öncekinin (genitiv) (kadın)
 Prethodno,Önceden / Evvelce
 Preticao,sollamakta idi / Geçiyordu (geçmiş)
 Preticati,Arcı veya kişiyi sollamak (sürekli) (fiil)
@@ -6658,7 +6677,7 @@ Prijatelji,Arkadaşlar / Dostlar
 Prijateljica,Arkadaş / Dost (kadın)
 Prijateljicom,Arkadaşıyla (kadın)
 Prijateljima,Arkadaşlar (nominativ) / Arkadaşlara (dativ) / Arkadaşlarla / Arkadaşlarıyla (instrumental)
-Prijateljske,Dostane (sıfat) (kadın)
+Prijateljske,Dostane / Dostça (sıfat) (kadın)
 Prijateljski,Arkadaşça
 Prijateljstva,Arkadaşlık ilişkisi (çoğul)
 Prijateljstvo,Arkadaşlık ilişkisi / Dostluk
@@ -6710,8 +6729,7 @@ Prilazim,Yaklaşıyorum
 Prilici,Fırsata / Duruma (dativ) (lokativ)
 Prilično,Oldukça / Epeyce / Bir hayli (zarf)
 Prilika,Fırsat / Vesile / Durum
-Prilike,Fırsatlar / Olanaklar (akuzativ)
-Prilike,Koşullar / Fırsatlar
+Prilike,Koşullar / Fırsatlar / Olanaklar (akuzativ)
 Prilikom,Vesilesiyle / Sırasında / Dolayısıyla / Anında (edat) (genitiv)
 Priliku,Fırsatı (akuzativ)
 Priliv,Giriş
@@ -6947,6 +6965,8 @@ Promocija,Promosyon / Tanıtım / Kampanya
 Promocije,Promosyonun / Tanıtımın (genitiv)
 Promoćni,Promosyon
 Promoviraj,Terfi
+Promovisati,Öne çıkarmak / Tanıtmak (fiil)
+Promovišući,Öne çıkararaak / Tanıtarak
 Promptan,Hızlı / ani
 Promptnoj,Hızlı (dativ)
 Pronaći,Bulmak / Keşfetmek (fiil)
@@ -7022,8 +7042,8 @@ Provode,zaman geçiriyorlar (onlar)
 Provodi,Zaman geçiriyor (o)
 Provodimo,Zaman geçiriyoruz (biz)
 Provodimo vikend,Hafta sonunu geçiriyoruz
-Provoditi,Zaman geçirmek (fiil)
 Provoditi,Geçirmek (fiil)
+Provoditi,Zaman geçirmek (fiil)
 Prozor,Pencere
 Prozora,Pencerenin (genitiv)
 Prozore,Pencereleri (akuzativ)
@@ -7117,7 +7137,7 @@ Putnik,Yolcu / Gezgin
 Putnika,Yolcuların (genitiv)
 Putnike,Yolcuları (akuzativ)
 Putno,Yolculukla ilgili / Seyahata dair
-Putovanja,Seyahatler
+Putovanja,Seyahatler / Seyahatin (genitiv)
 Putovanje,Seyahat / Yolculuk
 Putovanju,Seyahate / Yolculukta
 Putovati,Seyahat etmek (fiil)
@@ -7283,8 +7303,8 @@ Različito,Farklı / Çeşitli (zarf)
 Razlikovati se,Farklı olmak / Farklılık göstermek (fiil)
 Razlikuje,Farklıdır (o)
 Razlikuju,Farklılık gösteriyorlar (onlar)
-Razlog,Neden / Sebep / Gerekçe
 Razlog,Neden / Sebep
+Razlog,Neden / Sebep / Gerekçe
 Razloga,Sebebin / Nedenin (genitiv) (çoğul)
 Razmatra,Görüşülüyor
 Razmatramo,Değerlendiriyoruz (biz)
@@ -7632,8 +7652,8 @@ Sanki,Kızaklar (kadın)
 Sanjao,Hayal etti / Rüya gördü (geçmiş) (o) (erkek)
 Sanjati,Hayal etmek / Rüya görmek (fiil)
 Saobraćaj,Trafik / Ulaşım
-Saobraćaja,Trafiğin / Ulaşımın (genitiv)
 Saobraćaja,Ulaşımın (genitiv)
+Saobraćaja,Trafiğin / Ulaşımın (genitiv)
 Saobraćajna nesreća,Trafik Kazası
 Saobraćajni / Promet,Trafik
 Saobraćajnica,Trafik yolu
@@ -8051,8 +8071,8 @@ Snimljen,Çekilmiş / Kaydedilmiş (erkek)
 Snimljena,Çekilmiş / Kaydedilmiş (kadın)
 Snimljene,Çekilmişler / Kaydedilmişler (kadın)
 Snimljeno,Çekilmiş / kaydedilmiş (nötr)
-Snižene,Indirimli
 Snižene,İndirimli
+Snižene,Indirimli
 Sniženja,Indirimler
 Sniženje,Kesinti
 Snova,Rüyalar
@@ -8299,8 +8319,8 @@ Stići,Yetişmek / Ulaşmak / Varmak (fiil)
 Stigao ,Ulaştı (erkek)
 Stigla,Ulaştı (kadın)
 Stigla,Geldi (kadın) (geçmiş)
-Stigli,Ulaştı / Vardılar
 Stigli,Ulaştılar
+Stigli,Ulaştı / Vardılar
 Stiglo,Ulaştı / Geldi (geçmiş)
 Stigne,Ulaşır (o)
 Stignem,Ulaşırım (ben)
@@ -8515,8 +8535,8 @@ Svakodnevno,Günlük / Her gün
 Svakog,Her birinin / her ... 'nın (düzenli eylem) (erkek) (nötr)
 Svakoj,Her / Her birine (kadın) (nötr) (dativ) (lokativ)
 Svakom,Her birine / Her bir kişiye / Her bir birey / Her bir
-Svaku,Herkes
 Svaku,Her / Her birini (kadın) (akuzativ)
+Svaku,Herkes
 Sve,Hepsi / Her şey / Tamamı / Tümü
 Sve što vam je,Sahip olduğun her şey
 Sve utakmice,Tüm maçlar
@@ -9106,6 +9126,7 @@ Turiste,Turistler (akuzativ)
 Turistička,Turistik (kadın)
 Turistička sezona,Turizm sezonu
 Turističke,Turistik (kadın) (genitiv)
+Turističke agencije,Turizm acentaları
 Turistički,Turistik
 Turističko,Turistik (nötr)
 Turističkog,Turistik / Turist ile ilgili (genitiv)
@@ -9141,8 +9162,8 @@ Tužno,Üzgün (nötr)
 TVCG (Televizija Crne Gore),Karadağ Devlet Televizyonu
 Tvog,Senin (erkek) (nötr)
 Tvoj,Senin (erkek)
-Tvoja (1),Senin (kadın)
 Tvoja (2),Senin (nötr) (çoğul)
+Tvoja (1),Senin (kadın)
 Tvoja druga polovina ovog ljeta,Bu yaz diğer yarım
 Tvoje (1),Senin (kadın) (çoğul)
 Tvoje (2),Senin (nötr)
@@ -9193,6 +9214,7 @@ Učenica,Öğrenci (kadın)
 Učenici,Öğrenciye (dativ) (kadın)
 Učesnici,Katılımcılar
 Učesnika,Katılımcı
+Učestvovali,Katıldık (geçmiş)
 Učestvovanju,Katılım / Katılma
 Učestvovao,Katıldı (geçmiş) (o)
 Učestvovati ,Katılmak / İştirak etmek (fiil)
@@ -9432,7 +9454,8 @@ Upotrijebite,Kullanın (emir) (siz)
 Upotrijebiti,Kullanmak (fiil)
 Upoznajte / Upoznaj,Tanımak
 Upoznali,Tanıştım
-Upoznati,Tanışmak
+Upoznam,Tanışayım
+Upoznati,Tanışmak (fiil)
 Upoznavanje,Tanıdık
 Uprav / Upravnim,Yönetici
 Uprava,Müdürlük /  Yönetim / İdare
@@ -9603,6 +9626,7 @@ Uzalud,Boşuna / Nafile / Faydsız
 Uzalud svi napadi,Bütün saldırılar boşuna
 Uzbudljiv,Heyacan verici / Etkileyici (erkek)
 Uzbudljiva,Heyecan verici / Etkileyici (kadın)
+Uzbudljive,Heyecan verici
 Uzeti,Almak (fiil) bir şeyi almak izin almak zaman almak
 Uzeti mjeru	,Ölçü almak (terzi)
 Uzimaj,Al (sen) (emir)
@@ -9628,8 +9652,8 @@ Uživali,Eğlendik / keyif aldık (biz)
 Uživanje / Uživanju / Užitak / Zadovoljstvo / Oduševiti / Oduševi / Uživancija,Zevk
 Uživate / Uživaš / Uživačeš,Tadını çıkar
 Uživati,Eğlenmek / Keyif almak / Tadını çıkarmak (fiil)
-Uživo,Canlı / Yüzyüze (yayın)
 Uživo,Canlı (yayın) / Gerçek zamanlı
+Uživo,Canlı / Yüzyüze (yayın)
 Vaditi,Çıkarmak (fiil)
 Vafelice,Gofretler
 Vaktija,Namaz vakitleri çizelgesi
@@ -9660,8 +9684,8 @@ Vaskrsenja,Diriliş
 Vaskrsu,Paskalyaya  / Paskalyada (Ortodoks)
 Vaskršnih,Ortodoks Paskalyasına ait
 Vaš,Sizin (erkek) (sıfat)
-Vaša (2),Sizin (kadın - çoğul)
 Vaša (1),Sizin (kadın)
+Vaša (2),Sizin (kadın - çoğul)
 Vaše (2),sizin (nötr)
 Vašeg,Sizin / Size (erkek) (genitiv) (akuzativ) (lokativ)
 Vašem,Sizin / Size (erkek) (lokativ) / Sizi (dativ)
@@ -9811,6 +9835,7 @@ Više,Daha fazla / Daha çok
 Više hiljada,Binlerce (sayı)
 Više informacija,Daha fazla bilgi
 Više na linku,Daha fazlası linkte
+Više od,-den fazla
 Više vremena,Daha fazla zaman
 Višenamenska,Çok amaçlı
 Višim,Daha yüksek
@@ -9880,6 +9905,7 @@ Voćnu,Meyve (kadın) (akuzativ)
 Voćnjacima,Meyve bahçeleri
 Voda,Su (kadın)
 Vode,Sular / Suyun (genitiv) / Suları (akuzativ)
+Vodeće,Önde gelen
 Vodeći,Önde gelen
 Vodi,Potansiyel müşteriler
 Vodi (II),Suda (lokativ)
@@ -10048,8 +10074,8 @@ Zahtjev,Talep / İstek
 Zahtjeve,Talepler (akuzativ)
 Zahtjevi,Gereksinimler / Talepler
 Zahvalan,Minnettar
-Zahvalio,Teşekkür etti (o) (geçmiş)
 Zahvalio,Teşekkür edildi
+Zahvalio,Teşekkür etti (o) (geçmiş)
 Zahvaliti se,Teşekkür etmek (fiil)
 Zahvalni,Minnettarız
 Zahvalnost,Minnetarlık / Teşekkür / Şükran
@@ -10244,7 +10270,7 @@ Zelena,Yeşil (kadın)
 Zelenilo,Yeşillik
 Zelenska,Yeşil (kadın)
 Zelenu,Yeşil (kadın) (akuzativ)
-Zemalja,Ülkelerin / Toprakların / Dünyaların (genitiv)
+Zemalja,Ülkelerin / Ülkeden / Toprakların / Dünyaların (genitiv)
 Zemlja,Ülke / Toprak / Dünya (kadın)
 Zemljanim,Toprakla ilgili bir şeye (dativ)
 Zemlje,Ülkeler / Ülkenin (genitiv) (kadın)
