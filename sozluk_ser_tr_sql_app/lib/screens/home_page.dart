@@ -221,14 +221,21 @@ class _HomePageState extends State<HomePage> {
         if (isUpdating)
           Positioned.fill(
             child: Container(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.4),
               child: const Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CircularProgressIndicator(),
-                    SizedBox(height: 24),
-                    Text('Lütfen bekleyiniz…', style: TextStyle(fontSize: 18)),
+                    SizedBox(height: 32),
+                    Text(
+                      'Lütfen bekleyiniz …',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.redAccent,
+                      ),
+                    ),
                   ],
                 ),
               ),
