@@ -1,0 +1,41 @@
+name: malzeme_list_sql_app
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.1+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  sqflite:
+  path_provider:
+  path:
+  package_info_plus:
+  elegant_notification:
+  alphabet_list_view:
+  lottie:
+  provider:
+  font_awesome_flutter:
+  permission_handler:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+  - assets/images/
+  - assets/animations/
+  - assets/database/malzeme_backup.json
