@@ -1,11 +1,8 @@
 // 📃 <----- alphabet_malzeme_list.dart ----->
 //
 // Fihrist görünümlü listeleme için kullanılır.
-// eski alphabet_word_list.dart
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
-
-/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
 /// 📌 sabitler burada

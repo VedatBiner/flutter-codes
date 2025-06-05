@@ -1,6 +1,7 @@
 // 📃 <----- main.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:malzeme_list_sql_app/providers/malzeme_quantity_provider.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -15,6 +16,7 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => MalzemeCountProvider()..updateCount(),
         ),
+        ChangeNotifierProvider(create: (_) => MalzemeQuantityProvider()),
       ],
       child: const MyApp(),
     ),
