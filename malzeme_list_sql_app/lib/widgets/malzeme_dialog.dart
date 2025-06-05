@@ -1,6 +1,4 @@
 // 📃 <----- malzeme_dialog.dart ----->
-//
-// eski word_dialog.dart
 
 import 'package:flutter/material.dart';
 
@@ -22,6 +20,7 @@ class MalzemeDialog extends StatefulWidget {
 class _MalzemeDialogState extends State<MalzemeDialog> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _malzemeController;
+  late TextEditingController _aciklamaController;
   late TextEditingController _miktarController;
 
   @override
@@ -29,6 +28,9 @@ class _MalzemeDialogState extends State<MalzemeDialog> {
     super.initState();
     _malzemeController = TextEditingController(
       text: widget.malzeme?.malzeme ?? '',
+    );
+    _aciklamaController = TextEditingController(
+      text: widget.malzeme?.aciklama ?? '',
     );
     _miktarController = TextEditingController(
       text: widget.malzeme?.miktar?.toString() ?? '',
@@ -38,6 +40,7 @@ class _MalzemeDialogState extends State<MalzemeDialog> {
   @override
   void dispose() {
     _malzemeController.dispose();
+    _aciklamaController.dispose();
     _miktarController.dispose();
     super.dispose();
   }
@@ -103,6 +106,25 @@ class _MalzemeDialogState extends State<MalzemeDialog> {
             ),
             const SizedBox(height: 12),
             TextFormField(
+              controller: _aciklamaController,
+              decoration: InputDecoration(
+                labelText: 'Açıklama',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: drawerColor, width: 2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.amber.shade600,
+                    width: 2.5,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(height: 12),
+            TextFormField(
               controller: _miktarController,
               decoration: InputDecoration(
                 labelText: 'Miktar',
@@ -146,6 +168,7 @@ class _MalzemeDialogState extends State<MalzemeDialog> {
                   final updatedMalzeme = Malzeme(
                     id: widget.malzeme?.id,
                     malzeme: _capitalize(_malzemeController.text.trim()),
+                    aciklama: _aciklamaController.text.trim(),
                     miktar: int.tryParse(_miktarController.text.trim()),
                   );
                   Navigator.of(context).pop(updatedMalzeme);

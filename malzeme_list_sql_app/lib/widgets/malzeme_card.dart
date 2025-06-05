@@ -88,6 +88,18 @@ class MalzemeCard extends StatelessWidget {
                       /// 📌 Malzeme adı
                       Text(malzeme.malzeme, style: kelimeText),
 
+                      /// 📌 Açıklama varsa göster
+                      if ((malzeme.aciklama?.isNotEmpty ?? false)) ...[
+                        const SizedBox(height: 6),
+                        Text(
+                          malzeme.aciklama!,
+                          style: anlamText.copyWith(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.green.shade700,
+                          ),
+                        ),
+                      ],
+
                       const Divider(thickness: 1),
 
                       /// 📌 Miktar (Provider ile güncel gösterim)

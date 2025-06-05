@@ -1,6 +1,6 @@
 // 📃 <----- malzeme_model.dart ----->
 
-/// Malzeme sınıfı, her bir malzemenin ID, adı ve miktarını temsil eder.
+/// Malzeme sınıfı, her bir malzemenin ID, adı, açıklaması ve miktarını temsil eder.
 /// SQLite veri tabanı ve JSON dönüşümleri için uygundur.
 class Malzeme {
   /// Veritabanı için otomatik artan birincil anahtar (id). Nullable ’dır çünkü ekleme sırasında belli olmayabilir.
@@ -9,15 +9,23 @@ class Malzeme {
   /// Malzemenin adı. Örneğin: "Çimento", "Kum"
   final String malzeme;
 
+  /// Malzemenin açıklaması. Örneğin: "İnce taneli nehir kumu"
+  final String? aciklama;
+
   /// Malzemenin miktarı (örneğin kilogram cinsinden).
   final int? miktar;
 
   /// Kurucu metot: Yeni bir Malzeme nesnesi oluşturur.
-  Malzeme({this.id, required this.malzeme, required this.miktar});
+  Malzeme({
+    this.id,
+    required this.malzeme,
+    this.aciklama,
+    required this.miktar,
+  });
 
   /// Bu metot, Malzeme nesnesini veritabanına yazmak için Map (anahtar-değer) yapısına çevirir.
   Map<String, dynamic> toMap() {
-    final map = {'malzeme': malzeme, 'miktar': miktar};
+    final map = {'malzeme': malzeme, 'aciklama': aciklama, 'miktar': miktar};
     if (id != null) map['id'] = id;
     return map;
   }
@@ -27,6 +35,7 @@ class Malzeme {
     return Malzeme(
       id: map['id'] is int ? map['id'] : int.tryParse(map['id'].toString()),
       malzeme: map['malzeme'] ?? '',
+      aciklama: map['aciklama']?.toString(),
       miktar: map['miktar'] is int
           ? map['miktar']
           : int.tryParse(map['miktar'].toString()),
@@ -43,10 +52,11 @@ class Malzeme {
 
   /// Mevcut bir Malzeme nesnesinin kopyasını oluşturur ve istenirse bazı alanlarını günceller.
   /// Bu yapı, immutable nesnelerde güncelleme yapmak için kullanışlıdır.
-  Malzeme copyWith({int? id, String? malzeme, int? miktar}) {
+  Malzeme copyWith({int? id, String? malzeme, String? aciklama, int? miktar}) {
     return Malzeme(
       id: id ?? this.id,
       malzeme: malzeme ?? this.malzeme,
+      aciklama: aciklama ?? this.aciklama,
       miktar: miktar ?? this.miktar,
     );
   }

@@ -1,2 +1,9 @@
-Malzeme,Miktar
-Tornavida (yildiz),2
+id,malzeme,miktar,aciklama
+1,"Tornavida (yildiz)",3,""
+2,"Ampul",2,"LED"
+3,"Pense",1,""
+4,"Cekic",3,"Normal cekic"
+5,"TV",1,""
+6,"Karga burun",2,""
+7,"Tornavida",1,"Yildiz"
+8,"Tornavida"",2,"duz"

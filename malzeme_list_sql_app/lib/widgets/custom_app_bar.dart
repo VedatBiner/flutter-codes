@@ -72,7 +72,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : Consumer<MalzemeCountProvider>(
               builder: (context, wordCountProvider, _) {
                 return Text(
-                  'Malzeme Listesi (Ören) (${wordCountProvider.count})',
+                  'Malzemeler (Ören) (${wordCountProvider.count})',
                   style: itemCountStil,
                 );
               },

@@ -19,6 +19,7 @@ class MalzemeDatabase {
 
   MalzemeDatabase._init();
 
+  /// 📌 Veritabanı örneğini getirir (singleton)
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB(fileNameSql);
@@ -29,7 +30,6 @@ class MalzemeDatabase {
   Future<Database> _initDB(String fileName) async {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
-
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -39,7 +39,8 @@ class MalzemeDatabase {
       CREATE TABLE malzemeler (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         malzeme TEXT NOT NULL,
-        miktar INTEGER
+        miktar INTEGER,
+        aciklama TEXT
       )
     ''');
   }
@@ -123,9 +124,12 @@ class MalzemeDatabase {
   Future<String> exportWordsToCsv() async {
     final items = await getWords();
     final buffer = StringBuffer();
-    buffer.writeln('id,malzeme,miktar');
+    buffer.writeln('id,malzeme,miktar,aciklama');
     for (final item in items) {
-      buffer.writeln('${item.id},"${item.malzeme}",${item.miktar ?? 0}');
+      final aciklama = (item.aciklama ?? '').replaceAll('"', '""');
+      buffer.writeln(
+        '${item.id},"${item.malzeme}",${item.miktar ?? 0},"$aciklama"',
+      );
     }
     final dir = await getApplicationDocumentsDirectory();
     final file = File(join(dir.path, fileNameCsv));
