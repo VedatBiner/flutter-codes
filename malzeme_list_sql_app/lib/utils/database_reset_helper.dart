@@ -48,7 +48,7 @@ Future<void> showResetDatabaseDialog(
 
   // 🔥 2️⃣ Tablodaki tüm verileri sil
   final db = await MalzemeDatabase.instance.database;
-  await db.delete('words');
+  await db.delete('malzemeler');
 
   /// 3️⃣ Eğer widget tree ’den ayrıldıysak işleme devam etmeyelim
   if (!context.mounted) return;
