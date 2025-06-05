@@ -49,7 +49,7 @@ class _SQLLoadingCardOverlayState extends State<SQLLoadingCardOverlay> {
   Duration _elapsed = Duration.zero; // Geçen süre
   bool _visible = true; // Kart görünsün mü?
 
-  /// Yeni durum bilgileri ile widget’ı yeniden oluşturur
+  /// Yeni durum bilgileri ile widget ’ı yeniden oluşturur
   void updateState(
     double progress,
     String? currentWord,
