@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
             setState(() => isFihristMode = !isFihristMode);
           },
 
-          //  ⬇️  Drawer ’dan gelen geri-çağrı (SQL yüklemesi)
+          /// 📌 Drawer 'dan gelen veri yenileme fonksiyonu
           onLoadJsonData:
               ({
                 required BuildContext ctx,
@@ -153,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                 onStatus,
               }) async {
                 await loadDataFromDatabase(
-                  context: context, // ⚠️ HomePage context ’i
+                  context: ctx, // ✅ düzeltme burada
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;

@@ -101,12 +101,12 @@ class CustomDrawer extends StatelessWidget {
                 await Future.delayed(const Duration(milliseconds: 300));
                 if (!context.mounted) return;
 
-                /// 🔄 SQL yükleme kartı göster
-                final overlay = Overlay.of(context);
+                /// ✅ Overlay erişimi düzeltildi
+                final overlay = Navigator.of(context).overlay;
                 final overlayEntry = OverlayEntry(
                   builder: (context) => const SQLLoadingCardOverlay(),
                 );
-                overlay.insert(overlayEntry);
+                overlay?.insert(overlayEntry);
 
                 /// 🔄 Veritabanını JSON 'dan yeniden yükle ve kartı güncelle
                 await onLoadJsonData(
