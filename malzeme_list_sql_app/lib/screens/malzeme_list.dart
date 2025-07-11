@@ -33,6 +33,12 @@ class _MalzemeListState extends State<MalzemeList> {
       return const Center(child: Text('Henüz malzeme eklenmedi.'));
     }
 
+    /// 🔤 Alfabetik sıralama (Türkçe karakterler dikkate alınmaz)
+    final sortedList = List<Malzeme>.from(widget.malzemeler)
+      ..sort(
+        (a, b) => a.malzeme.toLowerCase().compareTo(b.malzeme.toLowerCase()),
+      );
+
     return GestureDetector(
       onTap: () {
         if (selectedIndex != null) {
@@ -41,9 +47,9 @@ class _MalzemeListState extends State<MalzemeList> {
       },
       behavior: HitTestBehavior.translucent,
       child: ListView.builder(
-        itemCount: widget.malzemeler.length,
+        itemCount: sortedList.length,
         itemBuilder: (context, index) {
-          final malzeme = widget.malzemeler[index];
+          final malzeme = sortedList[index];
           final isSelected = selectedIndex == index;
 
           return MalzemeCard(

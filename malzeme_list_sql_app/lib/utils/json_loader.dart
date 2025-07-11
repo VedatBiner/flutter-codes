@@ -24,7 +24,6 @@ import '../models/malzeme_model.dart';
 import '../providers/malzeme_count_provider.dart';
 
 /// 📌 Verileri JSON 'dan yükleyip SQLite veritabanına yazar.
-///
 /// Bu işlem sırasında kullanıcıya ilerleme durumu gösterilir.
 ///
 /// [onLoaded] – Tüm veriler yüklendikten sonra listeyi döndürür.
@@ -44,7 +43,7 @@ Future<void> loadDataFromDatabase({
     log("📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...");
 
     try {
-      // JSON dosyasını cihazdan veya asset 'ten oku
+      // JSON dosyasını cihazdan veya asset ’ten oku
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
@@ -62,10 +61,7 @@ Future<void> loadDataFromDatabase({
       final List<dynamic> jsonList = json.decode(jsonStr);
       final loadedItems = jsonList.map<Malzeme>((e) {
         final map = e as Map<String, dynamic>;
-        return Malzeme(
-          malzeme: map['malzeme'], // 🔄 düzeltildi: word → malzeme
-          miktar: map['miktar'], // 🔄 düzeltildi: meaning → miktar
-        );
+        return Malzeme(malzeme: map['malzeme'], miktar: map['miktar']);
       }).toList();
 
       /// ⏱ süre ölçmek için kronometre başlat
@@ -109,6 +105,9 @@ Future<void> loadDataFromDatabase({
       );
     } catch (e) {
       log("❌ JSON yükleme hatası: $e");
+
+      // ❗ Hata durumunda kullanıcıya kartı kapatmayı unutma
+      onLoadingStatusChange(false, 0.0, null, const Duration());
     }
   } else {
     /// 🔹 Veritabanında veri varsa yükleme yapılmaz, mevcut veriler döndürülür
@@ -122,5 +121,10 @@ Future<void> loadDataFromDatabase({
         listen: false,
       ).setCount(existingItems.length);
     }
+
+    // ✅ Kart görünmemişse bile bir dummy animasyonla aç/kapat yap
+    onLoadingStatusChange(true, 0.0, null, Duration.zero);
+    await Future.delayed(const Duration(milliseconds: 500));
+    onLoadingStatusChange(false, 1.0, null, const Duration(milliseconds: 500));
   }
 }

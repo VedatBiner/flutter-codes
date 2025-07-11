@@ -142,4 +142,26 @@ class MalzemeDatabase {
     final db = await instance.database;
     await db.delete('malzemeler');
   }
+
+  /// 📌 Türkçe sıralama yöntemi.
+  List<Malzeme> _sortTurkish(List<Malzeme> items) {
+    const turkishAlphabet =
+        'aAbBcCçÇdDeEfFgGğĞhHIıİijJkKlLmMnNoOöÖpPrRsSşŞtTuUüÜvVyYzZ';
+
+    int turkishCompare(String a, String b) {
+      a = a.toLowerCase();
+      b = b.toLowerCase();
+
+      for (int i = 0; i < a.length && i < b.length; i++) {
+        final ai = turkishAlphabet.indexOf(a[i]);
+        final bi = turkishAlphabet.indexOf(b[i]);
+        if (ai != bi) return ai.compareTo(bi);
+      }
+
+      return a.length.compareTo(b.length);
+    }
+
+    items.sort((a, b) => turkishCompare(a.malzeme, b.malzeme));
+    return items;
+  }
 }
