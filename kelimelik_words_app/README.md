@@ -46,13 +46,14 @@ kutusunu kullanması sağlandı.
 - kelime sayacı animasyonlu olsun
 - Kelime sayacı assets 'den de okunabilsin.
 - Süre sayacı eklendi
-- Yedeklerin ayrı bir dizine alınması sağlandı
+- Yedeklerin ayrı bir dizine alınması sağlandı.
+- Excel formatında da yedekleme sağlandı.
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- 
+- Excel dosyası oluşturmada bir kaç düzeltme gerekecek.
 
 <BR>
 Ekran Görüntüleri

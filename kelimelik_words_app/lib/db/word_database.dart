@@ -15,6 +15,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
+import '../utils/excel_backup_helper.dart';
 import '../widgets/notification_service.dart';
 
 class WordDatabase {
@@ -274,6 +275,19 @@ class WordDatabase {
     } catch (e) {
       log('🚨 CSV yükleme hatası: $e', name: 'Import');
     }
+  }
+
+  /// 📌 Excel yedeği burada alınıyor.
+  Future<String> exportWordsToExcel() async {
+    // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
+    final filePath = await createExcelBackup();
+
+    // 2️⃣ Konsola log basıyoruz
+    log('📤 Excel yedeği başarıyla oluşturuldu.', name: 'Backup');
+    log('📁 Excel dosya yolu: $filePath', name: 'Backup');
+
+    // 3️⃣ Path 'i geri döndürüyoruz
+    return filePath;
   }
 
   /// 📌 Türkçe sıralama yöntemi.

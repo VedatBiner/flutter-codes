@@ -71,11 +71,11 @@ class CustomDrawer extends StatelessWidget {
               },
             ),
 
-            /// 📌 Yedek oluştur (JSON/CSV)
+            /// 📌 Yedek oluştur (JSON/CSV/XLSX)
             ListTile(
               leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
-                'Yedek Oluştur (JSON/CSV)',
+                'Yedek Oluştur \n(JSON/CSV/XLSX)',
                 style: drawerMenuText,
               ),
               onTap: () async {
