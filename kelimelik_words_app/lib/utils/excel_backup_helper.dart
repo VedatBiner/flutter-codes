@@ -3,6 +3,7 @@
 // Tüm kelimeleri okuyup bir .xlsx dosyası olarak saklar.
 // Dönen değer: oluşturulan dosyanın tam yolu.
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:excel/excel.dart';
@@ -13,6 +14,7 @@ import '../models/word_model.dart';
 
 /// 📌 Veritabanındaki kelimeleri Excel ’e (xlsx) yazar.
 Future<String> createExcelBackup() async {
+  log('🔄 excel_backup_helper çalıştı', name: 'XLSX');
   // 1️⃣ Yeni bir Excel nesnesi oluştur
   final excel = Excel.createExcel();
 

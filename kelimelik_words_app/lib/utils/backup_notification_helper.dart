@@ -23,19 +23,45 @@ import 'storage_permission_helper.dart';
 Future<(String, String, String)> createAndNotifyBackup(
   BuildContext context,
 ) async {
-  // 🔍 Metodun gerçekten çağrıldığını görmek için hemen bir log atalım
-  log('🔄 createAndNotifyBackup çalıştı', name: 'BackupHelper');
+  /// 🔍 Metodun gerçekten çağrıldığını görmek için hemen bir log atalım
+  log(
+    '🔄 backup_notification_helper çalıştı',
+    name: 'Backup Notification Helper',
+  );
 
-  // 🔑 Linter uyarısı olmasın diye root context ’i hemen alıyoruz
+  /// 🔑 Linter uyarısı olmasın diye root context ’i hemen alıyoruz
   final rootCtx = Navigator.of(context, rootNavigator: true).context;
 
   /// 1️⃣ Uygulama-içi yedekler
   final jsonPathInApp = await createJsonBackup();
-  log('   • JSON in-app: $jsonPathInApp', name: 'BackupHelper');
   final csvPathInApp = await createCsvBackup();
-  log('   • CSV  in-app: $csvPathInApp', name: 'BackupHelper');
   final excelPathInApp = await createExcelBackup();
-  log('   • Excel in-app: $excelPathInApp', name: 'BackupHelper');
+
+  log(
+    '📤 JSON yedeği başarıyla oluşturuldu.',
+    name: 'Backup Notification Helper',
+  );
+  log('📁 JSON Dosya yolu: $jsonPathInApp', name: 'Backup Notification Helper');
+
+  log(
+    '📤 CSV yedeği başarıyla oluşturuldu.',
+    name: 'Backup Notification Helper',
+  );
+  log('📁 CSV dosya yolu: $csvPathInApp', name: 'Backup Notification Helper');
+
+  log(
+    '📤 Excel yedeği başarıyla oluşturuldu.',
+    name: 'Backup Notification Helper',
+  );
+  log(
+    '📁 Excel dosya yolu: $excelPathInApp',
+    name: 'Backup Notification Helper',
+  );
+
+  log('✅ In-App kopyaları oluşturuldu:', name: 'Backup Notification Helper');
+  log('   • JSON in-app: $jsonPathInApp', name: 'Backup Notification Helper');
+  log('   • CSV  in-app: $csvPathInApp', name: 'Backup Notification Helper');
+  log('   • Excel in-app: $excelPathInApp', name: 'Backup Notification Helper');
 
   /// 2️⃣ Downloads/kelimelik_words kopyaları (izin varsa)
   String jsonPathDownload = '-';
@@ -51,22 +77,25 @@ Future<(String, String, String)> createAndNotifyBackup(
       final backupDir = Directory(p.join(downloadsDir.path, 'kelimelik_words'));
       await backupDir.create(recursive: true);
 
-      // JSON
+      /// JSON
       jsonPathDownload = p.join(backupDir.path, 'kelimelik_backup.json');
       await File(jsonPathInApp).copy(jsonPathDownload);
 
-      // CSV
+      /// CSV
       csvPathDownload = p.join(backupDir.path, 'kelimelik_backup.csv');
       await File(csvPathInApp).copy(csvPathDownload);
 
-      // Excel
+      /// Excel
       excelPathDownload = p.join(backupDir.path, 'kelimelik_backup.xlsx');
       await File(excelPathInApp).copy(excelPathDownload);
 
-      log('✅ Downloads kopyaları oluşturuldu:', name: 'BackupHelper');
-      log('   • JSON: $jsonPathDownload', name: 'BackupHelper');
-      log('   • CSV:   $csvPathDownload', name: 'BackupHelper');
-      log('   • Excel: $excelPathDownload', name: 'BackupHelper');
+      log(
+        '✅ Downloads kopyaları oluşturuldu:',
+        name: 'Backup Notification Helper',
+      );
+      log('   • JSON: $jsonPathDownload', name: 'Backup Notification Helper');
+      log('   • CSV:   $csvPathDownload', name: 'Backup Notification Helper');
+      log('   • Excel: $excelPathDownload', name: 'Backup Notification Helper');
     } else {
       log(
         '⚠️ Depolama izni alınamadı – Downloads kopyası atlandı.',

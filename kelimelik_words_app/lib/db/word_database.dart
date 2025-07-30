@@ -123,10 +123,6 @@ class WordDatabase {
     final file = File(filePath);
     await file.writeAsString(jsonString);
 
-    /// 🔥 Konsola yaz
-    log('📤 JSON yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 Dosya yolu: $filePath', name: 'Backup');
-
     return filePath;
   }
 
@@ -219,10 +215,6 @@ class WordDatabase {
 
     await file.writeAsString(buffer.toString());
 
-    /// 🔥 Konsola yaz
-    log('📤 CSV yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 CSV dosya yolu: $filePath', name: 'Backup');
-
     return filePath;
   }
 
@@ -282,11 +274,7 @@ class WordDatabase {
     // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
     final filePath = await createExcelBackup();
 
-    // 2️⃣ Konsola log basıyoruz
-    log('📤 Excel yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 Excel dosya yolu: $filePath', name: 'Backup');
-
-    // 3️⃣ Path 'i geri döndürüyoruz
+    // 2️⃣ Path 'i geri döndürüyoruz
     return filePath;
   }
 
