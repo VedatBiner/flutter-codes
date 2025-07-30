@@ -136,6 +136,7 @@ Alışkı,Alışkanlık
 Ali,Yüce / Yüksek
 Alil,Hastalıklı
 Alim,Bilen
+Alize,Tropikal rüzgar
 Allı,Üzerinde al renk bulunan
 Allık,Süs için yanaklara sürülen boya
 Alma,Alma işi / Ahiz / İttihaz / Derç / Kabız
@@ -533,6 +534,7 @@ Bulak,Kaynar / Pınar
 Bun,Sıkıntı
 Bunak,Bunamış olan / Matuh
 Buruk,Burulmuş olan
+Buse,Öpücük
 But,İnsanda diz ile kalça arası bölüm
 Butlan,Geçersizlik / Hükümsüzlük
 Buz,Donmuş su
@@ -739,6 +741,7 @@ Dağ,Yer şekli
 Dağar,Dağarcık
 Daği,Dağ türküsü
 Dağlık,Birçok dağ olan yer
+Daha,Henüz
 Daim,Daima
 Daimi,Sürekli
 Dakar,Senegal başkenti
@@ -1410,6 +1413,7 @@ Itri,İtırlı / Kokulu
 İmbat,Deniz yeli
 İmece,Kırsal kesimde işlerin ortaklaşa isteğe bağlı yapılması
 İmge,İzlenim / İmaj
+İmik,Gırtlak
 İmla,Yazım
 İn,Mağara
 İnan,İnanmak işi
@@ -1508,6 +1512,7 @@ Kadir,Değer / Kıymet / İtibar
 Kadit,Çok zayıf / İskelet
 Kafa,İnsan başı / Ser
 Kafes,Demir çubuklu bölme
+Kafi,Yeterli
 Kafir,Tanrı varlığını inkar eden kimse
 Kağan,İmparator
 Kağıt,Yazı yazmaya yarayan ince yaprak
@@ -1517,7 +1522,9 @@ Kah,Gah / Bazen / Bazı
 Kahil,Erişkin
 Kahir,Kahreden / Zorlayıcı
 Kahve,Çekirdekleri den içecek elde edilen bir ağaç
+Kaide,Kural
 Kaim,Jer zaman var olan
+Kainat,Evren / Dünya
 Kaju,Bir çeşit çerez
 Kak,Zayıf / Kuru
 Kaka,Dışkı
@@ -1868,6 +1875,7 @@ Kuzey,Yön / Şimal
 Küba,Bir ülke
 Küf,Yeşil renkli mantar
 Küfe,Yük taşıma sepeti
+Küflü,Küflenmiş olan
 Kül,Yanık kalıntısı
 Külah,Huni biçiminde bükülmüş kağıt
 Küllü,Üzerinde veya içinde kül bulunan
@@ -2139,6 +2147,7 @@ Mis,Güzel
 Misafir,Konuk
 Misel,Koloid iyonların bütünlüğü
 Misk,Mis
+Miso,Tuzlu bir tatlandırıco
 Mit,Efsaneleşen kavram ya da kişi
 Mitil,Bir çeşit yorgan
 Miting,Gösteri amaçlı toplantı
@@ -2741,6 +2750,7 @@ Sin,Mezar / Kabir / Ölü gömülen yer
 Sine,Göğüs / Bağır
 Sinek,Uçucu böcek türü / İskambil deseni / İspati
 Sinema,Görsel sanat türü / 7. sanat
+Sini,Bakır büyük tepsi
 Sinik,Sinmiş / Yılık
 Siren,Tiz ses çıkaran uyarıcı alet / Deniz kızı
 Siret,Özgeçmiş
@@ -2764,6 +2774,7 @@ Som,Katışıksız
 Soma,Manisa ilçesi
 Somun,Yuvarlak tombul ekmek
 Son,Uç / Sınır olanca
+Sonar,Denizslılarfa kullanılan bir cihaz
 Sonat,Bir tür müzik eseri
 Soru,Sual / Karşılık gerektiren söz
 Sorunlu,Sorunu olan
@@ -2959,8 +2970,8 @@ Tanım,Tarif
 Tank,Savaş aracı
 Tapulu,Tapusu olan
 Tar,Çalgı türü
-Taraça,Teras / Seki
 Taraça,Teras
+Taraça,Teras / Seki
 Taraf,Yön / Yer
 Tarak,Saç düzeltme aracı
 Taret,Zırhlı kule
@@ -3049,6 +3060,7 @@ Tını,Ses özelliği
 Tıp,Tababet / Sağlık bilimi
 Tıpa,Tapa
 Tır,Uzun kamyon
+Tırak,Kırılan kuru bir şeyin çıkardığı ses
 Tıraş,Saç sakal kesme işi / Yülüme
 Tırnak,Parmak uçlarını örten boynuzsu tabaka
 Tıs,Kaz kedi yılan sesi
@@ -3410,6 +3422,7 @@ Zer,Altın
 Zerk,Iç itim
 Zeval,Suç / Kabahat / Sorumluluk
 Zevce,Karı
+Zevk,Haz
 Zevkli,Beğenilen / Hoşa giden
 Zeyil,Ek
 Zınk,Birden bire durmak
