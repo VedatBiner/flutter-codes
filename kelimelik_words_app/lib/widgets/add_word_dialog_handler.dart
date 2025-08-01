@@ -24,7 +24,7 @@ Future<void> showAddWordDialog(
   );
 
   if (result != null) {
-    final existing = await WordDatabase.instance.getWord(result.word);
+    final existing = await DbHelper.instance.getWord(result.word);
 
     if (existing != null) {
       /// ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
@@ -58,7 +58,7 @@ Future<void> showAddWordDialog(
       return;
     }
 
-    await WordDatabase.instance.insertWord(result);
+    await DbHelper.instance.insertWord(result);
     onWordAdded();
 
     /// ✅ Başarılı ekleme bildirimi göster

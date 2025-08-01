@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 
 class WordCountProvider extends ChangeNotifier {
@@ -16,7 +17,7 @@ class WordCountProvider extends ChangeNotifier {
 
   /// 📌 Veritabanından toplam kelime sayısını alır ve notify eder
   Future<void> updateCount() async {
-    final newCount = await WordDatabase.instance.countWords();
+    final newCount = await DbHelper.instance.countWords();
     _count = newCount;
     notifyListeners();
   }

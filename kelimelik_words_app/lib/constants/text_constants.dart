@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import 'color_constants.dart';
 
 /// 📌 Kelime text stili

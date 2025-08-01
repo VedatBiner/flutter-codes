@@ -3,12 +3,14 @@
 // Tüm kelimeleri okuyup bir .xlsx dosyası olarak saklar.
 // Dönen değer: oluşturulan dosyanın tam yolu.
 
+// 📌 Flutter hazır paketleri
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
 
@@ -25,7 +27,7 @@ Future<String> createExcelBackup() async {
   sheet.appendRow(['Kelime', 'Anlam']);
 
   // 4️⃣ Veritabanından tüm kelimeleri al
-  final List<Word> words = await WordDatabase.instance.getWords();
+  final List<Word> words = await DbHelper.instance.getWords();
 
   // 5️⃣ Her kelimeyi satır satır ekle
   for (final w in words) {

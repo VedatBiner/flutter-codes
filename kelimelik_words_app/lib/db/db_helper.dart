@@ -13,16 +13,17 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../utils/excel_backup_helper.dart';
 import '../widgets/notification_service.dart';
 
-class WordDatabase {
-  static final WordDatabase instance = WordDatabase._init();
+class DbHelper {
+  static final DbHelper instance = DbHelper._init();
   static Database? _database;
 
-  WordDatabase._init();
+  DbHelper._init();
 
   /// 📌 SQLite veritabanı nesnesini alır.
   ///
@@ -198,7 +199,7 @@ class WordDatabase {
   /// 📌 CSV yedeği burada alınıyor.
   ///
   Future<String> exportWordsToCsv() async {
-    final words = await WordDatabase.instance.getWords();
+    final words = await DbHelper.instance.getWords();
     final buffer = StringBuffer();
 
     buffer.writeln('Kelime,Anlam');

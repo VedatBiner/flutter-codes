@@ -40,7 +40,7 @@ Future<void> loadDataFromDatabase({
 }) async {
   log("🔄 Veritabanından veri okunuyor...");
 
-  final count = await WordDatabase.instance.countWords();
+  final count = await DbHelper.instance.countWords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
   /// 🔸 Veritabanı boşsa JSON ’dan doldur
@@ -78,7 +78,7 @@ Future<void> loadDataFromDatabase({
 
       for (int i = 0; i < loadedWords.length; i++) {
         final word = loadedWords[i];
-        await WordDatabase.instance.insertWord(word);
+        await DbHelper.instance.insertWord(word);
 
         /// Provider ile sayaç güncelle
         if (context.mounted) {
@@ -102,7 +102,7 @@ Future<void> loadDataFromDatabase({
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
       // /Son kelime listesi
-      final finalWords = await WordDatabase.instance.getWords();
+      final finalWords = await DbHelper.instance.getWords();
       onLoaded(finalWords);
 
       log(
@@ -115,7 +115,7 @@ Future<void> loadDataFromDatabase({
   } else {
     /// 🔹 Veritabanı dolu ise sadece listeyi döndür
     log("📦 Veritabanında veri var, yükleme yapılmadı.");
-    final existingWords = await WordDatabase.instance.getWords();
+    final existingWords = await DbHelper.instance.getWords();
     onLoaded(existingWords);
 
     if (context.mounted) {

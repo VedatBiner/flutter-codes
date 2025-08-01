@@ -11,9 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
-import '../db/db_helper.dart';
-
 /// 📌 Yardımcı yüklemeler burada
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 
@@ -103,8 +102,8 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
-    allWords = await WordDatabase.instance.getWords();
-    final count = await WordDatabase.instance.countWords();
+    allWords = await DbHelper.instance.getWords();
+    final count = await DbHelper.instance.countWords();
 
     setState(() => words = allWords);
 

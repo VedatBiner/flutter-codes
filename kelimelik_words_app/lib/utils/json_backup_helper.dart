@@ -9,6 +9,6 @@ import '../db/db_helper.dart';
 
 Future<String> createJsonBackup() async {
   log('🔄 json_backup_helper çalıştı', name: 'JSON');
-  final path = await WordDatabase.instance.exportWordsToJson();
+  final path = await DbHelper.instance.exportWordsToJson();
   return path;
 }
