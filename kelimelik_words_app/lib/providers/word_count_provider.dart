@@ -2,7 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 
 class WordCountProvider extends ChangeNotifier {
   int _count = 0;

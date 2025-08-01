@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import 'notification_service.dart';
 import 'word_dialog.dart';

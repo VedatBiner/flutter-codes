@@ -5,7 +5,7 @@
 import 'dart:developer';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 
 Future<String> createJsonBackup() async {
   log('🔄 json_backup_helper çalıştı', name: 'JSON');

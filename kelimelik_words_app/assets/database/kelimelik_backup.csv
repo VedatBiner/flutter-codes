@@ -96,6 +96,7 @@ Ajans,Radyoda haber bülteni
 Ak,Beyaz / Temiz
 Aka,Ağabey
 Akad,Mezopotamya 'da tarihi bölge
+Akak,Yatak
 Akala,Pamuk türü
 Akar,Bir tür parazit
 Akçe,Küçük gümüş para
@@ -186,6 +187,7 @@ Antika,Antik
 Anut,Inatçı
 Anzak,Birinci dünya savaşındaki Avustralya Yeni Zellanda birlikleri
 Apış,Butların iç kısmı
+Apia,Samoa başkenti
 Ar,Utanma
 Ara,İki şeyin ayıran mesafe
 Arabi,Arapça
@@ -287,6 +289,7 @@ Avar,Bir Kafkas halkı
 Avara,Bir geminin başka gemiden veya kıyıdan açılması
 Avaz,Yüksek ses
 Avcı,Avı kendine iş edinen kimse
+Avdet,Dönüş / Geri gelme
 Avlu,Bir yapıda ortada kalan alan / Hanay / Sahn
 Avro,Avrupa Birliği ortak parası / Ekü
 Avşar,Afşar
@@ -349,6 +352,7 @@ Bağır,Göğüs
 Bağlık,Bağ yeri / Üzümü çok olan yer
 Bahis,Konu
 Baht,Şans / Kader / Talih
+Bak,Şaşma anlatan söz
 Bakır,Bir element
 Bakış,Bakma işi
 Baki,Sürekli
@@ -428,6 +432,7 @@ Bej,Bir renk
 Bek,Savunma oyuncusu / Sağlam
 Beka,Kalıcılık / Ölmezlik
 Bekar,Bir nota işareti
+Bekçi,Bir yeri bekleme ve koruma görevi olan kişi
 Bel,İşaret / Sırt altı
 Bela,Güç sıkıntılı durum
 Belek,Beşiğe konan yatak
@@ -461,6 +466,7 @@ Bezci,Bez yapan veya alıp satan kimse
 Beze,Yumurta akı ile yapılan tatlı
 Bezelye,Baklagillerden bir bitki
 Bezir,Keten tohumu / Bezir yağı
+Bıcı,Kaz veya ördek yavrusu
 Biçki,Kumaşı modele göre kesme işi
 Biçme,Biçmek işi
 Bide,Bir tuvalet aracı
@@ -512,6 +518,7 @@ Borucu,Boru yapıp satan kimse
 Boş,Anlamsız / Bilgisiz / İşsiz
 Bot,Küçük gemi / Ayakkabı türü
 Boya,Renk verici madde
+Boyut,Format / Genişlik / Kapsam
 Boza,Arpa darı ve mısır gibi tahıllardan yapılan tatlı ve mayhoş içecek
 Bozacı,Boza yapan veya satan kimse
 Bozuk,Bozulmuş olan
@@ -594,6 +601,7 @@ Cız,Ateş
 Cızık,Çizik
 Cici,Sevimli / Cana yakın
 Cicim,Kilim çeşidi
+Cidalci,Savaşçı
 Cidar,Duvar / Zar
 Cide,Kastamonu ilçesi
 Cila,Parlatma
@@ -716,6 +724,7 @@ Cüzi,Çok az
 Çis,Şekerli öz su
 Çise,Ince yağmur / Çisenti
 Çiş,İdrar
+Çişik,Tavşan yavrusu
 Çit,Yazma / Yemeni
 Çita,Etçil bir hayvan
 Çiti,Çitme işi
@@ -925,6 +934,7 @@ Ekü,Avro
 El,kolun bilekten aşağısı
 Ela,Göz rengi
 Elan,Şimdi / Şu anda
+Elci,Mevsimlik tarım işçisi ile işveren arasında arabuluculuk yapan kimse
 Elçi,Sefir
 Elek,Yabancı madde ayıklama aracı
 Elemek,Sınav ya da yarışma yoluyla en iyileri seçmek
@@ -995,6 +1005,7 @@ Eşkal,Biçim / Kılık
 Eşli,Eşi olan
 Et,Besin maddesi
 Etçik,Küçük et parçası
+Eten,Etene / Yemişlerin yenen bölümü
 Eter,Yağ çözücü / Lokman ruhu
 Eti,Hitit
 Etik,Töre bilimi
@@ -1223,6 +1234,7 @@ Haf,Hücumcularla savunucular arasındaki oyuncu
 Hafi,Gizli / Saklı
 Hafik,Sivas ilçesi
 Hain,Hıyanet eden
+Haje,Bir tür kobra
 Hak,Adalet / Pay
 Hakan,Hükümdarlar hükümdarı anlamında bir ünvan
 Hakem,Seçme ve karar yetkisi olan kimse
@@ -1260,6 +1272,7 @@ Hata,Yanlış / Kusur / Günah
 Hatay,Bir ilimiz
 Hav,Köpek sesi
 Hava,Gökyüzü / Esinti
+Hay,İyi dilek / Şaşma / Sevinme sözü
 Hayal,İmge / Görüntü / Gölge
 Hayalı,Utangaç / Sıkılgan
 Haybe,Boş / İşe yaramaz / Anlamsız
@@ -1425,8 +1438,8 @@ Itri,İtırlı / Kokulu
 İni,Kayın
 İnik,İnmiş / İndirilmiş
 İnmek,Konaklamak / Taşıt veya binek hayvanından dışarı gelmek
-İp,İplik
 İp,İplik / Asarak öldürme cezası
+İp,İplik
 İpek,İpek böceği kozalarından çıkarılan ince parlak tel
 İpekçi,İpek satıcısı
 İrade,İstenç / Buyruk / Dilek / İstek
@@ -1705,6 +1718,7 @@ Kınlı,Kını olan
 Kır,Renk
 Kıran,Kırma işi yapan
 Kırat,Değerli taşlar için ağırlık ölçü birimi
+Kıray,Yol kesen / Asi
 Kırcı,Dolu / Sert taneli kar
 Kırç,Kışın ağaç dallarını kaplayan buz tabakası
 Kırçıl,Bir renk
@@ -1823,6 +1837,7 @@ Köse,Gümüşhane ilçesi
 Kösem,Kösemen
 Kötek,Dayak / Patak
 Köy,Tarımsal alanda çalışılan yerleşim birimi
+Köylü,Köyde yaşayan / Köydeş
 Köz,Küçük kor parçası
 Krem,Açık saman rengi
 Krep,Yumurta süt ve un ile tavada yapılan bir yiyecek
@@ -2038,6 +2053,7 @@ Manas,Zararlı böcek türü
 Manat,Azerbaycan parası
 Mani,Bir çeşit ruh hastalığı
 Mania,Mani / Engel
+Manika,Gemilerde bir baca türü
 Mano,Kumar oynatan kişinin kazançtan aldığı pay
 Mantı,Hamur yemeği çeşidi
 Mantıki,Mantıklı
@@ -2046,6 +2062,7 @@ Maraz,Hastalık
 Mariz,Hastalıklı / Hasta olan
 Marj,Pay
 Mark,Eski Alman parası / Markka
+Marka,Resim veya harflerle yapılan işaret
 Marke,Markaja almak / Gölgelemek
 Market,Özellikle yiyecek maddeleri satılan dükkan
 Marki,Avrupa'da soyluluk ünvanı
@@ -2236,6 +2253,7 @@ Nefis,Öz varlık / Kişilik
 Neft,Boyacılıkta kullanılan bir yağ
 Nefti,Siyaha yakın koyu yeşil
 Nem,Hafif Islaklık
+Nemli,Nemi olan
 Nene,Nine / Anne
 Nere,Hangi yer anlamında
 Net,İyi duyulan
@@ -2434,6 +2452,7 @@ Pazılı,Pazısı olan
 Pe,Harf
 Peç,Rus mimarisinde oda ısıtmak için kullanılan ocak
 Ped,Kadınların adet dönemlerinde kullandığı bakım ürünü
+Peder,Baba / Papaz
 Peh,Şaşırma / küçümseme
 Pena,Mızrap
 Pençe,Yırtıcı hayvanların parmak ve tırnakları
@@ -2765,6 +2784,7 @@ Soba,Isınma aracı
 Soda,Temizlik tuzu
 Sodalı,Içinde soda bulunan
 Sof,Astarlık kumaş
+Sofu,Dinin yasaklarına bütünüyle uyan
 Soğan,Yemeklere tat veren güzel kokulu bitki
 Soğuk,Düşük ısılı sıcak karşıtı
 Sokak,Caddeye oranla kısa ve dar yol
@@ -2854,6 +2874,7 @@ Süt,Memelilerin yavru besleme sıvısı
 Şarklı,Doğulu
 Şart,Kural / Koşul
 Şaryo,Bir aracın hareketli parçası
+Şase,Kumaş kalın koruncak
 Şasi,Motorlu taşıtların iskeleti
 Şaşı,Gözleri çarpıtmak
 Şat,Düz tekne
@@ -2958,6 +2979,7 @@ Talaş,Rende / Matkap gibi araçlar ile işlenen bir şeylerden dökülen kırı
 Talaz,Dalga / Kasırga
 Tali,Ikinci derece / İkincil
 Talil,Sebep gösterme
+Talim,Öğretim / Alıştırma
 Talk,Hidratlı doğal magnezyum
 Tam,Bütün / Tüm / Eksiksiz
 Tamah,Açgözlülük
@@ -2970,8 +2992,8 @@ Tanım,Tarif
 Tank,Savaş aracı
 Tapulu,Tapusu olan
 Tar,Çalgı türü
-Taraça,Teras
 Taraça,Teras / Seki
+Taraça,Teras
 Taraf,Yön / Yer
 Tarak,Saç düzeltme aracı
 Taret,Zırhlı kule
@@ -3123,6 +3145,7 @@ Turp,Turpgillerden bir bitki
 Turşu,Tuxludu ve sirkede özel kıvama getirilen sebze meyve
 Tuş,Vurulan düğme
 Tut,Adıyaman ilçesi
+Tutak,Tutlacak yer / Kabza
 Tutum,Tutulacak yol
 Tuva,Tuva özerk Cumhuriyeti halkından olan
 Tuz,Sodyum klorür
@@ -3388,6 +3411,7 @@ Yuf,Kınama / Nefret bildiren söz
 Yuh,Yuha / Öfke sözü
 Yuka,Derin olmayan / Sığ
 Yurt,Memleket / Diyar / Göçebe çadırı
+Yutuş,Yutma işi
 Yük,Eşya
 Yüklü,Yükü olan / Gebe / Varlıklı
 Yüküm,Yükümlülük
@@ -3406,6 +3430,7 @@ Zaman,Dönem / Devir / Vakit
 Zamane,Içinde bulunulan zaman
 Zamir,Iç yüz / Adıl
 Zamk,Yapıştırıcı
+Zamlı,Fiyatı arttırılmış / Bindirimli
 Zan,Sanı
 Zanlı,Şüpheli
 Zar,Ince perde veya örtü / tavla oyun aracı

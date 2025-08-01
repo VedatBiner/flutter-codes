@@ -48,6 +48,7 @@ kutusunu kullanması sağlandı.
 - Süre sayacı eklendi
 - Yedeklerin ayrı bir dizine alınması sağlandı.
 - Excel formatında da yedekleme sağlandı.
+- word_database.dart dosyası db_helper.dart olarak değiştirildi
 
 - Simdilik yapılanlar yeterli mi?
 

@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 import '../constants/file_info.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 

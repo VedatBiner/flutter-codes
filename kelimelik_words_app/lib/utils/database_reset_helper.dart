@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 import '../providers/word_count_provider.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/notification_service.dart';

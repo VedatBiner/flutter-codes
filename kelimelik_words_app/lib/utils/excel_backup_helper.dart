@@ -9,7 +9,7 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../db/word_database.dart';
+import '../db/db_helper.dart';
 import '../models/word_model.dart';
 
 /// 📌 Veritabanındaki kelimeleri Excel ’e (xlsx) yazar.
