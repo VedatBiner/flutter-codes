@@ -76,7 +76,7 @@ class CustomDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.download, color: downLoadButtonColor),
               title: const Text(
-                'Yedek Oluştur (JSON/CSV)',
+                'Yedek Oluştur \n(JSON/CSV/XLSX)',
                 style: drawerMenuText,
               ),
               onTap: () async {

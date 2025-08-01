@@ -30,7 +30,7 @@ Future<void> editWord({
   );
 
   if (updated != null) {
-    await MalzemeDatabase.instance.updateWord(updated);
+    await DbHelper.instance.updateWord(updated);
     if (!context.mounted) return;
     onUpdated();
 
@@ -83,7 +83,7 @@ Future<void> confirmDelete({
   );
 
   if (confirm == true) {
-    await MalzemeDatabase.instance.deleteWord(word.id!);
+    await DbHelper.instance.deleteWord(word.id!);
     if (!context.mounted) return;
     onDeleted();
 

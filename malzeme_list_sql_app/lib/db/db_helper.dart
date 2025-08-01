@@ -13,11 +13,11 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/file_info.dart';
 import '../models/malzeme_model.dart';
 
-class MalzemeDatabase {
-  static final MalzemeDatabase instance = MalzemeDatabase._init();
+class DbHelper {
+  static final DbHelper instance = DbHelper._init();
   static Database? _database;
 
-  MalzemeDatabase._init();
+  DbHelper._init();
 
   /// 📌 Veritabanı örneğini getirir (singleton)
   Future<Database> get database async {

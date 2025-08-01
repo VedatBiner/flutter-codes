@@ -35,7 +35,7 @@ Future<void> loadDataFromDatabase({
 }) async {
   log("🔄 Veritabanından veri okunuyor...");
 
-  final count = await MalzemeDatabase.instance.countWords();
+  final count = await DbHelper.instance.countWords();
   log("🧮 Veritabanındaki malzeme sayısı: $count");
 
   /// 🔸 Veritabanı boşsa JSON 'dan yükleme yapılır.
@@ -72,7 +72,7 @@ Future<void> loadDataFromDatabase({
 
       for (int i = 0; i < loadedItems.length; i++) {
         final item = loadedItems[i];
-        await MalzemeDatabase.instance.insertWord(item);
+        await DbHelper.instance.insertWord(item);
 
         // Provider ile sayaç güncelle
         if (context.mounted) {
@@ -96,7 +96,7 @@ Future<void> loadDataFromDatabase({
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
       // Yüklenen son verileri çek
-      final finalList = await MalzemeDatabase.instance.getWords();
+      final finalList = await DbHelper.instance.getWords();
       onLoaded(finalList);
 
       log(
@@ -112,7 +112,7 @@ Future<void> loadDataFromDatabase({
   } else {
     /// 🔹 Veritabanında veri varsa yükleme yapılmaz, mevcut veriler döndürülür
     log("📦 Veritabanında veri var, JSON 'dan yükleme atlandı.");
-    final existingItems = await MalzemeDatabase.instance.getWords();
+    final existingItems = await DbHelper.instance.getWords();
     onLoaded(existingItems);
 
     if (context.mounted) {

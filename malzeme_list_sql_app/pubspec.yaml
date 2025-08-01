@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 1.0.4+1
+version: 1.0.6+1
 
 environment:
   sdk: ^3.8.1
@@ -25,6 +25,7 @@ dependencies:
   font_awesome_flutter:
   permission_handler:
   flutter_slidable:
+  excel: ^2.1.0
 
 dev_dependencies:
   flutter_test:

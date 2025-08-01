@@ -81,8 +81,8 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
-    allWords = await MalzemeDatabase.instance.getWords();
-    final count = await MalzemeDatabase.instance.countWords();
+    allWords = await DbHelper.instance.getWords();
+    final count = await DbHelper.instance.countWords();
 
     setState(() => words = allWords);
 

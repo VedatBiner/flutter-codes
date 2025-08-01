@@ -2,13 +2,14 @@
 // custom_drawer.dart içinden çağırılıyor.
 // JSON formatında yedek alıyor.
 
+// 📌 Flutter hazır paketleri
 import 'dart:developer';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 
 Future<String> createJsonBackup() async {
-  final path = await MalzemeDatabase.instance.exportWordsToJson();
-  log('📁 JSON dosya konumu: $path', name: 'JSON');
+  log('🔄 json_backup_helper çalıştı', name: 'JSON');
+  final path = await DbHelper.instance.exportWordsToJson();
   return path;
 }
