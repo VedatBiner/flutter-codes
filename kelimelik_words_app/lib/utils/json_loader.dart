@@ -18,9 +18,8 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/file_info.dart';
-
 /// 📌 Yardımcı yüklemeler burada
+import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
@@ -38,6 +37,8 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
+  log('🔄 json_loader çalıştı', name: 'JSON Loader');
+
   log("🔄 Veritabanından veri okunuyor...");
 
   final count = await DbHelper.instance.countWords();
@@ -92,7 +93,7 @@ Future<void> loadDataFromDatabase({
         final progress = (i + 1) / loadedWords.length;
         onLoadingStatusChange(true, progress, word.word, stopwatch.elapsed);
 
-        log("📥 ${word.word} (${i + 1}/${loadedWords.length})");
+        log("📥 ${word.word} (${i + 1}/${loadedWords.length})", name: 'Kelime');
         await Future.delayed(const Duration(milliseconds: 30));
       }
 

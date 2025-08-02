@@ -4,6 +4,7 @@
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
 //
 
+// 📌 Flutter hazır paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -25,7 +26,7 @@ class DbHelper {
 
   DbHelper._init();
 
-  /// 📌 SQLite veritabanı nesnesini alır.
+  /// 📌 Veritabanı örneğini getirir (singleton)
   ///
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -33,11 +34,11 @@ class DbHelper {
     return _database!;
   }
 
-  /// 📌 Yeni bir veritabanı oluşturur.
+  /// 📌 Veritabanını başlatır veya oluşturur
   ///
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+  Future<Database> _initDB(String fileName) async {
+    final dbPath = await getApplicationDocumentsDirectory();
+    final path = join(dbPath.path, fileName);
 
     log('📁 SQLite veritabanı konumu: $path');
 

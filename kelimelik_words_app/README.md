@@ -48,7 +48,9 @@ kutusunu kullanması sağlandı.
 - Süre sayacı eklendi
 - Yedeklerin ayrı bir dizine alınması sağlandı.
 - Excel formatında da yedekleme sağlandı.
-- word_database.dart dosyası db_helper.dart olarak değiştirildi
+- word_database.dart dosyası db_helper.dart olarak değiştirildi.
+- sql dosyası da diğer yedekler ile aynı dizine taşındı.
+- words.db > kelimelik.db yapıldı
 
 - Simdilik yapılanlar yeterli mi?
 
