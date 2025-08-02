@@ -12,4 +12,6 @@ kelimelik_words_app temel alınarak yapılmıştır.
 - MalzemeDatabase DbHelper olarak değiştirildi.
 - Excel yedek alma eklendi
 
+- Hatalar :
+  - Veriler yeniden yüklenirken animasyon çıkmıyor.
 

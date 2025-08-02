@@ -3,6 +3,7 @@
 // SQLite veritabanı işlemlerini yöneten yardımcı sınıf.
 // Malzeme verilerini ekleme, silme, güncelleme, yedekleme işlemleri buradan yapılır.
 
+// 📌 Flutter hazır paketleri
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,6 +11,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/malzeme_model.dart';
 
