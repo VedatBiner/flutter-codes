@@ -9,6 +9,6 @@ import '../db/db_helper.dart';
 
 Future<String> createCsvBackup() async {
   log('🔄 csv_backup_helper çalıştı', name: 'CSV');
-  final path = await DbHelper.instance.exportWordsToCsv();
+  final path = await DbHelper.instance.exportRecordsToCsv();
   return path;
 }

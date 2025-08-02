@@ -9,10 +9,12 @@
 //  • Her adımda onLoadingStatusChange → (loading, progress, word, elapsed)
 //    sırasıyla çağrılır.
 
+// 📌 Dart hazır paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
@@ -41,7 +43,7 @@ Future<void> loadDataFromDatabase({
 
   log("🔄 Veritabanından veri okunuyor...");
 
-  final count = await DbHelper.instance.countWords();
+  final count = await DbHelper.instance.countRecords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
   /// 🔸 Veritabanı boşsa JSON ’dan doldur
@@ -79,7 +81,7 @@ Future<void> loadDataFromDatabase({
 
       for (int i = 0; i < loadedWords.length; i++) {
         final word = loadedWords[i];
-        await DbHelper.instance.insertWord(word);
+        await DbHelper.instance.insertRecord(word);
 
         /// Provider ile sayaç güncelle
         if (context.mounted) {

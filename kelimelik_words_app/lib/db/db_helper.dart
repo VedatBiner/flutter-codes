@@ -4,11 +4,12 @@
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
 //
 
-// 📌 Flutter hazır paketleri
+// 📌 Dart hazır paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -81,13 +82,13 @@ class DbHelper {
 
   /// 📌 Yeni kelimeyi ekler.
   ///
-  Future<int> insertWord(Word word) async {
+  Future<int> insertRecord(Word word) async {
     final db = await instance.database;
     return await db.insert('words', word.toMap());
   }
 
   /// 📌 ID ye göre kelimeyi günceller.
-  Future<int> updateWord(Word word) async {
+  Future<int> updateRecord(Word word) async {
     final db = await instance.database;
     return await db.update(
       'words',
@@ -99,12 +100,12 @@ class DbHelper {
 
   /// 📌 ID ye göre kelimeyi siler.
   ///
-  Future<int> deleteWord(int id) async {
+  Future<int> deleteRecord(int id) async {
     final db = await instance.database;
     return await db.delete('words', where: 'id = ?', whereArgs: [id]);
   }
 
-  Future<int> countWords() async {
+  Future<int> countRecords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
       await db.rawQuery('SELECT COUNT(*) FROM words'),
@@ -114,7 +115,7 @@ class DbHelper {
 
   /// 📌 JSON yedeği burada alınıyor.
   ///
-  Future<String> exportWordsToJson() async {
+  Future<String> exportRecordsToJson() async {
     final words = await getWords(); // tüm kelimeleri al
     final wordMaps = words.map((w) => w.toMap()).toList();
     final jsonString = jsonEncode(wordMaps);
@@ -130,7 +131,7 @@ class DbHelper {
 
   /// 📌 JSON yedeği burada geri yükleniyor.
   ///
-  Future<void> importWordsFromJson(BuildContext context) async {
+  Future<void> importRecordsFromJson(BuildContext context) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
@@ -161,7 +162,7 @@ class DbHelper {
 
       for (var item in jsonList) {
         final word = Word.fromMap(item);
-        await insertWord(word);
+        await insertRecord(word);
       }
 
       log(
@@ -199,7 +200,7 @@ class DbHelper {
 
   /// 📌 CSV yedeği burada alınıyor.
   ///
-  Future<String> exportWordsToCsv() async {
+  Future<String> exportRecordsToCsv() async {
     final words = await DbHelper.instance.getWords();
     final buffer = StringBuffer();
 
@@ -221,7 +222,7 @@ class DbHelper {
   }
 
   /// 📌 CSV yedeği burada geri yükleniyor.
-  Future<void> importWordsFromCsv() async {
+  Future<void> importRecordsFromCsv() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameCsv';
@@ -258,7 +259,7 @@ class DbHelper {
 
         if (kelime.isNotEmpty && anlam.isNotEmpty) {
           final word = Word(word: kelime, meaning: anlam);
-          await insertWord(word);
+          await insertRecord(word);
           count++;
         }
       }
@@ -272,7 +273,7 @@ class DbHelper {
   }
 
   /// 📌 Excel yedeği burada alınıyor.
-  Future<String> exportWordsToExcel() async {
+  Future<String> exportRecordsToExcel() async {
     // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
     final filePath = await createExcelBackup();
 

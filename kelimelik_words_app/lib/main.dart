@@ -1,5 +1,6 @@
 // 📃 <----- main.dart ----->
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

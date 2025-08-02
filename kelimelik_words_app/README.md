@@ -51,6 +51,15 @@ kutusunu kullanması sağlandı.
 - word_database.dart dosyası db_helper.dart olarak değiştirildi.
 - sql dosyası da diğer yedekler ile aynı dizine taşındı.
 - words.db > kelimelik.db yapıldı
+- insertWord metodu insertRecord oldu (db_helper.dart)
+- updateWord metodu updateRecord oldu (db_helper.dart)
+- deleteWord metodu deleteRecord oldu (db_helper.dart)
+- countWords metodu countRecords oldu (db_helper.dart)
+- exportWordsToJson metodu exportRecordsToJson oldu (db_helper.dart)
+- importWordsFromJson metodu importRecordsFromJson oldu (db_helper.dart)
+- exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
+- importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
+- exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
 
 - Simdilik yapılanlar yeterli mi?
 

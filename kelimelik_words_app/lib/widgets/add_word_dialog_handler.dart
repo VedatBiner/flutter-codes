@@ -58,7 +58,7 @@ Future<void> showAddWordDialog(
       return;
     }
 
-    await DbHelper.instance.insertWord(result);
+    await DbHelper.instance.insertRecord(result);
     onWordAdded();
 
     /// ✅ Başarılı ekleme bildirimi göster
