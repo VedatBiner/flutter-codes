@@ -20,5 +20,5 @@ kelimelik_words_app temel alınarak yapılmıştır.
 - getWords metodu getRecords oldu (db_helper.dart)
 
 - Hatalar :
-  - Veriler yeniden yüklenirken animasyon çıkmıyor.
+  - Veriler yeniden yüklenirken animasyon çıkıyor ancak sayaç değişmedi ?
 

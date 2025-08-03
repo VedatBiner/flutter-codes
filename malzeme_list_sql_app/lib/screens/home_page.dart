@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       Provider.of<MalzemeCountProvider>(context, listen: false).setCount(count);
     }
 
-    log('📦 Toplam kayıt sayısı: $count');
+    log('📦 Toplam kayıt sayısı: $count', name: 'Home Page');
   }
 
   /// 🔍  Arama filtreleme
