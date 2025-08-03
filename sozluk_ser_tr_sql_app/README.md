@@ -43,3 +43,5 @@ Yapılacak başka bir şey var mı ?
 
 Düzeltilecekler.
 - SQL verinin yedeği alınmıyor?
+- Lütfen bekleyiniz ekranı güzelleştirilmeli
+- Sayaç kısmını kontrol et

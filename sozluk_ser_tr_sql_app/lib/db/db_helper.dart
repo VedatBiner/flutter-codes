@@ -41,12 +41,12 @@ class DbHelper {
   /// 📌 📌 Veritabanını başlatır veya oluşturur
   ///
   Future<Database> _initDB(String fileName) async {
-    final dbPath = await getDatabasesPath();
-    final fullPath = join(dbPath, fileName);
+    final dbPath = await getApplicationDocumentsDirectory();
+    final path = join(dbPath.path, fileName);
 
-    log('📁 Veritabanı hedef konumu: $fullPath', name: 'DB Helper');
+    log('📁 Veritabanı hedef konumu: $path', name: 'DB Helper');
 
-    final internalDbFile = File(fullPath);
+    final internalDbFile = File(path);
 
     if (await internalDbFile.exists()) {
       log(
@@ -60,7 +60,7 @@ class DbHelper {
       );
     }
 
-    return await openDatabase(fullPath, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   /// 📌 Yeni bir veritabanı oluşturur.
