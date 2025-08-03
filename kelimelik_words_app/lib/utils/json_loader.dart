@@ -41,14 +41,17 @@ Future<void> loadDataFromDatabase({
 }) async {
   log('🔄 json_loader çalıştı', name: 'JSON Loader');
 
-  log("🔄 Veritabanından veri okunuyor...");
+  log("🔄 Veritabanından veri okunuyor...", name: 'JSON Loader');
 
   final count = await DbHelper.instance.countRecords();
-  log("🧮 Veritabanındaki kelime sayısı: $count");
+  log("🧮 Veritabanındaki kelime sayısı: $count", name: 'JSON Loader');
 
   /// 🔸 Veritabanı boşsa JSON ’dan doldur
   if (count == 0) {
-    log("📭 Veritabanı boş. Cihaz/asset JSON yedeğinden veri yükleniyor...");
+    log(
+      "📭 Veritabanı boş. Cihaz/asset JSON yedeğinden veri yükleniyor...",
+      name: 'JSON Loader',
+    );
 
     try {
       /// JSON dosyasını bul (önce cihaz, yoksa asset)
@@ -58,10 +61,13 @@ Future<void> loadDataFromDatabase({
 
       String jsonStr;
       if (await file.exists()) {
-        log("📁 Cihazdaki JSON yedeği bulundu: $filePath");
+        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: 'JSON Loader');
         jsonStr = await file.readAsString();
       } else {
-        log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...");
+        log(
+          "📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...",
+          name: 'JSON Loader',
+        );
         jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
@@ -111,13 +117,14 @@ Future<void> loadDataFromDatabase({
       log(
         "✅ ${loadedWords.length} kelime yüklendi "
         "(${stopwatch.elapsed.inMilliseconds} ms).",
+        name: 'JSON Loader',
       );
     } catch (e) {
-      log("❌ JSON yükleme hatası: $e");
+      log("❌ JSON yükleme hatası: $e", name: 'JSON Loader');
     }
   } else {
     /// 🔹 Veritabanı dolu ise sadece listeyi döndür
-    log("📦 Veritabanında veri var, yükleme yapılmadı.");
+    log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
     final existingWords = await DbHelper.instance.getWords();
     onLoaded(existingWords);
 

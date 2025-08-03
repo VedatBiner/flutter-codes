@@ -41,7 +41,7 @@ class DbHelper {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
 
-    log('📁 SQLite veritabanı konumu: $path');
+    log('📁 SQLite veritabanı konumu: $path', name: 'DB Helper');
 
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
