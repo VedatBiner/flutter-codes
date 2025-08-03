@@ -18,7 +18,7 @@ class MalzemeQuantityProvider extends ChangeNotifier {
     final malzeme = await DbHelper.instance.getMalzemeById(id);
     if (malzeme != null) {
       final updated = malzeme.copyWith(miktar: (malzeme.miktar ?? 0) + 1);
-      await DbHelper.instance.updateWord(updated);
+      await DbHelper.instance.updateRecord(updated);
       _quantities[id] = updated.miktar ?? 0;
       notifyListeners();
     }
@@ -31,7 +31,7 @@ class MalzemeQuantityProvider extends ChangeNotifier {
       int current = malzeme.miktar ?? 0;
       if (current > 0) {
         final updated = malzeme.copyWith(miktar: current - 1);
-        await DbHelper.instance.updateWord(updated);
+        await DbHelper.instance.updateRecord(updated);
         _quantities[id] = updated.miktar ?? 0;
         notifyListeners();
       }

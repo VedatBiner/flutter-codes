@@ -61,7 +61,7 @@ Future<void> showAddMalzemeDialog(
       return;
     }
 
-    await DbHelper.instance.insertWord(result);
+    await DbHelper.instance.insertRecord(result);
     onMalzemeAdded();
 
     /// ✅ Başarılı ekleme bildirimi göster

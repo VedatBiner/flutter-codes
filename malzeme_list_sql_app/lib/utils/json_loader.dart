@@ -9,15 +9,18 @@
 //  • Her adımda onLoadingStatusChange → (loading, progress, word, elapsed)
 //    sırasıyla çağrılır.
 
+// 📌 Dart hazır paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/malzeme_model.dart';
@@ -33,48 +36,55 @@ Future<void> loadDataFromDatabase({
   required Function(List<Malzeme>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
-  log("🔄 Veritabanından veri okunuyor...");
+  log('🔄 json_loader çalıştı', name: 'JSON Loader');
+  log("🔄 Veritabanından veri okunuyor...", name: 'JSON Loader');
 
-  final count = await DbHelper.instance.countWords();
-  log("🧮 Veritabanındaki malzeme sayısı: $count");
+  final count = await DbHelper.instance.countRecords();
+  log("🧮 Veritabanındaki malzeme sayısı: $count", name: 'JSON Loader');
 
-  /// 🔸 Veritabanı boşsa JSON 'dan yükleme yapılır.
+  /// 🔸 Veritabanı boşsa JSON ’dan doldur
   if (count == 0) {
-    log("📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...");
+    log(
+      "📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...",
+      name: 'JSON Loader',
+    );
 
     try {
-      // JSON dosyasını cihazdan veya asset ’ten oku
+      /// JSON dosyasını bul (önce cihaz, yoksa asset)
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
 
       String jsonStr;
       if (await file.exists()) {
-        log("📁 Cihazdaki JSON yedeği bulundu: $filePath");
+        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: 'JSON Loader');
         jsonStr = await file.readAsString();
       } else {
-        log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...");
+        log(
+          "📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...",
+          name: 'JSON Loader',
+        );
         jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
-      /// JSON verisini çözümlüyoruz → Liste<Malzeme>
+      /// JSON → Liste<Malzeme>
       final List<dynamic> jsonList = json.decode(jsonStr);
       final loadedItems = jsonList.map<Malzeme>((e) {
         final map = e as Map<String, dynamic>;
         return Malzeme(malzeme: map['malzeme'], miktar: map['miktar']);
       }).toList();
 
-      /// ⏱ süre ölçmek için kronometre başlat
+      /// ⏱ süre ölçümü için kronometre
       final stopwatch = Stopwatch()..start();
 
-      // Kartı göster: başlat
+      /// Yükleme başlıyor
       onLoadingStatusChange(true, 0.0, null, Duration.zero);
 
       for (int i = 0; i < loadedItems.length; i++) {
         final item = loadedItems[i];
-        await DbHelper.instance.insertWord(item);
+        await DbHelper.instance.insertRecord(item);
 
-        // Provider ile sayaç güncelle
+        /// Provider ile sayaç güncelle
         if (context.mounted) {
           Provider.of<MalzemeCountProvider>(
             context,
@@ -82,37 +92,44 @@ Future<void> loadDataFromDatabase({
           ).setCount(i + 1);
         }
 
-        // Kullanıcıya yükleme ilerlemesi bildir
+        /// Kullanıcıya ilerlemeyi bildir
         final progress = (i + 1) / loadedItems.length;
         onLoadingStatusChange(true, progress, item.malzeme, stopwatch.elapsed);
 
-        log("📥 ${item.malzeme} (${i + 1}/${loadedItems.length})");
+        log(
+          "📥 ${item.malzeme} (${i + 1}/${loadedItems.length})",
+          name: 'Malzeme',
+        );
         await Future.delayed(const Duration(milliseconds: 30));
       }
 
       stopwatch.stop();
 
-      // Kartı gizle: bitti
+      /// Yükleme bitti, kartı kapat
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
-      // Yüklenen son verileri çek
-      final finalList = await DbHelper.instance.getWords();
+      /// Son malzeme listesi
+      final finalList = await DbHelper.instance.getRecords();
       onLoaded(finalList);
 
       log(
         "✅ ${loadedItems.length} malzeme yüklendi "
         "(${stopwatch.elapsed.inMilliseconds} ms).",
+        name: 'JSON Loader',
       );
     } catch (e) {
-      log("❌ JSON yükleme hatası: $e");
+      log("❌ JSON yükleme hatası: $e", name: 'JSON Loader');
 
-      // ❗ Hata durumunda kullanıcıya kartı kapatmayı unutma
+      /// ❗ Hata durumunda kullanıcıya kartı kapatmayı unutma
       onLoadingStatusChange(false, 0.0, null, const Duration());
     }
   } else {
     /// 🔹 Veritabanında veri varsa yükleme yapılmaz, mevcut veriler döndürülür
-    log("📦 Veritabanında veri var, JSON 'dan yükleme atlandı.");
-    final existingItems = await DbHelper.instance.getWords();
+    log(
+      "📦 Veritabanında veri var, JSON 'dan yükleme atlandı.",
+      name: 'JSON Loader',
+    );
+    final existingItems = await DbHelper.instance.getRecords();
     onLoaded(existingItems);
 
     if (context.mounted) {

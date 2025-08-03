@@ -30,7 +30,7 @@ Future<void> editWord({
   );
 
   if (updated != null) {
-    await DbHelper.instance.updateWord(updated);
+    await DbHelper.instance.updateRecord(updated);
     if (!context.mounted) return;
     onUpdated();
 
@@ -83,7 +83,7 @@ Future<void> confirmDelete({
   );
 
   if (confirm == true) {
-    await DbHelper.instance.deleteWord(word.id!);
+    await DbHelper.instance.deleteRecord(word.id!);
     if (!context.mounted) return;
     onDeleted();
 

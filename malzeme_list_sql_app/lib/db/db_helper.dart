@@ -48,7 +48,7 @@ class DbHelper {
   }
 
   /// 📌 Tüm malzemeleri getir
-  Future<List<Malzeme>> getWords() async {
+  Future<List<Malzeme>> getRecords() async {
     final db = await instance.database;
     final result = await db.query('malzemeler');
     return result.map((e) => Malzeme.fromMap(e)).toList();
@@ -83,13 +83,13 @@ class DbHelper {
   }
 
   /// 📌 Yeni malzeme ekle
-  Future<void> insertWord(Malzeme malzeme) async {
+  Future<void> insertRecord(Malzeme malzeme) async {
     final db = await instance.database;
     await db.insert('malzemeler', malzeme.toMap());
   }
 
   /// 📌 Mevcut malzemeyi güncelle
-  Future<void> updateWord(Malzeme malzeme) async {
+  Future<void> updateRecord(Malzeme malzeme) async {
     final db = await instance.database;
     await db.update(
       'malzemeler',
@@ -100,21 +100,21 @@ class DbHelper {
   }
 
   /// 📌 Malzeme sil
-  Future<void> deleteWord(int id) async {
+  Future<void> deleteRecord(int id) async {
     final db = await instance.database;
     await db.delete('malzemeler', where: 'id = ?', whereArgs: [id]);
   }
 
   /// 📌 Toplam malzeme sayısı
-  Future<int> countWords() async {
+  Future<int> countRecords() async {
     final db = await instance.database;
     final result = await db.rawQuery('SELECT COUNT(*) FROM malzemeler');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
   /// 📌 Verileri JSON olarak dışa aktar
-  Future<String> exportWordsToJson() async {
-    final items = await getWords();
+  Future<String> exportRecordsToJson() async {
+    final items = await getRecords();
     final jsonData = jsonEncode(items.map((e) => e.toMap()).toList());
     final dir = await getApplicationDocumentsDirectory();
     final file = File(join(dir.path, fileNameJson));
@@ -123,8 +123,8 @@ class DbHelper {
   }
 
   /// 📌 Verileri CSV olarak dışa aktar
-  Future<String> exportWordsToCsv() async {
-    final items = await getWords();
+  Future<String> exportRecordsToCsv() async {
+    final items = await getRecords();
     final buffer = StringBuffer();
     buffer.writeln('id,malzeme,miktar,aciklama');
     for (final item in items) {

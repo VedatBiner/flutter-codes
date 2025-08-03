@@ -10,7 +10,14 @@ kelimelik_words_app temel alınarak yapılmıştır.
 - Kaydırma için flutter_slidable paketi eklendi.
 - Türkçe sıralama ile ilgili sorun giderildi.
 - MalzemeDatabase DbHelper olarak değiştirildi.
-- Excel yedek alma eklendi
+- Excel yedek alma eklendi.
+- insertWord metodu insertRecord oldu (db_helper.dart)
+- updateWord metodu updateRecord oldu (db_helper.dart)
+- deleteWord metodu deleteRecord oldu (db_helper.dart)
+- countWords metodu countRecords oldu (db_helper.dart)
+- exportWordsToJson metodu exportRecordsToJson oldu (db_helper.dart)
+- exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
+- getWords metodu getRecords oldu (db_helper.dart)
 
 - Hatalar :
   - Veriler yeniden yüklenirken animasyon çıkmıyor.

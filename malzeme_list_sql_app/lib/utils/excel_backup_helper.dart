@@ -28,7 +28,7 @@ Future<String> createExcelBackup() async {
   sheet.appendRow(['Malzeme', 'Miktar', 'Açıklama']);
 
   // 4️⃣ Veritabanından tüm kelimeleri al
-  final List<Malzeme> words = await DbHelper.instance.getWords();
+  final List<Malzeme> words = await DbHelper.instance.getRecords();
 
   // 5️⃣ Her kelimeyi satır satır ekle
   for (final w in words) {
