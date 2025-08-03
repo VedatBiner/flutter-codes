@@ -45,3 +45,5 @@ Düzeltilecekler.
 - SQL verinin yedeği alınmıyor?
 - Lütfen bekleyiniz ekranı güzelleştirilmeli
 - Sayaç kısmını kontrol et
+- Eklenen kelimeler konsolda sıralı görünmüyor. İlk Firebase çekiminden kaynaklı olabilir mi ?
+- 
