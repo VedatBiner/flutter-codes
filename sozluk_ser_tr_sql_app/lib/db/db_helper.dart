@@ -21,6 +21,7 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
+import '../utils/excel_backup_helper.dart';
 import '../widgets/notification_service.dart';
 
 class DbHelper {
@@ -37,20 +38,26 @@ class DbHelper {
     return _database!;
   }
 
-  /// 📌 Yeni bir veritabanı oluşturur.
+  /// 📌 📌 Veritabanını başlatır veya oluşturur
   ///
   Future<Database> _initDB(String fileName) async {
     final dbPath = await getDatabasesPath();
     final fullPath = join(dbPath, fileName);
 
-    log('📁 Veritabanı hedef konumu: $fullPath');
+    log('📁 Veritabanı hedef konumu: $fullPath', name: 'DB Helper');
 
     final internalDbFile = File(fullPath);
 
     if (await internalDbFile.exists()) {
-      log('📦 Yerel veritabanı zaten var. Doğrudan açılıyor...');
+      log(
+        '📦 Yerel veritabanı zaten var. Doğrudan açılıyor...',
+        name: 'DB Helper',
+      );
     } else {
-      log('🆕 Yerel veritabanı bulunamadı. Yeni veritabanı oluşturulacak.');
+      log(
+        '🆕 Yerel veritabanı bulunamadı. Yeni veritabanı oluşturulacak.',
+        name: 'DB Helper',
+      );
     }
 
     return await openDatabase(fullPath, version: 1, onCreate: _createDB);
@@ -145,9 +152,6 @@ class DbHelper {
     final file = File(filePath);
     await file.writeAsString(jsonString);
 
-    log('📤 JSON yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 Dosya yolu: $filePath', name: 'Backup');
-
     return filePath;
   }
 
@@ -234,9 +238,6 @@ class DbHelper {
 
     await file.writeAsString(buffer.toString());
 
-    log('📤 CSV yedeği başarıyla oluşturuldu.', name: 'Backup');
-    log('📁 Dosya yolu: $filePath', name: 'Backup');
-
     return filePath;
   }
 
@@ -288,6 +289,15 @@ class DbHelper {
     } catch (e) {
       log('🚨 CSV yükleme hatası: $e', name: 'Import');
     }
+  }
+
+  /// 📌 Excel yedeği burada alınıyor.
+  Future<String> exportRecordsToExcel() async {
+    // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
+    final filePath = await createExcelBackup();
+
+    // 2️⃣ Path 'i geri döndürüyoruz
+    return filePath;
   }
 
   /// 📌 Türkçe sıralama yöntemi.

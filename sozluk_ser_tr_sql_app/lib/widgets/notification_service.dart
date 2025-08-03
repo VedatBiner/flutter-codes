@@ -21,8 +21,8 @@ class NotificationService {
   }) {
     ElegantNotification(
       background: notificationColor,
-      width: 340,
-      height: 180,
+      width: 280,
+      height: 220,
       stackedOptions: StackedOptions(
         key: 'left',
         type: StackedType.same,

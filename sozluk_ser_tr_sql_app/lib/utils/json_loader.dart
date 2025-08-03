@@ -30,22 +30,27 @@ Future<void> loadDataFromDatabase({
   final dbCount = await DbHelper.instance.countRecords();
   final assetSqlCount = await DbHelper.instance.countWordsAssetSql();
 
-  log("📦 Firestore 'daki kayıt sayısı: $firestoreCount");
-  log("📁 Asset JSON 'daki kayıt sayısı: $assetJsonCount");
-  log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount");
-  log('🧮 Asset SQL veritabanındaki kayıt sayısı: $assetSqlCount');
+  log('🔄 json_loader çalıştı', name: 'JSON Loader');
+  log("📦 Firestore 'daki kayıt sayısı: $firestoreCount", name: 'JSON Loader');
+  log("📁 Asset JSON 'daki kayıt sayısı: $assetJsonCount", name: 'JSON Loader');
+  log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount", name: 'JSON Loader');
+  log(
+    '🧮 Asset SQL veritabanındaki kayıt sayısı: $assetSqlCount',
+    name: 'JSON Loader',
+  );
 
   if (assetJsonCount > dbCount) {
     log(
       "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
+      name: 'JSON Loader',
     );
     final db = await DbHelper.instance.database;
     await db.delete('words');
   }
 
-  log("🔄 Veritabanından veri okunuyor...");
+  log("🔄 Veritabanından veri okunuyor...", name: 'JSON Loader');
   final count = await DbHelper.instance.countRecords();
-  log("🧮 Veritabanındaki kelime sayısı: $count");
+  log("🧮 Veritabanındaki kelime sayısı: $count", name: 'JSON Loader');
 
   // 🔸 Veritabanı boşsa Firestore 'dan doldur
   if (count == 0) {
@@ -53,7 +58,10 @@ Future<void> loadDataFromDatabase({
 
     final newCount = await DbHelper.instance.countRecords();
     if (newCount > 0) {
-      log("✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.");
+      log(
+        "✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.",
+        name: 'JSON Loader',
+      );
 
       final finalWords = await DbHelper.instance.getRecords();
       onLoaded(finalWords);
@@ -66,9 +74,9 @@ Future<void> loadDataFromDatabase({
       }
       return;
     }
-    log("📭 Firestore boş. JSON 'dan veri yükleniyor...");
+    log("📭 Firestore boş. JSON 'dan veri yükleniyor...", name: 'JSON Loader');
   } else {
-    log("📦 Veritabanında veri var, yükleme yapılmadı.");
+    log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
 
     final finalWords = await DbHelper.instance.getRecords();
     onLoaded(finalWords);
@@ -82,7 +90,7 @@ Future<void> loadDataFromDatabase({
     return;
   }
 
-  // 🔁 JSON'dan yükleme (Fallback)
+  // 🔁 JSON dan yükleme (Fallback)
   try {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$fileNameJson';
@@ -90,10 +98,13 @@ Future<void> loadDataFromDatabase({
 
     String jsonStr;
     if (await file.exists()) {
-      log("📁 Cihazdaki JSON yedeği bulundu: $filePath");
+      log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: 'JSON Loader');
       jsonStr = await file.readAsString();
     } else {
-      log("📦 Cihazda JSON yedeği bulunamadı. Asset içinden yükleniyor...");
+      log(
+        "📦 Cihazda JSON yedeği bulunamadı. Asset içinden yükleniyor...",
+        name: 'JSON Loader',
+      );
       jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
     }
 
@@ -136,9 +147,10 @@ Future<void> loadDataFromDatabase({
     onLoaded(finalWords);
     log(
       "✅ ${loadedWords.length} kelime yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
+      name: 'JSON Loader',
     );
   } catch (e) {
-    log("❌ JSON yükleme hatası: $e");
+    log("❌ JSON yükleme hatası: $e", name: 'JSON Loader');
   }
 }
 
@@ -153,7 +165,10 @@ Future<void> importFromFirestoreToSqlite(
     final querySnapshot =
         await FirebaseFirestore.instance.collection('kelimeler').get();
     final documents = querySnapshot.docs;
-    log("📥 Firestore 'dan çekilen toplam kayıt: ${documents.length}");
+    log(
+      "📥 Firestore 'dan çekilen toplam kayıt: ${documents.length}",
+      name: 'JSON Loader',
+    );
 
     final stopwatch = Stopwatch()..start();
     onLoadingStatusChange(true, 0.0, null, Duration.zero);
@@ -179,16 +194,22 @@ Future<void> importFromFirestoreToSqlite(
         stopwatch.elapsed,
       );
 
-      log("✅ [${i + 1}/${documents.length}] ${word.sirpca} eklendi.");
+      log(
+        "✅ [${i + 1}/${documents.length}] ${word.sirpca} eklendi.",
+        name: 'JSON Loader',
+      );
       await Future.delayed(const Duration(milliseconds: 25));
     }
 
     stopwatch.stop();
     onLoadingStatusChange(false, 0.0, null, stopwatch.elapsed);
 
-    log("🎉 Firestore 'dan alınan tüm veriler SQLite 'a yazıldı.");
+    log(
+      "🎉 Firestore 'dan alınan tüm veriler SQLite 'a yazıldı.",
+      name: 'JSON Loader',
+    );
   } catch (e) {
-    log("❌ Firestore 'dan veri çekerken hata oluştu: $e");
+    log("❌ Firestore 'dan veri çekerken hata oluştu: $e", name: 'JSON Loader');
   }
 }
 
@@ -199,7 +220,7 @@ Future<int> getFirestoreWordCount() async {
         await FirebaseFirestore.instance.collection('kelimeler').get();
     return snapshot.docs.length;
   } catch (e) {
-    log("❌ Firestore sayımı başarısız: $e");
+    log("❌ Firestore sayımı başarısız: $e", name: 'JSON Loader');
     return 0;
   }
 }
@@ -214,7 +235,7 @@ Future<int> getWordCountFromAssetJson() async {
     // log("📌 Asset içindeki kelime sayısı (json) : ${jsonList.length}");
     return jsonList.length;
   } catch (e) {
-    log("❌ Asset JSON okunamadı: $e");
+    log("❌ Asset JSON okunamadı: $e", name: 'JSON Loader');
     return 0;
   }
 }

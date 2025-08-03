@@ -266,9 +266,9 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
 
-            /// 📌 Yedekleme (JSON/CSV)
+            /// 📌 Yedek oluştur (JSON/CSV/XLSX)
             Tooltip(
-              message: "JSON/CSV yedeği oluştur",
+              message: "JSON/CSV/XLSX yedeği oluştur",
               child: ListTile(
                 leading: Icon(
                   Icons.download,
@@ -276,7 +276,7 @@ class CustomDrawer extends StatelessWidget {
                   size: 32,
                 ),
                 title: const Text(
-                  'Yedek Oluştur \n(JSON/CSV)',
+                  'Yedek Oluştur \n(JSON/CSV/XLSX)',
                   style: drawerMenuText,
                 ),
                 onTap: () async {
