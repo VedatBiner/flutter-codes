@@ -62,7 +62,7 @@ class DbHelper {
   ///
   Future<List<Word>> getWords() async {
     final db = await instance.database;
-    final result = await db.query('words'); // OrderBy kaldırıldı
+    final result = await db.query('words');
     final words = result.map((e) => Word.fromMap(e)).toList();
 
     return _sortTurkish(words); // 👈 Türkçe sıralamayı uygula
