@@ -111,7 +111,7 @@ Future<void> loadDataFromDatabase({
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
       // /Son kelime listesi
-      final finalWords = await DbHelper.instance.getWords();
+      final finalWords = await DbHelper.instance.getRecords();
       onLoaded(finalWords);
 
       log(
@@ -125,7 +125,7 @@ Future<void> loadDataFromDatabase({
   } else {
     /// 🔹 Veritabanı dolu ise sadece listeyi döndür
     log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
-    final existingWords = await DbHelper.instance.getWords();
+    final existingWords = await DbHelper.instance.getRecords();
     onLoaded(existingWords);
 
     if (context.mounted) {

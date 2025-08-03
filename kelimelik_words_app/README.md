@@ -60,6 +60,7 @@ kutusunu kullanması sağlandı.
 - exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
 - importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
 - exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
+- getWords metodu getRecords oldu (db_helper.dart)
 
 - Simdilik yapılanlar yeterli mi?
 

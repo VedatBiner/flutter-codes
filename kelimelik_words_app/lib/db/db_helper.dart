@@ -60,7 +60,7 @@ class DbHelper {
 
   /// 📌 Tüm kelimeleri alır.
   ///
-  Future<List<Word>> getWords() async {
+  Future<List<Word>> getRecords() async {
     final db = await instance.database;
     final result = await db.query('words');
     final words = result.map((e) => Word.fromMap(e)).toList();
@@ -116,7 +116,7 @@ class DbHelper {
   /// 📌 JSON yedeği burada alınıyor.
   ///
   Future<String> exportRecordsToJson() async {
-    final words = await getWords(); // tüm kelimeleri al
+    final words = await getRecords(); // tüm kelimeleri al
     final wordMaps = words.map((w) => w.toMap()).toList();
     final jsonString = jsonEncode(wordMaps);
 
@@ -201,7 +201,7 @@ class DbHelper {
   /// 📌 CSV yedeği burada alınıyor.
   ///
   Future<String> exportRecordsToCsv() async {
-    final words = await DbHelper.instance.getWords();
+    final words = await DbHelper.instance.getRecords();
     final buffer = StringBuffer();
 
     buffer.writeln('Kelime,Anlam');
