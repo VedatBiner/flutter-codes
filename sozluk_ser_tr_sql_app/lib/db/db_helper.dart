@@ -4,10 +4,12 @@
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
 //
 
+// 📌 Dart hazır paketleri
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+/// 📌 Flutter hazır paketleri
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,16 +17,17 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 import '../widgets/notification_service.dart';
 
-class WordDatabase {
-  static final WordDatabase instance = WordDatabase._init();
+class DbHelper {
+  static final DbHelper instance = DbHelper._init();
   static Database? _database;
 
-  WordDatabase._init();
+  DbHelper._init();
 
   /// 📌 SQLite veritabanı nesnesini alır.
   ///
@@ -68,7 +71,7 @@ class WordDatabase {
 
   /// 📌 Tüm kelimeleri alır.
   ///
-  Future<List<Word>> getWords() async {
+  Future<List<Word>> getRecords() async {
     final db = await instance.database;
     final result = await db.query('words'); // OrderBy kaldırıldı
     final words = result.map((e) => Word.fromMap(e)).toList();
@@ -90,7 +93,7 @@ class WordDatabase {
 
   /// 📌 Yeni kelimeyi ekler.
   ///
-  Future<int> insertWord(Word word) async {
+  Future<int> insertRecord(Word word) async {
     final db = await instance.database;
     final result = await db.insert('words', word.toMap());
 
@@ -102,7 +105,7 @@ class WordDatabase {
 
   /// 📌 ID ye göre kelimeyi günceller.
   ///
-  Future<int> updateWord(Word word) async {
+  Future<int> updateRecord(Word word) async {
     final db = await instance.database;
     return await db.update(
       'words',
@@ -114,14 +117,14 @@ class WordDatabase {
 
   /// 📌 ID ye göre kelimeyi siler.
   ///
-  Future<int> deleteWord(int id) async {
+  Future<int> deleteRecord(int id) async {
     final db = await instance.database;
     return await db.delete('words', where: 'id = ?', whereArgs: [id]);
   }
 
   /// 📌 Toplam kelime sayısını döner.
   ///
-  Future<int> countWords() async {
+  Future<int> countRecords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
       await db.rawQuery('SELECT COUNT(*) FROM words'),
@@ -131,8 +134,8 @@ class WordDatabase {
 
   /// 📌 JSON yedeği burada alınıyor.
   ///
-  Future<String> exportWordsToJson() async {
-    final words = await getWords();
+  Future<String> exportRecordsToJson() async {
+    final words = await getRecords();
     final wordMaps = words.map((w) => w.toMap()).toList();
     final jsonString = jsonEncode(wordMaps);
 
@@ -150,7 +153,7 @@ class WordDatabase {
 
   /// 📌 JSON yedeği burada geri yükleniyor.
   ///
-  Future<void> importWordsFromJson(BuildContext context) async {
+  Future<void> importRecordsFromJson(BuildContext context) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
@@ -187,7 +190,7 @@ class WordDatabase {
           userEmail: map['userEmail'] ?? '',
         );
 
-        await insertWord(word);
+        await insertRecord(word);
       }
 
       log(
@@ -213,8 +216,8 @@ class WordDatabase {
 
   /// 📌 CSV yedeği burada alınıyor.
   ///
-  Future<String> exportWordsToCsv() async {
-    final words = await getWords();
+  Future<String> exportRecordsToCsv() async {
+    final words = await getRecords();
     final buffer = StringBuffer();
 
     buffer.writeln('Sirpca,Turkce');
@@ -239,7 +242,7 @@ class WordDatabase {
 
   /// 📌 CSV yedeği burada geri yükleniyor.
   ///
-  Future<void> importWordsFromCsv() async {
+  Future<void> importRecordsFromCsv() async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameCsv';
@@ -277,7 +280,7 @@ class WordDatabase {
           userEmail: 'default@email.com',
         );
 
-        await insertWord(word);
+        await insertRecord(word);
         count++;
       }
 
@@ -437,7 +440,7 @@ class WordDatabase {
 
   /// 📌 Firestore 'dan verileri alır.
   Future<void> syncFirestoreIfDatabaseEmpty(BuildContext context) async {
-    final count = await countWords();
+    final count = await countRecords();
 
     if (count > 0) {
       log(
@@ -451,7 +454,7 @@ class WordDatabase {
     await fetchWordsFromFirestoreAndSaveAsJson();
 
     if (context.mounted) {
-      await importWordsFromJson(context);
+      await importRecordsFromJson(context);
     }
   }
 

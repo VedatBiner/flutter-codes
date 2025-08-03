@@ -29,7 +29,7 @@ class _WordListState extends State<WordList> {
   }
 
   Future<void> _refreshWords() async {
-    final updatedWords = await WordDatabase.instance.getWords();
+    final updatedWords = await DbHelper.instance.getRecords();
     setState(() {
       localWords = updatedWords;
       selectedIndex = null;

@@ -47,7 +47,7 @@ Future<void> showResetDatabaseDialog(
   Navigator.of(context).maybePop();
 
   /// 🔥 Tablodaki tüm verileri sil
-  final db = await WordDatabase.instance.database;
+  final db = await DbHelper.instance.database;
   await db.delete('words');
 
   /// 3️⃣ Eğer widget tree ’den ayrıldıysak işleme devam etmeyelim

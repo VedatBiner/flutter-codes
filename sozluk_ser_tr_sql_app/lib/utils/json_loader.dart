@@ -27,8 +27,8 @@ Future<void> loadDataFromDatabase({
   // 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
   final firestoreCount = await getFirestoreWordCount();
   final assetJsonCount = await getWordCountFromAssetJson();
-  final dbCount = await WordDatabase.instance.countWords();
-  final assetSqlCount = await WordDatabase.instance.countWordsAssetSql();
+  final dbCount = await DbHelper.instance.countRecords();
+  final assetSqlCount = await DbHelper.instance.countWordsAssetSql();
 
   log("📦 Firestore 'daki kayıt sayısı: $firestoreCount");
   log("📁 Asset JSON 'daki kayıt sayısı: $assetJsonCount");
@@ -39,23 +39,23 @@ Future<void> loadDataFromDatabase({
     log(
       "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
     );
-    final db = await WordDatabase.instance.database;
+    final db = await DbHelper.instance.database;
     await db.delete('words');
   }
 
   log("🔄 Veritabanından veri okunuyor...");
-  final count = await WordDatabase.instance.countWords();
+  final count = await DbHelper.instance.countRecords();
   log("🧮 Veritabanındaki kelime sayısı: $count");
 
   // 🔸 Veritabanı boşsa Firestore 'dan doldur
   if (count == 0) {
     await importFromFirestoreToSqlite(context, onLoadingStatusChange);
 
-    final newCount = await WordDatabase.instance.countWords();
+    final newCount = await DbHelper.instance.countRecords();
     if (newCount > 0) {
       log("✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.");
 
-      final finalWords = await WordDatabase.instance.getWords();
+      final finalWords = await DbHelper.instance.getRecords();
       onLoaded(finalWords);
 
       if (context.mounted) {
@@ -70,7 +70,7 @@ Future<void> loadDataFromDatabase({
   } else {
     log("📦 Veritabanında veri var, yükleme yapılmadı.");
 
-    final finalWords = await WordDatabase.instance.getWords();
+    final finalWords = await DbHelper.instance.getRecords();
     onLoaded(finalWords);
 
     if (context.mounted) {
@@ -113,7 +113,7 @@ Future<void> loadDataFromDatabase({
 
     for (int i = 0; i < loadedWords.length; i++) {
       final word = loadedWords[i];
-      await WordDatabase.instance.insertWord(word);
+      await DbHelper.instance.insertRecord(word);
 
       if (context.mounted) {
         Provider.of<WordCountProvider>(context, listen: false).setCount(i + 1);
@@ -132,7 +132,7 @@ Future<void> loadDataFromDatabase({
     stopwatch.stop();
     onLoadingStatusChange(false, 0.0, null, stopwatch.elapsed);
 
-    final finalWords = await WordDatabase.instance.getWords();
+    final finalWords = await DbHelper.instance.getRecords();
     onLoaded(finalWords);
     log(
       "✅ ${loadedWords.length} kelime yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
@@ -166,7 +166,7 @@ Future<void> importFromFirestoreToSqlite(
         userEmail: data['userEmail'] ?? '',
       );
 
-      await WordDatabase.instance.insertWord(word);
+      await DbHelper.instance.insertRecord(word);
 
       if (context.mounted) {
         Provider.of<WordCountProvider>(context, listen: false).setCount(i + 1);

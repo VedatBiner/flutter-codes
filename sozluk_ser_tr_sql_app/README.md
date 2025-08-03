@@ -25,6 +25,19 @@ türetilmiş ve daha geliştirilmiştir.
 - Verilerin Firebase 'den json olarak çekilmesi eklendi.
 - Verilerin SQL ve Firebase 'den eklenmesi, güncellenmesi ve silinmesi düzeltildi.
 - Bekleme ekranı eklendi.
+- Word_database.dart dosyası Db_helper.dart olarak rename edildi.
+- WordDatabase sınıfı DbHelper olarak rename edildi. (db_helper.dart)
+- excel_backup_helper.dart dosyası eklendi.
+- getWords metodu getRecords oldu (db_helper.dart)
+- insertWord metodu insertRecord oldu (db_helper.dart)
+- updateWord metodu updateRecord oldu (db_helper.dart)
+- deleteWord metodu deleteRecord oldu (db_helper.dart)
+- countWords metodu countRecords oldu (db_helper.dart)
+- exportWordsToJson metodu exportRecordsToJson oldu (db_helper.dart)
+- importWordsFromJson metodu importRecordsFromJson oldu (db_helper.dart)
+- exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
+- importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
+- word_model dosyasına göre excel_backup_helper.dart dosyası düzeltildi
 
 Yapılacak başka bir şey var mı ?
 

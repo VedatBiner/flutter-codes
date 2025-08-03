@@ -27,7 +27,7 @@ Future<void> editWord({
 
   if (updated != null) {
     // 🔹 SQLite ve Firestore üzerinde güncelle
-    await WordDatabase.instance.updateWord(updated);
+    await DbHelper.instance.updateRecord(updated);
     await WordService.updateWord(updated, oldSirpca: word.sirpca);
 
     if (!context.mounted) return;
@@ -84,11 +84,11 @@ Future<void> confirmDelete({
   if (confirm == true) {
     // 🔹 SQLite silme – id null ise sirpca’dan bul
     if (word.id != null) {
-      await WordDatabase.instance.deleteWord(word.id!);
+      await DbHelper.instance.deleteRecord(word.id!);
     } else {
-      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getWord(word.sirpca);
       if (dbWord != null) {
-        await WordDatabase.instance.deleteWord(dbWord.id!);
+        await DbHelper.instance.deleteRecord(dbWord.id!);
       }
     }
 

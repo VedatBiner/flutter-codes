@@ -15,7 +15,7 @@ class WordService {
   /// -----------------------------------------------------------------
   static Future<void> addWord(Word word) async {
     /// 🔹 SQLite 'a ekle
-    final rowId = await WordDatabase.instance.insertWord(word);
+    final rowId = await DbHelper.instance.insertRecord(word);
     log("💾 (id = $rowId): ${word.sirpca} Kelimesi, SQLite ’e eklendi.");
 
     // 🔄 id alanı null ise güncelle (UI ’de sonraki işlemler sorunsuz çalışır)
@@ -45,13 +45,13 @@ class WordService {
 
     /// 🔹 SQLite verisini sil
     if (word.id != null) {
-      await WordDatabase.instance.deleteWord(word.id!);
+      await DbHelper.instance.deleteRecord(word.id!);
       sqliteDeleted = true;
     } else {
       /// ❓ id null ise sirpca adına göre sorgula
-      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getWord(word.sirpca);
       if (dbWord != null) {
-        await WordDatabase.instance.deleteWord(dbWord.id!);
+        await DbHelper.instance.deleteRecord(dbWord.id!);
         sqliteDeleted = true;
       }
     }
@@ -88,12 +88,12 @@ class WordService {
 
     /// 🔹 SQLite Güncelle
     if (word.id != null) {
-      await WordDatabase.instance.updateWord(word);
+      await DbHelper.instance.updateRecord(word);
       sqliteUpdated = true;
     } else {
-      final dbWord = await WordDatabase.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getWord(word.sirpca);
       if (dbWord != null) {
-        await WordDatabase.instance.updateWord(word.copyWith(id: dbWord.id));
+        await DbHelper.instance.updateRecord(word.copyWith(id: dbWord.id));
         sqliteUpdated = true;
       }
     }
@@ -125,7 +125,7 @@ class WordService {
 
   /// 📌 SQLite içinde bu kelime var mı? (sırpça adına göre kontrol)
   static Future<bool> wordExists(String sirpca) async {
-    final word = await WordDatabase.instance.getWord(sirpca);
+    final word = await DbHelper.instance.getWord(sirpca);
     return word != null;
   }
 
@@ -135,7 +135,7 @@ class WordService {
   static Future<void> _logTotals() async {
     try {
       /// SQLite toplamı
-      final sqliteTotal = await WordDatabase.instance.countWords();
+      final sqliteTotal = await DbHelper.instance.countRecords();
 
       /// Firestore toplamı (basit get — veri çoksa count aggregation kullanabilirsiniz)
       final fsSnap =
