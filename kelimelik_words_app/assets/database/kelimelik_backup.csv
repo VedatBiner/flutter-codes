@@ -311,6 +311,7 @@ Ayık,Sarhoşluğu geçmiş kişi
 Ayın,Arap alfabesinde bir harf
 Ayin,Dini tören / Ritüel
 Aylık,Maaş / Mahiye
+Aynacı,Ayna yapan / Hileci
 Ayol,Seslenme sözü
 Ayran,Yoğurttan yapılan içecek
 Ayrancı,Karaman ilçesi
@@ -356,6 +357,7 @@ Bak,Şaşma anlatan söz
 Bakır,Bir element
 Bakış,Bakma işi
 Baki,Sürekli
+Bakir,El değmemiş / Cinsel ilişkide bulunmamış erkek
 Bakmak,Beslemek / Geçindirmek
 Bakü,Azerbeycan başkenti
 Bal,Arıların bal özünden ürettiği madde
@@ -545,6 +547,7 @@ Buse,Öpücük
 But,İnsanda diz ile kalça arası bölüm
 Butlan,Geçersizlik / Hükümsüzlük
 Buz,Donmuş su
+Buzla,Deniz suyunun donması ile oluşan buz alanı / Bankiz / Aysflit
 Bük,Dönemeç / Böğürtlen
 Büken,Oynak kemikler arasındaki açıları daraltan kaslar
 Büro,Bölüm / Şube
@@ -593,6 +596,7 @@ Ceren,Ceylan
 Cet,Ata / Büyükbaba
 Ceviz,Kabuklu yemiş
 Ceza,Suç işleyen kişilere uygulanan yaptırım
+Cezir,Alçalma / Med karşıtı
 Cık,Yok olmaz anlamında bir söz
 Cılk,Cıvık / Bozuk yumurta
 Cıngıl,Üzüm salkımı
@@ -610,6 +614,7 @@ Cilve,Kırıtma / Naz
 Cilveli,Cilvekar / Cilvebaz
 Cim,Arap harfi
 Cima,İnsanlarda cinsel ilişki
+Cimri,Nekes / Eli sıkı / Varyemez
 Cin,Akıllı / Zeki
 Cins,Tür / Çeşit
 Cip,Arazi aracı
@@ -1217,6 +1222,7 @@ Güçlük,Zorluk / Engel / Pürüz
 Güderi,Geyik veya keçi derisinden yapılan yumuşak mat meşin
 Gül,Çiçek cinsi
 Güm,Derin gürültü
+Güme,Avcı kulubesi
 Gün,Zaman / Sıra / Gündüz
 Günde,Her gün
 Güneş,Gezegenlere ısı ve ışık veren büyük gök cismi
@@ -1578,6 +1584,7 @@ Kanka,Kardeş kadar yakın olan kimse
 Kano,Kürekle yürütülen hafif tekne
 Kant,Şeker ve limonla içilen sıcak su
 Kapı,Açılıp kapanma düzeni olan bölme
+Kaput,Asker paltosu
 Kar,Donmuş su / Hava olayı
 Kara,Siyah
 Karaf,Şarap sürahisi
@@ -1775,6 +1782,7 @@ Kitara,Bir türlü telli çalgı
 Kitin,Eklem bacaklılarfa kabuğun dışını oluşturan madde
 Kivi,Meyve türü
 Klas,Üstün nitelikli
+Klima,İklimleme cihazı
 Klor,Bir element
 Koala,Bir tür memeli hayvan
 Kobi,Küçük ve orta büyüklükte işletmelere verilen genel ad
@@ -2043,6 +2051,7 @@ Malak,Manda yavrusu
 Malay,Malezya ve Brunei halkından olan kimse
 Malaz,Sulak yer
 Malca,Malen / Mal olarak
+Malcı,Mal alıp satan kimse
 Male,Maldivler başkenti
 Malen,Malca
 Mali,Parasal / Maliyeye ilişkin
@@ -2529,7 +2538,7 @@ Radde,Derece / Kerte
 Raf,Levha
 Raflı,Raflı olan
 Rahat,Aldırmaz / Gamsız
-Raket,Tenis ve masatenisinde topa vurma aracı
+Raket,Tenis ve masa tenisinde topa vurma aracı
 Rakı,Aslan sütü / İçki / İmamsuyu
 Rakım,Yükselti
 Rakit,Durgun su
@@ -2996,8 +3005,8 @@ Tanım,Tarif
 Tank,Savaş aracı
 Tapulu,Tapusu olan
 Tar,Çalgı türü
-Taraça,Teras / Seki
 Taraça,Teras
+Taraça,Teras / Seki
 Taraf,Yön / Yer
 Tarak,Saç düzeltme aracı
 Taret,Zırhlı kule
@@ -3017,6 +3026,7 @@ Taş,Sert ve katı madde
 Taşıt,Taşıma araçlarının ortak adı
 Taşlık,Taşı bol / Taşlı / Konsa
 Tat,Duyum
+Tatar,Türk soyundan bir halk
 Tatil,Dinlenmek amacıyla çalışmadan geçirilen zaman
 Taun,Veba
 Tav,Isının nemin yeterli olma durumu
@@ -3136,6 +3146,8 @@ Tuğ,Sorguç
 Tuğra,Osmanlı padişahlarının imza yerine kullandığı özel işaret / Tura
 Tuh,Yazıklar olsun vah vah anlamında
 Tul,Boylam / Uzunluk
+Tulu,Güneşin doğuşu
+Tulum,Göğüs ve pantolon bölümü birleşik giysi
 Tun,Gizli yer / Köşe bucak
 Tuna,Avrupa'nın ikinci büyük ırmağı
 Tunç,Çinko kalay alaşımı / Bronz
@@ -3204,6 +3216,7 @@ Uray,Belediye
 Urba,Giysi
 Urfa,Şanlıurfa
 Urgan,Bir tür ince halat
+Urla,İzmir ilçesi
 Uruk,Soy / Sülale
 Urum,Azak kıyısında yaşayan Türk halkı
 Us,Akıl
