@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 // 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
+import '../constants/serbian_alphabet.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
@@ -119,6 +120,9 @@ Future<void> loadDataFromDatabase({
           );
         }).toList();
 
+    /// 🆕 alfabetik sırala
+    loadedWords.sort((a, b) => _compareSerbian(a.sirpca, b.sirpca));
+
     final stopwatch = Stopwatch()..start();
     onLoadingStatusChange(true, 0.0, null, Duration.zero);
 
@@ -154,6 +158,18 @@ Future<void> loadDataFromDatabase({
   }
 }
 
+/// 📌 Sırpça harf sıralaması (serbian_alphabet.dart listesini kullanır)
+int _compareSerbian(String a, String b) {
+  int i = 0;
+  while (i < a.length && i < b.length) {
+    final ai = serbianAlphabet.indexOf(a[i].toUpperCase());
+    final bi = serbianAlphabet.indexOf(b[i].toUpperCase());
+    if (ai != bi) return ai.compareTo(bi);
+    i++;
+  }
+  return a.length.compareTo(b.length);
+}
+
 /// 📌 Firestore 'dan verileri SQLite 'a yaz
 Future<void> importFromFirestoreToSqlite(
   BuildContext context,
@@ -165,6 +181,15 @@ Future<void> importFromFirestoreToSqlite(
     final querySnapshot =
         await FirebaseFirestore.instance.collection('kelimeler').get();
     final documents = querySnapshot.docs;
+
+    /// 🆕 sirpca alanına göre sırala */
+    documents.sort(
+      (a, b) => _compareSerbian(
+        (a.data()['sirpca'] ?? '') as String,
+        (b.data()['sirpca'] ?? '') as String,
+      ),
+    );
+
     log(
       "📥 Firestore 'dan çekilen toplam kayıt: ${documents.length}",
       name: 'JSON Loader',

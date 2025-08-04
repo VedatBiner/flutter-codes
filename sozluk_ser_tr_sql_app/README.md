@@ -38,6 +38,7 @@ türetilmiş ve daha geliştirilmiştir.
 - exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
 - importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
 - word_model dosyasına göre excel_backup_helper.dart dosyası düzeltildi
+- sözlüğün konsola sırpça sıralı yazılması sağlandı.
 
 Yapılacak başka bir şey var mı ?
 
