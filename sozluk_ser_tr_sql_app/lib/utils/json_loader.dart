@@ -195,7 +195,7 @@ Future<void> importFromFirestoreToSqlite(
       );
 
       log(
-        "📥 [${i + 1}/${documents.length}] ${word.sirpca} eklendi.",
+        "📥 (${i + 1}/${documents.length}) ${word.sirpca} --->>> eklendi.",
         name: 'Sırpça kelime : ',
       );
       await Future.delayed(const Duration(milliseconds: 25));

@@ -94,7 +94,7 @@ Future<(String, String, String)> createAndNotifyBackup(
       await File(csvPathInApp).copy(csvPathDownload);
 
       /// Excel
-      excelPathDownload = p.join(backupDir.path, 'kelimelik_backup.xlsx');
+      excelPathDownload = p.join(backupDir.path, fileNameExcel);
       await File(excelPathInApp).copy(excelPathDownload);
 
       log(
