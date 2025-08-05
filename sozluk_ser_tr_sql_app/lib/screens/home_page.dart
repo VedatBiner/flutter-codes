@@ -218,30 +218,39 @@ class _HomePageState extends State<HomePage> {
             elapsedTime: elapsedTime,
           ),
         // Basit bekleme katmanı (🆕)
-        if (isUpdating)
-          Positioned.fill(
-            child: Container(
-              color: Colors.white.withValues(alpha: 0.4),
-              child: const Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 32),
-                    Text(
-                      'Lütfen bekleyiniz …',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                  ],
+        if (isUpdating) buildPositioned(),
+      ],
+    );
+  }
+
+  /// 📌 Bekleme mesajı
+  ///
+  Positioned buildPositioned() {
+    return Positioned.fill(
+      child: Container(
+        color: Colors.white.withValues(alpha: 0.4),
+        child: const Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 32),
+                Text(
+                  'Lütfen bekleyiniz …',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.redAccent,
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-      ],
+        ),
+      ),
     );
   }
 }

@@ -27,7 +27,6 @@ dependencies:
   cloud_firestore:
   firebase_core:
   excel: ^2.1.0
-
   value_layout_builder: ^0.5.0
 
 dev_dependencies:
