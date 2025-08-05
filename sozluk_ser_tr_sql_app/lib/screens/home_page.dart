@@ -1,13 +1,16 @@
 // 📜 <----- home_page.dart ----->
 
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 import '../utils/json_loader.dart';
+import '../widgets/bottom_waiting_overlay.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
@@ -142,6 +145,9 @@ class _HomePageState extends State<HomePage> {
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(76),
+
+              /// 📌 Custom Appbar burada
+              ///
               child: CustomAppBar(
                 isSearching: isSearching,
                 searchController: searchController,
@@ -151,6 +157,9 @@ class _HomePageState extends State<HomePage> {
                 itemCount: words.length,
               ),
             ),
+
+            /// 📌 Custom Drawer burada
+            ///
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadWords,
               appVersion: appVersion,
@@ -200,72 +209,36 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
+
+            /// 📌 Body Burada
+            ///
             body:
                 isFihristMode
                     ? AlphabetWordList(words: words, onUpdated: _loadWords)
                     : WordList(words: words, onUpdated: _loadWords),
+
+            /// 📌 FAB Burada
+            ///
             floatingActionButton: CustomFAB(
               refreshWords: _loadWords,
               clearSearch: _clearSearch,
             ),
           ),
         ),
-        // SQL JSON yükleme kartı (mevcut)
+
+        /// 📌 SQL JSON yükleme kartı (mevcut)
+        ///
         if (isLoadingJson)
           SQLLoadingCard(
             progress: progress,
             loadingWord: loadingWord,
             elapsedTime: elapsedTime,
           ),
-        // Basit bekleme katmanı (🆕)
-        if (isUpdating) buildPositioned(),
-      ],
-    );
-  }
 
-  /// 📌 Bekleme mesajı
-  ///
-  Positioned buildPositioned() {
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: Material(
-        // gölge efekti için
-        elevation: 12,
-        color: Colors.transparent,
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(28), // yumuşak köşe
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 12,
-                offset: Offset(0, -4), // yukarıya gölge
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 24),
-          child: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 24),
-              Text(
-                'Lütfen bekleyiniz…',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.redAccent,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+        /// 📌Basit bekleme katmanı (🆕)
+        ///
+        if (isUpdating) const BottomWaitingOverlay(),
+      ],
     );
   }
 }

@@ -39,12 +39,10 @@ türetilmiş ve daha geliştirilmiştir.
 - importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
 - word_model dosyasına göre excel_backup_helper.dart dosyası düzeltildi
 - sözlüğün konsola sırpça sıralı yazılması sağlandı.
+- bekleme mesajı güncellendi
 
 Yapılacak başka bir şey var mı ?
 
 Düzeltilecekler.
 - SQL verinin yedeği alınmıyor?
-- Lütfen bekleyiniz ekranı güzelleştirilmeli
 - Sayaç kısmını kontrol et
-- Eklenen kelimeler konsolda sıralı görünmüyor. İlk Firebase çekiminden kaynaklı olabilir mi ?
-- 

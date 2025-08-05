@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
-// 📌 Yardımcı yüklemeler burada
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../constants/serbian_alphabet.dart';
 import '../db/db_helper.dart';
