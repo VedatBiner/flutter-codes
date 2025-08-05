@@ -112,8 +112,6 @@ class _HomePageState extends State<HomePage> {
     if (mounted) {
       Provider.of<WordCountProvider>(context, listen: false).setCount(count);
     }
-
-    // log('📦 Toplam kayıt sayısı: $count');
   }
 
   /// 🔍  Arama filtreleme
@@ -160,55 +158,7 @@ class _HomePageState extends State<HomePage> {
 
             /// 📌 Custom Drawer burada
             ///
-            drawer: CustomDrawer(
-              onDatabaseUpdated: _loadWords,
-              appVersion: appVersion,
-              isFihristMode: isFihristMode,
-              onToggleViewMode: () {
-                setState(() => isFihristMode = !isFihristMode);
-              },
-              onLoadJsonData: ({
-                required BuildContext ctx,
-                required void Function(
-                  bool loading,
-                  double prog,
-                  String? currentWord,
-                  Duration elapsedTime,
-                )
-                onStatus,
-              }) async {
-                await loadDataFromDatabase(
-                  context: context,
-                  onLoaded: (loadedWords) {
-                    setState(() {
-                      allWords = loadedWords;
-                      words = loadedWords;
-                    });
-
-                    if (mounted) {
-                      Provider.of<WordCountProvider>(
-                        context,
-                        listen: false,
-                      ).setCount(loadedWords.length);
-                    }
-                  },
-                  onLoadingStatusChange: (
-                    bool loading,
-                    double prog,
-                    String? currentWord,
-                    Duration elapsed,
-                  ) {
-                    setState(() {
-                      isLoadingJson = loading;
-                      progress = prog;
-                      loadingWord = currentWord;
-                      elapsedTime = elapsed;
-                    });
-                    onStatus(loading, prog, currentWord, elapsed);
-                  },
-                );
-              },
-            ),
+            drawer: buildCustomDrawer(context),
 
             /// 📌 Body Burada
             ///
@@ -239,6 +189,60 @@ class _HomePageState extends State<HomePage> {
         ///
         if (isUpdating) const BottomWaitingOverlay(),
       ],
+    );
+  }
+
+  /// 📌 Custom Drawer burada
+  ///
+  CustomDrawer buildCustomDrawer(BuildContext context) {
+    return CustomDrawer(
+      onDatabaseUpdated: _loadWords,
+      appVersion: appVersion,
+      isFihristMode: isFihristMode,
+      onToggleViewMode: () {
+        setState(() => isFihristMode = !isFihristMode);
+      },
+      onLoadJsonData: ({
+        required BuildContext ctx,
+        required void Function(
+          bool loading,
+          double prog,
+          String? currentWord,
+          Duration elapsedTime,
+        )
+        onStatus,
+      }) async {
+        await loadDataFromDatabase(
+          context: context,
+          onLoaded: (loadedWords) {
+            setState(() {
+              allWords = loadedWords;
+              words = loadedWords;
+            });
+
+            if (mounted) {
+              Provider.of<WordCountProvider>(
+                context,
+                listen: false,
+              ).setCount(loadedWords.length);
+            }
+          },
+          onLoadingStatusChange: (
+            bool loading,
+            double prog,
+            String? currentWord,
+            Duration elapsed,
+          ) {
+            setState(() {
+              isLoadingJson = loading;
+              progress = prog;
+              loadingWord = currentWord;
+              elapsedTime = elapsed;
+            });
+            onStatus(loading, prog, currentWord, elapsed);
+          },
+        );
+      },
     );
   }
 }
