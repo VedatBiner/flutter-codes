@@ -226,28 +226,43 @@ class _HomePageState extends State<HomePage> {
   /// 📌 Bekleme mesajı
   ///
   Positioned buildPositioned() {
-    return Positioned.fill(
-      child: Container(
-        color: Colors.white.withValues(alpha: 0.4),
-        child: const Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 32),
-                Text(
-                  'Lütfen bekleyiniz …',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent,
-                  ),
-                ),
-              ],
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Material(
+        // gölge efekti için
+        elevation: 12,
+        color: Colors.transparent,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(28), // yumuşak köşe
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 12,
+                offset: Offset(0, -4), // yukarıya gölge
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 24),
+          child: const Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 24),
+              Text(
+                'Lütfen bekleyiniz…',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.redAccent,
+                ),
+              ),
+            ],
           ),
         ),
       ),
