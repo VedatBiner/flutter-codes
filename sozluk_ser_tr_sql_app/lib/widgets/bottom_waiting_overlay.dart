@@ -30,7 +30,12 @@ class BottomWaitingOverlay extends StatelessWidget {
               ),
             ],
           ),
-          padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 24),
+          padding: const EdgeInsets.only(
+            top: 28,
+            left: 24,
+            right: 24,
+            bottom: 64,
+          ),
           child: const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
