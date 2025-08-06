@@ -3,7 +3,11 @@
 // Ekranın altına sabitlenen, gölgeli “Lütfen bekleyiniz” paneli
 //
 
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
+
+/// 📌 Yardımcı yüklemeler burada
+import '../constants/text_constants.dart';
 
 class BottomWaitingOverlay extends StatelessWidget {
   const BottomWaitingOverlay({super.key});
@@ -36,18 +40,14 @@ class BottomWaitingOverlay extends StatelessWidget {
             right: 24,
             bottom: MediaQuery.of(context).padding.bottom + 24,
           ),
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 24),
+              const CircularProgressIndicator(),
+              const SizedBox(height: 24),
               Text(
-                'Lütfen bekleyiniz…',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.redAccent,
-                ),
+                'Kelimeler okunuyor \nLütfen bekleyiniz…',
+                style: loadingWordText,
               ),
             ],
           ),
