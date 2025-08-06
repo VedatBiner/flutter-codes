@@ -45,4 +45,4 @@ Yapılacak başka bir şey var mı ?
 
 Düzeltilecekler.
 - SQL verinin yedeği alınmıyor?
-- Sayaç kısmını kontrol et
+- Cihaz da verileri silip yeniden yükleme çalışmıyor ?
