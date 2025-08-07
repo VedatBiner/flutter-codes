@@ -139,7 +139,7 @@ Future<void> loadDataFromDatabase({
       ).setCount(existingItems.length);
     }
 
-    // ✅ Kart görünmemişse bile bir dummy animasyonla aç/kapat yap
+    /// ✅ Kart görünmemişse bile bir dummy animasyonla aç/kapat yap
     onLoadingStatusChange(true, 0.0, null, Duration.zero);
     await Future.delayed(const Duration(milliseconds: 500));
     onLoadingStatusChange(false, 1.0, null, const Duration(milliseconds: 500));

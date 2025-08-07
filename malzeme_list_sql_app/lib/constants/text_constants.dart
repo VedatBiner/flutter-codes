@@ -97,3 +97,10 @@ var dbLoadingMsgText = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18,
 );
+
+/// 📌 Drawer Menü başlık text stili
+var drawerMenuTitleText = TextStyle(
+  color: menuColor,
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+);
