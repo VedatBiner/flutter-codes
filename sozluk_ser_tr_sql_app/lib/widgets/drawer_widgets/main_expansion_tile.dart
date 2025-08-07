@@ -1,5 +1,10 @@
+// 📃 <----- main_expansion_tile.dart ----->
+// Drawer menüye buradan erişiliyor.
+
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import 'alphabet_expansion_tile.dart';
