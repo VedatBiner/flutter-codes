@@ -2,6 +2,8 @@
 // Drawer menüye buradan erişiliyor.
 
 // 📌 Flutter paketleri
+
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -12,6 +14,7 @@ import '../utils/database_reset_helper.dart';
 import 'drawer_widgets/alphabet_expansion_tile.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/grammar_expansion_tile.dart';
+import 'drawer_widgets/help_pages_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -93,6 +96,9 @@ class CustomDrawer extends StatelessWidget {
 
                 /// 📌 Gramer
                 const GrammarExpansionTile(),
+
+                /// 📌 Yardımcı Kavramlar
+                const HelpExpansionTile(),
               ],
             ),
 

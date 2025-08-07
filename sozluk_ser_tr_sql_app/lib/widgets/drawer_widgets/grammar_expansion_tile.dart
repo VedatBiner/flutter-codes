@@ -1,16 +1,9 @@
 // 📃 widgets/grammar_expansion_tile.dart
-// Drawer içinde kullanılan "Gramer" alt menüsünü bağımsız bir widget’a
-// taşıdık. Böylece custom_drawer.dart sadeleşti.
-//
-// Kullanım:
-//   import '../widgets/grammar_expansion_tile.dart';
-//   ...
-//   children: [
-//     GrammarExpansionTile(), // ⬅️ eski buildGrammarExpansionTile() yerine
-//   ]
-//
+
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../help_page_widgets/drawer_list_tile.dart';
@@ -114,39 +107,6 @@ class GrammarExpansionTile extends StatelessWidget {
           title: 'Uzun Kısa Kelime Kullanımı',
           routeName: '/sayfaUzunKisa',
           iconColor: menuColor,
-        ),
-
-        /// 📌 Yardımcı Kavramlar
-        ExpansionTile(
-          leading: Icon(Icons.menu, color: menuColor),
-          title: const Text('Yardımcı Kavramlar', style: drawerMenuText),
-          childrenPadding: const EdgeInsets.only(left: 24),
-          collapsedIconColor: menuColor,
-          children: [
-            /// 📌 Sayılar
-            DrawerListTile(
-              icon: Icons.numbers,
-              title: 'Sayılar',
-              routeName: '/sayfaSayilar',
-              iconColor: menuColor,
-            ),
-
-            /// 📌 Günler
-            DrawerListTile(
-              icon: Icons.calendar_month_sharp,
-              title: 'Günler',
-              routeName: '/sayfaGunler',
-              iconColor: menuColor,
-            ),
-
-            /// 📌 Saatler
-            DrawerListTile(
-              icon: Icons.watch_later_outlined,
-              title: 'Saatler',
-              routeName: '/sayfaSaatler',
-              iconColor: menuColor,
-            ),
-          ],
         ),
       ],
     );

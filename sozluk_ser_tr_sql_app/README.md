@@ -40,6 +40,7 @@ türetilmiş ve daha geliştirilmiştir.
 - word_model dosyasına göre excel_backup_helper.dart dosyası düzeltildi
 - sözlüğün konsola sırpça sıralı yazılması sağlandı.
 - bekleme mesajı güncellendi
+- Drawer menüdeki yardımcı kavramlar modüler hale getirildi
 
 Yapılacak başka bir şey var mı ?
 
