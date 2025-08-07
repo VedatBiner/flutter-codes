@@ -61,12 +61,12 @@ kutusunu kullanması sağlandı.
 - importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
 - exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
 - getWords metodu getRecords oldu (db_helper.dart)
+- Tüm drawer menü modüler hale geldi
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Excel dosyası oluşturmada bir kaç düzeltme gerekecek.
 
 <BR>
 Ekran Görüntüleri
