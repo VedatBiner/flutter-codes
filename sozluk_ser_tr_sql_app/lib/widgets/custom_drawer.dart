@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
-import '../utils/database_reset_helper.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
+import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/info_padding_tile.dart';
 import 'drawer_widgets/main_expansion_tile.dart';
+import 'drawer_widgets/reset_db_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -63,19 +64,9 @@ class CustomDrawer extends StatelessWidget {
             Divider(thickness: 2, color: menuColor, height: 0),
 
             /// 📌 Görünüm değiştirme
-            Tooltip(
-              message: "Görünüm değiştir",
-              child: ListTile(
-                leading: Icon(Icons.swap_horiz, color: menuColor, size: 32),
-                title: Text(
-                  isFihristMode ? 'Klasik Görünüm' : 'Fihristli Görünüm',
-                  style: drawerMenuText,
-                ),
-                onTap: () {
-                  onToggleViewMode();
-                  Navigator.of(context).maybePop();
-                },
-              ),
+            DrawerChangeViewTile(
+              isFihristMode: isFihristMode,
+              onToggleViewMode: onToggleViewMode,
             ),
 
             /// 📌 Yardımcı Bilgiler - Alt Menülü
@@ -127,22 +118,7 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             /// 📌 Veritabanını Sıfırla
-            Tooltip(
-              message: "Veritabanını Sıfırla",
-              child: ListTile(
-                leading: Icon(Icons.delete, color: deleteButtonColor, size: 32),
-                title: const Text(
-                  'Veritabanını Sıfırla (SQL)',
-                  style: drawerMenuText,
-                ),
-                onTap: () async {
-                  await showResetDatabaseDialog(
-                    context,
-                    onAfterReset: () => onDatabaseUpdated(),
-                  );
-                },
-              ),
-            ),
+            DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
 
             Divider(color: menuColor, thickness: 2),
 
