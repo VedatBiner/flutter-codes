@@ -11,10 +11,9 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../utils/database_reset_helper.dart';
-import 'drawer_widgets/alphabet_expansion_tile.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
-import 'drawer_widgets/grammar_expansion_tile.dart';
-import 'drawer_widgets/help_pages_tile.dart';
+import 'drawer_widgets/info_padding_tile.dart';
+import 'drawer_widgets/main_expansion_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -80,27 +79,7 @@ class CustomDrawer extends StatelessWidget {
             ),
 
             /// 📌 Yardımcı Bilgiler - Alt Menülü
-            ExpansionTile(
-              leading: Icon(
-                Icons.info_outline_rounded,
-                color: menuColor,
-                size: 32,
-              ),
-              title: const Text('Yardımcı Bilgiler', style: drawerMenuText),
-              childrenPadding: const EdgeInsets.only(left: 24),
-              collapsedIconColor: menuColor,
-
-              children: [
-                /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
-                const AlphabetExpansionTile(),
-
-                /// 📌 Gramer
-                const GrammarExpansionTile(),
-
-                /// 📌 Yardımcı Kavramlar
-                const HelpExpansionTile(),
-              ],
-            ),
+            const MainExpansionTile(),
 
             /// 📌 Yedek oluştur (JSON/CSV/XLSX)
             const DrawerBackupTile(),
@@ -167,20 +146,8 @@ class CustomDrawer extends StatelessWidget {
 
             Divider(color: menuColor, thickness: 2),
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Column(
-                children: [
-                  Text(
-                    appVersion,
-                    textAlign: TextAlign.center,
-                    style: versionText,
-                  ),
-                  Text("Vedat Biner", style: nameText),
-                  Text("vbiner@gmail.com", style: nameText),
-                ],
-              ),
-            ),
+            /// 📌 Versiyon ve yazılım bilgisi
+            InfoPaddingTile(appVersion: appVersion),
           ],
         ),
       ),
