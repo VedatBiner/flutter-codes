@@ -41,10 +41,7 @@ türetilmiş ve daha geliştirilmiştir.
 - sözlüğün konsola sırpça sıralı yazılması sağlandı.
 - bekleme mesajı güncellendi
 - Drawer menüdeki yardımcı kavramlar modüler hale getirildi
+- Tüm drawer menü modüler hale geldi
 
 Yapılacak başka bir şey var mı ?
 
-Düzeltilecekler.
-- SQL verinin yedeği alınmıyor?
-- Verileri silindikten sonra uygulama başlatılmadan yenileme olmuyor. 
-- Cihaz da verileri silip yeniden yükleme çalışmıyor ?
