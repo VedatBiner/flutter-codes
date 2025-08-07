@@ -8,13 +8,12 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import '../constants/text_constants.dart';
-import '../db/db_helper.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
+import 'drawer_widgets/drawer_renew_db_tile.dart';
+import 'drawer_widgets/drawer_reset_db_tile.dart';
 import 'drawer_widgets/info_padding_tile.dart';
 import 'drawer_widgets/main_expansion_tile.dart';
-import 'drawer_widgets/reset_db_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -76,46 +75,7 @@ class CustomDrawer extends StatelessWidget {
             const DrawerBackupTile(),
 
             /// 📌 Veritabanını Yenile (SQL)
-            Tooltip(
-              message: "Veritabanını Yenile",
-              child: ListTile(
-                leading: const Icon(
-                  Icons.refresh,
-                  color: Colors.amber,
-                  size: 32,
-                ),
-                title: const Text(
-                  'Veritabanını Yenile (SQL)',
-                  style: drawerMenuText,
-                ),
-                onTap: () async {
-                  // 🔸 Drawer kapanmadan önce KÖK context ’i al
-                  final rootCtx =
-                      Navigator.of(context, rootNavigator: true).context;
-
-                  // 🔸 Drawer ’ı kapat
-                  Navigator.of(context).maybePop();
-                  // Küçük gecikme: kapanma animasyonu tamamlansın
-                  await Future.delayed(const Duration(milliseconds: 300));
-
-                  // 1️⃣ Yerel tabloyu sil
-                  final db = await DbHelper.instance.database;
-                  await db.delete('words');
-
-                  // 2️⃣ Yeniden indir / yükle  (kök context ’i kullan!)
-                  await onLoadJsonData(
-                    ctx: rootCtx,
-                    onStatus:
-                        (
-                          loading,
-                          prog,
-                          word,
-                          elapsed,
-                        ) {}, // Drawer ’da ilerleme yok
-                  );
-                },
-              ),
-            ),
+            DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
 
             /// 📌 Veritabanını Sıfırla
             DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
