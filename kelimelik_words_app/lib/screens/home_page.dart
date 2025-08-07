@@ -4,9 +4,10 @@
 //  ve JSON-dan veritabanı yenileme işlemlerini içerir.
 //
 
-// 📌 Flutter hazır paketleri
+// 📌 Dart hazır paketleri
 import 'dart:developer';
 
+/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
