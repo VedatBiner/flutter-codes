@@ -2,18 +2,17 @@
 // Drawer menüye buradan erişiliyor.
 
 // 📌 Flutter paketleri
-
-// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
+import 'drawer_widgets/drawer_info_padding_tile.dart';
 import 'drawer_widgets/drawer_renew_db_tile.dart';
 import 'drawer_widgets/drawer_reset_db_tile.dart';
-import 'drawer_widgets/info_padding_tile.dart';
-import 'drawer_widgets/main_expansion_tile.dart';
+import 'drawer_widgets/drawer_title.dart';
+import 'drawer_widgets/gr_main_expansion_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -48,18 +47,9 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            Container(
-              color: drawerColor,
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: Text(
-                'Menü',
-                style: TextStyle(
-                  color: menuColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            /// 📌 Drawer menü başlığı burada oluşturuluyor
+            const DrawerTitleWidget(),
+
             Divider(thickness: 2, color: menuColor, height: 0),
 
             /// 📌 Görünüm değiştirme

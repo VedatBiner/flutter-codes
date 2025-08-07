@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
-import 'alphabet_expansion_tile.dart';
-import 'grammar_expansion_tile.dart';
-import 'help_pages_tile.dart';
+import 'gr_alphabet_expansion_tile.dart';
+import 'gr_expansion_tile.dart';
+import 'gr_help_pages_tile.dart';
 
 class MainExpansionTile extends StatelessWidget {
   const MainExpansionTile({super.key});
