@@ -1,13 +1,17 @@
 // 📃 <----- custom_drawer.dart ----->
 // Drawer menüye buradan erişiliyor.
 
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../utils/backup_notification_helper.dart';
+import '../db/db_helper.dart';
 import '../utils/database_reset_helper.dart';
-import 'help_page_widgets/drawer_list_tile.dart';
+import 'drawer_widgets/alphabet_expansion_tile.dart';
+import 'drawer_widgets/drawer_backup_tile.dart';
+import 'drawer_widgets/grammar_expansion_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -54,7 +58,6 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
             ),
-
             Divider(thickness: 2, color: menuColor, height: 0),
 
             /// 📌 Görünüm değiştirme
@@ -86,208 +89,17 @@ class CustomDrawer extends StatelessWidget {
 
               children: [
                 /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
-                ExpansionTile(
-                  leading: Icon(Icons.sort_by_alpha, color: menuColor),
-                  title: const Text('Alfabe', style: drawerMenuText),
-                  childrenPadding: const EdgeInsets.only(left: 24),
-                  collapsedIconColor: menuColor,
-
-                  children: [
-                    /// 📌 Latin harfleri sayfası
-                    DrawerListTile(
-                      icon: Icons.wc,
-                      title: 'Latin',
-                      routeName: '/sayfaLatin',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Kiril harfleri sayfası
-                    DrawerListTile(
-                      icon: Icons.wc,
-                      title: 'Kiril',
-                      routeName: '/sayfaKiril',
-                      iconColor: menuColor,
-                    ),
-                  ],
-                ),
+                const AlphabetExpansionTile(),
 
                 /// 📌 Gramer
-                ExpansionTile(
-                  leading: Icon(Icons.menu_book, color: menuColor),
-                  title: const Text('Gramer', style: drawerMenuText),
-                  childrenPadding: const EdgeInsets.only(left: 24),
-                  collapsedIconColor: menuColor,
-
-                  children: [
-                    /// 📌 Kelimelerde cinsiyet
-                    DrawerListTile(
-                      icon: Icons.wc,
-                      title: 'Kelimelerde Cinsiyet',
-                      routeName: '/sayfaCinsiyet',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Kelimelerde çoğul kullanımı
-                    DrawerListTile(
-                      icon: Icons.wc,
-                      title: 'Çoğul Kullanımı',
-                      routeName: '/sayfaCogul',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Şahıs zamirleri kullanımı
-                    DrawerListTile(
-                      icon: Icons.question_mark,
-                      title: 'Şahıs Zamirleri Kullanımı',
-                      routeName: '/sayfaZamir',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Soru cümleleri kullanımı
-                    DrawerListTile(
-                      icon: Icons.question_mark,
-                      title: 'Soru Cümleleri Kullanımı',
-                      routeName: '/sayfaSoru',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Fiiller
-                    ExpansionTile(
-                      leading: Icon(Icons.menu, color: menuColor),
-                      title: const Text('Fiiler', style: drawerMenuText),
-                      childrenPadding: const EdgeInsets.only(left: 24),
-                      collapsedIconColor: menuColor,
-
-                      children: [
-                        /// 📌 Geniş zaman / Şimdiki zaman
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'Şimdiki Zaman Kullanımı',
-                          routeName: '/sayfaSimdikiGenisZaman',
-                          iconColor: menuColor,
-                        ),
-
-                        /// 📌 Geçişli ve Dönüşlü Fiiller
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'Geçişli ve Dönüşlü Fiiler',
-                          routeName: '/sayfaGecisliDonusluFiiller',
-                          iconColor: menuColor,
-                        ),
-
-                        /// 📌 Gelecek zaman
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'Gelecek Zaman Kullanımı',
-                          routeName: '/sayfaGelecekZaman',
-                          iconColor: menuColor,
-                        ),
-
-                        /// 📌 Sık kullanılan fiiler
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'Sık Kullanılan Fiiler',
-                          routeName: '/sayfaFiiller',
-                          iconColor: menuColor,
-                        ),
-                      ],
-                    ),
-
-                    /// 📌 Sıfatlar
-                    ExpansionTile(
-                      leading: Icon(Icons.menu, color: menuColor),
-                      title: const Text('Sıfatlar', style: drawerMenuText),
-                      childrenPadding: const EdgeInsets.only(left: 24),
-                      collapsedIconColor: menuColor,
-                      children: [
-                        /// 📌 İşaret Sıfatları
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'İşaret Sıfatları Kullanımı',
-                          routeName: '/sayfaIsaretSifatlari',
-                          iconColor: menuColor,
-                        ),
-
-                        /// 📌 Sahiplik Sıfatları
-                        DrawerListTile(
-                          icon: Icons.question_mark,
-                          title: 'Sahiplik Sıfatları Kullanımı',
-                          routeName: '/sayfaSahiplikSifatlari',
-                          iconColor: menuColor,
-                        ),
-                      ],
-                    ),
-
-                    /// 📌 Uzun kısa kelime kullanımı
-                    DrawerListTile(
-                      icon: Icons.question_mark,
-                      title: 'Uzun Kısa Kelime Kullanımı',
-                      routeName: '/sayfaUzunKisa',
-                      iconColor: menuColor,
-                    ),
-                  ],
-                ),
-
-                /// 📌 Yardımcı Kavramlar
-                ExpansionTile(
-                  leading: Icon(Icons.menu, color: menuColor),
-                  title: const Text(
-                    'Yardımcı Kavramlar',
-                    style: drawerMenuText,
-                  ),
-                  childrenPadding: const EdgeInsets.only(left: 24),
-                  collapsedIconColor: menuColor,
-                  children: [
-                    /// 📌 Sayılar
-                    DrawerListTile(
-                      icon: Icons.numbers,
-                      title: 'Sayılar',
-                      routeName: '/sayfaSayilar',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Günler
-                    DrawerListTile(
-                      icon: Icons.calendar_month_sharp,
-                      title: 'Günler',
-                      routeName: '/sayfaGunler',
-                      iconColor: menuColor,
-                    ),
-
-                    /// 📌 Saatler
-                    DrawerListTile(
-                      icon: Icons.watch_later_outlined,
-                      title: 'Saatler',
-                      routeName: '/sayfaSaatler',
-                      iconColor: menuColor,
-                    ),
-                  ],
-                ),
+                const GrammarExpansionTile(),
               ],
             ),
 
             /// 📌 Yedek oluştur (JSON/CSV/XLSX)
-            Tooltip(
-              message: "JSON/CSV/XLSX yedeği oluştur",
-              child: ListTile(
-                leading: Icon(
-                  Icons.download,
-                  color: downLoadButtonColor,
-                  size: 32,
-                ),
-                title: const Text(
-                  'Yedek Oluştur \n(JSON/CSV/XLSX)',
-                  style: drawerMenuText,
-                ),
-                onTap: () async {
-                  await createAndNotifyBackup(context);
-                  if (!context.mounted) return;
-                  Navigator.of(context).maybePop();
-                },
-              ),
-            ),
+            const DrawerBackupTile(),
 
-            /// 📌 Veritabanını Yenile (JSON 'dan yükle)
+            /// 📌 Veritabanını Yenile (SQL)
             Tooltip(
               message: "Veritabanını Yenile",
               child: ListTile(
@@ -301,12 +113,29 @@ class CustomDrawer extends StatelessWidget {
                   style: drawerMenuText,
                 ),
                 onTap: () async {
+                  // 🔸 Drawer kapanmadan önce KÖK context ’i al
+                  final rootCtx =
+                      Navigator.of(context, rootNavigator: true).context;
+
+                  // 🔸 Drawer ’ı kapat
                   Navigator.of(context).maybePop();
+                  // Küçük gecikme: kapanma animasyonu tamamlansın
                   await Future.delayed(const Duration(milliseconds: 300));
-                  if (!context.mounted) return;
+
+                  // 1️⃣ Yerel tabloyu sil
+                  final db = await DbHelper.instance.database;
+                  await db.delete('words');
+
+                  // 2️⃣ Yeniden indir / yükle  (kök context ’i kullan!)
                   await onLoadJsonData(
-                    ctx: context,
-                    onStatus: (_, __, ___, ____) {},
+                    ctx: rootCtx,
+                    onStatus:
+                        (
+                          loading,
+                          prog,
+                          word,
+                          elapsed,
+                        ) {}, // Drawer ’da ilerleme yok
                   );
                 },
               ),
@@ -324,9 +153,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   await showResetDatabaseDialog(
                     context,
-                    onAfterReset: () {
-                      onDatabaseUpdated(); // listeyi yenile
-                    },
+                    onAfterReset: () => onDatabaseUpdated(),
                   );
                 },
               ),

@@ -45,4 +45,5 @@ Yapılacak başka bir şey var mı ?
 
 Düzeltilecekler.
 - SQL verinin yedeği alınmıyor?
+- Verileri silindikten sonra uygulama başlatılmadan yenileme olmuyor. 
 - Cihaz da verileri silip yeniden yükleme çalışmıyor ?
