@@ -1,12 +1,22 @@
 // 📃 <----- home_page.dart ----->
 //
-//  Ana ekran.  Fihrist / klasik liste, arama, çekmece menü, FAB
-//  ve JSON-dan veritabanı yenileme işlemlerini içerir.
-//
+// Bu dosya, uygulamanın ana ekranını oluşturur.
+// İçeriği:
+//  • Klasik ve fihrist görünüm (alfabetik başlıklarla gruplama)
+//  • Arama kutusu (AppBar içinde)
+//  • Drawer menüsü ile:
+//     ◦ Görünüm değiştirme
+//     ◦ JSON yedeğinden veri yenileme
+//     ◦ Veritabanını sıfırlama
+//     ◦ Yedek alma işlemleri
+//  • JSON verisi yüklendikten sonra ve yeni veri eklendiğinde
+//    malzeme listesi Türkçeye göre sıralanır.
+//  • Sayfa üstünde kelime sayacı `Provider` ile güncellenir.
 
-// 📌 Flutter hazır paketleri
+// 📌 Dart hazır paketleri
 import 'dart:developer';
 
+/// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +74,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       provider: provider,
       onLoaded: (loadedWords) {
+        _sortList(loadedWords); // 🔠 Türkçeye göre sırala
         setState(() {
           allWords = loadedWords;
           words = loadedWords;
@@ -77,6 +88,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadWords() async {
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
+
+    _sortList(allWords); // 🔠 Türkçeye göre sırala
 
     setState(() => words = allWords);
 
@@ -104,6 +117,26 @@ class _HomePageState extends State<HomePage> {
       isSearching = false;
       words = allWords;
     });
+  }
+
+  /// 🔠 Türkçeye göre karşılaştırma
+  int _compareTurkish(String a, String b) {
+    const alphabet =
+        'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz';
+    int index(String char) => alphabet.indexOf(char);
+    final aChars = a.split('');
+    final bChars = b.split('');
+    for (int i = 0; i < aChars.length && i < bChars.length; i++) {
+      final ai = index(aChars[i]);
+      final bi = index(bChars[i]);
+      if (ai != bi) return ai.compareTo(bi);
+    }
+    return aChars.length.compareTo(bChars.length);
+  }
+
+  /// 🔁 Listeyi sıralı hale getir
+  void _sortList(List<Malzeme> list) {
+    list.sort((a, b) => _compareTurkish(a.malzeme, b.malzeme));
   }
 
   // 🖼️  UI
@@ -143,6 +176,7 @@ class _HomePageState extends State<HomePage> {
                   context: ctx,
                   provider: provider,
                   onLoaded: (loadedWords) {
+                    _sortList(loadedWords); // 🔠 Türkçeye göre sırala
                     setState(() {
                       allWords = loadedWords;
                       words = loadedWords;
