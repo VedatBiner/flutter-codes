@@ -14,7 +14,6 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-  file_picker:
   csv:
 
 dev_dependencies:

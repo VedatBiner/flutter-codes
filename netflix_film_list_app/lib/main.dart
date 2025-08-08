@@ -1,6 +1,3 @@
-// 📜<----- main.dart ----->
-// Netflix CSV'sini asset'ten otomatik okur, dizileri sezona göre gruplar, filmleri ayrı listeler.
-
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -153,136 +150,184 @@ class _NetflixHistoryPageState extends State<NetflixHistoryPage> {
                 ? const Center(child: Text("Veri yok veya CSV yüklenmedi."))
                 : ListView(
                     children: [
-                      if (_seriesMap.isNotEmpty) ...[
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "📺 Diziler",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                      if (_seriesMap.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                          ),
-                        ),
-                        ..._seriesMap.entries.map((seriesEntry) {
-                          final seriesTitle = seriesEntry.key;
-                          final seasonMap = seriesEntry.value;
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "📺 Diziler",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  ..._seriesMap.entries.map((seriesEntry) {
+                                    final seriesTitle = seriesEntry.key;
+                                    final seasonMap = seriesEntry.value;
 
-                          int totalEpisodes = seasonMap.values.fold(
-                            0,
-                            (sum, list) => sum + list.length,
-                          );
+                                    int totalEpisodes = seasonMap.values.fold(
+                                      0,
+                                      (sum, list) => sum + list.length,
+                                    );
 
-                          List<String> allDates =
-                              seasonMap.values
-                                  .expand((e) => e.map((ep) => ep['date']!))
-                                  .toList()
-                                ..sort();
+                                    List<String> allDates =
+                                        seasonMap.values
+                                            .expand(
+                                              (e) => e.map((ep) => ep['date']!),
+                                            )
+                                            .toList()
+                                          ..sort();
 
-                          final firstDate = allDates.first;
-                          final lastDate = allDates.last;
+                                    final firstDate = allDates.first;
+                                    final lastDate = allDates.last;
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            child: Card(
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: ExpansionTile(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                tilePadding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
-                                  vertical: 8,
-                                ),
-                                title: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      seriesTitle,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      "$totalEpisodes bölüm izlendi",
-                                      style: const TextStyle(fontSize: 13),
-                                    ),
-                                    Text(
-                                      "İlk: $firstDate • Son: $lastDate",
-                                      style: const TextStyle(fontSize: 13),
-                                    ),
-                                  ],
-                                ),
-                                children: seasonMap.entries.map((seasonEntry) {
-                                  final seasonName = seasonEntry.key;
-                                  final episodes = seasonEntry.value;
-
-                                  episodes.sort(
-                                    (a, b) => a['date']!.compareTo(b['date']!),
-                                  );
-
-                                  return ExpansionTile(
-                                    title: Text(
-                                      seasonName,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    children: episodes.map((episode) {
-                                      return ListTile(
-                                        title: Text(episode['title'] ?? ''),
-                                        subtitle: Text(
-                                          "İzlenme: ${episode['date']}",
+                                      child: Card(
+                                        elevation: 3,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
                                         ),
-                                      );
-                                    }).toList(),
-                                  );
-                                }).toList(),
+                                        child: ExpansionTile(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          tilePadding:
+                                              const EdgeInsets.symmetric(
+                                                horizontal: 16,
+                                                vertical: 8,
+                                              ),
+                                          title: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                seriesTitle,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                "$totalEpisodes bölüm izlendi",
+                                                style: const TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                              Text(
+                                                "İlk: $firstDate • Son: $lastDate",
+                                                style: const TextStyle(
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          children: seasonMap.entries.map((
+                                            seasonEntry,
+                                          ) {
+                                            final seasonName = seasonEntry.key;
+                                            final episodes = seasonEntry.value;
+
+                                            episodes.sort(
+                                              (a, b) => a['date']!.compareTo(
+                                                b['date']!,
+                                              ),
+                                            );
+
+                                            return ExpansionTile(
+                                              title: Text(
+                                                seasonName,
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              children: episodes.map((episode) {
+                                                return ListTile(
+                                                  title: Text(
+                                                    episode['title'] ?? '',
+                                                  ),
+                                                  subtitle: Text(
+                                                    "İzlenme: ${episode['date']}",
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ],
                               ),
-                            ),
-                          );
-                        }),
-                      ],
-                      if (_filmsList.isNotEmpty) ...[
-                        const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            "🎬 Filmler",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        ..._filmsList.map((film) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
+                      if (_filmsList.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Card(
-                              elevation: 2,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ListTile(
-                                title: Text(film['title'] ?? ''),
-                                subtitle: Text("İzlenme: ${film['date']}"),
-                                leading: const Icon(Icons.movie),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "🎬 Filmler",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  ..._filmsList.map((film) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                      ),
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
+                                        ),
+                                        child: ListTile(
+                                          title: Text(film['title'] ?? ''),
+                                          subtitle: Text(
+                                            "İzlenme: ${film['date']}",
+                                          ),
+                                          leading: const Icon(Icons.movie),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ],
                               ),
                             ),
-                          );
-                        }),
-                      ],
+                          ),
+                        ),
                     ],
                   ),
           ),
