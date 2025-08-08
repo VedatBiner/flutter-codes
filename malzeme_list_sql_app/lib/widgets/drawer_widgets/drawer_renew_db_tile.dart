@@ -5,10 +5,7 @@
 
 // 📌 Flutter paketleri
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-// 📌 Yardımcı yüklemeler burada
-import '../../providers/malzeme_count_provider.dart';
 import '../sql_loading_overlay.dart';
 
 /// Callback imzası: üst seviye widget 'tan gelir
@@ -33,18 +30,19 @@ class DrawerRenewDbTile extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         onTap: () async {
+          // Drawer 'ı kapat
           Navigator.of(context).maybePop();
           await Future.delayed(const Duration(milliseconds: 300));
           if (!context.mounted) return;
 
-          /// ✅ Overlay erişimi düzeltildi
+          // ✅ Overlay erişimi
           final overlay = Navigator.of(context).overlay;
           final overlayEntry = OverlayEntry(
             builder: (context) => const SQLLoadingCardOverlay(),
           );
           overlay?.insert(overlayEntry);
 
-          /// 🔄 Veritabanını JSON 'dan yeniden yükle ve kartı güncelle
+          // 🔄 JSON 'dan veri yükle ve ilerlemeyi overlay 'e yansıt
           await onLoadJsonData(
             ctx: context,
             onStatus: (loading, progress, currentWord, elapsed) {
@@ -56,18 +54,15 @@ class DrawerRenewDbTile extends StatelessWidget {
               );
 
               if (!loading) {
-                overlayEntry.remove(); // işlem bitince kartı kaldır
+                // ✅ Overlay kaldırma işlemini güvenli şekilde zamanla
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (overlayEntry.mounted) {
+                    overlayEntry.remove();
+                  }
+                });
               }
             },
           );
-
-          /// 🔁 Veritabanı yüklendikten sonra AppBar 'daki sayaç güncellensin
-          if (context.mounted) {
-            Provider.of<MalzemeCountProvider>(
-              context,
-              listen: false,
-            ).updateCount();
-          }
         },
       ),
     );

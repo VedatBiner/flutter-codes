@@ -31,10 +31,12 @@ import '../providers/malzeme_count_provider.dart';
 ///
 /// [onLoaded] – Tüm veriler yüklendikten sonra listeyi döndürür.
 /// [onLoadingStatusChange] – Her adımda kartın görünürlüğünü, ilerleme yüzdesini, güncel kelimeyi ve geçen süreyi bildirir.
+/// [provider] – Sayaç güncellemesi için Provider dışarıdan alınabilir (isteğe bağlıdır).
 Future<void> loadDataFromDatabase({
   required BuildContext context,
   required Function(List<Malzeme>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
+  MalzemeCountProvider? provider,
 }) async {
   log('🔄 json_loader çalıştı', name: 'JSON Loader');
   log("🔄 Veritabanından veri okunuyor...", name: 'JSON Loader');
@@ -42,7 +44,6 @@ Future<void> loadDataFromDatabase({
   final count = await DbHelper.instance.countRecords();
   log("🧮 Veritabanındaki malzeme sayısı: $count", name: 'JSON Loader');
 
-  /// 🔸 Veritabanı boşsa JSON ’dan doldur
   if (count == 0) {
     log(
       "📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...",
@@ -50,7 +51,6 @@ Future<void> loadDataFromDatabase({
     );
 
     try {
-      /// JSON dosyasını bul (önce cihaz, yoksa asset)
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
@@ -67,32 +67,28 @@ Future<void> loadDataFromDatabase({
         jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
-      /// JSON → Liste<Malzeme>
       final List<dynamic> jsonList = json.decode(jsonStr);
       final loadedItems = jsonList.map<Malzeme>((e) {
         final map = e as Map<String, dynamic>;
         return Malzeme(malzeme: map['malzeme'], miktar: map['miktar']);
       }).toList();
 
-      /// ⏱ süre ölçümü için kronometre
+      /// Türkçeye göre sırala
+      loadedItems.sort((a, b) => a.malzeme.compareTo(b.malzeme));
+
       final stopwatch = Stopwatch()..start();
 
-      /// Yükleme başlıyor
       onLoadingStatusChange(true, 0.0, null, Duration.zero);
 
       for (int i = 0; i < loadedItems.length; i++) {
         final item = loadedItems[i];
         await DbHelper.instance.insertRecord(item);
 
-        /// Provider ile sayaç güncelle
-        if (context.mounted) {
-          Provider.of<MalzemeCountProvider>(
-            context,
-            listen: false,
-          ).setCount(i + 1);
-        }
+        final currentProvider =
+            provider ??
+            Provider.of<MalzemeCountProvider>(context, listen: false);
+        currentProvider.setCount(i + 1);
 
-        /// Kullanıcıya ilerlemeyi bildir
         final progress = (i + 1) / loadedItems.length;
         onLoadingStatusChange(true, progress, item.malzeme, stopwatch.elapsed);
 
@@ -104,27 +100,20 @@ Future<void> loadDataFromDatabase({
       }
 
       stopwatch.stop();
-
-      /// Yükleme bitti, kartı kapat
       onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);
 
-      /// Son malzeme listesi
       final finalList = await DbHelper.instance.getRecords();
       onLoaded(finalList);
 
       log(
-        "✅ ${loadedItems.length} malzeme yüklendi "
-        "(${stopwatch.elapsed.inMilliseconds} ms).",
+        "✅ ${loadedItems.length} malzeme yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
         name: 'JSON Loader',
       );
     } catch (e) {
       log("❌ JSON yükleme hatası: $e", name: 'JSON Loader');
-
-      /// ❗ Hata durumunda kullanıcıya kartı kapatmayı unutma
       onLoadingStatusChange(false, 0.0, null, const Duration());
     }
   } else {
-    /// 🔹 Veritabanında veri varsa yükleme yapılmaz, mevcut veriler döndürülür
     log(
       "📦 Veritabanında veri var, JSON 'dan yükleme atlandı.",
       name: 'JSON Loader',
@@ -132,14 +121,10 @@ Future<void> loadDataFromDatabase({
     final existingItems = await DbHelper.instance.getRecords();
     onLoaded(existingItems);
 
-    if (context.mounted) {
-      Provider.of<MalzemeCountProvider>(
-        context,
-        listen: false,
-      ).setCount(existingItems.length);
-    }
+    final currentProvider =
+        provider ?? Provider.of<MalzemeCountProvider>(context, listen: false);
+    currentProvider.setCount(existingItems.length);
 
-    /// ✅ Kart görünmemişse bile bir dummy animasyonla aç/kapat yap
     onLoadingStatusChange(true, 0.0, null, Duration.zero);
     await Future.delayed(const Duration(milliseconds: 500));
     onLoadingStatusChange(false, 1.0, null, const Duration(milliseconds: 500));

@@ -59,22 +59,16 @@ class _HomePageState extends State<HomePage> {
 
   /// 📌 İlk açılışta verileri (gerekirse) yükle
   void _loadInitialData() async {
+    final provider = Provider.of<MalzemeCountProvider>(context, listen: false);
     await loadDataFromDatabase(
       context: context,
+      provider: provider,
       onLoaded: (loadedWords) {
         setState(() {
           allWords = loadedWords;
           words = loadedWords;
         });
-
-        /// 🔥 Provider ile kelime sayısını güncelle
-        Provider.of<MalzemeCountProvider>(
-          context,
-          listen: false,
-        ).setCount(loadedWords.length);
       },
-
-      /// 🔄 İlk açılışta yükleme kartı gösterilmiyor
       onLoadingStatusChange: (_, __, ___, ____) {},
     );
   }
@@ -86,7 +80,6 @@ class _HomePageState extends State<HomePage> {
 
     setState(() => words = allWords);
 
-    // 🔥 Provider sayacı
     if (mounted) {
       Provider.of<MalzemeCountProvider>(context, listen: false).setCount(count);
     }
@@ -118,7 +111,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // 📜 AppBar
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(64),
           child: CustomAppBar(
@@ -130,8 +122,6 @@ class _HomePageState extends State<HomePage> {
             itemCount: words.length,
           ),
         ),
-
-        /// 📁 Drawer
         drawer: CustomDrawer(
           onDatabaseUpdated: _loadWords,
           appVersion: appVersion,
@@ -139,36 +129,25 @@ class _HomePageState extends State<HomePage> {
           onToggleViewMode: () {
             setState(() => isFihristMode = !isFihristMode);
           },
-
-          /// 📌 Drawer 'dan gelen veri yenileme fonksiyonu
           onLoadJsonData:
               ({
                 required BuildContext ctx,
-                required void Function(
-                  bool loading,
-                  double prog,
-                  String? currentWord,
-                  Duration elapsedTime,
-                )
+                required void Function(bool, double, String?, Duration)
                 onStatus,
               }) async {
+                final provider = Provider.of<MalzemeCountProvider>(
+                  ctx,
+                  listen: false,
+                );
                 await loadDataFromDatabase(
-                  context: ctx, // ✅ düzeltme burada
+                  context: ctx,
+                  provider: provider,
                   onLoaded: (loadedWords) {
                     setState(() {
                       allWords = loadedWords;
                       words = loadedWords;
                     });
-
-                    if (mounted) {
-                      Provider.of<MalzemeCountProvider>(
-                        context,
-                        listen: false,
-                      ).setCount(loadedWords.length);
-                    }
                   },
-
-                  // 🔄 SQLLoadingCardOverlay’a durumu ilet
                   onLoadingStatusChange:
                       (
                         bool loading,
@@ -181,13 +160,9 @@ class _HomePageState extends State<HomePage> {
                 );
               },
         ),
-
-        /// 📄  Liste gövdesi
         body: isFihristMode
             ? AlphabetMalzemeList(malzemeler: words, onUpdated: _loadWords)
             : MalzemeList(malzemeler: words, onUpdated: _loadWords),
-
-        // ➕  FAB
         floatingActionButton: CustomFAB(
           refreshWords: _loadWords,
           clearSearch: _clearSearch,

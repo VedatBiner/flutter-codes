@@ -1,4 +1,7 @@
 // 📃 <----- custom_app_bar.dart ----->
+// Uygulamanın üst kısmındaki AppBar görünümünü tanımlar.
+// - Arama kutusu içerir
+// - Malzeme sayısını gösterir
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
@@ -70,14 +73,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onChanged: onSearchChanged,
             )
           : Consumer<MalzemeCountProvider>(
-              builder: (context, wordCountProvider, _) {
+              builder: (context, provider, _) {
                 return Text(
-                  'Malzemeler (Ören) (${wordCountProvider.count})',
+                  'Malzemeler (Ören) (${provider.count})',
                   style: itemCountStil,
                 );
               },
             ),
-
       actions: [
         isSearching
             ? IconButton(
@@ -88,12 +90,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   width: 48,
                   height: 48,
                 ),
-                // icon: const Icon(Icons.clear),
                 onPressed: onClearSearch,
               )
             : IconButton(
-                color: menuColor,
                 tooltip: "Aramayı başlat",
+                color: menuColor,
                 icon: Image.asset(
                   "assets/images/search.png",
                   width: 48,

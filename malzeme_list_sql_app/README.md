@@ -21,7 +21,5 @@ kelimelik_words_app temel alınarak yapılmıştır.
 - Tüm drawer menü modüler hale geldi
 
 - Hatalar :
-  - Veriler yeniden yüklenirken animasyon çıkıyor ancak sayaç değişmedi ?
   - Veriler önce json yedeğinden yükleniyor. bu durumda json sorunlu ise veri gelmiyor.
-  - Veriler silinince yeniden yüklenirken animasyon düzeldi ancak sayaç değişmiyor
 
