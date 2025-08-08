@@ -6,6 +6,7 @@
 // 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../sql_loading_overlay.dart';
 
 /// Callback imzası: üst seviye widget 'tan gelir

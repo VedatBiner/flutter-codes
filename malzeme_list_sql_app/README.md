@@ -22,4 +22,5 @@ kelimelik_words_app temel alınarak yapılmıştır.
 
 - Hatalar :
   - Veriler önce json yedeğinden yükleniyor. bu durumda json sorunlu ise veri gelmiyor.
+  - Veri eklenince listenin sonuna gidiyor ? Yani baş harfi ile başlayan bölümün sonuna ekleniyor. Uygun harf sırasına gelmiyor ?
 
