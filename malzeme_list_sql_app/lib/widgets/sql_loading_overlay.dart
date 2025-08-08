@@ -1,5 +1,19 @@
 // 📃 sql_loading_overlay.dart
 
+// 📃 <----- sql_loading_overlay.dart ----->
+//
+// JSON ’dan veriler SQLite veritabanına aktarılırken tam ekran
+// bir yükleme kartı gösteren Overlay tabanlı widget.
+//
+// • Arka plan yarı saydam ve tıklanamazdır (kullanıcı etkileşimini engeller).
+// • Kart üzerinde animasyon (örneğin Lottie) gösterilir.
+// • Yüzdelik ilerleme, geçen süre ve o an eklenen malzeme adı animasyonla güncellenir.
+// • `OverlayEntry` kullanarak ekranın en üstüne bindirilir ve her yerden kontrol edilebilir.
+// • `update()` metodu ile dışarıdan veri güncellenebilir.
+// • `remove()` metodu ile animasyon ve kart tamamen kapatılır.
+//
+// Kullanıldığı yer: `drawer_renew_db_tile.dart` ve `json_loader.dart`
+
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
