@@ -23,7 +23,7 @@ kelimelik_words_app temel alınarak yapılmıştır.
 - Hatalar :
   - Veriler yeniden yüklenirken animasyon çıkıyor ancak sayaç değişmedi ?
   - Veriler önce json yedeğinden yükleniyor. bu durumda json sorunlu ise veri gelmiyor.
-  - Veriler silinince yeniden yüklenirken animasyon çalışmıyor ?
+  - Veriler silinince yeniden yüklenirken animasyon düzeldi ancak sayaç değişmiyor
 
 Veri tabanı yenileyen eski modül bu : 
 

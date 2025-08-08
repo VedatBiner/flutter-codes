@@ -5,10 +5,11 @@
 
 // 📌 Flutter paketleri
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-/// 📌 Yardımcı yüklemeler burada
-import '../../constants/text_constants.dart';
-import '../../db/db_helper.dart';
+// 📌 Yardımcı yüklemeler burada
+import '../../providers/malzeme_count_provider.dart';
+import '../sql_loading_overlay.dart';
 
 /// Callback imzası: üst seviye widget 'tan gelir
 /// ({ctx, onStatus}) → Future<void>
@@ -26,25 +27,47 @@ class DrawerRenewDbTile extends StatelessWidget {
     return Tooltip(
       message: 'Veritabanını Yenile',
       child: ListTile(
-        leading: const Icon(Icons.refresh, color: Colors.amber, size: 32),
-        title: const Text('Veritabanını Yenile (SQL)', style: drawerMenuText),
+        leading: const Icon(Icons.refresh, color: Colors.amber),
+        title: const Text(
+          'Veritabanını Yenile (SQL)',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         onTap: () async {
-          // Drawer kapanmadan önce KÖK context 'i alalım
-          final rootCtx = Navigator.of(context, rootNavigator: true).context;
-
-          // Drawer 'ı kapat
           Navigator.of(context).maybePop();
           await Future.delayed(const Duration(milliseconds: 300));
+          if (!context.mounted) return;
 
-          // 1️⃣ Yerel tabloyu sil
-          final db = await DbHelper.instance.database;
-          await db.delete('malzemeler');
-
-          // 2️⃣ Yeniden indir / yükle (kök context kullan!)
-          await onLoadJsonData(
-            ctx: rootCtx,
-            onStatus: (_, __, ___, ____) {}, // Drawer 'da ilerleme yok
+          /// ✅ Overlay erişimi düzeltildi
+          final overlay = Navigator.of(context).overlay;
+          final overlayEntry = OverlayEntry(
+            builder: (context) => const SQLLoadingCardOverlay(),
           );
+          overlay?.insert(overlayEntry);
+
+          /// 🔄 Veritabanını JSON 'dan yeniden yükle ve kartı güncelle
+          await onLoadJsonData(
+            ctx: context,
+            onStatus: (loading, progress, currentWord, elapsed) {
+              SQLLoadingCardOverlay.update(
+                progress: progress,
+                loadingWord: currentWord,
+                elapsedTime: elapsed,
+                show: loading,
+              );
+
+              if (!loading) {
+                overlayEntry.remove(); // işlem bitince kartı kaldır
+              }
+            },
+          );
+
+          /// 🔁 Veritabanı yüklendikten sonra AppBar 'daki sayaç güncellensin
+          if (context.mounted) {
+            Provider.of<MalzemeCountProvider>(
+              context,
+              listen: false,
+            ).updateCount();
+          }
         },
       ),
     );
