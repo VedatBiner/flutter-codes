@@ -26,6 +26,7 @@ dependencies:
   permission_handler:
   value_layout_builder: ^0.5.0
   excel: ^2.1.0
+  equatable:
 
 dev_dependencies:
   flutter_test:

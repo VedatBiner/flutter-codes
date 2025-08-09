@@ -1,11 +1,26 @@
-// 📃 <----- word_database.dart ----->
+// 📃 <----- word_model.dart ----->
 
-class Word {
+import 'package:equatable/equatable.dart';
+
+class Word extends Equatable {
   final int? id;
   final String word;
   final String meaning;
 
-  Word({this.id, required this.word, required this.meaning});
+  const Word({this.id, required this.word, required this.meaning});
+
+  /// 📌 Equatable karşılaştırması için kullanılacak alanlar
+  @override
+  List<Object?> get props => [id, word, meaning];
+
+  /// 📌 Kolay güncelleme için yardımcı (opsiyonel ama faydalı)
+  Word copyWith({int? id, String? word, String? meaning}) {
+    return Word(
+      id: id ?? this.id,
+      word: word ?? this.word,
+      meaning: meaning ?? this.meaning,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {'id': id, 'word': word, 'meaning': meaning};
