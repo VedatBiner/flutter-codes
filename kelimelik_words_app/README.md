@@ -62,6 +62,7 @@ kutusunu kullanması sağlandı.
 - exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
 - getWords metodu getRecords oldu (db_helper.dart)
 - Tüm drawer menü modüler hale geldi
+- Uygulama adı format aa.vb.xxxxxxxx şeklinde değiştirildi
 
 - Simdilik yapılanlar yeterli mi?
 
