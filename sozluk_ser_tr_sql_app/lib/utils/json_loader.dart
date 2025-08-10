@@ -25,7 +25,7 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
-  // 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
+  /// 🔍 Ön kontrol: Firestore, JSON ve SQLite karşılaştırması
   final firestoreCount = await getFirestoreWordCount();
   final assetJsonCount = await getWordCountFromAssetJson();
   final dbCount = await DbHelper.instance.countRecords();

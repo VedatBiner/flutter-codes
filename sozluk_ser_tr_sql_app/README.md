@@ -42,6 +42,7 @@ türetilmiş ve daha geliştirilmiştir.
 - bekleme mesajı güncellendi
 - Drawer menüdeki yardımcı kavramlar modüler hale getirildi
 - Tüm drawer menü modüler hale geldi
+- uygulama adı standart formata geldi
 
 Yapılacak başka bir şey var mı ?
 

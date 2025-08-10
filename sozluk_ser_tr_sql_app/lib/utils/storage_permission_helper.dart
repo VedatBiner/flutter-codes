@@ -23,27 +23,29 @@ import 'package:permission_handler/permission_handler.dart';
 ///   • `true`  → izin zaten var -ya da- kullanıcı şimdi verdi
 ///   • `false` → reddedildi / kalıcı olarak engellendi
 Future<bool> ensureStoragePermission() async {
-  // Android dışı platformlarda izin gerekmez
+  log('🔄 storage_permission_helper çalıştı', name: 'Storage Permission');
+
+  /// ℹ️ Android dışı platformlarda izin gerekmez
   if (!Platform.isAndroid) return true;
 
-  // Android 11 (API 30) ve sonrası — geniş izin
+  /// ℹ️ Android 11 (API 30) ve sonrası — geniş izin
   if (await Permission.manageExternalStorage.isGranted) return true;
 
   final status = await Permission.manageExternalStorage.request();
   if (status.isGranted) {
-    log('✔️  manageExternalStorage izni verildi');
+    log('✔️  manageExternalStorage izni verildi', name: 'Storage Permission');
     return true;
   }
 
-  // Android 10 ve öncesi — klasik STORAGE izni
+  /// ℹ️ Android 10 ve öncesi — klasik STORAGE izni
   if (await Permission.storage.isGranted) return true;
 
   final legacyStatus = await Permission.storage.request();
   if (legacyStatus.isGranted) {
-    log('✔️  storage izni verildi (legacy)');
+    log('✔️  storage izni verildi (legacy)', name: 'Storage Permission');
     return true;
   }
 
-  log('❌  Depolama izni reddedildi');
+  log('❌  Depolama izni reddedildi', name: 'Storage Permission');
   return false;
 }

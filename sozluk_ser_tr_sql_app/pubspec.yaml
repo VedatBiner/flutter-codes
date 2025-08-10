@@ -3,7 +3,7 @@ description: "Sözlük Uygulaması (SER-TUR SQL Version"
 
 publish_to: 'none'
 
-version: 1.2.0+1
+version: 1.2.1+1
 
 environment:
   sdk: ^3.7.2
@@ -28,6 +28,7 @@ dependencies:
   firebase_core:
   excel: ^2.1.0
   value_layout_builder: ^0.5.0
+  equatable:
 
 dev_dependencies:
   flutter_test:
