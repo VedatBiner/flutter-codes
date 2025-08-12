@@ -25,9 +25,11 @@ import '../models/word_model.dart';
 
 class WordService {
   WordService._();
+
   static final instance = WordService._();
 
   static const String _collectionName = 'kelimeler';
+
   CollectionReference<Map<String, dynamic>> get _col =>
       FirebaseFirestore.instance.collection(_collectionName);
 
@@ -213,31 +215,37 @@ class WordService {
   }
 
   /// Toplam kayıt sayısı (destek varsa aggregate count, yoksa fallback).
-  Future<int?> countTotals({String? userEmail}) async {
+  Future<int> countTotals({String? userEmail}) async {
+    Query<Map<String, dynamic>> q = _col;
+    if (userEmail != null && userEmail.isNotEmpty) {
+      q = q.where('userEmail', isEqualTo: userEmail);
+    }
     try {
-      Query<Map<String, dynamic>> q = _col;
-      if (userEmail != null && userEmail.isNotEmpty) {
-        q = q.where('userEmail', isEqualTo: userEmail);
-      }
+      final aggSnap = await q.count().get();
+      final total = aggSnap.count ?? 0; // int? -> int
+      log('📊 Firestore toplam: $total (userEmail=${userEmail ?? "-"})');
+      return total;
+    } catch (_) {
+      final snap = await q.get();
+      final total = snap.size ?? 0; // int? -> int
+      log(
+        '📊 Firestore toplam (fallback): $total (userEmail=${userEmail ?? "-"})',
+      );
+      return total;
+    }
+  }
 
-      // Aggregate count (yeni SDK'larda mevcut)
-      try {
-        final aggSnap = await q.count().get();
-        final total = aggSnap.count;
-        log('📊 Firestore toplam: $total (userEmail=${userEmail ?? "-"})');
-        return total;
-      } catch (_) {
-        // Fallback: normal get + size
-        final snap = await q.get();
-        final total = snap.size;
-        log(
-          '📊 Firestore toplam (fallback): $total (userEmail=${userEmail ?? "-"})',
-        );
-        return total;
-      }
-    } catch (e, st) {
-      log('⚠️ Firestore toplam sayım hatası: $e', stackTrace: st);
-      rethrow;
+  Future<int> count({String? userEmail}) async {
+    Query<Map<String, dynamic>> q = _col;
+    if (userEmail != null && userEmail.isNotEmpty) {
+      q = q.where('userEmail', isEqualTo: userEmail);
+    }
+    try {
+      final agg = await q.count().get();
+      return agg.count ?? 0; // int? -> int
+    } catch (_) {
+      final snap = await q.get();
+      return snap.size ?? 0; // int? -> int
     }
   }
 }
