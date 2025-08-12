@@ -1,8 +1,10 @@
 // 📃 <----- word_list.dart ----->
 // Klasik görünümlü listeleme için kullanılır.
 
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
 import '../services/db_helper.dart';
 import '../widgets/word_actions.dart';

@@ -325,8 +325,7 @@ class DbHelper {
 
     final bytes = excel.encode()!;
     final dir = await getApplicationDocumentsDirectory();
-    final filePath =
-        '${dir.path}/$fileNameXlsx'; // file_info.dart içinde tanımlı olsun
+    final filePath = '${dir.path}/$fileNameExcel';
     final file = File(filePath)..createSync(recursive: true);
     await file.writeAsBytes(bytes, flush: true);
 
@@ -349,7 +348,7 @@ class DbHelper {
         batch.delete(d.reference);
       }
       await batch.commit();
-      await Future.delayed(const Duration(milliseconds: 100)); // nefes arası
+      await Future.delayed(const Duration(milliseconds: 100));
     }
     log('🧹 Koleksiyon temizlendi: $_collection');
   }

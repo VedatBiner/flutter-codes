@@ -1,15 +1,17 @@
 // 📃 <----- word_actions.dart ----->
 // kelime güncelleme ve silme metodu
-//
+
+// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 import '../services/db_helper.dart';
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
-import '../widgets/confirmation_dialog.dart';
+import '../utils/confirmation_dialog.dart';
 import '../widgets/word_dialog.dart';
 
 // 📜 kelime güncelleme metodu
