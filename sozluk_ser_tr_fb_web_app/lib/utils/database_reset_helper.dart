@@ -4,6 +4,8 @@
 // İstediğiniz widget ’tan ‟await showResetDatabaseDialog(context, onAfterReset);”
 // şeklinde çağırabilirsiniz.
 
+// 📌 Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +14,6 @@ import 'package:provider/provider.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../providers/word_count_provider.dart';
-import '../services/db_helper.dart';
 import '../services/notification_service.dart';
 import 'confirmation_dialog.dart';
 
@@ -47,8 +48,19 @@ Future<void> showResetDatabaseDialog(
   Navigator.of(context).maybePop();
 
   /// 🔥 Tablodaki tüm verileri sil
-  final db = await DbHelper.instance.database;
-  await db.delete('words');
+  /// (SQLite yerine Firestore koleksiyonunu topluca temizle)
+  const page = 400;
+  final col = FirebaseFirestore.instance.collection('kelimeler');
+  while (true) {
+    final snap = await col.limit(page).get();
+    if (snap.docs.isEmpty) break;
+    final batch = FirebaseFirestore.instance.batch();
+    for (final d in snap.docs) {
+      batch.delete(d.reference);
+    }
+    await batch.commit();
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
 
   /// 3️⃣ Eğer widget tree ’den ayrıldıysak işleme devam etmeyelim
   if (!context.mounted) return;
@@ -67,7 +79,7 @@ Future<void> showResetDatabaseDialog(
     icon: Icons.delete_forever,
     iconColor: Colors.red,
     progressIndicatorColor: Colors.red,
-    progressIndicatorBackground: Colors.red.shade100,
+    progressIndicatorBackground: Colors.redAccent,
   );
 
   /// 🔁 7️⃣ İşlem sonrası callback
