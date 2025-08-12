@@ -98,8 +98,10 @@ class _HomePageState extends State<HomePage> {
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
     setState(() => isUpdating = true);
-    allWords = await DbHelper.instance.getRecords();
-    final count = await DbHelper.instance.countRecords();
+    allWords = await DbHelper.instance
+        .fetchAllWords(); // opsiyonel: userEmail: '...'
+    final count = await DbHelper.instance
+        .countRecords(); // opsiyonel: userEmail: '...'
 
     setState(() {
       words = allWords;
@@ -107,7 +109,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     if (mounted) {
-      Provider.of<WordCountProvider>(context, listen: false).setCount(count);
+      Provider.of<WordCountProvider>(context, listen: false).setCount(count!);
     }
   }
 

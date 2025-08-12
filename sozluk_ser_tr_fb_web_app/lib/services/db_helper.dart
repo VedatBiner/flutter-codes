@@ -56,7 +56,7 @@ class DbHelper {
   }
 
   /// Toplam kayıt sayısı (aggregate count destekliyse onu kullanır).
-  Future<int> countRecords({String? userEmail}) async {
+  Future<int?> countRecords({String? userEmail}) async {
     try {
       Query<Map<String, dynamic>> q = _col;
       if (userEmail != null && userEmail.isNotEmpty) {

@@ -213,7 +213,7 @@ class WordService {
   }
 
   /// Toplam kayıt sayısı (destek varsa aggregate count, yoksa fallback).
-  Future<int> countTotals({String? userEmail}) async {
+  Future<int?> countTotals({String? userEmail}) async {
     try {
       Query<Map<String, dynamic>> q = _col;
       if (userEmail != null && userEmail.isNotEmpty) {

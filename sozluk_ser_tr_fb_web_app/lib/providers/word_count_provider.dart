@@ -19,7 +19,7 @@ class WordCountProvider extends ChangeNotifier {
   /// 📌 Veritabanından toplam kelime sayısını alır ve notify eder
   Future<void> updateCount() async {
     final newCount = await DbHelper.instance.countRecords();
-    _count = newCount;
+    _count = newCount!;
     notifyListeners();
   }
 }

@@ -40,7 +40,7 @@ Future<void> loadDataFromDatabase({
     name: 'JSON Loader',
   );
 
-  if (assetJsonCount > dbCount) {
+  if (assetJsonCount > dbCount!) {
     log(
       "📢 Asset verisi daha güncel. Veritabanı sıfırlanacak ve tekrar yüklenecek.",
       name: 'JSON Loader',
@@ -58,13 +58,13 @@ Future<void> loadDataFromDatabase({
     await importFromFirestoreToSqlite(context, onLoadingStatusChange);
 
     final newCount = await DbHelper.instance.countRecords();
-    if (newCount > 0) {
+    if (newCount! > 0) {
       log(
         "✅ Firestore 'dan veriler yüklendi. JSON 'dan yükleme atlandı.",
         name: 'JSON Loader',
       );
 
-      final finalWords = await DbHelper.instance.getRecords();
+      final finalWords = await DbHelper.instance.fetchAllWords();
       onLoaded(finalWords);
 
       if (context.mounted) {
@@ -79,7 +79,7 @@ Future<void> loadDataFromDatabase({
   } else {
     log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
 
-    final finalWords = await DbHelper.instance.getRecords();
+    final finalWords = await DbHelper.instance.fetchAllWords();
     onLoaded(finalWords);
 
     if (context.mounted) {
@@ -146,7 +146,7 @@ Future<void> loadDataFromDatabase({
     stopwatch.stop();
     onLoadingStatusChange(false, 0.0, null, stopwatch.elapsed);
 
-    final finalWords = await DbHelper.instance.getRecords();
+    final finalWords = await DbHelper.instance.fetchAllWords();
     onLoaded(finalWords);
     log(
       "✅ ${loadedWords.length} kelime yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
