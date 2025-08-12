@@ -1,6 +1,7 @@
 // 📃 <----- add_word_dialog_handler.dart ----->
+//
 // Kelime varsa mesaj verip uyarıyor
-// Kelime yoksa hem SQLite 'a hem Firestore 'a ekliyor
+// Kelime yoksa Firestore'a ekliyor (SQLite kaldırıldı)
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
@@ -25,7 +26,11 @@ Future<void> showAddWordDialog(
   );
 
   if (result != null) {
-    final exists = await WordService.wordExists(result.sirpca);
+    // 🔍 Firestore ’da aynı (sirpca, userEmail) var mı?
+    final exists = await WordService.instance.wordExists(
+      sirpca: result.sirpca,
+      userEmail: result.userEmail,
+    );
 
     if (exists) {
       // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
@@ -52,13 +57,13 @@ Future<void> showAddWordDialog(
         icon: Icons.warning_amber_rounded,
         iconColor: Colors.orange,
         progressIndicatorColor: Colors.orange,
-        progressIndicatorBackground: Colors.orange.shade100,
+        progressIndicatorBackground: Colors.orangeAccent,
       );
       return;
     }
 
-    // ✅ Yeni kelimeyi hem SQLite hem Firestore ’a ekle
-    await WordService.addWord(result);
+    // ✅ Yeni kelimeyi Firestore ’a ekle
+    await WordService.instance.addWord(result);
 
     onWordAdded();
 
@@ -76,9 +81,9 @@ Future<void> showAddWordDialog(
         ),
       ),
       icon: Icons.check_circle,
-      iconColor: Colors.blue.shade700,
+      iconColor: Colors.blue,
       progressIndicatorColor: Colors.blue,
-      progressIndicatorBackground: Colors.blue.shade200,
+      progressIndicatorBackground: Colors.blueAccent,
     );
   }
 }

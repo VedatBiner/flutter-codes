@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
-import '../services/db_helper.dart';
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
 import '../utils/confirmation_dialog.dart';
@@ -28,9 +27,12 @@ Future<void> editWord({
   );
 
   if (updated != null) {
-    // 🔹 SQLite ve Firestore üzerinde güncelle
-    await DbHelper.instance.updateRecord(updated);
-    await WordService.updateWord(updated, oldSirpca: word.sirpca);
+    // 🔹 Firestore üzerinde güncelle (id yoksa sirpca+userEmail ile bulunur)
+    await WordService.instance.updateWord(
+      updated,
+      userEmail: updated.userEmail,
+      oldSirpca: word.sirpca, // sirpca değişmişse eşleşme için
+    );
 
     if (!context.mounted) return;
     onUpdated();
@@ -52,7 +54,7 @@ Future<void> editWord({
       icon: Icons.check_circle,
       iconColor: Colors.green,
       progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
+      progressIndicatorBackground: Colors.greenAccent,
     );
   }
 }
@@ -84,18 +86,8 @@ Future<void> confirmDelete({
   );
 
   if (confirm == true) {
-    // 🔹 SQLite silme – id null ise sirpca’dan bul
-    if (word.id != null) {
-      await DbHelper.instance.deleteRecord(word.id!);
-    } else {
-      final dbWord = await DbHelper.instance.getWord(word.sirpca);
-      if (dbWord != null) {
-        await DbHelper.instance.deleteRecord(dbWord.id!);
-      }
-    }
-
-    // 🔹 Firestore silme
-    await WordService.deleteWord(word);
+    // 🔹 Firestore silme (id varsa id ile; yoksa sirpca+userEmail ile)
+    await WordService.instance.deleteWord(word, userEmail: word.userEmail);
 
     if (!context.mounted) return;
     onDeleted();
@@ -114,7 +106,7 @@ Future<void> confirmDelete({
       icon: Icons.delete,
       iconColor: Colors.red,
       progressIndicatorColor: Colors.red,
-      progressIndicatorBackground: Colors.red.shade100,
+      progressIndicatorBackground: Colors.redAccent,
     );
   }
 }
