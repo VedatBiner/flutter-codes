@@ -1,6 +1,12 @@
 // 📜 <----- home_page.dart ----->
+//
+// Firestore stream tabanlı HomePage
+// - WordService.streamAll() ile canlı dinleme
+// - İlk veri gelene kadar BottomWaitingOverlay gösterimi
+// - Arama/fihrist görünümü, Drawer üzerinden JSON import akışı korunur
 
-// 📌 Flutter paketleri
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +15,8 @@ import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../services/db_helper.dart';
-import '../utils/json_loader.dart';
+import '../services/word_service.dart'; // 🔴 stream buradan
+import '../utils/json_loader.dart'; // Drawer’dan import için
 import '../widgets/bottom_waiting_overlay.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -45,15 +51,24 @@ class _HomePageState extends State<HomePage> {
   String? loadingWord;
   Duration elapsedTime = Duration.zero;
 
-  /// ⏳  Basit bekleme katmanı (🆕)
-  bool isUpdating = false; // 🆕
+  /// ⏳  Basit bekleme katmanı (ilk stream paketi için)
+  bool isUpdating = true; // ilk açılışta true
+
+  /// 🔌 Stream aboneliği
+  StreamSubscription<List<Word>>? _sub;
 
   @override
   void initState() {
     super.initState();
-    setState(() => isUpdating = true); // 🆕 katmanı aç
-    _loadInitialData();
+    _startWordsStream(); // 🔴 Firestore stream
     _getAppVersion();
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    searchController.dispose();
+    super.dispose();
   }
 
   /// 📌 Versiyonu al
@@ -64,64 +79,78 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// 📌 İlk açılışta verileri (gerekirse) yükle
-  void _loadInitialData() async {
-    await loadDataFromDatabase(
-      context: context,
-      onLoaded: (loadedWords) {
-        setState(() {
-          allWords = loadedWords;
-          words = loadedWords;
-          isUpdating = false; // 🆕 katmanı kapat
-        });
+  /// 📌 Firestore stream’i başlat
+  void _startWordsStream() {
+    setState(() => isUpdating = true);
 
-        if (mounted) {
-          Provider.of<WordCountProvider>(
-            context,
-            listen: false,
-          ).setCount(loadedWords.length);
-        }
-      },
+    // İstersen limit'i 500/1000 yapabilirsin; web’de çok büyük veride performans için iyi olur.
+    _sub = WordService.instance
+        .streamAll(limit: 1000)
+        .listen(
+          (items) {
+            // Arama açık ise filtre uygulayarak güncelle
+            final currentQuery = searchController.text.trim();
+            List<Word> view = items;
+            if (isSearching && currentQuery.isNotEmpty) {
+              final q = currentQuery.toLowerCase();
+              view = items
+                  .where(
+                    (w) =>
+                        w.sirpca.toLowerCase().contains(q) ||
+                        w.turkce.toLowerCase().contains(q),
+                  )
+                  .toList();
+            }
 
-      onLoadingStatusChange:
-          (bool loading, double prog, String? currentWord, Duration elapsed) {
+            if (!mounted) return;
             setState(() {
-              isLoadingJson = loading;
-              progress = prog;
-              loadingWord = currentWord;
-              elapsedTime = elapsed;
+              allWords = items;
+              words = view;
+              isUpdating = false; // ilk paket gelince kapat
             });
+
+            // Sayaç güncelle
+            if (mounted) {
+              Provider.of<WordCountProvider>(
+                context,
+                listen: false,
+              ).setCount(items.length);
+            }
           },
-    );
+          onError: (_) {
+            if (!mounted) return;
+            setState(() => isUpdating = false);
+          },
+        );
   }
 
-  /// 🔄  Kelimeleri veritabanından yeniden oku
+  /// 🔄  Manuel yenile: sayaç tazele (stream zaten anlık getiriyor)
   Future<void> _loadWords() async {
     setState(() => isUpdating = true);
-    allWords = await DbHelper.instance
-        .fetchAllWords(); // opsiyonel: userEmail: '...'
-    final count = await DbHelper.instance
-        .countRecords(); // opsiyonel: userEmail: '...'
-
-    setState(() {
-      words = allWords;
-      isUpdating = false; // 🆕 katman KAPAT
-    });
-
-    if (mounted) {
-      Provider.of<WordCountProvider>(context, listen: false).setCount(count!);
+    try {
+      final count = await WordService.instance.count();
+      if (!mounted) return;
+      Provider.of<WordCountProvider>(context, listen: false).setCount(count);
+    } finally {
+      if (mounted) setState(() => isUpdating = false);
     }
   }
 
   /// 🔍  Arama filtreleme
   void _filterWords(String query) {
-    final filtered = allWords.where((word) {
-      final q = query.toLowerCase();
-      return word.sirpca.toLowerCase().contains(q) ||
-          word.turkce.toLowerCase().contains(q);
-    }).toList();
-
-    setState(() => words = filtered);
+    final q = query.trim().toLowerCase();
+    setState(() {
+      isSearching = q.isNotEmpty;
+      words = isSearching
+          ? allWords
+                .where(
+                  (w) =>
+                      w.sirpca.toLowerCase().contains(q) ||
+                      w.turkce.toLowerCase().contains(q),
+                )
+                .toList()
+          : allWords;
+    });
   }
 
   /// ❌  Aramayı temizle
@@ -167,13 +196,14 @@ class _HomePageState extends State<HomePage> {
             /// 📌 FAB Burada
             ///
             floatingActionButton: CustomFAB(
-              refreshWords: _loadWords,
+              refreshWords:
+                  _loadWords, // stream var ama sayaç için kullanıyoruz
               clearSearch: _clearSearch,
             ),
           ),
         ),
 
-        /// 📌 SQL JSON yükleme kartı (mevcut)
+        /// 📌 SQL JSON yükleme kartı (mevcut progress UI)
         ///
         if (isLoadingJson)
           SQLLoadingCard(
@@ -182,7 +212,7 @@ class _HomePageState extends State<HomePage> {
             elapsedTime: elapsedTime,
           ),
 
-        /// 📌Basit bekleme katmanı (🆕)
+        /// 📌 Basit bekleme katmanı (ilk stream paketi / manuel yenileme)
         ///
         if (isUpdating) const BottomWaitingOverlay(),
       ],
@@ -193,7 +223,7 @@ class _HomePageState extends State<HomePage> {
   ///
   CustomDrawer buildCustomDrawer(BuildContext context) {
     return CustomDrawer(
-      onDatabaseUpdated: _loadWords,
+      onDatabaseUpdated: _loadWords, // yenile butonu sonrası sayacı tazele
       appVersion: appVersion,
       isFihristMode: isFihristMode,
       onToggleViewMode: () {
@@ -210,14 +240,22 @@ class _HomePageState extends State<HomePage> {
             )
             onStatus,
           }) async {
+            // Firestore boşsa asset/devices JSON’dan yüklemek için mevcut yardımcıyı kullanalım
             await loadDataFromDatabase(
-              context: context,
+              context: ctx,
               onLoaded: (loadedWords) {
+                // Stream anında devralacak ama yine de UI’u hemen güncelleyelim
+                if (!mounted) return;
                 setState(() {
                   allWords = loadedWords;
-                  words = loadedWords;
+                  words = isSearching
+                      ? loadedWords.where((w) {
+                          final q = searchController.text.toLowerCase();
+                          return w.sirpca.toLowerCase().contains(q) ||
+                              w.turkce.toLowerCase().contains(q);
+                        }).toList()
+                      : loadedWords;
                 });
-
                 if (mounted) {
                   Provider.of<WordCountProvider>(
                     context,
@@ -232,6 +270,7 @@ class _HomePageState extends State<HomePage> {
                     String? currentWord,
                     Duration elapsed,
                   ) {
+                    if (!mounted) return;
                     setState(() {
                       isLoadingJson = loading;
                       progress = prog;

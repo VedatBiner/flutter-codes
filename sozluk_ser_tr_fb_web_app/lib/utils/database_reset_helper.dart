@@ -4,8 +4,6 @@
 // İstediğiniz widget ’tan ‟await showResetDatabaseDialog(context, onAfterReset);”
 // şeklinde çağırabilirsiniz.
 
-// 📌 Firestore
-import 'package:cloud_firestore/cloud_firestore.dart';
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +13,8 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../providers/word_count_provider.dart';
 import '../services/notification_service.dart';
+// 🆕 Ortak koleksiyon yardımcıları
+import '../utils/firestore_collection_tools.dart';
 import 'confirmation_dialog.dart';
 
 /// 📌 Veritabanını tamamen silmek için onay kutusu
@@ -49,18 +49,7 @@ Future<void> showResetDatabaseDialog(
 
   /// 🔥 Tablodaki tüm verileri sil
   /// (SQLite yerine Firestore koleksiyonunu topluca temizle)
-  const page = 400;
-  final col = FirebaseFirestore.instance.collection('kelimeler');
-  while (true) {
-    final snap = await col.limit(page).get();
-    if (snap.docs.isEmpty) break;
-    final batch = FirebaseFirestore.instance.batch();
-    for (final d in snap.docs) {
-      batch.delete(d.reference);
-    }
-    await batch.commit();
-    await Future.delayed(const Duration(milliseconds: 100));
-  }
+  await clearCollection('kelimeler');
 
   /// 3️⃣ Eğer widget tree ’den ayrıldıysak işleme devam etmeyelim
   if (!context.mounted) return;
