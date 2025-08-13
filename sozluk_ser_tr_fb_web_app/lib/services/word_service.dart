@@ -149,19 +149,18 @@ class WordService {
     );
   }
 
-  /// Sayfalı çekme (pagination): ilk sayfa için startAfter=null verin.
+  // Güçlü null kontrol + detaylı log + güvenli dönüş
   Future<PageResult> fetchPage({
-    String? userEmail,
-    int limit = 100,
+    required int limit,
     String orderByField = 'sirpca',
     QueryDocumentSnapshot<Map<String, dynamic>>? startAfter,
   }) async {
     try {
-      Query<Map<String, dynamic>> q = _col;
-      if (userEmail != null && userEmail.isNotEmpty) {
-        q = q.where('userEmail', isEqualTo: userEmail);
-      }
-      q = q.orderBy(orderByField).limit(limit);
+      Query<Map<String, dynamic>> q = _col
+          .orderBy(orderByField)
+          .limit(limit.clamp(1, 1000));
+
+      // Sadece VARSA startAfter uygula
       if (startAfter != null) {
         q = q.startAfterDocument(startAfter);
       }
@@ -169,13 +168,21 @@ class WordService {
       final snap = await q.get();
       final docs = snap.docs;
       final items = docs.map((d) => Word.fromMap(d.data(), id: d.id)).toList();
-      final newLast = docs.isNotEmpty ? docs.last : null;
-      final hasMore = docs.length == limit; // limit kadar geldiyse devam var
 
-      return PageResult(items: items, lastDoc: newLast, hasMore: hasMore);
+      // Basit log (web/cihaz konsoluna düşsün)
+      log(
+        '[fetchPage] got=${items.length} lastDoc=${docs.isNotEmpty ? docs.last.id : "-"} hasMore=${docs.length == limit}',
+      );
+
+      return PageResult(
+        items: items,
+        lastDoc: docs.isNotEmpty ? docs.last : null,
+        hasMore: docs.length == limit,
+      );
     } catch (e, st) {
-      log("❌ Firestore fetchPage hatası: $e", stackTrace: st);
-      rethrow;
+      log('❌ fetchPage error: $e', stackTrace: st);
+      // Hata durumunda boş ama güvenli dönüş
+      return PageResult(items: const [], lastDoc: null, hasMore: false);
     }
   }
 

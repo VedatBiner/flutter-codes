@@ -9,7 +9,8 @@
 // 🔧 Düzeltmeler:
 // - AppBar sayacı: arama KAPALI iken Firestore toplam (countTotals) gösterilir,
 //   arama AÇIK iken arama sonucunun sayısı (words.length) gösterilir.
-// - Arama limitini 300'e çıkardık (sunucu tarafı). Böylece ilk sayfayla sınırlı hissettirmez.
+// - Fihrist modunda (alfabetik) TÜM veriyi tek seferde çekeriz → tüm harfler dolar.
+// - Klasik listede pagination devam eder.
 
 // 📌 Dart paketleri
 import 'dart:async';
@@ -23,6 +24,7 @@ import 'package:provider/provider.dart';
 
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
+import '../services/local_cache_service_io.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../services/word_service.dart'; // fetchPage + search stream (sirpca)
@@ -45,11 +47,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   /// 🔢  Veri listeleri
   List<Word> words = []; // ekranda görünen liste
-  List<Word> allWords = []; // ana liste (pagination ile büyür)
+  List<Word> allWords = []; // ana liste (pagination veya fihrist full)
 
   /// 🔎  Arama & görünüm durumları
   bool isSearching = false;
-  bool isFihristMode = true;
+  bool isFihristMode = true; // <-- fihrist varsayılan
   final TextEditingController searchController = TextEditingController();
 
   /// ℹ️  Uygulama versiyonu
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   Timer? _searchDebounce;
   bool _usingSearchStream = false;
 
-  /// 📄 Sonsuz kaydırma (ana liste için)
+  /// 📄 Sonsuz kaydırma (Klasik liste için)
   bool _isPaging = false;
   bool _hasMore = true;
   QueryDocumentSnapshot<Map<String, dynamic>>? _lastDoc;
@@ -81,8 +83,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadFirstPage(); // 🔴 İlk sayfa
-    _refreshTotalCount(); // 🔴 Toplam sayım
+    Future.microtask(() async {
+      await _loadFirstPage();
+      await _refreshTotalCount();
+    });
     _getAppVersion();
   }
 
@@ -97,6 +101,7 @@ class _HomePageState extends State<HomePage> {
   /// 📌 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
+    if (!mounted) return;
     setState(() {
       appVersion = 'Versiyon: ${info.version}';
     });
@@ -108,18 +113,18 @@ class _HomePageState extends State<HomePage> {
       final total = await WordService.instance
           .countTotals(); // aggregate/fallback
       if (!mounted) return;
-      setState(() => _totalCount = total);
+      _totalCount = total;
       Provider.of<WordCountProvider>(
         context,
         listen: false,
-      ).setCount(total); // AppBar sayacı
+      ).setCount(total ?? 0); // AppBar sayacı
     } catch (_) {
       // sessiz geç
     }
   }
 
   // ---------------------------------------------------------------------------
-  // 📄 PAGINATION (ANA LİSTE)
+  // 📄 PAGINATION (KLASİK LİSTE)
   // ---------------------------------------------------------------------------
 
   /// İlk sayfayı yükle ve state’i sıfırla
@@ -139,11 +144,33 @@ class _HomePageState extends State<HomePage> {
         orderByField: 'sirpca', // 🔎 Sırpça’ya göre sıralı sayfalama
         startAfter: null,
       );
+      debugPrint(
+        '[_loadFirstPage] items=${page.items.length} hasMore=${page.hasMore}',
+      );
+
+      if (page.items.isEmpty) {
+        // Emniyet kemeri: akışı deneyelim ki ekranda mutlaka veri olsun
+        WordService.instance
+            .streamAll(limit: _pageSize, orderByField: 'sirpca')
+            .first
+            .then((items) {
+              if (!mounted) return;
+              setState(() {
+                allWords = items;
+                words = items;
+                _lastDoc = null;
+                _hasMore = items.length == _pageSize;
+              });
+            });
+      }
 
       if (!mounted) return;
       setState(() {
         allWords = page.items;
-        words = isSearching ? words : page.items; // arama kapalıysa göster
+        // Arama kapalıysa doğrudan ilk paketi göster.
+        // (Arama AÇIKSA bile ilk paketi ekranda tutmak için yine set edebiliriz.)
+        words = page.items;
+
         _lastDoc = page.lastDoc;
         _hasMore = page.hasMore;
         _isPaging = false;
@@ -165,7 +192,12 @@ class _HomePageState extends State<HomePage> {
 
   /// Sonraki sayfayı yükle (sayfa sonuna yaklaşıldığında çağrılır)
   Future<void> _loadNextPage() async {
-    if (_isPaging || !_hasMore || _usingSearchStream || isSearching) return;
+    if (_isPaging ||
+        !_hasMore ||
+        _usingSearchStream ||
+        isSearching ||
+        isFihristMode)
+      return;
 
     setState(() => _isPaging = true);
 
@@ -187,26 +219,84 @@ class _HomePageState extends State<HomePage> {
         _isPaging = false;
       });
 
-      // AppBar sayacı: arama kapalı iken toplam sayıyı göster
-      if (!isSearching) {
-        await _refreshTotalCount();
-      }
+      if (!isSearching) await _refreshTotalCount();
     } catch (_) {
       if (!mounted) return;
       setState(() => _isPaging = false);
     }
   }
 
-  /// Scroll olaylarını dinle: sona yaklaşınca yeni sayfa iste
+  /// Scroll olaylarını dinle: sona yaklaşınca yeni sayfa iste (klasik listede)
   bool _onScrollNotification(ScrollNotification sn) {
-    // Arama aktifken pagination çalışmasın
-    if (isSearching || _usingSearchStream) return false;
+    // Arama aktifken veya fihrist modunda pagination çalışmasın
+    if (isSearching || _usingSearchStream || isFihristMode) return false;
 
-    // Liste dibine 300px kala yeni sayfa çek
-    if (sn.metrics.extentAfter < 300) {
+    // Liste dibine ~300px kala yeni sayfa çek
+    if (!_isPaging && _hasMore && sn.metrics.extentAfter < 300) {
       _loadNextPage();
     }
     return false; // diğer dinleyicilere de geçsin
+  }
+
+  // ---------------------------------------------------------------------------
+  // 🔤 FİHRİST: TÜM VERİYİ TEK SEFERDE ÇEK
+  // ---------------------------------------------------------------------------
+
+  /// Fihrist görünümü için TÜM kelimeleri Sırpça sıralı çek.
+  /// ÖNCE yerel cache’i dene; yoksa Firestore’dan indir ve cache’e yaz.
+  Future<void> _loadAllForFihrist() async {
+    _sub?.cancel();
+    _usingSearchStream = false;
+
+    setState(() {
+      isUpdating = true;
+      words = [];
+      allWords = [];
+      _isPaging = false; // fihristte pagination yok
+      _hasMore = false;
+      _lastDoc = null;
+    });
+
+    try {
+      // 1) Cache varsa anında göster
+      final cached = await LocalCacheService.readAll();
+      if (cached.isNotEmpty) {
+        if (!mounted) return;
+        setState(() {
+          allWords = cached;
+          words = cached;
+          isUpdating = false;
+        });
+        // Sayaç güncelle (cache gösterirken de)
+        await _refreshTotalCount();
+        return;
+      }
+
+      // 2) Cache yoksa Firestore’dan çek
+      final snap = await FirebaseFirestore.instance
+          .collection('kelimeler')
+          .orderBy('sirpca')
+          .get();
+
+      final items = snap.docs
+          .map((d) => Word.fromMap(d.data(), id: d.id))
+          .toList();
+
+      // 3) Cache’e yaz
+      await LocalCacheService.writeAll(items);
+
+      if (!mounted) return;
+      setState(() {
+        allWords = items;
+        words = items;
+        isUpdating = false;
+      });
+
+      await _refreshTotalCount();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => isUpdating = false);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -251,7 +341,7 @@ class _HomePageState extends State<HomePage> {
       if (!mounted) return;
 
       if (q.isEmpty) {
-        // Arama temizlendi → ana listeye dön (eldeki sayfalı veriyi göster)
+        // Arama temizlendi → mevcut moda dön
         setState(() {
           isSearching = false;
           words = allWords;
@@ -260,7 +350,6 @@ class _HomePageState extends State<HomePage> {
           _sub?.cancel();
           _usingSearchStream = false;
         }
-        // Arama KAPALI: AppBar sayacı toplamı göstersin
         _refreshTotalCount();
       } else {
         // Arama açık: sunucu tarafı prefix arama stream'i (Sırpça)
@@ -282,7 +371,6 @@ class _HomePageState extends State<HomePage> {
       _sub?.cancel();
       _usingSearchStream = false;
     }
-    // Arama KAPALI: AppBar sayacı toplamı göstersin
     _refreshTotalCount();
   }
 
@@ -290,8 +378,12 @@ class _HomePageState extends State<HomePage> {
   // 🔄 Manuel yenile (FAB veya Drawer’dan)
   // ---------------------------------------------------------------------------
   Future<void> _loadWords() async {
-    // Tam tazele: baştan ilk sayfayı çek + toplamı güncelle
-    await _loadFirstPage();
+    // Mod’a göre uygun yükleme:
+    if (isFihristMode) {
+      await _loadAllForFihrist();
+    } else {
+      await _loadFirstPage();
+    }
     await _refreshTotalCount();
   }
 
@@ -330,19 +422,21 @@ class _HomePageState extends State<HomePage> {
             ///
             drawer: buildCustomDrawer(context),
 
-            /// 📌 Body Burada (Scroll dinleyici ile sarıldı)
+            /// 📌 Body Burada (Fihristte scroll dinleyici pasif)
             ///
-            body: NotificationListener<ScrollNotification>(
-              onNotification: _onScrollNotification,
-              child: isFihristMode
-                  ? AlphabetWordList(words: words, onUpdated: _loadWords)
-                  : WordList(words: words, onUpdated: _loadWords),
-            ),
+            body: isFihristMode
+                ? (isUpdating
+                      ? const SizedBox.shrink()
+                      : AlphabetWordList(words: words, onUpdated: _loadWords))
+                : NotificationListener<ScrollNotification>(
+                    onNotification: _onScrollNotification,
+                    child: WordList(words: words, onUpdated: _loadWords),
+                  ),
 
             /// 📌 FAB Burada
             ///
             floatingActionButton: CustomFAB(
-              refreshWords: _loadFirstPage, // tam yenile
+              refreshWords: _loadWords, // mod’a göre uygun yenile
               clearSearch: _clearSearch,
             ),
           ),
@@ -357,12 +451,12 @@ class _HomePageState extends State<HomePage> {
             elapsedTime: elapsedTime,
           ),
 
-        /// 📌 Basit bekleme katmanı (ilk sayfa / arama stream geçişi / manuel yenileme)
+        /// 📌 Basit bekleme katmanı (ilk yükleme / arama stream geçişi / manuel yenileme)
         ///
         if (isUpdating) const BottomWaitingOverlay(),
 
-        /// 📌 Sayfa sonuna ek yükleme yaparken küçük bir gösterge (arama kapalıyken)
-        if (_isPaging && !_usingSearchStream && !isSearching)
+        /// 📌 Klasik listede sayfa sonuna ek yükleme göstergesi
+        if (_isPaging && !_usingSearchStream && !isSearching && !isFihristMode)
           const Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -379,13 +473,15 @@ class _HomePageState extends State<HomePage> {
   CustomDrawer buildCustomDrawer(BuildContext context) {
     return CustomDrawer(
       onDatabaseUpdated: () async {
-        await _loadFirstPage();
-        await _refreshTotalCount(); // Drawer’daki “Yenile” sonrası sayaç güncellensin
+        await _loadWords(); // mod’a göre
+        await _refreshTotalCount(); // sayaç güncel
       },
       appVersion: appVersion,
       isFihristMode: isFihristMode,
-      onToggleViewMode: () {
+      onToggleViewMode: () async {
+        // Mod değişince uygun yüklemeyi yap
         setState(() => isFihristMode = !isFihristMode);
+        await _loadWords();
       },
       onLoadJsonData:
           ({
@@ -402,17 +498,10 @@ class _HomePageState extends State<HomePage> {
             await loadDataFromDatabase(
               context: ctx,
               onLoaded: (loadedWords) async {
-                // 🔁 Firestore dolduruldu → ana listeyi baştan kur
                 if (!mounted) return;
 
-                // (İstersen geçici client-side Sırpça filtre yapabilirsin; gerek yoksa atla)
-                setState(() {
-                  allWords = loadedWords;
-                  words = isSearching ? words : loadedWords;
-                });
-
-                await _loadFirstPage();
-                await _refreshTotalCount();
+                // JSON sonrası: Mod’a göre doğru yükleme
+                await _loadWords();
               },
               onLoadingStatusChange:
                   (
