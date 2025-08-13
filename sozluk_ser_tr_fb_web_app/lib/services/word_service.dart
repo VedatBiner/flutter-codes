@@ -6,9 +6,10 @@
 // Özellikler:
 // - addWord / updateWord / deleteWord
 // - getById
-// - streamAll (canlı liste akışı)
+// - streamAll (canlı liste akışı, limitli)
 // - searchTurkcePrefix (prefix arama)
-// - countTotals (toplam sayım, destek varsa aggregate count)
+// - fetchPage (sayfalı çekme / pagination)
+// - countTotals & count (toplam sayım, destek varsa aggregate count)
 // - userEmail filtrelemesi ile çok kullanıcılı güvenli kullanım
 //
 // Notlar:
@@ -23,13 +24,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/word_model.dart';
 
+/// Sayfa sonucu için küçük bir model (pagination)
+class PageResult {
+  final List<Word> items;
+  final QueryDocumentSnapshot<Map<String, dynamic>>? lastDoc;
+  final bool hasMore;
+
+  PageResult({
+    required this.items,
+    required this.lastDoc,
+    required this.hasMore,
+  });
+}
+
 class WordService {
   WordService._();
-
-  static final instance = WordService._();
+  static final WordService instance = WordService._();
 
   static const String _collectionName = 'kelimeler';
-
   CollectionReference<Map<String, dynamic>> get _col =>
       FirebaseFirestore.instance.collection(_collectionName);
 
@@ -68,13 +80,15 @@ class WordService {
   /// Canlı liste akışı. İsteğe bağlı userEmail filtresi + limit.
   Stream<List<Word>> streamAll({
     String? userEmail,
-    int limit = 500,
-    String orderByField = 'turkce',
+    int limit = 300,
+    String orderByField = 'sirpca',
   }) {
-    Query<Map<String, dynamic>> q = _col.orderBy(orderByField).limit(limit);
+    Query<Map<String, dynamic>> q = _col;
     if (userEmail != null && userEmail.isNotEmpty) {
       q = q.where('userEmail', isEqualTo: userEmail);
     }
+    q = q.orderBy(orderByField).limit(limit);
+
     return q.snapshots().map(
       (s) => s.docs.map((d) => Word.fromMap(d.data(), id: d.id)).toList(),
     );
@@ -88,24 +102,81 @@ class WordService {
     int limit = 50,
   }) {
     if (query.isEmpty) {
-      // Boş arama: streamAll döndür
+      // Boş arama: ana stream
       return streamAll(userEmail: userEmail, limit: limit);
     }
     final end = '$query\uf8ff';
 
-    Query<Map<String, dynamic>> q = _col
-        .orderBy('turkce')
-        .startAt([query])
-        .endAt([end])
-        .limit(limit);
+    Query<Map<String, dynamic>> q = _col.orderBy('turkce');
     if (userEmail != null && userEmail.isNotEmpty) {
-      // Dikkat: İki farklı orderBy/where kombinasyonu için composite index isteyebilir.
+      // Dikkat: orderBy('turkce') + where('userEmail', ==) kombinasyonu
+      // için Firestore bazen composite index isteyebilir.
       q = q.where('userEmail', isEqualTo: userEmail);
     }
+    q = q.startAt([query]).endAt([end]).limit(limit);
 
     return q.snapshots().map(
       (s) => s.docs.map((d) => Word.fromMap(d.data(), id: d.id)).toList(),
     );
+  }
+
+  // 🔎 Sırpça alanında prefix arama (örn. 'do' -> 'dobar', 'dobra' ...).
+  // Çok kullanıcılı kullanım için 'userEmail' filtrelemesi önerilir.
+  Stream<List<Word>> searchSirpcaPrefix(
+    String query, {
+    String? userEmail,
+    int limit = 50,
+  }) {
+    if (query.isEmpty) {
+      // Boş arama: ana stream
+      return streamAll(
+        userEmail: userEmail,
+        limit: limit,
+        orderByField: 'sirpca',
+      );
+    }
+    final end = '$query\uf8ff';
+
+    Query<Map<String, dynamic>> q = _col.orderBy('sirpca');
+    if (userEmail != null && userEmail.isNotEmpty) {
+      // Dikkat: orderBy('sirpca') + where('userEmail', ==) için composite index isteyebilir.
+      q = q.where('userEmail', isEqualTo: userEmail);
+    }
+    q = q.startAt([query]).endAt([end]).limit(limit);
+
+    return q.snapshots().map(
+      (s) => s.docs.map((d) => Word.fromMap(d.data(), id: d.id)).toList(),
+    );
+  }
+
+  /// Sayfalı çekme (pagination): ilk sayfa için startAfter=null verin.
+  Future<PageResult> fetchPage({
+    String? userEmail,
+    int limit = 100,
+    String orderByField = 'sirpca',
+    QueryDocumentSnapshot<Map<String, dynamic>>? startAfter,
+  }) async {
+    try {
+      Query<Map<String, dynamic>> q = _col;
+      if (userEmail != null && userEmail.isNotEmpty) {
+        q = q.where('userEmail', isEqualTo: userEmail);
+      }
+      q = q.orderBy(orderByField).limit(limit);
+      if (startAfter != null) {
+        q = q.startAfterDocument(startAfter);
+      }
+
+      final snap = await q.get();
+      final docs = snap.docs;
+      final items = docs.map((d) => Word.fromMap(d.data(), id: d.id)).toList();
+      final newLast = docs.isNotEmpty ? docs.last : null;
+      final hasMore = docs.length == limit; // limit kadar geldiyse devam var
+
+      return PageResult(items: items, lastDoc: newLast, hasMore: hasMore);
+    } catch (e, st) {
+      log("❌ Firestore fetchPage hatası: $e", stackTrace: st);
+      rethrow;
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -235,6 +306,7 @@ class WordService {
     }
   }
 
+  /// Basit sayım (toplam). countTotals ile aynı işi görür; API uyumu için bırakıldı.
   Future<int> count({String? userEmail}) async {
     Query<Map<String, dynamic>> q = _col;
     if (userEmail != null && userEmail.isNotEmpty) {

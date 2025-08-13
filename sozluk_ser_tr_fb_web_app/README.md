@@ -5,4 +5,6 @@ Sözlük (ser-tr) Uygulamasının Firestore 'a yazma ve web 'de
 
 - sqflite tamamen çıkarıldı.
 - Bazı performans sorunları var
+- yedek oluşturma işlemi sadece mobil'de çalışsın.
+- verilerin tamamı Fire base 'de olduğu için veri silme olmasın.
 - 
