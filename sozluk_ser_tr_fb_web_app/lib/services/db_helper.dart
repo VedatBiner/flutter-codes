@@ -154,7 +154,7 @@ class DbHelper {
       WriteBatch? batch;
       int batchCount = 0;
 
-      Future<void> _commitBatch() async {
+      Future<void> commitBatch() async {
         if (batchCount == 0 || batch == null) return;
         await batch!.commit();
         batch = null;
@@ -178,10 +178,10 @@ class DbHelper {
         written++;
 
         if (batchCount >= 400) {
-          await _commitBatch();
+          await commitBatch();
         }
       }
-      await _commitBatch();
+      await commitBatch();
 
       log(
         '✅ JSON import tamam: $written kayıt Firestore ’a yazıldı.',
@@ -264,7 +264,7 @@ class DbHelper {
       WriteBatch? batch;
       int batchCount = 0;
 
-      Future<void> _commitBatch() async {
+      Future<void> commitBatch() async {
         if (batchCount == 0 || batch == null) return;
         await batch!.commit();
         batch = null;
@@ -293,10 +293,10 @@ class DbHelper {
         written++;
 
         if (batchCount >= 400) {
-          await _commitBatch();
+          await commitBatch();
         }
       }
-      await _commitBatch();
+      await commitBatch();
 
       log(
         '✅ CSV import tamam: $written kayıt Firestore ’a yazıldı.',

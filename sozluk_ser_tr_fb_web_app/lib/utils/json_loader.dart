@@ -177,7 +177,7 @@ Future<void> importAssetJsonToFirestore(
     WriteBatch? batch;
     int batchCount = 0;
 
-    Future<void> _commitBatch() async {
+    Future<void> commitBatch() async {
       if (batchCount == 0 || batch == null) return;
       await batch!.commit();
       batch = null;
@@ -212,10 +212,10 @@ Future<void> importAssetJsonToFirestore(
       await Future.delayed(const Duration(milliseconds: 20));
 
       if (batchCount >= 400) {
-        await _commitBatch();
+        await commitBatch();
       }
     }
-    await _commitBatch();
+    await commitBatch();
 
     stopwatch.stop();
     onLoadingStatusChange(false, 1.0, null, stopwatch.elapsed);

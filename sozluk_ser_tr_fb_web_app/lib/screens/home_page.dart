@@ -11,6 +11,8 @@
 //   arama AÇIK iken arama sonucunun sayısı (words.length) gösterilir.
 // - Fihrist modunda (alfabetik) TÜM veriyi tek seferde çekeriz → tüm harfler dolar.
 // - Klasik listede pagination devam eder.
+// - Başlangıçta mod’a göre yükleme: initState() artık _loadWords() çağırıyor.
+// - LocalCacheService import’u köprü dosyadan (conditional export).
 
 // 📌 Dart paketleri
 import 'dart:async';
@@ -24,8 +26,7 @@ import 'package:provider/provider.dart';
 
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
-import '../services/local_cache_service_io.dart';
-
+import '../services/local_cache_service.dart'; // ⬅️ köprü import (web/io)
 /// 📌 Yardımcı yüklemeler burada
 import '../services/word_service.dart'; // fetchPage + search stream (sirpca)
 import '../utils/json_loader.dart'; // Drawer’dan import için
@@ -83,8 +84,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // ✅ Başlangıçta mod’a göre uygun yüklemeyi yap
     Future.microtask(() async {
-      await _loadFirstPage();
+      await _loadWords();
       await _refreshTotalCount();
     });
     _getAppVersion();
@@ -117,7 +119,7 @@ class _HomePageState extends State<HomePage> {
       Provider.of<WordCountProvider>(
         context,
         listen: false,
-      ).setCount(total ?? 0); // AppBar sayacı
+      ).setCount(total ?? words.length); // Fallback: eldeki görünüm
     } catch (_) {
       // sessiz geç
     }
@@ -168,7 +170,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         allWords = page.items;
         // Arama kapalıysa doğrudan ilk paketi göster.
-        // (Arama AÇIKSA bile ilk paketi ekranda tutmak için yine set edebiliriz.)
         words = page.items;
 
         _lastDoc = page.lastDoc;
@@ -267,7 +268,6 @@ class _HomePageState extends State<HomePage> {
           words = cached;
           isUpdating = false;
         });
-        // Sayaç güncelle (cache gösterirken de)
         await _refreshTotalCount();
         return;
       }
@@ -311,7 +311,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => isUpdating = true);
 
     _sub = WordService.instance
-        .searchSirpcaPrefix(query, limit: 300) // ⬅️ limit 300
+        .searchSirpcaPrefix(query, limit: 300)
         .listen(
           (items) {
             if (!mounted) return;
@@ -480,7 +480,12 @@ class _HomePageState extends State<HomePage> {
       isFihristMode: isFihristMode,
       onToggleViewMode: () async {
         // Mod değişince uygun yüklemeyi yap
-        setState(() => isFihristMode = !isFihristMode);
+        setState(() {
+          isFihristMode = !isFihristMode;
+          // Mod değişince aramayı da temizlemek UX’i iyileştirir
+          isSearching = false;
+          searchController.clear();
+        });
         await _loadWords();
       },
       onLoadJsonData:
@@ -499,7 +504,6 @@ class _HomePageState extends State<HomePage> {
               context: ctx,
               onLoaded: (loadedWords) async {
                 if (!mounted) return;
-
                 // JSON sonrası: Mod’a göre doğru yükleme
                 await _loadWords();
               },
