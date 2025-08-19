@@ -4,23 +4,33 @@ import 'dart:convert';
 import 'dart:html' as html;
 
 class JsonSaver {
-  static Future<String> save(String json, String filename) async {
-    _download(json, filename);
-    return 'download://$filename'; // bilgi amaçlı
+  static Future<String> save(String text, String filename) async {
+    _download(text, filename, 'application/json');
+    return 'download://$filename';
   }
 
   static Future<String> saveToDownloads(
-    String json,
+    String text,
     String filename, {
     String? subfolder,
   }) async {
-    _download(json, filename);
-    return 'download://$filename'; // bilgi amaçlı
+    _download(text, filename, 'application/json');
+    return 'download://$filename';
   }
 
-  static void _download(String json, String filename) {
-    final bytes = utf8.encode(json);
-    final blob = html.Blob([bytes], 'application/json');
+  static Future<String> saveTextToDownloads(
+    String text,
+    String filename, {
+    String contentType = 'text/plain; charset=utf-8',
+    String? subfolder,
+  }) async {
+    _download(text, filename, contentType);
+    return 'download://$filename';
+  }
+
+  static void _download(String text, String filename, String mime) {
+    final bytes = utf8.encode(text);
+    final blob = html.Blob([bytes], mime);
     final url = html.Url.createObjectUrlFromBlob(blob);
     final a = html.AnchorElement(href: url)
       ..download = filename

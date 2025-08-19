@@ -8,20 +8,17 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
 
 class JsonSaver {
-  /// Belgeler'e yaz + paylaş (her zaman çalışır). Yol geri döner.
-  static Future<String> save(String json, String filename) async {
+  static Future<String> save(String text, String filename) async {
     final dir = await getApplicationDocumentsDirectory();
     final path = '${dir.path}/$filename';
-    final file = File(path);
-    await file.writeAsString(json);
-    log('💾 JSON (Belgeler): $path', name: 'export');
-    await Share.shareXFiles([XFile(path)], text: 'JSON dışa aktarım');
+    await File(path).writeAsString(text);
+    log('💾 Belgeler: $path', name: 'export');
+    await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
     return path;
   }
 
-  /// Mümkünse Downloads'a yaz. Kaydedilen yol geri döner.
   static Future<String> saveToDownloads(
-    String json,
+    String text,
     String filename, {
     String? subfolder,
   }) async {
@@ -30,24 +27,20 @@ class JsonSaver {
         var granted = await Permission.manageExternalStorage
             .request()
             .isGranted;
+        if (!granted) granted = await Permission.storage.request().isGranted;
         if (!granted) {
-          granted = await Permission.storage.request().isGranted;
+          log('⚠️ İzin yok, Belgeler’e yazılıyor.', name: 'export');
+          return await save(text, filename);
         }
-        if (!granted) {
-          log('⚠️ İzin yok, Belgeler\'e yazılıyor.', name: 'export');
-          return await save(json, filename);
-        }
-
         final downloads = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOAD,
         );
         final dirPath = subfolder != null ? '$downloads/$subfolder' : downloads;
         final dir = Directory(dirPath);
         if (!await dir.exists()) await dir.create(recursive: true);
-
         final path = '$dirPath/$filename';
-        await File(path).writeAsString(json);
-        log('✅ JSON (Android Downloads): $path', name: 'export');
+        await File(path).writeAsString(text);
+        log('✅ Android Downloads: $path', name: 'export');
         return path;
       }
 
@@ -60,24 +53,31 @@ class JsonSaver {
         final dir = Directory(dirPath);
         if (!await dir.exists()) await dir.create(recursive: true);
         final path = '$dirPath/$filename';
-        await File(path).writeAsString(json);
-        log('✅ JSON (Desktop Downloads): $path', name: 'export');
+        await File(path).writeAsString(text);
+        log('✅ Desktop Downloads: $path', name: 'export');
         return path;
       }
 
       // iOS: doğrudan Downloads yok → Belgeler + Paylaş
       final docs = await getApplicationDocumentsDirectory();
       final path = '${docs.path}/$filename';
-      await File(path).writeAsString(json);
-      log(
-        'ℹ️ iOS: Belgeler yazıldı (Files ile Downloads\'a taşıyabilirsiniz): $path',
-        name: 'export',
-      );
-      await Share.shareXFiles([XFile(path)], text: 'JSON dışa aktarım');
+      await File(path).writeAsString(text);
+      log('ℹ️ iOS Belgeler: $path', name: 'export');
+      await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
       return path;
     } catch (e) {
-      log('❌ Downloads yazılamadı, Belgeler\'e düşülüyor: $e', name: 'export');
-      return await save(json, filename);
+      log('❌ Downloads yazılamadı: $e — Belgeler’e düşülüyor', name: 'export');
+      return await save(text, filename);
     }
+  }
+
+  // CSV/düz metin için ayrı MIME gerekmiyor; IO tarafında aynı yazma işlemi.
+  static Future<String> saveTextToDownloads(
+    String text,
+    String filename, {
+    String contentType = 'text/plain; charset=utf-8',
+    String? subfolder,
+  }) {
+    return saveToDownloads(text, filename, subfolder: subfolder);
   }
 }
