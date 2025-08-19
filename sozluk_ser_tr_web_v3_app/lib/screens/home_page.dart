@@ -1,7 +1,6 @@
 // <📜 ----- home_page.dart ----->
 
 // 📌 Dart hazır paketleri
-import 'dart:convert';
 import 'dart:developer' show log;
 
 /// 📌 Flutter hazır paketleri
@@ -11,7 +10,7 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
-import '../utils/json_saver.dart';
+import '../services/export_words.dart'; // <-- export servisi burada
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -68,92 +67,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// Tüm koleksiyonu (model ile) sayfalı çek → JSON hazırla → indir/kaydet (platforma göre)
-  Future<void> _exportAllToJson({int pageSize = 1000}) async {
-    if (exporting) return;
-    setState(() {
-      exporting = true;
-      status = 'JSON hazırlanıyor...';
-    });
-
-    final sw = Stopwatch()..start();
-    final all = <Word>[];
-
-    try {
-      // Model ile tipli referans
-      final col = FirebaseFirestore.instance
-          .collection(collectionName)
-          .withConverter<Word>(
-            fromFirestore: Word.fromFirestore,
-            toFirestore: (w, _) => w.toFirestore(),
-          );
-
-      // docId ile stabil sayfalama (ek indeks gerekmez)
-      Query<Word> base = col.orderBy(FieldPath.documentId);
-      String? lastId;
-
-      while (true) {
-        var q = base.limit(pageSize);
-        if (lastId != null) q = q.startAfter([lastId]);
-
-        final snap = await q.get();
-        if (snap.docs.isEmpty) break;
-
-        for (final d in snap.docs) {
-          // fromFirestore zaten id alanını doc.id olarak set ediyor
-          final w = d.data();
-          all.add(w);
-        }
-
-        lastId = snap.docs.last.id;
-        if (snap.docs.length < pageSize) break; // son sayfa
-      }
-
-      // Model → JSON (ID dahil)
-      final jsonStr = const JsonEncoder.withIndent(
-        '  ',
-      ).convert(all.map((w) => w.toJson(includeId: true)).toList());
-
-      // 📛 Dosya adı: file_info.dart içindeki sabit
-      final filename = fileNameJson; // örn: 'ser_tr_dict.json'
-
-      // ✅ Koşullu implementasyon: Web'de indirme, mobil/desktop'ta Downloads’a yaz
-      final savedAt = await JsonSaver.saveToDownloads(
-        jsonStr,
-        filename,
-        subfolder: 'kelimelik_words_app', // istersen kaldır/değiştir
-      );
-
-      sw.stop();
-      log(
-        '📦 JSON hazırlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-        name: collectionName,
-      );
-
-      if (!mounted) return;
-      setState(() => status = 'JSON kaydedildi: $savedAt');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Kaydedildi: $savedAt')));
-    } catch (e, st) {
-      sw.stop();
-      log(
-        '❌ Hata (JSON export): $e',
-        name: collectionName,
-        error: e,
-        stackTrace: st,
-        level: 1000,
-      );
-      if (!mounted) return;
-      setState(() => status = 'Hata: $e');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Hata: $e')));
-    } finally {
-      if (mounted) setState(() => exporting = false);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +84,37 @@ class _HomePageState extends State<HomePage> {
                 FilledButton.icon(
                   onPressed: exporting
                       ? null
-                      : () => _exportAllToJson(pageSize: 1000),
+                      : () async {
+                          setState(() {
+                            exporting = true;
+                            status = 'JSON hazırlanıyor...';
+                          });
+                          try {
+                            // ↪️ Ayrı servis dosyasına taşınmış export
+                            final savedAt = await exportWordsToJson(
+                              pageSize: 1000,
+                              subfolder:
+                                  'kelimelik_words_app', // istersen değiştir/kaldır
+                            );
+                            if (!mounted) return;
+                            setState(
+                              () => status = 'JSON kaydedildi: $savedAt',
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Kaydedildi: $savedAt')),
+                            );
+                          } catch (e) {
+                            if (!mounted) return;
+                            setState(() => status = 'Hata: $e');
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text('Hata: $e')));
+                          } finally {
+                            if (mounted) {
+                              setState(() => exporting = false);
+                            }
+                          }
+                        },
                   icon: const Icon(Icons.download),
                   label: const Text('Tüm Veriyi JSON Dışa Aktar'),
                 ),

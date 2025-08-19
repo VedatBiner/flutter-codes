@@ -4,4 +4,4 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Firestore ayarları yapıldı ve test edildi. Erişim sağlandı
 - Firestore koleksiyonu JSON olarak web 'den indirildi. Yaklaşık 1500 KB.
 - Firestore koleksiyonu JSON olarak mobil 'den indirildi. Yaklaşık 1500 KB.
-- 
+- home_page.dart kodu bölünerek koda temiz bir görünüm verilecek.
