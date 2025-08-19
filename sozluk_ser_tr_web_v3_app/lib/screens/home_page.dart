@@ -4,15 +4,13 @@
 import 'dart:convert';
 import 'dart:developer' show log;
 
-/// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
-
 /// 📌 Flutter hazır paketleri
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
+import '../utils/json_saver.dart'; // <-- IMPORT EN ÜSTE ALINDI
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,6 +28,42 @@ class _HomePageState extends State<HomePage> {
     _readKelimeler(); // açılışta çalıştır
   }
 
+  Future<T> _retryWithBackoff<T>(
+    Future<T> Function() task, {
+    String name = '',
+    int maxAttempts = 5,
+    Duration initialDelay = const Duration(milliseconds: 500),
+  }) async {
+    var attempt = 0;
+    var delay = initialDelay;
+    while (true) {
+      try {
+        return await task();
+      } catch (e, st) {
+        attempt++;
+        final msg = e.toString();
+        final isTransient =
+            msg.contains('UNAVAILABLE') || msg.contains('unavailable');
+        if (attempt >= maxAttempts || !isTransient) {
+          log(
+            '❌ Retry bitti ($name): $e',
+            name: 'retry',
+            error: e,
+            stackTrace: st,
+            level: 1000,
+          );
+          rethrow;
+        }
+        log(
+          '⏳ Geçici hata, tekrar denenecek ($name, deneme $attempt/$maxAttempts, ${delay.inMilliseconds}ms)...',
+          name: 'retry',
+        );
+        await Future.delayed(delay);
+        delay *= 2; // exponential backoff
+      }
+    }
+  }
+
   Future<void> _readKelimeler() async {
     try {
       final col = FirebaseFirestore.instance.collection(collectionName);
@@ -38,10 +72,20 @@ class _HomePageState extends State<HomePage> {
         '📥 "$collectionName" koleksiyonu okunuyor ...',
         name: collectionName,
       );
-      final agg = await col.count().get(); // Aggregate count
+
+      // Ağ kapalı kalmış olabilir, emin olmak için:
+      await FirebaseFirestore.instance.enableNetwork();
+
+      final agg = await _retryWithBackoff(
+        () => col.count().get(),
+        name: 'count',
+      );
       log('✅ Toplam kayıt sayısı : ${agg.count}', name: collectionName);
 
-      final snap = await col.limit(1).get();
+      final snap = await _retryWithBackoff(
+        () => col.limit(1).get(),
+        name: 'get',
+      );
       if (snap.docs.isNotEmpty) {
         final d = snap.docs.first;
         log(
@@ -65,19 +109,8 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// WEB: JSON 'u tarayıcıda indirt
-  void _downloadJsonWeb(String json, String suggestedName) {
-    final bytes = utf8.encode(json);
-    final blob = html.Blob([bytes], 'application/json');
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final anchor = html.AnchorElement(href: url)
-      ..download = suggestedName
-      ..click();
-    html.Url.revokeObjectUrl(url);
-  }
-
-  /// Tüm koleksiyonu sayfalı çek → JSON hazırla → indir (WEB)
-  Future<void> _exportAllToJsonWeb({int pageSize = 1000}) async {
+  /// Tüm koleksiyonu sayfalı çek → JSON hazırla → indir/kaydet (platforma göre)
+  Future<void> _exportAllToJson({int pageSize = 1000}) async {
     if (exporting) return;
     setState(() {
       exporting = true;
@@ -90,36 +123,24 @@ class _HomePageState extends State<HomePage> {
     try {
       final col = FirebaseFirestore.instance.collection(collectionName);
 
-      // ✅ DÜZELTME: FieldPath.documentId parantezsiz kullanılmalı
+      // docId ile stabil sayfalama (ek indeks gerekmez)
       Query<Map<String, dynamic>> base = col.orderBy(FieldPath.documentId);
-
       String? lastId;
 
       while (true) {
-        Query<Map<String, dynamic>> q = base.limit(pageSize);
-        if (lastId != null) {
-          q = q.startAfter([lastId]);
-        }
+        var q = base.limit(pageSize);
+        if (lastId != null) q = q.startAfter([lastId]);
 
         final snap = await q.get();
         if (snap.docs.isEmpty) break;
 
         for (final d in snap.docs) {
           final norm = _normalizeForJson(d.data());
-          norm['id'] = d.id; // doc id ’yi de ekleyelim
+          norm['id'] = d.id;
           all.add(norm);
         }
 
         lastId = snap.docs.last.id;
-
-        // İlerleme log 'u
-        if (all.length % (pageSize * 5) == 0) {
-          log(
-            '⏳ İlerleme: ${all.length} kayıt toplandı...',
-            name: collectionName,
-          );
-        }
-
         if (snap.docs.length < pageSize) break; // son sayfa
       }
 
@@ -127,13 +148,24 @@ class _HomePageState extends State<HomePage> {
       final ts = DateTime.now().toIso8601String().replaceAll(':', '-');
       final filename = '${collectionName}_export_$ts.json';
 
-      _downloadJsonWeb(jsonStr, filename);
+      // Downloads 'a yaz ve YOLU al
+      final savedAt = await JsonSaver.saveToDownloads(
+        jsonStr,
+        filename,
+        subfolder: 'kelimelik_words_app',
+      );
+
       sw.stop();
       log(
         '📦 JSON hazırlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
         name: collectionName,
       );
-      setState(() => status = 'JSON indirildi: $filename');
+
+      if (!mounted) return;
+      setState(() => status = 'JSON kaydedildi: $savedAt');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Kaydedildi: $savedAt')));
     } catch (e, st) {
       sw.stop();
       log(
@@ -143,15 +175,18 @@ class _HomePageState extends State<HomePage> {
         stackTrace: st,
         level: 1000,
       );
+      if (!mounted) return;
       setState(() => status = 'Hata: $e');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Hata: $e')));
     } finally {
-      setState(() => exporting = false);
+      if (mounted) setState(() => exporting = false);
     }
   }
 
-  /// JSON ’a uygun hale getir (Timestamp/GeoPoint/DocRef vs.)
+  /// JSON’a uygun hale getir (Timestamp/GeoPoint/DocRef vs.)
   Map<String, dynamic> _normalizeForJson(Map<String, dynamic> src) {
-    // ✅ DÜZELTME: dynamic döndürmeli; List/primitive gelebilir
     dynamic walk(dynamic value) {
       if (value is Timestamp) {
         return {'_ts': value.toDate().toIso8601String()};
@@ -170,7 +205,6 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    // src Map olduğu için sonuç da Map olur; güvenli cast
     final out = walk(src);
     return (out as Map).cast<String, dynamic>();
   }
@@ -198,9 +232,9 @@ class _HomePageState extends State<HomePage> {
                 FilledButton.icon(
                   onPressed: exporting
                       ? null
-                      : () => _exportAllToJsonWeb(pageSize: 1000),
+                      : () => _exportAllToJson(pageSize: 1000),
                   icon: const Icon(Icons.download),
-                  label: const Text('Tüm Veriyi JSON İndir (Web)'),
+                  label: const Text('Tüm Veriyi JSON Dışa Aktar'),
                 ),
               ],
             ),
