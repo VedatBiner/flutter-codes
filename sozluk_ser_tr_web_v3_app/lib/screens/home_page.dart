@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
 
       final jsonStr = const JsonEncoder.withIndent('  ').convert(all);
       final ts = DateTime.now().toIso8601String().replaceAll(':', '-');
-      final filename = '${collectionName}_export_$ts.json';
+      final filename = fileNameJson;
 
       // Downloads 'a yaz ve YOLU al
       final savedAt = await JsonSaver.saveToDownloads(
