@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
-import '../utils/json_saver.dart'; // <-- IMPORT EN ÜSTE ALINDI
+import '../models/word_model.dart';
+import '../utils/json_saver.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,68 +29,26 @@ class _HomePageState extends State<HomePage> {
     _readKelimeler(); // açılışta çalıştır
   }
 
-  Future<T> _retryWithBackoff<T>(
-    Future<T> Function() task, {
-    String name = '',
-    int maxAttempts = 5,
-    Duration initialDelay = const Duration(milliseconds: 500),
-  }) async {
-    var attempt = 0;
-    var delay = initialDelay;
-    while (true) {
-      try {
-        return await task();
-      } catch (e, st) {
-        attempt++;
-        final msg = e.toString();
-        final isTransient =
-            msg.contains('UNAVAILABLE') || msg.contains('unavailable');
-        if (attempt >= maxAttempts || !isTransient) {
-          log(
-            '❌ Retry bitti ($name): $e',
-            name: 'retry',
-            error: e,
-            stackTrace: st,
-            level: 1000,
-          );
-          rethrow;
-        }
-        log(
-          '⏳ Geçici hata, tekrar denenecek ($name, deneme $attempt/$maxAttempts, ${delay.inMilliseconds}ms)...',
-          name: 'retry',
-        );
-        await Future.delayed(delay);
-        delay *= 2; // exponential backoff
-      }
-    }
-  }
-
   Future<void> _readKelimeler() async {
     try {
-      final col = FirebaseFirestore.instance.collection(collectionName);
+      // Model ile tipli referans (withConverter)
+      final col = FirebaseFirestore.instance
+          .collection(collectionName)
+          .withConverter<Word>(
+            fromFirestore: Word.fromFirestore,
+            toFirestore: (w, _) => w.toFirestore(),
+          );
 
-      log(
-        '📥 "$collectionName" koleksiyonu okunuyor ...',
-        name: collectionName,
-      );
+      log('📥 "$collectionName" (model) okunuyor ...', name: collectionName);
 
-      // Ağ kapalı kalmış olabilir, emin olmak için:
-      await FirebaseFirestore.instance.enableNetwork();
-
-      final agg = await _retryWithBackoff(
-        () => col.count().get(),
-        name: 'count',
-      );
+      final agg = await col.count().get(); // Aggregate count
       log('✅ Toplam kayıt sayısı : ${agg.count}', name: collectionName);
 
-      final snap = await _retryWithBackoff(
-        () => col.limit(1).get(),
-        name: 'get',
-      );
+      final snap = await col.limit(1).get();
       if (snap.docs.isNotEmpty) {
-        final d = snap.docs.first;
+        final Word w = snap.docs.first.data();
         log(
-          '🔎 Örnek belge: ${d.id} -> ${_preview(d.data())}',
+          '🔎 Örnek: ${w.id} -> ${w.sirpca} ➜ ${w.turkce} (userEmail: ${w.userEmail})',
           name: collectionName,
         );
       } else {
@@ -109,7 +68,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// Tüm koleksiyonu sayfalı çek → JSON hazırla → indir/kaydet (platforma göre)
+  /// Tüm koleksiyonu (model ile) sayfalı çek → JSON hazırla → indir/kaydet (platforma göre)
   Future<void> _exportAllToJson({int pageSize = 1000}) async {
     if (exporting) return;
     setState(() {
@@ -118,13 +77,19 @@ class _HomePageState extends State<HomePage> {
     });
 
     final sw = Stopwatch()..start();
-    final all = <Map<String, dynamic>>[];
+    final all = <Word>[];
 
     try {
-      final col = FirebaseFirestore.instance.collection(collectionName);
+      // Model ile tipli referans
+      final col = FirebaseFirestore.instance
+          .collection(collectionName)
+          .withConverter<Word>(
+            fromFirestore: Word.fromFirestore,
+            toFirestore: (w, _) => w.toFirestore(),
+          );
 
       // docId ile stabil sayfalama (ek indeks gerekmez)
-      Query<Map<String, dynamic>> base = col.orderBy(FieldPath.documentId);
+      Query<Word> base = col.orderBy(FieldPath.documentId);
       String? lastId;
 
       while (true) {
@@ -135,24 +100,28 @@ class _HomePageState extends State<HomePage> {
         if (snap.docs.isEmpty) break;
 
         for (final d in snap.docs) {
-          final norm = _normalizeForJson(d.data());
-          norm['id'] = d.id;
-          all.add(norm);
+          // fromFirestore zaten id alanını doc.id olarak set ediyor
+          final w = d.data();
+          all.add(w);
         }
 
         lastId = snap.docs.last.id;
         if (snap.docs.length < pageSize) break; // son sayfa
       }
 
-      final jsonStr = const JsonEncoder.withIndent('  ').convert(all);
-      final ts = DateTime.now().toIso8601String().replaceAll(':', '-');
-      final filename = fileNameJson;
+      // Model → JSON (ID dahil)
+      final jsonStr = const JsonEncoder.withIndent(
+        '  ',
+      ).convert(all.map((w) => w.toJson(includeId: true)).toList());
 
-      // Downloads 'a yaz ve YOLU al
+      // 📛 Dosya adı: file_info.dart içindeki sabit
+      final filename = fileNameJson; // örn: 'ser_tr_dict.json'
+
+      // ✅ Koşullu implementasyon: Web'de indirme, mobil/desktop'ta Downloads’a yaz
       final savedAt = await JsonSaver.saveToDownloads(
         jsonStr,
         filename,
-        subfolder: 'kelimelik_words_app',
+        subfolder: 'kelimelik_words_app', // istersen kaldır/değiştir
       );
 
       sw.stop();
@@ -183,36 +152,6 @@ class _HomePageState extends State<HomePage> {
     } finally {
       if (mounted) setState(() => exporting = false);
     }
-  }
-
-  /// JSON’a uygun hale getir (Timestamp/GeoPoint/DocRef vs.)
-  Map<String, dynamic> _normalizeForJson(Map<String, dynamic> src) {
-    dynamic walk(dynamic value) {
-      if (value is Timestamp) {
-        return {'_ts': value.toDate().toIso8601String()};
-      } else if (value is GeoPoint) {
-        return {
-          '_geo': {'lat': value.latitude, 'lng': value.longitude},
-        };
-      } else if (value is DocumentReference) {
-        return {'_ref': value.path};
-      } else if (value is Map) {
-        return value.map((k, v) => MapEntry(k.toString(), walk(v)));
-      } else if (value is List) {
-        return value.map(walk).toList();
-      } else {
-        return value;
-      }
-    }
-
-    final out = walk(src);
-    return (out as Map).cast<String, dynamic>();
-  }
-
-  String _preview(Map<String, dynamic> m) {
-    final s = m.toString();
-    return s.length > 300 ? '${s.substring(0, 300)} …' : s;
-    // Konsolu şişirmemek için kısa önizleme
   }
 
   @override
