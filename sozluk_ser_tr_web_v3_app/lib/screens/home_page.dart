@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
         final d = snap.docs.first;
         log(
           '🔎 Örnek belge: ${d.id} -> ${_preview(d.data())}',
-          name: 'kelimeler',
+          name: collectionName,
         );
       } else {
         log('ℹ️ Koleksiyonda belge yok.', name: collectionName);
