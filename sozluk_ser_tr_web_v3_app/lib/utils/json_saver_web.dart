@@ -1,21 +1,25 @@
 // <📜 ----- lib/utils/json_saver_web.dart ----->
-/// ignore: avoid_web_libraries_in_flutter
+// Flutter Web indirme yardımcıları — dart:html yerine package:web + dart:js_interop
+
 import 'dart:convert';
-import 'dart:html' as html;
+import 'dart:js_interop'; // <-- toJS için
 import 'dart:typed_data';
+
+import 'package:web/web.dart' as web; // <-- DOM API
 
 class JsonSaver {
   static Future<String> save(String text, String filename) async {
-    _downloadText(text, filename, 'application/json');
+    // JSON kaydı (text → bytes → Blob)
+    await saveTextToDownloads(text, filename, contentType: 'application/json');
     return 'download://$filename';
   }
 
   static Future<String> saveToDownloads(
     String text,
     String filename, {
-    String? subfolder,
+    String? subfolder, // Web ’de klasör konsepti yok; parametre yoksayılır
   }) async {
-    _downloadText(text, filename, 'application/json');
+    await saveTextToDownloads(text, filename, contentType: 'application/json');
     return 'download://$filename';
   }
 
@@ -25,7 +29,20 @@ class JsonSaver {
     String contentType = 'text/plain; charset=utf-8',
     String? subfolder,
   }) async {
-    _downloadText(text, filename, contentType);
+    // 1) Metni UTF-8'e çevir → Uint8List
+    final data = Uint8List.fromList(utf8.encode(text));
+    // 2) Uint8List → JSUint8Array (toJS) ve dış listeyi de JSArray 'e çevir
+    final blob = web.Blob(
+      [data.toJS].toJS,
+      web.BlobPropertyBag(type: contentType),
+    );
+    // 3) URL oluşturup <a download> ile tıklat
+    final url = web.URL.createObjectURL(blob);
+    final a = web.HTMLAnchorElement()
+      ..href = url
+      ..download = filename;
+    a.click();
+    web.URL.revokeObjectURL(url);
     return 'download://$filename';
   }
 
@@ -35,22 +52,14 @@ class JsonSaver {
     String mime = 'application/octet-stream',
     String? subfolder,
   }) async {
-    final blob = html.Blob([bytes], mime);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final a = html.AnchorElement(href: url)
-      ..download = filename
-      ..click();
-    html.Url.revokeObjectUrl(url);
+    // bytes → JSUint8Array → Blob
+    final blob = web.Blob([bytes.toJS].toJS, web.BlobPropertyBag(type: mime));
+    final url = web.URL.createObjectURL(blob);
+    final a = web.HTMLAnchorElement()
+      ..href = url
+      ..download = filename;
+    a.click();
+    web.URL.revokeObjectURL(url);
     return 'download://$filename';
-  }
-
-  static void _downloadText(String text, String filename, String mime) {
-    final bytes = utf8.encode(text);
-    final blob = html.Blob([bytes], mime);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    final a = html.AnchorElement(href: url)
-      ..download = filename
-      ..click();
-    html.Url.revokeObjectUrl(url);
   }
 }

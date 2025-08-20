@@ -22,6 +22,7 @@ dependencies:
   external_path:
   equatable:
   excel:
+  web:
 
 dev_dependencies:
   flutter_test:
