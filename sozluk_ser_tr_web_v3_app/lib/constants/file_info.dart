@@ -1,8 +1,10 @@
 // <📜 ----- file_info.dart ----->
 //
 
-// 📌 Dosya adları
+// 📌 Firestore koleksiyon adı
 final collectionName = "kelimeler";
+
+/// 📌 Dosya adları
 final fileNameJson = "ser_tr_dict.json";
 final fileNameCsv = "ser_tr_dict.csv";
-final fileNameExcel = "ser_tr_dict.xlsx";
+final fileNameXlsx = "ser_tr_dict.xlsx";

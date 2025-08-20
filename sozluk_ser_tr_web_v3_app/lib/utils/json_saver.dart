@@ -1,5 +1,6 @@
 // <📜 ----- lib/utils/json_saver.dart ----->
-// Platforma göre indirme/kaydetme (web ↔︎ IO). Artık düz metin için içerik tipi de verebiliyoruz.
+import 'dart:typed_data';
+
 import 'json_saver_io.dart'
     if (dart.library.html) 'json_saver_web.dart'
     as impl;
@@ -19,7 +20,7 @@ class JsonSaver {
     return impl.JsonSaver.saveToDownloads(text, filename, subfolder: subfolder);
   }
 
-  /// DÜZ METİN kaydet (CSV gibi). Web’de doğru MIME ile Blob oluşturur.
+  /// DÜZ METİN (CSV gibi) — Web'de doğru MIME ile Blob
   static Future<String> saveTextToDownloads(
     String text,
     String filename, {
@@ -30,6 +31,21 @@ class JsonSaver {
       text,
       filename,
       contentType: contentType,
+      subfolder: subfolder,
+    );
+  }
+
+  /// BINARY (XLSX gibi) — platforma göre bytes yaz/indir
+  static Future<String> saveBytesToDownloads(
+    Uint8List bytes,
+    String filename, {
+    String mime = 'application/octet-stream',
+    String? subfolder,
+  }) {
+    return impl.JsonSaver.saveBytesToDownloads(
+      bytes,
+      filename,
+      mime: mime,
       subfolder: subfolder,
     );
   }

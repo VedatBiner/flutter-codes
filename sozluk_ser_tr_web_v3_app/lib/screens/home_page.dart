@@ -1,8 +1,10 @@
 // <📜 ----- home_page.dart ----->
-// (yalnızca butonun onPressed'i yeni fonksiyona yönlendirildi)
+// (yalnızca butonun onPressed 'i yeni fonksiyona yönlendirildi)
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../services/export_words.dart';
 import '../services/words_reader.dart';
 
@@ -48,22 +50,22 @@ class _HomePageState extends State<HomePage> {
                       : () async {
                           setState(() {
                             exporting = true;
-                            status = 'JSON & CSV hazırlanıyor...';
+                            status = 'JSON + CSV + Excel hazırlanıyor...';
                           });
                           try {
-                            final res = await exportWordsToJsonAndCsv(
+                            final res = await exportWordsToJsonCsvXlsx(
                               pageSize: 1000,
                               subfolder: 'kelimelik_words_app',
                             );
                             if (!mounted) return;
                             setState(
                               () => status =
-                                  'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath}',
+                                  'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  'Kaydedildi:\nJSON → ${res.jsonPath}\nCSV  → ${res.csvPath}',
+                                  'Kaydedildi:\nJSON → ${res.jsonPath}\nCSV  → ${res.csvPath}\nXLSX → ${res.xlsxPath}',
                                 ),
                               ),
                             );
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                           }
                         },
                   icon: const Icon(Icons.download),
-                  label: const Text('Tüm Veriyi JSON + CSV Dışa Aktar'),
+                  label: const Text('JSON + CSV + Excel Dışa Aktar'),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
