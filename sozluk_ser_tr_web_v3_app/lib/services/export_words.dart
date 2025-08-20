@@ -18,7 +18,7 @@
   4) Kaydetme/indirme:
      - Web: tarayıcı indirmesi (Blob)
      - Android/Desktop: **Downloads** (opsiyonel alt klasör)
-     - iOS: **Belgeler + Paylaş** (Files ile Downloads’a aktarılabilir)
+     - iOS: **Belgeler + Paylaş** (Files ile Downloads ’a aktarılabilir)
 
   GERİ DÖNÜŞ:
   - Üç dosyanın da kaydedildiği yol(lar) ve istatistikler: [jsonPath, csvPath, xlsxPath, count, elapsedMs]
@@ -32,7 +32,7 @@ import 'dart:developer' show log;
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:excel/excel.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
@@ -176,63 +176,51 @@ String _csvEscape(String v) {
   return needsQuotes ? '"$out"' : out;
 }
 
-// -- XLSX üretimi (excel ^4.x: CellValue + otomatik sütun genişliği + başlık stili) — ID YOK
+// -- XLSX üretimi (Syncfusion XlsIO: AutoFilter + başlık stili + auto-fit) — ID YOK
 Uint8List _buildXlsx(List<Word> list) {
-  final excel = Excel.createExcel();
-  final String sheetName = excel.getDefaultSheet() ?? 'Sheet1';
-  final sheet = excel.sheets[sheetName]!;
+  final wb = xlsio.Workbook();
+  final sheet = wb.worksheets[0];
 
-  // Başlıklar ve en-uzun metin ölçümü için başlangıç uzunlukları (id yok)
+  // Başlıklar (id yok)
   final headers = ['sirpca', 'turkce', 'userEmail'];
-  final maxLens = List<int>.from(headers.map((h) => h.length));
 
   // 1) Başlık satırı
-  sheet.appendRow([
-    TextCellValue('sirpca'),
-    TextCellValue('turkce'),
-    TextCellValue('userEmail'),
-  ]);
-
-  // 2) Başlık stili: koyu mavi arkaplan + beyaz yazı + kalın + ortalı
-  final headerStyle = CellStyle(
-    bold: true,
-    fontColorHex: ExcelColor.fromHexString('#FFFFFFFF'), // beyaz
-    backgroundColorHex: ExcelColor.fromHexString(
-      '#FF0D47A1',
-    ), // koyu mavi (Material Blue 900)
-    horizontalAlign: HorizontalAlign.Center,
-    verticalAlign: VerticalAlign.Center,
-  );
-  for (int c = 0; c < headers.length; c++) {
-    final cell = sheet.cell(
-      CellIndex.indexByColumnRow(columnIndex: c, rowIndex: 0),
-    );
-    cell.cellStyle = headerStyle;
+  for (int i = 0; i < headers.length; i++) {
+    sheet.getRangeByIndex(1, i + 1).setText(headers[i]);
   }
 
-  // 3) Veri satırları + en uzun uzunlukları güncelle
-  for (final w in list) {
-    final c1 = w.sirpca;
-    final c2 = w.turkce;
-    final c3 = w.userEmail;
+  // 2) Başlık stili
+  final headerStyle = wb.styles.add('header');
+  headerStyle.bold = true;
+  headerStyle.fontColor = '#FFFFFFFF';
+  headerStyle.backColor = '#FF0D47A1'; // Material Blue 900
+  headerStyle.hAlign = xlsio.HAlignType.center;
+  headerStyle.vAlign = xlsio.VAlignType.center;
 
-    sheet.appendRow([TextCellValue(c1), TextCellValue(c2), TextCellValue(c3)]);
+  final headerRange = sheet.getRangeByIndex(1, 1, 1, headers.length);
+  headerRange.cellStyle = headerStyle;
 
-    if (c1.length > maxLens[0]) maxLens[0] = c1.length;
-    if (c2.length > maxLens[1]) maxLens[1] = c2.length;
-    if (c3.length > maxLens[2]) maxLens[2] = c3.length;
+  // 3) Veri satırları
+  for (int r = 0; r < list.length; r++) {
+    final w = list[r];
+    sheet.getRangeByIndex(r + 2, 1).setText(w.sirpca);
+    sheet.getRangeByIndex(r + 2, 2).setText(w.turkce);
+    sheet.getRangeByIndex(r + 2, 3).setText(w.userEmail);
   }
 
-  // 4) Sütun genişlikleri: karakter sayısı + padding (yaklaşık)
-  for (int col = 0; col < maxLens.length; col++) {
-    final width = (maxLens[col] + 2).clamp(10, 60); // min 10, max 60
-    sheet.setColumnWidth(col, width.toDouble());
-    // Alternatif: sheet.setColumnAutoFit(col);
-  }
+  // Son satır (1 başlık + data)
+  final lastRow = 1 + list.length;
 
-  // (Opsiyonel) başlık satır yüksekliği:
-  // sheet.setRowHeight(0, 22);
+  // 4) AutoFilter → ilk 3 kolon (A:C) — index tabanlı
+  sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 3);
 
-  final bytes = excel.encode()!;
+  // 5) Auto-fit → index tabanlı aralıkta
+  sheet.getRangeByIndex(1, 1, lastRow, 3).autoFitColumns();
+
+  // (Opsiyonel) başlık yüksekliği:
+  // sheet.getRangeByIndex(1, 1, 1, 3).rowHeight = 22;
+
+  final bytes = wb.saveAsStream();
+  wb.dispose();
   return Uint8List.fromList(bytes);
 }

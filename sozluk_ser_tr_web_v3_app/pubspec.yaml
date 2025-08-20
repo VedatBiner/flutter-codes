@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 3.0.2+1
+version: 3.0.4+1
 
 environment:
   sdk: ^3.9.0
@@ -21,8 +21,8 @@ dependencies:
   permission_handler:
   external_path:
   equatable:
-  excel:
   web:
+  syncfusion_flutter_xlsio:
 
 dev_dependencies:
   flutter_test:
