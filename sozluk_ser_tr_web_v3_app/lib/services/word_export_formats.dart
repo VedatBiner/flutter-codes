@@ -12,13 +12,16 @@
   - ID alanı istenmediği için her iki formatta da yer almaz.
 */
 
+// 📌 Dart hazır paketleri
 import 'dart:typed_data';
 
+/// 📌 Flutter hazır paketleri
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
+/// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
 
-/// CSV üretimi (UTF-8 BOM + başlık) — ID YOK
+/// 📌 CSV üretimi (UTF-8 BOM + başlık) — ID YOK
 String buildWordsCsvNoId(List<Word> list) {
   final headers = ['sirpca', 'turkce', 'userEmail'];
   final sb = StringBuffer();
@@ -42,7 +45,7 @@ String _csvEscape(String v) {
   return needsQuotes ? '"$out"' : out;
 }
 
-/// XLSX üretimi (Syncfusion XlsIO: AutoFilter + başlık stili + auto-fit) — ID YOK
+/// 📌 XLSX üretimi (Syncfusion XlsIO: AutoFilter + başlık stili + auto-fit) — ID YOK
 Uint8List buildWordsXlsxNoId(List<Word> list) {
   final wb = xlsio.Workbook();
   final sheet = wb.worksheets[0];
@@ -50,12 +53,12 @@ Uint8List buildWordsXlsxNoId(List<Word> list) {
   // Başlıklar (id yok)
   final headers = ['sirpca', 'turkce', 'userEmail'];
 
-  // 1) Başlık satırı
+  // 1️⃣ Başlık satırı
   for (int i = 0; i < headers.length; i++) {
     sheet.getRangeByIndex(1, i + 1).setText(headers[i]);
   }
 
-  // 2) Başlık stili (kalın, koyu mavi arka plan, beyaz yazı, ortalı)
+  // 2️⃣ Başlık stili (kalın, koyu mavi arka plan, beyaz yazı, ortalı)
   final headerStyle = wb.styles.add('header');
   headerStyle.bold = true;
   headerStyle.fontColor = '#FFFFFFFF';
@@ -66,7 +69,7 @@ Uint8List buildWordsXlsxNoId(List<Word> list) {
   final headerRange = sheet.getRangeByIndex(1, 1, 1, headers.length);
   headerRange.cellStyle = headerStyle;
 
-  // 3) Veri satırları
+  // 3️⃣ Veri satırları
   for (int r = 0; r < list.length; r++) {
     final w = list[r];
     sheet.getRangeByIndex(r + 2, 1).setText(w.sirpca);
@@ -77,10 +80,10 @@ Uint8List buildWordsXlsxNoId(List<Word> list) {
   // Son satır (1 başlık + data)
   final lastRow = 1 + list.length;
 
-  // 4) AutoFilter → ilk 3 kolon (A:C) — index tabanlı aralık
+  // 4️⃣ AutoFilter → ilk 3 kolon (A:C) — index tabanlı aralık
   sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 3);
 
-  // 5) Auto-fit → aynı aralıkta
+  // 5️⃣ Auto-fit → aynı aralıkta
   sheet.getRangeByIndex(1, 1, lastRow, 3).autoFitColumns();
 
   // (Opsiyonel) başlık yüksekliği:

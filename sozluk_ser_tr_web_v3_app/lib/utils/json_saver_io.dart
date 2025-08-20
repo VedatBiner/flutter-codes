@@ -1,8 +1,66 @@
 // <📜 ----- lib/utils/json_saver_io.dart ----->
+
+/*
+  💾 JsonSaver (IO) — Mobil/Desktop’ta dosya kaydetme & paylaşma implementasyonu
+
+  BU DOSYA NE İŞE YARAR?
+  - `lib/utils/json_saver.dart` içindeki **koşullu import** ile, web dışındaki (Android/iOS/Windows/Linux/macOS)
+    platformlarda metin (JSON/CSV) ve ikili (XLSX vb.) içerikleri uygun konuma kaydeder.
+  - Mümkünse **Downloads** klasörüne yazar; değilse **Uygulama Belgeleri** klasörüne kaydedip paylaşım ekranını açar.
+
+  KULLANILAN BAĞIMLILIKLAR
+  - path_provider        → Belgeler/Downloads gibi dizinleri bulmak için
+  - external_path        → Android’te genel **Downloads** dizini yolu için
+  - permission_handler   → Android’te depolama izinlerini istemek için
+  - share_plus           → Belgeler’e kaydedilen dosyayı paylaşmak için
+  - dart:developer/log   → Konsola özet bilgi/log yazmak için
+
+  ANA METOTLAR
+  - save(text, filename)
+      • Uygulama **Belgeler** dizinine yazar (tüm platformlar).
+      • Ardından paylaşım sayfası açar (Share.shareXFiles).
+      • Geriye tam dosya yolunu döndürür.
+  - saveToDownloads(text, filename, {subfolder})
+      • Önce **Downloads** dizinine yazmayı dener (Android/Desktop).
+      • Başarısız olursa `save(...)` ile Belgeler’e yazıp paylaşır.
+      • Geriye tam dosya yolunu döndürür.
+  - saveTextToDownloads(...) → metin için `saveToDownloads` kısayolu (contentType IO’da sadece deklaratif).
+  - saveBytesToDownloads(bytes, filename, {subfolder})
+      • Bytes olarak yazma (XLSX gibi ikili içerik).
+      • Önce Downloads, olmazsa Belgeler + paylaşım.
+
+  PLATFORM DAVRANIŞI
+  - ANDROID
+      • Önce `MANAGE_EXTERNAL_STORAGE` ardından `READ/WRITE_EXTERNAL_STORAGE` iznini dener.
+      • İzin verilirse `/storage/emulated/0/Download[/<subfolder>]` içine yazar (gerekirse klasör oluşturur).
+      • İzin verilmezse Belgeler’e kaydedip paylaşır.
+      • Not: Scoped Storage politikaları nedeniyle üretim uygulamalarında bu izinlerin kullanımına dikkat edin.
+  - iOS
+      • “Genel Downloads” yoktur. Belgeler dizinine kaydedilir; paylaşım ile kullanıcı istediği yere aktarabilir.
+  - WINDOWS / LINUX / MACOS
+      • `getDownloadsDirectory()` varsa onu, yoksa Belgeler’i kullanır.
+      • `subfolder` verilmişse alt klasör oluşturulur.
+
+  DÖNÜŞ DEĞERİ
+  - Başarılı her çağrıda **tam dosya yolu** döner. (Android/Desktop: gerçek yol; iOS: Belgeler yolu)
+
+  LOG KULLANIMI
+  - İşlemler `log(..., name: 'export')` ile raporlanır:
+      • '✅ Downloads: <path>'
+      • '💾 Belgeler: <path>'
+      • '❌ ...' hata durumları ve fallback bilgisi
+
+  NOTLAR
+  - Android Manifest’te gerekli izinleri tanımladığınızdan emin olun (permission_handler belgelerine bakınız).
+  - Emulator/cihazlarda farklı depolama politikaları görülebilir; hata durumunda fallback akışı devrededir.
+*/
+
+// 📌 Dart hazır paketleri
 import 'dart:developer' show log;
 import 'dart:io';
 import 'dart:typed_data';
 
+/// 📌 Flutter hazır paketleri
 import 'package:external_path/external_path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,7 +87,7 @@ class JsonSaver {
       log('✅ Downloads: $path', name: 'export');
       return path;
     } catch (e) {
-      log('❌ Downloads yazılamadı: $e — Belgeler’e düşülüyor', name: 'export');
+      log('❌ Downloads yazılamadı: $e — Belgeler ’e düşülüyor', name: 'export');
       return await save(text, filename);
     }
   }
@@ -56,7 +114,7 @@ class JsonSaver {
       return path;
     } catch (e) {
       log(
-        '❌ Downloads (bytes) yazılamadı: $e — Belgeler’e düşülüyor',
+        '❌ Downloads (bytes) yazılamadı: $e — Belgeler ’e düşülüyor',
         name: 'export',
       );
       final dir = await getApplicationDocumentsDirectory();

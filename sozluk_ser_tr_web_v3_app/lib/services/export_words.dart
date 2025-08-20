@@ -22,11 +22,14 @@
   - path_provider, share_plus, permission_handler, external_path (JsonSaver IO)
 */
 
+// 📌 Dart hazır paketleri
 import 'dart:convert';
 import 'dart:developer' show log;
 
+/// 📌 Flutter hazır paketleri
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../utils/json_saver.dart';
