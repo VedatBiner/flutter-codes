@@ -50,26 +50,28 @@ Uint8List buildWordsXlsxNoId(List<Word> list) {
   final wb = xlsio.Workbook();
   final sheet = wb.worksheets[0];
 
-  // Başlıklar (id yok)
+  // Başlıklar
   final headers = ['sirpca', 'turkce', 'userEmail'];
 
-  // 1️⃣ Başlık satırı
+  // 1) Başlık satırı
   for (int i = 0; i < headers.length; i++) {
     sheet.getRangeByIndex(1, i + 1).setText(headers[i]);
   }
 
-  // 2️⃣ Başlık stili (kalın, koyu mavi arka plan, beyaz yazı, ortalı)
+  // 2) Başlık stili
   final headerStyle = wb.styles.add('header');
   headerStyle.bold = true;
   headerStyle.fontColor = '#FFFFFFFF';
-  headerStyle.backColor = '#FF0D47A1'; // Material Blue 900
+  headerStyle.backColor = '#FF0D47A1';
   headerStyle.hAlign = xlsio.HAlignType.center;
   headerStyle.vAlign = xlsio.VAlignType.center;
+  sheet.getRangeByIndex(1, 1, 1, headers.length).cellStyle = headerStyle;
 
-  final headerRange = sheet.getRangeByIndex(1, 1, 1, headers.length);
-  headerRange.cellStyle = headerStyle;
+  // 2.5) Freeze Panes → 2. satır / 1. sütun (üstteki 1. satırı sabitler)
+  sheet.getRangeByIndex(2, 1).freezePanes();
+  // Not: İlk sütunu da sabitlemek istersen: sheet.freezePanes(2, 2);
 
-  // 3️⃣ Veri satırları
+  // 3) Veri satırları
   for (int r = 0; r < list.length; r++) {
     final w = list[r];
     sheet.getRangeByIndex(r + 2, 1).setText(w.sirpca);
@@ -77,17 +79,13 @@ Uint8List buildWordsXlsxNoId(List<Word> list) {
     sheet.getRangeByIndex(r + 2, 3).setText(w.userEmail);
   }
 
-  // Son satır (1 başlık + data)
   final lastRow = 1 + list.length;
 
-  // 4️⃣ AutoFilter → ilk 3 kolon (A:C) — index tabanlı aralık
+  // 4) AutoFilter → A:C
   sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 3);
 
-  // 5️⃣ Auto-fit → aynı aralıkta
+  // 5) Auto-fit
   sheet.getRangeByIndex(1, 1, lastRow, 3).autoFitColumns();
-
-  // (Opsiyonel) başlık yüksekliği:
-  // sheet.getRangeByIndex(1, 1, 1, 3).rowHeight = 22;
 
   final bytes = wb.saveAsStream();
   wb.dispose();
