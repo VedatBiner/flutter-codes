@@ -4,18 +4,31 @@
 
   NE YAPAR?
   1) `collectionName` koleksiyonunu `withConverter<Word>` ile **tipli** okur.
-  2) `FieldPath.documentId` ile **sayfalı** olarak TÜM belgeleri çeker (pageSize).
-  3) Aynı veriyle üç çıktı üretir:
-     • JSON: pretty-print, dosya adı `fileNameJson`
-     • CSV : UTF-8 BOM + başlık, dosya adı `fileNameCsv`
-     • XLSX: tek sayfa, başlık satırı + satırlar, dosya adı `fileNameXlsx`
-  4) Web: tarayıcı indirmesi | Android/Desktop: **Downloads** | iOS: **Belgeler + Paylaş**
+  2) Firestore’dan doğrudan **alfabetik sıralı** şekilde çeker:
+     - Birincil:  orderBy('sirpca')
+     - İkincil:   orderBy(FieldPath.documentId)  (deterministik & sayfalama için)
+     - Cursor:    startAfter([lastSirpca, lastId])
+     - Büyük veride `pageSize` ile sayfalı okur.
+     ⚠️ Bu birleşik sıralama için Firestore console bir kereye mahsus **composite index**
+        isteyebilir; log’da çıkan linkten oluşturabilirsiniz.
+  3) Aynı veriden üç çıktı üretir:
+     • JSON: pretty-print → `fileNameJson`
+     • CSV : UTF-8 BOM + başlık → `fileNameCsv`
+     • XLSX: tek sayfa, başlık **kalın & koyu mavi arkaplan + beyaz yazı**,
+             otomatik sütun genişliği → `fileNameXlsx`
+  4) Kaydetme/indirme:
+     - Web: tarayıcı indirmesi (Blob)
+     - Android/Desktop: **Downloads** (opsiyonel alt klasör)
+     - iOS: **Belgeler + Paylaş** (Files ile Downloads’a aktarılabilir)
 
   GERİ DÖNÜŞ:
-  - Üç dosyanın da kaydedildiği tam yolları ve istatistikleri döndürür.
+  - Üç dosyanın da kaydedildiği yol(lar) ve istatistikler: [jsonPath, csvPath, xlsxPath, count, elapsedMs]
+
+  BAĞIMLILIKLAR:
+  - cloud_firestore, excel:^4.x, (JsonSaver için) path_provider, share_plus, permission_handler, external_path
 
   NOT:
-  - XLSX üretimi için `excel` paketini kullanır.
+  - Çok büyük veri için bellek kullanımını azaltmak isterseniz `pageSize`’i düşürün.
 */
 
 import 'dart:convert';
@@ -52,6 +65,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
   final List<Word> all = [];
 
   try {
+    // Tipli koleksiyon referansı
     final col = FirebaseFirestore.instance
         .collection(collectionName)
         .withConverter<Word>(
@@ -59,12 +73,20 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
           toFirestore: (w, _) => w.toFirestore(),
         );
 
-    Query<Word> base = col.orderBy(FieldPath.documentId);
+    // --- SIRPCA'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU) ---
+    // Birincil: sirpca, İkincil: docId → stabil cursor
+    Query<Word> base = col.orderBy('sirpca').orderBy(FieldPath.documentId);
+
+    String? lastSirpca;
     String? lastId;
 
     while (true) {
       var q = base.limit(pageSize);
-      if (lastId != null) q = q.startAfter([lastId]);
+
+      // Cursor: hem sirpca hem id ile devam et
+      if (lastSirpca != null && lastId != null) {
+        q = q.startAfter([lastSirpca, lastId]);
+      }
 
       final snap = await q.get();
       if (snap.docs.isEmpty) break;
@@ -73,11 +95,15 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
         all.add(d.data());
       }
 
-      lastId = snap.docs.last.id;
-      if (snap.docs.length < pageSize) break;
+      // Son cursor değerlerini güncelle
+      final lastDoc = snap.docs.last;
+      lastSirpca = lastDoc.data().sirpca;
+      lastId = lastDoc.id;
+
+      if (snap.docs.length < pageSize) break; // son sayfa
     }
 
-    // --- JSON
+    // --- JSON (pretty)
     final jsonStr = const JsonEncoder.withIndent(
       '  ',
     ).convert(all.map((w) => w.toJson(includeId: true)).toList());
@@ -87,7 +113,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       subfolder: subfolder,
     );
 
-    // --- CSV
+    // --- CSV (UTF-8 BOM + başlık)
     final csvStr = _buildCsv(all);
     final csvSavedAt = await JsonSaver.saveTextToDownloads(
       csvStr,
@@ -96,7 +122,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       subfolder: subfolder,
     );
 
-    // --- XLSX
+    // --- XLSX (başlık stili + otomatik sütun genişliği)
     final xlsxBytes = _buildXlsx(all);
     final xlsxSavedAt = await JsonSaver.saveBytesToDownloads(
       xlsxBytes,
@@ -137,6 +163,7 @@ String _buildCsv(List<Word> list) {
   final sb = StringBuffer();
   sb.write('\uFEFF'); // Excel uyumu için BOM
   sb.writeln(headers.map(_csvEscape).join(','));
+
   for (final w in list) {
     final row = [
       w.id ?? '',
@@ -165,10 +192,8 @@ Uint8List _buildXlsx(List<Word> list) {
   final String sheetName = excel.getDefaultSheet() ?? 'Sheet1';
   final sheet = excel.sheets[sheetName]!;
 
-  // Başlıklar
+  // Başlıklar ve en-uzun metin ölçümü için başlangıç uzunlukları
   final headers = ['id', 'sirpca', 'turkce', 'userEmail'];
-
-  // En uzun metin ölçümleri (başlık uzunluklarıyla başlat)
   final maxLens = List<int>.from(headers.map((h) => h.length));
 
   // 1) Başlık satırı
@@ -179,11 +204,13 @@ Uint8List _buildXlsx(List<Word> list) {
     TextCellValue('userEmail'),
   ]);
 
-  // 2) Başlık stili (kalın + koyu mavi arkaplan + beyaz yazı)
+  // 2) Başlık stili: koyu mavi arkaplan + beyaz yazı + kalın + ortalı
   final headerStyle = CellStyle(
     bold: true,
-    fontColorHex: ExcelColor.fromHexString('#FFFFFFFF'),
-    backgroundColorHex: ExcelColor.fromHexString('#FF0D47A1'),
+    fontColorHex: ExcelColor.fromHexString('#FFFFFFFF'), // beyaz
+    backgroundColorHex: ExcelColor.fromHexString(
+      '#FF0D47A1',
+    ), // koyu mavi (Material Blue 900)
     horizontalAlign: HorizontalAlign.Center,
     verticalAlign: VerticalAlign.Center,
   );
@@ -194,7 +221,7 @@ Uint8List _buildXlsx(List<Word> list) {
     cell.cellStyle = headerStyle;
   }
 
-  // 3) Veri satırları + max uzunluk güncelle
+  // 3) Veri satırları + en uzun uzunlukları güncelle
   for (final w in list) {
     final c0 = w.id ?? '';
     final c1 = w.sirpca;
@@ -214,11 +241,11 @@ Uint8List _buildXlsx(List<Word> list) {
     if (c3.length > maxLens[3]) maxLens[3] = c3.length;
   }
 
-  // 4) Sütun genişliği: yeni API setColumnWidth(...)
+  // 4) Sütun genişlikleri: karakter sayısı + padding (yaklaşık)
   for (int col = 0; col < maxLens.length; col++) {
     final width = (maxLens[col] + 2).clamp(10, 60); // min 10, max 60
     sheet.setColumnWidth(col, width.toDouble());
-    // İstersen gerçek "auto fit" denemesi:
+    // Alternatif: gerçek "auto-fit" denemesi (paketin sağladığı ölçüme göre)
     // sheet.setColumnAutoFit(col);
   }
 
