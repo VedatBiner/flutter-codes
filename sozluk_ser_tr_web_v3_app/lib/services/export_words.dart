@@ -73,7 +73,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
           toFirestore: (w, _) => w.toFirestore(),
         );
 
-    // --- SIRPCA'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU) ---
+    // --- SIRPCA 'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU) ---
     // Birincil: sirpca, İkincil: docId → stabil cursor
     Query<Word> base = col.orderBy('sirpca').orderBy(FieldPath.documentId);
 
@@ -198,7 +198,6 @@ Uint8List _buildXlsx(List<Word> list) {
 
   // 1) Başlık satırı
   sheet.appendRow([
-    TextCellValue('id'),
     TextCellValue('sirpca'),
     TextCellValue('turkce'),
     TextCellValue('userEmail'),
@@ -223,22 +222,21 @@ Uint8List _buildXlsx(List<Word> list) {
 
   // 3) Veri satırları + en uzun uzunlukları güncelle
   for (final w in list) {
-    final c0 = w.id ?? '';
-    final c1 = w.sirpca;
-    final c2 = w.turkce;
-    final c3 = w.userEmail;
+    final c0 = w.sirpca;
+    final c1 = w.turkce;
+    final c2 = w.userEmail;
 
     sheet.appendRow([
+      // TextCellValue(c0),
       TextCellValue(c0),
       TextCellValue(c1),
       TextCellValue(c2),
-      TextCellValue(c3),
     ]);
 
-    if (c0.length > maxLens[0]) maxLens[0] = c0.length;
-    if (c1.length > maxLens[1]) maxLens[1] = c1.length;
-    if (c2.length > maxLens[2]) maxLens[2] = c2.length;
-    if (c3.length > maxLens[3]) maxLens[3] = c3.length;
+    // if (c0.length > maxLens[0]) maxLens[0] = c0.length;
+    if (c0.length > maxLens[1]) maxLens[1] = c0.length;
+    if (c1.length > maxLens[2]) maxLens[2] = c1.length;
+    if (c2.length > maxLens[3]) maxLens[3] = c2.length;
   }
 
   // 4) Sütun genişlikleri: karakter sayısı + padding (yaklaşık)
