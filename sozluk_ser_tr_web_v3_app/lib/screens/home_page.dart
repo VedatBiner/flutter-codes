@@ -57,6 +57,13 @@ class _HomePageState extends State<HomePage> {
   String status = 'Hazır. Konsolu kontrol edin.';
   bool exporting = false;
 
+  // context 'i await 'ten önce resolve edip saklayan güvenli helper
+  void _showSnack(String message) {
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    if (messenger == null) return; // widget dispose olmuş olabilir
+    messenger.showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,17 +98,24 @@ class _HomePageState extends State<HomePage> {
                             exporting = true;
                             status = 'JSON + CSV + Excel hazırlanıyor...';
                           });
+
+                          // await'ten önce messenger'ı al
+                          final messenger = ScaffoldMessenger.maybeOf(context);
+
                           try {
                             final res = await exportWordsToJsonCsvXlsx(
                               pageSize: 1000,
                               subfolder: 'kelimelik_words_app',
                             );
+
                             if (!mounted) return;
                             setState(
                               () => status =
                                   'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
+
+                            // güvenli kullanım: messenger üzerinden
+                            messenger?.showSnackBar(
                               SnackBar(
                                 content: Text(
                                   'Kaydedildi:\nJSON → ${res.jsonPath}\nCSV  → ${res.csvPath}\nXLSX → ${res.xlsxPath}',
@@ -111,13 +125,15 @@ class _HomePageState extends State<HomePage> {
                           } catch (e) {
                             if (!mounted) return;
                             setState(() => status = 'Hata: $e');
-                            ScaffoldMessenger.of(
-                              context,
-                            ).showSnackBar(SnackBar(content: Text('Hata: $e')));
+                            messenger?.showSnackBar(
+                              SnackBar(content: Text('Hata: $e')),
+                            );
                           } finally {
-                            if (mounted) setState(() => exporting = false);
+                            if (!mounted) return;
+                            setState(() => exporting = false);
                           }
                         },
+
                   icon: const Icon(Icons.download),
                   label: const Text('JSON + CSV + Excel Dışa Aktar'),
                 ),
@@ -125,9 +141,16 @@ class _HomePageState extends State<HomePage> {
                 OutlinedButton.icon(
                   onPressed: () async {
                     setState(() => status = 'Koleksiyon okunuyor...');
+
+                    // await 'ten önce al
+                    final messenger = ScaffoldMessenger.maybeOf(context);
+
                     final s = await readWordsOnce();
                     if (!mounted) return;
                     setState(() => status = s);
+
+                    // gerekirse bilgi vermek için
+                    // messenger?.showSnackBar(SnackBar(content: Text('Okuma tamam')));
                   },
                   icon: const Icon(Icons.refresh),
                   label: const Text('Yeniden Oku'),

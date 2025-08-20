@@ -1,5 +1,4 @@
 // <📜 ----- lib/utils/json_saver_io.dart ----->
-
 /*
   💾 JsonSaver (IO) — Mobil/Desktop’ta dosya kaydetme & paylaşma implementasyonu
 
@@ -18,7 +17,7 @@
   ANA METOTLAR
   - save(text, filename)
       • Uygulama **Belgeler** dizinine yazar (tüm platformlar).
-      • Ardından paylaşım sayfası açar (Share.shareXFiles).
+      • Ardından paylaşım sayfası açar (SharePlus.instance.share).
       • Geriye tam dosya yolunu döndürür.
   - saveToDownloads(text, filename, {subfolder})
       • Önce **Downloads** dizinine yazmayı dener (Android/Desktop).
@@ -34,7 +33,6 @@
       • Önce `MANAGE_EXTERNAL_STORAGE` ardından `READ/WRITE_EXTERNAL_STORAGE` iznini dener.
       • İzin verilirse `/storage/emulated/0/Download[/<subfolder>]` içine yazar (gerekirse klasör oluşturur).
       • İzin verilmezse Belgeler’e kaydedip paylaşır.
-      • Not: Scoped Storage politikaları nedeniyle üretim uygulamalarında bu izinlerin kullanımına dikkat edin.
   - iOS
       • “Genel Downloads” yoktur. Belgeler dizinine kaydedilir; paylaşım ile kullanıcı istediği yere aktarabilir.
   - WINDOWS / LINUX / MACOS
@@ -72,7 +70,12 @@ class JsonSaver {
     final path = '${dir.path}/$filename';
     await File(path).writeAsString(text);
     log('💾 Belgeler: $path', name: 'export');
-    await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
+
+    // Yeni API: SharePlus.instance.share(ShareParams(...))
+    await SharePlus.instance.share(
+      ShareParams(files: [XFile(path)], text: 'Dışa aktarıldı'),
+    );
+
     return path;
   }
 
@@ -87,7 +90,7 @@ class JsonSaver {
       log('✅ Downloads: $path', name: 'export');
       return path;
     } catch (e) {
-      log('❌ Downloads yazılamadı: $e — Belgeler ’e düşülüyor', name: 'export');
+      log('❌ Downloads yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
       return await save(text, filename);
     }
   }
@@ -114,13 +117,18 @@ class JsonSaver {
       return path;
     } catch (e) {
       log(
-        '❌ Downloads (bytes) yazılamadı: $e — Belgeler ’e düşülüyor',
+        '❌ Downloads (bytes) yazılamadı: $e — Belgeler\'e düşülüyor',
         name: 'export',
       );
       final dir = await getApplicationDocumentsDirectory();
       final path = '${dir.path}/$filename';
       await File(path).writeAsBytes(bytes);
-      await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
+
+      // Yeni API: SharePlus.instance.share(ShareParams(...))
+      await SharePlus.instance.share(
+        ShareParams(files: [XFile(path)], text: 'Dışa aktarıldı'),
+      );
+
       return path;
     }
   }
@@ -134,6 +142,7 @@ class JsonSaver {
       var granted = await Permission.manageExternalStorage.request().isGranted;
       if (!granted) granted = await Permission.storage.request().isGranted;
       if (!granted) throw Exception('External storage izni verilmedi');
+
       final downloads = await ExternalPath.getExternalStoragePublicDirectory(
         ExternalPath.DIRECTORY_DOWNLOAD,
       );
