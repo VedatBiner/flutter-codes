@@ -11,11 +11,10 @@
      - Büyük veride `pageSize` ile sayfalı okur.
      ⚠️ Bu birleşik sıralama için Firestore console bir kereye mahsus **composite index**
         isteyebilir; log’da çıkan linkten oluşturabilirsiniz.
-  3) Aynı veriden üç çıktı üretir:
-     • JSON: pretty-print → `fileNameJson`
-     • CSV : UTF-8 BOM + başlık → `fileNameCsv`
-     • XLSX: tek sayfa, başlık **kalın & koyu mavi arkaplan + beyaz yazı**,
-             otomatik sütun genişliği → `fileNameXlsx`
+  3) Aynı veriden üç çıktı üretir (💡 ID ALANI ÇIKARILDI):
+     • JSON: pretty-print, **id yok** → `fileNameJson`
+     • CSV : UTF-8 BOM + başlık, **id yok** → `fileNameCsv`
+     • XLSX: tek sayfa, başlık **kalın & koyu mavi + beyaz**, **id yok** → `fileNameXlsx`
   4) Kaydetme/indirme:
      - Web: tarayıcı indirmesi (Blob)
      - Android/Desktop: **Downloads** (opsiyonel alt klasör)
@@ -26,9 +25,6 @@
 
   BAĞIMLILIKLAR:
   - cloud_firestore, excel:^4.x, (JsonSaver için) path_provider, share_plus, permission_handler, external_path
-
-  NOT:
-  - Çok büyük veri için bellek kullanımını azaltmak isterseniz `pageSize`’i düşürün.
 */
 
 import 'dart:convert';
@@ -73,8 +69,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
           toFirestore: (w, _) => w.toFirestore(),
         );
 
-    // --- SIRPCA 'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU) ---
-    // Birincil: sirpca, İkincil: docId → stabil cursor
+    // --- SIRPCA'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU) ---
     Query<Word> base = col.orderBy('sirpca').orderBy(FieldPath.documentId);
 
     String? lastSirpca;
@@ -103,17 +98,17 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       if (snap.docs.length < pageSize) break; // son sayfa
     }
 
-    // --- JSON (pretty)
+    // --- JSON (pretty) — ID YOK
     final jsonStr = const JsonEncoder.withIndent(
       '  ',
-    ).convert(all.map((w) => w.toJson(includeId: true)).toList());
+    ).convert(all.map((w) => w.toJson(includeId: false)).toList());
     final jsonSavedAt = await JsonSaver.saveToDownloads(
       jsonStr,
       fileNameJson,
       subfolder: subfolder,
     );
 
-    // --- CSV (UTF-8 BOM + başlık)
+    // --- CSV (UTF-8 BOM + başlık) — ID YOK
     final csvStr = _buildCsv(all);
     final csvSavedAt = await JsonSaver.saveTextToDownloads(
       csvStr,
@@ -122,7 +117,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       subfolder: subfolder,
     );
 
-    // --- XLSX (başlık stili + otomatik sütun genişliği)
+    // --- XLSX (başlık stili + otomatik sütun genişliği) — ID YOK
     final xlsxBytes = _buildXlsx(all);
     final xlsxSavedAt = await JsonSaver.saveBytesToDownloads(
       xlsxBytes,
@@ -157,20 +152,15 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
   }
 }
 
-// -- CSV üretimi (UTF-8 BOM + başlık satırı)
+// -- CSV üretimi (UTF-8 BOM + başlık satırı) — ID YOK
 String _buildCsv(List<Word> list) {
-  final headers = ['id', 'sirpca', 'turkce', 'userEmail'];
+  final headers = ['sirpca', 'turkce', 'userEmail'];
   final sb = StringBuffer();
   sb.write('\uFEFF'); // Excel uyumu için BOM
   sb.writeln(headers.map(_csvEscape).join(','));
 
   for (final w in list) {
-    final row = [
-      w.id ?? '',
-      w.sirpca,
-      w.turkce,
-      w.userEmail,
-    ].map(_csvEscape).join(',');
+    final row = [w.sirpca, w.turkce, w.userEmail].map(_csvEscape).join(',');
     sb.writeln(row);
   }
   return sb.toString();
@@ -186,14 +176,14 @@ String _csvEscape(String v) {
   return needsQuotes ? '"$out"' : out;
 }
 
-// -- XLSX üretimi (excel ^4.x: CellValue + otomatik sütun genişliği + başlık stili)
+// -- XLSX üretimi (excel ^4.x: CellValue + otomatik sütun genişliği + başlık stili) — ID YOK
 Uint8List _buildXlsx(List<Word> list) {
   final excel = Excel.createExcel();
   final String sheetName = excel.getDefaultSheet() ?? 'Sheet1';
   final sheet = excel.sheets[sheetName]!;
 
-  // Başlıklar ve en-uzun metin ölçümü için başlangıç uzunlukları
-  final headers = ['id', 'sirpca', 'turkce', 'userEmail'];
+  // Başlıklar ve en-uzun metin ölçümü için başlangıç uzunlukları (id yok)
+  final headers = ['sirpca', 'turkce', 'userEmail'];
   final maxLens = List<int>.from(headers.map((h) => h.length));
 
   // 1) Başlık satırı
@@ -222,24 +212,22 @@ Uint8List _buildXlsx(List<Word> list) {
 
   // 3) Veri satırları + en uzun uzunlukları güncelle
   for (final w in list) {
-    final c0 = w.sirpca;
-    final c1 = w.turkce;
-    final c2 = w.userEmail;
+    final c1 = w.sirpca;
+    final c2 = w.turkce;
+    final c3 = w.userEmail;
 
-    sheet.appendRow([TextCellValue(c0), TextCellValue(c1), TextCellValue(c2)]);
+    sheet.appendRow([TextCellValue(c1), TextCellValue(c2), TextCellValue(c3)]);
 
-    // if (c0.length > maxLens[0]) maxLens[0] = c0.length;
-    if (c0.length > maxLens[1]) maxLens[1] = c0.length;
-    if (c1.length > maxLens[2]) maxLens[2] = c1.length;
-    if (c2.length > maxLens[3]) maxLens[3] = c2.length;
+    if (c1.length > maxLens[0]) maxLens[0] = c1.length;
+    if (c2.length > maxLens[1]) maxLens[1] = c2.length;
+    if (c3.length > maxLens[2]) maxLens[2] = c3.length;
   }
 
   // 4) Sütun genişlikleri: karakter sayısı + padding (yaklaşık)
   for (int col = 0; col < maxLens.length; col++) {
     final width = (maxLens[col] + 2).clamp(10, 60); // min 10, max 60
     sheet.setColumnWidth(col, width.toDouble());
-    // Alternatif: gerçek "auto-fit" denemesi (paketin sağladığı ölçüme göre)
-    // sheet.setColumnAutoFit(col);
+    // Alternatif: sheet.setColumnAutoFit(col);
   }
 
   // (Opsiyonel) başlık satır yüksekliği:
