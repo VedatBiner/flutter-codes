@@ -226,12 +226,7 @@ Uint8List _buildXlsx(List<Word> list) {
     final c1 = w.turkce;
     final c2 = w.userEmail;
 
-    sheet.appendRow([
-      // TextCellValue(c0),
-      TextCellValue(c0),
-      TextCellValue(c1),
-      TextCellValue(c2),
-    ]);
+    sheet.appendRow([TextCellValue(c0), TextCellValue(c1), TextCellValue(c2)]);
 
     // if (c0.length > maxLens[0]) maxLens[0] = c0.length;
     if (c0.length > maxLens[1]) maxLens[1] = c0.length;
