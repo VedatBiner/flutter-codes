@@ -45,9 +45,6 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/info_constants.dart';
-
-/// 📌 Yardımcı yüklemeler burada
-import '../services/export_words.dart';
 import '../services/words_reader.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -59,9 +56,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String status = 'Hazır. Konsolu kontrol edin.';
-  bool exporting = false;
-
   // ℹ️  Uygulama versiyonu
   String appVersion = '';
 
@@ -79,6 +73,20 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
   }
 
+  // 👇 Drawer’dan çağrılacak “yeniden oku” eylemi
+  Future<void> _handleReload() async {
+    // await’ten önce Messenger’ı al → güvenli kullanım
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    messenger?.showSnackBar(
+      const SnackBar(content: Text('Koleksiyon okunuyor...')),
+    );
+
+    final result = await readWordsOnce(); // log’lar + kısa durum metni döner
+    if (!mounted) return;
+
+    messenger?.showSnackBar(SnackBar(content: Text(result)));
+  }
+
   /// 📌 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
@@ -89,7 +97,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> _runInitialRead() async {
     final s = await readWordsOnce();
     if (!mounted) return;
-    setState(() => status = s);
   }
 
   @override
@@ -112,8 +119,9 @@ class _HomePageState extends State<HomePage> {
 
         /// 📁 Drawer
         drawer: CustomDrawer(
-          // onDatabaseUpdated: _loadWords,
           appVersion: appVersion,
+          onReload: _handleReload,
+          // onDatabaseUpdated: _loadWords,
           // isFihristMode: isFihristMode,
           // onToggleViewMode: () {
           //   setState(() => isFihristMode = !isFihristMode);
@@ -175,81 +183,11 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+            child: const Padding(
+              padding: EdgeInsets.all(16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(status, textAlign: TextAlign.center),
-                  const SizedBox(height: 20),
-                  FilledButton.icon(
-                    onPressed: exporting
-                        ? null
-                        : () async {
-                            setState(() {
-                              exporting = true;
-                              status = 'JSON + CSV + Excel hazırlanıyor...';
-                            });
-
-                            // await 'ten önce messenger 'ı al
-                            final messenger = ScaffoldMessenger.maybeOf(
-                              context,
-                            );
-
-                            try {
-                              final res = await exportWordsToJsonCsvXlsx(
-                                pageSize: 1000,
-                                subfolder: 'kelimelik_words_app',
-                              );
-
-                              if (!mounted) return;
-                              setState(
-                                () => status =
-                                    'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
-                              );
-
-                              // güvenli kullanım: messenger üzerinden
-                              messenger?.showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Kaydedildi:\nJSON → ${res.jsonPath}\nCSV  → ${res.csvPath}\nXLSX → ${res.xlsxPath}',
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              if (!mounted) return;
-                              setState(() => status = 'Hata: $e');
-                              messenger?.showSnackBar(
-                                SnackBar(content: Text('Hata: $e')),
-                              );
-                            } finally {
-                              if (!mounted) return;
-                              setState(() => exporting = false);
-                            }
-                          },
-
-                    icon: const Icon(Icons.download),
-                    label: const Text('JSON + CSV + Excel Dışa Aktar'),
-                  ),
-                  const SizedBox(height: 12),
-                  OutlinedButton.icon(
-                    onPressed: () async {
-                      setState(() => status = 'Koleksiyon okunuyor...');
-
-                      // await 'ten önce al
-                      final messenger = ScaffoldMessenger.maybeOf(context);
-
-                      final s = await readWordsOnce();
-                      if (!mounted) return;
-                      setState(() => status = s);
-
-                      // gerekirse bilgi vermek için
-                      // messenger?.showSnackBar(SnackBar(content: Text('Okuma tamam')));
-                    },
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Yeniden Oku'),
-                  ),
-                ],
+                children: [SizedBox(height: 20)],
               ),
             ),
           ),

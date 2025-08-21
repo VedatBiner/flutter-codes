@@ -1,40 +1,24 @@
 // 📃 <----- custom_drawer.dart ----->
-// Drawer menüye buradan erişiliyor.
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-// import 'drawer_widgets/drawer_backup_tile.dart';
-// import 'drawer_widgets/drawer_change_view_tile.dart';
+import '../constants/text_constants.dart';
+import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_info_padding.dart';
-// import 'drawer_widgets/drawer_renew_db.dart';
-// import 'drawer_widgets/drawer_reset_db_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 import 'drawer_widgets/gr_main_expansion_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
-  // final VoidCallback onDatabaseUpdated;
   final String appVersion;
-  // final bool isFihristMode;
-  // final VoidCallback onToggleViewMode;
 
-  /// 📌 JSON ’dan veri yüklemek için üst bileşenden gelen fonksiyon
-  ///    İmza → ({ctx, onStatus})
-  // final Future<void> Function({
-  //   required BuildContext ctx,
-  //   required void Function(bool, double, String?, Duration) onStatus,
-  // })
-  // onLoadJsonData;
+  // 👇 YENİ: verileri yeniden okuma callback ’i
+  final Future<void> Function() onReload;
 
   const CustomDrawer({
     super.key,
-    // required this.onDatabaseUpdated,
     required this.appVersion,
-    // required this.isFihristMode,
-    // required this.onToggleViewMode,
-    // required this.onLoadJsonData,
+    required this.onReload, // 👈 zorunlu yapıyoruz
   });
 
   @override
@@ -46,31 +30,27 @@ class CustomDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            /// 📌 Drawer menü başlığı burada oluşturuluyor
             const DrawerTitleWidget(),
-
             Divider(thickness: 2, color: menuColor, height: 0),
 
-            /// 📌 Yardımcı Bilgiler - Alt Menülü
             const MainExpansionTile(),
 
-            /// 📌 Görünüm değiştirme
-            // DrawerChangeViewTile(
-            //   isFihristMode: isFihristMode,
-            //   onToggleViewMode: onToggleViewMode,
-            // ),
+            // Yedek oluştur
+            const DrawerBackupTile(),
 
-            /// 📌 Yedek oluştur (JSON/CSV/XLSX)
-            // const DrawerBackupTile(),
+            // 👇 YENİ: Verileri tekrar oku
+            ListTile(
+              leading: const Icon(Icons.refresh, color: Colors.white),
+              title: const Text('Verileri tekrar oku', style: drawerMenuText),
+              onTap: () async {
+                Navigator.pop(context); // drawer’ı kapat
+                await onReload(); // callback’i çalıştır
+              },
+            ),
 
-            /// 📌 Veritabanını Yenile (SQL)
-            // DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
-
-            /// 📌 Veritabanını Sıfırla
-            // DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
             Divider(color: menuColor, thickness: 2),
 
-            /// 📌 Versiyon ve yazılım bilgisi
+            // Versiyon
             InfoPaddingTile(appVersion: appVersion),
           ],
         ),

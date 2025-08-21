@@ -1,24 +1,15 @@
 // 📃 <----- help_custom_drawer.dart ----->
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
 import '../custom_drawer.dart';
 
-Widget buildHelpDrawer() {
-  return const CustomDrawer(
-    appVersion: '',
-    // onDatabaseUpdated: () {},
-    // isFihristMode: true,
-    // onToggleViewMode: () {},
-    // onLoadJsonData:
-    //     ({
-    //       required BuildContext ctx,
-    //       required void Function(bool, double, String?, Duration) onStatus,
-    //     }) async {
-    //       // Bir şey yapmıyorsan bile, boş bir işlem tanımlanmalı:
-    //       onStatus(false, 0.0, null, Duration.zero);
-    //     },
+Widget buildHelpDrawer({
+  String appVersion = '',
+  Future<void> Function()? onReload,
+}) {
+  return CustomDrawer(
+    appVersion: appVersion,
+    onReload: onReload ?? () async {}, // fallback: boş no-op
   );
 }
