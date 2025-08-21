@@ -14,36 +14,39 @@ class HelpExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      leading: Icon(Icons.menu, color: menuColor),
-      title: const Text('Yardımcı Kavramlar', style: drawerMenuText),
-      childrenPadding: const EdgeInsets.only(left: 24),
-      collapsedIconColor: menuColor,
-      children: [
-        /// 📌 Sayılar
-        DrawerListTile(
-          icon: Icons.numbers,
-          title: 'Sayılar',
-          routeName: '/sayfaSayilar',
-          iconColor: menuColor,
-        ),
+    return Tooltip(
+      message: 'Yardımcı Kavramlar',
+      child: ExpansionTile(
+        leading: Icon(Icons.menu, color: menuColor),
+        title: const Text('Yardımcı Kavramlar', style: drawerMenuText),
+        childrenPadding: const EdgeInsets.only(left: 24),
+        collapsedIconColor: menuColor,
+        children: [
+          /// 📌 Sayılar
+          DrawerListTile(
+            icon: Icons.numbers,
+            title: 'Sayılar',
+            routeName: '/sayfaSayilar',
+            iconColor: menuColor,
+          ),
 
-        /// 📌 Günler
-        DrawerListTile(
-          icon: Icons.calendar_month_sharp,
-          title: 'Günler',
-          routeName: '/sayfaGunler',
-          iconColor: menuColor,
-        ),
+          /// 📌 Günler
+          DrawerListTile(
+            icon: Icons.calendar_month_sharp,
+            title: 'Günler',
+            routeName: '/sayfaGunler',
+            iconColor: menuColor,
+          ),
 
-        /// 📌 Saatler
-        DrawerListTile(
-          icon: Icons.watch_later_outlined,
-          title: 'Saatler',
-          routeName: '/sayfaSaatler',
-          iconColor: menuColor,
-        ),
-      ],
+          /// 📌 Saatler
+          DrawerListTile(
+            icon: Icons.watch_later_outlined,
+            title: 'Saatler',
+            routeName: '/sayfaSaatler',
+            iconColor: menuColor,
+          ),
+        ],
+      ),
     );
   }
 }

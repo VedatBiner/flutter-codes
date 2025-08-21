@@ -8,7 +8,8 @@
       • onExportingChange(true/false)  → buton kilidi / loading
       • onStatusChange(text)           → ekrandaki durum metni
   - Snackbar göstermek için, await'ten önce alınan ScaffoldMessenger ile güvenli çağrı yapar.
-  - Widget dispose olmuşsa (navigation vb.), context.mounted ile güvenli çıkış yapar.
+  - await sonrasında BuildContext kullanmadan önce `context.mounted` ile güvenlik sağlar
+    (lint: use_build_context_synchronously uyarısını önlemek için).
 
   KULLANIM
     await triggerBackupExport(
@@ -33,16 +34,12 @@ Future<void> triggerBackupExport({
   int pageSize = 1000,
   String? subfolder,
 }) async {
-  /* 🔑  Linter uyarısı olmasın diye context ’i hemen sakla */
-  final rootCtx = Navigator.of(context, rootNavigator: true).context;
-  // Başlangıç UI durumu
-  // onExportingChange(true);
-  onStatusChange('JSON + CSV + Excel hazırlanıyor...');
-  String status = 'Hazır. Konsolu kontrol edin.';
-  bool exporting = false;
-
-  // await 'ten ÖNCE messenger 'ı al → use_build_context_synchronously lint yok
+  // 🔑 await’ten ÖNCE messenger’ı al → context’i saklamadan güvenli kullanım
   final messenger = ScaffoldMessenger.maybeOf(context);
+
+  // Başlangıç UI durumu
+  onExportingChange(true);
+  onStatusChange('JSON + CSV + Excel hazırlanıyor...');
 
   try {
     final res = await exportWordsToJsonCsvXlsx(
@@ -50,14 +47,17 @@ Future<void> triggerBackupExport({
       subfolder: subfolder,
     );
 
+    // await sonrası context kullanmadan önce mutlaka kontrol et
     if (!context.mounted) return;
 
     onStatusChange(
       'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
     );
 
+    // Başarılı bildirim (UI içinde custom sheet/dialog vb.)
     NotificationService.showCustomNotification(
-      context: rootCtx, // ← güvenli
+      context:
+          context, // ✅ rootCtx tutmuyoruz; mounted kontrolünden sonra kullanıyoruz
       title: 'Yedek Oluşturuldu',
       message: RichText(
         text: TextSpan(

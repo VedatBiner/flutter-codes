@@ -1,27 +1,14 @@
 // 📃 widgets/drawer_backup_tile.dart
-// Drawer içindeki "Yedek Oluştur (JSON/CSV/XLSX)" satırını bağımsız
-// bir widget ’a taşıdık. Böylece custom_drawer.dart daha okunur oldu.
-//
-
-// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/file_info.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
 
-class DrawerBackupTile extends StatefulWidget {
+class DrawerBackupTile extends StatelessWidget {
   const DrawerBackupTile({super.key});
 
-  @override
-  State<DrawerBackupTile> createState() => _DrawerBackupTileState();
-}
-
-class _DrawerBackupTileState extends State<DrawerBackupTile> {
-  bool exporting = false;
-  String status = 'Hazır. Konsolu kontrol edin.';
   @override
   Widget build(BuildContext context) {
     return Tooltip(
@@ -32,11 +19,15 @@ class _DrawerBackupTileState extends State<DrawerBackupTile> {
           'Yedek Oluştur \n(JSON/CSV/XLSX)',
           style: drawerMenuText,
         ),
-        onTap: () async {
+        onTap: () {
+          // 1) Drawer 'ı anında kapat (bu çağrı senkron)
+          Navigator.pop(context);
+
+          // 2) Hemen ardından export ’u tetikle (async gap YOK)
           triggerBackupExport(
-            context: context,
-            onStatusChange: (s) => setState(() => status = s),
-            onExportingChange: (v) => setState(() => exporting = v),
+            context: context, // helper içinde messenger 'a çevrilecek
+            onStatusChange: (_) {}, // Drawer kapandı; local state yoksa no-op
+            onExportingChange: (_) {}, // (isteğe göre yönetebilirsin)
             pageSize: 1000,
             subfolder: appName,
           );

@@ -16,13 +16,16 @@ class DrawerRefreshDataTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.refresh, color: Colors.white),
-      title: const Text('Verileri tekrar oku', style: drawerMenuText),
-      onTap: () async {
-        Navigator.pop(context); // Drawer’ı kapat
-        await onReload(); // Dışarıdan gelen callback’i çalıştır
-      },
+    return Tooltip(
+      message: 'Verileri tekrar oku',
+      child: ListTile(
+        leading: const Icon(Icons.refresh, color: Colors.white),
+        title: const Text('Verileri tekrar oku', style: drawerMenuText),
+        onTap: () async {
+          Navigator.pop(context); // Drawer ’ı kapat
+          await onReload(); // Dışarıdan gelen callback ’i çalıştır
+        },
+      ),
     );
   }
 }

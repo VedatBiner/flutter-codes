@@ -13,25 +13,28 @@ class AlphabetExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      leading: Icon(Icons.sort_by_alpha, color: menuColor),
-      title: const Text('Alfabe', style: drawerMenuText),
-      childrenPadding: const EdgeInsets.only(left: 24),
-      collapsedIconColor: menuColor,
-      children: [
-        DrawerListTile(
-          icon: Icons.wc,
-          title: 'Latin',
-          routeName: '/sayfaLatin',
-          iconColor: menuColor,
-        ),
-        DrawerListTile(
-          icon: Icons.wc,
-          title: 'Kiril',
-          routeName: '/sayfaKiril',
-          iconColor: menuColor,
-        ),
-      ],
+    return Tooltip(
+      message: 'Alfabe',
+      child: ExpansionTile(
+        leading: Icon(Icons.sort_by_alpha, color: menuColor),
+        title: const Text('Alfabe', style: drawerMenuText),
+        childrenPadding: const EdgeInsets.only(left: 24),
+        collapsedIconColor: menuColor,
+        children: [
+          DrawerListTile(
+            icon: Icons.wc,
+            title: 'Latin',
+            routeName: '/sayfaLatin',
+            iconColor: menuColor,
+          ),
+          DrawerListTile(
+            icon: Icons.wc,
+            title: 'Kiril',
+            routeName: '/sayfaKiril',
+            iconColor: menuColor,
+          ),
+        ],
+      ),
     );
   }
 }
