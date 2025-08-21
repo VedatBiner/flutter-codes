@@ -42,12 +42,13 @@
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-
-import '../constants/text_constants.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../services/export_words.dart';
 import '../services/words_reader.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,6 +59,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String status = 'Hazır. Konsolu kontrol edin.';
   bool exporting = false;
+
+  // ℹ️  Uygulama versiyonu
+  String appVersion = '';
 
   // context 'i await 'ten önce resolve edip saklayan güvenli helper
   void _showSnack(String message) {
@@ -70,6 +74,14 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _runInitialRead();
+    _getAppVersion();
+  }
+
+  /// 📌 Versiyonu al
+  void _getAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    if (!mounted) return;
+    setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
   Future<void> _runInitialRead() async {
@@ -82,12 +94,90 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Sırpça-Türkçe Sözlük - WEB & Mobil',
-            style: itemCountStil,
+        // appBar: AppBar(
+        //   iconTheme: IconThemeData(color: menuColor),
+        //   title: Text(
+        //     'Sırpça-Türkçe Sözlük - WEB & Mobil',
+        //     style: itemCountStil,
+        //   ),
+        // ),
+
+        // 📜 AppBar
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(64),
+          child: CustomAppBar(
+            appBarName: 'Sırpça-Türkçe Sözlük - WEB & Mobil',
+            //    isSearching: isSearching,
+            //    searchController: searchController,
+            //    onSearchChanged: _filterWords,
+            //    onClearSearch: _clearSearch,
+            //    onStartSearch: () => setState(() => isSearching = true),
+            //    itemCount: words.length,
           ),
         ),
+
+        /// 📁 Drawer
+        drawer: CustomDrawer(
+          // onDatabaseUpdated: _loadWords,
+          appVersion: appVersion,
+          // isFihristMode: isFihristMode,
+          // onToggleViewMode: () {
+          //   setState(() => isFihristMode = !isFihristMode);
+          // },
+
+          //  ⬇️  Yeni imzalı geri-çağrı
+          // onLoadJsonData:
+          //     ({
+          //       required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
+          //       required void Function(
+          //         bool loading,
+          //         double prog,
+          //         String? currentWord,
+          //         Duration elapsedTime,
+          //       )
+          //       onStatus,
+          //     }) async {
+          //       await loadDataFromDatabase(
+          //         context: context, //  ⚠️  HomePage’in context ’i
+          //         onLoaded: (loadedWords) {
+          //           setState(() {
+          //             // allWords = loadedWords;
+          //             // words = loadedWords;
+          //           });
+          //
+          //           // if (mounted) {
+          //           //   Provider.of<WordCountProvider>(
+          //           //     context,
+          //           //     listen: false,
+          //           //   ).setCount(loadedWords.length);
+          //           // }
+          //         },
+          //
+          //         //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
+          //         onLoadingStatusChange:
+          //             (
+          //               bool loading,
+          //               double prog,
+          //               String? currentWord,
+          //               Duration elapsed,
+          //             ) {
+          //               setState(() {
+          //                 //    isLoadingJson = loading;
+          //                 //    progress = prog;
+          //                 //    loadingWord = currentWord;
+          //                 //    elapsedTime = elapsed;
+          //               });
+          //               onStatus(
+          //                 loading,
+          //                 prog,
+          //                 currentWord,
+          //                 elapsed,
+          //               ); // ↩︎ ilet
+          //             },
+          //       );
+          //     },
+        ),
+
         body: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
@@ -107,7 +197,7 @@ class _HomePageState extends State<HomePage> {
                               status = 'JSON + CSV + Excel hazırlanıyor...';
                             });
 
-                            // await'ten önce messenger'ı al
+                            // await 'ten önce messenger 'ı al
                             final messenger = ScaffoldMessenger.maybeOf(
                               context,
                             );

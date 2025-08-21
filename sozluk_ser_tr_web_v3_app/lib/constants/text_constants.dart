@@ -105,3 +105,17 @@ var drawerMenuTitleText = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+
+/// 📌 detay başlığı text stili
+const detailTextBlue = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 24,
+  color: Colors.blue,
+);
+
+/// 📌 Tablo başlığı Text  stili
+const tableHeaderText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.black,
+);
