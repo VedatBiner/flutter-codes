@@ -6,8 +6,16 @@ import '../../constants/file_info.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
 
-class DrawerBackupTile extends StatelessWidget {
+class DrawerBackupTile extends StatefulWidget {
   const DrawerBackupTile({super.key});
+
+  @override
+  State<DrawerBackupTile> createState() => _DrawerBackupTileState();
+}
+
+class _DrawerBackupTileState extends State<DrawerBackupTile> {
+  bool exporting = false;
+  String status = 'Hazır. Konsolu kontrol edin.';
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +27,26 @@ class DrawerBackupTile extends StatelessWidget {
           'Yedek Oluştur \n(JSON/CSV/XLSX)',
           style: drawerMenuText,
         ),
-        onTap: () {
-          // 1) Drawer 'ı anında kapat (bu çağrı senkron)
+        onTap: () async {
+          // 1) Drawer kapanınca da yaşayacak güvenli context’i al
+          final safeCtx =
+              Scaffold.maybeOf(context)?.context ??
+              Navigator.of(context, rootNavigator: true).context;
+
+          // 2) Önce drawer’ı kapat
           Navigator.pop(context);
 
-          // 2) Hemen ardından export ’u tetikle (async gap YOK)
-          triggerBackupExport(
-            context: context, // helper içinde messenger 'a çevrilecek
-            onStatusChange: (_) {}, // Drawer kapandı; local state yoksa no-op
-            onExportingChange: (_) {}, // (isteğe göre yönetebilirsin)
+          // 3) Export’u güvenli context ile tetikle
+          await triggerBackupExport(
+            context: safeCtx, // 🔴 artık tile context’i değil
+            onStatusChange: (s) {
+              if (!mounted) return; // 🔐 tile dispose olabilir
+              setState(() => status = s);
+            },
+            onExportingChange: (v) {
+              if (!mounted) return; // 🔐 tile dispose olabilir
+              setState(() => exporting = v);
+            },
             pageSize: 1000,
             subfolder: appName,
           );
