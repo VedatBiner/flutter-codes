@@ -44,6 +44,8 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../constants/info_constants.dart';
+
 /// 📌 Yardımcı yüklemeler burada
 import '../services/export_words.dart';
 import '../services/words_reader.dart';
@@ -94,19 +96,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   iconTheme: IconThemeData(color: menuColor),
-        //   title: Text(
-        //     'Sırpça-Türkçe Sözlük - WEB & Mobil',
-        //     style: itemCountStil,
-        //   ),
-        // ),
-
         // 📜 AppBar
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(64),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(64),
           child: CustomAppBar(
-            appBarName: 'Sırpça-Türkçe Sözlük - WEB & Mobil',
+            appBarName: appBarName,
             //    isSearching: isSearching,
             //    searchController: searchController,
             //    onSearchChanged: _filterWords,

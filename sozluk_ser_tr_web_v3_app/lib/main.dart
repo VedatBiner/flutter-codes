@@ -6,10 +6,11 @@ import 'dart:developer' show log;
 /// 📌 Flutter hazır paketleri
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_web_v3_app/routes.dart';
 
+import '../constants/info_constants.dart';
 import '../screens/home_page.dart';
 import 'firebase_options.dart' show DefaultFirebaseOptions;
+import 'routes.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import 'theme.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SER-TR Sözlük WEB',
+      title: appBarName,
       debugShowCheckedModeBanner: false,
       theme: CustomTheme.theme,
       routes: appRoutes,
