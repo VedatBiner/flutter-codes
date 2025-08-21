@@ -1,49 +1,40 @@
 // <📜 ----- home_page.dart ----->
 /*
-  🖥️ Ana Ekran (HomePage) — Firestore’dan okuma + JSON/CSV/Excel dışa aktarma
+  🖥️ Ana Ekran (HomePage) — AppBar + Drawer, açılışta tek seferlik Firestore okuma
 
-  NE YAPAR?
-  - Uygulama açıldığında kelimeler koleksiyonunu **bir kez okur** ve özetini ekranda gösterir.
-    (bkz. `readWordsOnce()`; toplam kayıt sayısı ve örnek bir belgeyi log’lar)
-  - “JSON + CSV + Excel Dışa Aktar” butonu ile tüm koleksiyonu sayfalı (paginated) şekilde
-    **sirpca alanına göre sıralı** okuyup üç formatta dışa aktarır:
-      • JSON  → pretty-print, ID alanı çıkartılmış
-      • CSV   → UTF-8 BOM’lu, başlık satırıyla (sirpca,turkce,userEmail)
-      • XLSX  → başlık kalın & koyu mavi + beyaz, ilk 3 kolona AutoFilter, auto-fit
-    (bkz. `exportWordsToJsonCsvXlsx()`; platforma göre kaydetme/indirme `JsonSaver` ile yapılır)
+  BU EKRAN NE YAPAR?
+  - Uygulama açıldığında `readWordsOnce()` ile kelimeler koleksiyonunu **bir kez okur**
+    (toplam kayıt ve örnek belgeyi log’a yazar). Bu ekranda içerik göstermiyoruz.
+  - Dışa aktarma (JSON/CSV/XLSX) ve yeniden okuma gibi işlemler **Drawer içindeki öğelerden**
+    tetiklenir:
+      • “Yedek oluştur (JSON/CSV/XLSX)” → DrawerBackupTile (export helper üzerinden)
+      • “Verileri tekrar oku” → CustomDrawer, `onReload` callback’i ile `readWordsOnce()` çağırır
+        ve Snackbar’la kullanıcıyı bilgilendirir.
 
-  KULLANILAN SERVİSLER
-  - `readWordsOnce()`      : Firestore’dan tek atımlık okuma; log’a kısa özet yazar, ekrana durum (status) döndürür.
-  - `exportWordsToJsonCsvXlsx()` : Firestore → JSON/CSV/XLSX üretir, kaydeder ve çıktı yollarını döndürür.
+  UI YAPISI
+  - Üstte `CustomAppBar` (başlık/stil), solda `CustomDrawer` (menü).
+  - Ana gövde bilinçli olarak boş/temiz bırakıldı; tüm aksiyonlar Drawer menüsünden başlatılır.
 
-  UI AKIŞI
-  - Orta ekranda bir durum metni (`status`) gösterilir.
-  - “Dışa Aktar” tıklandığında buton kilitlenir (`exporting=true`), işlem bittiğinde yollar snackbar ile duyurulur.
-  - “Yeniden Oku” tıklandığında koleksiyon tekrar okunur ve `status` güncellenir.
+  KULLANILAN SERVİSLER / HELPER’LAR
+  - `readWordsOnce()`          : Firestore’dan kısa özet okur, log’a yazar, kısa durum metni döndürür.
+  - (Drawer tarafı) export     : `exportWordsToJsonCsvXlsx()` ve `JsonSaver` kullanır.
+  - (Drawer tarafı) yeniden oku: Bu sayfadaki `_handleReload()` callback’i üzerinden `readWordsOnce()`.
 
-  PLATFORM NOTLARI
-  - Web: tarayıcı indirmesi (Blob + <a download>), klasör kavramı yok.
-  - Android/Desktop: Downloads klasörüne yazma denenir (gerekirse izin), iOS’ta Belgeler + Paylaş.
-  - XLSX üretimi Syncfusion XlsIO ile yapılır (AutoFilter ve auto-fit için).
-
-  ÖN KOŞULLAR
-  - Firestore’da `orderBy('sirpca') + orderBy(docId)` sorgusu bir **composite index** gerektirebilir.
-    Konsoldaki otomatik linki takip ederek bir kez oluşturun.
-  - Android’de depolama izinleri doğru verilmiş olmalı (permission_handler ile istenir).
-
-  ÖZELLEŞTİRME
-  - Dışa aktarma sayfa boyutu: `pageSize: 1000`
-  - Alt klasör adı: `subfolder: 'kelimelik_words_app'`
-  - Dosya adları `file_info.dart` içinden yönetilir.
+  ÖNEMLİ NOTLAR
+  - Firestore’da büyük koleksiyonlar için export sırasında `orderBy('sirpca') + orderBy(docId)`
+    sorgusu **composite index** isteyebilir (konsoldaki linkten bir kez oluşturun).
+  - Android’de Downloads klasörüne yazmak için gerekli izinler `permission_handler` ile yönetilir.
 
   HATA YÖNETİMİ
-  - Hatalar `status` alanına yazılır ve Snackbar ile kullanıcıya gösterilir.
+  - Drawer’dan tetiklenen işlemler (export/yeniden okuma) Snackbar ile kullanıcıya bildirilir.
+  - Ayrıntılı hatalar/özetler log’a düşer.
 */
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
 import '../services/words_reader.dart';
 import '../widgets/custom_app_bar.dart';
@@ -60,11 +51,11 @@ class _HomePageState extends State<HomePage> {
   String appVersion = '';
 
   // context 'i await 'ten önce resolve edip saklayan güvenli helper
-  void _showSnack(String message) {
-    final messenger = ScaffoldMessenger.maybeOf(context);
-    if (messenger == null) return; // widget dispose olmuş olabilir
-    messenger.showSnackBar(SnackBar(content: Text(message)));
-  }
+  // void _showSnack(String message) {
+  //   final messenger = ScaffoldMessenger.maybeOf(context);
+  //   if (messenger == null) return; // widget dispose olmuş olabilir
+  //   messenger.showSnackBar(SnackBar(content: Text(message)));
+  // }
 
   @override
   void initState() {

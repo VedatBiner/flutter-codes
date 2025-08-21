@@ -1,11 +1,13 @@
 // 📃 <----- custom_drawer.dart ----->
 
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import '../constants/text_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_info_padding.dart';
+import 'drawer_widgets/drawer_refresh_data_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 import 'drawer_widgets/gr_main_expansion_tile.dart';
 
@@ -33,20 +35,14 @@ class CustomDrawer extends StatelessWidget {
             const DrawerTitleWidget(),
             Divider(thickness: 2, color: menuColor, height: 0),
 
+            /// 👇 Yardım menüleri
             const MainExpansionTile(),
 
-            // Yedek oluştur
+            /// 👇 Yedek oluştur
             const DrawerBackupTile(),
 
-            // 👇 YENİ: Verileri tekrar oku
-            ListTile(
-              leading: const Icon(Icons.refresh, color: Colors.white),
-              title: const Text('Verileri tekrar oku', style: drawerMenuText),
-              onTap: () async {
-                Navigator.pop(context); // drawer’ı kapat
-                await onReload(); // callback’i çalıştır
-              },
-            ),
+            /// 👇 YENİ: Verileri tekrar oku
+            DrawerRefreshDataTile(onReload: onReload),
 
             Divider(color: menuColor, thickness: 2),
 
