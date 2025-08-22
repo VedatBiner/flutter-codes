@@ -36,9 +36,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
-import '../services/words_reader.dart';
+import '../services/word_service.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
+import '../widgets/custom_fab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,15 +65,16 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
   }
 
-  // 👇 Drawer’dan çağrılacak “yeniden oku” eylemi
+  // 👇 Drawer ’dan çağrılacak “yeniden oku” eylemi
   Future<void> _handleReload() async {
-    // await’ten önce Messenger’ı al → güvenli kullanım
+    // await ’ten önce Messenger ’ı al → güvenli kullanım
     final messenger = ScaffoldMessenger.maybeOf(context);
     messenger?.showSnackBar(
       const SnackBar(content: Text('Koleksiyon okunuyor...')),
     );
 
-    final result = await readWordsOnce(); // log’lar + kısa durum metni döner
+    final result =
+        await WordService.readWordsOnce(); // log ’lar + kısa durum metni döner
     if (!mounted) return;
 
     messenger?.showSnackBar(SnackBar(content: Text(result)));
@@ -86,7 +88,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _runInitialRead() async {
-    final s = await readWordsOnce();
+    final s = await WordService.readWordsOnce();
     if (!mounted) return;
   }
 
@@ -108,7 +110,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        /// 📁 Drawer
+        /// 📌 Drawer Burada
         drawer: CustomDrawer(
           appVersion: appVersion,
           onReload: _handleReload,
@@ -171,6 +173,8 @@ class _HomePageState extends State<HomePage> {
           //     },
         ),
 
+        /// 📌 Body Burada
+        ///
         body: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
@@ -182,6 +186,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+        ),
+
+        /// 📌 FAB Burada
+        ///
+        floatingActionButton: CustomFAB(
+          onWordAdded: _handleReload,
+          // refreshWords: _loadWords,
+          // clearSearch: _clearSearch,
         ),
       ),
     );

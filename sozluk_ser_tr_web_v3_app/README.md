@@ -7,6 +7,9 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - home_page.dart kodu bölünerek koda temiz bir görünüm verilecek.
 - JSON,CSV,XLSX aktarma işlemleri web ve mobilde düzgün çalışıyor.
 - Home Page biraz temizlendi.
-- Yedekleme seçeneği drawer menüye eklendi
-- Home page geri dönüş butonu eklendi 
+- Yedekleme seçeneği drawer menüye eklendi.
+- Home page geri dönüş butonu eklendi.
+- Firebase servisleri için word_service.dart dosyası düzenleniyor.
+- Buton stilleri için button_constants.dart dosyası eklendi.
+- buton ikon görselleri eklendi.
 - 
