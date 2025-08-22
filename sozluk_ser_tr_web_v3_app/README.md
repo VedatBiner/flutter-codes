@@ -12,4 +12,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Firebase servisleri için word_service.dart dosyası düzenleniyor.
 - Buton stilleri için button_constants.dart dosyası eklendi.
 - buton ikon görselleri eklendi.
+- Ekleme ve Aynı kelime kontrolü çalışıyor.
 - 
