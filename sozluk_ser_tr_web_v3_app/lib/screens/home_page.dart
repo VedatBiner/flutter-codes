@@ -15,6 +15,7 @@ import '../constants/info_constants.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_body.dart'; // ⬅️ YENİ: gövde ayrı dosyada
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
 
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // 🔁 Drawer’dan çağrılacak “yeniden oku”
+  // 🔁 Drawer ’dan çağrılacak “yeniden oku”
   Future<void> _handleReload() async {
     final messenger = ScaffoldMessenger.maybeOf(context);
     messenger?.showSnackBar(
@@ -134,73 +135,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // 📜 AppBar
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(64),
-          child: CustomAppBar(
-            appBarName: appBarName,
-            isSearching: isSearching,
-            searchController: searchController,
-            onSearchChanged: _applyFilter,
-            onStartSearch: _handleStartSearch,
-            onClearSearch: _handleClearSearch,
-            onTapHome: () {
-              // Home ’a dön: tüm stack ’i temizle
-              Navigator.of(context).popUntil((route) => route.isFirst);
-            },
-          ),
+        /// 📜 AppBar
+        appBar: CustomAppBar(
+          appBarName: appBarName,
+          isSearching: isSearching,
+          searchController: searchController,
+          onSearchChanged: _applyFilter,
+          onStartSearch: _handleStartSearch,
+          onClearSearch: _handleClearSearch,
+          onTapHome: () {
+            // Home ’a dön: tüm stack ’i temizle
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
         ),
 
-        // 📁 Drawer
+        /// 📁 Drawer
         drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
 
-        // 📦 Body: liste / progress / hata
-        body: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 720),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: _loading
-                  ? const Center(child: CircularProgressIndicator())
-                  : _error != null
-                  ? Center(child: Text('Hata: $_error'))
-                  : _filteredWords.isEmpty
-                  ? const Center(child: Text('Sonuç bulunamadı.'))
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Sonuç: ${_filteredWords.length} / ${_allWords.length}',
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 8),
-                        Expanded(
-                          child: ListView.separated(
-                            itemCount: _filteredWords.length,
-                            separatorBuilder: (_, __) =>
-                                const Divider(height: 1),
-                            itemBuilder: (context, i) {
-                              final w = _filteredWords[i];
-                              return ListTile(
-                                dense: true,
-                                title: Text(
-                                  w.sirpca,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                subtitle: Text(w.turkce),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-            ),
-          ),
+        /// 📦 Body: liste / progress / hata (artık ayrı widget)
+        body: CustomBody(
+          isLoading: _loading,
+          error: _error,
+          filtered: _filteredWords,
+          totalCount: _allWords.length,
+          // maxWidth: 720, // istersen özelleştir
         ),
 
-        // ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
+        /// ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
         floatingActionButton: CustomFAB(onWordAdded: _handleReload),
       ),
     );
