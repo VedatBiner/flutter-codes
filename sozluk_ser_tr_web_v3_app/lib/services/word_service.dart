@@ -181,4 +181,43 @@ class WordService {
       );
     }
   }
+
+  /// listeli okuma
+
+  static Future<List<Word>> fetchAllWords({int pageSize = 2000}) async {
+    final ref = FirebaseFirestore.instance
+        .collection(collectionName)
+        .withConverter<Word>(
+          fromFirestore: Word.fromFirestore,
+          toFirestore: (w, _) => w.toFirestore(),
+        );
+
+    final List<Word> out = [];
+    Query<Word> base = ref.orderBy('sirpca').orderBy(FieldPath.documentId);
+
+    String? lastSirpca;
+    String? lastId;
+
+    while (true) {
+      var q = base.limit(pageSize);
+      if (lastSirpca != null && lastId != null) {
+        q = q.startAfter([lastSirpca, lastId]);
+      }
+
+      final snap = await q.get();
+      if (snap.docs.isEmpty) break;
+
+      for (final d in snap.docs) {
+        out.add(d.data());
+      }
+
+      final last = snap.docs.last;
+      lastSirpca = last.data().sirpca;
+      lastId = last.id;
+
+      if (snap.docs.length < pageSize) break;
+    }
+
+    return out;
+  }
 }

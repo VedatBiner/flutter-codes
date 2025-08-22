@@ -13,4 +13,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Buton stilleri için button_constants.dart dosyası eklendi.
 - buton ikon görselleri eklendi.
 - Ekleme ve Aynı kelime kontrolü çalışıyor.
+- Arama kutusu da açılır kapanır hale geldi.
 - 

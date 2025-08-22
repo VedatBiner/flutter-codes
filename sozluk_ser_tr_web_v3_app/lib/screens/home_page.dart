@@ -1,33 +1,31 @@
 // <📜 ----- home_page.dart ----->
 /*
-  🖥️ Ana Ekran (HomePage) — AppBar + Drawer, açılışta tek seferlik Firestore okuma
+  🖥️ Ana Ekran (HomePage) — AppBar + Drawer + Canlı Arama Listelemesi
 
   BU EKRAN NE YAPAR?
-  - Uygulama açıldığında `readWordsOnce()` ile kelimeler koleksiyonunu **bir kez okur**
-    (toplam kayıt ve örnek belgeyi log’a yazar). Bu ekranda içerik göstermiyoruz.
-  - Dışa aktarma (JSON/CSV/XLSX) ve yeniden okuma gibi işlemler **Drawer içindeki öğelerden**
-    tetiklenir:
-      • “Yedek oluştur (JSON/CSV/XLSX)” → DrawerBackupTile (export helper üzerinden)
-      • “Verileri tekrar oku” → CustomDrawer, `onReload` callback’i ile `readWordsOnce()` çağırır
-        ve Snackbar’la kullanıcıyı bilgilendirir.
-
-  UI YAPISI
-  - Üstte `CustomAppBar` (başlık/stil), solda `CustomDrawer` (menü).
-  - Ana gövde bilinçli olarak boş/temiz bırakıldı; tüm aksiyonlar Drawer menüsünden başlatılır.
+  - Açılışta Firestore’dan kelimeleri sayfalı şekilde okuyup belleğe alır
+    (WordService.fetchAllWords). Ayrıca readWordsOnce() ile kısa özet loglar.
+  - AppBar’daki arama kutusuna yazdıkça, Sırpça alanında **içeren** (substring)
+    eşleşmeye göre yerel filtre uygular ve sonuçları aşağıdaki listede gösterir.
+  - Drawer’daki “Verileri tekrar oku” öğesi veya FAB ile kelime eklendikten sonra
+    bellekteki listeyi baştan yükler.
 
   KULLANILAN SERVİSLER / HELPER’LAR
-  - `readWordsOnce()`          : Firestore’dan kısa özet okur, log’a yazar, kısa durum metni döndürür.
-  - (Drawer tarafı) export     : `exportWordsToJsonCsvXlsx()` ve `JsonSaver` kullanır.
-  - (Drawer tarafı) yeniden oku: Bu sayfadaki `_handleReload()` callback’i üzerinden `readWordsOnce()`.
+  - WordService.readWordsOnce()   : Firestore’dan kısa özet/log
+  - WordService.fetchAllWords()   : Tüm kelimeleri sayfalı okuyup döndürür
+  - WordService (CRUD)            : (Ekle/sil/güncelle için)
+  - CustomAppBar                  : Arama kutusu & “Ana Sayfa” ikonu
+  - CustomDrawer(onReload)        : Drawer’dan “Yeniden Oku”
+  - CustomFAB(onWordAdded)        : Kelime ekleme diyaloğu sonrası listeyi tazele
 
-  ÖNEMLİ NOTLAR
-  - Firestore’da büyük koleksiyonlar için export sırasında `orderBy('sirpca') + orderBy(docId)`
-    sorgusu **composite index** isteyebilir (konsoldaki linkten bir kez oluşturun).
-  - Android’de Downloads klasörüne yazmak için gerekli izinler `permission_handler` ile yönetilir.
+  NOTLAR
+  - “İçeren” arama Firestore tarafında yerel olarak yapılır (contains).
+  - fetchAllWords ‘ta `orderBy('sirpca') + orderBy(docId)` composite index isteyebilir (bir kez oluşturun).
+  - Büyük koleksiyonlarda liste render’ı için görünür sonuç sayısı başlangıçta 200 ile sınırlandı (take(200)).
 
   HATA YÖNETİMİ
-  - Drawer’dan tetiklenen işlemler (export/yeniden okuma) Snackbar ile kullanıcıya bildirilir.
-  - Ayrıntılı hatalar/özetler log’a düşer.
+  - Yükleme sırasında progress, hata olursa kısa mesaj gösterilir.
+  - Ayrıntılı loglar console’a düşer.
 */
 
 import 'package:flutter/material.dart';
@@ -35,6 +33,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
+import '../models/word_model.dart';
 import '../services/word_service.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -47,22 +46,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ℹ️ Uygulama versiyonu
+  // ℹ️ Versiyon
   String appVersion = '';
 
-  // 🔎 Arama için minimal durum (CustomAppBar parametreleri)
+  // 🔎 Arama durumu (CustomAppBar parametreleri)
+  // İstersen isSearching ’i true/false yönetebilirsin. Şimdilik her zaman açık kalsın.
   bool isSearching = false;
   final TextEditingController searchController = TextEditingController();
-  void _filterWords(String query) {
-    // Şimdilik boş; ileride liste/arama eklersen burada filtreyi uygularsın.
-    // debugPrint('search: $query');
-  }
+
+  // 📚 Bellekteki veri ve filtrelenmiş görünüm
+  List<Word> _allWords = [];
+  List<Word> _filteredWords = [];
+
+  // ⏳ Yükleme / hata durumu
+  bool _loading = true;
+  String? _error;
 
   @override
   void initState() {
     super.initState();
-    _runInitialRead();
-    _getAppVersion();
+    _runInitialRead(); // kısa özet+log
+    _getAppVersion(); // versiyon
+    _loadAllWords(); // asıl veriyi çek
   }
 
   @override
@@ -71,7 +76,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // 👇 Drawer ’dan çağrılacak “yeniden oku” eylemi
+  /// 🔁 Drawer ’dan çağrılacak “yeniden oku” eylemi
   Future<void> _handleReload() async {
     final messenger = ScaffoldMessenger.maybeOf(
       context,
@@ -80,22 +85,62 @@ class _HomePageState extends State<HomePage> {
       const SnackBar(content: Text('Koleksiyon okunuyor...')),
     );
 
-    final result = await WordService.readWordsOnce(); // log + durum metni
+    await _loadAllWords(); // listeyi baştan oku & filtreyi uygula
     if (!mounted) return;
-
-    messenger?.showSnackBar(SnackBar(content: Text(result)));
+    messenger?.showSnackBar(const SnackBar(content: Text('Okuma tamam.')));
   }
 
-  /// 📌 Versiyonu al
+  /// 🧭 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
+  /// 🧪 Kısa özet/log (isteğe bağlı)
   Future<void> _runInitialRead() async {
     await WordService.readWordsOnce();
     if (!mounted) return;
+  }
+
+  /// ☁️ Tüm kelimeleri sayfalı olarak çek → belleğe al → ilk görünümü hazırla
+  Future<void> _loadAllWords() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+
+    try {
+      final items = await WordService.fetchAllWords(pageSize: 2000);
+      if (!mounted) return;
+
+      // İlk görünüm: başta ilk 200 kaydı göster
+      setState(() {
+        _allWords = items;
+        _applyFilter(searchController.text);
+        _loading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _error = '$e';
+        _loading = false;
+      });
+    }
+  }
+
+  /// 🔎 Arama kutusu değiştikçe yerelde filtre uygula (içeren)
+  void _applyFilter(String query) {
+    final q = query.trim().toLowerCase();
+    if (q.isEmpty) {
+      _filteredWords = _allWords.take(200).toList();
+    } else {
+      _filteredWords = _allWords
+          .where((w) => w.sirpca.toLowerCase().contains(q))
+          .take(200)
+          .toList();
+    }
+    setState(() {}); // görünümü güncelle
   }
 
   @override
@@ -109,33 +154,68 @@ class _HomePageState extends State<HomePage> {
             appBarName: appBarName,
             isSearching: isSearching,
             searchController: searchController,
-            onSearchChanged: _filterWords,
+            onSearchChanged: _applyFilter,
             onTapHome: () {
               // Home ’a dön: tüm stack ’i temizle
               Navigator.of(context).popUntil((route) => route.isFirst);
             },
-            // onClearSearch / onStartSearch ileride gerekirse eklenir
           ),
         ),
 
-        /// 📌 Drawer
+        /// 📁 Drawer
         drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
 
-        /// 📌 Body
+        /// 📌 Body: liste / progress / hata
         body: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 520),
-            child: const Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [SizedBox(height: 20)],
-              ),
+            constraints: const BoxConstraints(maxWidth: 720),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: _loading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _error != null
+                  ? Center(child: Text('Hata: $_error'))
+                  : _filteredWords.isEmpty
+                  ? const Center(child: Text('Sonuç bulunamadı.'))
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sonuç: ${_filteredWords.length} / ${_allWords.length}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: ListView.separated(
+                            itemCount: _filteredWords.length,
+                            separatorBuilder: (_, __) =>
+                                const Divider(height: 1),
+                            itemBuilder: (context, i) {
+                              final w = _filteredWords[i];
+                              return ListTile(
+                                dense: true,
+                                title: Text(
+                                  w.sirpca,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                subtitle: Text(w.turkce),
+                                trailing: Text(
+                                  w.userEmail,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
             ),
           ),
         ),
 
-        /// 📌 FAB
+        /// ➕ FAB: kelime ekle → eklendikten sonra listeleri tazele
         floatingActionButton: CustomFAB(onWordAdded: _handleReload),
       ),
     );

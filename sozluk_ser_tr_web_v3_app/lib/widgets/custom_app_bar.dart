@@ -1,28 +1,25 @@
 // 📃 <----- custom_app_bar.dart ----->
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appBarName;
 
-  // 🔎 Arama için minimal parametreler
+  // 🔎 Arama için parametreler
   final bool isSearching;
   final TextEditingController searchController;
   final Function(String) onSearchChanged;
 
-  // 🏠 YENİ: "Ana Sayfa" butonu davranışı dışarıdan gelir (opsiyonel).
-  // Sağlanmazsa fallback olarak mevcut navigator stack 'i köke pop eder.
+  // 🏠 Ana sayfa davranışı (opsiyonel)
   final VoidCallback? onTapHome;
 
-  // (Gerekirse ileride açarsın)
-  // final VoidCallback? onClearSearch;
-  // final VoidCallback? onStartSearch;
+  // 🔎 YENİ: Aramayı aç / kapat callback ’leri
+  final VoidCallback? onStartSearch;
+  final VoidCallback? onClearSearch;
 
   const CustomAppBar({
     super.key,
@@ -31,8 +28,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.searchController,
     required this.onSearchChanged,
     this.onTapHome,
-    // this.onClearSearch,
-    // this.onStartSearch,
+    this.onStartSearch,
+    this.onClearSearch,
   });
 
   @override
@@ -61,7 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: () {
                     searchController.clear();
                     onSearchChanged('');
-                    // onClearSearch?.call();
+                    onClearSearch?.call();
                   },
                 ),
                 enabledBorder: OutlineInputBorder(
@@ -75,11 +72,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 filled: true,
                 fillColor: Colors.white,
               ),
-              // onChanged: onSearchChanged, // istersen canlı filtre
+              onChanged: onSearchChanged, // canlı filtre
             )
           : Text(appBarName, style: itemCountStil),
       actions: [
-        /// 🔍 Arama ikonları (örnek; şimdilik sadece görsel amaçlı)
+        // 🔍 Arama ikonları
         isSearching
             ? IconButton(
                 tooltip: "Aramayı kapat",
@@ -92,7 +89,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   searchController.clear();
                   onSearchChanged('');
-                  // onClearSearch?.call();
+                  onClearSearch?.call();
                 },
               )
             : IconButton(
@@ -103,14 +100,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   width: 48,
                   height: 48,
                 ),
-                onPressed: () {
-                  // onStartSearch?.call();
-                  // (İstersen burada setState ile isSearching=true yapılır;
-                  // şu an bu widget stateless olduğu için dışarıdan yönetiliyor.)
-                },
+                onPressed: () => onStartSearch?.call(),
               ),
 
-        /// 🏠 Ana Sayfa ikonu (callback üzerinden)
+        // 🏠 Ana Sayfa
         Transform.translate(
           offset: const Offset(0, 8),
           child: IconButton(
@@ -119,7 +112,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed:
                 onTapHome ??
                 () {
-                  // Fallback davranış: stack ’i köke kadar temizle
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
           ),
