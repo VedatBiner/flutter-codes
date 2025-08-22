@@ -30,7 +30,6 @@
   - Ayrıntılı hatalar/özetler log’a düşer.
 */
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -48,15 +47,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ℹ️  Uygulama versiyonu
+  // ℹ️ Uygulama versiyonu
   String appVersion = '';
 
-  // context 'i await 'ten önce resolve edip saklayan güvenli helper
-  // void _showSnack(String message) {
-  //   final messenger = ScaffoldMessenger.maybeOf(context);
-  //   if (messenger == null) return; // widget dispose olmuş olabilir
-  //   messenger.showSnackBar(SnackBar(content: Text(message)));
-  // }
+  // 🔎 Arama için minimal durum (CustomAppBar parametreleri)
+  bool isSearching = false;
+  final TextEditingController searchController = TextEditingController();
+  void _filterWords(String query) {
+    // Şimdilik boş; ileride liste/arama eklersen burada filtreyi uygularsın.
+    // debugPrint('search: $query');
+  }
 
   @override
   void initState() {
@@ -65,16 +65,22 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
   }
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   // 👇 Drawer ’dan çağrılacak “yeniden oku” eylemi
   Future<void> _handleReload() async {
-    // await ’ten önce Messenger ’ı al → güvenli kullanım
-    final messenger = ScaffoldMessenger.maybeOf(context);
+    final messenger = ScaffoldMessenger.maybeOf(
+      context,
+    ); // await öncesi güvenli
     messenger?.showSnackBar(
       const SnackBar(content: Text('Koleksiyon okunuyor...')),
     );
 
-    final result =
-        await WordService.readWordsOnce(); // log ’lar + kısa durum metni döner
+    final result = await WordService.readWordsOnce(); // log + durum metni
     if (!mounted) return;
 
     messenger?.showSnackBar(SnackBar(content: Text(result)));
@@ -88,7 +94,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _runInitialRead() async {
-    final s = await WordService.readWordsOnce();
+    await WordService.readWordsOnce();
     if (!mounted) return;
   }
 
@@ -101,80 +107,21 @@ class _HomePageState extends State<HomePage> {
           preferredSize: const Size.fromHeight(64),
           child: CustomAppBar(
             appBarName: appBarName,
-            //    isSearching: isSearching,
-            //    searchController: searchController,
-            //    onSearchChanged: _filterWords,
-            //    onClearSearch: _clearSearch,
-            //    onStartSearch: () => setState(() => isSearching = true),
-            //    itemCount: words.length,
+            isSearching: isSearching,
+            searchController: searchController,
+            onSearchChanged: _filterWords,
+            onTapHome: () {
+              // Home ’a dön: tüm stack ’i temizle
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            // onClearSearch / onStartSearch ileride gerekirse eklenir
           ),
         ),
 
-        /// 📌 Drawer Burada
-        drawer: CustomDrawer(
-          appVersion: appVersion,
-          onReload: _handleReload,
-          // onDatabaseUpdated: _loadWords,
-          // isFihristMode: isFihristMode,
-          // onToggleViewMode: () {
-          //   setState(() => isFihristMode = !isFihristMode);
-          // },
+        /// 📌 Drawer
+        drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
 
-          //  ⬇️  Yeni imzalı geri-çağrı
-          // onLoadJsonData:
-          //     ({
-          //       required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
-          //       required void Function(
-          //         bool loading,
-          //         double prog,
-          //         String? currentWord,
-          //         Duration elapsedTime,
-          //       )
-          //       onStatus,
-          //     }) async {
-          //       await loadDataFromDatabase(
-          //         context: context, //  ⚠️  HomePage’in context ’i
-          //         onLoaded: (loadedWords) {
-          //           setState(() {
-          //             // allWords = loadedWords;
-          //             // words = loadedWords;
-          //           });
-          //
-          //           // if (mounted) {
-          //           //   Provider.of<WordCountProvider>(
-          //           //     context,
-          //           //     listen: false,
-          //           //   ).setCount(loadedWords.length);
-          //           // }
-          //         },
-          //
-          //         //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
-          //         onLoadingStatusChange:
-          //             (
-          //               bool loading,
-          //               double prog,
-          //               String? currentWord,
-          //               Duration elapsed,
-          //             ) {
-          //               setState(() {
-          //                 //    isLoadingJson = loading;
-          //                 //    progress = prog;
-          //                 //    loadingWord = currentWord;
-          //                 //    elapsedTime = elapsed;
-          //               });
-          //               onStatus(
-          //                 loading,
-          //                 prog,
-          //                 currentWord,
-          //                 elapsed,
-          //               ); // ↩︎ ilet
-          //             },
-          //       );
-          //     },
-        ),
-
-        /// 📌 Body Burada
-        ///
+        /// 📌 Body
         body: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 520),
@@ -188,13 +135,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
 
-        /// 📌 FAB Burada
-        ///
-        floatingActionButton: CustomFAB(
-          onWordAdded: _handleReload,
-          // refreshWords: _loadWords,
-          // clearSearch: _clearSearch,
-        ),
+        /// 📌 FAB
+        floatingActionButton: CustomFAB(onWordAdded: _handleReload),
       ),
     );
   }

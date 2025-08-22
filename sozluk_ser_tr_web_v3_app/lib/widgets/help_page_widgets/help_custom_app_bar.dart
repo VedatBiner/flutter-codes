@@ -14,9 +14,9 @@ PreferredSizeWidget buildHelpAppBar(BuildContext context) {
 
   return CustomAppBar(
     appBarName: appBarName,
-    // isSearching: false,
-    // searchController: TextEditingController(),
-    // onSearchChanged: (value) {},
+    isSearching: false,
+    searchController: TextEditingController(),
+    onSearchChanged: (value) {},
     // onClearSearch: () {},
     // onStartSearch: () {},
     // itemCount: wordCount,
