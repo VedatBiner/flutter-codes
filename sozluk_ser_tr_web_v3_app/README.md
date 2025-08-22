@@ -15,4 +15,4 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Ekleme ve Aynı kelime kontrolü çalışıyor.
 - Arama kutusu da açılır kapanır hale geldi.
 - Ufak bir liste görünümü getirilerek aranan kelimeler görülebiliyor.
-- 
+- Kelimeler Card içine alındı, silme düzeltme butonları eklendi

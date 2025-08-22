@@ -154,10 +154,11 @@ class _HomePageState extends State<HomePage> {
 
         /// 📦 Body: liste / progress / hata (artık ayrı widget)
         body: CustomBody(
-          isLoading: _loading,
+          loading: _loading,
           error: _error,
-          filtered: _filteredWords,
-          totalCount: _allWords.length,
+          allWords: _allWords,
+          filteredWords: _filteredWords,
+          onRefetch: _handleReload, // sil/düzenle sonrasında tazeleme
           // maxWidth: 720, // istersen özelleştir
         ),
 
