@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   // ℹ️ Versiyon
   String appVersion = '';
 
-  // 🔎 Arama state’i
+  // 🔎 Arama state ’i
   bool isSearching = false; // ilk başta kapalı
   final TextEditingController searchController = TextEditingController();
 
@@ -105,18 +105,58 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // 🔎 Yerel filtre (içeren)
+  // 🔎 Yerel filtre (Sırpça + Türkçe, içeren)
   void _applyFilter(String query) {
-    final q = query.trim().toLowerCase();
+    final q = _fold(query); // dil-dostu lowercase + aksan sadeleştirme
+
     if (q.isEmpty) {
-      _filteredWords = _allWords.take(200).toList();
-    } else {
-      _filteredWords = _allWords
-          .where((w) => w.sirpca.toLowerCase().contains(q))
-          .take(200)
-          .toList();
+      setState(() => _filteredWords = _allWords.take(200).toList());
+      return;
     }
-    setState(() {}); // görünümü güncelle
+
+    // 1) Sırpça’da geçenler
+    final serbianMatches = _allWords
+        .where((w) => _fold(w.sirpca).contains(q))
+        .toList();
+
+    // 2) Türkçe’de geçenler (Sırpça’da eşleşenleri tekrar ekleme)
+    final seen = serbianMatches.toSet(); // Equatable sayesinde set çalışır
+    final turkishMatches = _allWords
+        .where((w) => !seen.contains(w) && _fold(w.turkce).contains(q))
+        .toList();
+
+    setState(() {
+      _filteredWords = [
+        ...serbianMatches,
+        ...turkishMatches,
+      ].take(200).toList();
+    });
+  }
+
+  /// Küçük yardımcı: harfleri küçült ve bazı aksanlı karakterleri sadeleştir.
+  /// (İstersen genişletip kendi harita listenle çoğaltabilirsin.)
+  String _fold(String s) {
+    var x = s.toLowerCase();
+
+    // Türkçe
+    x = x
+        .replaceAll('ç', 'c')
+        .replaceAll('ğ', 'g')
+        .replaceAll('ı', 'i')
+        .replaceAll('i̇', 'i') // noktalı I normalize
+        .replaceAll('ö', 'o')
+        .replaceAll('ş', 's')
+        .replaceAll('ü', 'u');
+
+    // Sırpça (Latin)
+    x = x
+        .replaceAll('č', 'c')
+        .replaceAll('ć', 'c')
+        .replaceAll('đ', 'dj') // istersen 'd' yapabilirsin
+        .replaceAll('š', 's')
+        .replaceAll('ž', 'z');
+
+    return x;
   }
 
   // 🔁 Aramayı AÇ
