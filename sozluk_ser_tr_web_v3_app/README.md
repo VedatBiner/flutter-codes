@@ -8,4 +8,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - JSON,CSV,XLSX aktarma işlemleri web ve mobilde düzgün çalışıyor.
 - Home Page biraz temizlendi.
 - Yedekleme seçeneği drawer menüye eklendi
+- Home page geri dönüş butonu eklendi 
 - 

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
+import '../screens/home_page.dart';
 // import '../providers/word_count_provider.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -80,30 +81,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           //   ),
           //  :
           Text(appBarName, style: itemCountStil),
-      // actions: [
-      //   isSearching
-      //       ? IconButton(
-      //           tooltip: "Aramayı kapat",
-      //           color: menuColor,
-      //           icon: Image.asset(
-      //             "assets/images/close.png",
-      //             width: 48,
-      //             height: 48,
-      //           ),
-      //           // icon: const Icon(Icons.clear),
-      //           onPressed: onClearSearch,
-      //         )
-      //       : IconButton(
-      //           color: menuColor,
-      //           tooltip: "Aramayı başlat",
-      //           icon: Image.asset(
-      //             "assets/images/search.png",
-      //             width: 48,
-      //             height: 48,
-      //           ),
-      //           onPressed: onStartSearch,
-      //         ),
-      // ],
+      actions: [
+        //   isSearching
+        //       ? IconButton(
+        //           tooltip: "Aramayı kapat",
+        //           color: menuColor,
+        //           icon: Image.asset(
+        //             "assets/images/close.png",
+        //             width: 48,
+        //             height: 48,
+        //           ),
+        //           // icon: const Icon(Icons.clear),
+        //           onPressed: onClearSearch,
+        //         )
+        //       : IconButton(
+        //           color: menuColor,
+        //           tooltip: "Aramayı başlat",
+        //           icon: Image.asset(
+        //             "assets/images/search.png",
+        //             width: 48,
+        //             height: 48,
+        //           ),
+        //           onPressed: onStartSearch,
+        //         ),
+
+        /// Ana Sayfa ikonu
+        Transform.translate(
+          offset: const Offset(0, 8),
+          child: IconButton(
+            tooltip: "Ana Sayfa",
+            icon: Image.asset("assets/images/home.png", width: 64, height: 64),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 

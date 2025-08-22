@@ -7,12 +7,11 @@ import 'dart:developer' show log;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
 import '../screens/home_page.dart';
 import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'routes.dart';
-
-/// 📌 Yardımcı yüklemeler burada
 import 'theme.dart';
 
 Future<void> main() async {
