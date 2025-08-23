@@ -5,8 +5,9 @@
   - “Arama modunu aç/kapat” davranışı CustomAppBar.onStartSearch / onClearSearch
     callback’leri ile HomePage içinden yönetilir (isSearching state).
   - Açılışta WordService.fetchAllWords() ile tüm kelimeler belleğe alınır.
-  - Arama kutusuna yazdıkça Sırpça ve Türkçe alanlarında “içeren” eşleşmeye göre yerelde filtrelenir.
-  - Yükleme süresinde altta bir bilgilendirme bandı (sayaçla) gösterilir.
+  - Arama kutusuna yazdıkça Sırpça ve Türkçe alanlarında “içeren” eşleşmeye göre
+    yerelde filtrelenir.
+  - Alt bant (LoadingBottomBanner) yükleme sırasında gösterilir ve saniye sayar.
 */
 
 import 'dart:async';
@@ -19,10 +20,10 @@ import '../constants/info_constants.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
 import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_body.dart'; // ⬅️ Gövde ayrı dosyada
+import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
-import '../widgets/loading_bottom_banner.dart'; // ⬅️ Alt bilgilendirme bandı
+import '../widgets/loading_bottom_banner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,8 +35,8 @@ class _HomePageState extends State<HomePage> {
   // ℹ️ Versiyon
   String appVersion = '';
 
-  // 🔎 Arama state ’i
-  bool isSearching = false; // ilk başta kapalı
+  // 🔎 Arama state’i
+  bool isSearching = false;
   final TextEditingController searchController = TextEditingController();
 
   // 📚 Bellekteki veri ve filtrelenmiş görünüm
@@ -46,16 +47,17 @@ class _HomePageState extends State<HomePage> {
   bool _loading = true;
   String? _error;
 
-  // ⏱️ ALT BANT sayaç
+  // ⏱️ Alt bant: sayaç ve mesaj
   final ValueNotifier<int> _elapsedSec = ValueNotifier<int>(0);
   Timer? _loadTimer;
+  String _loadingMessage = 'Lütfen bekleyiniz, veriler okunuyor…';
 
   @override
   void initState() {
     super.initState();
-    _runInitialRead(); // kısa özet+log
+    _runInitialRead(); // kısa özet + log
     _getAppVersion(); // versiyon
-    _loadAllWords(); // asıl veriyi çek
+    _loadAllWords(bannerMessage: _loadingMessage); // asıl veriyi çek
   }
 
   @override
@@ -66,10 +68,10 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // ⏱️ Sayaç başlat/durdur
+  // ⏱️ Banner sayaç kontrolü
   void _startLoadingBanner() {
     _loadTimer?.cancel();
-    _elapsedSec.value = 0; // reset
+    _elapsedSec.value = 0;
     _loadTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       _elapsedSec.value = _elapsedSec.value + 1;
     });
@@ -80,18 +82,10 @@ class _HomePageState extends State<HomePage> {
     _loadTimer = null;
   }
 
-  // 🔁 Drawer ’dan çağrılacak “yeniden oku”
+  // 🔁 Drawer ’dan “verileri tekrar oku”
   Future<void> _handleReload() async {
-    final messenger = ScaffoldMessenger.maybeOf(context);
-    messenger?.showSnackBar(
-      const SnackBar(content: Text('Veriler tekrar okunuyor...')),
-    );
-
-    await _loadAllWords();
-
-    if (!mounted) return;
-    messenger?.showSnackBar(
-      const SnackBar(content: Text('Verilerin okunması tamamlandı.')),
+    await _loadAllWords(
+      bannerMessage: 'Lütfen bekleyiniz, veriler tekrar okunuyor...',
     );
   }
 
@@ -108,14 +102,14 @@ class _HomePageState extends State<HomePage> {
     if (!mounted) return;
   }
 
-  // ☁️ Tüm kelimeleri çek → belleğe al → filtreyi uygula
-  Future<void> _loadAllWords() async {
+  // ☁️ Tüm kelimeleri çek → belleğe al → filtreyi uygula (+ banner kontrolü)
+  Future<void> _loadAllWords({required String bannerMessage}) async {
     setState(() {
       _loading = true;
       _error = null;
+      _loadingMessage = bannerMessage;
     });
-
-    _startLoadingBanner(); // ⬅️ sayaç burada başlar
+    _startLoadingBanner();
 
     try {
       final items = await WordService.fetchAllWords(pageSize: 2000);
@@ -133,27 +127,22 @@ class _HomePageState extends State<HomePage> {
         _loading = false;
       });
     } finally {
-      _stopLoadingBanner(); // ⬅️ işlem bitince mutlaka durdur
+      _stopLoadingBanner();
     }
   }
 
   // 🔎 Yerel filtre (Sırpça + Türkçe, içeren)
   void _applyFilter(String query) {
-    final q = _fold(query); // dil-dostu lowercase + aksan sadeleştirme
-
+    final q = _fold(query);
     if (q.isEmpty) {
       setState(() => _filteredWords = _allWords.take(200).toList());
       return;
     }
 
-    // 1) Sırpça ’da geçenler
     final serbianMatches = _allWords
         .where((w) => _fold(w.sirpca).contains(q))
         .toList();
-
-    // 2) Türkçe ’de geçenler (Sırpça ’da eşleşenleri tekrar ekleme)
-    final seen = serbianMatches
-        .toSet(); // (Word Equatable ise set düzgün çalışır)
+    final seen = serbianMatches.toSet(); // (Word Equatable ise set çalışır)
     final turkishMatches = _allWords
         .where((w) => !seen.contains(w) && _fold(w.turkce).contains(q))
         .toList();
@@ -166,7 +155,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// Küçük yardımcı: harfleri küçült ve bazı aksanlı karakterleri sadeleştir.
+  /// Küçük yardımcı: lower + aksan sadeleştirme
   String _fold(String s) {
     var x = s.toLowerCase();
 
@@ -175,7 +164,7 @@ class _HomePageState extends State<HomePage> {
         .replaceAll('ç', 'c')
         .replaceAll('ğ', 'g')
         .replaceAll('ı', 'i')
-        .replaceAll('i̇', 'i') // noktalı I normalize
+        .replaceAll('i̇', 'i')
         .replaceAll('ö', 'o')
         .replaceAll('ş', 's')
         .replaceAll('ü', 'u');
@@ -184,19 +173,16 @@ class _HomePageState extends State<HomePage> {
     x = x
         .replaceAll('č', 'c')
         .replaceAll('ć', 'c')
-        .replaceAll('đ', 'dj') // istersen 'd' yapabilirsin
+        .replaceAll('đ', 'dj')
         .replaceAll('š', 's')
         .replaceAll('ž', 'z');
 
     return x;
   }
 
-  // 🔁 Aramayı AÇ
-  void _handleStartSearch() {
-    setState(() => isSearching = true);
-  }
+  // 🔁 Aramayı AÇ/KAPAT
+  void _handleStartSearch() => setState(() => isSearching = true);
 
-  // 🔁 Aramayı KAPAT (metni de temizle)
   void _handleClearSearch() {
     searchController.clear();
     _applyFilter('');
@@ -224,24 +210,23 @@ class _HomePageState extends State<HomePage> {
         /// 📁 Drawer
         drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
 
-        /// 📦 Body: liste / progress / hata (artık ayrı widget)
+        /// 📦 Body: liste / progress / hata
         body: CustomBody(
           loading: _loading,
           error: _error,
           allWords: _allWords,
           filteredWords: _filteredWords,
-          onRefetch: _handleReload, // sil/düzenle sonrasında tazeleme
-          // maxWidth: 720, // istersen özelleştir
+          onRefetch: _handleReload,
         ),
 
         /// ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
         floatingActionButton: CustomFAB(onWordAdded: _handleReload),
 
-        /// ⬇️ ALT BANT: “Lütfen bekleyiniz, veriler okunuyor… (Xs)”
+        /// ⬇️ ALT BANT: “Lütfen bekleyiniz … (Xs)”
         bottomNavigationBar: LoadingBottomBanner(
           loading: _loading,
           elapsedSec: _elapsedSec,
-          message: 'Lütfen bekleyiniz, veriler okunuyor…',
+          message: _loadingMessage,
         ),
       ),
     );

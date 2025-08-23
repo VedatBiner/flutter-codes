@@ -1,7 +1,7 @@
 // 📃 <----- drawer_refresh_data_tile.dart ----->
 //
 // Drawer içinde “Verileri tekrar oku” eylemini temsil eden tekil ListTile.
-// HomePage’den verilen `onReload` callback’ini çağırır ve Drawer’ı kapatır.
+// HomePage’den verilen `onReload` callback ’ini çağırır ve Drawer ’ı kapatır.
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';

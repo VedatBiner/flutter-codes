@@ -18,5 +18,6 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Kelimeler Card içine alındı, silme düzeltme butonları eklendi.
 - Arama hem sırpça hem de Türkçe yapılıyor
 - Bildirim kutusunun boyutu değiştirilip, gölge verildi.
-- Uygulama görünür adı ve ikonları değiştirildi
+- Uygulama görünür adı ve ikonları değiştirildi.
+- Alt bölümde verilen mesajlar için ayrı metod oluşturulup, farklı yerlerden ortak kullanım sağlandı.
 - 
