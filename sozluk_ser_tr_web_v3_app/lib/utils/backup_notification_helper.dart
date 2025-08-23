@@ -1,26 +1,13 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 /*
-  🔔 Yedek/Export tetikleme helper'ı — UI'dan bağımsız, yeniden kullanılabilir
+  🔔 Yedek/Export tetikleme helper 'ı — UI 'dan bağımsız, yeniden kullanılabilir
 
-  NE YAPAR?
-  - Dışa aktarma sürecini başlatır (JSON+CSV+XLSX).
-  - UI durumunu güncellemek için dışarıdan verilen callback’leri çağırır:
-      • onExportingChange(true/false)  → buton kilidi / loading
-      • onStatusChange(text)           → ekrandaki durum metni
-  - Snackbar göstermek için, await'ten önce alınan ScaffoldMessenger ile güvenli çağrı yapar.
-  - await sonrasında BuildContext kullanmadan önce `context.mounted` ile güvenlik sağlar
-    (lint: use_build_context_synchronously uyarısını önlemek için).
-
-  KULLANIM
-    await triggerBackupExport(
-      context: context,
-      onStatusChange: (s) => setState(() => status = s),
-      onExportingChange: (v) => setState(() => exporting = v),
-      pageSize: 1000,
-      subfolder: appName, // info_constants.dart'tan
-    );
+  EKSTRA
+  - Export başlamadan önce sayacı olan bir alt-bant (LoadingBottomBanner) Overlay ile açılır,
+    export bitince kapatılır.
 */
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -28,6 +15,7 @@ import 'package:flutter/material.dart';
 import '../constants/text_constants.dart';
 import '../services/export_words.dart';
 import '../services/notification_service.dart';
+import '../widgets/loading_bottom_banner.dart';
 
 Future<void> triggerBackupExport({
   required BuildContext context,
@@ -36,12 +24,54 @@ Future<void> triggerBackupExport({
   int pageSize = 1000,
   String? subfolder,
 }) async {
-  // 🔑 await’ten ÖNCE messenger’ı al → context’i saklamadan güvenli kullanım
+  // 🔑 await ’ten ÖNCE messenger ’ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
 
   // Başlangıç UI durumu
   onExportingChange(true);
   onStatusChange('JSON + CSV + Excel hazırlanıyor...');
+
+  // ⬇️ Overlay tabanlı alt-bant (sayaçlı) hazırlığı
+  OverlayState? overlay = Overlay.maybeOf(context, rootOverlay: true);
+  OverlayEntry? bannerEntry;
+  final elapsedSec = ValueNotifier<int>(0);
+  Timer? timer;
+
+  void showBanner() {
+    if (overlay == null) return;
+    bannerEntry = OverlayEntry(
+      builder: (_) => Positioned(
+        left: 0,
+        right: 0,
+        bottom: 0,
+        child: Material(
+          color: Colors.transparent,
+          child: LoadingBottomBanner(
+            loading: true,
+            elapsedSec: elapsedSec,
+            message: 'Lütfen bekleyiniz, verilerin yedeği oluşturuluyor…',
+          ),
+        ),
+      ),
+    );
+    overlay!.insert(bannerEntry!);
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      elapsedSec.value = elapsedSec.value + 1;
+    });
+  }
+
+  Future<void> hideBanner() async {
+    timer?.cancel();
+    timer = null;
+    bannerEntry?.remove();
+    bannerEntry = null;
+    elapsedSec.dispose();
+    // küçük bir nefes payı (görsel yırtılmayı önler)
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+  }
+
+  // Banner ’ı göster
+  showBanner();
 
   try {
     final res = await exportWordsToJsonCsvXlsx(
@@ -49,52 +79,51 @@ Future<void> triggerBackupExport({
       subfolder: subfolder,
     );
 
-    // await sonrası context kullanmadan önce mutlaka kontrol et
     if (!context.mounted) return;
 
     onStatusChange(
       'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
     );
 
-    // Başarılı bildirim (UI içinde custom sheet/dialog vb.)
+    // Başarılı bildirim
     NotificationService.showCustomNotification(
-      context:
-          context, // ✅ rootCtx tutmuyoruz; mounted kontrolünden sonra kullanıyoruz
+      context: context,
       title: 'Yedek Oluşturuldu',
       message: RichText(
         text: TextSpan(
           style: normalBlackText,
           children: [
             const TextSpan(
-              text: "\nVeriler yedeklendi \n",
+              text: "\nVeriler yedeklendi\n",
               style: kelimeAddText,
             ),
             const TextSpan(
-              text: "Toplam Kayıt sayısı : \n",
+              text: "Toplam Kayıt sayısı:\n",
               style: notificationTitle,
             ),
-            TextSpan(text: "${res.count} ✅ \n", style: notificationText),
-            const TextSpan(text: "JSON yedeği → \n", style: notificationItem),
-            TextSpan(text: "${res.jsonPath} ✅ \n", style: notificationText),
-            const TextSpan(text: "CSV yedeği → \n", style: notificationItem),
-            TextSpan(text: "${res.csvPath} ✅ \n", style: notificationText),
-            const TextSpan(text: "XLSX yedeği → \n", style: notificationItem),
-            TextSpan(text: "${res.xlsxPath} ✅ \n", style: notificationText),
+            TextSpan(text: "${res.count} ✅\n", style: notificationText),
+            const TextSpan(text: "JSON yedeği →\n", style: notificationItem),
+            TextSpan(text: "${res.jsonPath} ✅\n", style: notificationText),
+            const TextSpan(text: "CSV yedeği →\n", style: notificationItem),
+            TextSpan(text: "${res.csvPath} ✅\n", style: notificationText),
+            const TextSpan(text: "XLSX yedeği →\n", style: notificationItem),
+            TextSpan(text: "${res.xlsxPath} ✅\n", style: notificationText),
           ],
         ),
       ),
       icon: Icons.download_for_offline_outlined,
       iconColor: Colors.green,
       progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
+      progressIndicatorBackground: Colors.greenAccent.shade100,
       height: 340,
       width: 360,
     );
+
     log("-----------------------------------------------", name: "Backup");
     log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
     log("-----------------------------------------------", name: "Backup");
     log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
-    log("CSV yedeği → ${res.csvPath} ✅", name: "Backup");
+    log("CSV  yedeği → ${res.csvPath} ✅", name: "Backup");
     log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
     log("-----------------------------------------------", name: "Backup");
   } catch (e) {
@@ -102,7 +131,9 @@ Future<void> triggerBackupExport({
     onStatusChange('Hata: $e');
     messenger?.showSnackBar(SnackBar(content: Text('Hata: $e')));
   } finally {
-    if (!context.mounted) return;
-    onExportingChange(false);
+    await hideBanner(); // mutlaka kaldır
+    if (context.mounted) {
+      onExportingChange(false);
+    }
   }
 }
