@@ -10,6 +10,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
+import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
 import 'word_card.dart';
@@ -59,9 +61,16 @@ class _CustomBodyState extends State<CustomBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Sonuç: ${widget.filteredWords.length} / ${widget.allWords.length}',
-                style: const TextStyle(fontWeight: FontWeight.w600),
+              Container(
+                height: 24,
+                width: double.infinity,
+                color: drawerColor,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  'Sonuç: ${widget.filteredWords.length} / ${widget.allWords.length}',
+                  style: subtitleText,
+                ),
               ),
               const SizedBox(height: 8),
               Expanded(

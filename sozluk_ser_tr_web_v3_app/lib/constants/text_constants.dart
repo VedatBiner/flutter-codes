@@ -140,3 +140,11 @@ const notificationText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.black54,
 );
+
+/// 📌 AppBar altındaki yazı
+var subtitleText = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+  color: menuColor,
+  backgroundColor: drawerColor,
+);
