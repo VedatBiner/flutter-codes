@@ -5,19 +5,24 @@
   - “Arama modunu aç/kapat” davranışı CustomAppBar.onStartSearch / onClearSearch
     callback’leri ile HomePage içinden yönetilir (isSearching state).
   - Açılışta WordService.fetchAllWords() ile tüm kelimeler belleğe alınır.
-  - Arama kutusuna yazdıkça Sırpça alanında “içeren” eşleşmeye göre yerelde filtrelenir.
+  - Arama kutusuna yazdıkça Sırpça ve Türkçe alanlarında “içeren” eşleşmeye göre yerelde filtrelenir.
+  - Yükleme süresinde altta bir bilgilendirme bandı (sayaçla) gösterilir.
 */
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
 import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_body.dart'; // ⬅️ YENİ: gövde ayrı dosyada
+import '../widgets/custom_body.dart'; // ⬅️ Gövde ayrı dosyada
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
+import '../widgets/loading_bottom_banner.dart'; // ⬅️ Alt bilgilendirme bandı
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,6 +46,10 @@ class _HomePageState extends State<HomePage> {
   bool _loading = true;
   String? _error;
 
+  // ⏱️ ALT BANT sayaç
+  final ValueNotifier<int> _elapsedSec = ValueNotifier<int>(0);
+  Timer? _loadTimer;
+
   @override
   void initState() {
     super.initState();
@@ -51,20 +60,39 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
+    _loadTimer?.cancel();
+    _elapsedSec.dispose();
     searchController.dispose();
     super.dispose();
+  }
+
+  // ⏱️ Sayaç başlat/durdur
+  void _startLoadingBanner() {
+    _loadTimer?.cancel();
+    _elapsedSec.value = 0; // reset
+    _loadTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      _elapsedSec.value = _elapsedSec.value + 1;
+    });
+  }
+
+  void _stopLoadingBanner() {
+    _loadTimer?.cancel();
+    _loadTimer = null;
   }
 
   // 🔁 Drawer ’dan çağrılacak “yeniden oku”
   Future<void> _handleReload() async {
     final messenger = ScaffoldMessenger.maybeOf(context);
     messenger?.showSnackBar(
-      const SnackBar(content: Text('Koleksiyon okunuyor...')),
+      const SnackBar(content: Text('Veriler tekrar okunuyor...')),
     );
 
     await _loadAllWords();
+
     if (!mounted) return;
-    messenger?.showSnackBar(const SnackBar(content: Text('Okuma tamam.')));
+    messenger?.showSnackBar(
+      const SnackBar(content: Text('Verilerin okunması tamamlandı.')),
+    );
   }
 
   // 🧭 Versiyon
@@ -87,6 +115,8 @@ class _HomePageState extends State<HomePage> {
       _error = null;
     });
 
+    _startLoadingBanner(); // ⬅️ sayaç burada başlar
+
     try {
       final items = await WordService.fetchAllWords(pageSize: 2000);
       if (!mounted) return;
@@ -102,6 +132,8 @@ class _HomePageState extends State<HomePage> {
         _error = '$e';
         _loading = false;
       });
+    } finally {
+      _stopLoadingBanner(); // ⬅️ işlem bitince mutlaka durdur
     }
   }
 
@@ -120,7 +152,8 @@ class _HomePageState extends State<HomePage> {
         .toList();
 
     // 2) Türkçe ’de geçenler (Sırpça ’da eşleşenleri tekrar ekleme)
-    final seen = serbianMatches.toSet(); // Equatable sayesinde set çalışır
+    final seen = serbianMatches
+        .toSet(); // (Word Equatable ise set düzgün çalışır)
     final turkishMatches = _allWords
         .where((w) => !seen.contains(w) && _fold(w.turkce).contains(q))
         .toList();
@@ -134,7 +167,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// Küçük yardımcı: harfleri küçült ve bazı aksanlı karakterleri sadeleştir.
-  /// (İstersen genişletip kendi harita listenle çoğaltabilirsin.)
   String _fold(String s) {
     var x = s.toLowerCase();
 
@@ -204,6 +236,12 @@ class _HomePageState extends State<HomePage> {
 
         /// ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
         floatingActionButton: CustomFAB(onWordAdded: _handleReload),
+
+        /// ⬇️ ALT BANT: “Lütfen bekleyiniz, veriler okunuyor… (Xs)”
+        bottomNavigationBar: LoadingBottomBanner(
+          loading: _loading,
+          elapsedSec: _elapsedSec,
+        ),
       ),
     );
   }
