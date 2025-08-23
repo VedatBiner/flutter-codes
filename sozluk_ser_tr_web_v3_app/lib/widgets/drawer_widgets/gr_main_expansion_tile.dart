@@ -16,22 +16,25 @@ class MainExpansionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      leading: Icon(Icons.info_outline_rounded, color: menuColor, size: 32),
-      title: const Text('Yardımcı Bilgiler', style: drawerMenuText),
-      childrenPadding: const EdgeInsets.only(left: 24),
-      collapsedIconColor: menuColor,
+    return Tooltip(
+      message: 'Yardımcı Bilgiler',
+      child: ExpansionTile(
+        leading: Icon(Icons.info_outline_rounded, color: menuColor, size: 32),
+        title: const Text('Yardımcı Bilgiler', style: drawerMenuText),
+        childrenPadding: const EdgeInsets.only(left: 24),
+        collapsedIconColor: menuColor,
 
-      children: [
-        /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
-        const AlphabetExpansionTile(),
+        children: [
+          /// 📌 Alfabe - İçinde Latin ve Kiril seçenekleri
+          const AlphabetExpansionTile(),
 
-        /// 📌 Gramer
-        const GrammarExpansionTile(),
+          /// 📌 Gramer
+          const GrammarExpansionTile(),
 
-        /// 📌 Yardımcı Kavramlar
-        const HelpExpansionTile(),
-      ],
+          /// 📌 Yardımcı Kavramlar
+          const HelpExpansionTile(),
+        ],
+      ),
     );
   }
 }

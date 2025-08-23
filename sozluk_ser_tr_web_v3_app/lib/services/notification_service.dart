@@ -14,17 +14,17 @@ class NotificationService {
     required Widget message,
     IconData icon = Icons.check_circle,
     Color iconColor = Colors.blue,
-    Alignment position = Alignment.centerLeft,
+    Alignment position = Alignment.center,
     AnimationType animation = AnimationType.fromLeft,
     required Color progressIndicatorBackground,
     required Color progressIndicatorColor,
   }) {
     ElegantNotification(
       background: notificationColor,
-      width: 340,
-      height: 260,
+      width: 360,
+      height: 280,
       stackedOptions: StackedOptions(
-        key: 'left',
+        key: 'center',
         type: StackedType.same,
         scaleFactor: 0.2,
         itemOffset: const Offset(-20, 10),
@@ -41,6 +41,12 @@ class NotificationService {
       progressIndicatorColor: progressIndicatorColor,
       progressIndicatorBackground: progressIndicatorBackground,
       icon: Icon(icon, color: iconColor),
+      shadow: BoxShadow(
+        color: Colors.black38.withValues(),
+        spreadRadius: 2,
+        blurRadius: 5,
+        offset: const Offset(0, 4),
+      ),
     ).show(context);
   }
 }

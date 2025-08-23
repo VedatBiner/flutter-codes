@@ -21,6 +21,8 @@
     );
 */
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../constants/text_constants.dart';
@@ -67,10 +69,10 @@ Future<void> triggerBackupExport({
               text: "\nVeriler yedeklendi \n",
               style: kelimeAddText,
             ),
-            TextSpan(text: "Toplam : ${res.count} kayıt ✅ \n"),
-            TextSpan(text: "JSON → ${res.jsonPath} ✅ \n"),
-            TextSpan(text: "CSV → ${res.csvPath} ✅ \n"),
-            TextSpan(text: "XLSX → ${res.xlsxPath} ✅ \n"),
+            TextSpan(text: "Toplam Kayıt sayısı : \n ${res.count} ✅ \n"),
+            TextSpan(text: "JSON yedeği → \n ${res.jsonPath} ✅ \n"),
+            TextSpan(text: "CSV yedeği → \n ${res.csvPath} ✅ \n"),
+            TextSpan(text: "XLSX yedeği → \n ${res.xlsxPath} ✅ \n"),
           ],
         ),
       ),
@@ -79,6 +81,13 @@ Future<void> triggerBackupExport({
       progressIndicatorColor: Colors.green,
       progressIndicatorBackground: Colors.green.shade100,
     );
+    log("-----------------------------------------------", name: "Backup");
+    log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
+    log("-----------------------------------------------", name: "Backup");
+    log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
+    log("CSV yedeği → ${res.csvPath} ✅", name: "Backup");
+    log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
+    log("-----------------------------------------------", name: "Backup");
   } catch (e) {
     if (!context.mounted) return;
     onStatusChange('Hata: $e');

@@ -144,10 +144,10 @@ class WordService {
       final snap = await col.limit(1).get();
       if (snap.docs.isNotEmpty) {
         final Word w = snap.docs.first.data();
-        log(
-          '🔎 Örnek: ${w.id} -> ${w.sirpca} ➜ ${w.turkce} (userEmail: ${w.userEmail})',
-          name: collectionName,
-        );
+        // log(
+        //   '🔎 Örnek: ${w.id} -> ${w.sirpca} ➜ ${w.turkce} (userEmail: ${w.userEmail})',
+        //   name: collectionName,
+        // );
       } else {
         log('ℹ️ Koleksiyonda belge yok.', name: collectionName);
       }

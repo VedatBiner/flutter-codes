@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <application
-        android:label="sozluk_ser_tr_web_v3_app"
+        android:label="Sözlük (Ser-Tur) Web-Mobil v3"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
