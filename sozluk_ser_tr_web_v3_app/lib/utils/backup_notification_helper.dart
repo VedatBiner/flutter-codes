@@ -87,6 +87,8 @@ Future<void> triggerBackupExport({
       iconColor: Colors.green,
       progressIndicatorColor: Colors.green,
       progressIndicatorBackground: Colors.green.shade100,
+      height: 340,
+      width: 360,
     );
     log("-----------------------------------------------", name: "Backup");
     log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");

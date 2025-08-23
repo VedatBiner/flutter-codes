@@ -114,12 +114,12 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    // 1) Sırpça’da geçenler
+    // 1) Sırpça ’da geçenler
     final serbianMatches = _allWords
         .where((w) => _fold(w.sirpca).contains(q))
         .toList();
 
-    // 2) Türkçe’de geçenler (Sırpça’da eşleşenleri tekrar ekleme)
+    // 2) Türkçe ’de geçenler (Sırpça ’da eşleşenleri tekrar ekleme)
     final seen = serbianMatches.toSet(); // Equatable sayesinde set çalışır
     final turkishMatches = _allWords
         .where((w) => !seen.contains(w) && _fold(w.turkce).contains(q))
