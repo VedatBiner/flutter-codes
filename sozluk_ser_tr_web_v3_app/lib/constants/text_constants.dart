@@ -119,3 +119,24 @@ const tableHeaderText = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.black,
 );
+
+/// 📌 Notification Başlığı Text stili
+const notificationTitle = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+  color: Colors.red,
+);
+
+/// 📌 Notification Maddeleri Text stili
+const notificationItem = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+  color: Colors.blue,
+);
+
+/// 📌 Notification info Text stili
+const notificationText = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+  color: Colors.black54,
+);
