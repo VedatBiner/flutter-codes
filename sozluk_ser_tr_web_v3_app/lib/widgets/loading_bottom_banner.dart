@@ -1,25 +1,26 @@
-// 📃 <----- lib/widgets/loading_bottom_banner.dart ----->
-import 'package:flutter/foundation.dart' show ValueListenable;
+// <📃 ----- lib/widgets/loading_bottom_banner.dart ----->
+import 'package:flutter/foundation.dart'; // ValueListenable için
 import 'package:flutter/material.dart';
 
 class LoadingBottomBanner extends StatelessWidget {
   final bool loading;
   final ValueListenable<int> elapsedSec;
 
-  /// İsteğe bağlı özelleştirmeler
+  /// 🔹 Dışarıdan mesaj verilebilir (varsayılan: “Lütfen bekleyiniz…”)
+  final String message;
+
   final EdgeInsets padding;
-  final Color backgroundColor;
   final double indicatorSize;
-  final String Function(int seconds)? messageBuilder;
+  final Color backgroundColor;
 
   const LoadingBottomBanner({
     super.key,
     required this.loading,
     required this.elapsedSec,
+    this.message = 'Lütfen bekleyiniz, veriler okunuyor…',
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+    this.indicatorSize = 18,
     this.backgroundColor = const Color(0xBF000000), // %75 siyah
-    this.indicatorSize = 18.0,
-    this.messageBuilder,
   });
 
   @override
@@ -30,9 +31,6 @@ class LoadingBottomBanner extends StatelessWidget {
       child: ValueListenableBuilder<int>(
         valueListenable: elapsedSec,
         builder: (_, sec, __) {
-          final text =
-              messageBuilder?.call(sec) ??
-              'Lütfen bekleyiniz, veriler okunuyor… (${sec}s)';
           return Container(
             padding: padding,
             color: backgroundColor,
@@ -47,7 +45,7 @@ class LoadingBottomBanner extends StatelessWidget {
                 const SizedBox(width: 12),
                 Flexible(
                   child: Text(
-                    text,
+                    '$message (${sec}s)',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,

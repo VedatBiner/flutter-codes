@@ -241,6 +241,7 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: LoadingBottomBanner(
           loading: _loading,
           elapsedSec: _elapsedSec,
+          message: 'Lütfen bekleyiniz, veriler okunuyor…',
         ),
       ),
     );
