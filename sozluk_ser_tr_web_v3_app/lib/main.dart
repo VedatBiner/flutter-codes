@@ -5,6 +5,7 @@ import 'dart:developer' show log;
 
 /// 📌 Flutter hazır paketleri
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -18,6 +19,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   log('🚀 Firebase başlatıldı.', name: 'app');
+  debugPrint = (String? message, {int? wrapWidth}) {
+    if (message == null) return;
+    debugPrintSynchronously(message, wrapWidth: wrapWidth);
+  };
   runApp(const MyApp());
 }
 

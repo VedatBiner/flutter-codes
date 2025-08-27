@@ -191,43 +191,44 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        /// 📜 AppBar
-        appBar: CustomAppBar(
-          appBarName: appBarName,
-          isSearching: isSearching,
-          searchController: searchController,
-          onSearchChanged: _applyFilter,
-          onStartSearch: _handleStartSearch,
-          onClearSearch: _handleClearSearch,
-          onTapHome: () {
-            // Home ’a dön: tüm stack ’i temizle
-            Navigator.of(context).popUntil((route) => route.isFirst);
-          },
-        ),
+    return Scaffold(
+      /// 📜 AppBar
+      appBar: CustomAppBar(
+        appBarName: appBarName,
+        isSearching: isSearching,
+        searchController: searchController,
+        onSearchChanged: _applyFilter,
+        onStartSearch: _handleStartSearch,
+        onClearSearch: _handleClearSearch,
+        onTapHome: () {
+          // Home ’a dön: tüm stack ’i temizle
+          Navigator.of(context).popUntil((route) => route.isFirst);
+        },
+      ),
 
-        /// 📁 Drawer
-        drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
+      /// 📁 Drawer
+      drawer: CustomDrawer(appVersion: appVersion, onReload: _handleReload),
 
-        /// 📦 Body: liste / progress / hata
-        body: CustomBody(
+      /// 📦 Body: liste / progress / hata
+      body: SafeArea(
+        top: false,
+        child: CustomBody(
           loading: _loading,
           error: _error,
           allWords: _allWords,
           filteredWords: _filteredWords,
           onRefetch: _handleReload,
         ),
+      ),
 
-        /// ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
-        floatingActionButton: CustomFAB(onWordAdded: _handleReload),
+      /// ➕ FAB: kelime ekle → eklendikten sonra listeyi tazele
+      floatingActionButton: CustomFAB(onWordAdded: _handleReload),
 
-        /// ⬇️ ALT BANT: “Lütfen bekleyiniz … (Xs)”
-        bottomNavigationBar: LoadingBottomBanner(
-          loading: _loading,
-          elapsedSec: _elapsedSec,
-          message: _loadingMessage,
-        ),
+      /// ⬇️ ALT BANT: “Lütfen bekleyiniz … (Xs)”
+      bottomNavigationBar: LoadingBottomBanner(
+        loading: _loading,
+        elapsedSec: _elapsedSec,
+        message: _loadingMessage,
       ),
     );
   }

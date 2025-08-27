@@ -1,13 +1,4 @@
 // <📜 ----- lib/widgets/custom_body.dart ----->
-/*
-  🧩 Liste gövdesi (CustomBody) — WordCard + seçim + düzenle/sil
-  - filteredWords listesini WordCard satırlarıyla gösterir.
-  - Uzun basınca satırı “seçili” yapar; tekrar basınca kaldırır.
-  - Düzenle → basit bir dialog ile sirpca/turkce günceller, WordService.updateWord çağırır.
-  - Sil     → onay dialogu ile WordService.deleteWord çağırır.
-  - Her iki işlemden sonra parent’tan gelen onRefetch() ile verileri tazeler.
-*/
-
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
@@ -21,8 +12,6 @@ class CustomBody extends StatefulWidget {
   final String? error;
   final List<Word> allWords;
   final List<Word> filteredWords;
-
-  /// Kelime eklendi/güncellendi/silindiğinde veriyi baştan okumak için
   final Future<void> Function() onRefetch;
 
   const CustomBody({
@@ -53,27 +42,34 @@ class _CustomBodyState extends State<CustomBody> {
       return const Center(child: Text('Sonuç bulunamadı.'));
     }
 
-    return Center(
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 720),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 24,
-                width: double.infinity,
-                color: drawerColor,
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text(
-                  'Sonuç: ${widget.filteredWords.length} / ${widget.allWords.length}',
-                  style: subtitleText,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // 🔵 AppBar ’a yapışık, tam genişlik “Sonuç” bandı
+        Material(
+          color: drawerColor, // istediğin arkaplan
+          child: Container(
+            height: 28,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            alignment: Alignment.center,
+            child: SelectionContainer.disabled(
+              // web ’de metin seçilince mavi olmasın
+              child: Text(
+                'Toplam kelime sayısı : ${widget.filteredWords.length} / ${widget.allWords.length}',
+                textAlign: TextAlign.center,
+                style: subtitleText,
               ),
-              const SizedBox(height: 8),
-              Expanded(
+            ),
+          ),
+        ),
+
+        // 🔽 Liste: ortalı + max 720px genişlik + içeri padding
+        Expanded(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 720),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
                 child: ListView.separated(
                   itemCount: widget.filteredWords.length,
                   separatorBuilder: (_, __) => const Divider(height: 1),
@@ -81,7 +77,6 @@ class _CustomBodyState extends State<CustomBody> {
                     final word = widget.filteredWords[index];
                     final isSelected = selectedIndex == index;
 
-                    // 🔽 İstediğin kullanım şekli:
                     return WordCard(
                       word: word,
                       isSelected: isSelected,
@@ -102,14 +97,13 @@ class _CustomBodyState extends State<CustomBody> {
                   },
                 ),
               ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
-  // ✏️ Düzenleme akışı (basit dialog)
   Future<void> _editWord({
     required BuildContext context,
     required Word word,
@@ -155,9 +149,7 @@ class _CustomBodyState extends State<CustomBody> {
     final newTurkce = turkceCtl.text.trim();
     if (newSirpca.isEmpty || newTurkce.isEmpty) return;
 
-    // id varsa dokümandan güncelleme yapılır; yoksa oldSirpca ile arayıp günceller
     final updated = word.copyWith(sirpca: newSirpca, turkce: newTurkce);
-
     await WordService.updateWord(updated, oldSirpca: word.sirpca);
 
     if (!mounted) return;
@@ -168,7 +160,6 @@ class _CustomBodyState extends State<CustomBody> {
     await widget.onRefetch();
   }
 
-  // 🗑️ Silme akışı (onay dialogu)
   Future<void> _confirmDelete({
     required BuildContext context,
     required Word word,
