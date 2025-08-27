@@ -1,10 +1,9 @@
 // <📜 ----- lib/widgets/custom_body.dart ----->
 import 'package:flutter/material.dart';
 
-import '../constants/color_constants.dart';
-import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
+import 'body_widgets/result_count_bar.dart';
 import 'word_card.dart';
 
 class CustomBody extends StatefulWidget {
@@ -32,80 +31,60 @@ class _CustomBodyState extends State<CustomBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.loading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    if (widget.error != null) {
+    if (widget.loading) return const Center(child: CircularProgressIndicator());
+    if (widget.error != null)
       return Center(child: Text('Hata: ${widget.error}'));
-    }
-    if (widget.filteredWords.isEmpty) {
+    if (widget.filteredWords.isEmpty)
       return const Center(child: Text('Sonuç bulunamadı.'));
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // 🔵 AppBar ’a yapışık, tam genişlik “Sonuç” bandı
-        buildBodyHeader(),
+        // 🔵 AppBar ’a yapışık, tam genişlik üst bant
+        ResultCountBar(
+          filteredCount: widget.filteredWords.length,
+          totalCount: widget.allWords.length,
+          // İstersen özelleştir:
+          // text: 'Sonuç: ${widget.filteredWords.length} / ${widget.allWords.length}',
+        ),
 
-        // 🔽 Liste: ortalı + max 720px genişlik + içeri padding
-        buildBodyList(),
-      ],
-    );
-  }
+        // 🔽 Liste
+        Expanded(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 720),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: ListView.separated(
+                  itemCount: widget.filteredWords.length,
+                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  itemBuilder: (context, index) {
+                    final word = widget.filteredWords[index];
+                    final isSelected = selectedIndex == index;
 
-  Expanded buildBodyList() {
-    return Expanded(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 720),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: ListView.separated(
-              itemCount: widget.filteredWords.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                final word = widget.filteredWords[index];
-                final isSelected = selectedIndex == index;
-
-                return WordCard(
-                  word: word,
-                  isSelected: isSelected,
-                  onTap: () {
-                    if (selectedIndex != null) {
-                      setState(() => selectedIndex = null);
-                    }
+                    return WordCard(
+                      word: word,
+                      isSelected: isSelected,
+                      onTap: () {
+                        if (selectedIndex != null)
+                          setState(() => selectedIndex = null);
+                      },
+                      onLongPress: () {
+                        setState(
+                          () => selectedIndex = isSelected ? null : index,
+                        );
+                      },
+                      onEdit: () => _editWord(context: context, word: word),
+                      onDelete: () =>
+                          _confirmDelete(context: context, word: word),
+                    );
                   },
-                  onLongPress: () {
-                    setState(() => selectedIndex = isSelected ? null : index);
-                  },
-                  onEdit: () => _editWord(context: context, word: word),
-                  onDelete: () => _confirmDelete(context: context, word: word),
-                );
-              },
+                ),
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Material buildBodyHeader() {
-    return Material(
-      color: drawerColor, // istediğin arkaplan
-      child: Container(
-        height: 28,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        alignment: Alignment.center,
-        child: SelectionContainer.disabled(
-          // web ’de metin seçilince mavi olmasın
-          child: Text(
-            'Toplam kelime sayısı : ${widget.filteredWords.length} / ${widget.allWords.length}',
-            textAlign: TextAlign.center,
-            style: subtitleText,
-          ),
-        ),
-      ),
+      ],
     );
   }
 
@@ -161,7 +140,6 @@ class _CustomBodyState extends State<CustomBody> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('Güncellendi')));
-
     await widget.onRefetch();
   }
 
@@ -199,7 +177,6 @@ class _CustomBodyState extends State<CustomBody> {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('Silindi')));
-
     await widget.onRefetch();
   }
 }
