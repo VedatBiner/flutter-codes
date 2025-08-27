@@ -49,7 +49,7 @@ Future<void> triggerBackupExport({
           child: LoadingBottomBanner(
             loading: true,
             elapsedSec: elapsedSec,
-            message: 'Lütfen bekleyiniz, verilerin yedeği oluşturuluyor…',
+            message: 'Lütfen bekleyiniz, \nverilerin yedeği oluşturuluyor…',
           ),
         ),
       ),

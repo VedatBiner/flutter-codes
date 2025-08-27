@@ -20,4 +20,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Bildirim kutusunun boyutu değiştirilip, gölge verildi.
 - Uygulama görünür adı ve ikonları değiştirildi.
 - Alt bölümde verilen mesajlar için ayrı metod oluşturulup, farklı yerlerden ortak kullanım sağlandı.
+- Sayfa görünümü düzeltildi.
 - 

@@ -46,61 +46,66 @@ class _CustomBodyState extends State<CustomBody> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // 🔵 AppBar ’a yapışık, tam genişlik “Sonuç” bandı
-        Material(
-          color: drawerColor, // istediğin arkaplan
-          child: Container(
-            height: 28,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            alignment: Alignment.center,
-            child: SelectionContainer.disabled(
-              // web ’de metin seçilince mavi olmasın
-              child: Text(
-                'Toplam kelime sayısı : ${widget.filteredWords.length} / ${widget.allWords.length}',
-                textAlign: TextAlign.center,
-                style: subtitleText,
-              ),
-            ),
-          ),
-        ),
+        buildBodyHeader(),
 
         // 🔽 Liste: ortalı + max 720px genişlik + içeri padding
-        Expanded(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: ListView.separated(
-                  itemCount: widget.filteredWords.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (context, index) {
-                    final word = widget.filteredWords[index];
-                    final isSelected = selectedIndex == index;
+        buildBodyList(),
+      ],
+    );
+  }
 
-                    return WordCard(
-                      word: word,
-                      isSelected: isSelected,
-                      onTap: () {
-                        if (selectedIndex != null) {
-                          setState(() => selectedIndex = null);
-                        }
-                      },
-                      onLongPress: () {
-                        setState(
-                          () => selectedIndex = isSelected ? null : index,
-                        );
-                      },
-                      onEdit: () => _editWord(context: context, word: word),
-                      onDelete: () =>
-                          _confirmDelete(context: context, word: word),
-                    );
+  Expanded buildBodyList() {
+    return Expanded(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 720),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: ListView.separated(
+              itemCount: widget.filteredWords.length,
+              separatorBuilder: (_, __) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final word = widget.filteredWords[index];
+                final isSelected = selectedIndex == index;
+
+                return WordCard(
+                  word: word,
+                  isSelected: isSelected,
+                  onTap: () {
+                    if (selectedIndex != null) {
+                      setState(() => selectedIndex = null);
+                    }
                   },
-                ),
-              ),
+                  onLongPress: () {
+                    setState(() => selectedIndex = isSelected ? null : index);
+                  },
+                  onEdit: () => _editWord(context: context, word: word),
+                  onDelete: () => _confirmDelete(context: context, word: word),
+                );
+              },
             ),
           ),
         ),
-      ],
+      ),
+    );
+  }
+
+  Material buildBodyHeader() {
+    return Material(
+      color: drawerColor, // istediğin arkaplan
+      child: Container(
+        height: 28,
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        alignment: Alignment.center,
+        child: SelectionContainer.disabled(
+          // web ’de metin seçilince mavi olmasın
+          child: Text(
+            'Toplam kelime sayısı : ${widget.filteredWords.length} / ${widget.allWords.length}',
+            textAlign: TextAlign.center,
+            style: subtitleText,
+          ),
+        ),
+      ),
     );
   }
 
