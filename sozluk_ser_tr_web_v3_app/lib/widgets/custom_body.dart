@@ -1,8 +1,11 @@
 // <📜 ----- lib/widgets/custom_body.dart ----->
+
+// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
-import '../services/word_service.dart';
+import 'body_widgets/delete_word_dialog.dart';
 import 'body_widgets/edit_word_dialog.dart';
 import 'body_widgets/result_count_bar.dart';
 import 'body_widgets/word_list_view.dart';
@@ -43,10 +46,13 @@ class _CustomBodyState extends State<CustomBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        ///📌 Sayfa başlığı ve sonuç sayısı
         ResultCountBar(
           filteredCount: widget.filteredWords.length,
           totalCount: widget.allWords.length,
         ),
+
+        ///📌 Kelime listesi
         Expanded(
           child: WordListView(
             words: widget.filteredWords,
@@ -55,52 +61,23 @@ class _CustomBodyState extends State<CustomBody> {
             onToggleSelect: (i) => setState(() {
               selectedIndex = (selectedIndex == i) ? null : i;
             }),
+
+            /// ✅ kelime düzeltme işlemi için
             onEdit: (word) => editWordDialog(
               context: context,
               word: word,
               onRefetch: widget.onRefetch,
             ),
-            onDelete: (word) => _confirmDelete(context: context, word: word),
+
+            /// ✅ kelime silme işlemi için
+            onDelete: (word) => deleteWordDialog(
+              context: context,
+              word: word,
+              onRefetch: widget.onRefetch,
+            ),
           ),
         ),
       ],
     );
-  }
-
-  Future<void> _confirmDelete({
-    required BuildContext context,
-    required Word word,
-  }) async {
-    final ok =
-        await showDialog<bool>(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text('Silinsin mi?'),
-            content: Text(
-              '"${word.sirpca}" kaydını silmek istediğinize emin misiniz?',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('İptal'),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Sil'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-
-    if (!ok) return;
-
-    await WordService.deleteWord(word);
-
-    if (!mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Silindi')));
-    await widget.onRefetch();
   }
 }
