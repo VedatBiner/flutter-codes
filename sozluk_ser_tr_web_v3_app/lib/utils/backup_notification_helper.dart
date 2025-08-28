@@ -54,7 +54,7 @@ Future<void> triggerBackupExport({
         ),
       ),
     );
-    overlay!.insert(bannerEntry!);
+    overlay.insert(bannerEntry!);
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       elapsedSec.value = elapsedSec.value + 1;
     });

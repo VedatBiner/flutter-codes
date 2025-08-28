@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../models/word_model.dart';
 import '../services/word_service.dart';
 import 'body_widgets/result_count_bar.dart';
-import 'word_card.dart';
+import 'body_widgets/word_list_view.dart';
 
 class CustomBody extends StatefulWidget {
   final bool loading;
@@ -32,10 +32,12 @@ class _CustomBodyState extends State<CustomBody> {
   @override
   Widget build(BuildContext context) {
     if (widget.loading) return const Center(child: CircularProgressIndicator());
-    if (widget.error != null)
+    if (widget.error != null) {
       return Center(child: Text('Hata: ${widget.error}'));
-    if (widget.filteredWords.isEmpty)
+    }
+    if (widget.filteredWords.isEmpty) {
       return const Center(child: Text('Sonuç bulunamadı.'));
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,44 +46,19 @@ class _CustomBodyState extends State<CustomBody> {
         ResultCountBar(
           filteredCount: widget.filteredWords.length,
           totalCount: widget.allWords.length,
-          // İstersen özelleştir:
-          // text: 'Sonuç: ${widget.filteredWords.length} / ${widget.allWords.length}',
         ),
 
-        // 🔽 Liste
+        // 🔽 Liste (artık ayrı dosyada)
         Expanded(
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 720),
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: ListView.separated(
-                  itemCount: widget.filteredWords.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (context, index) {
-                    final word = widget.filteredWords[index];
-                    final isSelected = selectedIndex == index;
-
-                    return WordCard(
-                      word: word,
-                      isSelected: isSelected,
-                      onTap: () {
-                        if (selectedIndex != null)
-                          setState(() => selectedIndex = null);
-                      },
-                      onLongPress: () {
-                        setState(
-                          () => selectedIndex = isSelected ? null : index,
-                        );
-                      },
-                      onEdit: () => _editWord(context: context, word: word),
-                      onDelete: () =>
-                          _confirmDelete(context: context, word: word),
-                    );
-                  },
-                ),
-              ),
-            ),
+          child: WordListView(
+            words: widget.filteredWords,
+            selectedIndex: selectedIndex,
+            onClearSelection: () => setState(() => selectedIndex = null),
+            onToggleSelect: (i) => setState(() {
+              selectedIndex = (selectedIndex == i) ? null : i;
+            }),
+            onEdit: (word) => _editWord(context: context, word: word),
+            onDelete: (word) => _confirmDelete(context: context, word: word),
           ),
         ),
       ],
