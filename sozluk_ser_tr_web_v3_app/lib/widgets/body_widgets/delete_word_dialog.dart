@@ -1,5 +1,30 @@
 // <📜 ----- lib/widgets/body_widgets/delete_word_dialog.dart ----->
 
+/*
+  📦 delete_word_dialog.dart — “Kelime Silme” onay diyaloğu
+
+  🧩 Ne yapar?
+  - Seçili kelimeyi silmeden önce kullanıcıdan onay almak için şık bir AlertDialog açar.
+  - Görsel stil, word_dialog.dart ile birebir uyumludur
+    (cardLightColor arkaplanı, drawerColor çerçevesi ve başlık şeridi, dialogTitle yazı stili).
+  - “Sil” onaylandığında:
+      • WordService.deleteWord ile kaydı Firestore ’dan siler,
+      • NotificationService ile kırmızı temalı başarı bildirimi gösterir,
+      • onRefetch() çağrısı ile üst bileşende listeyi tazeler.
+  - “İptal” edilirse hiçbir işlem yapılmaz.
+
+  🔁 Dönüş değeri
+  - true  → kayıt silindi
+  - false → iptal edildi veya işlem başarısız
+
+  🧪 Kullanım (örnek)
+    final ok = await deleteWordDialog(
+      context: context,
+      word: word,
+      onRefetch: widget.onRefetch,
+    );
+*/
+
 // 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
@@ -11,8 +36,6 @@ import '../../models/word_model.dart';
 import '../../services/notification_service.dart';
 import '../../services/word_service.dart';
 
-/// Silme diyaloğunu açar ve onaylanırsa kaydı siler.
-/// Başarılı olursa `true`, iptal edilirse `false` döner.
 Future<bool> deleteWordDialog({
   required BuildContext context,
   required Word word,

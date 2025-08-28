@@ -1,5 +1,31 @@
 // <📜 ----- lib/widgets/body_widgets/edit_word_dialog.dart ----->
 
+/*
+  📦 edit_word_dialog.dart — “Kelime Düzenleme” diyaloğu
+
+  🧩 Ne yapar?
+  - Var olan bir Word kaydını düzenlemek için şık bir AlertDialog açar.
+  - Görsel stil, word_dialog.dart ile birebir uyumludur
+    (cardLightColor arkaplanı, drawerColor çerçevesi ve başlık şeridi, dialogTitle yazı stili).
+  - Form doğrulaması yapar (boş geçilemez).
+  - Kaydedildiğinde:
+      • WordService.updateWord ile veriyi günceller,
+      • NotificationService üzerinden başarı bildirimi gösterir,
+      • onRefetch() çağrısı ile üst bileşende listeyi tazeler.
+  - “İptal” edilirse herhangi bir değişiklik yapmadan kapanır.
+
+  🔁 Dönüş değeri
+  - true  → kayıt güncellendi
+  - false → iptal edildi veya başarısız
+
+  🧪 Kullanım (örnek)
+    final ok = await editWordDialog(
+      context: context,
+      word: word,
+      onRefetch: widget.onRefetch,
+    );
+*/
+
 // 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
@@ -11,9 +37,6 @@ import '../../models/word_model.dart';
 import '../../services/notification_service.dart';
 import '../../services/word_service.dart';
 
-/// Kelime düzenleme diyaloğunu açar.
-/// Kaydedilirse serviste günceller, snackbar gösterir ve onRefetch çağırır.
-/// Kaydedildiyse true, iptal/başarısızsa false döner.
 Future<bool> editWordDialog({
   required BuildContext context,
   required Word word,
