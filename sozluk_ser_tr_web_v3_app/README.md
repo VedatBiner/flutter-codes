@@ -21,5 +21,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Uygulama görünür adı ve ikonları değiştirildi.
 - Alt bölümde verilen mesajlar için ayrı metod oluşturulup, farklı yerlerden ortak kullanım sağlandı.
 - Sayfa görünümü düzeltildi.
-- Body görünümü düzenleniyor
+- Body görünümü düzenlendi
 - 

@@ -26,7 +26,7 @@ Future<void> showAddWordDialog(
     final exists = await WordService.wordExists(result.sirpca);
 
     if (exists) {
-      // ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
+      /// ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
       if (!context.mounted) return;
 
       NotificationService.showCustomNotification(
@@ -55,7 +55,7 @@ Future<void> showAddWordDialog(
       return;
     }
 
-    // ✅ Yeni kelimeyi hem SQLite hem Firestore ’a ekle
+    /// ✅ Yeni kelimeyi Firestore ’a ekle
     await WordService.addWord(result);
 
     onWordAdded();
