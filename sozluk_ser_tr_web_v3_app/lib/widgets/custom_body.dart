@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../models/word_model.dart';
 import '../services/word_service.dart';
+import 'body_widgets/edit_word_dialog.dart';
 import 'body_widgets/result_count_bar.dart';
 import 'body_widgets/word_list_view.dart';
 
@@ -42,13 +43,10 @@ class _CustomBodyState extends State<CustomBody> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // 🔵 AppBar ’a yapışık, tam genişlik üst bant
         ResultCountBar(
           filteredCount: widget.filteredWords.length,
           totalCount: widget.allWords.length,
         ),
-
-        // 🔽 Liste (artık ayrı dosyada)
         Expanded(
           child: WordListView(
             words: widget.filteredWords,
@@ -57,67 +55,16 @@ class _CustomBodyState extends State<CustomBody> {
             onToggleSelect: (i) => setState(() {
               selectedIndex = (selectedIndex == i) ? null : i;
             }),
-            onEdit: (word) => _editWord(context: context, word: word),
+            onEdit: (word) => editWordDialog(
+              context: context,
+              word: word,
+              onRefetch: widget.onRefetch,
+            ),
             onDelete: (word) => _confirmDelete(context: context, word: word),
           ),
         ),
       ],
     );
-  }
-
-  Future<void> _editWord({
-    required BuildContext context,
-    required Word word,
-  }) async {
-    final sirpcaCtl = TextEditingController(text: word.sirpca);
-    final turkceCtl = TextEditingController(text: word.turkce);
-
-    final ok =
-        await showDialog<bool>(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: const Text('Kelimeyi Düzenle'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: sirpcaCtl,
-                  decoration: const InputDecoration(labelText: 'Sırpça'),
-                ),
-                TextField(
-                  controller: turkceCtl,
-                  decoration: const InputDecoration(labelText: 'Türkçe'),
-                ),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Vazgeç'),
-              ),
-              FilledButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Kaydet'),
-              ),
-            ],
-          ),
-        ) ??
-        false;
-
-    if (!ok) return;
-
-    final newSirpca = sirpcaCtl.text.trim();
-    final newTurkce = turkceCtl.text.trim();
-    if (newSirpca.isEmpty || newTurkce.isEmpty) return;
-
-    final updated = word.copyWith(sirpca: newSirpca, turkce: newTurkce);
-    await WordService.updateWord(updated, oldSirpca: word.sirpca);
-
-    if (!mounted) return;
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('Güncellendi')));
-    await widget.onRefetch();
   }
 
   Future<void> _confirmDelete({
