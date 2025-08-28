@@ -1,5 +1,32 @@
 // <📜 ----- lib/widgets/custom_body.dart ----->
 
+/*
+  🧩 CustomBody — Ana içerik gövdesi
+
+  NE YAPAR?
+  - Üstte, AppBar ’a yapışık tam genişlik bir sayaç bandı (ResultCountBar) gösterir.
+  - Filtrelenmiş kelimeleri performant bir liste (WordListView) ile sunar.
+  - Satır seçimini (tek tık/uzun basış) local state ’te `selectedIndex` ile yönetir.
+  - Düzenleme ve silme işlemlerini modüler diyalog yardımcılarına delege eder:
+      • editWordDialog(...)   → kelime düzenler, başarıda onRefetch() çağırır
+      • deleteWordDialog(...) → kelime siler, başarıda onRefetch() çağırır
+
+  GİRDİLER (props):
+    - loading, error         : üst seviye yükleme/hata kontrolleri (burada sadece içerik çizilir)
+    - allWords, filteredWords: toplam ve filtreli liste sayıları üst bantta ve listede kullanılır
+    - onRefetch              : düzenle/sil sonrası verileri tazelemek için geri çağırım
+
+  BAĞIMLILIKLAR:
+    - body_widgets/result_count_bar.dart
+    - body_widgets/word_list_view.dart
+    - body_widgets/edit_word_dialog.dart
+    - body_widgets/delete_word_dialog.dart
+
+  NOTLAR:
+  - Bileşen, sadece seçili satır indeksini tutar; iş kuralları servislerde/diyaloglarda.
+  - Yapı column → (ResultCountBar) + Expanded(WordListView) şeklindedir.
+*/
+
 // 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 

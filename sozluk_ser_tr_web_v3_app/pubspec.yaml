@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 3.1.2+1
+version: 3.1.5+1
 
 environment:
   sdk: ^3.9.0
@@ -25,7 +25,7 @@ dependencies:
   syncfusion_flutter_xlsio: ## güçlü Excel tablosu oluşturmak için gerekli
   package_info_plus: ## versiyon bilgisi için gerekli
   elegant_notification: ## Bildirim için gerekli
-  font_awesome_flutter: ^10.10.0 ## ekstra ikon ve fontlar için gerekli
+  font_awesome_flutter:  ## ekstra ikon ve fontlar için gerekli
 
 dev_dependencies:
   flutter_test:
