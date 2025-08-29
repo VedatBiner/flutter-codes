@@ -34,7 +34,6 @@ import '../../constants/button_constants.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../../models/word_model.dart';
-import '../../services/notification_service.dart';
 import '../../services/word_service.dart';
 
 Future<bool> editWordDialog({
@@ -157,26 +156,6 @@ Future<bool> editWordDialog({
 
   await WordService.updateWord(updated, oldSirpca: word.sirpca);
   if (!context.mounted) return false;
-
-  NotificationService.showCustomNotification(
-    context: context,
-    title: 'Kelime Güncelleme İşlemi',
-    message: RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: word.sirpca, style: kelimeUpdateText),
-          const TextSpan(
-            text: ' kelimesi güncellenmiştir',
-            style: normalBlackText,
-          ),
-        ],
-      ),
-    ),
-    icon: Icons.check_circle,
-    iconColor: Colors.green.shade700,
-    progressIndicatorColor: Colors.green,
-    progressIndicatorBackground: Colors.green.shade200,
-  );
 
   await onRefetch();
   return true;

@@ -32,8 +32,8 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
+import '../widgets/show_word_dialog_handler.dart';
 import 'body_widgets/delete_word_dialog.dart';
-import 'body_widgets/edit_word_dialog.dart';
 import 'body_widgets/result_count_bar.dart';
 import 'body_widgets/word_list_view.dart';
 
@@ -90,8 +90,8 @@ class _CustomBodyState extends State<CustomBody> {
             }),
 
             /// ✅ kelime düzeltme işlemi için
-            onEdit: (word) => editWordDialog(
-              context: context,
+            onEdit: (word) => showEditWordDialogHandler(
+              context,
               word: word,
               onRefetch: widget.onRefetch,
             ),

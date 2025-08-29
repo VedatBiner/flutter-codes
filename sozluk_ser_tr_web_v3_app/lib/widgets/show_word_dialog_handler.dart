@@ -1,6 +1,6 @@
-// 📃 <----- add_word_dialog_handler.dart ----->
-// Kelime varsa mesaj verip uyarıyor
-// Kelime yoksa Firestore 'a ekliyor
+// 📃 <----- show_word_dialog_handler.dart ----->
+
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -8,14 +8,14 @@ import '../constants/text_constants.dart';
 import '../models/word_model.dart';
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
+import '../widgets/body_widgets/edit_word_dialog.dart';
 import '../widgets/word_dialog.dart';
 
+/// ADD: Yeni kelime ekleme diyaloğu (var olan kodun)
 Future<void> showWordDialogHandler(
   BuildContext context,
   VoidCallback onWordAdded,
-  // VoidCallback onCancelSearch, // arama kutusunu kapatmak için
 ) async {
-  // onCancelSearch(); // arama kutusunu kapat
   final result = await showDialog<Word>(
     context: context,
     barrierDismissible: false,
@@ -23,12 +23,10 @@ Future<void> showWordDialogHandler(
   );
 
   if (result != null) {
+    /// ❓Kelime varsa bildirim göster
     final exists = await WordService.wordExists(result.sirpca);
-
     if (exists) {
-      /// ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster
       if (!context.mounted) return;
-
       NotificationService.showCustomNotification(
         context: context,
         title: 'Uyarı Mesajı',
@@ -48,11 +46,11 @@ Future<void> showWordDialogHandler(
       return;
     }
 
-    /// ✅ Yeni kelimeyi Firestore ’a ekle
+    /// 📌 Kelime yoksa ekle
     await WordService.addWord(result);
+    log('Kelime eklendi: ${result.sirpca}', name: 'ADD_WORD');
 
     onWordAdded();
-
     if (!context.mounted) return;
 
     NotificationService.showCustomNotification(
@@ -72,4 +70,42 @@ Future<void> showWordDialogHandler(
       progressIndicatorBackground: Colors.blue.shade200,
     );
   }
+}
+
+/// 📌 Var olan kelimeyi güncelle
+Future<void> showEditWordDialogHandler(
+  BuildContext context, {
+  required Word word,
+  required Future<void> Function() onRefetch,
+}) async {
+  final ok = await editWordDialog(
+    context: context,
+    word: word,
+    onRefetch: onRefetch, // güncelleme ve refetch içeride
+  );
+
+  if (!context.mounted || !ok) return;
+
+  // ✅ Bildirim artık burada
+  NotificationService.showCustomNotification(
+    context: context,
+    title: 'Kelime Güncelleme İşlemi',
+    message: RichText(
+      text: TextSpan(
+        children: [
+          // Not: editWordDialog true/false döndürüyor, burada eski kelime adını gösteriyoruz.
+          // İstersen updated kelime adını da döndürtecek şekilde dialogu değiştirebilirsin.
+          TextSpan(text: word.sirpca, style: kelimeUpdateText),
+          const TextSpan(
+            text: ' kelimesi güncellenmiştir',
+            style: normalBlackText,
+          ),
+        ],
+      ),
+    ),
+    icon: Icons.check_circle,
+    iconColor: Colors.green.shade700,
+    progressIndicatorColor: Colors.green,
+    progressIndicatorBackground: Colors.green.shade200,
+  );
 }
