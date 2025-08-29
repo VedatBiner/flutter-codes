@@ -74,9 +74,11 @@ Future<bool> deleteWordDialog({
               '"${word.sirpca}" kelimesini silmek istediğinize emin misiniz?',
             ),
           ),
-          // 🔽 Butonları sola hizala + sola hafif iç boşluk ver
+
+          /// 🔽 Butonları sola hizala + sola hafif iç boşluk ver
           actionsAlignment: MainAxisAlignment.start,
-          actionsPadding: const EdgeInsets.only(left: 248, bottom: 16),
+          actionsPadding: const EdgeInsets.fromLTRB(232, 0, 12, 16),
+
           actions: [
             ElevatedButton(
               style: elevatedCancelButtonStyle,

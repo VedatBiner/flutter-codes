@@ -97,7 +97,7 @@ class _WordDialogState extends State<WordDialog> {
               validator: (value) =>
                   value == null || value.isEmpty ? 'Boş olamaz' : null,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
             TextFormField(
               controller: _meaningController,
               decoration: InputDecoration(
@@ -121,8 +121,11 @@ class _WordDialogState extends State<WordDialog> {
           ],
         ),
       ),
+
+      /// 🔽 Butonları sola hizala + sola hafif iç boşluk ver
       actionsAlignment: MainAxisAlignment.start,
       actionsPadding: const EdgeInsets.fromLTRB(24, 0, 12, 16),
+
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

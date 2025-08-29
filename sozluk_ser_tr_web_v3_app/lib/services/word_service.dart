@@ -124,9 +124,9 @@ class WordService {
   /// -----------------------------------------------------------------
   /// 📖 Tek seferlik okuma (özet)
   /// 1) withConverter<Word> ile tipli referans kurar.
-  /// 2) Aggregate count ile toplam belge sayısını log’lar.
-  /// 3) İlk belgeyi örnek olarak log’lar.
-  /// 4) UI’da göstermek üzere kısa bir durum metni döndürür.
+  /// 2) Aggregate count ile toplam belge sayısını log ’lar.
+  /// 3) İlk belgeyi örnek olarak log ’lar.
+  /// 4) UI ’da göstermek üzere kısa bir durum metni döndürür.
   /// -----------------------------------------------------------------
   static Future<String> readWordsOnce() async {
     try {

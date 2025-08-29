@@ -21,6 +21,20 @@ const kelimeAddText = TextStyle(
   color: Colors.blueAccent,
 );
 
+/// 📌 Kelime güncellendi text stili
+final kelimeUpdateText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.green.shade800,
+);
+
+/// 📌 Kelime var text stili
+final kelimeExistText = const TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.amber,
+);
+
 /// 📌 anlam text stili
 const anlamText = TextStyle(
   fontSize: 14,

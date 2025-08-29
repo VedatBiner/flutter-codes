@@ -35,15 +35,7 @@ Future<void> showAddWordDialog(
         message: RichText(
           text: TextSpan(
             children: [
-              TextSpan(
-                text: result.sirpca,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.orange,
-                ),
-              ),
-              TextSpan(text: result.sirpca, style: kelimeAddText),
+              TextSpan(text: result.sirpca, style: kelimeExistText),
               const TextSpan(text: ' zaten var!', style: normalBlackText),
             ],
           ),

@@ -100,7 +100,7 @@ Future<bool> editWordDialog({
               validator: (v) =>
                   v == null || v.trim().isEmpty ? 'Boş olamaz' : null,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
             TextFormField(
               controller: turkceCtl,
               decoration: InputDecoration(
@@ -125,9 +125,9 @@ Future<bool> editWordDialog({
         ),
       ),
 
-      // 🔽 Butonları sola hizala + sola hafif iç boşluk ver
+      /// 🔽 Butonları sola hizala + sola hafif iç boşluk ver
       actionsAlignment: MainAxisAlignment.start,
-      actionsPadding: const EdgeInsets.only(left: 84, bottom: 16),
+      actionsPadding: const EdgeInsets.fromLTRB(84, 0, 12, 16),
 
       actions: [
         ElevatedButton(
@@ -135,7 +135,7 @@ Future<bool> editWordDialog({
           onPressed: () => Navigator.of(context).pop(null),
           child: const Text('İptal', style: editButtonText),
         ),
-        const SizedBox(width: 12),
+        const SizedBox(height: 16),
         ElevatedButton(
           style: elevatedAddButtonStyle,
           onPressed: () {
@@ -162,9 +162,13 @@ Future<bool> editWordDialog({
     context: context,
     title: 'Kelime Güncelleme İşlemi',
     message: RichText(
-      text: const TextSpan(
+      text: TextSpan(
         children: [
-          TextSpan(text: ' Kelime güncellenmiştir', style: normalBlackText),
+          TextSpan(text: word.sirpca, style: kelimeUpdateText),
+          const TextSpan(
+            text: ' kelimesi güncellenmiştir',
+            style: normalBlackText,
+          ),
         ],
       ),
     ),
