@@ -1,9 +1,11 @@
 // 📃 <----- custom_fab.dart ----->
 
+// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import 'add_word_dialog_handler.dart';
+import '../widgets/show_word_dialog_handler.dart';
 
 class CustomFAB extends StatelessWidget {
   final VoidCallback onWordAdded;
@@ -25,7 +27,7 @@ class CustomFAB extends StatelessWidget {
         tooltip: "Yeni kelime ekle",
         backgroundColor: Colors.transparent,
         foregroundColor: buttonIconColor,
-        onPressed: () => showAddWordDialog(context, onWordAdded),
+        onPressed: () => showWordDialogHandler(context, onWordAdded),
         child: Image.asset('assets/images/add.png', width: 56, height: 56),
       ),
     );

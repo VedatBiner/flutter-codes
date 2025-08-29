@@ -29,10 +29,10 @@ final kelimeUpdateText = TextStyle(
 );
 
 /// 📌 Kelime var text stili
-final kelimeExistText = const TextStyle(
+final kelimeExistText = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
-  color: Colors.amber,
+  color: Colors.orange.shade800,
 );
 
 /// 📌 anlam text stili

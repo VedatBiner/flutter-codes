@@ -10,7 +10,7 @@ import '../services/notification_service.dart';
 import '../services/word_service.dart';
 import '../widgets/word_dialog.dart';
 
-Future<void> showAddWordDialog(
+Future<void> showWordDialogHandler(
   BuildContext context,
   VoidCallback onWordAdded,
   // VoidCallback onCancelSearch, // arama kutusunu kapatmak için
