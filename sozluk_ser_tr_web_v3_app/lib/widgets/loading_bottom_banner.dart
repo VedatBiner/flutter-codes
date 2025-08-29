@@ -17,7 +17,7 @@ class LoadingBottomBanner extends StatelessWidget {
     super.key,
     required this.loading,
     required this.elapsedSec,
-    this.message = 'Lütfen bekleyiniz, veriler okunuyor…',
+    this.message = 'Lütfen bekleyiniz, \nveriler okunuyor…',
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     this.indicatorSize = 18,
     this.backgroundColor = const Color(0xBF000000), // %75 siyah

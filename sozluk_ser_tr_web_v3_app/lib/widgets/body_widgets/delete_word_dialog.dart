@@ -77,7 +77,7 @@ Future<bool> deleteWordDialog({
 
           /// 🔽 Butonları sola hizala + sola hafif iç boşluk ver
           actionsAlignment: MainAxisAlignment.start,
-          actionsPadding: const EdgeInsets.fromLTRB(232, 0, 12, 16),
+          actionsPadding: const EdgeInsets.fromLTRB(224, 0, 12, 16),
 
           actions: [
             ElevatedButton(

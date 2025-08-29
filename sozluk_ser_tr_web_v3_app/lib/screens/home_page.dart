@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   // ⏱️ Alt bant: sayaç ve mesaj
   final ValueNotifier<int> _elapsedSec = ValueNotifier<int>(0);
   Timer? _loadTimer;
-  String _loadingMessage = 'Lütfen bekleyiniz, veriler okunuyor…';
+  String _loadingMessage = 'Lütfen bekleyiniz, \nveriler okunuyor…';
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
   // 🔁 Drawer ’dan “verileri tekrar oku”
   Future<void> _handleReload() async {
     await _loadAllWords(
-      bannerMessage: 'Lütfen bekleyiniz, veriler tekrar okunuyor...',
+      bannerMessage: 'Lütfen bekleyiniz, \nveriler tekrar okunuyor...',
     );
   }
 
