@@ -23,5 +23,6 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Sayfa görünümü düzeltildi.
 - Body görünümü düzenlendi.
 - Kelime düzeltme ve silme kodları ayrı dosyalara alındı.
-- Kelime silme ve düzeltme dialogları düzeltilecek.
+- Kelime silme ve düzeltme dialogları düzeltildi.
+- Homepage  butonunun konumu düzeltildi.
 - 

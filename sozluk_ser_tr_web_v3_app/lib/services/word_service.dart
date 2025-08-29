@@ -54,7 +54,10 @@ class WordService {
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
       });
-      log('✅ "${word.sirpca}" kelimesi Firestore ’a eklendi.');
+      log(
+        '✅ "${word.sirpca}" kelimesi Firestore ’a eklendi.',
+        name: "word_service",
+      );
     } catch (e, st) {
       log('❌ Firestore ekleme hatası: $e', error: e, stackTrace: st);
     }

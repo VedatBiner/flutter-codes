@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 
-/// AppBar'a yapışık, tam genişlikte üst bant.
+/// AppBar 'a yapışık, tam genişlikte üst bant.
 /// Varsayılan metin: "Toplam kelime sayısı : <filtered>/<total>"
 class ResultCountBar extends StatelessWidget {
   final int filteredCount;
@@ -36,7 +36,7 @@ class ResultCountBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label = text ?? 'Toplam kelime sayısı : $filteredCount / $totalCount';
+    final label = text ?? 'Toplam kayıt sayısı : $filteredCount / $totalCount';
 
     return Material(
       color: backgroundColor ?? drawerColor,

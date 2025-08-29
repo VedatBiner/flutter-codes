@@ -43,6 +43,7 @@ Future<void> showAddWordDialog(
                   color: Colors.orange,
                 ),
               ),
+              TextSpan(text: result.sirpca, style: kelimeAddText),
               const TextSpan(text: ' zaten var!', style: normalBlackText),
             ],
           ),

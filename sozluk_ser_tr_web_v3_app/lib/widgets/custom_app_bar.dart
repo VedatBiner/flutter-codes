@@ -97,11 +97,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   color: menuColor,
                   icon: Image.asset(
                     "assets/images/close.png",
-                    width: 48,
-                    height: 48,
+                    width: 64,
+                    height: 64,
                   ),
                   onPressed: () {
-                    // dışarıdan state’i kapat
+                    // dışarıdan state ’i kapat
                     onClearSearch?.call();
                   },
                 )
@@ -110,32 +110,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   tooltip: "Aramayı başlat",
                   icon: Image.asset(
                     "assets/images/search.png",
-                    width: 48,
-                    height: 48,
+                    width: 64,
+                    height: 64,
                   ),
                   onPressed: () {
-                    // dışarıdan state’i aç
+                    // dışarıdan state ’i aç
                     onStartSearch?.call();
                   },
                 ),
 
           // 🏠 Ana Sayfa ikonu (callback üzerinden)
-          Transform.translate(
-            offset: const Offset(0, 8),
-            child: IconButton(
-              tooltip: "Ana Sayfa",
-              icon: Image.asset(
-                "assets/images/home.png",
-                width: 64,
-                height: 64,
-              ),
-              onPressed:
-                  onTapHome ??
-                  () {
-                    // Fallback: stack’i köke kadar temizle
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                  },
-            ),
+          IconButton(
+            tooltip: "Ana Sayfa",
+            icon: Image.asset("assets/images/home.png", width: 64, height: 64),
+            onPressed:
+                onTapHome ??
+                () {
+                  // Fallback: stack ’i köke kadar temizle
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
           ),
         ],
       ),

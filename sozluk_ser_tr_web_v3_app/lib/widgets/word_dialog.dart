@@ -121,6 +121,8 @@ class _WordDialogState extends State<WordDialog> {
           ],
         ),
       ),
+      actionsAlignment: MainAxisAlignment.start,
+      actionsPadding: const EdgeInsets.fromLTRB(24, 0, 12, 16),
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
