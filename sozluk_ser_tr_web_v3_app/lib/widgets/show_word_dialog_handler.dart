@@ -135,7 +135,7 @@ Future<bool> showDeleteWordHandler({
       text: TextSpan(
         children: [
           TextSpan(text: word.sirpca, style: kelimeDeleteText),
-          const TextSpan(text: ' Kelime silinmiştir', style: normalBlackText),
+          const TextSpan(text: ' Kelimesi silinmiştir', style: normalBlackText),
         ],
       ),
     ),
