@@ -10,6 +10,7 @@ import '../services/notification_service.dart';
 import '../services/word_service.dart';
 import '../widgets/body_widgets/edit_word_dialog.dart';
 import '../widgets/word_dialog.dart';
+import 'body_widgets/delete_word_dialog.dart';
 
 /// ADD: Yeni kelime ekleme diyaloğu (var olan kodun)
 Future<void> showWordDialogHandler(
@@ -108,4 +109,40 @@ Future<void> showEditWordDialogHandler(
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade200,
   );
+}
+
+/// Silme akışını yönetir:
+/// - deleteWordDialog ile onay alır + siler + refetch eder
+/// - başarılıysa burada bildirimi gösterir
+Future<bool> showDeleteWordHandler({
+  required BuildContext context,
+  required Word word,
+  required Future<void> Function() onRefetch,
+}) async {
+  final deleted = await deleteWordDialog(
+    context: context,
+    word: word,
+    onRefetch: onRefetch,
+  );
+
+  if (!deleted || !context.mounted) return false;
+
+  // 🔔 Bildirimi artık handler gösteriyor
+  NotificationService.showCustomNotification(
+    context: context,
+    title: 'Kelime Silme İşlemi',
+    message: RichText(
+      text: const TextSpan(
+        children: [
+          TextSpan(text: ' Kelime silinmiştir', style: normalBlackText),
+        ],
+      ),
+    ),
+    icon: Icons.delete,
+    iconColor: Colors.red.shade700,
+    progressIndicatorColor: Colors.red,
+    progressIndicatorBackground: Colors.red.shade200,
+  );
+
+  return true;
 }
