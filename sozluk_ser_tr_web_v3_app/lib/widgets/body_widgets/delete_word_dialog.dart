@@ -41,12 +41,26 @@ Future<bool> deleteWordDialog({
               textAlign: TextAlign.center,
             ),
           ),
-          content: const Padding(
-            padding: EdgeInsets.only(top: 8),
-            child: Text('Bu kelimeyi silmek istediğinize emin misiniz?'),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  const TextSpan(
+                    text: "Bu kelimeyi : ",
+                    style: normalBlackText,
+                  ),
+                  TextSpan(text: word.sirpca, style: kelimeDeleteText),
+                  const TextSpan(
+                    text: " silmek \nistediğinize emin misiniz?",
+                    style: normalBlackText,
+                  ),
+                ],
+              ),
+            ),
           ),
           actionsAlignment: MainAxisAlignment.start,
-          actionsPadding: const EdgeInsets.fromLTRB(196, 0, 12, 16),
+          actionsPadding: const EdgeInsets.fromLTRB(80, 0, 12, 16),
           actions: [
             ElevatedButton(
               style: elevatedCancelButtonStyle,
