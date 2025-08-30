@@ -35,6 +35,13 @@ final kelimeExistText = TextStyle(
   color: Colors.orange.shade800,
 );
 
+/// 📌 Kelime silindi text stili
+final kelimeDeleteText = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.bold,
+  color: Colors.red.shade800,
+);
+
 /// 📌 anlam text stili
 const anlamText = TextStyle(
   fontSize: 14,

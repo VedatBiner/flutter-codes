@@ -33,7 +33,6 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../models/word_model.dart';
 import '../widgets/show_word_dialog_handler.dart';
-import 'body_widgets/delete_word_dialog.dart';
 import 'body_widgets/result_count_bar.dart';
 import 'body_widgets/word_list_view.dart';
 
@@ -97,7 +96,7 @@ class _CustomBodyState extends State<CustomBody> {
             ),
 
             /// ✅ kelime silme işlemi için
-            onDelete: (word) => deleteWordDialog(
+            onDelete: (word) => showDeleteWordHandler(
               context: context,
               word: word,
               onRefetch: widget.onRefetch,

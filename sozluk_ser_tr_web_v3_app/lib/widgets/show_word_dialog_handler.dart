@@ -132,9 +132,10 @@ Future<bool> showDeleteWordHandler({
     context: context,
     title: 'Kelime Silme İşlemi',
     message: RichText(
-      text: const TextSpan(
+      text: TextSpan(
         children: [
-          TextSpan(text: ' Kelime silinmiştir', style: normalBlackText),
+          TextSpan(text: word.sirpca, style: kelimeDeleteText),
+          const TextSpan(text: ' Kelime silinmiştir', style: normalBlackText),
         ],
       ),
     ),
