@@ -29,4 +29,5 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Güncelleme mesajı show_word_dialog_handler.dart dosyasına alındı
 - Yedekleme mesajı show_word_dialog_handler.dart dosyasına alındı
 - notification kutularının boyutları düzeltildi.
+- AppBar mobil cihaz başlığı düzeltildi.
 - 

@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   // ℹ️ Versiyon
   String appVersion = '';
 
-  // 🔎 Arama state’i
+  // 🔎 Arama state ’i
   bool isSearching = false;
   final TextEditingController searchController = TextEditingController();
 
