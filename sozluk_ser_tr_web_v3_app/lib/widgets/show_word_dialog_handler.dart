@@ -1,12 +1,86 @@
 // <📜 ----- lib/handlers/show_word_dialog_handler.dart ----->
 
+/*
+  📦 show_word_dialog_handler.dart — Dialog akışlarını yöneten “handler” katmanı
+
+  🧩 Ne yapar?
+  - ✅ Yeni kelime ekleme akışını yönetir (showWordDialogHandler):
+      • WordDialog açar, form sonucunu alır
+      • Kelime zaten varsa uyarı bildirimi gösterir
+      • Yoksa WordService.addWord ile kaydeder ve başarı bildirimi gösterir
+      • onWordAdded() callback ’i ile üst bileşeni tetikler (listeyi tazele vb.)
+  - ✏️ Var olan kelimeyi düzenleme (showEditWordDialogHandler):
+      • editWordDialog’u açar (görsel tema unified)
+      • Güncelleme başarılıysa yeşil başarı bildirimi gösterir
+  - 🗑️ Silme akışı (showDeleteWordHandler):
+      • deleteWordDialog ile “emin misiniz?” onayını alır, siler, refetch eder
+      • Başarılıysa kırmızı silme bildirimi gösterir
+  - 💾 Yedek/Export başarı bildirimi (showBackupExportNotification):
+      • triggerBackupExport içindeki onSuccessNotify callback ’i tarafından çağrılır
+      • JSON/CSV/XLSX çıktı yollarını ve toplam kayıt sayısını detaylı bir bildirimde gösterir
+
+  🧷 Bağımlılıklar
+  - NotificationService  → özel bildirim kartları
+  - WordService          → Firestore CRUD
+  - WordDialog / editWordDialog / deleteWordDialog → UI dialogları
+  - ExportResultX        → export sonuç tipi (JSON/CSV/XLSX yolları ve sayaç)
+
+  🔁 Dönüşler (özet)
+  - showWordDialogHandler(...)          → Future<void>
+  - showEditWordDialogHandler(...)      → Future<void>
+  - showDeleteWordHandler(...)          → Future<bool> (silindiyse true)
+  - showBackupExportNotification(...)   → void (sadece bildirim)
+
+  🧪 Kullanım (örnek)
+    // 1) Ekleme
+    await showWordDialogHandler(context, () {
+      // ekleme sonrası yapılacaklar (listeyi tazele vb.)
+    });
+
+    // 2) Düzenleme
+    await showEditWordDialogHandler(
+      context,
+      word: existingWord,
+      onRefetch: () async { /* listeyi yeniden yükle */ },
+    );
+
+    // 3) Silme
+    final ok = await showDeleteWordHandler(
+      context: context,
+      word: existingWord,
+      onRefetch: () async { /* listeyi yeniden yükle */ },
+    );
+
+    // 4) Export (başarı bildirimi handler ’dan)
+    await triggerBackupExport(
+      context: context,
+      onStatusChange: (s) { /* UI durum metni */ },
+      onExportingChange: (v) { /* loading flag */ },
+      onSuccessNotify: showBackupExportNotification, // ← önemli
+      pageSize: 1000,
+      subfolder: appName,
+    );
+
+  📝 Notlar
+  - Bildirimlerin hepsi NotificationService üzerinden tek elden verilir.
+  - Dialogların kendi içinde servis çağrısı yapanları (ör. editWordDialog)
+  sonuçlarını bu handler değerlendirir ve uygun bildirimi tetikler.
+
+  - Export bildirimini helper yerine buraya taşıyarak, uygulama genelinde
+  bildirim stilini konsolide etmiş olursun.
+
+*/
+
+// 📌 Dart paketleri burada
 import 'dart:developer';
 
+/// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
-import '../services/export_words.dart' show ExportResult, ExportResultX;
+import '../services/export_words.dart' show ExportResultX;
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
 import '../widgets/body_widgets/delete_word_dialog.dart';
