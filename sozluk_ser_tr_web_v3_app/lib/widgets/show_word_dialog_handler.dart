@@ -1,4 +1,4 @@
-// 📃 <----- show_word_dialog_handler.dart ----->
+// <📜 ----- lib/handlers/show_word_dialog_handler.dart ----->
 
 import 'dart:developer';
 
@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
+import '../services/export_words.dart' show ExportResult, ExportResultX;
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
+import '../widgets/body_widgets/delete_word_dialog.dart';
 import '../widgets/body_widgets/edit_word_dialog.dart';
 import '../widgets/word_dialog.dart';
-import 'body_widgets/delete_word_dialog.dart';
 
-/// ADD: Yeni kelime ekleme diyaloğu (var olan kodun)
+/// ADD: Yeni kelime ekleme diyaloğu
 Future<void> showWordDialogHandler(
   BuildContext context,
   VoidCallback onWordAdded,
@@ -69,6 +70,8 @@ Future<void> showWordDialogHandler(
       iconColor: Colors.blue.shade700,
       progressIndicatorColor: Colors.blue,
       progressIndicatorBackground: Colors.blue.shade200,
+      height: 140,
+      width: 300,
     );
   }
 }
@@ -87,15 +90,13 @@ Future<void> showEditWordDialogHandler(
 
   if (!context.mounted || !ok) return;
 
-  // ✅ Bildirim artık burada
+  // ✅ Bildirim burada
   NotificationService.showCustomNotification(
     context: context,
     title: 'Kelime Güncelleme İşlemi',
     message: RichText(
       text: TextSpan(
         children: [
-          // Not: editWordDialog true/false döndürüyor, burada eski kelime adını gösteriyoruz.
-          // İstersen updated kelime adını da döndürtecek şekilde dialogu değiştirebilirsin.
           TextSpan(text: word.sirpca, style: kelimeUpdateText),
           const TextSpan(
             text: ' kelimesi güncellenmiştir',
@@ -108,10 +109,12 @@ Future<void> showEditWordDialogHandler(
     iconColor: Colors.green.shade700,
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade200,
+    height: 140,
+    width: 300,
   );
 }
 
-/// Silme akışını yönetir:
+/// 📌 Silme akışını yönetir:
 /// - deleteWordDialog ile onay alır + siler + refetch eder
 /// - başarılıysa burada bildirimi gösterir
 Future<bool> showDeleteWordHandler({
@@ -127,7 +130,7 @@ Future<bool> showDeleteWordHandler({
 
   if (!deleted || !context.mounted) return false;
 
-  // 🔔 Bildirimi artık handler gösteriyor
+  // 🔔 Bildirimi burada
   NotificationService.showCustomNotification(
     context: context,
     title: 'Kelime Silme İşlemi',
@@ -143,7 +146,42 @@ Future<bool> showDeleteWordHandler({
     iconColor: Colors.red.shade700,
     progressIndicatorColor: Colors.red,
     progressIndicatorBackground: Colors.red.shade200,
+    height: 140,
+    width: 300,
   );
 
   return true;
+}
+
+/// ✅ BACKUP başarı bildirimi artık burada (helper, callback ile burayı çağırır)
+void showBackupExportNotification(BuildContext context, ExportResultX res) {
+  NotificationService.showCustomNotification(
+    context: context,
+    title: 'Yedek Oluşturuldu',
+    message: RichText(
+      text: TextSpan(
+        style: normalBlackText,
+        children: [
+          const TextSpan(text: "\nVeriler yedeklendi\n", style: kelimeAddText),
+          const TextSpan(
+            text: "Toplam Kayıt sayısı:\n",
+            style: notificationTitle,
+          ),
+          TextSpan(text: "${res.count} ✅\n", style: notificationText),
+          const TextSpan(text: "JSON yedeği →\n", style: notificationItem),
+          TextSpan(text: "${res.jsonPath} ✅\n", style: notificationText),
+          const TextSpan(text: "CSV yedeği →\n", style: notificationItem),
+          TextSpan(text: "${res.csvPath} ✅\n", style: notificationText),
+          const TextSpan(text: "XLSX yedeği →\n", style: notificationItem),
+          TextSpan(text: "${res.xlsxPath} ✅\n", style: notificationText),
+        ],
+      ),
+    ),
+    icon: Icons.download_for_offline_outlined,
+    iconColor: Colors.green,
+    progressIndicatorColor: Colors.green,
+    progressIndicatorBackground: Colors.greenAccent.shade100,
+    height: 340,
+    width: 360,
+  );
 }

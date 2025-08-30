@@ -26,5 +26,7 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Kelime silme ve düzeltme dialogları düzeltildi.
 - Homepage  butonunun konumu düzeltildi.
 - Düzelt ve sil kutuları düzeltilecek
-- güncelleme mesajı show_word_dialog_handler.dart dosyasına alındı
+- Güncelleme mesajı show_word_dialog_handler.dart dosyasına alındı
+- Yedekleme mesajı show_word_dialog_handler.dart dosyasına alındı
+- notification kutularının boyutları düzeltildi.
 - 

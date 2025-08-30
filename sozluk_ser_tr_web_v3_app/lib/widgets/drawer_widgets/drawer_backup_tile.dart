@@ -5,6 +5,7 @@ import '../../constants/color_constants.dart';
 import '../../constants/file_info.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
+import '../show_word_dialog_handler.dart';
 
 class DrawerBackupTile extends StatefulWidget {
   const DrawerBackupTile({super.key});
@@ -14,7 +15,7 @@ class DrawerBackupTile extends StatefulWidget {
 }
 
 class _DrawerBackupTileState extends State<DrawerBackupTile> {
-  bool exporting = false;
+  bool isExporting = false;
   String status = 'Hazır. Konsolu kontrol edin.';
 
   @override
@@ -43,10 +44,9 @@ class _DrawerBackupTileState extends State<DrawerBackupTile> {
               if (!mounted) return; // 🔐 tile dispose olabilir
               setState(() => status = s);
             },
-            onExportingChange: (v) {
-              if (!mounted) return; // 🔐 tile dispose olabilir
-              setState(() => exporting = v);
-            },
+            onExportingChange: (v) => setState(() => isExporting = v),
+            // ✅ Bildirimi artık handler gösteriyor:
+            onSuccessNotify: showBackupExportNotification,
             pageSize: 1000,
             subfolder: appName,
           );

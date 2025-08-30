@@ -1,9 +1,14 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 /*
-  🔔 Yedek/Export tetikleme helper 'ı — UI 'dan bağımsız, yeniden kullanılabilir
+  🔔 Yedek/Export tetikleme helper'ı — UI'dan bağımsız, yeniden kullanılabilir.
+
+  Değişiklik:
+  - Başarı bildirimi artık burada gösterilmiyor.
+  - Bunun yerine, (opsiyonel) onSuccessNotify callback'i ile dışarıya devredildi.
+    Örn: onSuccessNotify: showBackupExportNotification
 
   EKSTRA
-  - Export başlamadan önce sayacı olan bir alt-bant (LoadingBottomBanner) Overlay ile açılır,
+  - Export başlamadan önce sayaçlı alt-bant (LoadingBottomBanner) Overlay ile açılır,
     export bitince kapatılır.
 */
 
@@ -12,9 +17,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../constants/text_constants.dart';
-import '../services/export_words.dart';
-import '../services/notification_service.dart';
+import '../services/export_words.dart'
+    show exportWordsToJsonCsvXlsx, ExportResultX;
 import '../widgets/loading_bottom_banner.dart';
 
 Future<void> triggerBackupExport({
@@ -23,8 +27,11 @@ Future<void> triggerBackupExport({
   required void Function(bool exporting) onExportingChange,
   int pageSize = 1000,
   String? subfolder,
+
+  /// ✅ Başarı bildirimi artık callback ile dışarıdan gösteriliyor
+  void Function(BuildContext ctx, ExportResultX res)? onSuccessNotify,
 }) async {
-  // 🔑 await ’ten ÖNCE messenger ’ı al
+  // 🔑 await’ten ÖNCE messenger’ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
 
   // Başlangıç UI durumu
@@ -54,7 +61,7 @@ Future<void> triggerBackupExport({
         ),
       ),
     );
-    overlay.insert(bannerEntry!);
+    overlay!.insert(bannerEntry!);
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       elapsedSec.value = elapsedSec.value + 1;
     });
@@ -85,40 +92,12 @@ Future<void> triggerBackupExport({
       'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
     );
 
-    // Başarılı bildirim
-    NotificationService.showCustomNotification(
-      context: context,
-      title: 'Yedek Oluşturuldu',
-      message: RichText(
-        text: TextSpan(
-          style: normalBlackText,
-          children: [
-            const TextSpan(
-              text: "\nVeriler yedeklendi\n",
-              style: kelimeAddText,
-            ),
-            const TextSpan(
-              text: "Toplam Kayıt sayısı:\n",
-              style: notificationTitle,
-            ),
-            TextSpan(text: "${res.count} ✅\n", style: notificationText),
-            const TextSpan(text: "JSON yedeği →\n", style: notificationItem),
-            TextSpan(text: "${res.jsonPath} ✅\n", style: notificationText),
-            const TextSpan(text: "CSV yedeği →\n", style: notificationItem),
-            TextSpan(text: "${res.csvPath} ✅\n", style: notificationText),
-            const TextSpan(text: "XLSX yedeği →\n", style: notificationItem),
-            TextSpan(text: "${res.xlsxPath} ✅\n", style: notificationText),
-          ],
-        ),
-      ),
-      icon: Icons.download_for_offline_outlined,
-      iconColor: Colors.green,
-      progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.greenAccent.shade100,
-      height: 340,
-      width: 360,
-    );
+    // ✅ Bildirimi artık DIŞARIDAN göster
+    if (onSuccessNotify != null) {
+      onSuccessNotify(context, res);
+    }
 
+    // Log
     log("-----------------------------------------------", name: "Backup");
     log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
     log("-----------------------------------------------", name: "Backup");
