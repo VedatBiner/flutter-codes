@@ -10,8 +10,10 @@
   - Alt bant (LoadingBottomBanner) yükleme sırasında gösterilir ve saniye sayar.
 */
 
+// 📌 Dart paketleri burada
 import 'dart:async';
 
+/// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

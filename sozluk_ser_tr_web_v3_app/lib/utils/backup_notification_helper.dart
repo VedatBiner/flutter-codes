@@ -12,11 +12,14 @@
     export bitince kapatılır.
 */
 
+// 📌 Dart paketleri burada
 import 'dart:async';
 import 'dart:developer';
 
+/// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../services/export_words.dart'
     show exportWordsToJsonCsvXlsx, ExportResultX;
 import '../widgets/loading_bottom_banner.dart';
@@ -61,7 +64,7 @@ Future<void> triggerBackupExport({
         ),
       ),
     );
-    overlay!.insert(bannerEntry!);
+    overlay.insert(bannerEntry!);
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       elapsedSec.value = elapsedSec.value + 1;
     });

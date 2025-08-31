@@ -9,12 +9,14 @@
 //   - searchController
 //   - onSearchChanged(String)
 //
-// Ana Sayfa ikonu callback’i:
-//   - onTapHome() verilirse onu, verilmezse fallback olarak navigator stack’i köke pop eder.
+// Ana Sayfa ikonu callback ’i:
+//   - onTapHome() verilirse onu, verilmezse fallback olarak navigator stack ’i köke pop eder.
 
+// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 
