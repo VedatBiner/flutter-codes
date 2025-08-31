@@ -68,6 +68,9 @@ kutusunu kullanması sağlandı.
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
+- JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi.
+- Notification 'lar tek yerden kontrol edilecek
+- Notification boyutu gölgeli ve ayarlanır olacak.
 
 <BR>
 Ekran Görüntüleri
