@@ -11,7 +11,7 @@ import '../models/word_model.dart';
 import 'notification_service.dart';
 import 'word_dialog.dart';
 
-Future<void> showAddWordDialog(
+Future<void> showWordDialogHandler(
   BuildContext context,
   VoidCallback onWordAdded,
   VoidCallback onCancelSearch, // arama kutusunu kapatmak için
@@ -38,14 +38,7 @@ Future<void> showAddWordDialog(
         message: RichText(
           text: TextSpan(
             children: [
-              TextSpan(
-                text: result.word,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.orange,
-                ),
-              ),
+              TextSpan(text: result.word, style: kelimeExistText),
               const TextSpan(text: ' zaten var!', style: normalBlackText),
             ],
           ),

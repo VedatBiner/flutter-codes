@@ -62,7 +62,11 @@ kutusunu kullanması sağlandı.
 - exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
 - getWords metodu getRecords oldu (db_helper.dart)
 - Tüm drawer menü modüler hale geldi
-- Uygulama adı format aa.vb.xxxxxxxx şeklinde değiştirildi
+- Uygulama adı format aa.vb.xxxxxxxx şeklinde değiştirildi.
+- notification_service.dart kodu güncellendi.
+- add_word_dialog_handler.dart dosyası show_word_dialog_handler.dart olarak değiştirildi
+- showAddWordDialog metodu showWordDialogHandler olarak değiştirildi.
+- 
 
 - Simdilik yapılanlar yeterli mi?
 
@@ -70,7 +74,6 @@ Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
 - JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi.
 - Notification 'lar tek yerden kontrol edilecek
-- Notification boyutu gölgeli ve ayarlanır olacak.
 
 <BR>
 Ekran Görüntüleri

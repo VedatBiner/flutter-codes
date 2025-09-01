@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import 'add_word_dialog_handler.dart';
+import 'show_word_dialog_handler.dart';
 
 class CustomFAB extends StatelessWidget {
   final VoidCallback refreshWords;
@@ -24,7 +24,8 @@ class CustomFAB extends StatelessWidget {
         tooltip: "Yeni kelime ekle",
         backgroundColor: Colors.transparent,
         foregroundColor: buttonIconColor,
-        onPressed: () => showAddWordDialog(context, refreshWords, clearSearch),
+        onPressed:
+            () => showWordDialogHandler(context, refreshWords, clearSearch),
         child: Image.asset('assets/images/add.png', width: 56, height: 56),
       ),
     );
