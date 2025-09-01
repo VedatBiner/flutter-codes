@@ -44,6 +44,7 @@ Future<void> showResetDatabaseDialog(
   /// 🔄 1️⃣ Drawer ’ı kapat
   ///    showConfirmationDialog sadece AlertDialog 'ı kapatır,
   ///    bu adım Drawer’ için gerekiyor.
+  if (!context.mounted) return;
   Navigator.of(context).maybePop();
 
   // 🔥 2️⃣ Tablodaki tüm verileri sil

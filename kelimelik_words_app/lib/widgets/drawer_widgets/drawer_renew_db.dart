@@ -41,6 +41,7 @@ class DrawerRenewDbTile extends StatelessWidget {
           await db.delete('words');
 
           /// 2️⃣ Yeniden indir / yükle (kök context kullan!)
+          if (!context.mounted) return;
           await onLoadJsonData(
             ctx: rootCtx,
             onStatus: (_, __, ___, ____) {}, // Drawer 'da ilerleme yok

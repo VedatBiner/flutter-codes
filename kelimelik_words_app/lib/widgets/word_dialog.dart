@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../constants/Button_constants.dart';
+import '../constants/button_constants.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
