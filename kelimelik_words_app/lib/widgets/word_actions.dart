@@ -1,103 +1,135 @@
 // 📃 <----- word_actions.dart ----->
-// kelime güncelleme ve silme metodu
 //
+// Kelime kartı üzerinde ortak kullanılan "Düzenle" ve "Sil" eylemleri.
+// Bu dosyada sadece EYLEM mantığı bulunur. Bildirim fonksiyonları
+// (showUpdateNotification, showDeleteNotification) artık
+// show_word_dialog_handler.dart dosyasına taşındı.
+//
+// Not: Bu dosyadaki açıklamalar özellikle KORUNMUŞTUR.
+//
+
+// Flutter
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
+// Proje içi bağımlılıklar
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
-import '../widgets/confirmation_dialog.dart';
-import '../widgets/notification_service.dart';
-import '../widgets/word_dialog.dart';
+import 'show_word_dialog_handler.dart'; // bildirimleri çağırmak için
+import 'word_dialog.dart';
 
-/// 📌 kelime güncelleme metodu
+// --- KULLANIM ÖNERİSİ ---------------------------------------------------------
+// WordCard üzerinde uzun basınca açılan eylem menüsünden bu fonksiyonlar çağrılır.
+//
+//   onEdit:  () => editWord(context, word, onUpdated: _refreshList),
+//   onDelete:() => confirmDelete(context, word, onDeleted: _refreshList),
+// -----------------------------------------------------------------------------
+
+/// Kelime düzenleme akışı.
 ///
+/// - WordDialog’u açar, kullanıcı değişiklikleri kaydederse DB 'de günceller.
+/// - Başarılı güncellemede `onUpdated()` (varsa) çağrılır.
+/// - Bildirim gösterimi `show_word_dialog_handler.dart` içindeki
+///   `showUpdateNotification(...)` ile yapılır.
 Future<void> editWord({
   required BuildContext context,
   required Word word,
-  required VoidCallback onUpdated,
+  VoidCallback? onUpdated,
 }) async {
+  // 1) Dialog 'u aç
   final updated = await showDialog<Word>(
     context: context,
     barrierDismissible: false,
-    builder: (_) => WordDialog(word: word),
+    builder: (ctx) => WordDialog(word: word),
   );
 
-  if (updated != null) {
-    await DbHelper.instance.updateRecord(updated);
-    if (!context.mounted) return;
-    onUpdated();
+  // 2) Kullanıcı iptal ettiyse çık
+  if (updated == null) return;
 
-    NotificationService.showCustomNotification(
-      context: context,
-      title: 'Kelime Güncellendi',
-      message: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: updated.word, style: kelimeAddText),
-            const TextSpan(
-              text: ' kelimesi güncellendi.',
-              style: normalBlackText,
-            ),
-          ],
-        ),
-      ),
-      icon: Icons.check_circle,
-      iconColor: Colors.green,
-      progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
-    );
+  // 3) DB 'de güncelle
+  try {
+    // Projende DbHelper.updateRecord / updateWord isimlerinden biri olabilir.
+    // Ekleme tarafında insertRecord kullandığın için burada updateRecord tercih edildi.
+    await DbHelper.instance.updateRecord(updated);
+
+    // 4) UI 'ı yenile
+    onUpdated?.call();
+
+    // 5) Bildirim
+    if (context.mounted) {
+      showUpdateNotification(context, updated);
+    }
+  } catch (e) {
+    if (!context.mounted) return;
+    // Hata olduğunda basit bir uyarı
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Güncelleme başarısız: $e')));
   }
 }
 
-/// 📌 kelime silme metodu
+/// Silme onayı akışı.
 ///
+/// - Kullanıcıdan onay alır.
+/// - Onay verilirse veritabanından kelimeyi siler.
+/// - Başarılı silmede `onDeleted()` (varsa) çağrılır.
+/// - Bildirim gösterimi `show_word_dialog_handler.dart` içindeki
+///   `showDeleteNotification(...)` ile yapılır.
 Future<void> confirmDelete({
   required BuildContext context,
   required Word word,
-  required VoidCallback onDeleted,
+  VoidCallback? onDeleted,
 }) async {
-  final confirm = await showConfirmationDialog(
+  final confirm = await showDialog<bool>(
     context: context,
-    title: 'Kelimeyi Sil',
-    content: RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: word.word, style: kelimeText),
-          const TextSpan(
-            text: ' kelimesini silmek istiyor musunuz?',
-            style: TextStyle(fontSize: 16, color: Colors.black),
+    barrierDismissible: false,
+    builder:
+        (ctx) => AlertDialog(
+          title: const Text('Silme Onayı'),
+          content: RichText(
+            text: TextSpan(
+              children: [
+                const TextSpan(
+                  text: 'Aşağıdaki kelime silinecek:\n\n',
+                  style: normalBlackText,
+                ),
+                TextSpan(text: word.word, style: kelimeText),
+              ],
+            ),
           ),
-        ],
-      ),
-    ),
-    confirmText: 'Sil',
-    cancelText: 'İptal',
-    confirmColor: deleteButtonColor,
-  );
-
-  if (confirm == true) {
-    await DbHelper.instance.deleteRecord(word.id!);
-    if (!context.mounted) return;
-    onDeleted();
-
-    NotificationService.showCustomNotification(
-      context: context,
-      title: 'Kelime Silindi',
-      message: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: word.word, style: kelimeText),
-            const TextSpan(text: ' kelimesi silindi.', style: normalBlackText),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('İptal'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              style: TextButton.styleFrom(foregroundColor: deleteButtonColor),
+              child: const Text('Sil'),
+            ),
           ],
         ),
-      ),
-      icon: Icons.delete,
-      iconColor: Colors.red,
-      progressIndicatorColor: Colors.red,
-      progressIndicatorBackground: Colors.red.shade100,
-    );
+  );
+
+  if (confirm != true) return;
+
+  try {
+    // Projende deleteRecord / deleteWord isimlerinden biri olabilir.
+    // Ekleme tarafında insertRecord kullandığın için burada deleteRecord tercih edildi.
+    await DbHelper.instance.deleteRecord(word.id!);
+
+    // UI yenile
+    onDeleted?.call();
+
+    // Bildirim
+    if (context.mounted) {
+      showDeleteNotification(context, word);
+    }
+  } catch (e) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('Silme başarısız: $e')));
   }
 }

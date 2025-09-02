@@ -66,6 +66,7 @@ kutusunu kullanması sağlandı.
 - notification_service.dart kodu güncellendi.
 - add_word_dialog_handler.dart dosyası show_word_dialog_handler.dart olarak değiştirildi
 - showAddWordDialog metodu showWordDialogHandler olarak değiştirildi.
+- Silme/ekleme/güncelleme ve kelime kontrolü uyarıları aynı yerden yapıldı.
 - 
 
 - Simdilik yapılanlar yeterli mi?
@@ -73,7 +74,8 @@ kutusunu kullanması sağlandı.
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
 - JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi.
-- Notification 'lar tek yerden kontrol edilecek
+- Notification 'lar tek yerden kontrol edilecek.
+- Silme dialog kutusunda sorun var ?
 
 <BR>
 Ekran Görüntüleri
