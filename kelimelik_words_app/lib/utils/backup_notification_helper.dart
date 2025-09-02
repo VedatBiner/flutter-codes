@@ -112,34 +112,56 @@ Future<(String, String, String)> createAndNotifyBackup(
 
   /// 3️⃣ Bildirim: sadece dosya adlarını göster
   WidgetsBinding.instance.addPostFrameCallback((_) {
-    NotificationService.showCustomNotification(
-      context: rootCtx,
-      title: 'Yedek Oluşturuldu',
-      message: RichText(
-        text: TextSpan(
-          style: normalBlackText,
-          children: [
-            const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathInApp)),
-            const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathDownload)),
-          ],
-        ),
-      ),
-      icon: Icons.download_for_offline_outlined,
-      iconColor: Colors.green,
-      progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
+    showBackupNotification(
+      rootCtx,
+      jsonPathInApp,
+      csvPathInApp,
+      excelPathInApp,
+      jsonPathDownload,
+      csvPathDownload,
+      excelPathDownload,
     );
   });
 
   return (jsonPathDownload, csvPathDownload, excelPathDownload);
+}
+
+/// 📌 Yedekleme bildirim gösterir
+///
+void showBackupNotification(
+  BuildContext rootCtx,
+  String jsonPathInApp,
+  String csvPathInApp,
+  String excelPathInApp,
+  String jsonPathDownload,
+  String csvPathDownload,
+  String excelPathDownload,
+) {
+  return NotificationService.showCustomNotification(
+    context: rootCtx,
+    title: 'Yedek Oluşturuldu',
+    message: RichText(
+      text: TextSpan(
+        style: normalBlackText,
+        children: [
+          const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
+          TextSpan(text: p.basename(jsonPathInApp)),
+          const TextSpan(text: '  •  '),
+          TextSpan(text: p.basename(csvPathInApp)),
+          const TextSpan(text: '  •  '),
+          TextSpan(text: p.basename(excelPathInApp)),
+          const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
+          TextSpan(text: p.basename(jsonPathDownload)),
+          const TextSpan(text: '  •  '),
+          TextSpan(text: p.basename(csvPathDownload)),
+          const TextSpan(text: '  •  '),
+          TextSpan(text: p.basename(excelPathDownload)),
+        ],
+      ),
+    ),
+    icon: Icons.download_for_offline_outlined,
+    iconColor: Colors.green,
+    progressIndicatorColor: Colors.green,
+    progressIndicatorBackground: Colors.green.shade100,
+  );
 }
