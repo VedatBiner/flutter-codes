@@ -16,6 +16,7 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
+import 'confirmation_dialog.dart';
 import 'show_word_dialog_handler.dart'; // bildirimleri çağırmak için
 import 'word_dialog.dart';
 
@@ -79,37 +80,25 @@ Future<void> editWord({
 Future<void> confirmDelete({
   required BuildContext context,
   required Word word,
-  VoidCallback? onDeleted,
+  required VoidCallback onDeleted,
 }) async {
-  final confirm = await showDialog<bool>(
+  final confirm = await showConfirmationDialog(
     context: context,
-    barrierDismissible: false,
-    builder:
-        (ctx) => AlertDialog(
-          title: const Text('Silme Onayı'),
-          content: RichText(
-            text: TextSpan(
-              children: [
-                const TextSpan(
-                  text: 'Aşağıdaki kelime silinecek:\n\n',
-                  style: normalBlackText,
-                ),
-                TextSpan(text: word.word, style: kelimeText),
-              ],
-            ),
+    title: 'Kelime Silme Onayı',
+    content: RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: word.word, style: kelimeText),
+          const TextSpan(
+            text: ' kelimesini silmek istiyor musunuz?',
+            style: TextStyle(fontSize: 16, color: Colors.black),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(false),
-              child: const Text('İptal'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(true),
-              style: TextButton.styleFrom(foregroundColor: deleteButtonColor),
-              child: const Text('Sil'),
-            ),
-          ],
-        ),
+        ],
+      ),
+    ),
+    confirmText: 'Sil',
+    cancelText: 'İptal',
+    confirmColor: deleteButtonColor,
   );
 
   if (confirm != true) return;
@@ -120,7 +109,7 @@ Future<void> confirmDelete({
     await DbHelper.instance.deleteRecord(word.id!);
 
     // UI yenile
-    onDeleted?.call();
+    onDeleted.call();
 
     // Bildirim
     if (context.mounted) {

@@ -73,12 +73,12 @@ kutusunu kullanması sağlandı.
 - excel_backup_helper.dart silindi.
 - csv_backup_helper.dart silindi.
 - json_backup_helper.dart silindi.
+- Kelime silme dialog kutusu düzeltildi
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- Silme dialog kutusunda sorun var ? Veri tabanı yenile bölümündeki kutu ile aynı kutu çıkmalı
 
 <BR>
 Ekran Görüntüleri
