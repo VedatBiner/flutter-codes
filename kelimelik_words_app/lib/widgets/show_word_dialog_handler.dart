@@ -59,7 +59,7 @@ void showBackupNotification(
 void showDeleteNotification(BuildContext context, Word word) {
   return NotificationService.showCustomNotification(
     context: context,
-    title: 'Kelime Silindi',
+    title: 'Kelime Silme İşlemi',
     message: RichText(
       text: TextSpan(
         children: [
@@ -82,7 +82,7 @@ void showDeleteNotification(BuildContext context, Word word) {
 void showUpdateNotification(BuildContext context, Word updated) {
   return NotificationService.showCustomNotification(
     context: context,
-    title: 'Kelime Güncellendi',
+    title: 'Kelime Güncelleme İşlemi',
     message: RichText(
       text: TextSpan(
         children: [
