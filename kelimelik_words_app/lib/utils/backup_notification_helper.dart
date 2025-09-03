@@ -11,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
-/// 📌 Yardımcı yüklemeler burada
-import '../constants/text_constants.dart';
-import '../widgets/notification_service.dart';
+import '../widgets/show_word_dialog_handler.dart';
 import 'csv_backup_helper.dart';
 import 'excel_backup_helper.dart';
 import 'json_backup_helper.dart';
@@ -124,44 +122,4 @@ Future<(String, String, String)> createAndNotifyBackup(
   });
 
   return (jsonPathDownload, csvPathDownload, excelPathDownload);
-}
-
-/// 📌 Yedekleme bildirim gösterir
-///
-void showBackupNotification(
-  BuildContext rootCtx,
-  String jsonPathInApp,
-  String csvPathInApp,
-  String excelPathInApp,
-  String jsonPathDownload,
-  String csvPathDownload,
-  String excelPathDownload,
-) {
-  return NotificationService.showCustomNotification(
-    context: rootCtx,
-    title: 'Yedek Oluşturuldu',
-    message: RichText(
-      text: TextSpan(
-        style: normalBlackText,
-        children: [
-          const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
-          TextSpan(text: p.basename(jsonPathInApp)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(csvPathInApp)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(excelPathInApp)),
-          const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
-          TextSpan(text: p.basename(jsonPathDownload)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(csvPathDownload)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(excelPathDownload)),
-        ],
-      ),
-    ),
-    icon: Icons.download_for_offline_outlined,
-    iconColor: Colors.green,
-    progressIndicatorColor: Colors.green,
-    progressIndicatorBackground: Colors.green.shade100,
-  );
 }
