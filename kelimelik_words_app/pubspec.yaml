@@ -3,7 +3,7 @@ description: "Kelimelik uygulaması kelime listesi"
 
 publish_to: 'none'
 
-version: 1.3.6+1
+version: 1.3.7+1
 
 environment:
   sdk: ^3.7.2

@@ -18,8 +18,8 @@ import 'package:sqflite/sqflite.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
+import '../services/notification_service.dart';
 import '../utils/excel_backup_helper.dart';
-import '../widgets/notification_service.dart';
 
 class DbHelper {
   static final DbHelper instance = DbHelper._init();

@@ -13,8 +13,8 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../providers/word_count_provider.dart';
+import '../services/notification_service.dart';
 import '../widgets/confirmation_dialog.dart';
-import '../widgets/notification_service.dart';
 
 /// 📌 Veritabanını tamamen silmek için onay kutusu
 /// Tüm kelimeleri siler ve kullanıcıya ElegantNotification gösterir.

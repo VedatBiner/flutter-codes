@@ -9,7 +9,7 @@ import 'package:path/path.dart' as p;
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/word_model.dart';
-import 'notification_service.dart';
+import '../services/notification_service.dart';
 import 'word_dialog.dart';
 
 /// 📌 Yedekleme bildirim gösterir
@@ -49,6 +49,8 @@ void showBackupNotification(
     iconColor: Colors.green,
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
+    width: 260,
+    height: 280,
   );
 }
 
@@ -70,6 +72,8 @@ void showDeleteNotification(BuildContext context, Word word) {
     iconColor: Colors.red,
     progressIndicatorColor: Colors.red,
     progressIndicatorBackground: Colors.red.shade100,
+    width: 260,
+    height: 200,
   );
 }
 
@@ -94,6 +98,8 @@ void showUpdateNotification(BuildContext context, Word updated) {
     iconColor: Colors.green,
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
+    width: 260,
+    height: 200,
   );
 }
 
@@ -115,6 +121,8 @@ void showAddNotification(BuildContext context, Word result) {
     iconColor: Colors.blue.shade700,
     progressIndicatorColor: Colors.blue,
     progressIndicatorBackground: Colors.blue.shade200,
+    width: 260,
+    height: 200,
   );
 }
 
@@ -136,6 +144,8 @@ void showExistNotification(BuildContext context, Word result) {
     iconColor: Colors.orange,
     progressIndicatorColor: Colors.orange,
     progressIndicatorBackground: Colors.orange.shade100,
+    width: 260,
+    height: 200,
   );
 }
 
