@@ -16,12 +16,10 @@ import 'word_dialog.dart';
 ///
 void showBackupNotification(
   BuildContext rootCtx,
-  String jsonPathInApp,
-  String csvPathInApp,
-  String excelPathInApp,
   String jsonPathDownload,
   String csvPathDownload,
   String excelPathDownload,
+  String sqlPathDownload,
 ) {
   return NotificationService.showCustomNotification(
     context: rootCtx,
@@ -30,18 +28,15 @@ void showBackupNotification(
       text: TextSpan(
         style: normalBlackText,
         children: [
-          const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
-          TextSpan(text: p.basename(jsonPathInApp)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(csvPathInApp)),
-          const TextSpan(text: '  •  '),
-          TextSpan(text: p.basename(excelPathInApp)),
-          const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
+          const TextSpan(text: '\nDownload :\n', style: kelimeAddText),
           TextSpan(text: p.basename(jsonPathDownload)),
           const TextSpan(text: '  •  '),
           TextSpan(text: p.basename(csvPathDownload)),
           const TextSpan(text: '  •  '),
           TextSpan(text: p.basename(excelPathDownload)),
+          const TextSpan(text: '  •  '),
+          TextSpan(text: p.basename(sqlPathDownload)),
+          const TextSpan(text: '  •  '),
         ],
       ),
     ),

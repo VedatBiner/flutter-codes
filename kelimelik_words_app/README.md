@@ -78,9 +78,7 @@ kutusunu kullanması sağlandı.
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- SQL veri tabanı da aynı şekilde yedeklenir mi ?
 - Silme dialog kutusunda sorun var ? Veri tabanı yenile bölümündeki kutu ile aynı kutu çıkmalı
-
 
 <BR>
 Ekran Görüntüleri

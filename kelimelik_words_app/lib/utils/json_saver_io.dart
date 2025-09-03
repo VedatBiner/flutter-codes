@@ -44,7 +44,7 @@
 
   LOG KULLANIMI
   - İşlemler `log(..., name: 'export')` ile raporlanır:
-      • '✅ Downloads: <path>'
+      • '✅ Download: <path>'
       • '💾 Belgeler: <path>'
       • '❌ ...' hata durumları ve fallback bilgisi
 
@@ -87,7 +87,7 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsString(text);
-      log('✅ Downloads: $path', name: 'export');
+      log('✅ Download: $path', name: 'export');
       return path;
     } catch (e) {
       log('❌ Downloads yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
@@ -113,13 +113,10 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsBytes(bytes);
-      log('✅ Downloads (bytes): $path', name: 'export');
+      log('✅ Download : $path', name: 'export');
       return path;
     } catch (e) {
-      log(
-        '❌ Downloads (bytes) yazılamadı: $e — Belgeler\'e düşülüyor',
-        name: 'export',
-      );
+      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
       final dir = await getApplicationDocumentsDirectory();
       final path = '${dir.path}/$filename';
       await File(path).writeAsBytes(bytes);

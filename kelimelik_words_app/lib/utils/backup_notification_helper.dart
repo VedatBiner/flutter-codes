@@ -102,13 +102,23 @@ Future<void> triggerBackupExport({
     }
 
     // Log
-    log("-----------------------------------------------", name: "Backup");
+    log(
+      "-----------------------------------------------------------------------",
+      name: "Backup",
+    );
     log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
-    log("-----------------------------------------------", name: "Backup");
+    log(
+      "-----------------------------------------------------------------------",
+      name: "Backup",
+    );
     log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
     log("CSV  yedeği → ${res.csvPath} ✅", name: "Backup");
     log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
-    log("-----------------------------------------------", name: "Backup");
+    log("SQL yedeği → ${res.sqlPath} ✅", name: "Backup");
+    log(
+      "-----------------------------------------------------------------------",
+      name: "Backup",
+    );
   } catch (e) {
     if (!context.mounted) return;
     onStatusChange('Hata: $e');
