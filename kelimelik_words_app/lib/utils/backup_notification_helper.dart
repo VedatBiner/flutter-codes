@@ -114,7 +114,7 @@ Future<void> triggerBackupExport({
     log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
     log("CSV  yedeği → ${res.csvPath} ✅", name: "Backup");
     log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
-    log("SQL yedeği → ${res.sqlPath} ✅", name: "Backup");
+    log("SQL  yedeği → ${res.sqlPath} ✅", name: "Backup");
     log(
       "-----------------------------------------------------------------------",
       name: "Backup",

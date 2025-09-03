@@ -87,10 +87,10 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsString(text);
-      log('✅ Download: $path', name: 'export');
+      log('✅ Download → $path', name: 'export');
       return path;
     } catch (e) {
-      log('❌ Downloads yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
+      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
       return await save(text, filename);
     }
   }
@@ -113,7 +113,7 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsBytes(bytes);
-      log('✅ Download : $path', name: 'export');
+      log('✅ Download → $path', name: 'export');
       return path;
     } catch (e) {
       log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');

@@ -18,11 +18,11 @@ class DrawerBackupTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: 'JSON/CSV/XLSX yedeği oluştur',
+      message: 'JSON/CSV/XLSX/SQL\nyedeği oluştur',
       child: ListTile(
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
         title: const Text(
-          'Yedek Oluştur \n(JSON/CSV/XLSX)',
+          'Yedek Oluştur \n(JSON/CSV/XLSX/SQL)',
           style: drawerMenuText,
         ),
 
@@ -37,11 +37,6 @@ class DrawerBackupTile extends StatelessWidget {
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
-                // // "in-app" placeholders (Downloads ile aynı veriliyor)
-                // res.jsonPath, // jsonPathInApp
-                // res.csvPath, // csvPathInApp
-                // res.xlsxPath, // excelPathInApp
-                // Downloads
                 res.jsonPath, // jsonPathDownload
                 res.csvPath, // csvPathDownload
                 res.xlsxPath, // excelPathDownload
