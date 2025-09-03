@@ -19,7 +19,6 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../services/notification_service.dart';
-import '../utils/excel_backup_helper.dart';
 
 class DbHelper {
   static final DbHelper instance = DbHelper._init();
@@ -270,15 +269,6 @@ class DbHelper {
     } catch (e) {
       log('🚨 CSV yükleme hatası: $e', name: 'Import');
     }
-  }
-
-  /// 📌 Excel yedeği burada alınıyor.
-  Future<String> exportRecordsToExcel() async {
-    // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
-    final filePath = await createExcelBackup();
-
-    // 2️⃣ Path 'i geri döndürüyoruz
-    return filePath;
   }
 
   /// 📌 Türkçe sıralama yöntemi.

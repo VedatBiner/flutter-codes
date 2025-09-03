@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
+import '../show_word_dialog_handler.dart';
 
 class DrawerBackupTile extends StatelessWidget {
   const DrawerBackupTile({super.key});
@@ -24,8 +25,30 @@ class DrawerBackupTile extends StatelessWidget {
           'Yedek Oluştur \n(JSON/CSV/XLSX)',
           style: drawerMenuText,
         ),
+
+        // 📃 widgets/drawer_widgets/drawer_backup_tile.dart
         onTap: () async {
-          await createAndNotifyBackup(context);
+          await triggerBackupExport(
+            context: context,
+            onStatusChange: (_) {}, // istersen burada SnackBar/Log yapabilirsin
+            onExportingChange:
+                (_) {}, // istersen burada loading state bağlarsın
+            // ✅ Gerçek callback: ExportResultX → handler bildirimi
+            onSuccessNotify: (ctx, res) {
+              showBackupNotification(
+                ctx,
+                // "in-app" placeholders (Downloads ile aynı veriliyor)
+                res.jsonPath, // jsonPathInApp
+                res.csvPath, // csvPathInApp
+                res.xlsxPath, // excelPathInApp
+                // Downloads
+                res.jsonPath, // jsonPathDownload
+                res.csvPath, // csvPathDownload
+                res.xlsxPath, // excelPathDownload
+              );
+            },
+          );
+
           if (!context.mounted) return;
           Navigator.of(context).maybePop();
         },

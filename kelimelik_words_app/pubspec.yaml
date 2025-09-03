@@ -3,7 +3,7 @@ description: "Kelimelik uygulaması kelime listesi"
 
 publish_to: 'none'
 
-version: 1.3.7+1
+version: 1.3.9+1
 
 environment:
   sdk: ^3.7.2
@@ -14,19 +14,21 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
-  sqflite:
+  sqflite: ## sqflite veri tabanı işlemleri için kullanılıyor.
+  package_info_plus: ## versiyon bilgisi için kullanılıyor
+  elegant_notification: ## Bildirimler için kullanılıyor
+  alphabet_list_view: ## alfabetik liste görünüm için kullanılıyor
+  lottie: ## animasyon gösterimi için kullanılıyor
+  provider: ## provider state yönetimi için kullanılıyor.
+  font_awesome_flutter: ## bazı fot ve ikonlar için kullanılıyor
+  permission_handler: ## Erişim izinleri için kullanılıyor
+  syncfusion_flutter_xlsio: ## Güçlü Excel tablosu oluşturmak için kullanılıyor
+  value_layout_builder: ^0.5.0
+  equatable:
   path_provider:
   path:
-  package_info_plus:
-  elegant_notification:
-  alphabet_list_view:
-  lottie:
-  provider:
-  font_awesome_flutter:
-  permission_handler:
-  value_layout_builder: ^0.5.0
-  excel: ^2.1.0
-  equatable:
+  external_path:
+  share_plus:
 
 dev_dependencies:
   flutter_test:

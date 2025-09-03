@@ -1,125 +1,122 @@
-// 📃 lib/utils/backup_notification_helper.dart
-//
-// 1️⃣  Uygulama-içi JSON, CSV, Excel yedekleri oluşturur
-// 2️⃣  (İzin varsa) Downloads/kelimelik_words altına JSON, CSV & Excel kopyalar
-// 3️⃣  Bildirimde sadece dosya-adlarını gösterir
+// <📜 ----- lib/utils/backup_notification_helper.dart ----->
+/*
+  🔔 Yedek/Export tetikleme helper'ı — UI'dan bağımsız, yeniden kullanılabilir.
 
+  Değişiklik:
+  - Başarı bildirimi artık burada gösterilmiyor.
+  - Bunun yerine, (opsiyonel) onSuccessNotify callback'i ile dışarıya devredildi.
+    Örn: onSuccessNotify: showBackupExportNotification
+
+  EKSTRA
+  - Export başlamadan önce sayaçlı alt-bant (LoadingBottomBanner) Overlay ile açılır,
+    export bitince kapatılır.
+*/
+
+// 📌 Dart paketleri burada
+import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
+/// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
-import '../widgets/show_word_dialog_handler.dart';
-import 'csv_backup_helper.dart';
-import 'excel_backup_helper.dart';
-import 'json_backup_helper.dart';
-import 'storage_permission_helper.dart';
+/// 📌 Yardımcı yüklemeler burada
+import '../services/export_words.dart'
+    show exportWordsToJsonCsvXlsx, ExportResultX;
+import '../widgets/loading_bottom_banner.dart';
 
-/// 📌 JSON + CSV + Excel yedeği oluşturur ve kullanıcıya bildirir.
-/// Dönen değer: (downloadsJsonPath, downloadsCsvPath, downloadsExcelPath)
-Future<(String, String, String)> createAndNotifyBackup(
-  BuildContext context,
-) async {
-  /// 🔍 Metodun gerçekten çağrıldığını görmek için hemen bir log atalım
-  log(
-    '🔄 backup_notification_helper çalıştı',
-    name: 'Backup Notification Helper',
-  );
+Future<void> triggerBackupExport({
+  required BuildContext context,
+  required void Function(String status) onStatusChange,
+  required void Function(bool exporting) onExportingChange,
+  int pageSize = 1000,
+  String? subfolder,
 
-  /// 🔑 Linter uyarısı olmasın diye root context ’i hemen alıyoruz
-  final rootCtx = Navigator.of(context, rootNavigator: true).context;
+  /// ✅ Başarı bildirimi artık callback ile dışarıdan gösteriliyor
+  void Function(BuildContext ctx, ExportResultX res)? onSuccessNotify,
+}) async {
+  // 🔑 await ’ten ÖNCE messenger ’ı al
+  final messenger = ScaffoldMessenger.maybeOf(context);
 
-  /// 1️⃣ Uygulama-içi yedekler
-  final jsonPathInApp = await createJsonBackup();
-  final csvPathInApp = await createCsvBackup();
-  final excelPathInApp = await createExcelBackup();
+  // Başlangıç UI durumu
+  onExportingChange(true);
+  onStatusChange('JSON + CSV + Excel hazırlanıyor...');
 
-  log(
-    '📤 JSON yedeği başarıyla oluşturuldu.',
-    name: 'Backup Notification Helper',
-  );
-  log('📁 JSON Dosya yolu: $jsonPathInApp', name: 'Backup Notification Helper');
+  // ⬇️ Overlay tabanlı alt-bant (sayaçlı) hazırlığı
+  OverlayState? overlay = Overlay.maybeOf(context, rootOverlay: true);
+  OverlayEntry? bannerEntry;
+  final elapsedSec = ValueNotifier<int>(0);
+  Timer? timer;
 
-  log(
-    '📤 CSV yedeği başarıyla oluşturuldu.',
-    name: 'Backup Notification Helper',
-  );
-  log('📁 CSV dosya yolu: $csvPathInApp', name: 'Backup Notification Helper');
-
-  log(
-    '📤 Excel yedeği başarıyla oluşturuldu.',
-    name: 'Backup Notification Helper',
-  );
-  log(
-    '📁 Excel dosya yolu: $excelPathInApp',
-    name: 'Backup Notification Helper',
-  );
-
-  log('✅ In-App kopyaları oluşturuldu:', name: 'Backup Notification Helper');
-  log('   • JSON in-app: $jsonPathInApp', name: 'Backup Notification Helper');
-  log('   • CSV  in-app: $csvPathInApp', name: 'Backup Notification Helper');
-  log('   • Excel in-app: $excelPathInApp', name: 'Backup Notification Helper');
-
-  /// 2️⃣ Downloads/kelimelik_words kopyaları (izin varsa)
-  String jsonPathDownload = '-';
-  String csvPathDownload = '-';
-  String excelPathDownload = '-';
-
-  try {
-    if (Platform.isAndroid && await ensureStoragePermission()) {
-      Directory? downloadsDir = await getDownloadsDirectory();
-      downloadsDir ??= await getExternalStorageDirectory();
-      downloadsDir ??= await getApplicationDocumentsDirectory();
-
-      final backupDir = Directory(p.join(downloadsDir.path, 'kelimelik_words'));
-      await backupDir.create(recursive: true);
-
-      /// JSON
-      jsonPathDownload = p.join(backupDir.path, 'kelimelik_backup.json');
-      await File(jsonPathInApp).copy(jsonPathDownload);
-
-      /// CSV
-      csvPathDownload = p.join(backupDir.path, 'kelimelik_backup.csv');
-      await File(csvPathInApp).copy(csvPathDownload);
-
-      /// Excel
-      excelPathDownload = p.join(backupDir.path, 'kelimelik_backup.xlsx');
-      await File(excelPathInApp).copy(excelPathDownload);
-
-      log(
-        '✅ Downloads kopyaları oluşturuldu:',
-        name: 'Backup Notification Helper',
-      );
-      log('   • JSON: $jsonPathDownload', name: 'Backup Notification Helper');
-      log('   • CSV:   $csvPathDownload', name: 'Backup Notification Helper');
-      log('   • Excel: $excelPathDownload', name: 'Backup Notification Helper');
-    } else {
-      log(
-        '⚠️ Depolama izni alınamadı – Downloads kopyası atlandı.',
-        name: 'BackupHelper',
-      );
-    }
-  } catch (e) {
-    log('⚠️ Downloads dizinine kopyalanamadı: $e', name: 'BackupHelper');
-    jsonPathDownload = '-';
-    csvPathDownload = '-';
-    excelPathDownload = '-';
+  void showBanner() {
+    if (overlay == null) return;
+    bannerEntry = OverlayEntry(
+      builder:
+          (_) => Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Material(
+              color: Colors.transparent,
+              child: LoadingBottomBanner(
+                loading: true,
+                elapsedSec: elapsedSec,
+                message: 'Lütfen bekleyiniz, \nverilerin yedeği oluşturuluyor…',
+              ),
+            ),
+          ),
+    );
+    overlay.insert(bannerEntry!);
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      elapsedSec.value = elapsedSec.value + 1;
+    });
   }
 
-  /// 3️⃣ Bildirim: sadece dosya adlarını göster
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    showBackupNotification(
-      rootCtx,
-      jsonPathInApp,
-      csvPathInApp,
-      excelPathInApp,
-      jsonPathDownload,
-      csvPathDownload,
-      excelPathDownload,
-    );
-  });
+  Future<void> hideBanner() async {
+    timer?.cancel();
+    timer = null;
+    bannerEntry?.remove();
+    bannerEntry = null;
+    elapsedSec.dispose();
+    // küçük bir nefes payı (görsel yırtılmayı önler)
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+  }
 
-  return (jsonPathDownload, csvPathDownload, excelPathDownload);
+  // Banner ’ı göster
+  showBanner();
+
+  try {
+    final res = await exportWordsToJsonCsvXlsx(
+      // pageSize parametresini ÇAĞIRMAYIN; export_words.dart imzanızda yok.
+      subfolder: subfolder ?? 'kelimelik_words_app',
+    );
+
+    if (!context.mounted) return;
+
+    onStatusChange(
+      'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
+    );
+
+    // ✅ Bildirimi artık DIŞARIDAN göster
+    if (onSuccessNotify != null) {
+      onSuccessNotify(context, res);
+    }
+
+    // Log
+    log("-----------------------------------------------", name: "Backup");
+    log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
+    log("-----------------------------------------------", name: "Backup");
+    log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
+    log("CSV  yedeği → ${res.csvPath} ✅", name: "Backup");
+    log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
+    log("-----------------------------------------------", name: "Backup");
+  } catch (e) {
+    if (!context.mounted) return;
+    onStatusChange('Hata: $e');
+    messenger?.showSnackBar(SnackBar(content: Text('Hata: $e')));
+  } finally {
+    await hideBanner(); // mutlaka kaldır
+    if (context.mounted) {
+      onExportingChange(false);
+    }
+  }
 }

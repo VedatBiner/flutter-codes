@@ -68,15 +68,18 @@ kutusunu kullanması sağlandı.
 - showAddWordDialog metodu showWordDialogHandler olarak değiştirildi.
 - Silme/ekleme/güncelleme ve kelime kontrolü uyarıları aynı yerden yapıldı.
 - Yedekleme uyarısı da how_word_dialog_handler.dart dosyası içine alındı.
-- 
+- Notification boyutları düzeltildi.
+- JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi alındı.
+- excel_backup_helper.dart silindi.
+- csv_backup_helper.dart silindi.
+- json_backup_helper.dart silindi.
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle
-- JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi.
 - Silme dialog kutusunda sorun var ? Veri tabanı yenile bölümündeki kutu ile aynı kutu çıkmalı
-- notification boyutlarını değiştir.
+
 
 <BR>
 Ekran Görüntüleri
