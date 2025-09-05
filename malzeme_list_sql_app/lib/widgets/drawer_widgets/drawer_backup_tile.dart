@@ -25,7 +25,7 @@ class DrawerBackupTile extends StatelessWidget {
           style: drawerMenuText,
         ),
         onTap: () async {
-          await createAndNotifyBackup(context);
+          await backupNotificationHelper(context);
           if (!context.mounted) return;
           Navigator.of(context).maybePop();
         },

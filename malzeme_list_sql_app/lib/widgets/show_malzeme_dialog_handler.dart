@@ -5,6 +5,7 @@
 // Malzeme yoksa listeye ekliyor.
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
@@ -86,4 +87,53 @@ Future<void> showAddMalzemeDialog(
       progressIndicatorBackground: Colors.blue.shade200,
     );
   }
+}
+
+/// 🔔 Yedek oluşturuldu bildirimi (JSON/CSV/Excel yollarını kısa adla gösterir)
+void showBackupResultNotification({
+  required BuildContext rootCtx, // root navigator context
+  required String jsonPathInApp,
+  required String csvPathInApp,
+  required String excelPathInApp,
+  required String jsonPathDownload,
+  required String csvPathDownload,
+  required String excelPathDownload,
+  double width = 280,
+  double height = 260,
+}) {
+  // Bildirimi frame tamamlandıktan sonra göstermek için
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    NotificationService.showCustomNotification(
+      context: rootCtx,
+      title: 'Yedek Oluşturuldu',
+      message: RichText(
+        text: TextSpan(
+          style: normalBlackText,
+          children: [
+            const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
+            TextSpan(text: p.basename(jsonPathInApp)),
+            const TextSpan(text: '  •  '),
+            TextSpan(text: p.basename(csvPathInApp)),
+            const TextSpan(text: '  •  '),
+            TextSpan(text: p.basename(excelPathInApp)),
+            const TextSpan(text: '  •  '),
+
+            const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
+            TextSpan(text: p.basename(jsonPathDownload)),
+            const TextSpan(text: '  •  '),
+            TextSpan(text: p.basename(csvPathDownload)),
+            const TextSpan(text: '  •  '),
+            TextSpan(text: p.basename(excelPathDownload)),
+            const TextSpan(text: '  •  '),
+          ],
+        ),
+      ),
+      icon: Icons.download_for_offline_outlined,
+      iconColor: Colors.green,
+      progressIndicatorColor: Colors.green,
+      progressIndicatorBackground: Colors.greenAccent.shade100,
+      width: width,
+      height: height,
+    );
+  });
 }

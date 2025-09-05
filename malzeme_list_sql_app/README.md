@@ -56,6 +56,8 @@
 
 ## Yeni yapılanlar
 
-1. add_malzeme_dialog_handler.dart dosyasının adını show_malzeme_dialog_handler.dart olarak değiştirelim.
-2. notification_service.dart dosyası services dizinine taşındı
-3. 
+1. add_malzeme_dialog_handler.dart dosyasının adını show_malzeme_dialog_handler.dart olarak değiştirelim. — 05.09.2025
+2. notification_service.dart dosyası services dizinine taşındı. — 05.09.2025
+3. notification_service.dart yenilendi. — 05.09.2025
+4. backup_notification_helper.dart dosyasında createAdnNotifyBackup metodunu backupNotificationHelper olarak değiştirdik. — 05.09.2025
+5. Yedek alınma notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025  

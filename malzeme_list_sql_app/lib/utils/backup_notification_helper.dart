@@ -18,8 +18,7 @@ import 'package:path_provider/path_provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
-import '../constants/text_constants.dart';
-import '../services/notification_service.dart';
+import '../widgets/show_malzeme_dialog_handler.dart';
 import 'csv_backup_helper.dart';
 import 'excel_backup_helper.dart';
 import 'json_backup_helper.dart';
@@ -27,7 +26,7 @@ import 'storage_permission_helper.dart'; // ⬅️ yeni
 
 /// 📌 JSON + CSV + Excel yedeği oluşturur ve ve kullanıcıya bildirir.
 /// Dönen değer: (tamJsonYolu, tamCsvYolu)
-Future<(String, String, String)> createAndNotifyBackup(
+Future<(String, String, String)> backupNotificationHelper(
   BuildContext context,
 ) async {
   /// 🔍 Metodun gerçekten çağrıldığını görmek için hemen bir log atalım
@@ -117,37 +116,17 @@ Future<(String, String, String)> createAndNotifyBackup(
   }
 
   /// 3️⃣ Bildirim: sadece dosya adlarını göster
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    NotificationService.showCustomNotification(
-      context: rootCtx, // ← güvenli
-      title: 'Yedek Oluşturuldu',
-      message: RichText(
-        text: TextSpan(
-          style: normalBlackText,
-          children: [
-            const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathInApp)),
-            const TextSpan(text: '  •  '),
-            const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathDownload)),
-            const TextSpan(text: '  •  '),
-          ],
-        ),
-      ),
-      icon: Icons.download_for_offline_outlined,
-      iconColor: Colors.green,
-      progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
-    );
-  });
+  showBackupResultNotification(
+    rootCtx: rootCtx,
+    jsonPathInApp: jsonPathInApp,
+    csvPathInApp: csvPathInApp,
+    excelPathInApp: excelPathInApp,
+    jsonPathDownload: jsonPathDownload,
+    csvPathDownload: csvPathDownload,
+    excelPathDownload: excelPathDownload,
+    width: 280,
+    height: 260,
+  );
 
   return (jsonPathDownload, csvPathDownload, excelPathDownload);
 }
