@@ -169,3 +169,32 @@ void showMalzemeUpdatedNotification({
     height: height, // istersen dışarıdan geçebilirsin
   );
 }
+
+/// 🗑️ Malzeme silindi bildirimi (senin orijinal ayarlarınla)
+void showMalzemeDeletedNotification({
+  required BuildContext context,
+  required String malzemeAdi, // word.malzeme yerine string alıyoruz
+  IconData icon = Icons.delete,
+  Color color = Colors.red,
+  double? width,
+  double? height,
+}) {
+  NotificationService.showCustomNotification(
+    context: context,
+    title: 'Malzeme Silindi',
+    message: RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: malzemeAdi, style: kelimeText),
+          const TextSpan(text: ' malzemesi silindi.', style: normalBlackText),
+        ],
+      ),
+    ),
+    icon: icon,
+    iconColor: color,
+    progressIndicatorColor: color,
+    progressIndicatorBackground: Colors.red.shade100, // aynen korundu
+    width: width,
+    height: height,
+  );
+}

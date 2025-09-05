@@ -11,7 +11,6 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/malzeme_model.dart';
-import '../services/notification_service.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/malzeme_dialog.dart';
 import '../widgets/show_malzeme_dialog_handler.dart';
@@ -74,21 +73,10 @@ Future<void> confirmDelete({
     if (!context.mounted) return;
     onDeleted();
 
-    NotificationService.showCustomNotification(
+    showMalzemeDeletedNotification(
       context: context,
-      title: 'Malzeme Silindi',
-      message: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: word.malzeme, style: kelimeText),
-            const TextSpan(text: ' malzemesi silindi.', style: normalBlackText),
-          ],
-        ),
-      ),
-      icon: Icons.delete,
-      iconColor: Colors.red,
-      progressIndicatorColor: Colors.red,
-      progressIndicatorBackground: Colors.red.shade100,
+      malzemeAdi: word.malzeme, // elindeki modele göre: word/malzeme/record...
+      // width: 280, height: 140, // istersen özelleştir
     );
   }
 }
