@@ -4,7 +4,9 @@ Malzeme Listesi yeni düzenleme
 01. ikon oluşturuldu -  05.09.2025
 02. uygulama adı düzeltildi - 05.09.2025
 03. analysis_options_yaml dosyası düzenlendi - 05.09.2025
-Eski versiyondan yapılan kopyalamamlar
+<BR>
+Eski versiyondan yapılan kopyalamalar
+<BR>
 04. eski versiyon main.dart eklendi. - 05.09.2025
 05. eski versiyon theme.dart eklendi. - 05.09.2025
 06. provider paketi eklendi. - 05.09.2025
@@ -46,4 +48,7 @@ Eski versiyondan yapılan kopyalamamlar
 42. lottie paketi yüklendi. - 05.09.2025
 43. flutter_slidable paketi yüklendi. 05.09.2025
 44. assets içindeki dosyalar okundu. 05.09.2025
+<BR> 
+Yeni yapılanlar
+<BR>
 45. 
