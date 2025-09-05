@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import 'add_malzeme_dialog_handler.dart';
+import '../widgets/show_malzeme_dialog_handler.dart';
 
 class CustomFAB extends StatelessWidget {
   final VoidCallback refreshWords;

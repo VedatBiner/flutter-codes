@@ -56,4 +56,6 @@
 
 ## Yeni yapılanlar
 
-1. ...
+1. add_malzeme_dialog_handler.dart dosyasının adını show_malzeme_dialog_handler.dart olarak değiştirelim.
+2. notification_service.dart dosyası services dizinine taşındı
+3. 
