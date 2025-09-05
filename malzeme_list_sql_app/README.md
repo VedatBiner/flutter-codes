@@ -4,9 +4,9 @@ Malzeme Listesi yeni düzenleme
 01. ikon oluşturuldu -  05.09.2025
 02. uygulama adı düzeltildi - 05.09.2025
 03. analysis_options_yaml dosyası düzenlendi - 05.09.2025
-<BR>
+<HR>
 Eski versiyondan yapılan kopyalamalar
-<BR>
+<HR>
 04. eski versiyon main.dart eklendi. - 05.09.2025
 05. eski versiyon theme.dart eklendi. - 05.09.2025
 06. provider paketi eklendi. - 05.09.2025
