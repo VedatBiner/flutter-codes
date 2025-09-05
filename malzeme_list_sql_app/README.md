@@ -48,7 +48,7 @@ Eski versiyondan yapılan kopyalamalar
 42. lottie paketi yüklendi. - 05.09.2025
 43. flutter_slidable paketi yüklendi. 05.09.2025
 44. assets içindeki dosyalar okundu. 05.09.2025
-<BR> 
+<HR> 
 Yeni yapılanlar
-<BR>
+<HR>
 45. 
