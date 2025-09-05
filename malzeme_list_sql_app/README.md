@@ -60,4 +60,5 @@
 2. notification_service.dart dosyası services dizinine taşındı. — 05.09.2025
 3. notification_service.dart yenilendi. — 05.09.2025
 4. backup_notification_helper.dart dosyasında createAdnNotifyBackup metodunu backupNotificationHelper olarak değiştirdik. — 05.09.2025
-5. Yedek alınma notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025  
+5. Yedek alınma notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025
+6. Güncelleme notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025  
