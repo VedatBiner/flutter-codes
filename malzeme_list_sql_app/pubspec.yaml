@@ -1,12 +1,11 @@
 name: malzeme_list_sql_app
 description: "A new Flutter project."
+publish_to: "none"
 
-publish_to: 'none'
-
-version: 1.0.9+1
+version: 1.5.0+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,31 +13,35 @@ dependencies:
 
   cupertino_icons: ^1.0.8
 
+  provider:
   sqflite:
   path_provider:
   path:
   package_info_plus:
-  elegant_notification:
-  alphabet_list_view:
-  lottie:
-  provider:
   font_awesome_flutter:
-  permission_handler:
-  flutter_slidable:
+  alphabet_list_view:
+  elegant_notification:
   excel: ^2.1.0
+  permission_handler:
+  lottie:
+  flutter_slidable:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
-  package_rename:
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
-
   uses-material-design: true
-
   assets:
-  - assets/images/
-  - assets/animations/
-  - assets/database/malzeme_backup.json
+    - assets/images/
+    - assets/animations/
+    - assets/database/malzeme_backup.json
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/images/appicon.png
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: assets/images/appicon.png
