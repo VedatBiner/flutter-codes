@@ -14,6 +14,7 @@ import '../models/malzeme_model.dart';
 import '../services/notification_service.dart';
 import '../widgets/confirmation_dialog.dart';
 import '../widgets/malzeme_dialog.dart';
+import '../widgets/show_malzeme_dialog_handler.dart';
 
 /// 📌 malzeme güncelleme metodu
 ///
@@ -34,24 +35,10 @@ Future<void> editWord({
     if (!context.mounted) return;
     onUpdated();
 
-    NotificationService.showCustomNotification(
+    showMalzemeUpdatedNotification(
       context: context,
-      title: 'Malzeme Güncellendi',
-      message: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(text: updated.malzeme, style: kelimeAddText),
-            const TextSpan(
-              text: ' malzemesi güncellendi.',
-              style: normalBlackText,
-            ),
-          ],
-        ),
-      ),
-      icon: Icons.check_circle,
-      iconColor: Colors.green,
-      progressIndicatorColor: Colors.green,
-      progressIndicatorBackground: Colors.green.shade100,
+      malzemeAdi: updated.malzeme,
+      // width: 280, height: 120,   // istersen ver
     );
   }
 }

@@ -137,3 +137,35 @@ void showBackupResultNotification({
     );
   });
 }
+
+/// ✅ Malzeme güncelleme bildirimi (tek satırdan çağrılır)
+void showMalzemeUpdatedNotification({
+  required BuildContext context,
+  required String malzemeAdi,
+  IconData icon = Icons.check_circle,
+  Color color = Colors.green,
+  double? width,
+  double? height,
+}) {
+  NotificationService.showCustomNotification(
+    context: context,
+    title: 'Malzeme Güncellendi',
+    message: RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: malzemeAdi, style: kelimeAddText),
+          const TextSpan(
+            text: ' malzemesi güncellendi.',
+            style: normalBlackText,
+          ),
+        ],
+      ),
+    ),
+    icon: icon,
+    iconColor: color,
+    progressIndicatorColor: color,
+    progressIndicatorBackground: color.withOpacity(0.15),
+    width: width, // istersen dışarıdan geçebilirsin
+    height: height, // istersen dışarıdan geçebilirsin
+  );
+}
