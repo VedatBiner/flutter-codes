@@ -19,12 +19,12 @@ import 'dart:developer';
 /// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+import '../services/export_items.dart';
+
 /// 📌 Yardımcı yüklemeler burada
-import '../services/export_words.dart'
-    show exportWordsToJsonCsvXlsx, ExportResultX;
 import '../widgets/loading_bottom_banner.dart';
 
-Future<void> triggerBackupExport({
+Future<void> backupNotificationHelper({
   required BuildContext context,
   required void Function(String status) onStatusChange,
   required void Function(bool exporting) onExportingChange,
@@ -32,7 +32,7 @@ Future<void> triggerBackupExport({
   String? subfolder,
 
   /// ✅ Başarı bildirimi artık callback ile dışarıdan gösteriliyor
-  void Function(BuildContext ctx, ExportResultX res)? onSuccessNotify,
+  void Function(BuildContext ctx, ExportItems res)? onSuccessNotify,
 }) async {
   // 🔑 await ’ten ÖNCE messenger ’ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
@@ -85,7 +85,7 @@ Future<void> triggerBackupExport({
   showBanner();
 
   try {
-    final res = await exportWordsToJsonCsvXlsx(
+    final res = await exportItemsToFileFormats(
       // pageSize parametresini ÇAĞIRMAYIN; export_words.dart imzanızda yok.
       subfolder: subfolder ?? 'kelimelik_words_app',
     );

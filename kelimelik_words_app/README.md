@@ -73,7 +73,12 @@ kutusunu kullanması sağlandı.
 - excel_backup_helper.dart silindi.
 - csv_backup_helper.dart silindi.
 - json_backup_helper.dart silindi.
-- Kelime silme dialog kutusu düzeltildi
+- Kelime silme dialog kutusu düzeltildi.
+- TriggerXXX metodu backupNotificationHelper olarak değiştirildi.
+- export_words.dart dosyası export_items.dart dosyası olarak değiştirildi.
+- word_export_formats.dart dosyası export_items_formats.dart dosyası olarak değiştirildi.
+- ExportResultX sınıfı ExportItems olarak değiştirildi.
+- exportWordsToJsonCsvXlsx metodu exportItemsToFileFormats olarak değiştirildi.
 
 - Simdilik yapılanlar yeterli mi?
 

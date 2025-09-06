@@ -32,17 +32,17 @@ import 'package:sqflite/sqflite.dart' show getDatabasesPath;
 import '../constants/file_info.dart'; // fileNameJson/fileNameCsv/fileNameXlsx/fileNameSql
 import '../db/db_helper.dart'; // DbHelper.instance.getRecords()
 import '../models/word_model.dart';
-import '../utils/json_saver.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
-import 'word_export_formats.dart'; // buildWordsCsvNoId / buildWordsXlsxNoId
+import '../utils/json_saver.dart';
+import 'export_items_formats.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
 
-class ExportResultX {
+class ExportItems {
   final String jsonPath;
   final String csvPath;
   final String xlsxPath;
   final String sqlPath;
   final int count;
   final int elapsedMs;
-  const ExportResultX({
+  const ExportItems({
     required this.jsonPath,
     required this.csvPath,
     required this.xlsxPath,
@@ -54,7 +54,7 @@ class ExportResultX {
 
 /// SQLite ’ten kelimeleri alır ve JSON/CSV/XLSX olarak dışa aktarır.
 /// Ek olarak veritabanı dosyasını (fileNameSql) da aynı klasöre kopyalar.
-Future<ExportResultX> exportWordsToJsonCsvXlsx({
+Future<ExportItems> exportItemsToFileFormats({
   String subfolder = 'kelimelik_words_app',
   int? pageSize, // geriye dönük uyumluluk için (kullanılmıyor)
 }) async {
@@ -174,7 +174,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       name: 'exportWordsToJsonCsvXlsx',
     );
 
-    return ExportResultX(
+    return ExportItems(
       jsonPath: jsonSavedAt,
       csvPath: csvSavedAt,
       xlsxPath: xlsxSavedAt,

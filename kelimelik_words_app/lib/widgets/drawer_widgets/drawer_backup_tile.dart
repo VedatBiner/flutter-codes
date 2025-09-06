@@ -28,7 +28,7 @@ class DrawerBackupTile extends StatelessWidget {
 
         // 📃 widgets/drawer_widgets/drawer_backup_tile.dart
         onTap: () async {
-          await triggerBackupExport(
+          await backupNotificationHelper(
             context: context,
             onStatusChange: (_) {}, // istersen burada SnackBar/Log yapabilirsin
             onExportingChange:
