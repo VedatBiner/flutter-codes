@@ -55,7 +55,7 @@ Uint8List buildWordsXlsxNoId(List<Malzeme> list) {
   final sheet = wb.worksheets[0];
 
   // Başlıklar
-  final headers = ['word', 'meaning'];
+  final headers = ['Malzeme', 'Açıklama', 'Miktar'];
 
   // 1) Başlık satırı
   for (int i = 0; i < headers.length; i++) {
