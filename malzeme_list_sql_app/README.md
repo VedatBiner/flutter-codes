@@ -56,11 +56,20 @@
 
 ## Yeni yapılanlar
 
-1. add_malzeme_dialog_handler.dart dosyasının adını show_malzeme_dialog_handler.dart olarak değiştirelim. — 05.09.2025
-2. notification_service.dart dosyası services dizinine taşındı. — 05.09.2025
-3. notification_service.dart yenilendi. — 05.09.2025
-4. backup_notification_helper.dart dosyasında createAdnNotifyBackup metodunu backupNotificationHelper olarak değiştirdik. — 05.09.2025
-5. Yedek alınma notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025
-6. Güncelleme notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025 
-7. Silme notification adımı, show_malzeme_dialog_handler dosyasına taşındı. - 05.09.2025
-8. 
+1. `add_malzeme_dialog_handler.dart` dosyasının adını `show_malzeme_dialog_handler.dart` olarak değiştirelim. — 05.09.2025
+2. `notification_service.dart` dosyası services dizinine taşındı. — 05.09.2025
+3. `notification_service.dart` yenilendi. — 05.09.2025
+4. `backup_notification_helper.dart' dosyasında `createAdnNotifyBackup` metodunu `backupNotificationHelper` olarak değiştirdik. — 05.09.2025
+5. Yedek alınma notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
+6. Güncelleme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025 
+7. Silme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
+8. `syncfusion_flutter_xlsio` paketi yüklendi. - 06.09.2025
+9. `export_words.dart` ve `word_export_formats.dart` dosyaları eklendi. - 06.09.2025
+10. `loading_bottom_banner.dart` dosyası eklendi. - 06.09.2025
+11. `json_saver.dart` ve `json_saver_io.dart` dosyaları eklendi. - 06.09.2025
+12. `external_path` ve `share_plus` paketi yüklendi. - 06.09.2025
+13. `word_export_formats.dart` dosyasında hata düzeltildi. - 06.09.2025
+14. `csv_backup_helper.dart` dosyası silindi. - 06.09.2025
+15. `excel_backup_helper.dart` dosyası silindi. - 06.09.2025
+16. `json_backup_helper.dart` dosyası silindi. - 06.09.2025
+17. `export_words.dart` dosyası düzeltildi. - 06.09.2025

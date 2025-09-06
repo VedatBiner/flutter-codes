@@ -1,7 +1,4 @@
 // 📃 widgets/drawer_backup_tile.dart
-// Drawer içindeki "Yedek Oluştur (JSON/CSV/XLSX)" satırını bağımsız
-// bir widget ’a taşıdık. Böylece custom_drawer.dart daha okunur oldu.
-//
 
 // 📌 Flutter paketleri
 import 'package:flutter/material.dart';
@@ -10,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
+import '../show_malzeme_dialog_handler.dart';
 
 class DrawerBackupTile extends StatelessWidget {
   const DrawerBackupTile({super.key});
@@ -25,7 +23,26 @@ class DrawerBackupTile extends StatelessWidget {
           style: drawerMenuText,
         ),
         onTap: () async {
-          await backupNotificationHelper(context);
+          await backupNotificationHelper(
+            context: context,
+            onStatusChange: (_) {},
+            onExportingChange: (_) {},
+
+            // ✅ BAŞARILI SONUÇTA BİLDİRİM
+            onSuccessNotify: (ctx, res) {
+              // res içinden alanları kullan
+              showBackupNotification(
+                rootCtx: ctx,
+                jsonPathInApp: '-',
+                csvPathInApp: '-',
+                excelPathInApp: '-',
+                jsonPathDownload: res.jsonPath,
+                csvPathDownload: res.csvPath,
+                excelPathDownload: res.xlsxPath,
+              );
+            },
+          );
+
           if (!context.mounted) return;
           Navigator.of(context).maybePop();
         },

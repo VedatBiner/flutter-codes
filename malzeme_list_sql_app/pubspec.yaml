@@ -2,7 +2,7 @@ name: malzeme_list_sql_app
 description: "A new Flutter project."
 publish_to: "none"
 
-version: 1.5.0+1
+version: 1.5.2+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -21,10 +21,12 @@ dependencies:
   font_awesome_flutter:
   alphabet_list_view:
   elegant_notification:
-  excel: ^2.1.0
   permission_handler:
   lottie:
   flutter_slidable:
+  syncfusion_flutter_xlsio:
+  external_path:
+  share_plus:
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,5 @@
-// 📃 <----- add_malzeme_dialog_handler.dart ----->
+// 📃 <----- show_malzeme_dialog_handler.dart ----->
 //
-// eski add_word_dialog_handler
 // Malzeme varsa mesaj verip uyarıyor
 // Malzeme yoksa listeye ekliyor.
 
@@ -90,7 +89,7 @@ Future<void> showAddMalzemeDialog(
 }
 
 /// 🔔 Yedek oluşturuldu bildirimi (JSON/CSV/Excel yollarını kısa adla gösterir)
-void showBackupResultNotification({
+void showBackupNotification({
   required BuildContext rootCtx, // root navigator context
   required String jsonPathInApp,
   required String csvPathInApp,
