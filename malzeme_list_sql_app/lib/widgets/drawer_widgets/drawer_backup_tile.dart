@@ -17,11 +17,11 @@ class DrawerBackupTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: 'JSON/CSV/XLSX yedeği oluştur',
+      message: 'JSON/CSV/XLSX/SQL yedeği oluştur',
       child: ListTile(
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
         title: const Text(
-          'Yedek Oluştur \n(JSON/CSV/XLSX)',
+          'Yedek Oluştur \n(JSON/CSV/XLSX/SQL)',
           style: drawerMenuText,
         ),
         onTap: () async {
