@@ -1,93 +1,93 @@
-id,malzeme,miktar,aciklama
-1,"Adaptör (USB)",1,""
-2,"Adaptör (USB) (eksik)",0,""
-3,"Ampul (beyaz)",2,""
-4,"Ampul LED (eksik)",0,""
-5,"Ayakkabı çekeceği (eksik)",0,""
-6,"Banyo kesesi (eksik)",0,""
-7,"Bel çantası (Ankara)",1,""
-8,"Bornoz",1,""
-9,"Crocs terlik (sokak)",1,""
-10,"Disk 5 TB (Ankara)",1,""
-11,"Dolap stoperi (eksik)",0,""
-12,"Don (erkek)",2,""
-13,"Dürbün (eksik)",0,""
-14,"Eldiven",1,""
-15,"Eldiven (eksik)",0,""
-16,"Elektrikli el tornavidası (eksik)",0,""
-18,"Ethernet Kablo (UTP)",3,""
-19,"Eğe (eksik)",0,""
-20,"Güç korumalı priz",1,""
-21,"HDMI Kablo",1,""
-22,"Havlu (Ankara)",0,""
-23,"Havlu (banyo)",2,""
-24,"Iki port USB adaptör (Ankara)",1,""
-25,"Kapı altı stoper (eksik)",0,""
-26,"Kapı stoperi",3,""
-27,"Kapı stoperi (Silikon)",1,""
-28,"Karga burun",1,""
-29,"Kasket",1,""
-30,"Kaşar (migros)",0,""
-31,"Koli bandı",2,""
-32,"Kontrol kalemi (eksik)",0,""
-33,"Krema (migros)",0,""
-34,"Kulaklık (kablolu)",1,""
-35,"Kızartma Tenceresi (eksik)",0,""
-36,"LED lamba",1,""
-37,"Led fener yuvarlak",1,""
-38,"Lif (eksik)",0,""
-39,"Maket bıçağı (eksik)",0,""
-40,"Masa lastiği (ayak)",2,""
-41,"Masa örtü kıskacı",3,""
-42,"Mayo",2,""
-43,"Merdane (Ankara)",1,""
-44,"Metre",1,""
-45,"Mini USB kablo",1,""
-46,"Modem tel kablosu",2,""
-47,"Oklava (eksik)",0,""
-48,"Pense (eksik)",0,""
-49,"Perde kancası",20,""
-50,"Perde stoperi",7,""
-51,"Pijama (erkek)",1,""
-52,"Pijama (kadın)",1,""
-53,"Pil (Kalın)",1,""
-54,"Pil (İnce)",1,""
-55,"Pil (İnce)",4,""
-56,"Post it",1,""
-57,"Repeater (Ankara)",1,""
-58,"Repeater (eksik)",0,""
-59,"Sensörlü (LED) (eksik)",0,""
-60,"Sensörlü Lamba",2,""
-61,"Sinek ilacı",2,""
-62,"Sinek ilacı sprey",1,""
-63,"Sinek raketi",1,""
-64,"Sinek İlacı",1,""
-65,"Sıvı yağ (migros)",0,""
-66,"T-Shirt (Ankara)",2,""
-67,"T-shirt",4,""
-68,"Tabure",2,""
-69,"Tabure (eksik)",0,""
-70,"Tahta kaşık (eksik)",0,""
-71,"Tahta çubuk",3,""
-72,"Teflon tava (Ankara)",1,""
-73,"Tencere (Ufak) (Eksik)",0,""
-74,"Tornavida (Düz)",1,""
-75,"Tornavida (Yıldız)",1,""
-76,"Tornavida seti (eksik)",0,""
-77,"Toz bezi (eksik)",0,""
-78,"USB - Ethernet çevirici (Ankara)",1,""
-79,"USB 3.0 kablo (Ankara)",1,""
-80,"USB Kablo (eksik)",0,""
-81,"USB hub ethernetli (eksik)",0,""
-82,"Uzatma kablosu",1,""
-83,"Uzatma kablosu - USB (eksik)",0,""
-84,"Wifi repater (eksik)",0,""
-85,"Yan keski (eksik)",0,""
-86,"Yoğurt kasesi (eksik)",0,""
-87,"Çekiç (eksik)",0,""
-88,"Çorap (kısa)",1,""
-89,"Çorap (orta)",1,""
-90,"Çorap (uzun)",1,""
-91,"Çöp tenekesi (eksik)",0,""
-92,"Şapka",2,""
-93,"Şort (Ankara)",2,""
+﻿Malzeme,Açıklama,Miktar
+Adaptör (USB),,1
+Adaptör (USB) (eksik),,0
+Ampul (beyaz),,2
+Ampul LED (eksik),,0
+Ayakkabı çekeceği (eksik),,0
+Banyo kesesi (eksik),,0
+Bel çantası (Ankara),,1
+Bornoz,,1
+Crocs terlik (sokak),,1
+Disk 5 TB (Ankara),,1
+Dolap stoperi (eksik),,0
+Don (erkek),,2
+Dürbün (eksik),,0
+Eldiven,,1
+Eldiven (eksik),,0
+Elektrikli el tornavidası (eksik),,0
+Ethernet Kablo (UTP),,3
+Eğe (eksik),,0
+Güç korumalı priz,,1
+Havlu (Ankara),,0
+Havlu (banyo),,2
+HDMI Kablo,,1
+Iki port USB adaptör (Ankara),,1
+Kapı altı stoper (eksik),,0
+Kapı stoperi,,3
+Kapı stoperi (Silikon),,1
+Karga burun,,1
+Kasket,,1
+Kaşar (migros),,0
+Koli bandı,,2
+Kontrol kalemi (eksik),,0
+Krema (migros),,0
+Kulaklık (kablolu),,1
+Kızartma Tenceresi (eksik),,0
+Led fener yuvarlak,,1
+LED lamba,,1
+Lif (eksik),,0
+Maket bıçağı (eksik),,0
+Masa lastiği (ayak),,2
+Masa örtü kıskacı,,3
+Mayo,,2
+Merdane (Ankara),,1
+Metre,,1
+Mini USB kablo,,1
+Modem tel kablosu,,2
+Oklava (eksik),,0
+Pense (eksik),,0
+Perde kancası,,20
+Perde stoperi,,7
+Pijama (erkek),,1
+Pijama (kadın),,1
+Pil (İnce),,1
+Pil (İnce),,4
+Pil (Kalın),,1
+Post it,,1
+Repeater (Ankara),,1
+Repeater (eksik),,0
+Sensörlü (LED) (eksik),,0
+Sensörlü Lamba,,2
+Sinek ilacı,,2
+Sinek İlacı,,1
+Sinek ilacı sprey,,1
+Sinek raketi,,1
+Sıvı yağ (migros),,0
+T-shirt,,4
+T-Shirt (Ankara),,2
+Tabure,,2
+Tabure (eksik),,0
+Tahta kaşık (eksik),,0
+Tahta çubuk,,3
+Teflon tava (Ankara),,1
+Tencere (Ufak) (Eksik),,0
+Tornavida (Düz),,1
+Tornavida (Yıldız),,1
+Tornavida seti (eksik),,0
+Toz bezi (eksik),,0
+USB - Ethernet çevirici (Ankara),,1
+USB 3.0 kablo (Ankara),,1
+USB hub ethernetli (eksik),,0
+USB Kablo (eksik),,0
+Uzatma kablosu,,1
+Uzatma kablosu - USB (eksik),,0
+Wifi repater (eksik),,0
+Yan keski (eksik),,0
+Yoğurt kasesi (eksik),,0
+Çekiç (eksik),,0
+Çorap (kısa),,1
+Çorap (orta),,1
+Çorap (uzun),,1
+Çöp tenekesi (eksik),,0
+Şapka,,2
+Şort (Ankara),,2
