@@ -73,3 +73,8 @@
 15. `excel_backup_helper.dart` dosyası silindi. - 06.09.2025
 16. `json_backup_helper.dart` dosyası silindi. - 06.09.2025
 17. `export_words.dart` dosyası düzeltildi. - 06.09.2025
+18. `export_words.dart` dosyası `export_items.dart` dosyası olarak değiştirildi. - 06.09.2025
+19. `word_export_formats.dart` dosyası `export_items_formats.dart` dosyası olarak değiştirildi. - 06.09.2025
+20. `ExpoerResultX` sınıfı `ExportItems` olarak değiştirildi. - 06.09.2025
+21. `exportWordsToJsonCsvXlsx` metodu `exportItemsToFileFormats` olarak değiştirildi. - 06.09.2025
+

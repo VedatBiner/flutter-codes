@@ -69,7 +69,7 @@ class JsonSaver {
     final dir = await getApplicationDocumentsDirectory();
     final path = '${dir.path}/$filename';
     await File(path).writeAsString(text);
-    log('💾 Belgeler: $path', name: 'export');
+    log('💾 Belgeler: $path', name: 'json_saver');
 
     // Yeni API: SharePlus.instance.share(ShareParams(...))
     await SharePlus.instance.share(
@@ -87,10 +87,13 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsString(text);
-      log('✅ Download → $path', name: 'export');
+      log('✅ Download → $path', name: 'json_saver');
       return path;
     } catch (e) {
-      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
+      log(
+        '❌ Download yazılamadı: $e — Belgeler\'e düşülüyor',
+        name: 'json_saver',
+      );
       return await save(text, filename);
     }
   }
@@ -113,10 +116,13 @@ class JsonSaver {
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsBytes(bytes);
-      log('✅ Download → $path', name: 'export');
+      log('✅ Download → $path', name: 'json_saver');
       return path;
     } catch (e) {
-      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: 'export');
+      log(
+        '❌ Download yazılamadı: $e — Belgeler\'e düşülüyor',
+        name: 'json_saver',
+      );
       final dir = await getApplicationDocumentsDirectory();
       final path = '${dir.path}/$filename';
       await File(path).writeAsBytes(bytes);

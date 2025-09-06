@@ -41,14 +41,7 @@ Future<void> showAddMalzemeDialog(
         message: RichText(
           text: TextSpan(
             children: [
-              TextSpan(
-                text: result.malzeme,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.orange,
-                ),
-              ),
+              TextSpan(text: result.malzeme, style: kelimeExistText),
               const TextSpan(text: ' zaten var!', style: normalBlackText),
             ],
           ),
@@ -57,6 +50,8 @@ Future<void> showAddMalzemeDialog(
         iconColor: Colors.orange,
         progressIndicatorColor: Colors.orange,
         progressIndicatorBackground: Colors.orange.shade100,
+        width: 260,
+        height: 240,
       );
       return;
     }
@@ -84,6 +79,8 @@ Future<void> showAddMalzemeDialog(
       iconColor: Colors.blue.shade700,
       progressIndicatorColor: Colors.blue,
       progressIndicatorBackground: Colors.blue.shade200,
+      width: 260,
+      height: 240,
     );
   }
 }
@@ -91,14 +88,10 @@ Future<void> showAddMalzemeDialog(
 /// 🔔 Yedek oluşturuldu bildirimi (JSON/CSV/Excel yollarını kısa adla gösterir)
 void showBackupNotification({
   required BuildContext rootCtx, // root navigator context
-  required String jsonPathInApp,
-  required String csvPathInApp,
-  required String excelPathInApp,
   required String jsonPathDownload,
   required String csvPathDownload,
   required String excelPathDownload,
-  double width = 280,
-  double height = 260,
+  required String sqlPathDownload,
 }) {
   // Bildirimi frame tamamlandıktan sonra göstermek için
   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -109,21 +102,15 @@ void showBackupNotification({
         text: TextSpan(
           style: normalBlackText,
           children: [
-            const TextSpan(text: 'Uygulama içi :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathInApp)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathInApp)),
-            const TextSpan(text: '  •  '),
-
-            const TextSpan(text: '\n\nDownloads :\n', style: kelimeAddText),
-            TextSpan(text: p.basename(jsonPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(csvPathDownload)),
-            const TextSpan(text: '  •  '),
-            TextSpan(text: p.basename(excelPathDownload)),
-            const TextSpan(text: '  •  '),
+            const TextSpan(text: '\nDownload :\n', style: kelimeAddText),
+            const TextSpan(text: ' ✅ '),
+            TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
+            const TextSpan(text: ' ✅ '),
+            TextSpan(text: "${p.basename(csvPathDownload)}\n"),
+            const TextSpan(text: ' ✅ '),
+            TextSpan(text: "${p.basename(excelPathDownload)}\n"),
+            const TextSpan(text: ' ✅ '),
+            TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
           ],
         ),
       ),
@@ -131,8 +118,8 @@ void showBackupNotification({
       iconColor: Colors.green,
       progressIndicatorColor: Colors.green,
       progressIndicatorBackground: Colors.greenAccent.shade100,
-      width: width,
-      height: height,
+      width: 260,
+      height: 240,
     );
   });
 }
@@ -143,8 +130,6 @@ void showMalzemeUpdatedNotification({
   required String malzemeAdi,
   IconData icon = Icons.check_circle,
   Color color = Colors.green,
-  double? width,
-  double? height,
 }) {
   NotificationService.showCustomNotification(
     context: context,
@@ -152,7 +137,7 @@ void showMalzemeUpdatedNotification({
     message: RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: malzemeAdi, style: kelimeAddText),
+          TextSpan(text: malzemeAdi, style: kelimeUpdateText),
           const TextSpan(
             text: ' malzemesi güncellendi.',
             style: normalBlackText,
@@ -164,19 +149,17 @@ void showMalzemeUpdatedNotification({
     iconColor: color,
     progressIndicatorColor: color,
     progressIndicatorBackground: color.withOpacity(0.15),
-    width: width, // istersen dışarıdan geçebilirsin
-    height: height, // istersen dışarıdan geçebilirsin
+    width: 260,
+    height: 200,
   );
 }
 
 /// 🗑️ Malzeme silindi bildirimi (senin orijinal ayarlarınla)
 void showMalzemeDeletedNotification({
   required BuildContext context,
-  required String malzemeAdi, // word.malzeme yerine string alıyoruz
+  required String malzemeAdi,
   IconData icon = Icons.delete,
   Color color = Colors.red,
-  double? width,
-  double? height,
 }) {
   NotificationService.showCustomNotification(
     context: context,
@@ -192,8 +175,8 @@ void showMalzemeDeletedNotification({
     icon: icon,
     iconColor: color,
     progressIndicatorColor: color,
-    progressIndicatorBackground: Colors.red.shade100, // aynen korundu
-    width: width,
-    height: height,
+    progressIndicatorBackground: Colors.red.shade100,
+    width: 260,
+    height: 200,
   );
 }

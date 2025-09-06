@@ -33,16 +33,16 @@ import '../constants/file_info.dart'; // fileNameJson/fileNameCsv/fileNameXlsx/f
 import '../db/db_helper.dart'; // DbHelper.instance.getRecords()
 import '../models/malzeme_model.dart';
 import '../utils/json_saver.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
-import 'word_export_formats.dart'; // buildWordsCsvNoId / buildWordsXlsxNoId
+import 'export_items_formats.dart';
 
-class ExportResultX {
+class ExportItems {
   final String jsonPath;
   final String csvPath;
   final String xlsxPath;
   final String sqlPath;
   final int count;
   final int elapsedMs;
-  const ExportResultX({
+  const ExportItems({
     required this.jsonPath,
     required this.csvPath,
     required this.xlsxPath,
@@ -54,7 +54,7 @@ class ExportResultX {
 
 /// SQLite ’ten kelimeleri alır ve JSON/CSV/XLSX olarak dışa aktarır.
 /// Ek olarak veritabanı dosyasını (fileNameSql) da aynı klasöre kopyalar.
-Future<ExportResultX> exportWordsToJsonCsvXlsx({
+Future<ExportItems> exportItemsToFileFormats({
   String subfolder = 'malzeme_list_sql_app',
   int? pageSize, // geriye dönük uyumluluk için (kullanılmıyor)
 }) async {
@@ -110,11 +110,11 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
     // 6) SQLite DB dosyasını da aynı klasöre yedekle (fileNameSql)
     String sqlSavedAt = '-';
     try {
-      // 6.a) Önce DbHelper'tan AÇIK DB’nin gerçek yolunu almaya çalış
+      // 6.a) Önce DbHelper 'tan AÇIK DB ’nin gerçek yolunu almaya çalış
       //      (DbHelper.instance.database eğer Database döndürüyorsa)
       String? dbPath;
       try {
-        final db = await DbHelper.instance.database; // <- DbHelper’ında varsa
+        final db = await DbHelper.instance.database; // <- DbHelper ’ında varsa
         dbPath = db.path; // gerçek path
       } catch (_) {
         dbPath = null;
@@ -163,27 +163,21 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
           );
         }
 
-        log(
-          '🗄️ SQLite DB yedeği → $sqlSavedAt',
-          name: 'exportWordsToJsonCsvXlsx',
-        );
+        log('🗄️ SQLite DB yedeği → $sqlSavedAt', name: 'export_items');
       } else {
-        log(
-          '⚠️ DB dosyası bulunamadı: $dbPath',
-          name: 'exportWordsToJsonCsvXlsx',
-        );
+        log('⚠️ DB dosyası bulunamadı: $dbPath', name: 'export_items');
       }
     } catch (e) {
-      log('⚠️ DB yedeği alınamadı: $e', name: 'exportWordsToJsonCsvXlsx');
+      log('⚠️ DB yedeği alınamadı: $e', name: 'export_items');
     }
 
     sw.stop();
     log(
       '📦 Export tamamlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-      name: 'exportWordsToJsonCsvXlsx',
+      name: 'export_items',
     );
 
-    return ExportResultX(
+    return ExportItems(
       jsonPath: jsonSavedAt,
       csvPath: csvSavedAt,
       xlsxPath: xlsxSavedAt,
@@ -195,7 +189,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
     sw.stop();
     log(
       '❌ Hata (exportWordsToJsonCsvXlsx): $e',
-      name: 'exportWordsToJsonCsvXlsx',
+      name: 'export_items',
       error: e,
       stackTrace: st,
     );

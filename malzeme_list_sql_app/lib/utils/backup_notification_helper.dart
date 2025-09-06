@@ -20,8 +20,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../services/export_words.dart'
-    show exportWordsToJsonCsvXlsx, ExportResultX;
+import '../services/export_items.dart';
 import '../widgets/loading_bottom_banner.dart';
 
 Future<void> backupNotificationHelper({
@@ -32,7 +31,7 @@ Future<void> backupNotificationHelper({
   String? subfolder,
 
   /// ✅ Başarı bildirimi artık callback ile dışarıdan gösteriliyor
-  void Function(BuildContext ctx, ExportResultX res)? onSuccessNotify,
+  void Function(BuildContext ctx, ExportItems res)? onSuccessNotify,
 }) async {
   // 🔑 await ’ten ÖNCE messenger ’ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
@@ -84,7 +83,7 @@ Future<void> backupNotificationHelper({
   showBanner();
 
   try {
-    final res = await exportWordsToJsonCsvXlsx(
+    final res = await exportItemsToFileFormats(
       // pageSize parametresini ÇAĞIRMAYIN; export_words.dart imzanızda yok.
       subfolder: subfolder ?? 'malzeme_list_sql_app',
     );
@@ -92,7 +91,7 @@ Future<void> backupNotificationHelper({
     if (!context.mounted) return;
 
     onStatusChange(
-      'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
+      'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath} • SQL: ${res.sqlPath}',
     );
 
     // ✅ Bildirimi artık DIŞARIDAN göster
@@ -103,20 +102,23 @@ Future<void> backupNotificationHelper({
     // Log
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "backup_notification_helper",
     );
-    log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
+    log(
+      "Toplam Kayıt sayısı : ${res.count} ✅",
+      name: "backup_notification_helper",
+    );
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "backup_notification_helper",
     );
-    log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup");
-    log("✅ CSV  yedeği → ${res.csvPath}", name: "Backup");
-    log("✅ XLSX yedeği → ${res.xlsxPath}", name: "Backup");
-    log("✅ SQL  yedeği → ${res.sqlPath}", name: "Backup");
+    log("✅ JSON yedeği → ${res.jsonPath}", name: "backup_notification_helper");
+    log("✅ CSV  yedeği → ${res.csvPath}", name: "backup_notification_helper");
+    log("✅ XLSX yedeği → ${res.xlsxPath}", name: "backup_notification_helper");
+    log("✅ SQL  yedeği → ${res.sqlPath}", name: "backup_notification_helper");
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "backup_notification_helper",
     );
   } catch (e) {
     if (!context.mounted) return;
