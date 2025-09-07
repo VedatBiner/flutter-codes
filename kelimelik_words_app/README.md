@@ -80,6 +80,7 @@ kutusunu kullanması sağlandı.
 - ExportResultX sınıfı ExportItems olarak değiştirildi.
 - exportWordsToJsonCsvXlsx metodu exportItemsToFileFormats olarak değiştirildi.
 - pubspec.yaml dosyası düzenlendi.
+- sdk bilgisi sdk: ">=3.9.0 <4.0.0" yapıldı.
 - 
 
 - Simdilik yapılanlar yeterli mi?
