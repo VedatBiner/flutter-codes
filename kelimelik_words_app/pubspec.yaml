@@ -1,6 +1,8 @@
+# 📦 Pubspec — kelimelik_words_app
+# Kelimelik uygulaması: kelime listesi, SQLite tabanlı kayıt ve dışa aktarma
+
 name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
-
 publish_to: 'none'
 
 version: 1.4.1+1
@@ -12,36 +14,59 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  # -----------------------------
+  # UI / İkon setleri / Görsel
+  # -----------------------------
+  cupertino_icons: ^1.0.8          # iOS tarzı ikon seti
+  font_awesome_flutter:            # Geniş ikon koleksiyonu (FA)
+  lottie:                          # JSON animasyonları (loading/empty state)
 
-  sqflite: ## sqflite veri tabanı işlemleri için kullanılıyor.
-  package_info_plus: ## versiyon bilgisi için kullanılıyor
-  elegant_notification: ## Bildirimler için kullanılıyor
-  alphabet_list_view: ## alfabetik liste görünüm için kullanılıyor
-  lottie: ## animasyon gösterimi için kullanılıyor
-  provider: ## provider state yönetimi için kullanılıyor.
-  font_awesome_flutter: ## bazı fot ve ikonlar için kullanılıyor
-  permission_handler: ## Erişim izinleri için kullanılıyor
-  syncfusion_flutter_xlsio: ## Güçlü Excel tablosu oluşturmak için kullanılıyor
-  ##Layout sırasında hesaplanan ek değeri (value) builder ’a iletmek için kullanılıyor
-  value_layout_builder: ^0.5.0
-  equatable: ## Değer eşitliği (==/hashCode) için; model ve state sınıflarını kolaylaştırır
-  path_provider: ## Cihazdaki yaygın dizin yollarını almak için kullanılıyor
-  path: ## Dosya yolu işlemleri (join, dirname, extension) için platform-bağımsız yardımcılar
-  external_path: ## Android ’de harici depolama klasör yollarını almak için (Downloads, DCIM vb.) kullanılıyor
-  share_plus: ## Sistem paylaşım paneliyle metin/dosya/link paylaşmak için kullanılıyor
+  # -----------------------------
+  # Durum yönetimi / Modelleme
+  # -----------------------------
+  provider:                        # ChangeNotifier tabanlı state management
+  equatable:                       # Model/state sınıflarında değer temelli eşitlik (==/hashCode)
+
+  # -----------------------------
+  # Veritabanı / Depolama
+  # -----------------------------
+  sqflite:                         # Cihaz içi SQLite (CRUD)
+  path_provider:                   # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
+  path:                            # Dosya yolu işlemleri (join/dirname/extension)
+  external_path:                   # Android harici depolama (Downloads/DCIM) yolu erişimi
+
+  # -----------------------------
+  # İhracat / Paylaşım / Excel
+  # -----------------------------
+  syncfusion_flutter_xlsio:        # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
+  share_plus:                      # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
+
+  # -----------------------------
+  # İzinler
+  # -----------------------------
+  permission_handler:              # Çalışma zamanı izinleri (Android/iOS)
+
+  # -----------------------------
+  # Uygulama bilgisi
+  # -----------------------------
+  package_info_plus:               # Uygulama sürümü, build numarası, paket adı
+
+  # -----------------------------
+  # Listeleme / UX yardımcıları
+  # -----------------------------
+  elegant_notification:            # Modern toast/notification bileşenleri
+  alphabet_list_view:              # A–Z hızlı gezinmeli liste görünümü
+  value_layout_builder: ^0.5.0     # Layout sırasında hesaplanan value ’yu builder ’a iletme
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^5.0.0
+  flutter_lints: ^5.0.0            # Dart/Flutter linter kuralları
 
 flutter:
-
   uses-material-design: true
 
   assets:
     - assets/images/
     - assets/animations/
-    - assets/database/kelimelik_backup.json
+    - assets/database/kelimelik_backup.json   # örnek yedek dosyası (opsiyonel)
