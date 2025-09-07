@@ -81,7 +81,7 @@ kutusunu kullanması sağlandı.
 - exportWordsToJsonCsvXlsx metodu exportItemsToFileFormats olarak değiştirildi.
 - pubspec.yaml dosyası düzenlendi.
 - sdk bilgisi sdk: ">=3.9.0 <4.0.0" yapıldı.
-- 
+- Uygulama ikonu değiştirildi.
 
 - Simdilik yapılanlar yeterli mi?
 
