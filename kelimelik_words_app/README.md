@@ -79,6 +79,8 @@ kutusunu kullanması sağlandı.
 - word_export_formats.dart dosyası export_items_formats.dart dosyası olarak değiştirildi.
 - ExportResultX sınıfı ExportItems olarak değiştirildi.
 - exportWordsToJsonCsvXlsx metodu exportItemsToFileFormats olarak değiştirildi.
+- pubspec.yaml dosyası düzenlendi.
+- 
 
 - Simdilik yapılanlar yeterli mi?
 
