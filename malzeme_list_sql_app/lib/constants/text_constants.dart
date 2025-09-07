@@ -21,7 +21,7 @@ final kelimeExistText = TextStyle(
 );
 
 /// 📌 Kelime güncelle text stili
-final kelimeUpdateText = TextStyle(
+final kelimeUpdateText = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
   color: Colors.green,

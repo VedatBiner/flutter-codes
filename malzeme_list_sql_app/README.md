@@ -51,30 +51,29 @@
 39. `lottie` paketi yüklendi — 05.09.2025
 40. `flutter_slidable` paketi yüklendi — 05.09.2025
 41. `assets` içindeki dosyalar okundu — 05.09.2025
+42. `add_malzeme_dialog_handler.dart` dosyasının adını `show_malzeme_dialog_handler.dart` olarak değiştirelim. — 05.09.2025
+43. `notification_service.dart` dosyası services dizinine taşındı. — 05.09.2025
+44. `notification_service.dart` yenilendi. — 05.09.2025
+45. `backup_notification_helper.dart' dosyasında `createAdnNotifyBackup` metodunu `backupNotificationHelper` olarak değiştirdik. — 05.09.2025
+46. Yedek alınma notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
+47. Güncelleme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025 
+48. Silme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
+49. `syncfusion_flutter_xlsio` paketi yüklendi. - 06.09.2025
+50. `export_words.dart` ve `word_export_formats.dart` dosyaları eklendi. - 06.09.2025
+51. `loading_bottom_banner.dart` dosyası eklendi. - 06.09.2025
+52. `json_saver.dart` ve `json_saver_io.dart` dosyaları eklendi. - 06.09.2025
+53. `external_path` ve `share_plus` paketi yüklendi. - 06.09.2025
+54. `word_export_formats.dart` dosyasında hata düzeltildi. - 06.09.2025
+55. `csv_backup_helper.dart` dosyası silindi. - 06.09.2025
+56. `excel_backup_helper.dart` dosyası silindi. - 06.09.2025
+57. `json_backup_helper.dart` dosyası silindi. - 06.09.2025
+58. export_words.dart` dosyası düzeltildi. - 06.09.2025
+59. `export_words.dart` dosyası `export_items.dart` dosyası olarak değiştirildi. - 06.09.2025
+60. `word_export_formats.dart` dosyası `export_items_formats.dart` dosyası olarak değiştirildi. - 06.09.2025
+61. `ExpoerResultX` sınıfı `ExportItems` olarak değiştirildi. - 06.09.2025
+62. `exportWordsToJsonCsvXlsx` metodu `exportItemsToFileFormats` olarak değiştirildi. - 06.09.2025
+63. Excel çıktısında sayısal format düzeldi. - 06.09.2025
+64. `equatable` paketi yüklendi - 07.09.2025
+65. `pubspec.yaml` dosyası düzenlendi. -07.09.2025
 
----
-
-## Yeni yapılanlar
-
-1. `add_malzeme_dialog_handler.dart` dosyasının adını `show_malzeme_dialog_handler.dart` olarak değiştirelim. — 05.09.2025
-2. `notification_service.dart` dosyası services dizinine taşındı. — 05.09.2025
-3. `notification_service.dart` yenilendi. — 05.09.2025
-4. `backup_notification_helper.dart' dosyasında `createAdnNotifyBackup` metodunu `backupNotificationHelper` olarak değiştirdik. — 05.09.2025
-5. Yedek alınma notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
-6. Güncelleme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025 
-7. Silme notification adımı, `show_malzeme_dialog_handler.dart` dosyasına taşındı. - 05.09.2025
-8. `syncfusion_flutter_xlsio` paketi yüklendi. - 06.09.2025
-9. `export_words.dart` ve `word_export_formats.dart` dosyaları eklendi. - 06.09.2025
-10. `loading_bottom_banner.dart` dosyası eklendi. - 06.09.2025
-11. `json_saver.dart` ve `json_saver_io.dart` dosyaları eklendi. - 06.09.2025
-12. `external_path` ve `share_plus` paketi yüklendi. - 06.09.2025
-13. `word_export_formats.dart` dosyasında hata düzeltildi. - 06.09.2025
-14. `csv_backup_helper.dart` dosyası silindi. - 06.09.2025
-15. `excel_backup_helper.dart` dosyası silindi. - 06.09.2025
-16. `json_backup_helper.dart` dosyası silindi. - 06.09.2025
-17. `export_words.dart` dosyası düzeltildi. - 06.09.2025
-18. `export_words.dart` dosyası `export_items.dart` dosyası olarak değiştirildi. - 06.09.2025
-19. `word_export_formats.dart` dosyası `export_items_formats.dart` dosyası olarak değiştirildi. - 06.09.2025
-20. `ExpoerResultX` sınıfı `ExportItems` olarak değiştirildi. - 06.09.2025
-21. `exportWordsToJsonCsvXlsx` metodu `exportItemsToFileFormats` olarak değiştirildi. - 06.09.2025
 

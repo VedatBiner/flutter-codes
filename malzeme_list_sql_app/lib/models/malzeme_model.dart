@@ -1,8 +1,10 @@
 // 📃 <----- malzeme_model.dart ----->
 
+import 'package:equatable/equatable.dart';
+
 /// Malzeme sınıfı, her bir malzemenin ID, adı, açıklaması ve miktarını temsil eder.
 /// SQLite veri tabanı ve JSON dönüşümleri için uygundur.
-class Malzeme {
+class Malzeme extends Equatable {
   /// Veritabanı için otomatik artan birincil anahtar (id). Nullable ’dır çünkü ekleme sırasında belli olmayabilir.
   final int? id;
 
@@ -16,7 +18,7 @@ class Malzeme {
   final int? miktar;
 
   /// Kurucu metot: Yeni bir Malzeme nesnesi oluşturur.
-  Malzeme({
+  const Malzeme({
     this.id,
     required this.malzeme,
     this.aciklama,
@@ -60,4 +62,13 @@ class Malzeme {
       miktar: miktar ?? this.miktar,
     );
   }
+
+  /// Equatable: Değer eşitliği için karşılaştırılacak alanlar.
+  /// (İstersen sadece kimlik eşitliği kullanmak için `props => [id];` yapabilirsin.)
+  @override
+  List<Object?> get props => [id, malzeme, aciklama, miktar];
+
+  /// Debug çıktılarının daha okunaklı olması için.
+  @override
+  bool get stringify => true;
 }
