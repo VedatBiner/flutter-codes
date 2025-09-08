@@ -6,7 +6,7 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Firestore koleksiyonu JSON olarak mobil 'den indirildi. Yaklaşık 1500 KB.
 - home_page.dart kodu bölünerek koda temiz bir görünüm verilecek.
 - JSON,CSV,XLSX aktarma işlemleri web ve mobilde düzgün çalışıyor.
-- Home Page biraz temizlendi.
+- Home Page biraz temizlendi.flutter
 - Yedekleme seçeneği drawer menüye eklendi.
 - Home page geri dönüş butonu eklendi.
 - Firebase servisleri için word_service.dart dosyası düzenleniyor.
@@ -25,9 +25,10 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Kelime düzeltme ve silme kodları ayrı dosyalara alındı.
 - Kelime silme ve düzeltme dialogları düzeltildi.
 - Homepage  butonunun konumu düzeltildi.
-- Düzelt ve sil kutuları düzeltilecek
-- Güncelleme mesajı show_word_dialog_handler.dart dosyasına alındı
-- Yedekleme mesajı show_word_dialog_handler.dart dosyasına alındı
+- Düzelt ve sil kutuları düzeltildi.
+- Güncelleme mesajı show_word_dialog_handler.dart dosyasına alındı.
+- Yedekleme mesajı show_word_dialog_handler.dart dosyasına alındı.
 - notification kutularının boyutları düzeltildi.
 - AppBar mobil cihaz başlığı düzeltildi.
+- sdk: ">=3.9.0 <4.0.0" olarak değiştirildi.
 - 
