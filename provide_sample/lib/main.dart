@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import './state_data.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(Provider<StateData>(
+  // state yarattık, provider 'ı yayınladık.
+    create: (BuildContext context) => StateData(),
+    child: const MyApp()));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,7 +22,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,7 @@ class MyHomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+          children: <Widget>[
             Expanded(child: SolWidgetA()),
             Expanded(child: SagWidgetA())
           ],
@@ -43,17 +47,19 @@ class SolWidgetA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // String sehir = Provider.of<StateData>(context).sehir;
     return Container(
         color: Colors.yellow,
-        child: const Column(
+        child: Column(
           children: [
-            Text(
+            const Text(
               'Sol Widget',
               style: TextStyle(fontSize: 20),
             ),
             Text(
-              'Sehir: ..... ',
-              style: TextStyle(fontSize: 20),
+              // aşağıdaki gibi de kullanılabilir.
+              'Sehir: ${Provider.of<StateData>(context).sehir}',
+              style: const TextStyle(fontSize: 20),
             )
           ],
         ));
@@ -107,16 +113,16 @@ class SagWidgetC extends StatelessWidget {
       color: Colors.white,
       height: 150,
       width: 160,
-      child: const Column(children: [
-        Text(
+      child: Column(children: [
+        const Text(
           'SagWidget C',
           style: TextStyle(fontSize: 20),
         ),
         Text(
-          'Şehir: ... ',
-          style: TextStyle(fontSize: 20),
+          'Şehir: ${Provider.of<StateData>(context).sehir}',
+          style: const TextStyle(fontSize: 20),
         ),
-        TextField(onChanged: null)
+        const TextField(onChanged: null)
       ]),
     );
   }
