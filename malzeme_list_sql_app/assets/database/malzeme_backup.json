@@ -1,23 +1,38 @@
 [
   {
-    "malzeme": "Adaptör (USB)",
-    "aciklama": null,
-    "miktar": 1
-  },
-  {
-    "malzeme": "Adaptör (USB) (eksik)",
-    "aciklama": null,
-    "miktar": 0
-  },
-  {
-    "malzeme": "Ampul (beyaz)",
-    "aciklama": null,
+    "malzeme": "Abajur",
+    "aciklama": "viski şişesi porselen",
     "miktar": 2
   },
   {
-    "malzeme": "Ampul LED (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Adaptör (USB type-c)",
+    "aciklama": "",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Adaptör (USB)",
+    "aciklama": "1 port",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Adaptör (USB)",
+    "aciklama": "Belkin 2 port",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Airfryer",
+    "aciklama": "Philips",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Ampul LED",
+    "aciklama": "Beyaz ışık",
+    "miktar": 7
+  },
+  {
+    "malzeme": "Ampul LED",
+    "aciklama": "Sarı ışık",
+    "miktar": 8
   },
   {
     "malzeme": "Ayakkabı çekeceği (eksik)",
@@ -25,9 +40,9 @@
     "miktar": 0
   },
   {
-    "malzeme": "Banyo kesesi (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Banyo kesesi",
+    "aciklama": "",
+    "miktar": 1
   },
   {
     "malzeme": "Bel çantası (Ankara)",
@@ -40,8 +55,23 @@
     "miktar": 1
   },
   {
-    "malzeme": "Crocs terlik (sokak)",
-    "aciklama": null,
+    "malzeme": "Bulaşık makinesi",
+    "aciklama": "beko",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Buzdolabı",
+    "aciklama": "beko",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Crocs terlik",
+    "aciklama": "Sokak",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Crocs Terlik",
+    "aciklama": "ev",
     "miktar": 1
   },
   {
@@ -50,9 +80,9 @@
     "miktar": 1
   },
   {
-    "malzeme": "Dolap stoperi (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Dolap stoperi",
+    "aciklama": "paket",
+    "miktar": 50
   },
   {
     "malzeme": "Don (erkek)",
@@ -60,9 +90,9 @@
     "miktar": 2
   },
   {
-    "malzeme": "Dürbün (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Dürbün",
+    "aciklama": "Kapı dürbünü",
+    "miktar": 1
   },
   {
     "malzeme": "Eldiven",
@@ -71,7 +101,7 @@
   },
   {
     "malzeme": "Eldiven (eksik)",
-    "aciklama": null,
+    "aciklama": "cerrahi",
     "miktar": 0
   },
   {
@@ -88,6 +118,11 @@
     "malzeme": "Eğe (eksik)",
     "aciklama": null,
     "miktar": 0
+  },
+  {
+    "malzeme": "Fön makinesi",
+    "aciklama": "",
+    "miktar": 1
   },
   {
     "malzeme": "Güç korumalı priz",
@@ -110,14 +145,14 @@
     "miktar": 1
   },
   {
-    "malzeme": "Iki port USB adaptör (Ankara)",
-    "aciklama": null,
-    "miktar": 1
+    "malzeme": "Iki kapaklı gardrop",
+    "aciklama": "",
+    "miktar": 2
   },
   {
-    "malzeme": "Kapı altı stoper (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Kanape (2 kişilik)",
+    "aciklama": "çek yat",
+    "miktar": 1
   },
   {
     "malzeme": "Kapı stoperi",
@@ -127,6 +162,11 @@
   {
     "malzeme": "Kapı stoperi (Silikon)",
     "aciklama": null,
+    "miktar": 1
+  },
+  {
+    "malzeme": "Kare masa",
+    "aciklama": "katlanır",
     "miktar": 1
   },
   {
@@ -140,9 +180,9 @@
     "miktar": 1
   },
   {
-    "malzeme": "Kaşar (migros)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Klima",
+    "aciklama": "beko",
+    "miktar": 3
   },
   {
     "malzeme": "Koli bandı",
@@ -150,12 +190,17 @@
     "miktar": 2
   },
   {
-    "malzeme": "Kontrol kalemi (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Koltuk",
+    "aciklama": "kumaş kaplı",
+    "miktar": 2
   },
   {
-    "malzeme": "Krema (migros)",
+    "malzeme": "Komidin",
+    "aciklama": "",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Kontrol kalemi (eksik)",
     "aciklama": null,
     "miktar": 0
   },
@@ -163,6 +208,11 @@
     "malzeme": "Kulaklık (kablolu)",
     "aciklama": null,
     "miktar": 1
+  },
+  {
+    "malzeme": "Köşeli koltuk (Verenda)",
+    "aciklama": "2 tane ikili bir tane tekli köşe",
+    "miktar": 3
   },
   {
     "malzeme": "Kızartma Tenceresi (eksik)",
@@ -190,14 +240,19 @@
     "miktar": 0
   },
   {
+    "malzeme": "Masa",
+    "aciklama": "veranda",
+    "miktar": 1
+  },
+  {
     "malzeme": "Masa lastiği (ayak)",
     "aciklama": null,
     "miktar": 2
   },
   {
     "malzeme": "Masa örtü kıskacı",
-    "aciklama": null,
-    "miktar": 3
+    "aciklama": "2 paket",
+    "miktar": 8
   },
   {
     "malzeme": "Mayo",
@@ -220,14 +275,34 @@
     "miktar": 1
   },
   {
+    "malzeme": "Modem",
+    "aciklama": "fiber",
+    "miktar": 1
+  },
+  {
     "malzeme": "Modem tel kablosu",
     "aciklama": null,
     "miktar": 2
   },
   {
+    "malzeme": "Ocak",
+    "aciklama": "beko seramik",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Ocak (seramik)",
+    "aciklama": "kazıma aracı",
+    "miktar": 1
+  },
+  {
     "malzeme": "Oklava (eksik)",
     "aciklama": null,
     "miktar": 0
+  },
+  {
+    "malzeme": "Pantolon (uzun)",
+    "aciklama": "erkek yeşil soluk",
+    "miktar": 1
   },
   {
     "malzeme": "Pense (eksik)",
@@ -257,12 +332,12 @@
   {
     "malzeme": "Pil (İnce)",
     "aciklama": null,
-    "miktar": 1
+    "miktar": 4
   },
   {
     "malzeme": "Pil (İnce)",
     "aciklama": null,
-    "miktar": 4
+    "miktar": 1
   },
   {
     "malzeme": "Pil (Kalın)",
@@ -285,24 +360,39 @@
     "miktar": 0
   },
   {
-    "malzeme": "Sensörlü (LED) (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Sandalye (Verenda)",
+    "aciklama": "ahşap, kolçaklı, alt minderli",
+    "miktar": 6
+  },
+  {
+    "malzeme": "Sehpa (Telli)",
+    "aciklama": "",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Sehpa (Verenda)",
+    "aciklama": "Ahşap",
+    "miktar": 1
   },
   {
     "malzeme": "Sensörlü Lamba",
-    "aciklama": null,
-    "miktar": 2
+    "aciklama": "yuvarlak",
+    "miktar": 6
   },
   {
-    "malzeme": "Sinek ilacı",
-    "aciklama": null,
+    "malzeme": "Sensörlü LED lamba",
+    "aciklama": "mutfak",
     "miktar": 2
   },
   {
     "malzeme": "Sinek İlacı",
     "aciklama": null,
     "miktar": 1
+  },
+  {
+    "malzeme": "Sinek ilacı",
+    "aciklama": null,
+    "miktar": 2
   },
   {
     "malzeme": "Sinek ilacı sprey",
@@ -315,19 +405,9 @@
     "miktar": 1
   },
   {
-    "malzeme": "Sıvı yağ (migros)",
-    "aciklama": null,
-    "miktar": 0
-  },
-  {
     "malzeme": "T-shirt",
-    "aciklama": null,
-    "miktar": 4
-  },
-  {
-    "malzeme": "T-Shirt (Ankara)",
-    "aciklama": null,
-    "miktar": 2
+    "aciklama": "Sevilla/Floridita/Morocco/Vodka/Bodrum/Malta/Dubrovnik",
+    "miktar": 7
   },
   {
     "malzeme": "Tabure",
@@ -345,14 +425,24 @@
     "miktar": 0
   },
   {
+    "malzeme": "Tahta raf",
+    "aciklama": "köşelik",
+    "miktar": 2
+  },
+  {
     "malzeme": "Tahta çubuk",
     "aciklama": null,
     "miktar": 3
   },
   {
-    "malzeme": "Teflon tava (Ankara)",
-    "aciklama": null,
+    "malzeme": "Tavan lambası",
+    "aciklama": "Dantel abajurlu",
     "miktar": 1
+  },
+  {
+    "malzeme": "Teflon tava",
+    "aciklama": "",
+    "miktar": 2
   },
   {
     "malzeme": "Tencere (Ufak) (Eksik)",
@@ -380,13 +470,23 @@
     "miktar": 0
   },
   {
+    "malzeme": "Tv",
+    "aciklama": "Philips",
+    "miktar": 1
+  },
+  {
+    "malzeme": "TV altı",
+    "aciklama": "kapaklı dolap",
+    "miktar": 1
+  },
+  {
     "malzeme": "USB - Ethernet çevirici (Ankara)",
     "aciklama": null,
     "miktar": 1
   },
   {
-    "malzeme": "USB 3.0 kablo (Ankara)",
-    "aciklama": null,
+    "malzeme": "USB 3.0 kablo",
+    "aciklama": "disk kablosu",
     "miktar": 1
   },
   {
@@ -401,13 +501,13 @@
   },
   {
     "malzeme": "Uzatma kablosu",
-    "aciklama": null,
+    "aciklama": "3 lü normal boy",
     "miktar": 1
   },
   {
-    "malzeme": "Uzatma kablosu - USB (eksik)",
-    "aciklama": null,
-    "miktar": 0
+    "malzeme": "Uzatma kablosu - USB",
+    "aciklama": "2m / Üçlü / 3 port usb",
+    "miktar": 1
   },
   {
     "malzeme": "Wifi repater (eksik)",
@@ -420,9 +520,29 @@
     "miktar": 0
   },
   {
+    "malzeme": "Yatak (Bazalı)",
+    "aciklama": "tek kişilik",
+    "miktar": 2
+  },
+  {
     "malzeme": "Yoğurt kasesi (eksik)",
     "aciklama": null,
     "miktar": 0
+  },
+  {
+    "malzeme": "Yuvarlak masa",
+    "aciklama": "",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Çamaşır askısı",
+    "aciklama": "balkon",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Çamaşır makinesi",
+    "aciklama": "beko",
+    "miktar": 1
   },
   {
     "malzeme": "Çekiç (eksik)",
@@ -431,17 +551,17 @@
   },
   {
     "malzeme": "Çorap (kısa)",
-    "aciklama": null,
+    "aciklama": "erkek",
     "miktar": 1
   },
   {
     "malzeme": "Çorap (orta)",
-    "aciklama": null,
+    "aciklama": "erkek",
     "miktar": 1
   },
   {
     "malzeme": "Çorap (uzun)",
-    "aciklama": null,
+    "aciklama": "erkek",
     "miktar": 1
   },
   {
@@ -455,8 +575,18 @@
     "miktar": 2
   },
   {
-    "malzeme": "Şort (Ankara)",
-    "aciklama": null,
-    "miktar": 2
+    "malzeme": "Şarj cihazı",
+    "aciklama": "4 pil kapsiteli",
+    "miktar": 1
+  },
+  {
+    "malzeme": "Şort",
+    "aciklama": "kumaş bej / lacivert / Mavi",
+    "miktar": 3
+  },
+  {
+    "malzeme": "Şort (erkek)",
+    "aciklama": "dışarı giyim bej",
+    "miktar": 1
   }
 ]
