@@ -116,6 +116,10 @@
     "meaning": "Gücü yetmez olma durumu"
   },
   {
+    "word": "Acul",
+    "meaning": "Aceleci / Hızlı / Çabuk"
+  },
+  {
     "word": "Acun",
     "meaning": "Dünya"
   },
@@ -216,6 +220,10 @@
     "meaning": "Ufuklar"
   },
   {
+    "word": "Afaki",
+    "meaning": "Gereksiz / Önemsiz söz"
+  },
+  {
     "word": "Afal",
     "meaning": "Şaşkın / Dağınık"
   },
@@ -306,6 +314,10 @@
   {
     "word": "Ahır",
     "meaning": "Evcil büyükbaş hayvanların barındığı yer"
+  },
+  {
+    "word": "Aidat",
+    "meaning": "Kesenek / Hizmet karşılığı düzenli ödenen para"
   },
   {
     "word": "Aile",
@@ -510,6 +522,10 @@
   {
     "word": "Alim",
     "meaning": "Bilen"
+  },
+  {
+    "word": "Alimane",
+    "meaning": "Alime yakışır"
   },
   {
     "word": "Alize",
@@ -836,6 +852,10 @@
     "meaning": "Eğitimsiz kişilerin konuşma tarzı"
   },
   {
+    "word": "Argolu",
+    "meaning": "İçinde argo söz olan"
+  },
+  {
     "word": "Ari",
     "meaning": "Çıplak / Arınmış / Soyutlanmış"
   },
@@ -874,6 +894,10 @@
   {
     "word": "Artık",
     "meaning": "Geri kalan"
+  },
+  {
+    "word": "Artın",
+    "meaning": "Katyon"
   },
   {
     "word": "Aruz",
@@ -1272,6 +1296,10 @@
     "meaning": "Nitelik belirtme"
   },
   {
+    "word": "Aza",
+    "meaning": "Üye"
+  },
+  {
     "word": "Azat",
     "meaning": "Serbest bırakma"
   },
@@ -1386,6 +1414,10 @@
   {
     "word": "Ağca",
     "meaning": "Akça"
+  },
+  {
+    "word": "Ağcık",
+    "meaning": "Palmiye çiçeklerindeki telli kın"
   },
   {
     "word": "Ağda",
@@ -1506,6 +1538,10 @@
   {
     "word": "Babil",
     "meaning": "Asur döneminden bir şehir"
+  },
+  {
+    "word": "Babun",
+    "meaning": "Etçil maymun türü"
   },
   {
     "word": "Baca",
@@ -1685,7 +1721,7 @@
   },
   {
     "word": "Barak",
-    "meaning": "Kıllı çuha"
+    "meaning": "Kıllı çuha / Bir köpek cinsi"
   },
   {
     "word": "Baraka",
@@ -1726,6 +1762,10 @@
   {
     "word": "Barok",
     "meaning": "Klasik sanatı izleyen akım"
+  },
+  {
+    "word": "Baron",
+    "meaning": "Batı ülkelerinde soyluluk ünvanı"
   },
   {
     "word": "Barı",
@@ -1872,6 +1912,10 @@
     "meaning": "Zorla alınan para / Haraç"
   },
   {
+    "word": "Baçlı",
+    "meaning": "Baç ödenen"
+  },
+  {
     "word": "Bağ",
     "meaning": "Sargı / Bağlam / Demet / Rabıta"
   },
@@ -1920,8 +1964,16 @@
     "meaning": "Başı korumak için giyilen şapka / Serpuş"
   },
   {
+    "word": "Başçık",
+    "meaning": "Çiçeklern erkek orgsnlarında çiçek tozu tsşıyan torbacık / Haşefer"
+  },
+  {
     "word": "Be",
     "meaning": "Seslenme sözü / Harf"
+  },
+  {
+    "word": "Bebek",
+    "meaning": "Meme veya kucak cocuğu"
   },
   {
     "word": "Becet",
@@ -2086,6 +2138,10 @@
   {
     "word": "Beton",
     "meaning": "Çimentodan yapılan sert, dayanıklı yapı malzemesi"
+  },
+  {
+    "word": "Bey",
+    "meaning": "Erkek adları için saygı sözü"
   },
   {
     "word": "Beyan",
@@ -2900,6 +2956,10 @@
     "meaning": "Üzüm salkımı"
   },
   {
+    "word": "Cırt",
+    "meaning": "Kağıt, kumaş yırtılma sesi"
+  },
+  {
     "word": "Cıs",
     "meaning": "Çocukları ateşe karşı uyarma"
   },
@@ -3017,7 +3077,7 @@
   },
   {
     "word": "Dayak",
-    "meaning": "Insan ya da hayvanı dövmek"
+    "meaning": "Insan ya da hayvanı dövmek / Patak / Kötek / Payanda"
   },
   {
     "word": "Daye",
@@ -3138,6 +3198,10 @@
   {
     "word": "Denge",
     "meaning": "Zihinsel, duygusal uyum / İstikrar"
+  },
+  {
+    "word": "Deni",
+    "meaning": "Alçak / Kötü / Kişiliksiz"
   },
   {
     "word": "Derili",
@@ -3372,6 +3436,10 @@
     "meaning": "Amerika para birimi"
   },
   {
+    "word": "Dolu",
+    "meaning": "Içi boş olmayan / Boş karşıtı / bir hava olayı"
+  },
+  {
     "word": "Don",
     "meaning": "Iç giysi / Külot"
   },
@@ -3524,6 +3592,10 @@
     "meaning": "Rüya"
   },
   {
+    "word": "Düşes",
+    "meaning": "Dükün karısı"
+  },
+  {
     "word": "Düşeş",
     "meaning": "Zarla oynanan oyunlarda iki tane altı gelmesi"
   },
@@ -3662,6 +3734,10 @@
   {
     "word": "Ekinlik",
     "meaning": "Ekin ekilmiş yer"
+  },
+  {
+    "word": "Ekit",
+    "meaning": "Vücuda yerleştirilen doku parçası"
   },
   {
     "word": "Ekleme",
@@ -4188,6 +4264,10 @@
     "meaning": "Ancak / Ama / Lakin"
   },
   {
+    "word": "Fakir",
+    "meaning": "Yoksul / Fukara"
+  },
+  {
     "word": "Fakr",
     "meaning": "Yoksulluk / Fukaralık"
   },
@@ -4246,6 +4326,10 @@
   {
     "word": "Fas",
     "meaning": "Afrika'da ülke"
+  },
+  {
+    "word": "Fasıl",
+    "meaning": "Bölüm / Kısım / Devre"
   },
   {
     "word": "Fasıla",
@@ -4712,6 +4796,10 @@
     "meaning": "Amaç"
   },
   {
+    "word": "Gayet",
+    "meaning": "Pek / Çok"
+  },
+  {
     "word": "Gaz",
     "meaning": "Gaz yağı"
   },
@@ -4992,6 +5080,10 @@
     "meaning": "Bol / Verimli / Feyyaz"
   },
   {
+    "word": "Gürsu",
+    "meaning": "Bursa ilçesi"
+  },
+  {
     "word": "Güve",
     "meaning": "Yün yiyen kanatlı böcek türü"
   },
@@ -5056,6 +5148,10 @@
     "meaning": "Sınır / uç"
   },
   {
+    "word": "Hademe",
+    "meaning": "Odacı"
+  },
+  {
     "word": "Hadi",
     "meaning": "Haydi"
   },
@@ -5066,6 +5162,10 @@
   {
     "word": "Hadise",
     "meaning": "Olay"
+  },
+  {
+    "word": "Hadım",
+    "meaning": "Kısırlaştırılmış erkek"
   },
   {
     "word": "Haf",
@@ -5242,6 +5342,14 @@
   {
     "word": "Hatay",
     "meaning": "Bir ilimiz"
+  },
+  {
+    "word": "Hatim",
+    "meaning": "Kur'an on tamamını okuma"
+  },
+  {
+    "word": "Hatime",
+    "meaning": "Son deyiş"
   },
   {
     "word": "Hav",
@@ -5704,6 +5812,10 @@
     "meaning": "Konya ilçesi"
   },
   {
+    "word": "Ilgıt",
+    "meaning": "Yavaş ve hafif esen rüzgar"
+  },
+  {
     "word": "İlham",
     "meaning": "Esin"
   },
@@ -5894,6 +6006,10 @@
   {
     "word": "İpekçi",
     "meaning": "İpek satıcısı"
+  },
+  {
+    "word": "İpçi",
+    "meaning": "İp üreten veya satan kişi"
   },
   {
     "word": "Ir",
@@ -6296,6 +6412,10 @@
     "meaning": "Tepkili motorlar ile çalışan uçak"
   },
   {
+    "word": "Jig",
+    "meaning": "Ortaçağ çalgısı"
+  },
+  {
     "word": "Jikle",
     "meaning": "Motorlu taşıtların yüksek devirle çalışması için fazla benzin akışı sağlayan alet"
   },
@@ -6350,6 +6470,10 @@
   {
     "word": "Kaba",
     "meaning": "Zevksiz / Sakil / Özensiz"
+  },
+  {
+    "word": "Kabak",
+    "meaning": "Bir tür sebze"
   },
   {
     "word": "Kabe",
@@ -6736,6 +6860,10 @@
     "meaning": "Bilerek isteyerek yapılan"
   },
   {
+    "word": "Kasvet",
+    "meaning": "Sıkıntı / İç sıkıntısı"
+  },
+  {
     "word": "Kasık",
     "meaning": "Vücudun karın ile uyluk arası bölümü"
   },
@@ -6910,6 +7038,10 @@
   {
     "word": "Kaş",
     "meaning": "Antalya ilçesi"
+  },
+  {
+    "word": "Kaşalot",
+    "meaning": "İspermeçet balinası / Budala / Aptal"
   },
   {
     "word": "Kaşan",
@@ -7264,6 +7396,10 @@
     "meaning": "Içinde kinin bulunan"
   },
   {
+    "word": "Kinoa",
+    "meaning": "Bir bitki türü"
+  },
+  {
     "word": "Kip",
     "meaning": "Sağlam / Dayanıklı"
   },
@@ -7302,6 +7438,10 @@
   {
     "word": "Kirve",
     "meaning": "Sünnet olan çocuğun babası kadar yakının olan kimse"
+  },
+  {
+    "word": "Kispet",
+    "meaning": "Yağlı güreşlerde kullanılan meşin pantolon"
   },
   {
     "word": "Kist",
@@ -7468,6 +7608,10 @@
     "meaning": "Kumandan"
   },
   {
+    "word": "Komşu",
+    "meaning": "Mücavir / Sınır ortaklığı bulunan"
+  },
+  {
     "word": "Koni",
     "meaning": "Geometrik bir şekil"
   },
@@ -7494,6 +7638,10 @@
   {
     "word": "Korece",
     "meaning": "Kore Dili"
+  },
+  {
+    "word": "Koro",
+    "meaning": "Müzik eseri seslendiren topluluk"
   },
   {
     "word": "Korse",
@@ -7580,6 +7728,10 @@
     "meaning": "Koşma"
   },
   {
+    "word": "Koşuk",
+    "meaning": "Koşma / Şiir"
+  },
+  {
     "word": "Koşul",
     "meaning": "Şart"
   },
@@ -7653,7 +7805,7 @@
   },
   {
     "word": "Kulaç",
-    "meaning": "Gerli iki kol parmak uçları arasındaki uzaklık"
+    "meaning": "Gerili iki kol parmak uçları arasındaki uzaklık"
   },
   {
     "word": "Kule",
@@ -7766,6 +7918,10 @@
   {
     "word": "Kuzey",
     "meaning": "Yön / Şimal"
+  },
+  {
+    "word": "Kuzin",
+    "meaning": "Kız yeğen"
   },
   {
     "word": "Kuğu",
@@ -8052,6 +8208,10 @@
     "meaning": "Kırmak işi"
   },
   {
+    "word": "Kırmız",
+    "meaning": "Kırmız böceğinden çıkan boya"
+  },
+  {
     "word": "Kırç",
     "meaning": "Kışın ağaç dallarını kaplayan buz tabakası"
   },
@@ -8146,6 +8306,10 @@
   {
     "word": "La",
     "meaning": "Nota"
+  },
+  {
+    "word": "Lades",
+    "meaning": "Tavuk kemiği ile oynanan oyun"
   },
   {
     "word": "Ladik",
@@ -8532,6 +8696,10 @@
     "meaning": "Büyüteç"
   },
   {
+    "word": "Luti",
+    "meaning": "Oğlancı"
+  },
+  {
     "word": "Lök",
     "meaning": "Deve"
   },
@@ -8598,6 +8766,10 @@
   {
     "word": "Macar",
     "meaning": "Macaristan hakından olan"
+  },
+  {
+    "word": "Macera",
+    "meaning": "Serüven / Sergüzeşt / Avantür"
   },
   {
     "word": "Madam",
@@ -8782,6 +8954,10 @@
   {
     "word": "Mantıki",
     "meaning": "Mantıklı"
+  },
+  {
+    "word": "Maral",
+    "meaning": "Dişi geyik"
   },
   {
     "word": "Maraz",
@@ -9008,6 +9184,10 @@
     "meaning": "Dini manevi varlık / Ferişte"
   },
   {
+    "word": "Meleke",
+    "meaning": "Yatkınlık / Alışkanlık / Yeti"
+  },
+  {
     "word": "Melik",
     "meaning": "Padişah / Hükümdar / Hakan"
   },
@@ -9072,6 +9252,10 @@
     "meaning": "Örnek alınacak söz / Atasözü"
   },
   {
+    "word": "Mesela",
+    "meaning": "Söz gelişi"
+  },
+  {
     "word": "Mesir",
     "meaning": "Bahar Bayramı'nda dağıtılan baharlı şeker"
   },
@@ -9125,7 +9309,7 @@
   },
   {
     "word": "Meyil",
-    "meaning": "Eğim"
+    "meaning": "Eğim / Akıntı / Temayül"
   },
   {
     "word": "Mezat",
@@ -9196,6 +9380,10 @@
     "meaning": "Herhangi bir olayın başlangıcı"
   },
   {
+    "word": "Milim",
+    "meaning": "Milimetre"
+  },
+  {
     "word": "Milyon",
     "meaning": "Bir sayı"
   },
@@ -9246,6 +9434,10 @@
   {
     "word": "Misafir",
     "meaning": "Konuk"
+  },
+  {
+    "word": "Misal",
+    "meaning": "Örnek"
   },
   {
     "word": "Misel",
@@ -9366,6 +9558,10 @@
   {
     "word": "Mum",
     "meaning": "Aydınlanma aracı"
+  },
+  {
+    "word": "Munis",
+    "meaning": "Cana yakın / Uysal / Sevimli"
   },
   {
     "word": "Murç",
@@ -9596,6 +9792,10 @@
     "meaning": "Bakan"
   },
   {
+    "word": "Naçar",
+    "meaning": "Çaresiz / Zavallı / Düşkün"
+  },
+  {
     "word": "Naçiz",
     "meaning": "Değersiz / Önemsiz"
   },
@@ -9732,6 +9932,10 @@
     "meaning": "Yorumunolan kadın / büyük anne"
   },
   {
+    "word": "Nisan",
+    "meaning": "Yılın dördüncü ayı"
+  },
+  {
     "word": "Nite",
     "meaning": "Nasıl / Niçin"
   },
@@ -9838,6 +10042,10 @@
   {
     "word": "Obje",
     "meaning": "Nesne"
+  },
+  {
+    "word": "Obur",
+    "meaning": "Doymak bilmez"
   },
   {
     "word": "Ocak",
@@ -10180,6 +10388,10 @@
     "meaning": "Bir tür eğer"
   },
   {
+    "word": "Palas",
+    "meaning": "Lüks otel / Saray"
+  },
+  {
     "word": "Palaska",
     "meaning": "Asker kemeri"
   },
@@ -10248,6 +10460,10 @@
     "meaning": "Oksitlenme sonucu oluşan madde"
   },
   {
+    "word": "Pasak",
+    "meaning": "Kir"
+  },
+  {
     "word": "Pasif",
     "meaning": "Çekingen / Durgun / Edilgen"
   },
@@ -10261,7 +10477,7 @@
   },
   {
     "word": "Pat",
-    "meaning": "Yassı/ Basık"
+    "meaning": "Yassı / Basık"
   },
   {
     "word": "Patal",
@@ -10290,6 +10506,10 @@
   {
     "word": "Paylı",
     "meaning": "Hisseli"
+  },
+  {
+    "word": "Pazar",
+    "meaning": "Rize ilçesi / Haftanın günlerinden biri"
   },
   {
     "word": "Pazen",
@@ -10452,6 +10672,10 @@
     "meaning": "Bir iskambil oyunu"
   },
   {
+    "word": "Piko",
+    "meaning": "Kimi örtülerin yanına yapılan süs türü"
+  },
+  {
     "word": "Pil",
     "meaning": "Batarya"
   },
@@ -10500,6 +10724,10 @@
     "meaning": "Klavyeli bir çalgı"
   },
   {
+    "word": "Piyaz",
+    "meaning": "Kurufasuleyli salata türü"
+  },
+  {
     "word": "Piyon",
     "meaning": "Bir çıkar sağlamak için yararlanılan kimse"
   },
@@ -10542,6 +10770,10 @@
   {
     "word": "Pos",
     "meaning": "Gür ve uzun bıyık"
+  },
+  {
+    "word": "Posa",
+    "meaning": "Tortu / Çökelti"
   },
   {
     "word": "Postlu",
@@ -10668,8 +10900,16 @@
     "meaning": "Yol / Yöntem / Usul"
   },
   {
+    "word": "Radar",
+    "meaning": "Radyo dalgası ile cisimlerin yerini bulsn cihaz"
+  },
+  {
     "word": "Radde",
     "meaning": "Derece / Kerte"
+  },
+  {
+    "word": "Radon",
+    "meaning": "Bir element"
   },
   {
     "word": "Raf",
@@ -10800,6 +11040,10 @@
     "meaning": "Sporda elde edilen üstün derece"
   },
   {
+    "word": "Remel",
+    "meaning": "Aruz ölçülerinden biri"
+  },
+  {
     "word": "Remi",
     "meaning": "Bir iskambil oyunu"
   },
@@ -10822,6 +11066,14 @@
   {
     "word": "Resen",
     "meaning": "Bağımsız olarak"
+  },
+  {
+    "word": "Resim",
+    "meaning": "Fotoğraf"
+  },
+  {
+    "word": "Rest",
+    "meaning": "Karşı çıkış"
   },
   {
     "word": "Ret",
@@ -11057,7 +11309,7 @@
   },
   {
     "word": "Saba",
-    "meaning": "Türk sanat müziğinde makam"
+    "meaning": "Türk sanat müziğinde makam / Sabah yeli"
   },
   {
     "word": "Saban",
@@ -11388,6 +11640,10 @@
     "meaning": "Saçağı olan"
   },
   {
+    "word": "Saçmak",
+    "meaning": "Bir şeyi ortalığa dağıtmak"
+  },
+  {
     "word": "Saçı",
     "meaning": "Düğün armağanı"
   },
@@ -11497,7 +11753,7 @@
   },
   {
     "word": "Seme",
-    "meaning": "Sersem"
+    "meaning": "Sersem / Ahmak / Alık"
   },
   {
     "word": "Semt",
@@ -11514,6 +11770,10 @@
   {
     "word": "Senek",
     "meaning": "Çam ağacımdan yapılmış testi"
+  },
+  {
+    "word": "Senet",
+    "meaning": "Belgit / Borçlu olduğunu gösterir belge"
   },
   {
     "word": "Sent",
@@ -11542,6 +11802,10 @@
   {
     "word": "Serap",
     "meaning": "Göz yanılması / Pusarık / Ilgım / Yalgın"
+  },
+  {
+    "word": "Sere",
+    "meaning": "Selek / Açık başparmak ile işaret parmağı arası mesafe"
   },
   {
     "word": "Seren",
@@ -11594,6 +11858,10 @@
   {
     "word": "Seter",
     "meaning": "Uzun tüylü İngiliz köpeği"
+  },
+  {
+    "word": "Setik",
+    "meaning": "İnce bulgur"
   },
   {
     "word": "Sevi",
@@ -11706,6 +11974,10 @@
   {
     "word": "Sin",
     "meaning": "Mezar / Kabir / Ölü gömülen yer"
+  },
+  {
+    "word": "Sincan",
+    "meaning": "Ankara ilçesi"
   },
   {
     "word": "Sine",
@@ -12052,6 +12324,10 @@
     "meaning": "Vetire / Proses / İlerleyen, tekrarlayan olaylar"
   },
   {
+    "word": "Sürüm",
+    "meaning": "Revaç / Versiyon"
+  },
+  {
     "word": "Süs",
     "meaning": "Süsleme / Süslenme"
   },
@@ -12228,6 +12504,10 @@
     "meaning": "Yazma / Kitabet / Kompozisyon"
   },
   {
+    "word": "Tahriş",
+    "meaning": "Yakarak kaşındırma / Tırmalama"
+  },
+  {
     "word": "Taht",
     "meaning": "Hükümdarlık makamı"
   },
@@ -12274,6 +12554,10 @@
   {
     "word": "Takık",
     "meaning": "Takıntılı / kafaya takmış"
+  },
+  {
+    "word": "Takılı",
+    "meaning": "Takılmış olan"
   },
   {
     "word": "Takırtı",
@@ -12372,6 +12656,10 @@
     "meaning": "Tarif"
   },
   {
+    "word": "Tanış",
+    "meaning": "Tanıdık"
+  },
+  {
     "word": "Tapan",
     "meaning": "Tarladaki tohumu örtmek için sürülen geniş araç"
   },
@@ -12406,6 +12694,10 @@
   {
     "word": "Taret",
     "meaning": "Zırhlı kule"
+  },
+  {
+    "word": "Tariz",
+    "meaning": "Taşlama"
   },
   {
     "word": "Tarla",
@@ -12536,6 +12828,14 @@
     "meaning": "Taşı bol / Taşlı / Konsa"
   },
   {
+    "word": "Taşra",
+    "meaning": "Dışarlık / Bir ülkenin önemli şehirlerinin dışındaki yerler"
+  },
+  {
+    "word": "Taşıl",
+    "meaning": "Fosil"
+  },
+  {
     "word": "Taşım",
     "meaning": "Yemeğin taşacak kadar kaynaması"
   },
@@ -12546,6 +12846,10 @@
   {
     "word": "Te",
     "meaning": "Harf"
+  },
+  {
+    "word": "Tedip",
+    "meaning": "Uslandırma / Terbiye"
   },
   {
     "word": "Tef",
@@ -12832,8 +13136,16 @@
     "meaning": "Tokası olan"
   },
   {
+    "word": "Tokat",
+    "meaning": "Bir ilimiz"
+  },
+  {
     "word": "Tol",
     "meaning": "Küçük köy / kulübe"
+  },
+  {
+    "word": "Tolu",
+    "meaning": "Kuyudan su çıkarılan tahta ya da çinko kova"
   },
   {
     "word": "Tomar",
@@ -12862,6 +13174,10 @@
   {
     "word": "Topu",
     "meaning": "Hepsi"
+  },
+  {
+    "word": "Toraman",
+    "meaning": "İri yapılı genç"
   },
   {
     "word": "Torik",
@@ -13180,6 +13496,10 @@
     "meaning": "Bir nesnenin ard arda iki kez yere vurmasından çıkan ses"
   },
   {
+    "word": "Tırıl",
+    "meaning": "Çıplak / Zayıf"
+  },
+  {
     "word": "Tıs",
     "meaning": "Kaz, kedi, yılan sesi"
   },
@@ -13274,6 +13594,10 @@
   {
     "word": "Umar",
     "meaning": "Çare"
+  },
+  {
+    "word": "Umma",
+    "meaning": "Ummak işi"
   },
   {
     "word": "Umre",
@@ -13390,6 +13714,10 @@
   {
     "word": "Uzam",
     "meaning": "Bir nesnenin uzayda kapladığı yer / Vüsat"
+  },
+  {
+    "word": "Uzay",
+    "meaning": "Feza / Sonsuz boşluk"
   },
   {
     "word": "Uzi",
@@ -13610,6 +13938,10 @@
   {
     "word": "Verim",
     "meaning": "Ortaya çıkan sonuç / Semere"
+  },
+  {
+    "word": "Vesair",
+    "meaning": "Diğer"
   },
   {
     "word": "Vinç",
@@ -13888,6 +14220,10 @@
     "meaning": "Mevsim"
   },
   {
+    "word": "Yazık",
+    "meaning": "Acınma / Kınama / Günah"
+  },
+  {
     "word": "Yazın",
     "meaning": "Edebiyat / Yaz mevsiminde"
   },
@@ -14044,6 +14380,10 @@
     "meaning": "Yöresel"
   },
   {
+    "word": "Yerme",
+    "meaning": "Zem / Yermek işi"
+  },
+  {
     "word": "Yeter",
     "meaning": "Kafi / İhtiyacı karşılayacak kadar olan"
   },
@@ -14132,6 +14472,10 @@
     "meaning": "Yontulmoş olan"
   },
   {
+    "word": "Yosma",
+    "meaning": "Şen / Güzel / Fettan"
+  },
+  {
     "word": "Yoz",
     "meaning": "Kaba / Adı / Bayağı"
   },
@@ -14152,6 +14496,10 @@
     "meaning": "Derin olmayan / Sığ"
   },
   {
+    "word": "Yuma",
+    "meaning": "Yumak işi"
+  },
+  {
     "word": "Yurt",
     "meaning": "Memleket / Diyar / Göçebe çadırı"
   },
@@ -14166,6 +14514,10 @@
   {
     "word": "Yöre",
     "meaning": "Mahal / Civar"
+  },
+  {
+    "word": "Yörük",
+    "meaning": "Türkmen"
   },
   {
     "word": "Yük",
@@ -14202,6 +14554,10 @@
   {
     "word": "Yıl",
     "meaning": "Oniki aylık dönem"
+  },
+  {
+    "word": "Yılan",
+    "meaning": "Sürüngen türü"
   },
   {
     "word": "Yılık",
@@ -14428,6 +14784,10 @@
     "meaning": "Sıkıntı / Güçlük / Baskı"
   },
   {
+    "word": "Zorla",
+    "meaning": "İsteksiz yapılan / Zoraki"
+  },
+  {
     "word": "Zorlu",
     "meaning": "Güçlü / Kuvvetli"
   },
@@ -14605,7 +14965,7 @@
   },
   {
     "word": "Çav",
-    "meaning": "At eşek gibi hayvanların erkeklik organı"
+    "meaning": "At eşek gibi hayvanların erkeklik organı / Ses / Ün / Haber"
   },
   {
     "word": "Çay",
@@ -15104,6 +15464,14 @@
     "meaning": "Örme işi"
   },
   {
+    "word": "Örük",
+    "meaning": "Örülmüş olan yer"
+  },
+  {
+    "word": "Örüş",
+    "meaning": "Örme işi"
+  },
+  {
     "word": "Öte",
     "meaning": "Bir şeyin arka bölümü / Daha fazla / Daha çok"
   },
@@ -15114,6 +15482,10 @@
   {
     "word": "Ötme",
     "meaning": "Örnek işi"
+  },
+  {
+    "word": "Öveç",
+    "meaning": "Iki üç yaşındaki erkek koyun"
   },
   {
     "word": "Öyle",
@@ -15142,6 +15514,10 @@
   {
     "word": "Özenti",
     "meaning": "Beğendiği bir şeye benzeme çabası"
+  },
+  {
+    "word": "Özenç",
+    "meaning": "İstek / İmrenme"
   },
   {
     "word": "Özerk",
@@ -15218,6 +15594,10 @@
   {
     "word": "Ülke",
     "meaning": "Devlet / Diyar / Memleket"
+  },
+  {
+    "word": "Ülser",
+    "meaning": "Sindirim sistemi yarası / Karha"
   },
   {
     "word": "Ümit",
@@ -15409,7 +15789,7 @@
   },
   {
     "word": "Şans",
-    "meaning": "Talih / Felek"
+    "meaning": "Talih / Felek / Baht"
   },
   {
     "word": "Şanslı",
@@ -15732,12 +16112,20 @@
     "meaning": "Vuruş"
   },
   {
+    "word": "Şuur",
+    "meaning": "Bilinç"
+  },
+  {
     "word": "Şövale",
     "meaning": "Ressam sehpası"
   },
   {
     "word": "Şık",
     "meaning": "Güzel / Zarif / Uygun"
+  },
+  {
+    "word": "Şıp",
+    "meaning": "Su damlası sesi"
   },
   {
     "word": "Şıra",
