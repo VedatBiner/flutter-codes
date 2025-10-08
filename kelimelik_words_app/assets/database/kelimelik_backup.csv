@@ -108,6 +108,7 @@ Akçe,Küçük gümüş para
 Akü,Akümülatör
 Akı,Güç çizgileri / Seyelan
 Akıl,Bellek / Düşünce
+Akılsız,Anlayışı kıt
 Akım,Akma işi / Debi / Yeni görüş veya tarz
 Akın,Düşman topraklarına yapılan vaskın
 Akış,Akma işi / Akın
@@ -177,6 +178,7 @@ Anaç,Anne gibi / Kurnaz
 Andıç,Uyarı notu
 Angora,Ankara keçisinden elde edilen iplik
 Ani,Ansızın yapılan
+Anime,Japon çizgi romanları mangaların filmleştirlmiş hal
 Anjin,Boğak / Hünnak
 Anlak,Zeka
 Anlama,Anlamak işi / Vukuf / Fehim / Derk / İntikal
@@ -255,6 +257,7 @@ Ası,Afiş
 Asık,Asılı / Somurtkan
 Asıl,Kök / Köken / Kaynak / Nesep
 Asılı,Asılmış olan / Muallak/ Asık
+Asım,Asma işi
 Asır,Çağ / Yüzyıl
 Asırlık,Yüzyıllık
 At,satranç taşı / bir hayvan
@@ -285,6 +288,7 @@ Atış,Atma işi
 Aut,Dış
 Av,Hayvan vurma işi
 Aval,Saflığı sersemlik derecesinde olan
+Avam,Alt tabaka
 Avar,Bir Kafkas halkı
 Avara,Bir geminin başka gemiden veya kıyıdan açılması
 Avaz,Yüksek ses
@@ -308,8 +312,10 @@ Aygır,Damızlık erkek at
 Aygıt,Alet / cihaz
 Ayin,Dini tören / Ritüel
 Aylık,Maaş / Mahiye
+Ayn,Göz
 Ayna,Sırlı cam / Gözgü / Mirat
 Aynacı,Ayna yapan / Hileci
+Aynı,Benzer
 Ayol,Seslenme sözü
 Ayran,Yoğurttan yapılan içecek
 Ayrancı,Karaman ilçesi
@@ -497,6 +503,7 @@ Becet,Serçegillerden küçük bir kuş
 Bed,Kötü / Çirkin
 Bedii,Rstetik
 Bedik,Kazakların hastalık iyileştirme töreni
+Bedir,Dolunay
 Bej,Bir renk
 Bek,Savunma oyuncusu / Sağlam
 Beka,Kalıcılık / Ölmezlik
@@ -1060,6 +1067,7 @@ Eşit,Aynı düzeyde
 Eşkal,Biçim / Kılık
 Eşli,Eşi olan
 Eşlikçi,Eşlik eden/ Refakatçi
+Eşya,Çeşitli amaçlarla kullanılan insan yapısı taşınabilir nesneler
 Fa,Nota
 Faal,Çalışır durumda / Etkin
 Fail,Eden / Yapan / İşleyen
@@ -1497,8 +1505,8 @@ Ilıtma,Işıtmak işi
 İnik,İnmiş / İndirilmiş
 İnmek,Konaklamak / Taşıt veya binek hayvanından dışarı gelmek
 İnç,İngiliz uzunluk ölçü birimi
-İp,İplik
 İp,İplik / Asarak öldürme cezası
+İp,İplik
 İpek,İpek böceği kozalarından çıkarılan ince parlak tel
 İpekçi,İpek satıcısı
 İpçi,İp üreten veya satan kişi
@@ -1629,6 +1637,7 @@ Kadit,Çok zayıf / İskelet
 Kadı,Osmanlı'da mahkeme başkanı
 Kadınlı,Kadını olan
 Kafa,İnsan başı / Ser
+Kafe,Hafif yiyecekler ve içecekler satılan yer
 Kafes,Demir çubuklu bölme
 Kafi,Yeterli
 Kafir,Tanrı varlığını inkar eden kimse
@@ -1692,6 +1701,7 @@ Karate,Japon kökenli bir spor
 Karay,Karaim
 Kare,Eşit kenarlı dörtgen
 Kareli,Karelere bölünmüş / Damalı / Satrançlı
+Karesi,Balıkesir ilçesi
 Kari,Okuyucu / Okur
 Karine,Belirti / İpucu
 Karlı,Üzerine kar yağan
@@ -1808,6 +1818,7 @@ Kertik,Gedik / Çentik
 Kes,Bir çeşit jimnastik ayakkabısı
 Kesbi,Sonradan kazanılmış
 Kese,Küçük torba
+Kesek,Tezek
 Kesen,Kesme işlemi
 Kesene,Sözleşme / Yazılı anlaşma
 Keser,Bir tür el aleti
@@ -2467,6 +2478,7 @@ Nefti,Siyaha yakın koyu yeşil
 Nem,Hafif Islaklık
 Nemli,Nemi olan
 Nene,Nine / Anne
+Neon,Bir element
 Nere,Hangi yer anlamında
 Nesnel,Nesne ile ilgili
 Net,İyi duyulan
@@ -2624,6 +2636,7 @@ Patalya,Bir tür savaş gemisi sandalı
 Paten,Buz üzerinde kaymak için kullanılan araç
 Pati,"Kedi, köpeklerin ön ayağı"
 Pay,Marj / Hisse
+Payas,Hatay ilçesi
 Paye,Rütbe / Derece / Aşama
 Paylı,Hisseli
 Pazar,Rize ilçesi / Haftanın günlerinden biri
@@ -2980,6 +2993,7 @@ Sicil,Resmi belgelerin kaydedildiği kütük
 Sicim,İnce ip / Kınnap
 Side,Antalya ilçesi
 Sif,Ithalatta bir malın bedeli
+Sifon,Hızla sunfışkırtan dışkıları atık kanalına taşıyan düzenek
 Siga,Fiil çekimi
 Sigar,Puro
 Sih,Hindistan 'fa bir topluluk
@@ -3022,6 +3036,7 @@ Sokak,Caddeye oranla kısa ve dar yol
 Soku,Taş dibek
 Sol,Yön
 Solmak,Rengi uçmak / Tazeliğini yitirmek
+Solo,Bir kişi tarafından çalınan müzik parçası
 Soluk,Nefes alıp verme / Rengi atmış
 Som,Katışıksız
 Soma,Manisa ilçesi
@@ -3098,6 +3113,7 @@ Sırlı,Sırrı olan
 Sırp,Sırbistan halkından olan
 Sırım,Ince uzun esnek deri parçası
 Sıva,Yapı duvarkarına sürülen ince harç tabakası
+Sıvı,Mayi / Likit / Akışkan cisim
 Sığa,Kapasite
 Sığaç,Kondansatör
 Sığın,Alageyik
@@ -3181,6 +3197,7 @@ Tartar,Diş taşı / Şarap tortusu
 Tartı,Ağırlık / Tartma aleti
 Tartılı,Tartılmış / Ölçülü / Dengeli
 Tarz,Biçim / Yol / Stil / Janr
+Tarım,Ziraat
 Tas,Bir çeşit kap
 Tasa,Kaygı / Endişe / Gam
 Tasalı,Tasasın olan
@@ -3580,6 +3597,7 @@ Yekün,Toplam
 Yel,Rüzgar
 Yele,"At, aslan gibi hayvanların ensesindeki uzun kıllar"
 Yelek,"Kolsu, kısa giysi"
+Yeleli,Yelesi olan
 Yelken,Yelkenli
 Yelli,Işveli / Fıkırdak
 Yem,Hayvan yiyeceği / Ağızotu / Rüşvet

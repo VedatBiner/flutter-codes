@@ -436,6 +436,10 @@
     "meaning": "Bellek / Düşünce"
   },
   {
+    "word": "Akılsız",
+    "meaning": "Anlayışı kıt"
+  },
+  {
     "word": "Akım",
     "meaning": "Akma işi / Debi / Yeni görüş veya tarz"
   },
@@ -710,6 +714,10 @@
   {
     "word": "Ani",
     "meaning": "Ansızın yapılan"
+  },
+  {
+    "word": "Anime",
+    "meaning": "Japon çizgi romanları mangaların filmleştirlmiş hal"
   },
   {
     "word": "Anjin",
@@ -1024,6 +1032,10 @@
     "meaning": "Asılmış olan / Muallak/ Asık"
   },
   {
+    "word": "Asım",
+    "meaning": "Asma işi"
+  },
+  {
     "word": "Asır",
     "meaning": "Çağ / Yüzyıl"
   },
@@ -1144,6 +1156,10 @@
     "meaning": "Saflığı sersemlik derecesinde olan"
   },
   {
+    "word": "Avam",
+    "meaning": "Alt tabaka"
+  },
+  {
     "word": "Avar",
     "meaning": "Bir Kafkas halkı"
   },
@@ -1236,12 +1252,20 @@
     "meaning": "Maaş / Mahiye"
   },
   {
+    "word": "Ayn",
+    "meaning": "Göz"
+  },
+  {
     "word": "Ayna",
     "meaning": "Sırlı cam / Gözgü / Mirat"
   },
   {
     "word": "Aynacı",
     "meaning": "Ayna yapan / Hileci"
+  },
+  {
+    "word": "Aynı",
+    "meaning": "Benzer"
   },
   {
     "word": "Ayol",
@@ -1990,6 +2014,10 @@
   {
     "word": "Bedik",
     "meaning": "Kazakların hastalık iyileştirme töreni"
+  },
+  {
+    "word": "Bedir",
+    "meaning": "Dolunay"
   },
   {
     "word": "Bej",
@@ -4244,6 +4272,10 @@
     "meaning": "Eşlik eden/ Refakatçi"
   },
   {
+    "word": "Eşya",
+    "meaning": "Çeşitli amaçlarla kullanılan insan yapısı taşınabilir nesneler"
+  },
+  {
     "word": "Fa",
     "meaning": "Nota"
   },
@@ -5993,11 +6025,11 @@
   },
   {
     "word": "İp",
-    "meaning": "İplik"
+    "meaning": "İplik / Asarak öldürme cezası"
   },
   {
     "word": "İp",
-    "meaning": "İplik / Asarak öldürme cezası"
+    "meaning": "İplik"
   },
   {
     "word": "İpek",
@@ -6520,6 +6552,10 @@
     "meaning": "İnsan başı / Ser"
   },
   {
+    "word": "Kafe",
+    "meaning": "Hafif yiyecekler ve içecekler satılan yer"
+  },
+  {
     "word": "Kafes",
     "meaning": "Demir çubuklu bölme"
   },
@@ -6770,6 +6806,10 @@
   {
     "word": "Kareli",
     "meaning": "Karelere bölünmüş / Damalı / Satrançlı"
+  },
+  {
+    "word": "Karesi",
+    "meaning": "Balıkesir ilçesi"
   },
   {
     "word": "Kari",
@@ -7234,6 +7274,10 @@
   {
     "word": "Kese",
     "meaning": "Küçük torba"
+  },
+  {
+    "word": "Kesek",
+    "meaning": "Tezek"
   },
   {
     "word": "Kesen",
@@ -9872,6 +9916,10 @@
     "meaning": "Nine / Anne"
   },
   {
+    "word": "Neon",
+    "meaning": "Bir element"
+  },
+  {
     "word": "Nere",
     "meaning": "Hangi yer anlamında"
   },
@@ -10498,6 +10546,10 @@
   {
     "word": "Pay",
     "meaning": "Marj / Hisse"
+  },
+  {
+    "word": "Payas",
+    "meaning": "Hatay ilçesi"
   },
   {
     "word": "Paye",
@@ -11924,6 +11976,10 @@
     "meaning": "Ithalatta bir malın bedeli"
   },
   {
+    "word": "Sifon",
+    "meaning": "Hızla sunfışkırtan dışkıları atık kanalına taşıyan düzenek"
+  },
+  {
     "word": "Siga",
     "meaning": "Fiil çekimi"
   },
@@ -12090,6 +12146,10 @@
   {
     "word": "Solmak",
     "meaning": "Rengi uçmak / Tazeliğini yitirmek"
+  },
+  {
+    "word": "Solo",
+    "meaning": "Bir kişi tarafından çalınan müzik parçası"
   },
   {
     "word": "Soluk",
@@ -12394,6 +12454,10 @@
   {
     "word": "Sıva",
     "meaning": "Yapı duvarkarına sürülen ince harç tabakası"
+  },
+  {
+    "word": "Sıvı",
+    "meaning": "Mayi / Likit / Akışkan cisim"
   },
   {
     "word": "Sığa",
@@ -12726,6 +12790,10 @@
   {
     "word": "Tarz",
     "meaning": "Biçim / Yol / Stil / Janr"
+  },
+  {
+    "word": "Tarım",
+    "meaning": "Ziraat"
   },
   {
     "word": "Tas",
@@ -14322,6 +14390,10 @@
   {
     "word": "Yelek",
     "meaning": "Kolsu, kısa giysi"
+  },
+  {
+    "word": "Yeleli",
+    "meaning": "Yelesi olan"
   },
   {
     "word": "Yelken",

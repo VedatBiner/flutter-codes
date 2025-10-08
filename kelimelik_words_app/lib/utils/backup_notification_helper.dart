@@ -50,20 +50,19 @@ Future<void> backupNotificationHelper({
   void showBanner() {
     if (overlay == null) return;
     bannerEntry = OverlayEntry(
-      builder:
-          (_) => Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Material(
-              color: Colors.transparent,
-              child: LoadingBottomBanner(
-                loading: true,
-                elapsedSec: elapsedSec,
-                message: 'Lütfen bekleyiniz, \nverilerin yedeği oluşturuluyor…',
-              ),
-            ),
+      builder: (_) => Positioned(
+        left: 0,
+        right: 0,
+        bottom: 0,
+        child: Material(
+          color: Colors.transparent,
+          child: LoadingBottomBanner(
+            loading: true,
+            elapsedSec: elapsedSec,
+            message: 'Lütfen bekleyiniz, \nverilerin yedeği oluşturuluyor…',
           ),
+        ),
+      ),
     );
     overlay.insert(bannerEntry!);
     timer = Timer.periodic(const Duration(seconds: 1), (_) {

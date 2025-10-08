@@ -253,8 +253,10 @@ class DbHelper {
         if (parts.length < 2) continue;
 
         final kelime = parts[0].trim();
-        final anlam =
-            parts.sublist(1).join(',').trim(); // anlamda virgül olabilir
+        final anlam = parts
+            .sublist(1)
+            .join(',')
+            .trim(); // anlamda virgül olabilir
 
         if (kelime.isNotEmpty && anlam.isNotEmpty) {
           final word = Word(word: kelime, meaning: anlam);

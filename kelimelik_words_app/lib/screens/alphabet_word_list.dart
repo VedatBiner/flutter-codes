@@ -46,43 +46,40 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
 
       return AlphabetListViewItemGroup(
         tag: letter,
-        children:
-            items.map((word) {
-              final index = widget.words.indexOf(word);
-              final isSelected = selectedIndex == index;
+        children: items.map((word) {
+          final index = widget.words.indexOf(word);
+          final isSelected = selectedIndex == index;
 
-              return WordCard(
-                word: word,
-                isSelected: isSelected,
-                onTap: () {
-                  if (selectedIndex != null) {
-                    setState(() => selectedIndex = null);
-                  }
-                },
+          return WordCard(
+            word: word,
+            isSelected: isSelected,
+            onTap: () {
+              if (selectedIndex != null) {
+                setState(() => selectedIndex = null);
+              }
+            },
 
-                /// 📌 kelime kartına uzun basılınca
-                /// düzeltme ve silme butonları çıkıyor.
-                onLongPress: () {
-                  setState(() => selectedIndex = isSelected ? null : index);
-                },
+            /// 📌 kelime kartına uzun basılınca
+            /// düzeltme ve silme butonları çıkıyor.
+            onLongPress: () {
+              setState(() => selectedIndex = isSelected ? null : index);
+            },
 
-                /// 📌 düzeltme metodu
-                onEdit:
-                    () => editWord(
-                      context: context,
-                      word: word,
-                      onUpdated: widget.onUpdated,
-                    ),
+            /// 📌 düzeltme metodu
+            onEdit: () => editWord(
+              context: context,
+              word: word,
+              onUpdated: widget.onUpdated,
+            ),
 
-                /// 📌 silme metodu
-                onDelete:
-                    () => confirmDelete(
-                      context: context,
-                      word: word,
-                      onDeleted: widget.onUpdated,
-                    ),
-              );
-            }).toList(),
+            /// 📌 silme metodu
+            onDelete: () => confirmDelete(
+              context: context,
+              word: word,
+              onDeleted: widget.onUpdated,
+            ),
+          );
+        }).toList(),
       );
     }).toList();
   }
@@ -116,12 +113,11 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                   borderRadius: const BorderRadius.horizontal(
                     left: Radius.circular(100),
                   ),
-                  color:
-                      state == AlphabetScrollbarItemState.active
-                          ? Theme.of(
-                            context,
-                          ).colorScheme.secondary.withValues(alpha: 0.6)
-                          : null,
+                  color: state == AlphabetScrollbarItemState.active
+                      ? Theme.of(
+                          context,
+                        ).colorScheme.secondary.withValues(alpha: 0.6)
+                      : null,
                 ),
                 child: Center(
                   child: FittedBox(
@@ -147,39 +143,38 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
             showSectionHeaderForEmptySections: true,
 
             /// 📌 Liste başı Harfi ayarları
-            listHeaderBuilder:
-                (context, symbol) => Padding(
-                  padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.horizontal(
-                          right: Radius.circular(100),
-                        ),
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8,
-                          top: 8,
-                          right: 16,
-                          bottom: 8,
-                        ),
-                        child: Text(
-                          symbol,
-                          textScaler: TextScaler.noScaling,
-                          style: TextStyle(
-                            color: menuColor, // 📌 liste başı harf rengi
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+            listHeaderBuilder: (context, symbol) => Padding(
+              padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.horizontal(
+                      right: Radius.circular(100),
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                      top: 8,
+                      right: 16,
+                      bottom: 8,
+                    ),
+                    child: Text(
+                      symbol,
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        color: menuColor, // 📌 liste başı harf rengi
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
+              ),
+            ),
           ),
 
           /// 📌 Fihrist görünümünde büyük görünen harfler ile ilgili

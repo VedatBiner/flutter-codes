@@ -85,19 +85,15 @@ class _HomePageState extends State<HomePage> {
       },
 
       /// 🔄 Yükleme ekranı değiştikçe tetiklenir
-      onLoadingStatusChange: (
-        bool loading,
-        double prog,
-        String? currentWord,
-        Duration elapsed,
-      ) {
-        setState(() {
-          isLoadingJson = loading;
-          progress = prog;
-          loadingWord = currentWord;
-          elapsedTime = elapsed;
-        });
-      },
+      onLoadingStatusChange:
+          (bool loading, double prog, String? currentWord, Duration elapsed) {
+            setState(() {
+              isLoadingJson = loading;
+              progress = prog;
+              loadingWord = currentWord;
+              elapsedTime = elapsed;
+            });
+          },
     );
   }
 
@@ -118,12 +114,11 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔍  Arama filtreleme
   void _filterWords(String query) {
-    final filtered =
-        allWords.where((word) {
-          final q = query.toLowerCase();
-          return word.word.toLowerCase().contains(q) ||
-              word.meaning.toLowerCase().contains(q);
-        }).toList();
+    final filtered = allWords.where((word) {
+      final q = query.toLowerCase();
+      return word.word.toLowerCase().contains(q) ||
+          word.meaning.toLowerCase().contains(q);
+    }).toList();
 
     setState(() => words = filtered);
   }
@@ -167,56 +162,63 @@ class _HomePageState extends State<HomePage> {
               },
 
               //  ⬇️  Yeni imzalı geri-çağrı
-              onLoadJsonData: ({
-                required BuildContext ctx, // Drawer ’dan gelir, kullanmıyoruz
-                required void Function(
-                  bool loading,
-                  double prog,
-                  String? currentWord,
-                  Duration elapsedTime,
-                )
-                onStatus,
-              }) async {
-                await loadDataFromDatabase(
-                  context: context, //  ⚠️  HomePage’in context ’i
-                  onLoaded: (loadedWords) {
-                    setState(() {
-                      allWords = loadedWords;
-                      words = loadedWords;
-                    });
+              onLoadJsonData:
+                  ({
+                    required BuildContext
+                    ctx, // Drawer ’dan gelir, kullanmıyoruz
+                    required void Function(
+                      bool loading,
+                      double prog,
+                      String? currentWord,
+                      Duration elapsedTime,
+                    )
+                    onStatus,
+                  }) async {
+                    await loadDataFromDatabase(
+                      context: context, //  ⚠️  HomePage’in context ’i
+                      onLoaded: (loadedWords) {
+                        setState(() {
+                          allWords = loadedWords;
+                          words = loadedWords;
+                        });
 
-                    if (mounted) {
-                      Provider.of<WordCountProvider>(
-                        context,
-                        listen: false,
-                      ).setCount(loadedWords.length);
-                    }
-                  },
+                        if (mounted) {
+                          Provider.of<WordCountProvider>(
+                            context,
+                            listen: false,
+                          ).setCount(loadedWords.length);
+                        }
+                      },
 
-                  //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
-                  onLoadingStatusChange: (
-                    bool loading,
-                    double prog,
-                    String? currentWord,
-                    Duration elapsed,
-                  ) {
-                    setState(() {
-                      isLoadingJson = loading;
-                      progress = prog;
-                      loadingWord = currentWord;
-                      elapsedTime = elapsed;
-                    });
-                    onStatus(loading, prog, currentWord, elapsed); // ↩︎ ilet
+                      //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
+                      onLoadingStatusChange:
+                          (
+                            bool loading,
+                            double prog,
+                            String? currentWord,
+                            Duration elapsed,
+                          ) {
+                            setState(() {
+                              isLoadingJson = loading;
+                              progress = prog;
+                              loadingWord = currentWord;
+                              elapsedTime = elapsed;
+                            });
+                            onStatus(
+                              loading,
+                              prog,
+                              currentWord,
+                              elapsed,
+                            ); // ↩︎ ilet
+                          },
+                    );
                   },
-                );
-              },
             ),
 
             /// 📄  Liste gövdesi
-            body:
-                isFihristMode
-                    ? AlphabetWordList(words: words, onUpdated: _loadWords)
-                    : WordList(words: words, onUpdated: _loadWords),
+            body: isFihristMode
+                ? AlphabetWordList(words: words, onUpdated: _loadWords)
+                : WordList(words: words, onUpdated: _loadWords),
 
             // ➕  FAB
             floatingActionButton: CustomFAB(

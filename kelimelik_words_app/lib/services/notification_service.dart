@@ -30,13 +30,13 @@ class NotificationService {
         width ??
         (size.width >= 1024
             ? size.width *
-                0.28 // desktop
+                  0.28 // desktop
             : size.width >= 600
             ? size.width *
-                0.60 // tablet
+                  0.60 // tablet
             : size.width *
-                0.92 // phone
-                );
+                  0.92 // phone
+                  );
     double h = height ?? (size.height * 0.22);
 
     // Aşırı sapmaları engelle

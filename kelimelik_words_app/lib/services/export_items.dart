@@ -70,8 +70,9 @@ Future<ExportItems> exportItemsToFileFormats({
     all.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
 
     // 3) JSON (pretty) — ID YOK
-    final jsonList =
-        all.map((w) => {'word': w.word, 'meaning': w.meaning}).toList();
+    final jsonList = all
+        .map((w) => {'word': w.word, 'meaning': w.meaning})
+        .toList();
 
     final jsonStr = const JsonEncoder.withIndent('  ').convert(jsonList);
     final jsonSavedAt = await JsonSaver.saveToDownloads(

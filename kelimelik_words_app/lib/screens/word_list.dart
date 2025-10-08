@@ -57,20 +57,18 @@ class _WordListState extends State<WordList> {
             },
 
             /// 📌 düzeltme metodu
-            onEdit:
-                () => editWord(
-                  context: context,
-                  word: word,
-                  onUpdated: widget.onUpdated,
-                ),
+            onEdit: () => editWord(
+              context: context,
+              word: word,
+              onUpdated: widget.onUpdated,
+            ),
 
             /// 📌 silme metodu
-            onDelete:
-                () => confirmDelete(
-                  context: context,
-                  word: word,
-                  onDeleted: widget.onUpdated,
-                ),
+            onDelete: () => confirmDelete(
+              context: context,
+              word: word,
+              onDeleted: widget.onUpdated,
+            ),
           );
         },
       ),
