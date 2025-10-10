@@ -330,6 +330,7 @@ Ayın,Arap alfabesinde bir harf
 Ayıt,Bir tür bitki
 Az,Nitelik belirtme
 Aza,Üye
+Azap,Ezinç / Eziyet
 Azat,Serbest bırakma
 Azel,Oligopol / Piyasa türü
 Azil,Görevden alma
@@ -595,6 +596,7 @@ Bişi,Çörek
 Boa,Yılan türü
 Bok,Dışkı
 Boklu,Boku olan
+Boks,Yumruk dövüşü
 Boksör,Boks yapan kimse
 Bol,Dar karşıtı
 Bolca,Oldukça geniş
@@ -834,6 +836,7 @@ Dilmaç,Çevirmen
 Dimi,Pamuklu kumaş türü
 Din,İnanç
 Dinar,Afyonkarahisar ilçesi
+Dinci,Dini görüşlerini yaymak isteyen kimse
 Dindaş,Aynı dinden olan kimse
 Dinek,Dinlenmek için durulan yer
 Dingo,Dingonın ahırından gelir
@@ -868,6 +871,7 @@ Dolar,Amerika para birimi
 Dolu,Içi boş olmayan / Boş karşıtı / bir hava olayı
 Don,Iç giysi / Külot
 Donam,Gemi donanımı
+Donlu,Donu olan
 Donma,Donmak işi
 Donuk,Mat / Parlak olmayan
 Donut,Bir tür tatlı çörek
@@ -1059,6 +1063,7 @@ Eğir,Bir tür arı salgısı
 Eğiş,Eğme işi
 Eğreti,Uyumsuz / Yakışmamış
 Eğrili,Eğrisi olan
+Eğrim,Girdap
 Eşek,Atgillerden hayvan / Odun kesme sehpası
 Eşey,Cinsiyet
 Eşeyli,Cinsliği olan / Diğer eşey olmafan üreyemeyen
@@ -1322,6 +1327,7 @@ Hamal,Taşıyıcı
 Hamel,Koç
 Hami,Koruyucu
 Hamil,Elinde bulunduran
+Hamiyet,"Bir insanın yurdunu, ailesini, kendisini koruma çabası"
 Hamur,Su ile yoğrulmuş un
 Hamut,Araba koşum malzemesi
 Han,Doğu ülkelerinde kullanılan ünvan
@@ -1330,6 +1336,7 @@ Hande,Gülme / Gülüş
 Hane,Ev / Konut
 Hanek,Söz / Konuşma
 Hani,Nerede / Ne oldu
+Hap,Kolay yutulabilen yuvarlak halinde ilaç
 Hara,Hare / At yetiştirilen yer
 Harar,Büyük çuval
 Haraç,Zorbalıkla alınan para
@@ -1505,8 +1512,8 @@ Ilıtma,Işıtmak işi
 İnik,İnmiş / İndirilmiş
 İnmek,Konaklamak / Taşıt veya binek hayvanından dışarı gelmek
 İnç,İngiliz uzunluk ölçü birimi
-İp,İplik / Asarak öldürme cezası
 İp,İplik
+İp,İplik / Asarak öldürme cezası
 İpek,İpek böceği kozalarından çıkarılan ince parlak tel
 İpekçi,İpek satıcısı
 İpçi,İp üreten veya satan kişi
@@ -1606,6 +1613,7 @@ Jale,Çiy
 Janr,Tarz
 Jant,Taşıtlarda tekerleğin çember biçimindeki bölümü / İspit
 Janti,Zarif / Kibar
+Jarse,Esnek kumaş türü
 Je,Harf
 Jel,Jöle
 Jest,Beklenmedik iyi davranış
@@ -1688,6 +1696,7 @@ Kani,Kanmış / İnanmış
 Kanka,Kardeş kadar yakın olan kimse
 Kano,Kürekle yürütülen hafif tekne
 Kant,Şeker ve limonla içilen sıcak su
+Kantar,Ağırlık tartma aracı / Baskül
 Kanı,Inanç / düşünce / kanaat
 Kaos,Kargaşa
 Kaput,Asker paltosu
@@ -1702,6 +1711,7 @@ Karay,Karaim
 Kare,Eşit kenarlı dörtgen
 Kareli,Karelere bölünmüş / Damalı / Satrançlı
 Karesi,Balıkesir ilçesi
+Kargo,Bir yerden bir yere yük taşıyan şirket ve yükü
 Kari,Okuyucu / Okur
 Karine,Belirti / İpucu
 Karlı,Üzerine kar yağan
@@ -1857,6 +1867,7 @@ Kimi,Bazı / Birtakımı
 Kimlik,Kişinin kim olduğunu tanıtan belge / Hüviyet
 Kimya,Madde yapısını inceleyen bilim
 Kin,Garaz
+Kinik,Sinik
 Kinin,Sıtma tedavisinde kullanılır
 Kininli,Içinde kinin bulunan
 Kinoa,Bir bitki türü
@@ -2307,6 +2318,7 @@ Meke,Yaban ördeği cinsi
 Mekruh,Iğrenç / Tiksindirici
 Melek,Dini manevi varlık / Ferişte
 Meleke,Yatkınlık / Alışkanlık / Yeti
+Meles,Beli çökük at
 Melik,Padişah / Hükümdar / Hakan
 Melon,Yuvarlak bombeli şaka
 Meltem,Karadan denize doğru esen mevsim rüzgarı
@@ -2409,6 +2421,7 @@ Muta,Geçici kazanç
 Muti,Yumuşak başlı / İtaat eden
 Muz,Meyve cinsi
 Muğla,Bir ilimiz
+Muğlalı,Muğla ilinden olan
 Muş,Bir ilimiz
 Mö,İnek sesi
 Mül,Şarap
@@ -2480,6 +2493,7 @@ Nemli,Nemi olan
 Nene,Nine / Anne
 Neon,Bir element
 Nere,Hangi yer anlamında
+Nesim,Hafif yel esinti
 Nesnel,Nesne ile ilgili
 Net,İyi duyulan
 Nev,Şekil / Cins / Tür
@@ -3210,6 +3224,7 @@ Taun,Veba
 Tav,Isının nemin yeterli olma durumu
 Tava,Mutfak eşyası
 Tavan,En üst seviye fiyat
+Tavas,Denizli ilçesi
 Tavcı,Birini yüzüne gülerek kandırma
 Tavuk,Sülüngillerden kümes hayvanı
 Tay,At yavrusu / Denk / Eşit / Eş
@@ -3733,6 +3748,8 @@ Zıt,Karşıt / ters
 Çakar,Bir tür balık ağı
 Çakra,İnsan vücudundaki enerji noktaları
 Çakı,Küçük cep bıçağı
+Çakıl,Çakıltaşı
+Çakıllık,Çakıl döşenmiş yer
 Çakın,Kıvılcım / Şimşek
 Çakır,"Açık mavi, ela göz"
 Çakış,Çakma işi
@@ -3832,6 +3849,7 @@ Zıt,Karşıt / ters
 Çolak,Eli veya kolu sakat olan kimse
 Çomak,Ucu topuzlu değnek
 Çomar,İri köpek / Çoban köpeği
+Çorum,Bir ilimiz
 Çoğu,Büyük bölümü
 Çuka,Iri cins tekir
 Çukur,Mezar
@@ -3964,6 +3982,7 @@ Zıt,Karşıt / ters
 Şamar,Açık elle yüze vurulan tokat/ beşkardeş
 Şamil,Kaplayan / Kapsayan
 Şan,Gösteriş
+Şano,Tiyatro sahnesi
 Şans,Talih / Felek / Baht
 Şanslı,Talihli / Ballı
 Şap,Öperken çıkan ses

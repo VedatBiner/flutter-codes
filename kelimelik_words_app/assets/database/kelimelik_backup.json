@@ -1324,6 +1324,10 @@
     "meaning": "Üye"
   },
   {
+    "word": "Azap",
+    "meaning": "Ezinç / Eziyet"
+  },
+  {
     "word": "Azat",
     "meaning": "Serbest bırakma"
   },
@@ -2384,6 +2388,10 @@
     "meaning": "Boku olan"
   },
   {
+    "word": "Boks",
+    "meaning": "Yumruk dövüşü"
+  },
+  {
     "word": "Boksör",
     "meaning": "Boks yapan kimse"
   },
@@ -3340,6 +3348,10 @@
     "meaning": "Afyonkarahisar ilçesi"
   },
   {
+    "word": "Dinci",
+    "meaning": "Dini görüşlerini yaymak isteyen kimse"
+  },
+  {
     "word": "Dindaş",
     "meaning": "Aynı dinden olan kimse"
   },
@@ -3474,6 +3486,10 @@
   {
     "word": "Donam",
     "meaning": "Gemi donanımı"
+  },
+  {
+    "word": "Donlu",
+    "meaning": "Donu olan"
   },
   {
     "word": "Donma",
@@ -4238,6 +4254,10 @@
   {
     "word": "Eğrili",
     "meaning": "Eğrisi olan"
+  },
+  {
+    "word": "Eğrim",
+    "meaning": "Girdap"
   },
   {
     "word": "Eşek",
@@ -5292,6 +5312,10 @@
     "meaning": "Elinde bulunduran"
   },
   {
+    "word": "Hamiyet",
+    "meaning": "Bir insanın yurdunu, ailesini, kendisini koruma çabası"
+  },
+  {
     "word": "Hamur",
     "meaning": "Su ile yoğrulmuş un"
   },
@@ -5322,6 +5346,10 @@
   {
     "word": "Hani",
     "meaning": "Nerede / Ne oldu"
+  },
+  {
+    "word": "Hap",
+    "meaning": "Kolay yutulabilen yuvarlak halinde ilaç"
   },
   {
     "word": "Hara",
@@ -6025,11 +6053,11 @@
   },
   {
     "word": "İp",
-    "meaning": "İplik / Asarak öldürme cezası"
+    "meaning": "İplik"
   },
   {
     "word": "İp",
-    "meaning": "İplik"
+    "meaning": "İplik / Asarak öldürme cezası"
   },
   {
     "word": "İpek",
@@ -6428,6 +6456,10 @@
     "meaning": "Zarif / Kibar"
   },
   {
+    "word": "Jarse",
+    "meaning": "Esnek kumaş türü"
+  },
+  {
     "word": "Je",
     "meaning": "Harf"
   },
@@ -6756,6 +6788,10 @@
     "meaning": "Şeker ve limonla içilen sıcak su"
   },
   {
+    "word": "Kantar",
+    "meaning": "Ağırlık tartma aracı / Baskül"
+  },
+  {
     "word": "Kanı",
     "meaning": "Inanç / düşünce / kanaat"
   },
@@ -6810,6 +6846,10 @@
   {
     "word": "Karesi",
     "meaning": "Balıkesir ilçesi"
+  },
+  {
+    "word": "Kargo",
+    "meaning": "Bir yerden bir yere yük taşıyan şirket ve yükü"
   },
   {
     "word": "Kari",
@@ -7430,6 +7470,10 @@
   {
     "word": "Kin",
     "meaning": "Garaz"
+  },
+  {
+    "word": "Kinik",
+    "meaning": "Sinik"
   },
   {
     "word": "Kinin",
@@ -9232,6 +9276,10 @@
     "meaning": "Yatkınlık / Alışkanlık / Yeti"
   },
   {
+    "word": "Meles",
+    "meaning": "Beli çökük at"
+  },
+  {
     "word": "Melik",
     "meaning": "Padişah / Hükümdar / Hakan"
   },
@@ -9640,6 +9688,10 @@
     "meaning": "Bir ilimiz"
   },
   {
+    "word": "Muğlalı",
+    "meaning": "Muğla ilinden olan"
+  },
+  {
     "word": "Muş",
     "meaning": "Bir ilimiz"
   },
@@ -9922,6 +9974,10 @@
   {
     "word": "Nere",
     "meaning": "Hangi yer anlamında"
+  },
+  {
+    "word": "Nesim",
+    "meaning": "Hafif yel esinti"
   },
   {
     "word": "Nesnel",
@@ -12844,6 +12900,10 @@
     "meaning": "En üst seviye fiyat"
   },
   {
+    "word": "Tavas",
+    "meaning": "Denizli ilçesi"
+  },
+  {
     "word": "Tavcı",
     "meaning": "Birini yüzüne gülerek kandırma"
   },
@@ -14936,6 +14996,14 @@
     "meaning": "Küçük cep bıçağı"
   },
   {
+    "word": "Çakıl",
+    "meaning": "Çakıltaşı"
+  },
+  {
+    "word": "Çakıllık",
+    "meaning": "Çakıl döşenmiş yer"
+  },
+  {
     "word": "Çakın",
     "meaning": "Kıvılcım / Şimşek"
   },
@@ -15330,6 +15398,10 @@
   {
     "word": "Çomar",
     "meaning": "İri köpek / Çoban köpeği"
+  },
+  {
+    "word": "Çorum",
+    "meaning": "Bir ilimiz"
   },
   {
     "word": "Çoğu",
@@ -15858,6 +15930,10 @@
   {
     "word": "Şan",
     "meaning": "Gösteriş"
+  },
+  {
+    "word": "Şano",
+    "meaning": "Tiyatro sahnesi"
   },
   {
     "word": "Şans",

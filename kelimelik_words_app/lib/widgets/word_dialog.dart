@@ -94,9 +94,8 @@ class _WordDialogState extends State<WordDialog> {
               ),
               autofocus: true,
               textInputAction: TextInputAction.next,
-              validator:
-                  (value) =>
-                      value == null || value.isEmpty ? 'Boş olamaz' : null,
+              validator: (value) =>
+                  value == null || value.isEmpty ? 'Boş olamaz' : null,
             ),
             const SizedBox(height: 12),
             TextFormField(
@@ -116,9 +115,8 @@ class _WordDialogState extends State<WordDialog> {
                 ),
               ),
               textInputAction: TextInputAction.done,
-              validator:
-                  (value) =>
-                      value == null || value.isEmpty ? 'Boş olamaz' : null,
+              validator: (value) =>
+                  value == null || value.isEmpty ? 'Boş olamaz' : null,
             ),
           ],
         ),
