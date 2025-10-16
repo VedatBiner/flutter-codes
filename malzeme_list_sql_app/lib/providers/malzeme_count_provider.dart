@@ -1,5 +1,4 @@
 // 📃 lib/providers/word_count_provider.dart
-// eski word_count_provider
 
 import 'package:flutter/foundation.dart';
 

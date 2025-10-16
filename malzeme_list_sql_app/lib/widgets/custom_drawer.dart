@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import 'drawer_widgets/change_view.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
+import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
 import 'drawer_widgets/drawer_renew_db_tile.dart';
 import 'drawer_widgets/drawer_reset_db_tile.dart';

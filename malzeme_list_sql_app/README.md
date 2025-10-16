@@ -75,5 +75,7 @@
 63. Excel çıktısında sayısal format düzeldi. - 06.09.2025
 64. `equatable` paketi yüklendi - 07.09.2025
 65. `pubspec.yaml` dosyası düzenlendi. -07.09.2025
+66. `change_view.dart` dosyası `drawer_change_view_tile.dart`olarak değiştirildi. - 16.10.2025
+
 
 
