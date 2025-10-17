@@ -44,7 +44,7 @@ türetilmiş ve daha geliştirilmiştir.
 - Tüm drawer menü modüler hale geldi
 - uygulama adı standart formata geldi
 - pubspec.yaml düzeltilip, standart haline getirildi. - 17.10.2025
-- Versiyon bilgisine yıl eklendi. - 17.10.2025
+- Versiyon bilgisine yıl (© 2025) eklendi. - 17.10.2025
 
 Yapılacak başka bir şey var mı ?
 - Dışarı aktarma ve Excel 'e dönüştürme işlemlerini Kelimelik ve malzemelik ile aynı yapıya getirelim.

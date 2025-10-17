@@ -19,7 +19,7 @@ class InfoPaddingTile extends StatelessWidget {
       child: Column(
         children: [
           Text(appVersion, textAlign: TextAlign.center, style: versionText),
-          Text('(c) 2025, Vedat Biner', style: nameText),
+          Text('© 2025, Vedat Biner', style: nameText),
           Text('vbiner@gmail.com', style: nameText),
         ],
       ),
