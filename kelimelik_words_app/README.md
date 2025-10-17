@@ -82,6 +82,7 @@ kutusunu kullanması sağlandı.
 - pubspec.yaml dosyası düzenlendi.
 - sdk bilgisi sdk: ">=3.9.0 <4.0.0" yapıldı.
 - Uygulama ikonu değiştirildi.
+- © 2025 bilgisi eklendi
 
 - Simdilik yapılanlar yeterli mi?
 
