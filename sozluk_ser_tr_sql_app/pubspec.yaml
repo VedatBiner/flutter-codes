@@ -1,9 +1,9 @@
 name: sozluk_ser_tr_sql_app
-description: "Sözlük Uygulaması (SER-TUR SQL Version"
+description: "Sözlük Uygulaması (SER-TUR) SQL Version"
 
 publish_to: 'none'
 
-version: 1.2.1+1
+version: 1.2.2+1
 
 environment:
   sdk: ^3.7.2
@@ -12,23 +12,51 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  # -----------------------------
+  # UI ikon setleri / görsel
+  # -----------------------------
+  cupertino_icons: ^1.0.8     # iOS/Android için geniş ikon seti
+  font_awesome_flutter:       # JSON animasyonları (yükleme/boş durum vs.)
+  lottie:                     # Liste öğelerinde swipe ile eylemler
 
-  sqflite:
-  path_provider:
-  path:
-  package_info_plus:
-  elegant_notification:
-  alphabet_list_view:
-  lottie:
-  provider:
-  font_awesome_flutter:
+  # -----------------------------
+  # Durum yönetimi / modelleme
+  # -----------------------------
+  provider:                   # ChangeNotifier tabanlı state management
+  equatable:                  # Model sınıflarında değer eşitliği
+
+  # -----------------------------
+  # Veritabanı / depolama
+  # -----------------------------
+  sqflite:                     # Cihaz içi SQLite
+  path_provider:               # Belgeler/Geçici/İndirilenler yolları (platforma özel)
+  path:                        # Yol birleştirme/ayırma yardımcıları
+
+  # -----------------------------
+  # İhracat / paylaşım / Excel
+  # -----------------------------
+  excel: ^2.1.0                # bu paket değişecek
+
+  # -----------------------------
+  # İzinler
+  # -----------------------------
   permission_handler:
+
+  # -----------------------------
+  # Uygulama bilgisi
+  # -----------------------------
+  package_info_plus:           # Uygulama sürümü, build numarası, paket adı
+
+  # -----------------------------
+  # Listeleme / UX yardımcıları
+  # -----------------------------
+  elegant_notification:        # Ekran içi modern bildirim/toast
+  alphabet_list_view:          # A–Z hızlı gezinmeli listeleme
+
   cloud_firestore:
   firebase_core:
-  excel: ^2.1.0
+
   value_layout_builder: ^0.5.0
-  equatable:
 
 dev_dependencies:
   flutter_test:

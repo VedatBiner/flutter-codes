@@ -428,14 +428,14 @@ class DbHelper {
     final snapshot = await firestore.collection('kelimeler').get();
 
     final List<Map<String, dynamic>> wordList =
-        snapshot.docs.map((doc) {
-          final data = doc.data();
-          return {
-            'sirpca': data['sirpca'],
-            'turkce': data['turkce'],
-            'userEmail': data['userEmail'] ?? '',
-          };
-        }).toList();
+    snapshot.docs.map((doc) {
+      final data = doc.data();
+      return {
+        'sirpca': data['sirpca'],
+        'turkce': data['turkce'],
+        'userEmail': data['userEmail'] ?? '',
+      };
+    }).toList();
 
     final jsonStr = jsonEncode(wordList);
     final dir = await getApplicationDocumentsDirectory();

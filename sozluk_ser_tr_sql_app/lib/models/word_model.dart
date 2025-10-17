@@ -14,7 +14,7 @@ class Word extends Equatable {
   final String turkce;
   final String userEmail;
 
-  Word({
+  const Word({
     this.id,
     required this.sirpca,
     required this.turkce,
