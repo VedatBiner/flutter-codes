@@ -31,4 +31,7 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - notification kutularının boyutları düzeltildi.
 - AppBar mobil cihaz başlığı düzeltildi.
 - sdk: ">=3.9.0 <4.0.0" olarak değiştirildi.
-- 
+- Versiyon bilgisine © 2025 eklendi. - 17.10.2025
+
+Yapılacaklar : 
+- Alfabetik görünümü sağlanması. Özellikle aram işleminde gerekebilir.
