@@ -45,7 +45,32 @@ türetilmiş ve daha geliştirilmiştir.
 - uygulama adı standart formata geldi
 - pubspec.yaml düzeltilip, standart haline getirildi. - 17.10.2025
 - Versiyon bilgisine yıl (© 2025) eklendi. - 17.10.2025
+- excel_backup_helper.dart silindi. - 18.10.2025
+- csv_backup_helper.dart silindi. - 18.10.2025
+- json_backup_helper.dart silindi. - 18.10.2025
+- loading_bottom_banner.dart eklendi. - 18.10.2025
+- json_saver.dart eklendi. - 18.10.2025
+- json_saver_io.dart eklendi. - 18.10.2025
+- db_helper.dart düzeltildi. - 18.10.2025
+- notification_service.dart services dizinine taşındı. - 18.10.2025
+- file_info.dart dosyasında filenameExcel ifadesi fileNameXlsx olarak değiştirildi. - 18.10.2025
+- add_word_dialog_handler.dart dosyası show_word_dialog_handler.dart olarak değiştirildi. - 18.10.2025
+- showAddWordDialog metodu showBackupNotification olarak değiştirildi. - 18.10.2025
+- kelimeExistText sabiti eklendi. - 18.10.2025
+- notification_service.dart dosyası güncellendi. - 18.10.2025
+- custom_fab.dart dosyası düzeltildi. - 18.10.2025
+- Kotlin versiyonu 2.1.0 yapıldı. (settings.gradle.kts) - 18.10.2025
+- String subfolder = 'sozluk_ser_tr_sql_app' böyle yapıldı. - 18.10.2025
+- file_info.dart içinde final olan değerler const olarak değiştirildi. - 19.10.2025
+- page_***.dart şekilindeki yardım dosyalarında import ifadelirinde bazı satırlar düzeltildi. - 19.10.2025
+
+
 
 Yapılacak başka bir şey var mı ?
 - Dışarı aktarma ve Excel 'e dönüştürme işlemlerini Kelimelik ve malzemelik ile aynı yapıya getirelim.
-- bu kodda bazı hatalar var düzeltilecek. Örneğin yedek alınması bildirimleri
+- Eğer düzgün çalışırsa diğer uygulamalardaki file_info.drt dosyasını da aynı formata getirelim.
+- Düzeltme işleminde bildirim çalışmıyor ?
+- kaydetme işleminde bildirim çalışmıyor ?
+- Silme işleminde bildirim çalışmıyor ?
+- Excel dosya formatı düzgün mü ?
+- 

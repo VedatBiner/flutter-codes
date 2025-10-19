@@ -31,7 +31,10 @@ Future<void> loadDataFromDatabase({
   final dbCount = await DbHelper.instance.countRecords();
   final assetSqlCount = await DbHelper.instance.countWordsAssetSql();
 
-  log('🔄 json_loader çalıştı', name: 'JSON Loader');
+  log(
+    "-----------------------------------------------------------------------",
+    name: "Json_loader",
+  );
   log("📦 Firestore 'daki kayıt sayısı: $firestoreCount", name: 'JSON Loader');
   log("📁 Asset JSON 'daki kayıt sayısı: $assetJsonCount", name: 'JSON Loader');
   log("🧮 SQLite veritabanındaki kayıt sayısı: $dbCount", name: 'JSON Loader');
@@ -78,6 +81,10 @@ Future<void> loadDataFromDatabase({
     log("📭 Firestore boş. JSON 'dan veri yükleniyor...", name: 'JSON Loader');
   } else {
     log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
+    log(
+      "-----------------------------------------------------------------------",
+      name: "Json_loader",
+    );
 
     final finalWords = await DbHelper.instance.getRecords();
     onLoaded(finalWords);

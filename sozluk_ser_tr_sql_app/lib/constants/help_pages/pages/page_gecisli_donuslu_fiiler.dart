@@ -1,11 +1,11 @@
 // 📜 <----- sayfa_gecisli_donuslu_fiiller.drt ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/constants/text_constants.dart';
-import 'package:sozluk_ser_tr_sql_app/widgets/help_page_widgets/help_custom_app_bar.dart';
-import 'package:sozluk_ser_tr_sql_app/widgets/help_page_widgets/help_custom_drawer.dart';
 
+import '../../../constants/text_constants.dart';
 import '../../../widgets/help_page_widgets/build_table.dart';
+import '../../../widgets/help_page_widgets/help_custom_app_bar.dart';
+import '../../../widgets/help_page_widgets/help_custom_drawer.dart';
 import '../../../widgets/help_page_widgets/rich_text_rule.dart';
 import '../constants/const_gecisli_donuslu_fiiler.dart';
 

@@ -2,11 +2,11 @@
 // Kelimelerin Card Widget olarak gösterilmesi burada sağlanıyor.
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/widgets/word_action_buttons.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
+import '../widgets/word_action_buttons.dart';
 
 class WordCard extends StatelessWidget {
   final Word word;

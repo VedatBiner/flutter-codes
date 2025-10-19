@@ -3,7 +3,7 @@ description: "Sözlük Uygulaması (SER-TUR) SQL Version"
 
 publish_to: 'none'
 
-version: 1.2.2+1
+version: 1.2.4+1
 
 environment:
   sdk: ^3.7.2
@@ -31,11 +31,13 @@ dependencies:
   sqflite:                     # Cihaz içi SQLite
   path_provider:               # Belgeler/Geçici/İndirilenler yolları (platforma özel)
   path:                        # Yol birleştirme/ayırma yardımcıları
+  external_path:               # Android harici depolama (Downloads/DCIM) yolu erişimi
 
   # -----------------------------
   # İhracat / paylaşım / Excel
   # -----------------------------
-  excel: ^2.1.0                # bu paket değişecek
+  syncfusion_flutter_xlsio:    # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
+  share_plus:                  # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
 
   # -----------------------------
   # İzinler
@@ -64,6 +66,7 @@ dev_dependencies:
 
   flutter_lints: ^5.0.0
 
+  excel: any
 flutter:
 
   uses-material-design: true

@@ -11,7 +11,7 @@ dependencies {
 }
 
 android {
-    namespace = "com.example.sozluk_ser_tr_sql_app"
+    namespace = "aa.vb.sozluk_ser_tr_sql_app"
     compileSdk = flutter.compileSdkVersion
     // ndkVersion = flutter.ndkVersion
     ndkVersion = "27.0.12077973"
@@ -27,10 +27,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.sozluk_ser_tr_sql_app"
+        applicationId = "aa.vb.sozluk_ser_tr_sql_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 21
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

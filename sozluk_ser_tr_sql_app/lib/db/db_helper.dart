@@ -21,8 +21,7 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../providers/word_count_provider.dart';
-import '../utils/excel_backup_helper.dart';
-import '../widgets/notification_service.dart';
+import '../services/notification_service.dart';
 
 class DbHelper {
   static final DbHelper instance = DbHelper._init();
@@ -291,15 +290,6 @@ class DbHelper {
     }
   }
 
-  /// 📌 Excel yedeği burada alınıyor.
-  Future<String> exportRecordsToExcel() async {
-    // 1️⃣ Excel dosyasını oluşturacak yardımcıyı çağırıyoruz
-    final filePath = await createExcelBackup();
-
-    // 2️⃣ Path 'i geri döndürüyoruz
-    return filePath;
-  }
-
   /// 📌 Türkçe sıralama yöntemi.
   ///
   List<Word> _sortTurkish(List<Word> words) {
@@ -428,14 +418,14 @@ class DbHelper {
     final snapshot = await firestore.collection('kelimeler').get();
 
     final List<Map<String, dynamic>> wordList =
-    snapshot.docs.map((doc) {
-      final data = doc.data();
-      return {
-        'sirpca': data['sirpca'],
-        'turkce': data['turkce'],
-        'userEmail': data['userEmail'] ?? '',
-      };
-    }).toList();
+        snapshot.docs.map((doc) {
+          final data = doc.data();
+          return {
+            'sirpca': data['sirpca'],
+            'turkce': data['turkce'],
+            'userEmail': data['userEmail'] ?? '',
+          };
+        }).toList();
 
     final jsonStr = jsonEncode(wordList);
     final dir = await getApplicationDocumentsDirectory();

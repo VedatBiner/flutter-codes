@@ -2,7 +2,8 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/constants/text_constants.dart';
+
+import '../../constants/text_constants.dart';
 
 Widget buildTable(
   List<Map<String, String>> pageSample,

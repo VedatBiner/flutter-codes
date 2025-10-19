@@ -1,9 +1,9 @@
 // 📜 <----- sayfa_soru.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:sozluk_ser_tr_sql_app/widgets/help_page_widgets/help_custom_app_bar.dart';
 
 import '../../../widgets/help_page_widgets/build_table.dart';
+import '../../../widgets/help_page_widgets/help_custom_app_bar.dart';
 import '../../../widgets/help_page_widgets/help_custom_drawer.dart';
 import '../../../widgets/help_page_widgets/rich_text_rule.dart';
 import '../../text_constants.dart';
@@ -101,7 +101,7 @@ class _SayfaSimdikiGenisZamanState extends State<SayfaSimdikiGenisZaman> {
               buildTable(
                 simdikiGenisZamanSampleCA,
                 "Şimdiki Geniş Zaman Çekim Grupları - Örnek Spavati (uyumak) ve "
-                "mrziti (nefret etmek) fiileri",
+                "mrziti (nefret etmek) fiilleri",
                 [
                   (user) => user['şahıs']!,
                   (user) => user['spavati']!,
