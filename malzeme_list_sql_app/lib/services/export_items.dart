@@ -55,7 +55,7 @@ class ExportItems {
 /// SQLite ’ten kelimeleri alır ve JSON/CSV/XLSX olarak dışa aktarır.
 /// Ek olarak veritabanı dosyasını (fileNameSql) da aynı klasöre kopyalar.
 Future<ExportItems> exportItemsToFileFormats({
-  String subfolder = 'malzeme_list_sql_app',
+  String subfolder = appName,
   int? pageSize, // geriye dönük uyumluluk için (kullanılmıyor)
 }) async {
   final sw = Stopwatch()..start();
@@ -102,7 +102,7 @@ Future<ExportItems> exportItemsToFileFormats({
     final xlsxBytes = buildWordsXlsxNoId(all);
     final xlsxSavedAt = await JsonSaver.saveBytesToDownloads(
       xlsxBytes,
-      fileNameExcel,
+      fileNameXlsx,
       mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       subfolder: subfolder,
     );
@@ -162,8 +162,6 @@ Future<ExportItems> exportItemsToFileFormats({
             subfolder: subfolder,
           );
         }
-
-        log('🗄️ SQLite DB yedeği → $sqlSavedAt', name: 'export_items');
       } else {
         log('⚠️ DB dosyası bulunamadı: $dbPath', name: 'export_items');
       }

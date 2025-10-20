@@ -76,6 +76,11 @@
 64. `equatable` paketi yüklendi - 07.09.2025
 65. `pubspec.yaml` dosyası düzenlendi. -07.09.2025
 66. `change_view.dart` dosyası `drawer_change_view_tile.dart`olarak değiştirildi. - 16.10.2025
+67. Versiyon bilgisine © 2025 eklendi - 17.10.2025
+68. File_info.dart dosyası standartlaştırıldı. - 20.10.2025
+69. export_items.dart ve backup_notification_helper dart dosyaları önceki adıma göre düzeltildi. - 20.10.2025
+70. Konsol log ları düzeltildi. - 20.10.2025
+71. 
 
 
 

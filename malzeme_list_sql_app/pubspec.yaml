@@ -2,7 +2,7 @@ name: malzeme_list_sql_app
 description: "Malzeme Listesi (SQLite, mobil) — stok ve liste yönetimi"
 publish_to: "none"
 
-version: 1.5.3+1
+version: 1.5.5+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"

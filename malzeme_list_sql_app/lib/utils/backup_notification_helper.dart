@@ -19,6 +19,8 @@ import 'dart:developer';
 /// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
+import '../constants/file_info.dart';
+
 /// 📌 Yardımcı yüklemeler burada
 import '../services/export_items.dart';
 import '../widgets/loading_bottom_banner.dart';
@@ -85,7 +87,7 @@ Future<void> backupNotificationHelper({
   try {
     final res = await exportItemsToFileFormats(
       // pageSize parametresini ÇAĞIRMAYIN; export_words.dart imzanızda yok.
-      subfolder: subfolder ?? 'malzeme_list_sql_app',
+      subfolder: subfolder ?? appName,
     );
 
     if (!context.mounted) return;
