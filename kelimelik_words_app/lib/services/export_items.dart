@@ -55,7 +55,7 @@ class ExportItems {
 /// SQLite ’ten kelimeleri alır ve JSON/CSV/XLSX olarak dışa aktarır.
 /// Ek olarak veritabanı dosyasını (fileNameSql) da aynı klasöre kopyalar.
 Future<ExportItems> exportItemsToFileFormats({
-  String subfolder = 'kelimelik_words_app',
+  String subfolder = appName,
   int? pageSize, // geriye dönük uyumluluk için (kullanılmıyor)
 }) async {
   final sw = Stopwatch()..start();
@@ -102,11 +102,11 @@ Future<ExportItems> exportItemsToFileFormats({
     // 6) SQLite DB dosyasını da aynı klasöre yedekle (fileNameSql)
     String sqlSavedAt = '-';
     try {
-      // 6.a) Önce DbHelper'tan AÇIK DB’nin gerçek yolunu almaya çalış
+      // 6.a) Önce DbHelper 'tan AÇIK DB ’nin gerçek yolunu almaya çalış
       //      (DbHelper.instance.database eğer Database döndürüyorsa)
       String? dbPath;
       try {
-        final db = await DbHelper.instance.database; // <- DbHelper’ında varsa
+        final db = await DbHelper.instance.database; // <- DbHelper ’ında varsa
         dbPath = db.path; // gerçek path
       } catch (_) {
         dbPath = null;
@@ -154,11 +154,6 @@ Future<ExportItems> exportItemsToFileFormats({
             subfolder: subfolder,
           );
         }
-
-        log(
-          '🗄️ SQLite DB yedeği → $sqlSavedAt',
-          name: 'exportWordsToJsonCsvXlsx',
-        );
       } else {
         log(
           '⚠️ DB dosyası bulunamadı: $dbPath',
@@ -166,13 +161,13 @@ Future<ExportItems> exportItemsToFileFormats({
         );
       }
     } catch (e) {
-      log('⚠️ DB yedeği alınamadı: $e', name: 'exportWordsToJsonCsvXlsx');
+      log('⚠️ DB yedeği alınamadı: $e', name: 'Export_items');
     }
 
     sw.stop();
     log(
       '📦 Export tamamlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-      name: 'exportWordsToJsonCsvXlsx',
+      name: 'Export_items',
     );
 
     return ExportItems(
@@ -187,7 +182,7 @@ Future<ExportItems> exportItemsToFileFormats({
     sw.stop();
     log(
       '❌ Hata (exportWordsToJsonCsvXlsx): $e',
-      name: 'exportWordsToJsonCsvXlsx',
+      name: 'Export_items',
       error: e,
       stackTrace: st,
     );

@@ -83,6 +83,9 @@ kutusunu kullanması sağlandı.
 - sdk bilgisi sdk: ">=3.9.0 <4.0.0" yapıldı.
 - Uygulama ikonu değiştirildi.
 - © 2025 bilgisi eklendi
+- file_info.dart dosyasında final değerler const olarak değiştirildi. - 20.10.2025
+- bu değişiklikle ilgili olan backup_notification_helper.dart ve export_items.dart dosyaları da güncellendi. -20.10.2025
+- Konsola yazılan log bilgileri düzeltildi. - 20.10.2025
 
 - Simdilik yapılanlar yeterli mi?
 

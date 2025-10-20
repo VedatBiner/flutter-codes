@@ -1,10 +1,10 @@
 // 📃 <----- file_info.dart ----->
 //
 
-final appName = "kelimelik_words_app";
+const String appName = "kelimelik_words_app";
 
 /// 📌 Dosya adları
-final fileNameJson = "kelimelik_backup.json";
-final fileNameCsv = "kelimelik_backup.csv";
-final fileNameXlsx = "kelimelik_backup.xlsx";
-final fileNameSql = "kelimelik.db";
+const String fileNameJson = "kelimelik_backup.json";
+const String fileNameCsv = "kelimelik_backup.csv";
+const String fileNameXlsx = "kelimelik_backup.xlsx";
+const String fileNameSql = "kelimelik.db";

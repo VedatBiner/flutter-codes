@@ -19,6 +19,7 @@ import 'dart:developer';
 /// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
 
+import '../constants/file_info.dart';
 import '../services/export_items.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -86,7 +87,7 @@ Future<void> backupNotificationHelper({
   try {
     final res = await exportItemsToFileFormats(
       // pageSize parametresini ÇAĞIRMAYIN; export_words.dart imzanızda yok.
-      subfolder: subfolder ?? 'kelimelik_words_app',
+      subfolder: subfolder ?? appName,
     );
 
     if (!context.mounted) return;
@@ -103,20 +104,23 @@ Future<void> backupNotificationHelper({
     // Log
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "Backup_notification_helper",
     );
-    log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
+    log(
+      "Toplam Kayıt sayısı : ${res.count} ✅",
+      name: "Backup_notification_helper",
+    );
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "Backup_notification_helper",
     );
-    log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup");
-    log("✅ CSV  yedeği → ${res.csvPath}", name: "Backup");
-    log("✅ XLSX yedeği → ${res.xlsxPath}", name: "Backup");
-    log("✅ SQL  yedeği → ${res.sqlPath}", name: "Backup");
+    log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup_notification_helper");
+    log("✅ CSV  yedeği → ${res.csvPath}", name: "Backup_notification_helper");
+    log("✅ XLSX yedeği → ${res.xlsxPath}", name: "Backup_notification_helper");
+    log("✅ SQL  yedeği → ${res.sqlPath}", name: "Backup_notification_helper");
     log(
       "-----------------------------------------------------------------------",
-      name: "Backup",
+      name: "Backup_notification_helper",
     );
   } catch (e) {
     if (!context.mounted) return;

@@ -40,7 +40,7 @@ class DbHelper {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
 
-    log('📁 SQLite veritabanı konumu: $path', name: 'DB Helper');
+    // log('📁 SQLite veritabanı konumu: $path', name: 'DB Helper');
 
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
@@ -137,7 +137,7 @@ class DbHelper {
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Import');
+        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Db_helper');
 
         if (context.mounted) {
           NotificationService.showCustomNotification(
@@ -166,7 +166,7 @@ class DbHelper {
 
       log(
         '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
-        name: 'Import',
+        name: 'Db_helper',
       );
 
       if (context.mounted) {
@@ -181,7 +181,7 @@ class DbHelper {
         );
       }
     } catch (e) {
-      log('🚨 Geri yükleme hatası: $e', name: 'Import');
+      log('🚨 Geri yükleme hatası: $e', name: 'Db_helper');
 
       if (context.mounted) {
         NotificationService.showCustomNotification(
@@ -228,14 +228,14 @@ class DbHelper {
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ CSV dosyası bulunamadı: $filePath', name: 'Import');
+        log('❌ CSV dosyası bulunamadı: $filePath', name: 'Db_helper');
         return;
       }
 
       final lines = await file.readAsLines();
 
       if (lines.isEmpty) {
-        log('❌ CSV dosyası boş.', name: 'Import');
+        log('❌ CSV dosyası boş.', name: 'Db_helper');
         return;
       }
 
@@ -266,10 +266,10 @@ class DbHelper {
       }
 
       /// 🔥 Konsola yaz
-      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'Import');
-      log('📂 CSV dosya konumu: $filePath', name: 'Import');
+      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'Db_helper');
+      log('📂 CSV dosya konumu: $filePath', name: 'Db_helper');
     } catch (e) {
-      log('🚨 CSV yükleme hatası: $e', name: 'Import');
+      log('🚨 CSV yükleme hatası: $e', name: 'Db_helper');
     }
   }
 
