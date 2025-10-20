@@ -63,7 +63,7 @@ türetilmiş ve daha geliştirilmiştir.
 - String subfolder = 'sozluk_ser_tr_sql_app' böyle yapıldı. - 18.10.2025
 - file_info.dart içinde final olan değerler const olarak değiştirildi. - 19.10.2025
 - page_***.dart şekilindeki yardım dosyalarında import ifadelirinde bazı satırlar düzeltildi. - 19.10.2025
-
+- isolate yapısı deneniyor. - 20.10.2025
 
 
 Yapılacak başka bir şey var mı ?
@@ -71,6 +71,4 @@ Yapılacak başka bir şey var mı ?
 - Eğer düzgün çalışırsa diğer uygulamalardaki file_info.drt dosyasını da aynı formata getirelim.
 - Düzeltme işleminde bildirim çalışmıyor ?
 - kaydetme işleminde bildirim çalışmıyor ?
-- Silme işleminde bildirim çalışmıyor ?
 - Excel dosya formatı düzgün mü ?
-- 

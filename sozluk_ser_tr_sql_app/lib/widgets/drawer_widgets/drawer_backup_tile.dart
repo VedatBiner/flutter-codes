@@ -30,7 +30,7 @@ class DrawerBackupTile extends StatelessWidget {
         onTap: () async {
           await backupNotificationHelper(
             context: context,
-            onStatusChange: (_) {},
+            onStatusChange: (_) {}, // istersen burada SnackBar/Log yapabilirsin
             onExportingChange:
                 (_) {}, // istersen burada loading state bağlarsın
             // ✅ Gerçek callback: ExportResultX → handler bildirimi
