@@ -12,20 +12,46 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # -----------------------------
+  # UI ikon setleri / görsel
+  # -----------------------------
   cupertino_icons: ^1.0.8
+  font_awesome_flutter:        # iOS/Android için geniş ikon seti
 
+  # -----------------------------
+  # Durum yönetimi / modelleme
+  # -----------------------------
+  equatable:
+
+  # -----------------------------
+  # Veritabanı / depolama
+  # -----------------------------
   firebase_core:
   cloud_firestore:
-  share_plus:
-  path_provider:
-  permission_handler: ## Erişim izinleri içn gerekli
-  external_path:
-  equatable:
+  path_provider:               # Belgeler/Geçici/İndirilenler yolları (platforma özel)
+  external_path:               # Android harici depolama (Downloads/DCIM) yolu
+  share_plus:                  # Metin/dosya paylaşımı (sistem paylaş menüsü)
+
+  # -----------------------------
+  # İhracat / paylaşım / Excel
+  # -----------------------------
+  syncfusion_flutter_xlsio:    # XLSX oluşturma (hücre biçimlendirme, AutoFilter, vb.)
+
+  # -----------------------------
+  # İzinler
+  # -----------------------------
+  permission_handler:          # Çalışma zamanı izinleri (Android/iOS)
+
+  # -----------------------------
+  # Uygulama bilgisi
+  # -----------------------------
+  package_info_plus:           # Uygulama sürümü, build numarası, paket adı
+
+  # -----------------------------
+  # Listeleme / UX yardımcıları
+  # -----------------------------
+  elegant_notification:        # Ekran içi modern bildirim/toast
   web:
-  syncfusion_flutter_xlsio: ## güçlü Excel tablosu oluşturmak için gerekli
-  package_info_plus: ## versiyon bilgisi için gerekli
-  elegant_notification: ## Bildirim için gerekli
-  font_awesome_flutter:  ## ekstra ikon ve fontlar için gerekli
 
 dev_dependencies:
   flutter_test:
