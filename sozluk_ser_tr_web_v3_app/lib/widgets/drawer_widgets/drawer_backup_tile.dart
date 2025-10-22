@@ -29,25 +29,29 @@ class _DrawerBackupTileState extends State<DrawerBackupTile> {
           style: drawerMenuText,
         ),
         onTap: () async {
-          // 1) Drawer kapanınca da yaşayacak güvenli context ’i al
+          // 1) Drawer kapanınca da yaşayacak güvenli context 'i al
           final safeCtx =
               Scaffold.maybeOf(context)?.context ??
               Navigator.of(context, rootNavigator: true).context;
 
-          // 2) Önce drawer ’ı kapat
+          // 2) Önce drawer 'ı kapat
           Navigator.pop(context);
 
-          // 3) Export’ u güvenli context ile tetikle
+          // 3) Export' u güvenli context ile tetikle
           await triggerBackupExport(
-            context: safeCtx, // 🔴 artık tile context ’i değil
+            context: safeCtx, // 🔴 artık tile context 'i değil
             onStatusChange: (s) {
               if (!mounted) return; // 🔐 tile dispose olabilir
               setState(() => status = s);
             },
-            onExportingChange: (v) => setState(() => isExporting = v),
+            onExportingChange: (v) {
+              if (!mounted)
+                return; // 🔐 setState() öncesi mounted kontrolü eklendi
+              setState(() => isExporting = v);
+            },
             // ✅ Bildirimi artık handler gösteriyor:
-            onSuccessNotify: showBackupExportNotification,
-            pageSize: 1000,
+            onSuccessNotify: showBackupNotification,
+            pageSize: 500, // 1000
             subfolder: appName,
           );
         },

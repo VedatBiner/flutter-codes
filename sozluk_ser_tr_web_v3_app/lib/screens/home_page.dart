@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
     _startLoadingBanner();
 
     try {
-      final items = await WordService.fetchAllWords(pageSize: 2000);
+      final items = await WordService.fetchAllWords(pageSize: 500); // 2000
       if (!mounted) return;
 
       setState(() {

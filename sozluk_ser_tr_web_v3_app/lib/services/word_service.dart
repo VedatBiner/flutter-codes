@@ -137,29 +137,25 @@ class WordService {
             toFirestore: (w, _) => w.toFirestore(),
           );
 
-      log('📥 "$collectionName" (model) okunuyor ...', name: collectionName);
+      log('📥 "$collectionName" (model) okunuyor ...', name: 'word_service');
 
       // Aggregate count
       final agg = await col.count().get();
-      log('✅ Toplam kayıt sayısı : ${agg.count}', name: collectionName);
+      log('✅ Toplam kayıt sayısı : ${agg.count}', name: 'word_service');
 
       // Örnek belge
       final snap = await col.limit(1).get();
       if (snap.docs.isNotEmpty) {
         final Word w = snap.docs.first.data();
-        // log(
-        //   '🔎 Örnek: ${w.id} -> ${w.sirpca} ➜ ${w.turkce} (userEmail: ${w.userEmail})',
-        //   name: collectionName,
-        // );
       } else {
-        log('ℹ️ Koleksiyonda belge yok.', name: collectionName);
+        log('ℹ️ Koleksiyonda belge yok.', name: 'word_service');
       }
 
       return 'Okuma tamam. Console ’a yazıldı.';
     } catch (e, st) {
       log(
         '❌ Hata ($collectionName okuma): $e',
-        name: collectionName,
+        name: 'word_service',
         error: e,
         stackTrace: st,
         level: 1000,
@@ -181,6 +177,7 @@ class WordService {
         '⚠️ Toplam kayıt sayısı alınırken hata: $e',
         error: e,
         stackTrace: st,
+        name: 'word_service',
       );
     }
   }

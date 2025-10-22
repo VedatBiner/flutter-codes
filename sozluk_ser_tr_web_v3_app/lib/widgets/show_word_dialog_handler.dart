@@ -80,7 +80,7 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
 import '../models/word_model.dart';
-import '../services/export_words.dart' show ExportResultX;
+import '../services/export_items.dart' show ExportResultX;
 import '../services/notification_service.dart';
 import '../services/word_service.dart';
 import '../widgets/body_widgets/delete_word_dialog.dart';
@@ -228,7 +228,7 @@ Future<bool> showDeleteWordHandler({
 }
 
 /// ✅ BACKUP başarı bildirimi artık burada (helper, callback ile burayı çağırır)
-void showBackupExportNotification(BuildContext context, ExportResultX res) {
+void showBackupNotification(BuildContext context, ExportResultX res) {
   NotificationService.showCustomNotification(
     context: context,
     title: 'Yedek Oluşturuldu',
@@ -242,6 +242,9 @@ void showBackupExportNotification(BuildContext context, ExportResultX res) {
             style: notificationTitle,
           ),
           TextSpan(text: "${res.count} ✅\n", style: notificationText),
+          const TextSpan(text: '\nDownload :\n', style: kelimeAddText),
+          const TextSpan(text: ' ✅ '),
+          // TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: "JSON yedeği →\n", style: notificationItem),
           TextSpan(text: "${res.jsonPath} ✅\n", style: notificationText),
           const TextSpan(text: "CSV yedeği →\n", style: notificationItem),

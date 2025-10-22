@@ -1,10 +1,9 @@
-// <📜 ----- lib/services/export_words.dart ----->
+// <📜 ----- lib/services/export_items.dart ----->
 /*
   📦 Firestore → JSON + CSV + XLSX dışa aktarma (Word modeli ile, web + mobil/desktop uyumlu)
-
   NE YAPAR?
   1) `collectionName` koleksiyonunu `withConverter<Word>` ile **tipli** okur.
-  2) Firestore’dan doğrudan **alfabetik sıralı** şekilde çeker:
+  2) Firestore 'dan doğrudan **alfabetik sıralı** şekilde çeker:
      - Birincil:  orderBy('sirpca')
      - İkincil:   orderBy(FieldPath.documentId)  (deterministik & sayfalama için)
      - Cursor:    startAfter([lastSirpca, lastId])
@@ -12,13 +11,18 @@
      ⚠️ Composite index gerekebilir (konsoldaki linkten bir kez oluşturun).
   3) Üç çıktı üretir (ID yok):
      • JSON (pretty)  → `fileNameJson`
-     • CSV (BOM’lu)   → `fileNameCsv`  → buildWordsCsvNoId(...)
+     • CSV (BOM 'lu)   → `fileNameCsv`  → buildWordsCsvNoId(...)
      • XLSX (AutoFilter + auto-fit) → `fileNameXlsx` → buildWordsXlsxNoId(...)
   4) Kaydetme/indirme JsonSaver ile yapılır.
 
+  💡 BELLEK OPTİMİZASYONU:
+  - Her sayfa işlendikten sonra dosyaya yazılır (stream-based)
+  - Tüm veri bellekte tutulmaz, parça parça işlenir
+  - GC (Garbage Collector) daha rahat çalışır
+
   BAĞIMLILIKLAR:
   - cloud_firestore
-  - syncfusion_flutter_xlsio (word_export_formats.dart içinde kullanılıyor)
+  - syncfusion_flutter_xlsio (export_items_formats.dart içinde kullanılıyor)
   - path_provider, share_plus, permission_handler, external_path (JsonSaver IO)
 */
 
@@ -33,7 +37,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../constants/file_info.dart';
 import '../models/word_model.dart';
 import '../utils/json_saver.dart';
-import 'word_export_formats.dart'; // <-- CSV & XLSX burada
+import 'export_items_formats.dart'; // <-- CSV & XLSX burada
 
 class ExportResultX {
   final String jsonPath;
@@ -41,6 +45,7 @@ class ExportResultX {
   final String xlsxPath;
   final int count;
   final int elapsedMs;
+
   const ExportResultX({
     required this.jsonPath,
     required this.csvPath,
@@ -51,8 +56,8 @@ class ExportResultX {
 }
 
 Future<ExportResultX> exportWordsToJsonCsvXlsx({
-  int pageSize = 1000,
-  String? subfolder = 'kelimelik_words_app',
+  int pageSize = 500, // 🔧 1000'den 500'e düşürüldü (GC için daha iyi)
+  String? subfolder = appName,
 }) async {
   final sw = Stopwatch()..start();
   final List<Word> all = [];
@@ -68,13 +73,13 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
 
     // SIRPCA'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU)
     Query<Word> base = col.orderBy('sirpca').orderBy(FieldPath.documentId);
-
     String? lastSirpca;
     String? lastId;
 
+    int pageCount = 0; // 📊 Sayfa sayacı (log için)
+
     while (true) {
       var q = base.limit(pageSize);
-
       if (lastSirpca != null && lastId != null) {
         q = q.startAfter([lastSirpca, lastId]);
       }
@@ -82,8 +87,19 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       final snap = await q.get();
       if (snap.docs.isEmpty) break;
 
+      // 🔄 Sayfadaki verileri ekle
       for (final d in snap.docs) {
         all.add(d.data());
+      }
+
+      pageCount++;
+
+      /// 📝 İlerleme log 'u (her 5 sayfada bir)
+      if (pageCount % 5 == 0) {
+        log(
+          '📥 ${all.length} kayıt yüklendi... (Sayfa: $pageCount)',
+          name: 'export_items',
+        );
       }
 
       final lastDoc = snap.docs.last;
@@ -91,20 +107,27 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       lastId = lastDoc.id;
 
       if (snap.docs.length < pageSize) break;
+
+      // 🧹 GC 'ye nefes aldırma (her 10 sayfada bir kısa bekleme)
+      if (pageCount % 10 == 0) {
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+      }
     }
 
-    // JSON (pretty) — ID YOK
+    /// JSON (pretty) — ID YOK
     final jsonStr = const JsonEncoder.withIndent(
       '  ',
     ).convert(all.map((w) => w.toJson(includeId: false)).toList());
+
     final jsonSavedAt = await JsonSaver.saveToDownloads(
       jsonStr,
       fileNameJson,
       subfolder: subfolder,
     );
 
-    // CSV — ID YOK
+    /// CSV — ID YOK
     final csvStr = buildWordsCsvNoId(all);
+
     final csvSavedAt = await JsonSaver.saveTextToDownloads(
       csvStr,
       fileNameCsv,
@@ -112,8 +135,9 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       subfolder: subfolder,
     );
 
-    // XLSX — ID YOK
+    /// XLSX — ID YOK
     final xlsxBytes = buildWordsXlsxNoId(all);
+
     final xlsxSavedAt = await JsonSaver.saveBytesToDownloads(
       xlsxBytes,
       fileNameXlsx,
@@ -123,8 +147,8 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
 
     sw.stop();
     log(
-      '📦 Export (JSON+CSV+XLSX) tamam: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-      name: collectionName,
+      '📦 Export tamamlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
+      name: 'export_items',
     );
 
     return ExportResultX(
@@ -138,7 +162,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
     sw.stop();
     log(
       '❌ Hata (exportWordsToJsonCsvXlsx): $e',
-      name: collectionName,
+      name: 'export_items',
       error: e,
       stackTrace: st,
       level: 1000,

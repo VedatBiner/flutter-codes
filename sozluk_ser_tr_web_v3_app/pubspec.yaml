@@ -52,6 +52,7 @@ dependencies:
   # -----------------------------
   elegant_notification:        # Ekran içi modern bildirim/toast
   web:
+  path: # sonradan eklendi
 
 dev_dependencies:
   flutter_test:

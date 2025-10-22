@@ -1,12 +1,10 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 /*
-  🔔 Yedek/Export tetikleme helper'ı — UI'dan bağımsız, yeniden kullanılabilir.
-
+  🔔 Yedek/Export tetikleme helper 'ı — UI 'dan bağımsız, yeniden kullanılabilir.
   Değişiklik:
   - Başarı bildirimi artık burada gösterilmiyor.
-  - Bunun yerine, (opsiyonel) onSuccessNotify callback'i ile dışarıya devredildi.
+  - Bunun yerine, (opsiyonel) onSuccessNotify callback 'i ile dışarıya devredildi.
     Örn: onSuccessNotify: showBackupExportNotification
-
   EKSTRA
   - Export başlamadan önce sayaçlı alt-bant (LoadingBottomBanner) Overlay ile açılır,
     export bitince kapatılır.
@@ -20,7 +18,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../services/export_words.dart'
+import '../services/export_items.dart'
     show exportWordsToJsonCsvXlsx, ExportResultX;
 import '../widgets/loading_bottom_banner.dart';
 
@@ -34,7 +32,7 @@ Future<void> triggerBackupExport({
   /// ✅ Başarı bildirimi artık callback ile dışarıdan gösteriliyor
   void Function(BuildContext ctx, ExportResultX res)? onSuccessNotify,
 }) async {
-  // 🔑 await ’ten ÖNCE messenger ’ı al
+  // 🔑 await 'ten ÖNCE messenger 'ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
 
   // Başlangıç UI durumu
@@ -80,7 +78,7 @@ Future<void> triggerBackupExport({
     await Future<void>.delayed(const Duration(milliseconds: 50));
   }
 
-  // Banner ’ı göster
+  // Banner 'ı göster
   showBanner();
 
   try {
@@ -89,31 +87,61 @@ Future<void> triggerBackupExport({
       subfolder: subfolder,
     );
 
-    if (!context.mounted) return;
+    // 🔐 Context hala mounted mı kontrol et
+    if (!context.mounted) {
+      await hideBanner(); // Banner 'ı kaldır
+      return;
+    }
 
     onStatusChange(
       'Tamam: ${res.count} kayıt • JSON: ${res.jsonPath} • CSV: ${res.csvPath} • XLSX: ${res.xlsxPath}',
     );
 
-    // ✅ Bildirimi artık DIŞARIDAN göster
-    if (onSuccessNotify != null) {
+    // ✅ Bildirimi artık DIŞARIDAN göster (context hala geçerliyken)
+    if (onSuccessNotify != null && context.mounted) {
       onSuccessNotify(context, res);
     }
 
     // Log
-    log("-----------------------------------------------", name: "Backup");
-    log("Toplam Kayıt sayısı : ${res.count} ✅", name: "Backup");
-    log("-----------------------------------------------", name: "Backup");
-    log("JSON yedeği → ${res.jsonPath} ✅", name: "Backup");
-    log("CSV  yedeği → ${res.csvPath} ✅", name: "Backup");
-    log("XLSX yedeği → ${res.xlsxPath} ✅", name: "Backup");
-    log("-----------------------------------------------", name: "Backup");
+    log(
+      "-----------------------------------------------",
+      name: "Backup_notification_helper",
+    );
+    log(
+      "Toplam Kayıt sayısı : ${res.count} ✅",
+      name: "Backup_notification_helper",
+    );
+    log(
+      "-----------------------------------------------",
+      name: "Backup_notification_helper",
+    );
+    log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup_notification_helper");
+    log("✅ CSV  yedeği → ${res.csvPath} ✅", name: "Backup_notification_helper");
+    log(
+      "✅ XLSX yedeği → ${res.xlsxPath} ✅",
+      name: "Backup_notification_helper",
+    );
+    log(
+      "-----------------------------------------------",
+      name: "Backup_notification_helper",
+    );
   } catch (e) {
-    if (!context.mounted) return;
+    // 🔐 Hata durumunda da context kontrolü
+    if (!context.mounted) {
+      await hideBanner();
+      return;
+    }
+
     onStatusChange('Hata: $e');
-    messenger?.showSnackBar(SnackBar(content: Text('Hata: $e')));
+
+    // 🔐 Messenger kullanımında da context kontrolü
+    if (context.mounted) {
+      messenger?.showSnackBar(SnackBar(content: Text('Hata: $e')));
+    }
   } finally {
     await hideBanner(); // mutlaka kaldır
+
+    // 🔐 onExportingChange çağrısında context kontrolü
     if (context.mounted) {
       onExportingChange(false);
     }

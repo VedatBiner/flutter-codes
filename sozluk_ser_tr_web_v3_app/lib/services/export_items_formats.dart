@@ -1,4 +1,4 @@
-// <📜 ----- lib/services/word_export_formats.dart ----->
+// <📜 ----- lib/services/export_items_formats.dart ----->
 /*
   🧩 Word dışa aktarma format yardımcıları (CSV & XLSX)
 

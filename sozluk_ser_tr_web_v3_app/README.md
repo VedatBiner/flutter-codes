@@ -34,8 +34,15 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - Versiyon bilgisine © 2025 eklendi. - 17.10.2025
 - file_info.dart dosyası düzeltildi. - 20.10.2025
 - word_card.dart dosyası import satırları düzeltildi. - 20.10.2025
-- 
+- pageSize değerleri 500 yapıldı. - 21.10.2025
+- json_saver_io.dart dosyasında konsol log 'ları düzeltildi. - 21.10.2025
+- export_words.dart dosyası export_items.dart olarak değiştirildi. - 21.10.2025
+- word_export_formats.dart dosyası export_items_formats.dart olarak değiştirildi. - 21.10.2025
+- main.dart konsol log 'ları düzeltildi. - 21.10.2025
+- backup_notification_helper.dart dosyasında konsol log 'ları düzeltildi. - 21.10.2025
+- showBackupExportNotification metodu showBackupNotification olarak değiştirildi. - 21.10.2025
+
+
 
 Yapılacaklar : 
 - Alfabetik görünümü sağlanması. Özellikle aram işleminde gerekebilir.
-- mobil sanal cihazda sözcükler görünmüyor ?
