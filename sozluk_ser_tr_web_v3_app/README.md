@@ -41,6 +41,7 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - main.dart konsol log 'ları düzeltildi. - 21.10.2025
 - backup_notification_helper.dart dosyasında konsol log 'ları düzeltildi. - 21.10.2025
 - showBackupExportNotification metodu showBackupNotification olarak değiştirildi. - 21.10.2025
+- show_word_dialog_handler.dart konsol log 'ları düzeltildi. - 22.10.2025
 
 
 

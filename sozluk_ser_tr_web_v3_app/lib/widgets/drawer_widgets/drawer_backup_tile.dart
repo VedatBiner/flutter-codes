@@ -45,8 +45,9 @@ class _DrawerBackupTileState extends State<DrawerBackupTile> {
               setState(() => status = s);
             },
             onExportingChange: (v) {
-              if (!mounted)
+              if (!mounted) {
                 return; // 🔐 setState() öncesi mounted kontrolü eklendi
+              }
               setState(() => isExporting = v);
             },
             // ✅ Bildirimi artık handler gösteriyor:
