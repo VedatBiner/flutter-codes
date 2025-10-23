@@ -60,7 +60,7 @@ class _NetflixHistoryPageState extends State<NetflixHistoryPage> {
   String extractSeason(String fullTitle) {
     final regex = RegExp(r'(Season \d+|Sezon \d+)', caseSensitive: false);
     final match = regex.firstMatch(fullTitle);
-    return match?.group(0)?.trim() ?? "Diğer";
+    return match?.group(0)?.trim() ?? "Detay";
   }
 
   Future<void> loadCSVFromAssets() async {
