@@ -1,8 +1,15 @@
-// 📄 screens/home_page.dart
-import 'package:csv/csv.dart';
-import 'package:flutter/foundation.dart';
+// 📦 screens/home_page.dart
+
+// 📌 Flutter paketleri
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+
+/// 📌 yardımcı paketler
+import '../parsers/csv_parser.dart';
+import '../utils/date_utils.dart';
+import '../widgets/films_card.dart';
+import '../widgets/series_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    loadCSVFromAssets();
+    _loadCSVFromAssets();
   }
 
   @override
@@ -30,62 +37,25 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Future<void> loadCSVFromAssets() async {
+  Future<void> _loadCSVFromAssets() async {
     try {
-      final rawData = await rootBundle.loadString(
-        'assets/NetflixFilmHistory.csv',
+      final parsedData = await parseCsvData(
+        'assets/database/NetflixFilmHistory.csv',
       );
-      final parsedData = await compute(parseCsvData, rawData);
+
+      // 🔍 Konsola log yaz
+      log("✅ Yüklenen satır sayısı: ${parsedData.length}", name: "home_page");
+      if (parsedData.isNotEmpty) {
+        log("📝 İlk satır: ${parsedData.first}", name: "home_page");
+      }
+
       setState(() {
         _history = parsedData;
         _updateGroupedData();
       });
     } catch (e) {
-      debugPrint("CSV yükleme hatası: $e");
+      log("❌ CSV yükleme hatası: $e", name: "home_page");
     }
-  }
-
-  static List<List<dynamic>> parseCsvData(String rawData) {
-    final parsedCsv = const CsvToListConverter().convert(
-      rawData,
-      fieldDelimiter: ',',
-      eol: '\n',
-    );
-    return parsedCsv.skip(1).toList();
-  }
-
-  String convertDateFormat(String dateStr) {
-    try {
-      final parts = dateStr.trim().split('/');
-      if (parts.length != 3) return dateStr;
-
-      int month = int.tryParse(parts[0]) ?? 1;
-      int day = int.tryParse(parts[1]) ?? 1;
-      int year = int.tryParse(parts[2]) ?? 0;
-      if (year < 100) year += 2000;
-
-      final date = DateTime(year, month, day);
-      return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
-    } catch (e) {
-      debugPrint("Tarih dönüştürme hatası: $e - Tarih: $dateStr");
-      return dateStr;
-    }
-  }
-
-  bool isSeries(String title) {
-    final lowered = title.toLowerCase();
-    return lowered.contains("season") || lowered.contains("sezon");
-  }
-
-  String extractSeriesName(String fullTitle) {
-    final parts = fullTitle.split(":");
-    return parts.isNotEmpty ? parts.first.trim() : fullTitle;
-  }
-
-  String extractSeason(String fullTitle) {
-    final regex = RegExp(r'(Season \d+|Sezon \d+)', caseSensitive: false);
-    final match = regex.firstMatch(fullTitle);
-    return match?.group(0)?.trim() ?? "Detay";
   }
 
   void _updateGroupedData() {
@@ -115,8 +85,10 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    _seriesMap = series;
-    _filmsList = films;
+    setState(() {
+      _seriesMap = series;
+      _filmsList = films;
+    });
   }
 
   void _filterSearchResults(String query) {
@@ -147,110 +119,16 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: (_seriesMap.isEmpty && _filmsList.isEmpty)
                 ? const Center(child: Text("Veri yok veya CSV yüklenmedi."))
-                : ListView(children: [_buildSeriesCard(), _buildFilmsCard()]),
+                : ListView(
+                    children: [
+                      if (_seriesMap.isNotEmpty)
+                        SeriesCard(seriesMap: _seriesMap),
+                      if (_filmsList.isNotEmpty)
+                        FilmsCard(filmsList: _filmsList),
+                    ],
+                  ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSeriesCard() {
-    if (_seriesMap.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: ExpansionTile(
-          title: const Text(
-            "📺 Diziler",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          children: _seriesMap.entries.map((seriesEntry) {
-            final seriesTitle = seriesEntry.key;
-            final seasonMap = seriesEntry.value;
-            int totalEpisodes = seasonMap.values.fold(
-              0,
-              (sum, list) => sum + list.length,
-            );
-            List<String> allDates =
-                seasonMap.values
-                    .expand((e) => e.map((ep) => ep['date']!))
-                    .toList()
-                  ..sort();
-            final firstDate = allDates.first;
-            final lastDate = allDates.last;
-
-            return Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ExpansionTile(
-                title: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      seriesTitle,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text("$totalEpisodes bölüm izlendi"),
-                    Text("$firstDate - $lastDate"),
-                  ],
-                ),
-                children: seasonMap.entries.map((seasonEntry) {
-                  final seasonName = seasonEntry.key;
-                  final episodes = seasonEntry.value;
-                  episodes.sort((a, b) => a['date']!.compareTo(b['date']!));
-                  return ExpansionTile(
-                    title: Text(seasonName),
-                    children: episodes.map((episode) {
-                      return ListTile(
-                        title: Text(episode['title'] ?? ''),
-                        subtitle: Text("İzlenme: ${episode['date']}"),
-                      );
-                    }).toList(),
-                  );
-                }).toList(),
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFilmsCard() {
-    if (_filmsList.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: ExpansionTile(
-          title: const Text(
-            "🎬 Filmler",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          children: _filmsList.map((film) {
-            return Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListTile(
-                title: Text(film['title'] ?? ''),
-                subtitle: Text("İzlenme: ${film['date']}"),
-                leading: const Icon(Icons.movie),
-              ),
-            );
-          }).toList(),
-        ),
       ),
     );
   }

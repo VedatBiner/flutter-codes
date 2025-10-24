@@ -28,5 +28,5 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/NetflixFilmHistory.csv
+    - assets/database/NetflixFilmHistory.csv
 
