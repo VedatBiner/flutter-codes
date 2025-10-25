@@ -11,9 +11,9 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 import '../providers/malzeme_quantity_provider.dart';
-import 'malzeme_action_buttons.dart';
+import 'item_action_buttons.dart';
 
 class MalzemeCard extends StatelessWidget {
   final Malzeme malzeme;

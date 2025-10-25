@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_action_buttons.dart ----->
+// 📃 <----- item_action_buttons.dart ----->
 //
 // Malzeme silme ve düzeltme işlemleri için ortak
 // bir widget oluşturuldu.

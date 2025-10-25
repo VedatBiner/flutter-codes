@@ -13,7 +13,7 @@ import 'package:sqflite/sqflite.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 
 class DbHelper {
   static final DbHelper instance = DbHelper._init();

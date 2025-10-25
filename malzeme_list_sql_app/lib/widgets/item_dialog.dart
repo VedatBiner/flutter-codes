@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_dialog.dart ----->
+// 📃 <----- item_dialog.dart ----->
 
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../constants/Button_constants.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 
 class MalzemeDialog extends StatefulWidget {
   final Malzeme? malzeme;

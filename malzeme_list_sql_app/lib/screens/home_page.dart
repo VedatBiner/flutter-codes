@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 import '../providers/malzeme_count_provider.dart';
 import '../utils/json_loader.dart';
 

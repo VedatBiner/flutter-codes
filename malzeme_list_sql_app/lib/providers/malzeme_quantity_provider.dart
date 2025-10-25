@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 
 import '../db/db_helper.dart';
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 
 class MalzemeQuantityProvider extends ChangeNotifier {
   final Map<int, int> _quantities =

@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 import '../widgets/malzeme_actions.dart';
 import '../widgets/malzeme_card.dart';
 

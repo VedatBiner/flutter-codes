@@ -10,7 +10,7 @@ import '../constants/color_constants.dart';
 import '../constants/turkish_alphabet.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/malzeme_model.dart';
+import '../models/item_model.dart';
 import '../widgets/malzeme_actions.dart';
 import '../widgets/malzeme_card.dart';
 

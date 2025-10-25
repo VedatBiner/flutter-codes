@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_model.dart ----->
+// 📃 <----- item_model.dart ----->
 
 import 'package:equatable/equatable.dart';
 
