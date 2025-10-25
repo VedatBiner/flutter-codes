@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
-import '../providers/malzeme_count_provider.dart';
+import '../providers/item_count_provider.dart';
 
 /// 📌 Verileri JSON 'dan yükleyip SQLite veritabanına yazar.
 /// Bu işlem sırasında kullanıcıya ilerleme durumu gösterilir.

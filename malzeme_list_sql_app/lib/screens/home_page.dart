@@ -24,15 +24,15 @@ import 'package:provider/provider.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
-import '../providers/malzeme_count_provider.dart';
+import '../providers/item_count_provider.dart';
 import '../utils/json_loader.dart';
 
 /// 📌 AppBar, Drawer, FAB yüklemeleri burada
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
-import 'alphabet_malzeme_list.dart';
-import 'malzeme_list.dart';
+import 'alphabet_item_list.dart';
+import 'item_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

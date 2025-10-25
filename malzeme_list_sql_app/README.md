@@ -85,6 +85,14 @@
 73. `malzeme_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
 74. `malzeme_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
 75. `malzeme_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
+76. `malzeme_actions.dart` dosyası `item_actions.dart` olarak değiştirildi. - 25.10.2025
+77. `malzeme_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
+78. `malzeme_quantity_provider.dart` dosyası `item_quantity_provider.dart` olarak değiştirildi. - 25.10.2025
+79. `malzeme_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
+80. `alphabet_malzeme_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
+81. `malzeme_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
+
+
 
 
 

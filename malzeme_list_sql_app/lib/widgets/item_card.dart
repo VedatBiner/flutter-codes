@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_card.dart ----->
+// 📃 <----- item_card.dart ----->
 //
 // Malzemelerin Card Widget olarak gösterilmesi burada sağlanıyor.
 
@@ -12,7 +12,7 @@ import '../constants/text_constants.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../models/item_model.dart';
-import '../providers/malzeme_quantity_provider.dart';
+import '../providers/item_quantity_provider.dart';
 import 'item_action_buttons.dart';
 
 class MalzemeCard extends StatelessWidget {

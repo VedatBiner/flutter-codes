@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_actions.dart ----->
+// 📃 <----- item_actions.dart ----->
 //
 // malzeme güncelleme ve silme metodu
 // eski word_actions.dart

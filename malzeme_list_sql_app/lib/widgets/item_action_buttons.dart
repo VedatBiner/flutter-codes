@@ -2,7 +2,7 @@
 //
 // Malzeme silme ve düzeltme işlemleri için ortak
 // bir widget oluşturuldu.
-// Bu dosya alphabet_malzeme_list.dart ve malzeme_list.dart
+// Bu dosya alphabet_item_list.dart ve item_list.dart
 // dosyaları tarafından kullanılıyor.
 //
 

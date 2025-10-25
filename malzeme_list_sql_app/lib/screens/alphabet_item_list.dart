@@ -1,4 +1,4 @@
-// 📃 <----- alphabet_malzeme_list.dart ----->
+// 📃 <----- alphabet_item_list.dart ----->
 //
 // Fihrist görünümlü listeleme için kullanılır.
 
@@ -11,8 +11,8 @@ import '../constants/turkish_alphabet.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../models/item_model.dart';
-import '../widgets/malzeme_actions.dart';
-import '../widgets/malzeme_card.dart';
+import '../widgets/item_actions.dart';
+import '../widgets/item_card.dart';
 
 class AlphabetMalzemeList extends StatefulWidget {
   final List<Malzeme> malzemeler;

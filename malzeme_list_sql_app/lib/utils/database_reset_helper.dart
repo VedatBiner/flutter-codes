@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
-import '../providers/malzeme_count_provider.dart';
+import '../providers/item_count_provider.dart';
 import '../services/notification_service.dart';
 import '../widgets/confirmation_dialog.dart';
 

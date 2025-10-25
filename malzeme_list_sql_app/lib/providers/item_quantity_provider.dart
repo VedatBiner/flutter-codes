@@ -1,4 +1,4 @@
-// 📃 <----- malzeme_quantity_provider.dart ----->
+// 📃 <----- item_quantity_provider.dart ----->
 //
 // Malzeme miktarlarını artırıp azaltmak için Provider sınıfı
 

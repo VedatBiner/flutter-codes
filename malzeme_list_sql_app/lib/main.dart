@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../providers/malzeme_count_provider.dart';
-import '../providers/malzeme_quantity_provider.dart';
+import '../providers/item_count_provider.dart';
+import '../providers/item_quantity_provider.dart';
 import '../theme.dart';
 import 'screens/home_page.dart';
 
