@@ -1,7 +1,7 @@
-// <📜 ----- lib/handlers/show_word_dialog_handler.dart ----->
+// <📜 ----- lib/handlers/show_notifications_handler.dart ----->
 
 /*
-  📦 show_word_dialog_handler.dart — Dialog akışlarını yöneten “handler” katmanı
+  📦 show_notifications_handler.dart — Dialog akışlarını yöneten “handler” katmanı
 
   🧩 Ne yapar?
   - ✅ Yeni kelime ekleme akışını yönetir (showWordDialogHandler):
@@ -79,13 +79,13 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import '../services/export_items.dart' show ExportResultX;
+import '../services/item_service.dart';
 import '../services/notification_service.dart';
-import '../services/word_service.dart';
-import '../widgets/body_widgets/delete_word_dialog.dart';
-import '../widgets/body_widgets/edit_word_dialog.dart';
-import '../widgets/word_dialog.dart';
+import '../widgets/body_widgets/delete_item_dialog.dart';
+import '../widgets/body_widgets/edit_item_dialog.dart';
+import '../widgets/item_dialog.dart';
 
 /// ADD: Yeni kelime ekleme diyaloğu
 Future<void> showWordDialogHandler(

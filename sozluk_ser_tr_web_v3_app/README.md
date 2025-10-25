@@ -42,6 +42,17 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 - backup_notification_helper.dart dosyasında konsol log 'ları düzeltildi. - 21.10.2025
 - showBackupExportNotification metodu showBackupNotification olarak değiştirildi. - 21.10.2025
 - show_word_dialog_handler.dart konsol log 'ları düzeltildi. - 22.10.2025
+  `show_word_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
+73. `word_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
+74. `word_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
+75. `word_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
+76. `word_list_view.dart` dosyası `item_list_view.dart` olarak değiştirildi. - 25.10.2025
+77. `word_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
+78. `word_service.dart` dosyası `item_service.dart` olarak değiştirildi. - 25.10.2025
+79. `edit_word_dialog.dart` dosyası `edit_item_dialog.dart` olarak değiştirildi. - 25.10.2025
+80. `delete_word_dialog.dart` dosyası `delete_item_dialog.dart` olarak değiştirildi. - 25.10.2025
+81. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
+
 
 
 

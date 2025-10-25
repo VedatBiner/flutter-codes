@@ -1,8 +1,8 @@
-// <📜 ----- lib/widgets/body_widgets/word_list_view.dart ----->
+// <📜 ----- lib/widgets/body_widgets/item_list_view.dart ----->
 import 'package:flutter/material.dart';
 
-import '../../models/word_model.dart';
-import '../word_card.dart';
+import '../../models/item_model.dart';
+import '../item_card.dart';
 
 class WordListView extends StatelessWidget {
   final List<Word> words;

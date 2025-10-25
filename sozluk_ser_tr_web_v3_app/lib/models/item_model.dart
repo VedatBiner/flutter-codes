@@ -1,4 +1,4 @@
-// <📜 ----- word_model.dart ----->
+// <📜 ----- item_model.dart ----->
 
 /*
   🧠 Word Modeli — Sırpça ↔ Türkçe sözlük girdisi (Firestore + JSON)

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
-import '../widgets/show_word_dialog_handler.dart';
+import '../widgets/show_notifications_handler.dart';
 
 class CustomFAB extends StatelessWidget {
   final VoidCallback onWordAdded;

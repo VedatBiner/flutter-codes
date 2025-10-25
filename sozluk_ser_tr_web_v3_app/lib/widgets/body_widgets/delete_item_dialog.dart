@@ -1,11 +1,11 @@
-// <📜 ----- lib/widgets/body_widgets/delete_word_dialog.dart ----->
+// <📜 ----- lib/widgets/body_widgets/delete_item_dialog.dart ----->
 import 'package:flutter/material.dart';
 
 import '../../constants/button_constants.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
-import '../../models/word_model.dart';
-import '../../services/word_service.dart';
+import '../../models/item_model.dart';
+import '../../services/item_service.dart';
 
 /// Silme diyaloğunu açar, onaylanırsa siler ve refetch eder.
 /// Bildirim GÖSTERMEZ. (Bildirim handler tarafından gösterilecek.)

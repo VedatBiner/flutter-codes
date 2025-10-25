@@ -1,12 +1,12 @@
-// 📃 <----- word_card.dart ----->
+// 📃 <----- item_card.dart ----->
 // Kelimelerin Card Widget olarak gösterilmesi burada sağlanıyor.
 
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../models/word_model.dart';
-import '../widgets/word_action_buttons.dart';
+import '../models/item_model.dart';
+import '../widgets/item_action_buttons.dart';
 
 class WordCard extends StatelessWidget {
   final Word word;

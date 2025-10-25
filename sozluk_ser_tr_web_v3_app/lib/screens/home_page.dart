@@ -19,8 +19,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/info_constants.dart';
-import '../models/word_model.dart';
-import '../services/word_service.dart';
+import '../models/item_model.dart';
+import '../services/item_service.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';

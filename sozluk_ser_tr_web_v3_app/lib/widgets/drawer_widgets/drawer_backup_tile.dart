@@ -5,7 +5,7 @@ import '../../constants/color_constants.dart';
 import '../../constants/file_info.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
-import '../show_word_dialog_handler.dart';
+import '../show_notifications_handler.dart';
 
 class DrawerBackupTile extends StatefulWidget {
   const DrawerBackupTile({super.key});

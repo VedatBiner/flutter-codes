@@ -19,7 +19,7 @@ import 'dart:typed_data';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 
 /// 📌 CSV üretimi (UTF-8 BOM + başlık) — ID YOK
 String buildWordsCsvNoId(List<Word> list) {

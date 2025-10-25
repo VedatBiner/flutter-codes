@@ -1,4 +1,4 @@
-// 📃 <----- word_service.dart ----->
+// 📃 <----- item_service.dart ----->
 //
 // Bu sınıf, kelime ekleme, silme ve güncelleme işlemlerini
 // Firestore için yönetir. (İleride SQLite tarafı eklenebilir.)
@@ -10,7 +10,7 @@ import 'dart:developer' show log;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants/file_info.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 
 class WordService {
   /// Firestore koleksiyon referansı (Map tabanlı)

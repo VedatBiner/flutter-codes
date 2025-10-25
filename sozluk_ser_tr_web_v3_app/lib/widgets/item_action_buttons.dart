@@ -1,4 +1,4 @@
-// 📃 <----- word_action_buttons.dart ----->
+// 📃 <----- item_action_buttons.dart ----->
 // Kelime silme ve düzeltme işlemleri için ortak
 // bir widget oluşturuldu.
 // Bu dosya alphabet_word_list.dart ve word_list.dart

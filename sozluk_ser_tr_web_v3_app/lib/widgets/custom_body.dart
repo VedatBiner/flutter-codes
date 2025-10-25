@@ -18,9 +18,9 @@
 
   BAĞIMLILIKLAR:
     - body_widgets/result_count_bar.dart
-    - body_widgets/word_list_view.dart
-    - body_widgets/edit_word_dialog.dart
-    - body_widgets/delete_word_dialog.dart
+    - body_widgets/item_list_view.dart
+    - body_widgets/edit_item_dialog.dart
+    - body_widgets/delete_item_dialog.dart
 
   NOTLAR:
   - Bileşen, sadece seçili satır indeksini tutar; iş kuralları servislerde/diyaloglarda.
@@ -31,10 +31,10 @@
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/word_model.dart';
-import '../widgets/show_word_dialog_handler.dart';
+import '../models/item_model.dart';
+import '../widgets/show_notifications_handler.dart';
+import 'body_widgets/item_list_view.dart';
 import 'body_widgets/result_count_bar.dart';
-import 'body_widgets/word_list_view.dart';
 
 class CustomBody extends StatefulWidget {
   final bool loading;

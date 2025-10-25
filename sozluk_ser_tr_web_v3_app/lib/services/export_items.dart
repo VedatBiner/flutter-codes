@@ -35,7 +35,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import '../utils/json_saver.dart';
 import 'export_items_formats.dart'; // <-- CSV & XLSX burada
 

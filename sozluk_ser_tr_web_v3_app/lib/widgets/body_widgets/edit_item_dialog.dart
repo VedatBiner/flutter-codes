@@ -1,11 +1,11 @@
-// <📜 ----- lib/widgets/body_widgets/edit_word_dialog.dart ----->
+// <📜 ----- lib/widgets/body_widgets/edit_item_dialog.dart ----->
 
 /*
-  📦 edit_word_dialog.dart — “Kelime Düzenleme” diyaloğu
+  📦 edit_item_dialog.dart — “Kelime Düzenleme” diyaloğu
 
   🧩 Ne yapar?
   - Var olan bir Word kaydını düzenlemek için şık bir AlertDialog açar.
-  - Görsel stil, word_dialog.dart ile birebir uyumludur
+  - Görsel stil, item_dialog.dart ile birebir uyumludur
     (cardLightColor arkaplanı, drawerColor çerçevesi ve başlık şeridi, dialogTitle yazı stili).
   - Form doğrulaması yapar (boş geçilemez).
   - Kaydedildiğinde:
@@ -33,8 +33,8 @@ import 'package:flutter/material.dart';
 import '../../constants/button_constants.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
-import '../../models/word_model.dart';
-import '../../services/word_service.dart';
+import '../../models/item_model.dart';
+import '../../services/item_service.dart';
 
 Future<bool> editWordDialog({
   required BuildContext context,
