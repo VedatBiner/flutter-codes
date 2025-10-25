@@ -1,4 +1,4 @@
-// 📃 <----- show_add_word_dialog_handler.dart ----->
+// 📃 <----- show_word_dialog_handler.dart ----->
 // Kelime varsa mesaj verip uyarıyor
 // Kelime yoksa listeye ekliyor.
 
@@ -8,9 +8,9 @@ import 'package:path/path.dart' as p;
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import '../services/notification_service.dart';
-import 'word_dialog.dart';
+import 'item_dialog.dart';
 
 /// 📌 Yedekleme bildirim gösterir
 ///
@@ -29,13 +29,13 @@ void showBackupNotification(
         style: normalBlackText,
         children: [
           const TextSpan(text: '\nDownload :\n', style: kelimeAddText),
-          const TextSpan(text: ' ✅ '),
+          const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
-          const TextSpan(text: ' ✅ '),
+          const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(csvPathDownload)}\n"),
-          const TextSpan(text: ' ✅ '),
+          const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          const TextSpan(text: ' ✅ '),
+          const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
         ],
       ),

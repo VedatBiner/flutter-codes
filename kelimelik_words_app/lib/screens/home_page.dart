@@ -14,12 +14,12 @@ import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
-import '../providers/word_count_provider.dart';
+import '../models/item_model.dart';
+import '../providers/item_count_provider.dart';
 
 /// 📌 iki ana ekran burada
-import '../screens/alphabet_word_list.dart';
-import '../screens/word_list.dart';
+import '../screens/alphabet_item_list.dart';
+import '../screens/item_list.dart';
 import '../utils/json_loader.dart';
 
 /// 📌 AppBar, Drawer, FAB yüklemeleri burada

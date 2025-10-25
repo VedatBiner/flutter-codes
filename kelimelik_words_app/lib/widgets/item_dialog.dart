@@ -1,4 +1,4 @@
-// 📃 <----- word_dialog.dart ----->
+// 📃 <----- item_dialog.dart ----->
 
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../constants/button_constants.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 
 class WordDialog extends StatefulWidget {
   final Word? word;

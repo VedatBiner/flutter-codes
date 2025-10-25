@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../providers/word_count_provider.dart';
+import '../providers/item_count_provider.dart';
 import '../theme.dart';
 import 'screens/home_page.dart';
 

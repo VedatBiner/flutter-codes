@@ -86,6 +86,18 @@ kutusunu kullanması sağlandı.
 - file_info.dart dosyasında final değerler const olarak değiştirildi. - 20.10.2025
 - bu değişiklikle ilgili olan backup_notification_helper.dart ve export_items.dart dosyaları da güncellendi. -20.10.2025
 - Konsola yazılan log bilgileri düzeltildi. - 20.10.2025
+- `show_word_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
+72. `show_notifications_handler.dart` bildirim görünümü düzeltildi. - 25.10.2025
+73. `word_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
+74. `word_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
+75. `word_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
+76. `word_actions.dart` dosyası `item_actions.dart` olarak değiştirildi. - 25.10.2025
+77. `word_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
+78.  `word_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
+79. `alphabet_word_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
+80. `word_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
+81. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
+82. 
 
 - Simdilik yapılanlar yeterli mi?
 

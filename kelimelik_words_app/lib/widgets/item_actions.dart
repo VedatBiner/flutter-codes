@@ -1,9 +1,9 @@
-// 📃 <----- word_actions.dart ----->
+// 📃 <----- item_actions.dart ----->
 //
 // Kelime kartı üzerinde ortak kullanılan "Düzenle" ve "Sil" eylemleri.
 // Bu dosyada sadece EYLEM mantığı bulunur. Bildirim fonksiyonları
 // (showUpdateNotification, showDeleteNotification) artık
-// show_word_dialog_handler.dart dosyasına taşındı.
+// show_notification_handler.dart dosyasına taşındı.
 //
 // Not: Bu dosyadaki açıklamalar özellikle KORUNMUŞTUR.
 //
@@ -15,10 +15,10 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import 'confirmation_dialog.dart';
-import 'show_word_dialog_handler.dart'; // bildirimleri çağırmak için
-import 'word_dialog.dart';
+import 'item_dialog.dart';
+import 'show_notification_handler.dart'; // bildirimleri çağırmak için
 
 // --- KULLANIM ÖNERİSİ ---------------------------------------------------------
 // WordCard üzerinde uzun basınca açılan eylem menüsünden bu fonksiyonlar çağrılır.
@@ -31,7 +31,7 @@ import 'word_dialog.dart';
 ///
 /// - WordDialog’u açar, kullanıcı değişiklikleri kaydederse DB 'de günceller.
 /// - Başarılı güncellemede `onUpdated()` (varsa) çağrılır.
-/// - Bildirim gösterimi `show_word_dialog_handler.dart` içindeki
+/// - Bildirim gösterimi `show_notification_handler.dart` içindeki
 ///   `showUpdateNotification(...)` ile yapılır.
 Future<void> editWord({
   required BuildContext context,
@@ -75,7 +75,7 @@ Future<void> editWord({
 /// - Kullanıcıdan onay alır.
 /// - Onay verilirse veritabanından kelimeyi siler.
 /// - Başarılı silmede `onDeleted()` (varsa) çağrılır.
-/// - Bildirim gösterimi `show_word_dialog_handler.dart` içindeki
+/// - Bildirim gösterimi `show_notification_handler.dart` içindeki
 ///   `showDeleteNotification(...)` ile yapılır.
 Future<void> confirmDelete({
   required BuildContext context,

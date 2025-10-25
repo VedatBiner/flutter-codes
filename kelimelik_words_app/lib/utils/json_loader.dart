@@ -23,8 +23,8 @@ import 'package:provider/provider.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
-import '../providers/word_count_provider.dart';
+import '../models/item_model.dart';
+import '../providers/item_count_provider.dart';
 
 /// 📌 Verileri (gerekirse) JSON ’dan okuyup veritabanına yazar.
 /// [onLoaded]     – Yükleme bittikten sonra tüm kelimeleri döner.
@@ -73,11 +73,10 @@ Future<void> loadDataFromDatabase({
 
       /// JSON → Liste<Word>
       final List<dynamic> jsonList = json.decode(jsonStr);
-      final loadedWords =
-          jsonList.map<Word>((e) {
-            final map = e as Map<String, dynamic>;
-            return Word(word: map['word'], meaning: map['meaning']);
-          }).toList();
+      final loadedWords = jsonList.map<Word>((e) {
+        final map = e as Map<String, dynamic>;
+        return Word(word: map['word'], meaning: map['meaning']);
+      }).toList();
 
       /// ⏱ süre ölçümü için kronometre
       final stopwatch = Stopwatch()..start();

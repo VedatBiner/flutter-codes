@@ -1,13 +1,13 @@
-// 📃 <----- word_list.dart ----->
+// 📃 <----- item_list.dart ----->
 // Klasik görünümlü listeleme için kullanılır.
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/word_model.dart';
-import '../widgets/word_actions.dart';
-import '../widgets/word_card.dart';
+import '../models/item_model.dart';
+import '../widgets/item_actions.dart';
+import '../widgets/item_card.dart';
 
 class WordList extends StatefulWidget {
   final List<Word> words;

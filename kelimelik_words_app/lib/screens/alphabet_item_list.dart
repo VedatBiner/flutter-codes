@@ -1,4 +1,4 @@
-// 📃 <----- alphabet_word_list.dart ----->
+// 📃 <----- alphabet_item_list.dart ----->
 // Fihrist görünümlü listeleme için kullanılır.
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
@@ -10,9 +10,9 @@ import '../constants/color_constants.dart';
 import '../constants/turkish_alphabet.dart';
 
 /// 📌 Yardımcı yüklemeler burada
-import '../models/word_model.dart';
-import '../widgets/word_actions.dart';
-import '../widgets/word_card.dart';
+import '../models/item_model.dart';
+import '../widgets/item_actions.dart';
+import '../widgets/item_card.dart';
 
 class AlphabetWordList extends StatefulWidget {
   final List<Word> words;
