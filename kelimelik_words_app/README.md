@@ -97,7 +97,8 @@ kutusunu kullanması sağlandı.
 79. `alphabet_word_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
 80. `word_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
 81. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
-82. 
+82. `settings.gradle.kts` dosyası düzenlendi. - 25.10.2025
+
 
 - Simdilik yapılanlar yeterli mi?
 
