@@ -91,6 +91,8 @@
 79. `malzeme_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
 80. `alphabet_malzeme_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
 81. `malzeme_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
+82. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
+83. 
 
 
 
