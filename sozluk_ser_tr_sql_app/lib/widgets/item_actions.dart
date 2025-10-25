@@ -1,4 +1,4 @@
-// 📃 <----- word_actions.dart ----->
+// 📃 <----- item_actions.dart ----->
 // kelime güncelleme ve silme metodu
 //
 import 'package:flutter/material.dart';
@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
+import '../services/item_service.dart';
 import '../services/notification_service.dart';
-import '../services/word_service.dart';
 import '../widgets/confirmation_dialog.dart';
-import '../widgets/word_dialog.dart';
+import '../widgets/item_dialog.dart';
 
 // 📜 kelime güncelleme metodu
 //

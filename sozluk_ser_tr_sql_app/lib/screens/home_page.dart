@@ -7,16 +7,16 @@ import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
-import '../providers/word_count_provider.dart';
+import '../models/item_model.dart';
+import '../providers/item_count_provider.dart';
 import '../utils/json_loader.dart';
 import '../widgets/bottom_waiting_overlay.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
 import '../widgets/sql_loading.dart';
-import 'alphabet_word_list.dart';
-import 'word_list.dart';
+import 'alphabet_item_list.dart';
+import 'item_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

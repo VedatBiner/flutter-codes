@@ -19,8 +19,8 @@ import 'package:sqflite/sqflite.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
-import '../models/word_model.dart';
-import '../providers/word_count_provider.dart';
+import '../models/item_model.dart';
+import '../providers/item_count_provider.dart';
 import '../services/notification_service.dart';
 
 class DbHelper {

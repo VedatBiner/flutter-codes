@@ -1,7 +1,7 @@
-// 📃 <----- word_action_buttons.dart ----->
+// 📃 <----- item_action_buttons.dart ----->
 // Kelime silme ve düzeltme işlemleri için ortak
 // bir widget oluşturuldu.
-// Bu dosya alphabet_word_list.dart ve word_list.dart
+// Bu dosya alphabet_item_list.dart ve item_list.dart
 // dosyaları tarafından kullanılıyor.
 //
 import 'package:flutter/material.dart';

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
-import 'show_word_dialog_handler.dart';
+import 'show_notifications_handler.dart';
 
 class CustomFAB extends StatelessWidget {
   final VoidCallback refreshWords;

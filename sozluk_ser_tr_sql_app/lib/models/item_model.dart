@@ -1,4 +1,4 @@
-// 📃 <----- word_model.dart ----->
+// 📃 <----- item_model.dart ----->
 //
 // Model sınıfı: Word
 // - JSON/Map dönüşümleri (toMap/fromMap, toJson/fromJson)

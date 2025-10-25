@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
-import '../providers/word_count_provider.dart';
+import '../providers/item_count_provider.dart';
 import '../screens/home_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

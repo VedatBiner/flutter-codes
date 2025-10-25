@@ -1,4 +1,4 @@
-// 📃 lib/providers/word_count_provider.dart
+// 📃 lib/providers/item_count_provider.dart
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/foundation.dart';

@@ -1,12 +1,12 @@
 // 📃 utils/json_loader.dart
 //
-// İlk kurulumda/veritabanı boşsa JSON'dan veriyi yükler.
+// İlk kurulumda/veritabanı boşsa JSON 'dan veriyi yükler.
 // JSON parse işlemi izoleye taşınmıştır (CPU-yoğun işlem).
 // Veritabanı yazma (sqflite) ana izolede yapılır.
-// Yükleme sürecinde progress, geçen süre ve (varsa) anlık kelime bilgisi UI'ya iletilir.
+// Yükleme sürecinde progress, geçen süre ve (varsa) anlık kelime bilgisi UI 'ya iletilir.
 //
 // Notlar:
-// - Asset JSON yolu: assets/data/words.json  (kendi yolunla değiştir)
+// - Asset JSON yolu: assets/database/ser_tr_dict.json  (kendi yolunla değiştir)
 // - Word.fromMap(...) / Word.toMap() projendeki modele uymalı
 // - DB tablo adı: 'words' (projende farklıysa değiştir)
 
@@ -17,13 +17,13 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:sqflite/sqflite.dart';
 
 import '../db/db_helper.dart';
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import 'isolate_runner.dart';
 import 'json_parse_isolate.dart';
 
 /// Dışarıya açık yükleyici:
-/// - DB'de kayıt varsa onları okur ve döner
-/// - DB boşsa: JSON'u asset'ten okur, İZOLEDE parse eder, sonra batch insert
+/// - DB 'de kayıt varsa onları okur ve döner
+/// - DB boşsa: JSON 'u asset 'ten okur, İZOLEDE parse eder, sonra batch insert
 /// - Her durumda sonunda onLoaded ile words listesi döner, provider sayacı güncellenebilir
 Future<void> loadDataFromDatabase({
   required BuildContext context,
@@ -38,7 +38,7 @@ Future<void> loadDataFromDatabase({
 }) async {
   final sw = Stopwatch()..start();
 
-  // 1) DB’de var mı?
+  // 1) DB ’de var mı?
   final db = await DbHelper.instance.database;
   final count = await _countRecords(db);
   if (count > 0) {
@@ -48,11 +48,13 @@ Future<void> loadDataFromDatabase({
     return;
   }
 
-  // 2) Asset JSON'u oku (kendi yolun neyse onu kullan):
+  // 2) Asset JSON 'u oku (kendi yolun neyse onu kullan):
   onLoadingStatusChange(true, 0.01, 'JSON okunuyor...', sw.elapsed);
-  final jsonString = await rootBundle.loadString('assets/data/words.json');
+  final jsonString = await rootBundle.loadString(
+    'assets/database/ser_tr_dict.json',
+  );
 
-  // 3) JSON parse'ı izolede yap
+  // 3) JSON parse 'ı izolede yap
   onLoadingStatusChange(true, 0.02, 'JSON parse başlatılıyor...', sw.elapsed);
   final runner = await runWithProgress<List<Map<String, dynamic>>>(
     entryPoint: jsonParseEntryPoint,
@@ -75,22 +77,22 @@ Future<void> loadDataFromDatabase({
 
   await sub.cancel();
 
-  // 4) Ana izolede DB'ye batch insert
+  // 4) Ana izolede DB 'ye batch insert
   onLoadingStatusChange(true, 0.88, 'Veritabanına yazılıyor...', sw.elapsed);
   await db.transaction((txn) async {
     final batch = txn.batch();
     for (final m in maps) {
-      final w = Word.fromMap(m); // Projendeki fromMap'le eşleşmeli
+      final w = Word.fromMap(m); // Projendeki fromMap 'le eşleşmeli
       batch.insert(
         'words',
-        w.toMap(), // Projendeki toMap'le eşleşmeli
+        w.toMap(), // Projendeki toMap 'le eşleşmeli
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
     await batch.commit(noResult: true);
   });
 
-  // 5) DB’den tekrar oku ve bildir
+  // 5) DB ’den tekrar oku ve bildir
   onLoadingStatusChange(true, 0.98, 'Son kontroller...', sw.elapsed);
   final loaded = await DbHelper.instance.getRecords();
 

@@ -31,7 +31,7 @@ import 'package:sqflite/sqflite.dart' show getDatabasesPath;
 // 📌 Proje bağımlılıkları
 import '../constants/file_info.dart'; // fileNameJson/fileNameCsv/fileNameXlsx/fileNameSql
 import '../db/db_helper.dart'; // DbHelper.instance.getRecords()
-import '../models/word_model.dart';
+import '../models/item_model.dart';
 import '../utils/json_saver_io.dart';
 import 'export_items_formats.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
 

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../providers/word_count_provider.dart';
+import '../../../providers/item_count_provider.dart';
 import '../../../widgets/custom_app_bar.dart';
 
 PreferredSizeWidget buildHelpAppBar(BuildContext context) {

@@ -1,7 +1,7 @@
 // 📃 <----- confirmation_dialog.dart ----->
 // Kelime silme ve veri tabanı işlemleri için ortak
 // bir widget oluşturuldu.
-// Bu dosya alphabet_word_list.dart, word_list.dart ve
+// Bu dosya alphabet_item_list.dart, item_list.dart ve
 // custom_drawer.dart dosyaları tarafından kullanılıyor.
 //
 

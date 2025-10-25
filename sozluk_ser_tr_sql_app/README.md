@@ -57,13 +57,29 @@ türetilmiş ve daha geliştirilmiştir.
 - add_word_dialog_handler.dart dosyası show_word_dialog_handler.dart olarak değiştirildi. - 18.10.2025
 - showAddWordDialog metodu showBackupNotification olarak değiştirildi. - 18.10.2025
 - kelimeExistText sabiti eklendi. - 18.10.2025
-- notification_service.dart dosyası güncellendi. - 18.10.2025
-- custom_fab.dart dosyası düzeltildi. - 18.10.2025
+- `notification_service.dart` dosyası güncellendi. - 18.10.2025
+- `custom_fab.dart` dosyası düzeltildi. - 18.10.2025
 - Kotlin versiyonu 2.1.0 yapıldı. (settings.gradle.kts) - 18.10.2025
 - String subfolder = 'sozluk_ser_tr_sql_app' böyle yapıldı. - 18.10.2025
-- file_info.dart içinde final olan değerler const olarak değiştirildi. - 19.10.2025
-- page_***.dart şekilindeki yardım dosyalarında import ifadelirinde bazı satırlar düzeltildi. - 19.10.2025
+- `file_info.dart` içinde final olan değerler const olarak değiştirildi. - 19.10.2025
+- `page_***.dart` şekilindeki yardım dosyalarında import ifadelirinde bazı satırlar düzeltildi. - 19.10.2025
 - isolate yapısı deneniyor. - 20.10.2025
+-  `show_word_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
+72. `show_notifications_handler.dart` bildirim görünümü düzeltildi. - 25.10.2025
+73. `word_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
+74. `word_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
+75. `word_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
+76. `word_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
+76. `word_actions.dart` dosyası `item_actions.dart` olarak değiştirildi. - 25.10.2025
+77. `word_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
+78. `word_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
+79. `alphabet_word_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
+80. `word_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
+81. `word_service.dart` dosyası `item_service.dart` olarak değiştirildi. - 25.10.2025
+82. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
+83. `json_loader.dart` dosyasındaki hatalar düzeltildi.
+84. `pubspec.yaml`dosyası assets bölümü düzeltildi. - 25.10.2025
+85. 
 
 
 Yapılacak başka bir şey var mı ?
@@ -72,3 +88,5 @@ Yapılacak başka bir şey var mı ?
 - Düzeltme işleminde bildirim çalışmıyor ?
 - kaydetme işleminde bildirim çalışmıyor ?
 - Excel dosya formatı düzgün mü ?
+- Veri tabanı yenileme bölümünde hata var gibi ?
+- 

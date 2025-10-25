@@ -3,7 +3,7 @@ description: "Sözlük Uygulaması (SER-TUR) SQL Version"
 
 publish_to: 'none'
 
-version: 1.2.4+1
+version: 1.2.5+1
 
 environment:
   sdk: ^3.7.2
@@ -74,5 +74,4 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
-    - assets/database/ser_tr_dict.json
-    - assets/database/ser_tr_dict.db
+    - assets/database/
