@@ -1,13 +1,12 @@
-// 📦 screens/home_page.dart
-
-// 📌 Flutter paketleri
+// 📃 home_page.dart
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
-/// 📌 yardımcı paketler
+import '../db/db_helper.dart';
 import '../parsers/csv_parser.dart';
-import '../utils/date_utils.dart';
+import '../services/imdb_service.dart';
 import '../widgets/films_card.dart';
 import '../widgets/series_card.dart';
 
@@ -19,117 +18,213 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<List<dynamic>> _history = [];
-  Map<String, Map<String, List<Map<String, String>>>> _seriesMap = {};
+  bool _isLoading = true;
   List<Map<String, String>> _filmsList = [];
-  String _searchQuery = '';
-  final TextEditingController _searchController = TextEditingController();
+  Map<String, Map<String, List<Map<String, String>>>> _seriesMap = {};
+  int _csvRowCount = 0;
 
   @override
   void initState() {
     super.initState();
-    _loadCSVFromAssets();
+    _loadCsvData();
   }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _loadCSVFromAssets() async {
+  // 📂 CSV dosyasını assets klasöründen yükle
+  Future<void> _loadCsvData() async {
     try {
-      final parsedData = await parseCsvData(
+      final rawCsv = await rootBundle.loadString(
         'assets/database/NetflixFilmHistory.csv',
       );
-
-      // 🔍 Konsola log yaz
-      log("✅ Yüklenen satır sayısı: ${parsedData.length}", name: "home_page");
-      if (parsedData.isNotEmpty) {
-        log("📝 İlk satır: ${parsedData.first}", name: "home_page");
-      }
-
-      setState(() {
-        _history = parsedData;
-        _updateGroupedData();
-      });
+      final parsed = await parseCsvData(rawCsv);
+      _csvRowCount = parsed.length;
+      _separateSeriesAndFilms(parsed);
     } catch (e) {
-      log("❌ CSV yükleme hatası: $e", name: "home_page");
+      log('❌ CSV yükleme hatası: $e');
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
-  void _updateGroupedData() {
-    final Map<String, Map<String, List<Map<String, String>>>> series = {};
-    final List<Map<String, String>> films = [];
+  // 🎬 Başlıktan dizi olup olmadığını tespit et
+  bool _isSeries(String title) {
+    final lower = title.toLowerCase();
+    return lower.contains("season") ||
+        lower.contains("part") ||
+        lower.contains("episode");
+  }
 
-    for (var row in _history) {
-      final fullTitle = row[0].toString();
-      final watchDate = convertDateFormat(row[1].toString());
+  // 🧩 Veriyi diziler ve filmler olarak ayır
+  Future<void> _separateSeriesAndFilms(List<Map<String, String>> parsed) async {
+    final films = <Map<String, String>>[];
+    final series = <String, Map<String, List<Map<String, String>>>>{};
+    final occurrenceMap = <String, int>{};
 
-      if (_searchQuery.isNotEmpty &&
-          !fullTitle.toLowerCase().contains(_searchQuery.toLowerCase())) {
-        continue;
-      }
+    // 1️⃣ Her başlığın kaç kez geçtiğini say
+    for (final item in parsed) {
+      final title =
+          item['Title'] ?? item['Name'] ?? item['Program Title'] ?? '';
+      if (title.isEmpty) continue;
+      final mainTitle = title.split(':').first.trim();
+      occurrenceMap[mainTitle] = (occurrenceMap[mainTitle] ?? 0) + 1;
+    }
 
-      if (isSeries(fullTitle)) {
-        final seriesName = extractSeriesName(fullTitle);
-        final season = extractSeason(fullTitle);
-        series.putIfAbsent(seriesName, () => {});
-        series[seriesName]!.putIfAbsent(season, () => []);
-        series[seriesName]![season]!.add({
-          'title': fullTitle,
-          'date': watchDate,
+    // 2️⃣ Veriyi dizi veya filme ayır
+    for (final item in parsed) {
+      final title =
+          item['Title'] ?? item['Name'] ?? item['Program Title'] ?? '';
+      if (title.isEmpty) continue;
+      final mainTitle = title.split(':').first.trim();
+
+      final bool looksLikeSeries = _isSeries(title);
+      final bool repeatsOften = (occurrenceMap[mainTitle] ?? 0) > 1;
+
+      if (looksLikeSeries || repeatsOften) {
+        final seasonPart = _extractSeasonPart(title);
+        final episode = _extractEpisode(title);
+
+        series.putIfAbsent(mainTitle, () => {});
+        series[mainTitle]!.putIfAbsent(seasonPart, () => []);
+        series[mainTitle]![seasonPart]!.add({
+          'episode': episode,
+          'date': item['Date'] ?? '',
         });
       } else {
-        films.add({'title': fullTitle, 'date': watchDate});
+        films.add(item);
       }
     }
 
+    // 3️⃣ Log istatistikleri
+    int totalEpisodes = 0;
+    for (var show in series.values) {
+      for (var season in show.values) {
+        totalEpisodes += season.length;
+      }
+    }
+
+    log('✅ CSV başarıyla parse edildi. Satır sayısı: $_csvRowCount');
+    log('🎥 Film sayısı: ${films.length}');
+    log('📺 Dizi sayısı (başlık bazında): ${series.length}');
+    log('📑 Toplam bölüm sayısı: $totalEpisodes');
+    log('📊 Toplam işlenen kayıt: ${films.length + totalEpisodes}');
+    if (_csvRowCount != (films.length + totalEpisodes)) {
+      log(
+        '⚠️ UYARI: CSV satır sayısı ile işlenen toplam kayıt sayısı eşleşmiyor!',
+      );
+    } else {
+      log('✅ CSV satır sayısı ile işlenen toplam kayıt sayısı eşleşiyor.');
+    }
+
     setState(() {
-      _seriesMap = series;
       _filmsList = films;
+      _seriesMap = series;
     });
+
+    // 4️⃣ Veritabanına kaydet
+    await _saveToDatabase();
   }
 
-  void _filterSearchResults(String query) {
-    setState(() {
-      _searchQuery = query;
-      _updateGroupedData();
-    });
+  // 🗂️ Veritabanına yazma işlemi
+  Future<void> _saveToDatabase() async {
+    final db = DatabaseHelper();
+
+    // Eski kayıtları temizle (opsiyonel)
+    await db.clearTable();
+
+    // 🎬 Filmleri ekle
+    for (final film in _filmsList) {
+      final title = film['Title'] ?? '';
+      final date = film['Date'] ?? '';
+
+      final imdb = await ImdbService.fetchImdbData(title);
+
+      await db.insertRecord({
+        'title': title,
+        'watch_date': date,
+        'imdb_title': imdb?['originalTitle'] ?? '',
+        'imdb_rating': imdb?['rating'] ?? '',
+        'imdb_poster': imdb?['poster'] ?? '',
+      });
+    }
+
+    // 📺 Dizileri ekle (her bölüm için kayıt)
+    for (final entry in _seriesMap.entries) {
+      final seriesTitle = entry.key;
+      for (final season in entry.value.entries) {
+        for (final ep in season.value) {
+          final date = ep['date'] ?? '';
+
+          final imdb = await ImdbService.fetchImdbData(seriesTitle);
+
+          await db.insertRecord({
+            'title': seriesTitle,
+            'watch_date': date,
+            'imdb_title': imdb?['originalTitle'] ?? '',
+            'imdb_rating': imdb?['rating'] ?? '',
+            'imdb_poster': imdb?['poster'] ?? '',
+          });
+        }
+      }
+    }
+
+    log('✅ Veritabanına yazma tamamlandı.');
+  }
+
+  // 🎞️ Sezon veya Part bilgisini çıkar
+  String _extractSeasonPart(String title) {
+    final parts = title.split(':');
+    for (final part in parts) {
+      final trimmed = part.trim().toLowerCase();
+      if (trimmed.startsWith('season') || trimmed.startsWith('part')) {
+        return part.trim();
+      }
+    }
+    return 'Sezon Bilinmiyor';
+  }
+
+  // 📺 Bölüm adını çıkar
+  String _extractEpisode(String title) {
+    final parts = title.split(':');
+    if (parts.length > 2) return parts.last.trim();
+    return 'Bölüm Bilinmiyor';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Netflix İzleme Geçmişi')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                labelText: 'Dizi veya film ara...',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.search),
-              ),
-              onChanged: _filterSearchResults,
-            ),
-          ),
-          Expanded(
-            child: (_seriesMap.isEmpty && _filmsList.isEmpty)
-                ? const Center(child: Text("Veri yok veya CSV yüklenmedi."))
-                : ListView(
-                    children: [
-                      if (_seriesMap.isNotEmpty)
-                        SeriesCard(seriesMap: _seriesMap),
-                      if (_filmsList.isNotEmpty)
-                        FilmsCard(filmsList: _filmsList),
-                    ],
-                  ),
-          ),
-        ],
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text(
+          'Netflix İzleme Geçmişi',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.redAccent,
+        centerTitle: true,
       ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+                child: Column(
+                  children: [
+                    if (_seriesMap.isNotEmpty)
+                      SeriesCard(seriesData: _seriesMap),
+                    if (_filmsList.isNotEmpty) FilmsCard(movies: _filmsList),
+                    if (_seriesMap.isEmpty && _filmsList.isEmpty)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Text(
+                          'Hiç veri bulunamadı.',
+                          style: TextStyle(color: Colors.white70, fontSize: 16),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

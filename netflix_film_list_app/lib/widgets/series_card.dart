@@ -1,114 +1,125 @@
-// 📦 widgets/series_card.dart
+// 📃 series_card.dart – IMDb sadece ana diziye ait olacak
+import 'dart:developer';
 
-// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
-class SeriesCard extends StatelessWidget {
-  final Map<String, Map<String, List<Map<String, String>>>> seriesMap;
+import '../services/imdb_service.dart';
 
-  const SeriesCard({super.key, required this.seriesMap});
+class SeriesCard extends StatefulWidget {
+  final Map<String, Map<String, List<Map<String, String>>>> seriesData;
+
+  const SeriesCard({required this.seriesData, super.key});
+
+  @override
+  State<SeriesCard> createState() => _SeriesCardState();
+}
+
+class _SeriesCardState extends State<SeriesCard> {
+  final Map<String, Map<String, dynamic>> _imdbCache = {};
+
+  Future<Map<String, dynamic>?> _loadImdb(String title) async {
+    if (_imdbCache.containsKey(title)) return _imdbCache[title];
+    final data = await ImdbService.fetchImdbData(title);
+    if (data != null) _imdbCache[title] = data;
+    return data;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: ExpansionTile(
-            initiallyExpanded: false,
-            title: const Text(
-              "📺 Diziler",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: seriesMap.entries.map((seriesEntry) {
-                    final seriesTitle = seriesEntry.key;
-                    final seasonMap = seriesEntry.value;
-                    int totalEpisodes = seasonMap.values.fold(
-                      0,
-                      (sum, list) => sum + list.length,
-                    );
-                    List<String> allDates =
-                        seasonMap.values
-                            .expand((e) => e.map((ep) => ep['date']!))
-                            .toList()
-                          ..sort();
-                    final firstDate = allDates.first;
-                    final lastDate = allDates.last;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Card(
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ExpansionTile(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          tilePadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                seriesTitle,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                "$totalEpisodes bölüm izlendi",
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                              Text(
-                                "Son İzleme Tarihi : $firstDate • İlk İzleme Tarihi : $lastDate",
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                            ],
-                          ),
-                          children: seasonMap.entries.map((seasonEntry) {
-                            final seasonName = seasonEntry.key;
-                            final episodes = seasonEntry.value;
-                            episodes.sort(
-                              (a, b) => a['date']!.compareTo(b['date']!),
-                            );
-                            return ExpansionTile(
-                              title: Text(
-                                seasonName,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              children: episodes.map((episode) {
-                                return ListTile(
-                                  title: Text(episode['title'] ?? ''),
-                                  subtitle: Text("İzlenme: ${episode['date']}"),
-                                );
-                              }).toList(),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
+    return Card(
+      color: Colors.grey.shade900,
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ExpansionTile(
+        title: const Text(
+          "📺 Diziler",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
+        collapsedIconColor: Colors.white,
+        iconColor: Colors.redAccent,
+        children: widget.seriesData.entries.map((seriesEntry) {
+          final seriesTitle = seriesEntry.key;
+          final seasons = seriesEntry.value;
+
+          // IMDb sadece dizinin ana adı için
+          return FutureBuilder<Map<String, dynamic>?>(
+            future: _loadImdb(seriesTitle),
+            builder: (context, snapshot) {
+              final imdb = snapshot.data;
+              log(
+                '🔍 IMDb sorgusu başlatıldı: $seriesTitle',
+                name: 'series_card',
+              );
+              return ExpansionTile(
+                title: Row(
+                  children: [
+                    if (imdb?['poster'] != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: Image.network(
+                          imdb!['poster'],
+                          width: 45,
+                          height: 65,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        imdb?['originalTitle'] ?? seriesTitle,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                subtitle: imdb == null
+                    ? const Text(
+                        "IMDb verisi bulunamadı",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    : Text(
+                        "⭐ ${imdb['rating']}  |  ${imdb['year']}",
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+
+                // Sezon ve bölümler sadece metin olarak gösterilecek
+                children: seasons.entries.map((seasonEntry) {
+                  final seasonName = seasonEntry.key;
+                  final episodes = seasonEntry.value;
+
+                  return ExpansionTile(
+                    title: Text(
+                      seasonName,
+                      style: const TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    children: episodes.map((ep) {
+                      final episodeName =
+                          ep['episode'] ?? ep['title'] ?? 'Bölüm';
+                      return ListTile(
+                        title: Text(
+                          episodeName,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }).toList(),
+              );
+            },
+          );
+        }).toList(),
       ),
     );
   }
