@@ -16,12 +16,14 @@ dependencies:
 
   csv:
   intl:
+  http:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^5.0.0
+  ## flutter_launcher_icons:
 
 flutter:
 
@@ -29,4 +31,11 @@ flutter:
 
   assets:
     - assets/database/NetflixFilmHistory.csv
+    - assets/images/
 
+# flutter_launcher_icons:
+#   android: true
+#   ios: false
+# image_path: "assets/images/app_icon.png"
+# adaptive_icon_background: "#FFFFFF"
+# adaptive_icon_foreground: "assets/images/app_icon.png"
