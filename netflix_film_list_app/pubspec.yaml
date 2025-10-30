@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.1.0+1
 
 environment:
   sdk: ^3.8.1
@@ -12,13 +12,49 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  # -----------------------------
+  # UI / İkon setleri / Görsel
+  # -----------------------------
+  cupertino_icons: ^1.0.8       # iOS tarzı ikon seti
+  font_awesome_flutter:         # Geniş ikon koleksiyonu (FA)
 
   csv:
   intl:
   http:
-  sqflite:
-  path_provider:
+
+  # -----------------------------
+  # Veritabanı / Depolama
+  # -----------------------------
+  sqflite:                      # Cihaz içi SQLite (CRUD)
+  path_provider:                # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
+  path:                         # Dosya yolu işlemleri (join/dirname/extension)
+  external_path:                # Android harici depolama (Downloads/DCIM) yolu erişimi
+
+  # -----------------------------
+  # Uygulama bilgisi
+  # -----------------------------
+  package_info_plus:            # Uygulama sürümü, build numarası, paket adı
+
+  # -----------------------------
+  # Durum yönetimi / Modelleme
+  # -----------------------------
+  equatable:                    # Model/state sınıflarında değer temelli eşitlik (==/hashCode)
+
+  # -----------------------------
+  # Listeleme / UX yardımcıları
+  # -----------------------------
+  elegant_notification:         # Modern toast/notification bileşenleri
+
+  # -----------------------------
+  # İhracat / Paylaşım / Excel
+  # -----------------------------
+  syncfusion_flutter_xlsio:     # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
+  share_plus:                   # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
+
+  # -----------------------------
+  # İzinler
+  # -----------------------------
+  permission_handler:           # Çalışma zamanı izinleri (Android/iOS)
 
 dev_dependencies:
   flutter_test:

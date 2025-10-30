@@ -1,10 +1,12 @@
 // 📦 main.dart
 
-// 📌 Flutter paketleri
+// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 yardımcı paketler
 import '../screens/home_page.dart';
+
+/// 📌 Yardımcı paketler
+import 'theme.dart';
 
 void main() {
   runApp(const NetflixHistoryApp());
@@ -15,10 +17,11 @@ class NetflixHistoryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Netflix İzleme Geçmişi',
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: CustomTheme.theme,
+      home: const HomePage(),
     );
   }
 }
