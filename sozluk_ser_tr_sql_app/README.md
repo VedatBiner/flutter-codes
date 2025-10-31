@@ -79,7 +79,10 @@ türetilmiş ve daha geliştirilmiştir.
 82. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
 83. `json_loader.dart` dosyasındaki hatalar düzeltildi.
 84. `pubspec.yaml`dosyası assets bölümü düzeltildi. - 25.10.2025
-85. 
+85. Veri tabanı yenileme ve veri tabanı silme seçenekleri `custom_drawer.dart` kodundan geçici olarak iptal edildi. - 31.10.2025
+85. `file_info.dart` dosyası yenilendi. `sqlTableName` değişkeni eklendi. - 31.10.2025
+86. `db_helper.dart` dosyası `sqlTableName` değişkenine göre düzenlendi. - 31.10.2025
+87. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
 
 
 Yapılacak başka bir şey var mı ?

@@ -49,7 +49,7 @@ class WordService {
       sqliteDeleted = true;
     } else {
       /// ❓ id null ise sirpca adına göre sorgula
-      final dbWord = await DbHelper.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getItem(word.sirpca);
       if (dbWord != null) {
         await DbHelper.instance.deleteRecord(dbWord.id!);
         sqliteDeleted = true;
@@ -91,7 +91,7 @@ class WordService {
       await DbHelper.instance.updateRecord(word);
       sqliteUpdated = true;
     } else {
-      final dbWord = await DbHelper.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getItem(word.sirpca);
       if (dbWord != null) {
         await DbHelper.instance.updateRecord(word.copyWith(id: dbWord.id));
         sqliteUpdated = true;
@@ -125,7 +125,7 @@ class WordService {
 
   /// 📌 SQLite içinde bu kelime var mı? (sırpça adına göre kontrol)
   static Future<bool> wordExists(String sirpca) async {
-    final word = await DbHelper.instance.getWord(sirpca);
+    final word = await DbHelper.instance.getItem(sirpca);
     return word != null;
   }
 

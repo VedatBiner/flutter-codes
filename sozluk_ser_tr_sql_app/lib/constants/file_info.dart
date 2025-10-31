@@ -1,7 +1,11 @@
 // 📃 <----- file_info.dart ----->
 //
 
+/// 📌 Uygulama adı
 const String appName = "sozluk_ser_tr_sql_app";
+
+/// 📌 SQL Tablo adı
+const sqlTableName = "words";
 
 /// Dosya adları
 const String fileNameJson = "ser_tr_dict.json";

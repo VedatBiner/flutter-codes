@@ -66,7 +66,7 @@ class DbHelper {
   ///
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE words (
+      CREATE TABLE $sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         sirpca TEXT NOT NULL,
         turkce TEXT NOT NULL,
@@ -79,7 +79,7 @@ class DbHelper {
   ///
   Future<List<Word>> getRecords() async {
     final db = await instance.database;
-    final result = await db.query('words'); // OrderBy kaldırıldı
+    final result = await db.query(sqlTableName);
     final words = result.map((e) => Word.fromMap(e)).toList();
 
     return _sortSerbian(words); // 👈 Sırpça sıralamayı uygula
@@ -87,7 +87,7 @@ class DbHelper {
 
   /// 📌 Kelimeyi aramak için kullanılır.
   ///
-  Future<Word?> getWord(String word) async {
+  Future<Word?> getItem(String word) async {
     final db = await instance.database;
     final result = await db.query(
       'words',
@@ -101,7 +101,7 @@ class DbHelper {
   ///
   Future<int> insertRecord(Word word) async {
     final db = await instance.database;
-    final result = await db.insert('words', word.toMap());
+    final result = await db.insert(sqlTableName, word.toMap());
 
     // ✅ Kelime sayısını güncelle
     WordCountProvider().updateCount(); // Bu çalışmaz çünkü context yok
@@ -114,7 +114,7 @@ class DbHelper {
   Future<int> updateRecord(Word word) async {
     final db = await instance.database;
     return await db.update(
-      'words',
+      sqlTableName,
       word.toMap(),
       where: 'id = ?',
       whereArgs: [word.id],
@@ -125,7 +125,7 @@ class DbHelper {
   ///
   Future<int> deleteRecord(int id) async {
     final db = await instance.database;
-    return await db.delete('words', where: 'id = ?', whereArgs: [id]);
+    return await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
   /// 📌 Toplam kelime sayısını döner.
@@ -133,7 +133,7 @@ class DbHelper {
   Future<int> countRecords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM words'),
+      await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
     );
     return result ?? 0;
   }
@@ -163,7 +163,7 @@ class DbHelper {
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Import');
+        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'db_helper');
 
         if (context.mounted) {
           NotificationService.showCustomNotification(
@@ -183,7 +183,7 @@ class DbHelper {
       final List<dynamic> jsonList = jsonDecode(jsonString);
 
       final db = await database;
-      await db.delete('words');
+      await db.delete(sqlTableName);
 
       for (var item in jsonList) {
         final map = item as Map<String, dynamic>;
@@ -198,7 +198,7 @@ class DbHelper {
 
       log(
         '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
-        name: 'Import',
+        name: 'db_helper',
       );
 
       if (context.mounted) {
@@ -261,7 +261,7 @@ class DbHelper {
       }
 
       final db = await database;
-      await db.delete('words');
+      await db.delete(sqlTableName);
 
       int count = 0;
       for (int i = 1; i < lines.length; i++) {
@@ -284,9 +284,9 @@ class DbHelper {
         count++;
       }
 
-      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'Import');
+      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'db_helper');
     } catch (e) {
-      log('🚨 CSV yükleme hatası: $e', name: 'Import');
+      log('🚨 CSV yükleme hatası: $e', name: 'db_helper');
     }
   }
 
@@ -435,6 +435,7 @@ class DbHelper {
 
     log(
       '✅ Firestore verileri JSON olarak kaydedildi (${wordList.length} kayıt).',
+      name: "db_helper",
     );
   }
 
@@ -445,11 +446,15 @@ class DbHelper {
     if (count > 0) {
       log(
         "📦 Veritabanı zaten dolu ($count kayıt). Firestore 'dan veri çekilmeyecek.",
+        name: "db_helper",
       );
       return;
     }
 
-    log("📭 Veritabanı boş. Firestore 'dan veriler çekilecek...");
+    log(
+      "📭 Veritabanı boş. Firestore 'dan veriler çekilecek...",
+      name: "db_helper",
+    );
 
     await fetchWordsFromFirestoreAndSaveAsJson();
 
@@ -462,7 +467,7 @@ class DbHelper {
   Future<bool> wordExists(String sirpca) async {
     final db = await database;
     final result = await db.query(
-      'words',
+      sqlTableName,
       where: 'sirpca = ?',
       whereArgs: [sirpca],
     );
@@ -490,7 +495,7 @@ class DbHelper {
     // 3️⃣ Sadece okuma modunda aç ve COUNT(*) yap
     final db = await openDatabase(tempPath, readOnly: true);
     final result = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM words'),
+      await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
     );
     await db.close();
 

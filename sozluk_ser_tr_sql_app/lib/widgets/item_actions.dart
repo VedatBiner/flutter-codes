@@ -86,7 +86,7 @@ Future<void> confirmDelete({
     if (word.id != null) {
       await DbHelper.instance.deleteRecord(word.id!);
     } else {
-      final dbWord = await DbHelper.instance.getWord(word.sirpca);
+      final dbWord = await DbHelper.instance.getItem(word.sirpca);
       if (dbWord != null) {
         await DbHelper.instance.deleteRecord(dbWord.id!);
       }
