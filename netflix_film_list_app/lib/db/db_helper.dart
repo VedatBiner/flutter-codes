@@ -80,7 +80,7 @@ class DbHelper {
     return await db.insert(sqlTableName, item.toMap());
   }
 
-  /// 📌 ID’ye göre kaydı günceller.
+  /// 📌 ID ’ye göre kaydı günceller.
   ///
   Future<int> updateRecord(NetflixItem item) async {
     final db = await instance.database;
@@ -104,7 +104,7 @@ class DbHelper {
   Future<NetflixItem?> getItem(String netflixItemName) async {
     final db = await instance.database;
     final result = await db.query(
-      'words',
+      sqlTableName,
       where: 'word = ?',
       whereArgs: [netflixItemName],
     );
