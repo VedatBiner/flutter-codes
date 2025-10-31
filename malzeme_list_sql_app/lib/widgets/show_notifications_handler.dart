@@ -27,7 +27,7 @@ Future<void> showAddMalzemeDialog(
   );
 
   if (result != null) {
-    final existing = await DbHelper.instance.getWord(result.malzeme);
+    final existing = await DbHelper.instance.getItem(result.malzeme);
 
     if (existing != null) {
       /// ✅ Eğer malzeme zaten varsa: Uyarı bildirimi göster

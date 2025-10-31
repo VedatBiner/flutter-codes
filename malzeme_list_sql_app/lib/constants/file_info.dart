@@ -1,7 +1,11 @@
 // 📃 <----- file_info.dart ----->
 //
 
+/// 📌 Uygulama adı
 const String appName = "malzeme_list_sql_app";
+
+/// 📌 SQL Tablo adı
+const sqlTableName = "malzemeler";
 
 /// Dosya adları
 const String fileNameJson = "malzeme_backup.json";

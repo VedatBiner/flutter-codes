@@ -92,7 +92,10 @@
 80. `alphabet_malzeme_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
 81. `malzeme_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
 82. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
-83. 
+83. Veri tabanı yenileme ve veri tabanı silme seçenekleri `custom_drawer.dart` kodundan geçici olarak iptal edildi. - 31.10.2025
+84. `file_info.dart` dosyası yenilendi. `sqlTableName` değişkeni eklendi. - 31.10.2025
+85. `db_helper.dart` dosyası `sqlTableName` değişkenine göre düzenlendi. - 31.10.2025
+86. `getWord` metodu getItem olarak değiştirildi. - 31.10.2025
 
 
 

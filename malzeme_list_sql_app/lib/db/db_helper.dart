@@ -38,7 +38,7 @@ class DbHelper {
   /// 📌 Veritabanı tablolarını oluşturur
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE malzemeler (
+      CREATE TABLE sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         malzeme TEXT NOT NULL,
         miktar INTEGER,
@@ -50,7 +50,7 @@ class DbHelper {
   /// 📌 Tüm malzemeleri getir
   Future<List<Malzeme>> getRecords() async {
     final db = await instance.database;
-    final result = await db.query('malzemeler');
+    final result = await db.query(sqlTableName);
     return result.map((e) => Malzeme.fromMap(e)).toList();
   }
 
@@ -58,7 +58,7 @@ class DbHelper {
   Future<Malzeme?> getMalzemeById(int id) async {
     final db = await instance.database;
     final result = await db.query(
-      'malzemeler',
+      sqlTableName,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -69,10 +69,10 @@ class DbHelper {
   }
 
   /// 📌 Malzeme adına göre getir (tekil kontrol için)
-  Future<Malzeme?> getWord(String malzemeAdi) async {
+  Future<Malzeme?> getItem(String malzemeAdi) async {
     final db = await instance.database;
     final result = await db.query(
-      'malzemeler',
+      sqlTableName,
       where: 'malzeme = ?',
       whereArgs: [malzemeAdi],
     );
@@ -85,14 +85,14 @@ class DbHelper {
   /// 📌 Yeni malzeme ekle
   Future<void> insertRecord(Malzeme malzeme) async {
     final db = await instance.database;
-    await db.insert('malzemeler', malzeme.toMap());
+    await db.insert(sqlTableName, malzeme.toMap());
   }
 
   /// 📌 Mevcut malzemeyi güncelle
   Future<void> updateRecord(Malzeme malzeme) async {
     final db = await instance.database;
     await db.update(
-      'malzemeler',
+      sqlTableName,
       malzeme.toMap(),
       where: 'id = ?',
       whereArgs: [malzeme.id],
@@ -102,13 +102,13 @@ class DbHelper {
   /// 📌 Malzeme sil
   Future<void> deleteRecord(int id) async {
     final db = await instance.database;
-    await db.delete('malzemeler', where: 'id = ?', whereArgs: [id]);
+    await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
   /// 📌 Toplam malzeme sayısı
   Future<int> countRecords() async {
     final db = await instance.database;
-    final result = await db.rawQuery('SELECT COUNT(*) FROM malzemeler');
+    final result = await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName');
     return Sqflite.firstIntValue(result) ?? 0;
   }
 
@@ -142,7 +142,7 @@ class DbHelper {
   /// 📌 Tüm veritabanını sıfırla (malzeme tablosunu temizle)
   Future<void> resetDatabase() async {
     final db = await instance.database;
-    await db.delete('malzemeler');
+    await db.delete(sqlTableName);
   }
 
   /// 📌 Türkçe sıralama yöntemi.
