@@ -2,6 +2,7 @@
 Ab,Su
 Aba,Abla / Anne
 Abacı,Aba yapan / Asalak / Bedavacı
+Abadi,İpekten yapılan bir yazı kağıdı türü
 Abak,Abaküs / Deri heykel resim gibi şekiller
 Abana,Kastamonu ilçesi
 Abat,Bayındır
@@ -150,6 +151,7 @@ Altı,Bir sayı
 Altın,Bir element
 Altız,Altısı bir arada doğan çocuk
 Alçak,Aşağılık / Soysuz / Namert
+Alık,Sersem / Budala / Ebleh
 Alım,Çekicilik / Çalım / Gurur
 Alın,Yüzün kaşlar ile saç arası bölümü
 Alıç,Sert gövdeli ağaç ve yemişi / Akdiken
@@ -180,6 +182,7 @@ Analı,Anası olan
 Analık,Üvey anne
 Anam,"Şaşma, beğenme, üzüntü sözü"
 Anamal,Sermaye
+Anane,Gelenek
 Anasır,Ögeler
 Anat,Anlar / Zamanlar
 Anaç,Anne gibi / Kurnaz
@@ -444,6 +447,7 @@ Bamya,Bir tür sebze
 Ban,Osmanlı'da Macar ve Hırvat prens ünvanı
 Bana,Ben zamirinin yönelme durumu almış hali
 Banal,Bayağı / Sıradan
+Banaz,Kütahya ilçesi
 Bani,Kurucu / Yapan
 Bank,Parklarda oturulacak sıra
 Banka,Bankacılık işlemlerinin yapıldığı yer
@@ -456,6 +460,7 @@ Baraka,Eğreti yapı
 Baran,Yağmur
 Barem,Maaş çizelgesi
 Bari,Keşke
+Barikat,Bir yol veya geçidi kapatmak için yapılan engel
 Barit,Baryum sülfat / Baritin
 Bariz,Belirgin / göze çarpan
 Bark,Ev / Mabet görevi gören yapı
@@ -468,6 +473,7 @@ Bas,En kalın erkek sesi
 Basen,Bel ve kalça arası bölüm
 Basil,Bakteri türü
 Basit,Kolay
+Baskül,Ağırlık tartmaya yarayan alet
 Basur,Hemeroit
 Basık,Basılmış / Yassılaşmış
 Basılı,Basımevinde basılmış / Matbu
@@ -793,6 +799,7 @@ Dal,Branş / Arka / Kol / Sırt
 Dalak,Bir organ
 Dalamak,Köpek kurt ısırması
 Dalan,Lobi / Biçim / Şekil
+Dalmak,Bir yerin içine girmek / Uyumak
 Dalıcı,Dalma özelliği olan
 Dam,Kiremit ile örtülü yer / Cezaevi
 Dama,Kareli zeminde oynanan bir oyun
@@ -841,6 +848,7 @@ Demeç,Beyanat
 Demir,Bir element
 Demli,Çok demlenmiş koyu çay
 Demo,Tanıtım gösterisi
+Demre,Antalya ilçesi
 Denge,"Zihinsel, duygusal uyum / İstikrar"
 Deni,Alçak / Kötü / Kişiliksiz
 Derili,Derisi olan
@@ -938,6 +946,7 @@ Döl,Yavru / Çocuk
 Dölüt,Cenin / Fetüs
 Dönek,Kaypak / Kahpe kimse
 Dönem,Periyot / Yarıyıl
+Döper,Pokerde iki aynı renk kart yanında aynı desenin farklı kartı olması
 Döş,Göğüs / Bağır
 Döşek,Yatak
 Dü,Iki
@@ -962,6 +971,7 @@ Ebruli,Üzerinde değişik renkler bulunan
 Ece,Kraliçe / Güzel kadın
 Ecel,Ölüm zamanı
 Edalı,Nazlı / İşveli
+Edat,İlgeç / diğer kelimeler arasında bağ kuran kendi başına anlamı olmayan kelime türü
 Ede,Ağabey
 Eder,Fiyat / Paha / Değer
 Edi,Iş yapma
@@ -1374,6 +1384,7 @@ Hakem,Seçme ve karar yetkisi olan kimse
 Haki,Yeşile çalan toprak rengi
 Hakir,Değersiz / Aşağı görülen
 Hal,Sebze meyve toptancısı
+Halas,Kurtulma / Kurtuluş
 Halaç,İran'ın güneydoğusunda Türk topluluğu
 Halen,Şimdi / Şu anda
 Halet,Durum
@@ -1580,8 +1591,8 @@ Ilıtma,Işıtmak işi
 İnik,İnmiş / İndirilmiş
 İnmek,Konaklamak / Taşıt veya binek hayvanından dışarı gelmek
 İnç,İngiliz uzunluk ölçü birimi
-İp,İplik / Asarak öldürme cezası
 İp,İplik
+İp,İplik / Asarak öldürme cezası
 İpek,İpek böceği kozalarından çıkarılan ince parlak tel
 İpekçi,İpek satıcısı
 İpçi,İp üreten veya satan kişi
@@ -1607,12 +1618,13 @@ Irmak,Nehir
 İroni,Gülmece / Tersini kastederek alay etme
 İrs,Kalıtım
 Irz,Dokunulmaması ve saygı gösterilmesi gereken iffet
-İs,Duman lekesi
 Is,Açıklık / Doğruluk
+İs,Duman lekesi
 İsa,Hıristiyanlık kurucusu peygamber
 İsal,Ulaştırma
 İsale,Akıtma
 İse,Olunca / Olsa da / Olursa
+İshal,Kabız karşıtı
 İsilik,Terlemekten oluşan kabarcıklar
 İsim,Ad / Kişi / İnsan
 Iska,Hedefi tutturamama
@@ -2414,6 +2426,7 @@ Mecal,Güç / Kuvvet
 Mecra,Yatak
 Medar,Dayanak / Yardımcı / Dönence
 Mega,Büyük
+Meh,Ay
 Mehdi,Doğru yolda olan
 Mehil,Bir işi için tanınan ek süre
 Meke,Yaban ördeği cinsi
@@ -2577,6 +2590,7 @@ Nazende,Nazlı
 Nazi,Nazizm yanlısı olan kimse
 Nazil,İnen / İnmiş
 Nazilli,Aydın ilçesi
+Nazir,Benzer / Eş / Örnek
 Nazır,Bakan
 Naçar,Çaresiz / Zavallı / Düşkün
 Naçiz,Değersiz / Önemsiz
@@ -2618,6 +2632,7 @@ Nikel,Bir element
 Nil,Mısır'da nehir
 Nim,Yarı
 Nine,Yorumunolan kadın / büyük anne
+Nisa,Kadın
 Nisan,Yılın dördüncü ayı
 Nite,Nasıl / Niçin
 Nitel,Nitelik bakımından / Kalitatif
@@ -2798,6 +2813,7 @@ Peso,Bazı Güney Amerika ülkelerinin para birimi
 Pest,Pes
 Pestil,Çok yorgun / Güçsüz / Hasta
 Pet,Evcil hayvan
+Petek,Arıların bal depoladığı altıgen yuvacıklar
 Pey,Güvence parası
 Peç,Rus mimarisinde oda ısıtmak için kullanılan ocak
 Peçe,Maske / Sır / Giz / Nikap
@@ -3066,6 +3082,7 @@ Saçık,Saçılmış / Serpilmiş olan
 Saçış,Saçma işi
 Sağ,Yön / Yaşam / Gekenekçi
 Sağlık,Sağ / Canlı / Diri olma durumu
+Sağmal,Süt veren / Sağımlı
 Sağı,Kuş gübresi
 Sağım,Sağma işi
 Sağın,Doğruluk kuralına uygun olan / Sahih
@@ -3212,6 +3229,7 @@ Suna,Erkek ördek
 Sunak,Tapınaklarda kurban kesilen taş masa
 Sunmak,Radyo TV programı takdim etmek / Arz etmek
 Sunu,Sunulan şey / Takdim / Arz
+Sunum,Sunma işi
 Sup,Bir tatlı türü / Supangle
 Sur,Kale duvarı
 Sura,Ipekli kumaş türü
@@ -3393,6 +3411,7 @@ Tel,ince metal ip
 Tela,Kolalı kumaş
 Telaş,Acelecilik
 Telefon,Uzak mesafe konuşma aracı
+Teleme,Peynir çeşidi
 Telif,Uzlaştırma / Telif hakkı
 Telin,Lanetleme / Kargış / Kargıma
 Tellice,Tek kadın tarafından oynanan halk oyunu
@@ -3414,6 +3433,7 @@ Tepik,Tekme
 Tepiş,Tepme işi
 Tepişmek,Itilip kakışmak
 Ter,Vücut sıvısı
+Terane,Ezgi / Makam / Usanç veren durum
 Tere,Salatalık bitki
 Terek,Yüksekçe yerde bulunan raf
 Terim,"Bilimsel, sanatsal konularda özel bir kavramı karşılayan kelime"
@@ -3468,6 +3488,7 @@ Torun,Çocuğunun çocuğu
 Tos,Akın veya boynuzla vuruş
 Tost,Içine peynir vs. konan kızartılmış ekmek
 Tosun,Danalıkyan yeni çıkan genç boğa
+Total,Bütünsel
 Toy,Deneyimsiz/ Çaylak / Acemi
 Toz,küçük parçacıklar
 Trake,Eklem bacaklıların solunum kanalları
@@ -3562,6 +3583,7 @@ Ulam,Makule / Kategori
 Ulan,Öfke ve nefret sözü
 Ulaç,Zarf fiil
 Ulaş,Sivas ilçesi
+Ulema,Sarıklı din biginleri
 Ulum,Bilimler / İlimler
 Ulus,Millet / Bartın ilçesi
 Ulvi,Yüce / Eşsiz
@@ -3704,6 +3726,7 @@ Yanmak,Ateş durumuna geçmek / Tutuşmak
 Yanı,Teşhis
 Yanık,Yanmakta olan
 Yanıt,Cevap
+Yapım,Yapma işi
 Yar,Uçurum
 Yara,Dert / Acı / Üzüntü
 Yaralı,Yarası olan
@@ -3847,6 +3870,8 @@ Zağlı,Kılağılı
 Ze,Harf
 Zebra,Afrika'da yaşayan ata benzer çizgili bir hayvan
 Zede,Vurma çarpma sonucu oluşan yara
+Zehir,Miktarına göre canlıyı öldürebilecek madde
+Zehirli,Zehri olan
 Zeka,Anlak / Dirayet / Feraset
 Zekat,İslam'ın şartlarından biri
 Zeki,Çabuk kavrayan
@@ -4145,6 +4170,7 @@ Zıt,Karşıt / ters
 Şamar,Açık elle yüze vurulan tokat/ beşkardeş
 Şamil,Kaplayan / Kapsayan
 Şan,Gösteriş
+Şanlı,Tanınmış / Ünlü
 Şano,Tiyatro sahnesi
 Şans,Talih / Felek / Baht
 Şanslı,Talihli / Ballı

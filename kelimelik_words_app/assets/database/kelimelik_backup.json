@@ -12,6 +12,10 @@
     "meaning": "Aba yapan / Asalak / Bedavacı"
   },
   {
+    "word": "Abadi",
+    "meaning": "İpekten yapılan bir yazı kağıdı türü"
+  },
+  {
     "word": "Abak",
     "meaning": "Abaküs / Deri heykel resim gibi şekiller"
   },
@@ -604,6 +608,10 @@
     "meaning": "Aşağılık / Soysuz / Namert"
   },
   {
+    "word": "Alık",
+    "meaning": "Sersem / Budala / Ebleh"
+  },
+  {
     "word": "Alım",
     "meaning": "Çekicilik / Çalım / Gurur"
   },
@@ -722,6 +730,10 @@
   {
     "word": "Anamal",
     "meaning": "Sermaye"
+  },
+  {
+    "word": "Anane",
+    "meaning": "Gelenek"
   },
   {
     "word": "Anasır",
@@ -1780,6 +1792,10 @@
     "meaning": "Bayağı / Sıradan"
   },
   {
+    "word": "Banaz",
+    "meaning": "Kütahya ilçesi"
+  },
+  {
     "word": "Bani",
     "meaning": "Kurucu / Yapan"
   },
@@ -1828,6 +1844,10 @@
     "meaning": "Keşke"
   },
   {
+    "word": "Barikat",
+    "meaning": "Bir yol veya geçidi kapatmak için yapılan engel"
+  },
+  {
     "word": "Barit",
     "meaning": "Baryum sülfat / Baritin"
   },
@@ -1874,6 +1894,10 @@
   {
     "word": "Basit",
     "meaning": "Kolay"
+  },
+  {
+    "word": "Baskül",
+    "meaning": "Ağırlık tartmaya yarayan alet"
   },
   {
     "word": "Basur",
@@ -3176,6 +3200,10 @@
     "meaning": "Lobi / Biçim / Şekil"
   },
   {
+    "word": "Dalmak",
+    "meaning": "Bir yerin içine girmek / Uyumak"
+  },
+  {
     "word": "Dalıcı",
     "meaning": "Dalma özelliği olan"
   },
@@ -3366,6 +3394,10 @@
   {
     "word": "Demo",
     "meaning": "Tanıtım gösterisi"
+  },
+  {
+    "word": "Demre",
+    "meaning": "Antalya ilçesi"
   },
   {
     "word": "Denge",
@@ -3756,6 +3788,10 @@
     "meaning": "Periyot / Yarıyıl"
   },
   {
+    "word": "Döper",
+    "meaning": "Pokerde iki aynı renk kart yanında aynı desenin farklı kartı olması"
+  },
+  {
     "word": "Döş",
     "meaning": "Göğüs / Bağır"
   },
@@ -3850,6 +3886,10 @@
   {
     "word": "Edalı",
     "meaning": "Nazlı / İşveli"
+  },
+  {
+    "word": "Edat",
+    "meaning": "İlgeç / diğer kelimeler arasında bağ kuran kendi başına anlamı olmayan kelime türü"
   },
   {
     "word": "Ede",
@@ -5500,6 +5540,10 @@
     "meaning": "Sebze meyve toptancısı"
   },
   {
+    "word": "Halas",
+    "meaning": "Kurtulma / Kurtuluş"
+  },
+  {
     "word": "Halaç",
     "meaning": "İran'ın güneydoğusunda Türk topluluğu"
   },
@@ -6325,11 +6369,11 @@
   },
   {
     "word": "İp",
-    "meaning": "İplik / Asarak öldürme cezası"
+    "meaning": "İplik"
   },
   {
     "word": "İp",
-    "meaning": "İplik"
+    "meaning": "İplik / Asarak öldürme cezası"
   },
   {
     "word": "İpek",
@@ -6432,12 +6476,12 @@
     "meaning": "Dokunulmaması ve saygı gösterilmesi gereken iffet"
   },
   {
-    "word": "İs",
-    "meaning": "Duman lekesi"
-  },
-  {
     "word": "Is",
     "meaning": "Açıklık / Doğruluk"
+  },
+  {
+    "word": "İs",
+    "meaning": "Duman lekesi"
   },
   {
     "word": "İsa",
@@ -6454,6 +6498,10 @@
   {
     "word": "İse",
     "meaning": "Olunca / Olsa da / Olursa"
+  },
+  {
+    "word": "İshal",
+    "meaning": "Kabız karşıtı"
   },
   {
     "word": "İsilik",
@@ -9660,6 +9708,10 @@
     "meaning": "Büyük"
   },
   {
+    "word": "Meh",
+    "meaning": "Ay"
+  },
+  {
     "word": "Mehdi",
     "meaning": "Doğru yolda olan"
   },
@@ -10312,6 +10364,10 @@
     "meaning": "Aydın ilçesi"
   },
   {
+    "word": "Nazir",
+    "meaning": "Benzer / Eş / Örnek"
+  },
+  {
     "word": "Nazır",
     "meaning": "Bakan"
   },
@@ -10474,6 +10530,10 @@
   {
     "word": "Nine",
     "meaning": "Yorumunolan kadın / büyük anne"
+  },
+  {
+    "word": "Nisa",
+    "meaning": "Kadın"
   },
   {
     "word": "Nisan",
@@ -11194,6 +11254,10 @@
   {
     "word": "Pet",
     "meaning": "Evcil hayvan"
+  },
+  {
+    "word": "Petek",
+    "meaning": "Arıların bal depoladığı altıgen yuvacıklar"
   },
   {
     "word": "Pey",
@@ -12268,6 +12332,10 @@
     "meaning": "Sağ / Canlı / Diri olma durumu"
   },
   {
+    "word": "Sağmal",
+    "meaning": "Süt veren / Sağımlı"
+  },
+  {
     "word": "Sağı",
     "meaning": "Kuş gübresi"
   },
@@ -12850,6 +12918,10 @@
   {
     "word": "Sunu",
     "meaning": "Sunulan şey / Takdim / Arz"
+  },
+  {
+    "word": "Sunum",
+    "meaning": "Sunma işi"
   },
   {
     "word": "Sup",
@@ -13576,6 +13648,10 @@
     "meaning": "Uzak mesafe konuşma aracı"
   },
   {
+    "word": "Teleme",
+    "meaning": "Peynir çeşidi"
+  },
+  {
     "word": "Telif",
     "meaning": "Uzlaştırma / Telif hakkı"
   },
@@ -13658,6 +13734,10 @@
   {
     "word": "Ter",
     "meaning": "Vücut sıvısı"
+  },
+  {
+    "word": "Terane",
+    "meaning": "Ezgi / Makam / Usanç veren durum"
   },
   {
     "word": "Tere",
@@ -13874,6 +13954,10 @@
   {
     "word": "Tosun",
     "meaning": "Danalıkyan yeni çıkan genç boğa"
+  },
+  {
+    "word": "Total",
+    "meaning": "Bütünsel"
   },
   {
     "word": "Toy",
@@ -14250,6 +14334,10 @@
   {
     "word": "Ulaş",
     "meaning": "Sivas ilçesi"
+  },
+  {
+    "word": "Ulema",
+    "meaning": "Sarıklı din biginleri"
   },
   {
     "word": "Ulum",
@@ -14818,6 +14906,10 @@
   {
     "word": "Yanıt",
     "meaning": "Cevap"
+  },
+  {
+    "word": "Yapım",
+    "meaning": "Yapma işi"
   },
   {
     "word": "Yar",
@@ -15390,6 +15482,14 @@
   {
     "word": "Zede",
     "meaning": "Vurma çarpma sonucu oluşan yara"
+  },
+  {
+    "word": "Zehir",
+    "meaning": "Miktarına göre canlıyı öldürebilecek madde"
+  },
+  {
+    "word": "Zehirli",
+    "meaning": "Zehri olan"
   },
   {
     "word": "Zeka",
@@ -16582,6 +16682,10 @@
   {
     "word": "Şan",
     "meaning": "Gösteriş"
+  },
+  {
+    "word": "Şanlı",
+    "meaning": "Tanınmış / Ünlü"
   },
   {
     "word": "Şano",

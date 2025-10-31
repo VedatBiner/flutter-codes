@@ -9,8 +9,6 @@ import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/drawer_info_padding.dart';
-import 'drawer_widgets/drawer_renew_db.dart';
-import 'drawer_widgets/drawer_reset_db_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -60,11 +58,10 @@ class CustomDrawer extends StatelessWidget {
             const DrawerBackupTile(),
 
             /// 📌 Veritabanını Yenile (SQL)
-            DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
+            /// DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
 
             /// 📌 Veritabanını Sıfırla
-            DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
-
+            /// DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
             Divider(color: menuColor, thickness: 2),
 
             /// 📌 Versiyon ve yazılım bilgisi

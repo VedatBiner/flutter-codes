@@ -155,10 +155,7 @@ Future<ExportItems> exportItemsToFileFormats({
           );
         }
       } else {
-        log(
-          '⚠️ DB dosyası bulunamadı: $dbPath',
-          name: 'exportWordsToJsonCsvXlsx',
-        );
+        log('⚠️ DB dosyası bulunamadı: $dbPath', name: 'Export_items');
       }
     } catch (e) {
       log('⚠️ DB yedeği alınamadı: $e', name: 'Export_items');

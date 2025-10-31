@@ -3,107 +3,109 @@
 Kelimelik oyunu için basit bir sqflite uygulaması
 bir chatGPT ortak çalışması :)
 
-- SQfLite ile veri girişi yapılıyor. 
-- Girilen verilerin yedekleri SQL, JSON ve CSV olarak alınabiliyor.
-- Kelime ekleme, silme, güncelleme kontrolü var.
-- Aynı kelime tekrar girilemiyor.
-- Versiyon bilgisi var.
-- Drawer menu ayrı dosyaya alındı
-- Home_page daha sadeleşti
-- Kelime kartına iki kez tıklanınca düzeltme ve silme butonları çıkıyor.
-- Kart görünümü renklendirildi.
-- Kelime eklemeye notification eklendi
-- Kelime silmeye notification eklendi
-- Kelime güncellemeye notification eklendi
-- Kelime ekleme kutusu açılınca rama kutusu kapatılıyor.
-- Biraz renklendirme yapıldı.
-- Butonlar renklendirildi.
-- Sık kullanılan renk ve stiller sabit dosyalara alındı. 
-  Böylece renk değişimi tek yerden yapılabilecek.
-- Türkçe sıralama yapıldı.
-- Bazı notification hataları düzeltildi.
-- Veri tabanı silme dialog kutusu düzeltildi
-- Uygulama ikonu değiştirildi.
-- Uygulama adı değiştirildi
-- Fihrist ve klasik liste görünümü eklendi.
-- iki kod da da tekrarlanan kelime silme dialog bölümü tek kod ile ortak kullanılır hale getirildi.
-- veritabanı silme dialog box 'da önceki dialog ile birleştirilip, üç ayrı kodun aynı ortak dialog 
-kutusunu kullanması sağlandı.
-- Arama kutusu ikonları görselleştirildi.
-- Silme ve düzenleme ikonları değiştirildi.
-- FAB butonu biraz sola çekildi.
-- Silme ve düzenleme ortak butonları tek dosyaya ayrıldı.
-- JSON ve CSV yedek alma işlemi iki ayrı dosyaya ayrılıp, tek menü seçeneğine indirildi.
-- Verilerin SQL 'den silinip, JSON ile yeniden yüklenmesi sağlandı.
-- Verilerin silindikten sonra Drawer menü den de geri yüklenebilmesi sağlandı.
-- Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
-- Bazı kod tekrarları optimize edildi.
-- Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
-- Fihrist görünümünde renk ve font düzenlemeleri yapıldı.
-- Kelime veri tabanı yüklenirken animasyon eklendi. Dialog kutusu düzeltildi.
-- Arama kutusu içinde silme eklendi. Font awesome ile ikon değiştirildi
-- provider eklendi (kelime sayacı) veri silinip uygulama baştan çalışınca görülebiliyor.
-- kelime sayacı animasyonlu olsun
-- Kelime sayacı assets 'den de okunabilsin.
-- Süre sayacı eklendi
-- Yedeklerin ayrı bir dizine alınması sağlandı.
-- Excel formatında da yedekleme sağlandı.
-- word_database.dart dosyası db_helper.dart olarak değiştirildi.
-- sql dosyası da diğer yedekler ile aynı dizine taşındı.
-- words.db > kelimelik.db yapıldı
-- insertWord metodu insertRecord oldu (db_helper.dart)
-- updateWord metodu updateRecord oldu (db_helper.dart)
-- deleteWord metodu deleteRecord oldu (db_helper.dart)
-- countWords metodu countRecords oldu (db_helper.dart)
-- exportWordsToJson metodu exportRecordsToJson oldu (db_helper.dart)
-- importWordsFromJson metodu importRecordsFromJson oldu (db_helper.dart)
-- exportWordsToCsv metodu exportRecordsToCsv oldu (db_helper.dart)
-- importWordsFromCsv metodu importRecordsFromCsv oldu (db_helper.dart)
-- exportWordsToExcel metodu exportRecordsToExcel oldu (db_helper.dart)
-- getWords metodu getRecords oldu (db_helper.dart)
-- Tüm drawer menü modüler hale geldi
-- Uygulama adı format aa.vb.xxxxxxxx şeklinde değiştirildi.
-- notification_service.dart kodu güncellendi.
-- add_word_dialog_handler.dart dosyası show_word_dialog_handler.dart olarak değiştirildi
-- showAddWordDialog metodu showWordDialogHandler olarak değiştirildi.
-- Silme/ekleme/güncelleme ve kelime kontrolü uyarıları aynı yerden yapıldı.
-- Yedekleme uyarısı da how_word_dialog_handler.dart dosyası içine alındı.
-- Notification boyutları düzeltildi.
-- JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi alındı.
-- excel_backup_helper.dart silindi.
-- csv_backup_helper.dart silindi.
-- json_backup_helper.dart silindi.
-- Kelime silme dialog kutusu düzeltildi.
-- TriggerXXX metodu backupNotificationHelper olarak değiştirildi.
-- export_words.dart dosyası export_items.dart dosyası olarak değiştirildi.
-- word_export_formats.dart dosyası export_items_formats.dart dosyası olarak değiştirildi.
-- ExportResultX sınıfı ExportItems olarak değiştirildi.
-- exportWordsToJsonCsvXlsx metodu exportItemsToFileFormats olarak değiştirildi.
-- pubspec.yaml dosyası düzenlendi.
-- sdk bilgisi sdk: ">=3.9.0 <4.0.0" yapıldı.
-- Uygulama ikonu değiştirildi.
-- © 2025 bilgisi eklendi
-- file_info.dart dosyasında final değerler const olarak değiştirildi. - 20.10.2025
-- bu değişiklikle ilgili olan backup_notification_helper.dart ve export_items.dart dosyaları da güncellendi. -20.10.2025
-- Konsola yazılan log bilgileri düzeltildi. - 20.10.2025
-- `show_word_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
-72. `show_notifications_handler.dart` bildirim görünümü düzeltildi. - 25.10.2025
-73. `word_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
-74. `word_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
-75. `word_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
-76. `word_actions.dart` dosyası `item_actions.dart` olarak değiştirildi. - 25.10.2025
-77. `word_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
-78.  `word_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
-79. `alphabet_word_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
-80. `word_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025
-81. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
-82. `settings.gradle.kts` dosyası düzenlendi. - 25.10.2025
-
+1. SQfLite ile veri girişi yapılıyor. 
+2. Girilen verilerin yedekleri SQL, JSON ve CSV olarak alınabiliyor.
+3. Kelime ekleme, silme, güncelleme kontrolü var.
+4. Aynı kelime tekrar girilemiyor.
+5. Versiyon bilgisi var.
+6. Drawer menu ayrı dosyaya alındı
+7. Home_page daha sadeleşti
+8. Kelime kartına iki kez tıklanınca düzeltme ve silme butonları çıkıyor.
+9. Kart görünümü renklendirildi.
+10. Kelime eklemeye notification eklendi
+11. Kelime silmeye notification eklendi
+12. Kelime güncellemeye notification eklendi
+13. Kelime ekleme kutusu açılınca arama kutusu kapatılıyor.
+14. Biraz renklendirme yapıldı.
+15. Butonlar renklendirildi.
+16. Sık kullanılan renk ve stiller sabit dosyalara alındı. Böylece renk değişimi tek yerden yapılabilecek.
+17. Türkçe sıralama yapıldı.
+18. Bazı notification hataları düzeltildi.
+19. Veri tabanı silme dialog kutusu düzeltildi
+20. Uygulama ikonu değiştirildi.
+21. Uygulama adı değiştirildi
+22. Fihrist ve klasik liste görünümü eklendi.
+23. iki kod da da tekrarlanan kelime silme dialog bölümü tek kod ile ortak kullanılır hale getirildi.
+24. veritabanı silme dialog box 'da önceki dialog ile birleştirilip, üç ayrı kodun aynı ortak dialog kutusunu kullanması sağlandı.
+25. Arama kutusu ikonları görselleştirildi.
+26. Silme ve düzenleme ikonları değiştirildi.
+27. FAB butonu biraz sola çekildi.
+28. Silme ve düzenleme ortak butonları tek dosyaya ayrıldı.
+29. JSON ve CSV yedek alma işlemi iki ayrı dosyaya ayrılıp, tek menü seçeneğine indirildi.
+30. Verilerin SQL 'den silinip, JSON ile yeniden yüklenmesi sağlandı.
+31. Verilerin silindikten sonra Drawer menü den de geri yüklenebilmesi sağlandı.
+32. Veriler silindikten sonra uygulama tekrar çalışınca home_page içinden de yenilenebiliyor.
+33. Bazı kod tekrarları optimize edildi.
+34. Türkçe harfler ayrı dosyaya alındı. Böylece fihrist görünüm kodu kısaldı
+35. Fihrist görünümünde renk ve font düzenlemeleri yapıldı.
+36. Kelime veri tabanı yüklenirken animasyon eklendi. Dialog kutusu düzeltildi.
+37. Arama kutusu içinde silme eklendi. Font awesome ile ikon değiştirildi
+38. provider eklendi (kelime sayacı) veri silinip uygulama baştan çalışınca görülebiliyor.
+39. kelime sayacı animasyonlu olsun
+40. Kelime sayacı assets 'den de okunabilsin.
+41. Süre sayacı eklendi
+42. Yedeklerin ayrı bir dizine alınması sağlandı.
+43. Excel formatında da yedekleme sağlandı.
+44. `word_database.dart` dosyası `db_helper.dart` olarak değiştirildi.
+45. sql dosyası da diğer yedekler ile aynı dizine taşındı.
+46. words.db > kelimelik.db yapıldı
+47. insertWord metodu insertRecord oldu (db_helper.dart)
+48. updateWord metodu updateRecord oldu (db_helper.dart)
+49. deleteWord metodu deleteRecord oldu (db_helper.dart)
+50. countWords metodu countRecords oldu (db_helper.dart)
+51. `exportWordsToJson` metodu `exportRecordsToJson` oldu (db_helper.dart)
+52. `importWordsFromJson` metodu `importRecordsFromJson` oldu (db_helper.dart)
+53. `exportWordsToCsv` metodu `exportRecordsToCsv` oldu (db_helper.dart)
+54. `importWordsFromCsv` metodu `importRecordsFromCsv` oldu (db_helper.dart)
+55. `exportWordsToExcel` metodu `exportRecordsToExcel` oldu (db_helper.dart)
+56. `getWords` metodu `getRecords` oldu (db_helper.dart)
+57. Tüm drawer menü modüler hale geldi
+58. Uygulama adı formatı `aa.vb.xxxxxxxx` şeklinde değiştirildi.
+59. `notification_service.dart` kodu güncellendi.
+60. `add_word_dialog_handler.dart` dosyası show_word_dialog_handler.dart olarak değiştirildi
+61. `showAddWordDialog` metodu `showWordDialogHandler` olarak değiştirildi.
+62. Silme/ekleme/güncelleme ve kelime kontrolü uyarıları aynı yerden yapıldı.
+63. Yedekleme uyarısı da `show_word_dialog_handler.dart` dosyası içine alındı.
+64. Notification boyutları düzeltildi.
+65. JSON/CSV/Excel ve SQL backup 'ları farklı yöntem ile alınacak sözlük web app gibi alındı.
+66. `excel_backup_helper.dart` silindi.
+67. `csv_backup_helper.dart` silindi.
+68. `json_backup_helper.dart` silindi. 
+69. Kelime silme dialog kutusu düzeltildi.
+70. `TriggerXXX` metodu `backupNotificationHelper` olarak değiştirildi.
+71. `export_words.dart` dosyası `export_items.dart`  dosyası olarak değiştirildi.
+72. `word_export_formats.dart` dosyası `export_items_formats.dart` dosyası olarak değiştirildi.
+73. `ExportResultX` sınıfı `ExportItems` olarak değiştirildi.
+74. `exportWordsToJsonCsvXlsx` metodu `exportItemsToFileFormats` olarak değiştirildi.
+75. `pubspec.yaml` dosyası düzenlendi. 
+76. sdk bilgisi sdk: `>=3.9.0 <4.0.0` yapıldı. 
+77. Uygulama ikonu değiştirildi. 
+78. `© 2025` bilgisi eklendi
+79. `file_info.dart` dosyasında final değerler const olarak değiştirildi. - 20.10.2025 
+80. bu değişiklikle ilgili olan `backup_notification_helper.dart` ve `export_items.dart` dosyaları da güncellendi. -20.10.2025 
+81. Konsola yazılan log bilgileri düzeltildi. - 20.10.2025
+82. `show_word_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
+83. `show_notifications_handler.dart` bildirim görünümü düzeltildi. - 25.10.2025
+84. `word_action_buttons.dart` dosyası `item_action_buttons.dart` olarak değiştirildi. - 25.10.2025
+85. `word_dialog.dart` dosyası `item_dialog.dart` olarak değiştirildi. - 25.10.2025
+86. `word_model.dart` dosyası `item_model.dart` olarak değiştirildi. - 25.10.2025
+87. `word_actions.dart` dosyası `item_actions.dart` olarak değiştirildi. - 25.10.2025
+88. `word_card.dart` dosyası `item_card.dart` olarak değiştirildi. - 25.10.2025
+89. `word_count_provider.dart` dosyası `item_count_provider.dart` olarak değiştirildi. - 25.10.2025
+90. `alphabet_word_list.dart` dosyası `alphabet_item_list.dart` olarak değiştirildi. - 25.10.2025
+91. `word_list.dart` dosyası `item_list.dart` olarak değiştirildi. - 25.10.2025 
+92. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
+93. `settings.gradle.kts` dosyası düzenlendi. - 25.10.2025 
+94. Veri tabanı yenileme ve veri tabanı silme seçenekleri `custom_drawer.dart`kodundan geçici olarak iptal edildi. - 31.10.2025
+95. `file_info.dart` dosyası yenilendi. `sqlTableName`değişkeni eklendi. - 31.10.2025
+96. `db_lhelper.dart` dosyası `sqlTableName`değişkenine göre düzenlendi. - 31.10.2025
+97. `export_items.dart` dosyasında düzeltme yapıldı. - 31.10.2025
+98. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
-- Cihazdaki veriler ile sanal cihaz verisini güncelle
+- Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 
 <BR>
 Ekran Görüntüleri

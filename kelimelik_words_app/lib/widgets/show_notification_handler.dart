@@ -157,7 +157,7 @@ Future<void> showWordDialogHandler(
   );
 
   if (result != null) {
-    final existing = await DbHelper.instance.getWord(result.word);
+    final existing = await DbHelper.instance.getItem(result.word);
 
     if (existing != null) {
       /// ✅ Eğer kelime zaten varsa: Uyarı bildirimi göster

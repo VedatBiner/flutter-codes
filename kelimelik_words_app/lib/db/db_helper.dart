@@ -40,8 +40,6 @@ class DbHelper {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
 
-    // log('📁 SQLite veritabanı konumu: $path', name: 'DB Helper');
-
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -49,7 +47,7 @@ class DbHelper {
   ///
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE words (
+      CREATE TABLE $sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         word TEXT NOT NULL,
         meaning TEXT NOT NULL
@@ -61,7 +59,7 @@ class DbHelper {
   ///
   Future<List<Word>> getRecords() async {
     final db = await instance.database;
-    final result = await db.query('words');
+    final result = await db.query(sqlTableName);
     final words = result.map((e) => Word.fromMap(e)).toList();
 
     return _sortTurkish(words); // 👈 Türkçe sıralamayı uygula
@@ -69,10 +67,10 @@ class DbHelper {
 
   /// 📌 Kelimeyi aramak için kullanılır.
   ///
-  Future<Word?> getWord(String word) async {
+  Future<Word?> getItem(String word) async {
     final db = await instance.database;
     final result = await db.query(
-      'words',
+      sqlTableName,
       where: 'word = ?',
       whereArgs: [word],
     );
@@ -83,14 +81,14 @@ class DbHelper {
   ///
   Future<int> insertRecord(Word word) async {
     final db = await instance.database;
-    return await db.insert('words', word.toMap());
+    return await db.insert(sqlTableName, word.toMap());
   }
 
   /// 📌 ID ye göre kelimeyi günceller.
   Future<int> updateRecord(Word word) async {
     final db = await instance.database;
     return await db.update(
-      'words',
+      sqlTableName,
       word.toMap(),
       where: 'id = ?',
       whereArgs: [word.id],
@@ -101,18 +99,18 @@ class DbHelper {
   ///
   Future<int> deleteRecord(int id) async {
     final db = await instance.database;
-    return await db.delete('words', where: 'id = ?', whereArgs: [id]);
+    return await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<int> countRecords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM words'),
+      await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
     );
     return result ?? 0;
   }
 
-  /// 📌 JSON yedeği burada alınıyor.
+  /// 📌 JSON yedeği burada alınıyor.aa
   ///
   Future<String> exportRecordsToJson() async {
     final words = await getRecords(); // tüm kelimeleri al
@@ -157,7 +155,7 @@ class DbHelper {
       final List<dynamic> jsonList = jsonDecode(jsonString);
 
       final db = await database;
-      await db.delete('words');
+      await db.delete(sqlTableName);
 
       for (var item in jsonList) {
         final word = Word.fromMap(item);
@@ -241,7 +239,7 @@ class DbHelper {
 
       // Veritabanını temizle
       final db = await database;
-      await db.delete('words');
+      await db.delete(sqlTableName);
 
       // İlk satır başlık, atla
       int count = 0;
