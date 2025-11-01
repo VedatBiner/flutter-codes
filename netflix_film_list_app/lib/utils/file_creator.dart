@@ -1,10 +1,10 @@
 // 📃 <----- file_creator.dart ----->
 //
 //  Bu dosya veritabanı ve yedek dosya işlemlerini yönetir.
-//  • Veritabanı var mı kontrol eder.
-//  • Asset içindeki CSV’yi okuyarak JSON, CSV ve Excel oluşturur.
-//  • CSV → JSON, JSON → SQL dönüşümlerini içerir.
-//  • JSON → SQL aktarımı toplu (batch) şekilde yapılır (çok hızlı).
+//  • SQL veritabanı kontrolü.
+//  • Asset içindeki CSV’den JSON, CSV ve Excel üretimi.
+//  • JSON → SQL hızlı (batch) aktarımı.
+//  • Eğer SQL veritabanı varsa işlemler atlanır.
 //
 
 // 📌 Dart paketleri
@@ -79,7 +79,6 @@ Future<void> createDeviceCsvFromAssetWithDateFix() async {
 }
 
 /// 📦 Asset içindeki CSV’yi okuyup JSON dosyasına dönüştürür.
-/// Tarihleri "aa/gg/yy" → "gg/aa/yy" çevirir ve cihazda [fileNameJson] olarak kaydeder.
 Future<void> createJsonFromAssetCsv() async {
   const tag = 'CSV→JSON Builder';
   try {
@@ -176,10 +175,10 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
       }
     }
 
-    // Stil ve format
     for (int i = 1; i <= headers.length; i++) {
       sheet.autoFitColumn(i);
     }
+
     sheet.getRangeByName('A1:${_getColumnLetter(headers.length)}1')
       ..cellStyle.bold = true
       ..cellStyle.backColor = '#C00000'
@@ -199,7 +198,6 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
   }
 }
 
-/// 🅰️ Kolon harfi hesaplayıcı (örnek: 1→A, 26→Z, 27→AA)
 String _getColumnLetter(int colNumber) {
   String colLetter = '';
   while (colNumber > 0) {
@@ -210,10 +208,21 @@ String _getColumnLetter(int colNumber) {
   return colLetter;
 }
 
-/// ⚡ JSON → SQL hızlı (batch) aktarım
+/// ⚡ JSON → SQL hızlı (batch) aktarım (sadece veritabanı boşsa)
 Future<void> importJsonToDatabaseFast() async {
   const tag = 'JSON→SQL Import (Batch)';
   try {
+    final db = await DbHelper.instance.database;
+    final count = await DbHelper.instance.countRecords();
+
+    if (count > 0) {
+      log(
+        '🟢 Veritabanı zaten dolu ($count kayıt). Tekrar oluşturulmadı.',
+        name: tag,
+      );
+      return;
+    }
+
     final directory = await getApplicationDocumentsDirectory();
     final jsonPath = join(directory.path, fileNameJson);
     final file = File(jsonPath);
@@ -230,9 +239,7 @@ Future<void> importJsonToDatabaseFast() async {
       return;
     }
 
-    final db = await DbHelper.instance.database;
     final batch = db.batch();
-
     int counter = 0;
     for (final e in jsonList) {
       final map = e as Map<String, dynamic>;
@@ -268,17 +275,10 @@ Future<void> checkIfDatabaseExists() async {
     } else {
       log('⚠️ Veritabanı yok: $dbPath', name: 'DB Check');
 
-      const assetCsvPath = 'assets/database/$assetsFileNameCsv';
-      try {
-        final data = await rootBundle.loadString(assetCsvPath);
-        if (data.isNotEmpty) {
-          log('✅ Asset CSV dosyası bulundu: $assetCsvPath', name: 'DB Check');
-        } else {
-          log('⚠️ Asset CSV dosyası boş veya okunamadı.', name: 'DB Check');
-        }
-      } catch (e) {
-        log('⚠️ Asset CSV dosyası bulunamadı: $e', name: 'DB Check');
-      }
+      await createDeviceCsvFromAssetWithDateFix();
+      await createJsonFromAssetCsv();
+      await createExcelFromAssetCsvSyncfusion();
+      await importJsonToDatabaseFast();
     }
   } catch (e) {
     log('🚨 Veritabanı kontrolü sırasında hata: $e', name: 'DB Check');
