@@ -1,17 +1,10 @@
-// 📃 <----- custom_drawer.dart ----->
-// Drawer menüye buradan erişiliyor.
+// 📁 lib/widgets/custom_drawer.dart
+//
+// 🎬 Netflix Film List App
+// Drawer menüsü – görünüm modu, yedekleme, sıfırlama, vb. işlemler.
+//
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-
-/// 📌 Yardımcı yüklemeler burada
-import '../constants/color_constants.dart';
-import 'drawer_widgets/drawer_backup_tile.dart';
-import 'drawer_widgets/drawer_info_padding_tile.dart';
-import 'drawer_widgets/drawer_title.dart';
-// import 'drawer_widgets/drawer_change_view_tile.dart';
-// import 'drawer_widgets/drawer_renew_db.dart';
-// import 'drawer_widgets/drawer_reset_db_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
@@ -19,57 +12,104 @@ class CustomDrawer extends StatelessWidget {
   final bool isFihristMode;
   final VoidCallback onToggleViewMode;
 
-  /// 📌 JSON ’dan veri yüklemek için üst bileşenden gelen fonksiyon
-  ///    İmza → ({ctx, onStatus})
+  /// 🔹 Artık opsiyonel hale getirildi (`?`)
   final Future<void> Function({
     required BuildContext ctx,
-    required void Function(bool, double, String?, Duration) onStatus,
-  })
+    required void Function(
+      bool loading,
+      double prog,
+      String? currentItem,
+      Duration elapsed,
+    )
+    onStatus,
+  })?
   onLoadJsonData;
 
   const CustomDrawer({
     super.key,
     required this.onDatabaseUpdated,
+    this.onLoadJsonData, // 👈 artık required değil
     required this.appVersion,
     required this.isFihristMode,
     required this.onToggleViewMode,
-    required this.onLoadJsonData,
   });
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
-        color: drawerColor,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            /// 📌 Drawer menü başlığı burada oluşturuluyor
-            const DrawerTitleWidget(),
+      backgroundColor: Colors.grey[900],
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: const BoxDecoration(color: Colors.redAccent),
+            child: Center(
+              child: Text(
+                '🎬 Menü',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
 
-            Divider(thickness: 2, color: menuColor, height: 0),
+          // 🔄 Görünüm modu değiştir
+          // ListTile(
+          //   leading: const Icon(Icons.swap_horiz, color: Colors.white),
+          //   title: Text(
+          //     isFihristMode ? 'Fihrist Modu' : 'Liste Modu',
+          //     style: const TextStyle(color: Colors.white),
+          //   ),
+          //   onTap: () {
+          //     onToggleViewMode();
+          //     Navigator.pop(context);
+          //     log('🌀 Görünüm modu değiştirildi: $isFihristMode',
+          //         name: 'Drawer');
+          //   },
+          // ),
 
-            /// 📌 Görünüm değiştirme
-            // DrawerChangeViewTile(
-            //   isFihristMode: isFihristMode,
-            //   onToggleViewMode: onToggleViewMode,
-            // ),
+          // 🔁 Veritabanını yenile
+          // ListTile(
+          //   leading: const Icon(Icons.refresh, color: Colors.white),
+          //   title: const Text('Veritabanını Yenile',
+          //       style: TextStyle(color: Colors.white)),
+          //   onTap: () async {
+          //     Navigator.pop(context);
+          //     await onDatabaseUpdated();
+          //     log('✅ Veritabanı yenilendi', name: 'Drawer');
+          //   },
+          // ),
 
-            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
-            const DrawerBackupTile(),
+          // 📥 JSON/SQL yükleme (opsiyonel)
+          // if (onLoadJsonData != null)
+          //   ListTile(
+          //     leading: const Icon(Icons.cloud_download, color: Colors.white),
+          //     title: const Text('JSON Verisi Yükle',
+          //         style: TextStyle(color: Colors.white)),
+          //     onTap: () async {
+          //       Navigator.pop(context);
+          //       log('📥 JSON yükleme işlemi başlatıldı', name: 'Drawer');
+          //       await onLoadJsonData!(
+          //         ctx: context,
+          //         onStatus: (bool loading, double prog, String? currentItem,
+          //             Duration elapsed) {
+          //           log('🔄 Yükleniyor: ${prog.toStringAsFixed(2)}', name: 'Drawer');
+          //         },
+          //       );
+          //     },
+          //   ),
+          const Divider(color: Colors.white24),
 
-            /// 📌 Veritabanını Yenile (SQL)
-            // DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
-
-            /// 📌 Veritabanını Sıfırla
-            // DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
-            Divider(color: menuColor, thickness: 2),
-
-            /// 📌 Versiyon ve yazılım bilgisi
-            InfoPaddingTile(appVersion: appVersion),
-          ],
-        ),
+          // 📦 Sürüm bilgisi
+          ListTile(
+            leading: const Icon(Icons.info_outline, color: Colors.white),
+            title: Text(
+              'Sürüm: $appVersion',
+              style: const TextStyle(color: Colors.white70, fontSize: 14),
+            ),
+          ),
+        ],
       ),
     );
   }

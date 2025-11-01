@@ -1,7 +1,8 @@
-// 📃 <----- word_database.dart ----->
-// Tüm veri tabanı işlemleri
-// Tüm CSV JSON işlemleri
-// Türkçe harflere göre sıralama metodu burada tanımlanıyor
+// 📃 <----- db_helper.dart ----->
+//
+// Tüm veritabanı işlemleri (CRUD)
+// Tüm CSV / JSON dışa aktarma işlemleri
+// Türkçe sıralama metodu burada tanımlanıyor
 //
 
 // 📌 Dart hazır paketleri
@@ -57,8 +58,7 @@ class DbHelper {
     final db = await instance.database;
     final result = await db.query(sqlTableName);
     final items = result.map((e) => NetflixItem.fromMap(e)).toList();
-
-    return _sortTurkish(items); // 👈 Türkçe sıralamayı uygula
+    return _sortTurkish(items);
   }
 
   /// 📌 Tek bir kaydı isme göre aramak için kullanılır.
@@ -69,6 +69,18 @@ class DbHelper {
       sqlTableName,
       where: 'netflixItemName = ?',
       whereArgs: [name],
+    );
+    return result.isNotEmpty ? NetflixItem.fromMap(result.first) : null;
+  }
+
+  /// 📌 getItem — backward compatibility (eski referanslar için)
+  ///
+  Future<NetflixItem?> getItem(String netflixItemName) async {
+    final db = await instance.database;
+    final result = await db.query(
+      sqlTableName,
+      where: 'netflixItemName = ?',
+      whereArgs: [netflixItemName],
     );
     return result.isNotEmpty ? NetflixItem.fromMap(result.first) : null;
   }
@@ -99,18 +111,6 @@ class DbHelper {
     return await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
-  /// 📌 Kelimeyi aramak için kullanılır.
-  ///
-  Future<NetflixItem?> getItem(String netflixItemName) async {
-    final db = await instance.database;
-    final result = await db.query(
-      sqlTableName,
-      where: 'word = ?',
-      whereArgs: [netflixItemName],
-    );
-    return result.isNotEmpty ? NetflixItem.fromMap(result.first) : null;
-  }
-
   /// 📌 Kayıt sayısını döndürür.
   ///
   Future<int> countRecords() async {
@@ -121,73 +121,27 @@ class DbHelper {
     return result ?? 0;
   }
 
-  /// 📌 JSON yedeği burada alınıyor.
+  /// 📌 JSON yedeği oluşturur.
   ///
   Future<String> exportRecordsToJson() async {
-    final items = await getRecords(); // tüm kayıtları al
-    final itemMaps = items.map((i) => i.toMap()).toList();
-    final jsonString = jsonEncode(itemMaps);
+    final items = await getRecords();
+    final jsonString = jsonEncode(items.map((i) => i.toMap()).toList());
 
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$fileNameJson';
-
     final file = File(filePath);
     await file.writeAsString(jsonString);
 
     return filePath;
   }
 
-  /// 📌 JSON yedeği burada geri yükleniyor.
-  ///
-  // Future<void> importRecordsFromJson(BuildContext context) async {
-  //   try {
-  //     final directory = await getApplicationDocumentsDirectory();
-  //     final filePath = '${directory.path}/$fileNameJson';
-  //     final file = File(filePath);
-  //
-  //     if (!(await file.exists())) {
-  //       log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Db_helper');
-  //
-  //       if (context.mounted) {
-  //         NotificationService.showCustomNotification(
-  //           context: context,
-  //           title: 'Dosya Bulunamadı',
-  //           message: const Text('JSON yedek dosyası bulunamadı.'),
-  //           icon: Icons.error_outline,
-  //           iconColor: Colors.red,
-  //           progressIndicatorColor: Colors.red,
-  //           progressIndicatorBackground: Colors.red.shade100,
-  //         );
-  //       }
-  //       return;
-  //     }
-  //
-  //     final jsonString = await file.readAsString();
-  //     final List<dynamic> jsonList = jsonDecode(jsonString);
-  //
-  //     final db = await database;
-  //     await db.delete($sqlTableName);
-  //
-  //     for (var item in jsonList) {
-  //       final record = NetflixItem.fromMap(item);
-  //       await insertRecord(record);
-  //     }
-  //
-  //     log('✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)', name: 'Db_helper');
-  //
-  //   } catch (e) {
-  //     log('🚨 Geri yükleme hatası: $e', name: 'Db_helper');
-  //   }
-  // }
-
-  /// 📌 CSV yedeği burada alınıyor.
+  /// 📌 CSV yedeği oluşturur.
   ///
   Future<String> exportRecordsToCsv() async {
-    final items = await DbHelper.instance.getRecords();
+    final items = await getRecords();
     final buffer = StringBuffer();
 
     buffer.writeln('İsim,İzlenme Tarihi');
-
     for (var item in items) {
       final name = item.netflixItemName.replaceAll(',', '');
       final date = item.watchDate.replaceAll(',', '');
@@ -197,13 +151,13 @@ class DbHelper {
     final directory = await getApplicationDocumentsDirectory();
     final filePath = '${directory.path}/$fileNameCsv';
     final file = File(filePath);
-
     await file.writeAsString(buffer.toString());
 
     return filePath;
   }
 
   /// 📌 Türkçe sıralama yöntemi.
+  ///
   List<NetflixItem> _sortTurkish(List<NetflixItem> items) {
     const turkishAlphabet =
         'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz';
