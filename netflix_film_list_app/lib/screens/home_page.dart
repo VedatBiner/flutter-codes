@@ -1,10 +1,8 @@
-// 📦 home_page.dart
+// 📦 lib/screens/home_page.dart
 //
-// Netflix Film List App - Ana ekran
-// 🔹 Açılışta dosyaları oluşturur (CSV, JSON, Excel)
-// 🔹 Veritabanını kontrol eder ve gerekirse import yapar
-// 🔹 Download/{appName} dizinine kopyalar
-// 🔹 Progress ekranı gösterir
+// 🎬 Netflix Film List App
+// Ana ekran — uygulama açıldığında veritabanı, CSV/JSON/Excel dosyaları
+// ve Download kopyalama işlemleri initializeAppDataFlow() ile yönetilir.
 //
 
 import 'dart:developer';
@@ -13,7 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
-import '../utils/file_creator.dart';
+import '../utils/file_creator.dart'; // initializeAppDataFlow burada
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 
@@ -25,67 +23,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // 🔢 Veriler
+  // 🔢  Veri listeleri
   List<NetflixItem> netflixItems = [];
   List<NetflixItem> allNetflixItems = [];
 
-  // 🔎 Arama durumu
+  // 🔎  Arama & görünüm durumları
   bool isSearching = false;
   bool isFihristMode = true;
   final TextEditingController searchController = TextEditingController();
 
-  // ⏳ Yükleme kartı durumu
-  bool isLoadingJson = false;
+  // ⏳  Yükleme ekranı durumları
+  bool isLoading = false;
   double progress = 0.0;
   String? loadingItem;
   Duration elapsedTime = Duration.zero;
 
-  // ℹ️ Uygulama sürümü
-  String appVersion = 'v1.0.0';
+  // ℹ️  Uygulama versiyonu
+  String appVersion = '1.0.0';
 
   @override
   void initState() {
     super.initState();
-    _initializeDataFlow();
+
+    // 🚀 Uygulama ilk açıldığında veri akışı başlat
+    _initializeAppData();
   }
 
-  /// 🚀 Uygulama açılışında tüm dosya & veritabanı işlemlerini başlatır.
-  Future<void> _initializeDataFlow() async {
-    log('🚀 initializeAppDataFlow() başlatıldı', name: 'HomePage');
+  /// 🚀 Tüm veri akışını başlatır
+  Future<void> _initializeAppData() async {
+    const tag = 'HomePage Init';
+    try {
+      setState(() => isLoading = true);
 
-    setState(() {
-      isLoadingJson = true;
-      progress = 0.0;
-      loadingItem = 'Başlatılıyor...';
-    });
+      // 1️⃣ Veritabanı + dosya kontrol & üretim işlemleri
+      await initializeAppDataFlow();
 
-    final start = DateTime.now();
+      // 2️⃣ Veritabanından kayıtları oku
+      await _loadItems();
 
-    // 🔹 file_creator.dart içindeki ana fonksiyon
-    await initializeAppDataFlow(
-      onProgressChange: (prog, processed, total) {
-        setState(() {
-          progress = prog;
-          loadingItem = 'Kayıt: $processed / $total';
-        });
-      },
-    );
+      setState(() => isLoading = false);
+      log('✅ Uygulama başlatıldı ve veriler yüklendi.', name: tag);
+    } catch (e) {
+      log('🚨 Başlatma hatası: $e', name: tag);
+      setState(() => isLoading = false);
+    }
+  }
 
-    // 🔹 Veritabanından kayıtları oku
-    final items = await DbHelper.instance.getRecords();
+  /// 🔄  Veritabanından kayıtları yeniden oku
+  Future<void> _loadItems() async {
+    final records = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
     setState(() {
-      allNetflixItems = items;
-      netflixItems = items;
-      isLoadingJson = false;
-      elapsedTime = DateTime.now().difference(start);
+      allNetflixItems = records;
+      netflixItems = records;
     });
 
-    log('✅ Yükleme tamamlandı ($count kayıt)', name: 'HomePage');
+    log('📦 Veritabanından $count kayıt yüklendi.', name: "HomePage");
   }
 
-  /// ❌ Aramayı temizle
+  /// ❌  Aramayı temizle
   void _clearSearch() {
     searchController.clear();
     setState(() {
@@ -94,10 +91,10 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// 🔍 Arama filtreleme
+  /// 🔍  Arama filtreleme
   void _filterItems(String query) {
-    final q = query.toLowerCase();
     final filtered = allNetflixItems.where((item) {
+      final q = query.toLowerCase();
       return item.netflixItemName.toLowerCase().contains(q) ||
           item.watchDate.toLowerCase().contains(q);
     }).toList();
@@ -105,19 +102,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => netflixItems = filtered);
   }
 
-  /// 🔄 Veritabanını yeniden oku
-  Future<void> _loadItems() async {
-    final records = await DbHelper.instance.getRecords();
-    setState(() {
-      allNetflixItems = records;
-      netflixItems = records;
-    });
-  }
-
-  // -------------------------------------------------------------
-  // 🖼️ UI
-  // -------------------------------------------------------------
-
+  /// 🖼️  UI
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -148,8 +133,8 @@ class _HomePageState extends State<HomePage> {
               },
             ),
 
-            // 📦 İçerik
-            body: isLoadingJson
+            // 🔽 Ana içerik
+            body: isLoading
                 ? _buildLoadingCard()
                 : netflixItems.isEmpty
                 ? const Center(
@@ -194,38 +179,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// ⏳ Yükleme kartı
+  /// ⏳ Yükleme Kartı (AppDataFlow sırasında gösterilir)
   Widget _buildLoadingCard() {
     return Center(
       child: Card(
         color: Colors.grey[850],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        child: Padding(
-          padding: const EdgeInsets.all(24),
+        child: const Padding(
+          padding: EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                "Veriler yükleniyor...",
+              Text(
+                "Veriler hazırlanıyor...",
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               LinearProgressIndicator(
-                value: progress,
                 color: Colors.redAccent,
                 backgroundColor: Colors.white12,
               ),
-              const SizedBox(height: 8),
-              if (loadingItem != null)
-                Text(
-                  loadingItem!,
-                  style: const TextStyle(color: Colors.white70, fontSize: 14),
-                ),
-              const SizedBox(height: 4),
+              SizedBox(height: 8),
               Text(
-                'Geçen süre: ${elapsedTime.inSeconds} sn',
-                style: const TextStyle(color: Colors.white54, fontSize: 12),
+                "Lütfen bekleyin, ilk yükleme biraz sürebilir.",
+                style: TextStyle(color: Colors.white54, fontSize: 12),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

@@ -46,17 +46,13 @@ class NetflixItem extends Equatable {
   factory NetflixItem.fromJson(Map<String, dynamic> json) {
     return NetflixItem(
       id: json['id'],
-      netflixItemName: json['netflixItemName'],
-      watchDate: json['watchDate'],
+      netflixItemName: json['netflixItemName'] ?? json['Title'] ?? '',
+      watchDate: json['watchDate'] ?? json['Date'] ?? '',
     );
   }
 
   /// ✅ JSON ’a veri yazmak için
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'netflixItemName': netflixItemName,
-      'watchDate': watchDate,
-    };
+    return {'netflixItemName': netflixItemName, 'watchDate': watchDate};
   }
 }

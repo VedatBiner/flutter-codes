@@ -52,8 +52,13 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - Oluşturulan dosyaların download dizini içinde uygulama adı ile açılan dizine yazılması sağlandı. - 02.11.2025
 - Versiyon bilgisinin görünmesi hatası düzeltildi. - 02.11.2025
 - Drawer menüye paylaşma seçeneği eklendi. - 02.11.2025
+- `storage_permission_handler.dart`dosyası eklendi. - 02.11.2025
+- `item_model.dart`dosyası güncellendi. -02.11.2025
+- 
 
 
 Hatalar: 
 - Erişim izni ile ilgili sorun var ?
 - sql oluşturması çok uzun sürüyor ?
+- kodda çok sorun var
+- 

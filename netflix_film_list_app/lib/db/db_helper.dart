@@ -1,177 +1,230 @@
-// 📃 <----- db_helper.dart ----->
+// 📃 <----- lib/db/db_helper.dart ----->
 //
-// Tüm veritabanı işlemleri (CRUD)
-// Tüm CSV / JSON dışa aktarma işlemleri
-// Türkçe sıralama metodu burada tanımlanıyor
+// 🎬 Netflix Film List App — Sqflite Yardımcısı
 //
-
-// 📌 Dart hazır paketleri
-import 'dart:convert';
-import 'dart:io';
+// Özellikler
+// ----------
+// • Veritabanı: netflix_list.db (file_info.dart içindeki fileNameSql)
+// • Tablo: netflixItems (sqlTableName)
+// • Şema:
+//      id                INTEGER PRIMARY KEY AUTOINCREMENT
+//      netflixItemName   TEXT    NOT NULL
+//      watchDate         TEXT
+//   + UNIQUE(netflixItemName, watchDate)  -- yinelenenleri önler
+//
+// • Performans:
+//   - onConfigure: WAL, synchronous=NORMAL, foreign_keys=ON
+//   - Batch ekleme (insertBatch) — hızlı toplu import
+//
+// • API:
+//   - Future<List<NetflixItem>> getRecords()
+//   - Future<NetflixItem?> getItemByName(String name)
+//   - Future<int> insertRecord(NetflixItem item)
+//   - Future<int> updateRecord(NetflixItem item)
+//   - Future<int> deleteRecord(int id)
+//   - Future<int> countRecords()
+//   - Future<void> insertBatch(List<NetflixItem> items)
+//
+// Not:
+//  initializeAppDataFlow() (file_creator.dart) veritabanı yoksa CSV→JSON→Excel→SQL
+//  akışını başlatır. Veritabanı zaten varsa yeniden oluşturmuyor.
+//
+// ---------------------------------------------------------------
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-/// 📌 Yardımcı yüklemeler burada
-import '../../constants/file_info.dart';
-import '../../models/item_model.dart';
+import '../constants/file_info.dart';
+import '../models/item_model.dart';
 
 class DbHelper {
+  DbHelper._init();
   static final DbHelper instance = DbHelper._init();
+
   static Database? _database;
 
-  DbHelper._init();
-
-  /// 📌 Veritabanı örneğini getirir (singleton)
-  ///
+  /// ➤ Singleton DB örneği
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB(fileNameSql);
     return _database!;
   }
 
-  /// 📌 Veritabanını başlatır veya oluşturur
-  ///
+  /// ➤ DB açılışı + performans ayarları
   Future<Database> _initDB(String fileName) async {
-    final dbPath = await getApplicationDocumentsDirectory();
-    final path = join(dbPath.path, fileName);
+    final dir = await getApplicationDocumentsDirectory();
+    final path = join(dir.path, fileName);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return openDatabase(
+      path,
+      version: 1,
+      onConfigure: (db) async {
+        // YERİ: onConfigure (doğru yer burası)
+        await db.execute('PRAGMA foreign_keys = ON'); // execute OK
+        await db.rawQuery('PRAGMA journal_mode = WAL'); // ✅ rawQuery kullan
+      },
+      onCreate: _createDB,
+    );
   }
 
-  /// 📌 Yeni bir veritabanı oluşturur.
-  ///
-  Future _createDB(Database db, int version) async {
+  /// ➤ İlk kurulumda tablo + indeks oluşturma
+  Future<void> _createDB(Database db, int version) async {
+    // Temel tablo
     await db.execute('''
       CREATE TABLE $sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         netflixItemName TEXT NOT NULL,
         watchDate TEXT
-      )
+      );
+    ''');
+
+    // Yinelenenleri önlemek için eşsiz indeks
+    await db.execute('''
+      CREATE UNIQUE INDEX IF NOT EXISTS idx_items_unique
+      ON $sqlTableName (netflixItemName, watchDate);
+    ''');
+
+    // Hızlı arama için isim indeks (opsiyonel ama iyi)
+    await db.execute('''
+      CREATE INDEX IF NOT EXISTS idx_items_name
+      ON $sqlTableName (netflixItemName);
     ''');
   }
 
-  /// 📌 Tüm kayıtları alır.
-  ///
+  // ----------------------------------------------------------------------
+  // 🔎 Okuma
+  // ----------------------------------------------------------------------
+
+  /// Tüm kayıtları getirir (Türkçe sıralamayı uygulama tarafında yapar)
   Future<List<NetflixItem>> getRecords() async {
-    final db = await instance.database;
+    final db = await database;
     final result = await db.query(sqlTableName);
+
     final items = result.map((e) => NetflixItem.fromMap(e)).toList();
+
+    // Türkçe sıralama (uygulama tarafında)
     return _sortTurkish(items);
   }
 
-  /// 📌 Tek bir kaydı isme göre aramak için kullanılır.
-  ///
+  /// İsme göre tek kayıt
   Future<NetflixItem?> getItemByName(String name) async {
-    final db = await instance.database;
+    final db = await database;
     final result = await db.query(
       sqlTableName,
       where: 'netflixItemName = ?',
       whereArgs: [name],
+      limit: 1,
     );
     return result.isNotEmpty ? NetflixItem.fromMap(result.first) : null;
   }
 
-  /// 📌 getItem — backward compatibility (eski referanslar için)
-  ///
-  Future<NetflixItem?> getItem(String netflixItemName) async {
-    final db = await instance.database;
-    final result = await db.query(
-      sqlTableName,
-      where: 'netflixItemName = ?',
-      whereArgs: [netflixItemName],
+  /// Kayıt sayısı
+  Future<int> countRecords() async {
+    final db = await database;
+    final count = Sqflite.firstIntValue(
+      await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
     );
-    return result.isNotEmpty ? NetflixItem.fromMap(result.first) : null;
+    return count ?? 0;
   }
 
-  /// 📌 Yeni kaydı ekler.
-  ///
+  // ----------------------------------------------------------------------
+  // ✍️ Yazma / Güncelleme / Silme
+  // ----------------------------------------------------------------------
+
+  /// Tekli ekleme (UNIQUE çakışmalarını yok sayar)
   Future<int> insertRecord(NetflixItem item) async {
-    final db = await instance.database;
-    return await db.insert(sqlTableName, item.toMap());
+    final db = await database;
+    return db.insert(
+      sqlTableName,
+      item.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore, // duplicate varsa atla
+    );
   }
 
-  /// 📌 ID ’ye göre kaydı günceller.
-  ///
+  /// Güncelleme (id ile)
   Future<int> updateRecord(NetflixItem item) async {
-    final db = await instance.database;
-    return await db.update(
+    if (item.id == null) return 0;
+    final db = await database;
+    return db.update(
       sqlTableName,
       item.toMap(),
       where: 'id = ?',
       whereArgs: [item.id],
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
-  /// 📌 ID ’ye göre kaydı siler.
-  ///
+  /// Silme (id ile)
   Future<int> deleteRecord(int id) async {
-    final db = await instance.database;
-    return await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
+    final db = await database;
+    return db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
-  /// 📌 Kayıt sayısını döndürür.
-  ///
-  Future<int> countRecords() async {
-    final db = await instance.database;
-    final result = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
-    );
-    return result ?? 0;
+  // ----------------------------------------------------------------------
+  // 🚀 Hızlı Toplu Ekleme (Batch)
+  // ----------------------------------------------------------------------
+
+  /// Büyük listeleri hızlı eklemek için toplu insert.
+  /// UNIQUE (netflixItemName, watchDate) sayesinde yinelenenler otomatik atlanır.
+  Future<void> insertBatch(List<NetflixItem> items) async {
+    if (items.isEmpty) return;
+
+    final db = await database;
+
+    // Daha da hızlı: Transaction + Batch
+    await db.transaction((txn) async {
+      final batch = txn.batch();
+
+      for (final item in items) {
+        batch.insert(
+          sqlTableName,
+          item.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      }
+
+      // NoResult → bellek kullanımını azaltır
+      await batch.commit(noResult: true, continueOnError: true);
+    });
   }
 
-  /// 📌 JSON yedeği oluşturur.
-  ///
-  Future<String> exportRecordsToJson() async {
-    final items = await getRecords();
-    final jsonString = jsonEncode(items.map((i) => i.toMap()).toList());
+  // ----------------------------------------------------------------------
+  // 🧹 İsteğe Bağlı Yardımcılar
+  // ----------------------------------------------------------------------
 
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/$fileNameJson';
-    final file = File(filePath);
-    await file.writeAsString(jsonString);
-
-    return filePath;
+  /// Tüm tabloyu temizler (dikkat!)
+  Future<void> clearAll() async {
+    final db = await database;
+    await db.delete(sqlTableName);
   }
 
-  /// 📌 CSV yedeği oluşturur.
-  ///
-  Future<String> exportRecordsToCsv() async {
-    final items = await getRecords();
-    final buffer = StringBuffer();
-
-    buffer.writeln('İsim,İzlenme Tarihi');
-    for (var item in items) {
-      final name = item.netflixItemName.replaceAll(',', '');
-      final date = item.watchDate.replaceAll(',', '');
-      buffer.writeln('$name,$date');
-    }
-
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/$fileNameCsv';
-    final file = File(filePath);
-    await file.writeAsString(buffer.toString());
-
-    return filePath;
+  /// DB dosya yolunu getir (debug için yararlı)
+  Future<String> getDatabasePath() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return join(dir.path, fileNameSql);
   }
 
-  /// 📌 Türkçe sıralama yöntemi.
-  ///
+  // ----------------------------------------------------------------------
+  // 🇹🇷 Türkçe Sıralama (uygulama tarafı)
+  // ----------------------------------------------------------------------
+
   List<NetflixItem> _sortTurkish(List<NetflixItem> items) {
-    const turkishAlphabet =
+    const alphabet =
         'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz';
 
-    int turkishCompare(String a, String b) {
-      for (int i = 0; i < a.length && i < b.length; i++) {
-        final ai = turkishAlphabet.indexOf(a[i]);
-        final bi = turkishAlphabet.indexOf(b[i]);
+    int tcmp(String a, String b) {
+      final la = a.length, lb = b.length;
+      final min = la < lb ? la : lb;
+      for (int i = 0; i < min; i++) {
+        final ai = alphabet.indexOf(a[i]);
+        final bi = alphabet.indexOf(b[i]);
         if (ai != bi) return ai.compareTo(bi);
       }
-      return a.length.compareTo(b.length);
+      return la.compareTo(lb);
     }
 
-    items.sort((a, b) => turkishCompare(a.netflixItemName, b.netflixItemName));
+    items.sort((a, b) => tcmp(a.netflixItemName, b.netflixItemName));
     return items;
   }
 }
