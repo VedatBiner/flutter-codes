@@ -6,6 +6,10 @@
 
 import 'package:flutter/material.dart';
 
+import '../utils/file_creator.dart';
+import 'drawer_widgets/drawer_info_padding_tile.dart';
+import 'drawer_widgets/drawer_title.dart';
+
 class CustomDrawer extends StatelessWidget {
   final VoidCallback onDatabaseUpdated;
   final String appVersion;
@@ -41,17 +45,35 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.redAccent),
-            child: Center(
-              child: Text(
-                '🎬 Menü',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+          /// 📌 Drawer menü başlığı burada oluşturuluyor
+          const DrawerTitleWidget(),
+
+          // DrawerHeader(
+          //   decoration: const BoxDecoration(color: Colors.redAccent),
+          //   child: Center(
+          //     child: Text(
+          //       '🎬 Menü',
+          //       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+          //         color: Colors.white,
+          //         fontWeight: FontWeight.bold,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          ListTile(
+            leading: const Icon(Icons.share, color: Colors.white70),
+            title: const Text(
+              "Yedekleri Paylaş",
+              style: TextStyle(color: Colors.white),
             ),
+            subtitle: const Text(
+              "Download klasöründeki dosyaları paylaş",
+              style: TextStyle(color: Colors.white54, fontSize: 12),
+            ),
+            onTap: () async {
+              await shareBackupFolder(); // file_creator.dart içinden geliyor
+              if (context.mounted) Navigator.pop(context);
+            },
           ),
 
           // 🔄 Görünüm modu değiştir
@@ -101,14 +123,8 @@ class CustomDrawer extends StatelessWidget {
           //   ),
           const Divider(color: Colors.white24),
 
-          // 📦 Sürüm bilgisi
-          ListTile(
-            leading: const Icon(Icons.info_outline, color: Colors.white),
-            title: Text(
-              'Sürüm: $appVersion',
-              style: const TextStyle(color: Colors.white70, fontSize: 14),
-            ),
-          ),
+          /// 📌 Versiyon ve yazılım bilgisi
+          InfoPaddingTile(appVersion: appVersion),
         ],
       ),
     );

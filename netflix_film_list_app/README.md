@@ -48,9 +48,10 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - `file_info.dart` dosyası yenilendi. `sqlTableName` değişkeni eklendi. - 31.10.2025
 - `db_lhelper.dart` dosyası `sqlTableName` değişkenine göre düzenlendi. - 31.10.2025
 - `json_loader.dart`dosyası `file_creator.dart`olarak değiştirildi. - 01.11.2025
-- `file_creator.dart` içinde csv,json,xlsx, sql dosyaları oluşturuluyor. 01.11.2025
-- 
+- `file_creator.dart` içinde csv, json, xlsx, sql dosyaları oluşturuldu. 01.11.2025
+- Oluşturulan dosyaların download dizini içinde uygulama adı ile açılan dizine yazılması sağlandı. - 02.11.2025
+- Versiyon bilgisinin görünmesi hatası düzeltildi. - 02.11.2025
+- Drawer menüye paylaşma seçeneği eklendi. - 02.11.2025
 
 
 Hatalar: 
-- Versiyon bilgisi görüntülenmiyor.

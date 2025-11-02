@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
@@ -39,20 +40,21 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // 🚀 Uygulama ilk açıldığında veritabanı ve dosyaları kontrol et
-    checkIfDatabaseExists().then((_) async {
-      /// asset ’ten cihaz CSV ’si üret
-      await createDeviceCsvFromAssetWithDateFix();
+    _loadAppVersion();
+    _bootstrap();
+  }
 
-      /// asset ’ten cihaz JSON ’si üret
-      await createJsonFromAssetCsv();
-
-      /// asset ’ten cihaz XLSX ’si üret
-      await createExcelFromAssetCsvSyncfusion();
-
-      /// 🔥 JSON → SQL aktarımı
-      await importJsonToDatabaseFast();
+  Future<void> _loadAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      appVersion = info.version;
     });
+  }
+
+  /// 🚀 Açılış akışı: DB kontrol + liste yükleme
+  Future<void> _bootstrap() async {
+    await checkIfDatabaseExists(); // DB yoksa tüm üretimleri yapar + batch import
+    await _loadItems(); // DB den listeyi çek
   }
 
   /// ❌  Aramayı temizle
@@ -66,8 +68,8 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔍  Arama filtreleme
   void _filterItems(String query) {
+    final q = query.toLowerCase();
     final filtered = allNetflixItems.where((item) {
-      final q = query.toLowerCase();
       return item.netflixItemName.toLowerCase().contains(q) ||
           item.watchDate.toLowerCase().contains(q);
     }).toList();
@@ -88,7 +90,6 @@ class _HomePageState extends State<HomePage> {
     log('📦 Toplam kayıt sayısı: $count', name: "HomePage");
   }
 
-  /// 🖼️  UI
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -117,9 +118,6 @@ class _HomePageState extends State<HomePage> {
               onToggleViewMode: () {
                 setState(() => isFihristMode = !isFihristMode);
               },
-
-              // 🔹 JSON/SQL yükleme işlemi geçici olarak devre dışı
-              // onLoadJsonData: (...) { ... },
             ),
 
             // 🔽 Ana içerik
