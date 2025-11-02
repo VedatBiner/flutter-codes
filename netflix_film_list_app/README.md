@@ -55,3 +55,5 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 
 
 Hatalar: 
+- Erişim izni ile ilgili sorun var ?
+- sql oluşturması çok uzun sürüyor ?

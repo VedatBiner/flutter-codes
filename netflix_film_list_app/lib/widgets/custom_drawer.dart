@@ -48,18 +48,7 @@ class CustomDrawer extends StatelessWidget {
           /// 📌 Drawer menü başlığı burada oluşturuluyor
           const DrawerTitleWidget(),
 
-          // DrawerHeader(
-          //   decoration: const BoxDecoration(color: Colors.redAccent),
-          //   child: Center(
-          //     child: Text(
-          //       '🎬 Menü',
-          //       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-          //         color: Colors.white,
-          //         fontWeight: FontWeight.bold,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          /// 📌 Yedekleri paylaşma seçeneği oluşturuluyor
           ListTile(
             leading: const Icon(Icons.share, color: Colors.white70),
             title: const Text(
@@ -76,51 +65,6 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
 
-          // 🔄 Görünüm modu değiştir
-          // ListTile(
-          //   leading: const Icon(Icons.swap_horiz, color: Colors.white),
-          //   title: Text(
-          //     isFihristMode ? 'Fihrist Modu' : 'Liste Modu',
-          //     style: const TextStyle(color: Colors.white),
-          //   ),
-          //   onTap: () {
-          //     onToggleViewMode();
-          //     Navigator.pop(context);
-          //     log('🌀 Görünüm modu değiştirildi: $isFihristMode',
-          //         name: 'Drawer');
-          //   },
-          // ),
-
-          // 🔁 Veritabanını yenile
-          // ListTile(
-          //   leading: const Icon(Icons.refresh, color: Colors.white),
-          //   title: const Text('Veritabanını Yenile',
-          //       style: TextStyle(color: Colors.white)),
-          //   onTap: () async {
-          //     Navigator.pop(context);
-          //     await onDatabaseUpdated();
-          //     log('✅ Veritabanı yenilendi', name: 'Drawer');
-          //   },
-          // ),
-
-          // 📥 JSON/SQL yükleme (opsiyonel)
-          // if (onLoadJsonData != null)
-          //   ListTile(
-          //     leading: const Icon(Icons.cloud_download, color: Colors.white),
-          //     title: const Text('JSON Verisi Yükle',
-          //         style: TextStyle(color: Colors.white)),
-          //     onTap: () async {
-          //       Navigator.pop(context);
-          //       log('📥 JSON yükleme işlemi başlatıldı', name: 'Drawer');
-          //       await onLoadJsonData!(
-          //         ctx: context,
-          //         onStatus: (bool loading, double prog, String? currentItem,
-          //             Duration elapsed) {
-          //           log('🔄 Yükleniyor: ${prog.toStringAsFixed(2)}', name: 'Drawer');
-          //         },
-          //       );
-          //     },
-          //   ),
           const Divider(color: Colors.white24),
 
           /// 📌 Versiyon ve yazılım bilgisi

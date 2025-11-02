@@ -1,9 +1,15 @@
 // 📦 home_page.dart
+//
+// Netflix Film List App - Ana ekran
+// 🔹 Açılışta dosyaları oluşturur (CSV, JSON, Excel)
+// 🔹 Veritabanını kontrol eder ve gerekirse import yapar
+// 🔹 Download/{appName} dizinine kopyalar
+// 🔹 Progress ekranı gösterir
+//
 
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
@@ -19,45 +25,67 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // 🔢  Veri listeleri
+  // 🔢 Veriler
   List<NetflixItem> netflixItems = [];
   List<NetflixItem> allNetflixItems = [];
 
-  // 🔎  Arama & görünüm durumları
+  // 🔎 Arama durumu
   bool isSearching = false;
   bool isFihristMode = true;
   final TextEditingController searchController = TextEditingController();
 
-  // ⏳  Yükleme ekranı durumları
+  // ⏳ Yükleme kartı durumu
   bool isLoadingJson = false;
   double progress = 0.0;
   String? loadingItem;
   Duration elapsedTime = Duration.zero;
 
-  // ℹ️  Uygulama versiyonu
-  String appVersion = '';
+  // ℹ️ Uygulama sürümü
+  String appVersion = 'v1.0.0';
 
   @override
   void initState() {
     super.initState();
-    _loadAppVersion();
-    _bootstrap();
+    _initializeDataFlow();
   }
 
-  Future<void> _loadAppVersion() async {
-    final info = await PackageInfo.fromPlatform();
+  /// 🚀 Uygulama açılışında tüm dosya & veritabanı işlemlerini başlatır.
+  Future<void> _initializeDataFlow() async {
+    log('🚀 initializeAppDataFlow() başlatıldı', name: 'HomePage');
+
     setState(() {
-      appVersion = info.version;
+      isLoadingJson = true;
+      progress = 0.0;
+      loadingItem = 'Başlatılıyor...';
     });
+
+    final start = DateTime.now();
+
+    // 🔹 file_creator.dart içindeki ana fonksiyon
+    await initializeAppDataFlow(
+      onProgressChange: (prog, processed, total) {
+        setState(() {
+          progress = prog;
+          loadingItem = 'Kayıt: $processed / $total';
+        });
+      },
+    );
+
+    // 🔹 Veritabanından kayıtları oku
+    final items = await DbHelper.instance.getRecords();
+    final count = await DbHelper.instance.countRecords();
+
+    setState(() {
+      allNetflixItems = items;
+      netflixItems = items;
+      isLoadingJson = false;
+      elapsedTime = DateTime.now().difference(start);
+    });
+
+    log('✅ Yükleme tamamlandı ($count kayıt)', name: 'HomePage');
   }
 
-  /// 🚀 Açılış akışı: DB kontrol + liste yükleme
-  Future<void> _bootstrap() async {
-    await checkIfDatabaseExists(); // DB yoksa tüm üretimleri yapar + batch import
-    await _loadItems(); // DB den listeyi çek
-  }
-
-  /// ❌  Aramayı temizle
+  /// ❌ Aramayı temizle
   void _clearSearch() {
     searchController.clear();
     setState(() {
@@ -66,7 +94,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// 🔍  Arama filtreleme
+  /// 🔍 Arama filtreleme
   void _filterItems(String query) {
     final q = query.toLowerCase();
     final filtered = allNetflixItems.where((item) {
@@ -77,18 +105,18 @@ class _HomePageState extends State<HomePage> {
     setState(() => netflixItems = filtered);
   }
 
-  /// 🔄  Veritabanından kayıtları yeniden oku
+  /// 🔄 Veritabanını yeniden oku
   Future<void> _loadItems() async {
     final records = await DbHelper.instance.getRecords();
-    final count = await DbHelper.instance.countRecords();
-
     setState(() {
       allNetflixItems = records;
       netflixItems = records;
     });
-
-    log('📦 Toplam kayıt sayısı: $count', name: "HomePage");
   }
+
+  // -------------------------------------------------------------
+  // 🖼️ UI
+  // -------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +138,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            /// 📁 Drawer
+            // 📁 Drawer
             drawer: CustomDrawer(
               onDatabaseUpdated: _loadItems,
               appVersion: appVersion,
@@ -120,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
 
-            // 🔽 Ana içerik
+            // 📦 İçerik
             body: isLoadingJson
                 ? _buildLoadingCard()
                 : netflixItems.isEmpty
@@ -166,7 +194,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// ⏳ Yükleme Kartı (ileride tekrar aktif edilebilir)
+  /// ⏳ Yükleme kartı
   Widget _buildLoadingCard() {
     return Center(
       child: Card(
@@ -191,7 +219,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 8),
               if (loadingItem != null)
                 Text(
-                  'Şu anda: $loadingItem',
+                  loadingItem!,
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
               const SizedBox(height: 4),
