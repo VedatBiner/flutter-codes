@@ -59,7 +59,8 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - `custom_drawer.dart`dosyası güncellendi. - 02.11.2025
 - versiyon bilgisi hatası düzeltildi. - 03.11.2025
 - `download_helper.dart`dosyası oluşturuldu. - 03.11.2025
-
+- `sql_helper.dart`dosyası oluşturuldu. - 03.11.2025
+- `excel_helper.dart`dosyası oluşturuldu. - 03.11.2025
 
 
 Hatalar:
