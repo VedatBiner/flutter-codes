@@ -30,7 +30,7 @@ import '../../models/item_model.dart';
 ///  • Batch olarak çalışır → performanslı.
 ///  • Veritabanı boşsa veriler eklenir; doluysa işlem yapılmaz.
 Future<void> importJsonToDatabaseFast() async {
-  const tag = 'SQLHelper';
+  const tag = 'sql_helper';
 
   try {
     log('⚙️ JSON → SQL batch aktarımı başlatıldı...', name: tag);

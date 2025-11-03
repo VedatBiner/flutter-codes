@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
 
   /// 🚀 Tüm veri akışını başlatır
   Future<void> _initializeAppData() async {
-    const tag = 'HomePage Init';
+    const tag = 'home_page';
     try {
       setState(() => isLoading = true);
 

@@ -39,7 +39,7 @@ import 'date_formatter.dart';
 /// 📊 Asset içindeki CSV 'yi okuyup, tarih formatlarını düzelterek
 /// biçimli bir Excel (XLSX) dosyası oluşturur.
 Future<void> createExcelFromAssetCsvSyncfusion() async {
-  const tag = 'ExcelHelper';
+  const tag = 'excel_helper';
 
   try {
     // 1️⃣ Asset CSV dosyasını oku

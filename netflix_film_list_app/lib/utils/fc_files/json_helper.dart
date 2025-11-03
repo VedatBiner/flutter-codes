@@ -45,7 +45,7 @@ import 'date_formatter.dart';
 /// Örnek çıktı konumu:
 ///   /data/user/0/<package>/app_flutter/netflix_list_backup.json
 Future<void> createJsonFromAssetCsv() async {
-  const tag = 'CSV→JSON Builder';
+  const tag = 'json_helper';
 
   try {
     // 1️⃣ Asset CSV dosyasının yolu

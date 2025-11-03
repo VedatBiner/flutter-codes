@@ -25,7 +25,7 @@ import 'package:permission_handler/permission_handler.dart';
 /// - `true`  → izin mevcut veya şimdi verildi.
 /// - `false` → izin reddedildi veya kalıcı olarak engellendi.
 Future<bool> ensureStoragePermission() async {
-  const tag = 'StoragePermission';
+  const tag = 'storage_permission';
 
   // ✅ Android dışı platformlarda izin gerekmez (örn. iOS, macOS, Web, Windows)
   if (!Platform.isAndroid) {

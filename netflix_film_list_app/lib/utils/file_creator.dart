@@ -38,7 +38,7 @@ import 'fc_files/sql_helper.dart'; // JSON → SQL aktarımı burada
 /// 🚀 Uygulama başlatıldığında çağrılır.
 /// Tüm veri dosyalarını, veritabanını ve dışa aktarmayı yönetir.
 Future<void> initializeAppDataFlow() async {
-  const tag = 'AppDataFlow';
+  const tag = 'file_creator';
   log('🚀 initializeAppDataFlow başladı', name: tag);
 
   // 📂 Dizinleri al

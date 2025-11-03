@@ -24,6 +24,7 @@ import 'dart:developer';
 ///   - "5/7/2025" → "07/05/2025"
 ///   - "2025-01-01" → "2025-01-01" (format tanınmaz)
 String formatUsToEuDate(String input) {
+  const tag = 'date_formatter';
   try {
     final parts = input.split('/');
     if (parts.length != 3) return input;
@@ -33,10 +34,10 @@ String formatUsToEuDate(String input) {
     final year = parts[2].padLeft(2, '0');
 
     final formatted = '$day/$month/$year';
-    log('🗓️ formatUsToEuDate: $input → $formatted', name: 'DateFormatter');
+    log('🗓️ formatUsToEuDate: $input → $formatted', name: tag);
     return formatted;
   } catch (e) {
-    log('⚠️ Tarih biçimlendirme hatası: $e', name: 'DateFormatter');
+    log('⚠️ Tarih biçimlendirme hatası: $e', name: tag);
     return input;
   }
 }

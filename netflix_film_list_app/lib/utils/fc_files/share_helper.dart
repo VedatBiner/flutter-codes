@@ -43,7 +43,7 @@ import '../../constants/file_info.dart';
 ///        önceden verilmiş olmalıdır.
 ///
 Future<void> shareBackupFolder() async {
-  const tag = 'External Share';
+  const tag = 'share_helper';
   try {
     // 📁 Download dizinini bul
     final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
