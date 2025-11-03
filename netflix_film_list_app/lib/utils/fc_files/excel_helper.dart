@@ -34,6 +34,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../../constants/file_info.dart';
+import 'date_formatter.dart';
 
 /// 📊 Asset içindeki CSV 'yi okuyup, tarih formatlarını düzelterek
 /// biçimli bir Excel (XLSX) dosyası oluşturur.
@@ -86,7 +87,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     for (int r = 1; r < rows.length; r++) {
       final row = List<String>.from(rows[r].map((e) => e.toString()));
       if (row.length > dateIdx && dateIdx != -1) {
-        row[dateIdx] = _mmddyyToDdmmyy(row[dateIdx]);
+        row[dateIdx] = formatUsToEuDate(row[dateIdx].toString());
       }
       for (int c = 0; c < headers.length; c++) {
         sheet.getRangeByIndex(r + 1, c + 1).setText(row[c]);
@@ -123,19 +124,5 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
       error: e,
       stackTrace: st,
     );
-  }
-}
-
-/// 🗓️ "aa/gg/yy" → "gg/aa/yy" dönüştürme
-String _mmddyyToDdmmyy(String s) {
-  try {
-    final parts = s.split('/');
-    if (parts.length != 3) return s;
-    final month = parts[0].padLeft(2, '0');
-    final day = parts[1].padLeft(2, '0');
-    final year = parts[2].padLeft(2, '0');
-    return '$day/$month/$year';
-  } catch (_) {
-    return s;
   }
 }
