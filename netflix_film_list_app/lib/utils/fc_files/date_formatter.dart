@@ -34,7 +34,7 @@ String formatUsToEuDate(String input) {
     final year = parts[2].padLeft(2, '0');
 
     final formatted = '$day/$month/$year';
-    log('🗓️ formatUsToEuDate: $input → $formatted', name: tag);
+    // log('🗓️ formatUsToEuDate: $input → $formatted', name: tag);
     return formatted;
   } catch (e) {
     log('⚠️ Tarih biçimlendirme hatası: $e', name: tag);
