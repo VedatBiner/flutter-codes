@@ -8,6 +8,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
@@ -39,14 +40,23 @@ class _HomePageState extends State<HomePage> {
   Duration elapsedTime = Duration.zero;
 
   // ℹ️  Uygulama versiyonu
-  String appVersion = '1.0.0';
+  String appVersion = '';
 
   @override
   void initState() {
     super.initState();
 
-    // 🚀 Uygulama ilk açıldığında veri akışı başlat
+    /// 🚀 Uygulama ilk açıldığında veri akışı başlat
     _initializeAppData();
+
+    /// Versiyonu al
+    _getAppVersion();
+  }
+
+  /// 📌 Versiyonu al
+  void _getAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
   /// 🚀 Tüm veri akışını başlatır

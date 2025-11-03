@@ -27,7 +27,6 @@ import 'package:external_path/external_path.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 // 📦 Uygulama dosyaları
@@ -58,7 +57,10 @@ Future<void> initializeAppDataFlow() async {
   }
 
   // 🔹 Veritabanı yoksa işlem sırasını başlat
-  log('⚠️ Veritabanı bulunamadı, asset CSV’den veri oluşturulacak.', name: tag);
+  log(
+    '⚠️ Veritabanı bulunamadı, asset CSV ’den veri oluşturulacak.',
+    name: tag,
+  );
 
   // 1️⃣ CSV oluştur (cihazda yoksa)
   await _createDeviceCsvFromAssetWithDateFix();
@@ -335,37 +337,5 @@ String _mmddyyToDdmmyy(String s) {
     return '${parts[1].padLeft(2, '0')}/${parts[0].padLeft(2, '0')}/${parts[2].padLeft(2, '0')}';
   } catch (_) {
     return s;
-  }
-}
-
-/// 📤 Download/{appName} klasöründeki yedekleri paylaş
-Future<void> shareBackupFolder() async {
-  const tag = 'External Share';
-  try {
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
-    final folderPath = join(downloadDir, appName);
-    final dir = Directory(folderPath);
-
-    if (!await dir.exists()) {
-      log('⚠️ Dizin yok: $folderPath', name: tag);
-      return;
-    }
-
-    final files = dir.listSync().whereType<File>().toList();
-    if (files.isEmpty) {
-      log('⚠️ Paylaşılacak dosya yok.', name: tag);
-      return;
-    }
-
-    await Share.shareXFiles(
-      files.map((f) => XFile(f.path)).toList(),
-      text: '📂 $appName yedek dosyaları',
-    );
-
-    log('✅ Paylaşım ekranı açıldı.', name: tag);
-  } catch (e) {
-    log('🚨 Paylaşım hatası: $e', name: tag);
   }
 }

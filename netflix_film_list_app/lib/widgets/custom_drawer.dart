@@ -6,8 +6,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../utils/file_creator.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
+import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -48,22 +48,8 @@ class CustomDrawer extends StatelessWidget {
           /// 📌 Drawer menü başlığı burada oluşturuluyor
           const DrawerTitleWidget(),
 
-          /// 📌 Yedekleri paylaşma seçeneği oluşturuluyor
-          ListTile(
-            leading: const Icon(Icons.share, color: Colors.white70),
-            title: const Text(
-              "Yedekleri Paylaş",
-              style: TextStyle(color: Colors.white),
-            ),
-            subtitle: const Text(
-              "Download klasöründeki dosyaları paylaş",
-              style: TextStyle(color: Colors.white54, fontSize: 12),
-            ),
-            onTap: () async {
-              await shareBackupFolder(); // file_creator.dart içinden geliyor
-              if (context.mounted) Navigator.pop(context);
-            },
-          ),
+          /// 📤 Yedekleri paylaşma butonu
+          const DrawerShareTile(),
 
           const Divider(color: Colors.white24),
 
