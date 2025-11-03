@@ -1,19 +1,21 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Uygulama veri akışı:
+// 🎬 Netflix Film List App
 // -----------------------------------------------------------
+// Uygulama veri akışı:
 // 1️⃣ Veritabanı var mı kontrol edilir.
 // 2️⃣ Yoksa asset içindeki CSV okunur, tarih formatı düzeltilir.
 // 3️⃣ CSV → JSON ve Excel dosyaları oluşturulur.
 // 4️⃣ JSON → SQL aktarımı yapılır (batch olarak, hızlı).
-// 5️⃣ Tüm dosyalar Download/{appName} dizinine kopyalanır.
+// 5️⃣ Tüm dosyalar Download/{appName} dizinine kopyalanır (download_helper.dart).
 //
 // Ayrıca:
 //  • Eğer veritabanı zaten varsa, hiçbir yeniden oluşturma yapılmaz.
 //  • Eksik dosyalar otomatik tamamlanır.
 //  • Modern Android izin sistemi ile uyumludur.
 //
-// Kullanım:  await initializeAppDataFlow();
+// Kullanım:
+//   await initializeAppDataFlow();
 //
 // -----------------------------------------------------------
 
@@ -23,7 +25,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
-import 'package:external_path/external_path.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,7 +34,7 @@ import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
-import '../utils/storage_permission_helper.dart'; // izin helper'ı
+import 'fc_files/download_helper.dart'; // ✅ kopyalama işlemi buradan çağrılıyor
 
 /// 🚀 Uygulama başlatıldığında çağrılır.
 /// Tüm veri dosyalarını, veritabanını ve dışa aktarmayı yönetir.
@@ -74,8 +75,8 @@ Future<void> initializeAppDataFlow() async {
   // 4️⃣ JSON → SQL aktarımı (batch)
   await _importJsonToDatabaseFast();
 
-  // 5️⃣ Dosyaları Download dizinine kopyala
-  await _copyBackupFilesToDownload();
+  // 5️⃣ Dosyaları Download dizinine kopyala (artık ayrı helper ’da)
+  await copyBackupFilesToDownload();
 
   log('✅ initializeAppDataFlow tamamlandı.', name: tag);
 }
@@ -112,7 +113,6 @@ Future<void> _createDeviceCsvFromAssetWithDateFix() async {
     }
 
     final csvOut = const ListToCsvConverter().convert(out);
-
     final directory = await getApplicationDocumentsDirectory();
     final outPath = join(directory.path, fileNameCsv);
 
@@ -227,8 +227,9 @@ Future<void> _createExcelFromAssetCsvSyncfusion() async {
       }
     }
 
+    // Sütun genişliklerini otomatik ayarla
     for (int c = 1; c <= headers.length; c++) {
-      sheet.autoFitColumn(c); // ✅ her sütunu ayrı ayrı auto-fit
+      sheet.autoFitColumn(c);
     }
 
     final directory = await getApplicationDocumentsDirectory();
@@ -280,53 +281,7 @@ Future<void> _importJsonToDatabaseFast() async {
 }
 
 // ---------------------------------------------------------------------
-// 🧩 AŞAMA 5 — DOSYALARI DOWNLOAD/{appName} DİZİNİNE KOPYALAMA
-// ---------------------------------------------------------------------
-Future<void> _copyBackupFilesToDownload() async {
-  const tag = 'External Copy';
-
-  try {
-    if (!await ensureStoragePermission()) {
-      log('❌ Depolama izni verilmedi.', name: tag);
-      return;
-    }
-
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
-    final targetDir = Directory(join(downloadDir, appName));
-
-    if (!await targetDir.exists()) {
-      await targetDir.create(recursive: true);
-      log('📁 Klasör oluşturuldu: ${targetDir.path}', name: tag);
-    }
-
-    final internalDir = await getApplicationDocumentsDirectory();
-    final List<String> fileNames = [
-      fileNameCsv,
-      fileNameJson,
-      fileNameXlsx,
-      fileNameSql,
-    ];
-
-    for (final name in fileNames) {
-      final src = File(join(internalDir.path, name));
-      final dest = File(join(targetDir.path, name));
-
-      if (await src.exists()) {
-        await src.copy(dest.path);
-        log('✅ Kopyalandı: $name → ${targetDir.path}', name: tag);
-      }
-    }
-
-    log('🎉 Tüm dosyalar Download/$appName içine kopyalandı.', name: tag);
-  } catch (e) {
-    log('🚨 Kopyalama hatası: $e', name: tag);
-  }
-}
-
-// ---------------------------------------------------------------------
-// 🔧 Yardımcı fonksiyonlar
+// 🔧 Yardımcı Fonksiyonlar
 // ---------------------------------------------------------------------
 
 /// 🗓️ "aa/gg/yy" → "gg/aa/yy" dönüştürme
