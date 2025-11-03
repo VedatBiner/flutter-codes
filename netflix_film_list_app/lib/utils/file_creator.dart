@@ -46,19 +46,30 @@ Future<void> initializeAppDataFlow() async {
   final dbPath = join(directory.path, fileNameSql);
   final dbFile = File(dbPath);
 
-  // ✅ Eğer veritabanı varsa hiçbir şey yapma
-  if (await dbFile.exists()) {
-    final count = await DbHelper.instance.countRecords();
+  // ✅ Veritabanı var mı kontrolü (hem dosya hem kayıt sayısı)
+  bool dbExists = await dbFile.exists();
+  int recordCount = 0;
+
+  if (dbExists) {
+    try {
+      recordCount = await DbHelper.instance.countRecords();
+    } catch (e) {
+      log('⚠️ Veritabanı kontrolü sırasında hata: $e', name: tag);
+    }
+  }
+
+  // 🧩 Eğer veritabanı mevcut ve kayıt da varsa işlem yapılmaz
+  if (dbExists && recordCount > 0) {
     log(
-      '[JSON→SQL Import (Batch)] 🟢 Veritabanı zaten dolu ($count kayıt). Tekrar oluşturulmadı.',
+      '[JSON→SQL Import (Batch)] 🟢 Veritabanı zaten dolu ($recordCount kayıt). Tekrar oluşturulmadı.',
       name: tag,
     );
     return;
   }
 
-  // 🔹 Veritabanı yoksa işlem sırasını başlat
+  // 🔹 Aksi durumda sıfırdan oluşturma süreci başlatılır
   log(
-    '⚠️ Veritabanı bulunamadı, asset CSV ’den veri oluşturulacak.',
+    '⚠️ Veritabanı bulunamadı veya boş. Asset CSV ’den veri oluşturulacak.',
     name: tag,
   );
 
