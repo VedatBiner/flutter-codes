@@ -103,9 +103,11 @@ bir chatGPT ortak çalışması :)
 98. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
 99. log etiketleri tag değişkenine atanıp, okunurluk sağlandı. - 04.11.2025
 100. `drawer_share_tile.dart` ve `share_helper.dart` dosyası eklendi. - 04.11.2025
-101. - drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
-102. - `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasınde düzeltme yapıldı. - 04.11.2025
-103. - `text_constants.dart.` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 04.11.2025
+101. drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
+102. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasınde düzeltme yapıldı. - 04.11.2025
+103. `text_constants.dart.` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 04.11.2025
+104. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı.
+
 
 - Simdilik yapılanlar yeterli mi?
 
