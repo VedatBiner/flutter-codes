@@ -78,7 +78,7 @@
 66. `change_view.dart` dosyası `drawer_change_view_tile.dart`olarak değiştirildi. - 16.10.2025
 67. Versiyon bilgisine © 2025 eklendi - 17.10.2025
 68. File_info.dart dosyası standartlaştırıldı. - 20.10.2025
-69. export_items.dart ve backup_notification_helper dart dosyaları önceki adıma göre düzeltildi. - 20.10.2025
+69. `export_items.dart` ve `backup_notification_helper.dart` dosyaları önceki adıma göre düzeltildi. - 20.10.2025
 70. Konsol log ları düzeltildi. - 20.10.2025
 71. `show_malzeme_dialog_handler.dart` dosyası `show_notifications_handler.dart` olarak değiştirildi. - 25.10.1025
 72. `show_notifications_handler.dart` bildirim görünümü düzeltildi. - 25.10.2025
@@ -96,6 +96,12 @@
 84. `file_info.dart` dosyası yenilendi. `sqlTableName` değişkeni eklendi. - 31.10.2025
 85. `db_helper.dart` dosyası `sqlTableName` değişkenine göre düzenlendi. - 31.10.2025
 86. `getWord` metodu getItem olarak değiştirildi. - 31.10.2025
+87. log etiketleri tag değişkenine atanıp, okunurluk sağlandı. - 04.11.2025
+88. log etiketi değişen dosyalar : `export_items.dart`, `backup_notification_helper.dart`, `json_loader.dart`, `json_saver_io.dart`. - 04.11.2025
+89. `text_constants.dart` dosyasına `drawerMenuSubtitleText` sabiti eklendi. - 04.11.2025
+90. `drawer_share_tile.dart`ve `share_helper.dart` dosyası eklendi. - 04.11.2025
+91. drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
+92. 
 
 
 

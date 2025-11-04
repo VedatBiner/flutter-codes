@@ -83,6 +83,7 @@ Future<void> backupNotificationHelper({
 
   // Banner ’ı göster
   showBanner();
+  const tag = 'backup_notification_helper';
 
   try {
     final res = await exportItemsToFileFormats(
@@ -104,23 +105,20 @@ Future<void> backupNotificationHelper({
     // Log
     log(
       "-----------------------------------------------------------------------",
-      name: "backup_notification_helper",
+      name: tag,
     );
-    log(
-      "Toplam Kayıt sayısı : ${res.count} ✅",
-      name: "backup_notification_helper",
-    );
+    log("Toplam Kayıt sayısı : ${res.count} ✅", name: tag);
     log(
       "-----------------------------------------------------------------------",
-      name: "backup_notification_helper",
+      name: tag,
     );
-    log("✅ JSON yedeği → ${res.jsonPath}", name: "backup_notification_helper");
-    log("✅ CSV  yedeği → ${res.csvPath}", name: "backup_notification_helper");
-    log("✅ XLSX yedeği → ${res.xlsxPath}", name: "backup_notification_helper");
-    log("✅ SQL  yedeği → ${res.sqlPath}", name: "backup_notification_helper");
+    log("✅ JSON yedeği → ${res.jsonPath}", name: tag);
+    log("✅ CSV  yedeği → ${res.csvPath}", name: tag);
+    log("✅ XLSX yedeği → ${res.xlsxPath}", name: tag);
+    log("✅ SQL  yedeği → ${res.sqlPath}", name: tag);
     log(
       "-----------------------------------------------------------------------",
-      name: "backup_notification_helper",
+      name: tag,
     );
   } catch (e) {
     if (!context.mounted) return;

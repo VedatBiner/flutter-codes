@@ -9,6 +9,7 @@ import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
+import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -56,6 +57,9 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
             const DrawerBackupTile(),
+
+            // 📌 Yedekleri paylaşma butonu
+            const DrawerShareTile(),
 
             /// 📌 Veritabanını Yenile (SQL)
             /// DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),

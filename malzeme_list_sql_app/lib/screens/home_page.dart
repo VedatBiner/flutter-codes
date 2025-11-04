@@ -88,6 +88,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadWords() async {
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
+    const tag = 'home_page';
 
     _sortList(allWords); // 🔠 Türkçeye göre sırala
 
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       Provider.of<MalzemeCountProvider>(context, listen: false).setCount(count);
     }
 
-    log('📦 Toplam kayıt sayısı: $count', name: 'Home Page');
+    log('📦 Toplam kayıt sayısı: $count', name: tag);
   }
 
   /// 🔍  Arama filtreleme

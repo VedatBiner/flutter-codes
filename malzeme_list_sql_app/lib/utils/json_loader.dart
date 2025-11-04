@@ -38,17 +38,15 @@ Future<void> loadDataFromDatabase({
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
   MalzemeCountProvider? provider,
 }) async {
-  log('🔄 json_loader çalıştı', name: 'json_loader');
-  log("🔄 Veritabanından veri okunuyor...", name: 'json_loader');
+  const tag = 'json_loader';
+  log('🔄 json_loader çalıştı', name: tag);
+  log("🔄 Veritabanından veri okunuyor...", name: tag);
 
   final count = await DbHelper.instance.countRecords();
-  log("🧮 Veritabanındaki malzeme sayısı: $count", name: 'json_loader');
+  log("🧮 Veritabanındaki malzeme sayısı: $count", name: tag);
 
   if (count == 0) {
-    log(
-      "📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...",
-      name: 'json_loader',
-    );
+    log("📭 Veritabanı boş. JSON yedeğinden veri yükleniyor...", name: tag);
 
     try {
       final directory = await getApplicationDocumentsDirectory();
@@ -57,13 +55,10 @@ Future<void> loadDataFromDatabase({
 
       String jsonStr;
       if (await file.exists()) {
-        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: 'json_loader');
+        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: tag);
         jsonStr = await file.readAsString();
       } else {
-        log(
-          "📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...",
-          name: 'json_loader',
-        );
+        log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...", name: tag);
         jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
@@ -107,17 +102,14 @@ Future<void> loadDataFromDatabase({
 
       log(
         "✅ ${loadedItems.length} malzeme yüklendi (${stopwatch.elapsed.inMilliseconds} ms).",
-        name: 'JSON Loader',
+        name: tag,
       );
     } catch (e) {
-      log("❌ JSON yükleme hatası: $e", name: 'json_loader');
+      log("❌ JSON yükleme hatası: $e", name: tag);
       onLoadingStatusChange(false, 0.0, null, const Duration());
     }
   } else {
-    log(
-      "📦 Veritabanında veri var, JSON 'dan yükleme atlandı.",
-      name: 'json_loader',
-    );
+    log("📦 Veritabanında veri var, JSON 'dan yükleme atlandı.", name: tag);
     final existingItems = await DbHelper.instance.getRecords();
     onLoaded(existingItems);
 

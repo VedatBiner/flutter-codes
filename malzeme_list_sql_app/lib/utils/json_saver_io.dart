@@ -66,10 +66,11 @@ import 'package:share_plus/share_plus.dart';
 
 class JsonSaver {
   static Future<String> save(String text, String filename) async {
+    const tag = 'json_saver_io';
     final dir = await getApplicationDocumentsDirectory();
     final path = '${dir.path}/$filename';
     await File(path).writeAsString(text);
-    log('💾 Belgeler: $path', name: 'json_saver');
+    log('💾 Belgeler: $path', name: tag);
 
     // Yeni API: SharePlus.instance.share(ShareParams(...))
     await SharePlus.instance.share(
@@ -84,16 +85,14 @@ class JsonSaver {
     String filename, {
     String? subfolder,
   }) async {
+    const tag = 'json_saver_io';
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsString(text);
-      log('✅ Download → $path', name: 'json_saver');
+      log('✅ Download → $path', name: tag);
       return path;
     } catch (e) {
-      log(
-        '❌ Download yazılamadı: $e — Belgeler\'e düşülüyor',
-        name: 'json_saver',
-      );
+      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: tag);
       return await save(text, filename);
     }
   }
@@ -113,16 +112,14 @@ class JsonSaver {
     String mime = 'application/octet-stream',
     String? subfolder,
   }) async {
+    const tag = 'json_saver_io';
     try {
       final path = await _ensureDownloadsPath(filename, subfolder: subfolder);
       await File(path).writeAsBytes(bytes);
-      log('✅ Download → $path', name: 'json_saver');
+      log('✅ Download → $path', name: tag);
       return path;
     } catch (e) {
-      log(
-        '❌ Download yazılamadı: $e — Belgeler\'e düşülüyor',
-        name: 'json_saver',
-      );
+      log('❌ Download yazılamadı: $e — Belgeler\'e düşülüyor', name: tag);
       final dir = await getApplicationDocumentsDirectory();
       final path = '${dir.path}/$filename';
       await File(path).writeAsBytes(bytes);
