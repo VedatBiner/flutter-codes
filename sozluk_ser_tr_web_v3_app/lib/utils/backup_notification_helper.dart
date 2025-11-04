@@ -80,7 +80,7 @@ Future<void> triggerBackupExport({
 
   // Banner 'ı göster
   showBanner();
-
+  const tag = 'backup_notification_helper';
   try {
     final res = await exportWordsToJsonCsvXlsx(
       pageSize: pageSize,
@@ -103,28 +103,13 @@ Future<void> triggerBackupExport({
     }
 
     // Log
-    log(
-      "-----------------------------------------------",
-      name: "Backup_notification_helper",
-    );
-    log(
-      "Toplam Kayıt sayısı : ${res.count} ✅",
-      name: "Backup_notification_helper",
-    );
-    log(
-      "-----------------------------------------------",
-      name: "Backup_notification_helper",
-    );
-    log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup_notification_helper");
-    log("✅ CSV  yedeği → ${res.csvPath} ✅", name: "Backup_notification_helper");
-    log(
-      "✅ XLSX yedeği → ${res.xlsxPath} ✅",
-      name: "Backup_notification_helper",
-    );
-    log(
-      "-----------------------------------------------",
-      name: "Backup_notification_helper",
-    );
+    log("-----------------------------------------------", name: tag);
+    log("Toplam Kayıt sayısı : ${res.count} ✅", name: tag);
+    log("-----------------------------------------------", name: tag);
+    log("✅ JSON yedeği → ${res.jsonPath}", name: tag);
+    log("✅ CSV  yedeği → ${res.csvPath} ✅", name: tag);
+    log("✅ XLSX yedeği → ${res.xlsxPath} ✅", name: tag);
+    log("-----------------------------------------------", name: tag);
   } catch (e) {
     // 🔐 Hata durumunda da context kontrolü
     if (!context.mounted) {

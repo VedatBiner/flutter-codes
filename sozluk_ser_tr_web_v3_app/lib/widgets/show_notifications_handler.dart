@@ -124,7 +124,8 @@ Future<void> showWordDialogHandler(
 
     /// 📌 Kelime yoksa ekle
     await WordService.addWord(result);
-    log('Kelime eklendi: ${result.sirpca}', name: 'ADD_WORD');
+    const tag = 'show_notifications_handler';
+    log('Kelime eklendi: ${result.sirpca}', name: tag);
 
     onWordAdded();
     if (!context.mounted) return;

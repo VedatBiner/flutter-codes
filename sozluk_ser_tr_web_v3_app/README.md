@@ -1,12 +1,12 @@
 # sozluk_ser_tr_web_v3_app
 
 test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri yapan uygulama
-- Firestore ayarları yapıldı ve test edildi. Erişim sağlandı
-- Firestore koleksiyonu JSON olarak web 'den indirildi. Yaklaşık 1500 KB.
-- Firestore koleksiyonu JSON olarak mobil 'den indirildi. Yaklaşık 1500 KB.
-- home_page.dart kodu bölünerek koda temiz bir görünüm verilecek.
-- JSON,CSV,XLSX aktarma işlemleri web ve mobilde düzgün çalışıyor.
-- Home Page biraz temizlendi.flutter
+1. Firestore ayarları yapıldı ve test edildi. Erişim sağlandı 
+2. Firestore koleksiyonu JSON olarak web 'den indirildi. Yaklaşık 1500 KB. 
+3. Firestore koleksiyonu JSON olarak mobil 'den indirildi. Yaklaşık 1500 KB. 
+4. home_page.dart kodu bölünerek koda temiz bir görünüm verilecek. 
+5. JSON,CSV,XLSX aktarma işlemleri web ve mobilde düzgün çalışıyor. 
+6. Home Page biraz temizlendi.flutter
 - Yedekleme seçeneği drawer menüye eklendi.
 - Home page geri dönüş butonu eklendi.
 - Firebase servisleri için word_service.dart dosyası düzenleniyor.
@@ -52,9 +52,14 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 79. `edit_word_dialog.dart` dosyası `edit_item_dialog.dart` olarak değiştirildi. - 25.10.2025
 80. `delete_word_dialog.dart` dosyası `delete_item_dialog.dart` olarak değiştirildi. - 25.10.2025
 81. dosya adları da olabildiğince standartlaştırıldı. - 25.10.2025
-
+82. log etiketleri tag değişkenine atanıp, okunurluk sağlandı. - 04.11.2025
+83. `main.dart`, `item_service.dart`, `json_saver_io.dart`, `show_notifications|handler.dart`, `export_item.dart` ve `backup_notification_helper.dart` dosyalarında log bilgileri düzeltildi. - 04.11.2025
+84. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 04.11.2025
+85. 
 
 
 
 Yapılacaklar : 
-- Alfabetik görünümü sağlanması. Özellikle aram işleminde gerekebilir.
+- Alfabetik görünümü sağlanması. Özellikle arama işleminde gerekebilir.
+- mobilde açılış çok uzun sürüyor.
+- 

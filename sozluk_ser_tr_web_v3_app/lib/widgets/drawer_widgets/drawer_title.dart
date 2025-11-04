@@ -17,7 +17,7 @@ class DrawerTitleWidget extends StatelessWidget {
     return Container(
       color: drawerColor,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: Text('Menü', style: drawerMenuTitleText),
+      child: Text('Menü (Sözlük-Web-Mobil)', style: drawerMenuTitleText),
     );
   }
 }

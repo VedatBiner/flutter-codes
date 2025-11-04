@@ -48,18 +48,16 @@ class WordService {
   ///  - createdAt/updatedAt server timestamp olarak set edilir.
   /// -----------------------------------------------------------------
   static Future<void> addWord(Word word) async {
+    const tag = 'item_service';
     try {
       await _col.add({
         ...word.toFirestore(),
         'createdAt': FieldValue.serverTimestamp(),
         'updatedAt': FieldValue.serverTimestamp(),
       });
-      log(
-        '✅ "${word.sirpca}" kelimesi Firestore ’a eklendi.',
-        name: "word_service",
-      );
+      log('✅ "${word.sirpca}" kelimesi Firestore ’a eklendi.', name: tag);
     } catch (e, st) {
-      log('❌ Firestore ekleme hatası: $e', error: e, stackTrace: st);
+      log('❌ Firestore ekleme hatası: $e', error: e, stackTrace: st, name: tag);
     }
     await _logTotals();
   }
@@ -70,19 +68,23 @@ class WordService {
   ///  - `id` yoksa `sirpca` eşleşen TÜM belgeler silinir (dikkat!).
   /// -----------------------------------------------------------------
   static Future<void> deleteWord(Word word) async {
+    const tag = 'item_service';
     try {
       if (word.id != null && word.id!.isNotEmpty) {
         await _col.doc(word.id!).delete();
-        log('🗑️ "${word.sirpca}" (id: ${word.id}) silindi.');
+        log('🗑️ "${word.sirpca}" (id: ${word.id}) silindi.', name: tag);
       } else {
         final snap = await _col.where('sirpca', isEqualTo: word.sirpca).get();
         for (final d in snap.docs) {
           await d.reference.delete();
         }
-        log('🗑️ "${word.sirpca}" için ${snap.docs.length} kayıt silindi.');
+        log(
+          '🗑️ "${word.sirpca}" için ${snap.docs.length} kayıt silindi.',
+          name: tag,
+        );
       }
     } catch (e, st) {
-      log('❌ Firestore silme hatası: $e', error: e, stackTrace: st);
+      log('❌ Firestore silme hatası: $e', error: e, stackTrace: st, name: tag);
     }
     await _logTotals();
   }
@@ -95,6 +97,7 @@ class WordService {
   ///  - updatedAt server timestamp olarak set edilir.
   /// -----------------------------------------------------------------
   static Future<void> updateWord(Word word, {String? oldSirpca}) async {
+    const tag = 'item_service';
     try {
       final data = {
         ...word.toFirestore(),
@@ -103,7 +106,7 @@ class WordService {
 
       if (word.id != null && word.id!.isNotEmpty) {
         await _col.doc(word.id!).update(data);
-        log('✏️ "${word.sirpca}" (id: ${word.id}) güncellendi.');
+        log('✏️ "${word.sirpca}" (id: ${word.id}) güncellendi.', name: tag);
       } else {
         final key = (oldSirpca == null || oldSirpca.isEmpty)
             ? word.sirpca
@@ -113,10 +116,15 @@ class WordService {
         for (final d in snap.docs) {
           await d.reference.update(data);
         }
-        log('✏️ "$key" için ${snap.docs.length} kayıt güncellendi.');
+        log('✏️ "$key" için ${snap.docs.length} kayıt güncellendi.', name: tag);
       }
     } catch (e, st) {
-      log('❌ Firestore güncelleme hatası: $e', error: e, stackTrace: st);
+      log(
+        '❌ Firestore güncelleme hatası: $e',
+        error: e,
+        stackTrace: st,
+        name: tag,
+      );
     }
     await _logTotals();
   }
@@ -129,6 +137,7 @@ class WordService {
   /// 4) UI ’da göstermek üzere kısa bir durum metni döndürür.
   /// -----------------------------------------------------------------
   static Future<String> readWordsOnce() async {
+    const tag = 'word_service';
     try {
       final col = FirebaseFirestore.instance
           .collection(collectionName)
@@ -137,25 +146,25 @@ class WordService {
             toFirestore: (w, _) => w.toFirestore(),
           );
 
-      log('📥 "$collectionName" (model) okunuyor ...', name: 'word_service');
+      log('📥 "$collectionName" (model) okunuyor ...', name: tag);
 
       // Aggregate count
       final agg = await col.count().get();
-      log('✅ Toplam kayıt sayısı : ${agg.count}', name: 'word_service');
+      log('✅ Toplam kayıt sayısı : ${agg.count}', name: tag);
 
       // Örnek belge
       final snap = await col.limit(1).get();
       if (snap.docs.isNotEmpty) {
         final Word w = snap.docs.first.data();
       } else {
-        log('ℹ️ Koleksiyonda belge yok.', name: 'word_service');
+        log('ℹ️ Koleksiyonda belge yok.', name: tag);
       }
 
       return 'Okuma tamam. Console ’a yazıldı.';
     } catch (e, st) {
       log(
         '❌ Hata ($collectionName okuma): $e',
-        name: 'word_service',
+        name: tag,
         error: e,
         stackTrace: st,
         level: 1000,
@@ -169,6 +178,7 @@ class WordService {
   ///  - Aggregate count ile performanslı sayım
   /// -----------------------------------------------------------------
   static Future<void> _logTotals() async {
+    const tag = 'word_service';
     try {
       final agg = await _col.count().get();
       log('📊 Toplam kayıt — Firestore: ${agg.count}');
@@ -177,7 +187,7 @@ class WordService {
         '⚠️ Toplam kayıt sayısı alınırken hata: $e',
         error: e,
         stackTrace: st,
-        name: 'word_service',
+        name: tag,
       );
     }
   }

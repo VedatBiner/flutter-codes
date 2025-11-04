@@ -18,7 +18,8 @@ import 'theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  log('🚀 Firebase başlatıldı.', name: 'main');
+  const tag = 'main';
+  log('🚀 Firebase başlatıldı.', name: tag);
   debugPrint = (String? message, {int? wrapWidth}) {
     if (message == null) return;
     debugPrintSynchronously(message, wrapWidth: wrapWidth);

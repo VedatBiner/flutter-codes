@@ -61,7 +61,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
 }) async {
   final sw = Stopwatch()..start();
   final List<Word> all = [];
-
+  const tag = 'export_items';
   try {
     // Tipli koleksiyon referansı
     final col = FirebaseFirestore.instance
@@ -71,7 +71,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
           toFirestore: (w, _) => w.toFirestore(),
         );
 
-    // SIRPCA'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU)
+    // SIRPCA 'YA GÖRE DOĞRUDAN SIRALI OKUMA (PAGİNASYONLU)
     Query<Word> base = col.orderBy('sirpca').orderBy(FieldPath.documentId);
     String? lastSirpca;
     String? lastId;
@@ -98,7 +98,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
       if (pageCount % 5 == 0) {
         log(
           '📥 ${all.length} kayıt yüklendi... (Sayfa: $pageCount)',
-          name: 'export_items',
+          name: tag,
         );
       }
 
@@ -148,7 +148,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
     sw.stop();
     log(
       '📦 Export tamamlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-      name: 'export_items',
+      name: tag,
     );
 
     return ExportResultX(
@@ -162,7 +162,7 @@ Future<ExportResultX> exportWordsToJsonCsvXlsx({
     sw.stop();
     log(
       '❌ Hata (exportWordsToJsonCsvXlsx): $e',
-      name: 'export_items',
+      name: tag,
       error: e,
       stackTrace: st,
       level: 1000,
