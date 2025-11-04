@@ -129,13 +129,14 @@ class DbHelper {
   /// 📌 JSON yedeği burada geri yükleniyor.
   ///
   Future<void> importRecordsFromJson(BuildContext context) async {
+    const tag = 'db_helper';
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'Db_helper');
+        log('❌ Yedek dosyası bulunamadı: $filePath', name: tag);
 
         if (context.mounted) {
           NotificationService.showCustomNotification(
@@ -164,7 +165,7 @@ class DbHelper {
 
       log(
         '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
-        name: 'Db_helper',
+        name: tag,
       );
 
       if (context.mounted) {
@@ -179,7 +180,7 @@ class DbHelper {
         );
       }
     } catch (e) {
-      log('🚨 Geri yükleme hatası: $e', name: 'Db_helper');
+      log('🚨 Geri yükleme hatası: $e', name: tag);
 
       if (context.mounted) {
         NotificationService.showCustomNotification(
@@ -220,20 +221,21 @@ class DbHelper {
 
   /// 📌 CSV yedeği burada geri yükleniyor.
   Future<void> importRecordsFromCsv() async {
+    const tag = 'db_helper';
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameCsv';
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ CSV dosyası bulunamadı: $filePath', name: 'Db_helper');
+        log('❌ CSV dosyası bulunamadı: $filePath', name: tag);
         return;
       }
 
       final lines = await file.readAsLines();
 
       if (lines.isEmpty) {
-        log('❌ CSV dosyası boş.', name: 'Db_helper');
+        log('❌ CSV dosyası boş.', name: tag);
         return;
       }
 
@@ -264,10 +266,10 @@ class DbHelper {
       }
 
       /// 🔥 Konsola yaz
-      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'Db_helper');
-      log('📂 CSV dosya konumu: $filePath', name: 'Db_helper');
+      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: tag);
+      log('📂 CSV dosya konumu: $filePath', name: tag);
     } catch (e) {
-      log('🚨 CSV yükleme hatası: $e', name: 'Db_helper');
+      log('🚨 CSV yükleme hatası: $e', name: tag);
     }
   }
 

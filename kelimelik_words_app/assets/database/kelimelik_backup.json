@@ -896,6 +896,10 @@
     "meaning": "Ardıl"
   },
   {
+    "word": "Ardak",
+    "meaning": "İçten çürümeye yüz tutmuş ağaç"
+  },
+  {
     "word": "Ardıl",
     "meaning": "Bir çıkarım da varılan sonuç"
   },
@@ -1038,6 +1042,10 @@
   {
     "word": "Asel",
     "meaning": "Oligopol / sunumun bir kaç satıcı tarafından yapıldığı piyasa türü"
+  },
+  {
+    "word": "Aseton",
+    "meaning": "Eter kokusunda, alev alabilir eritici bir madde"
   },
   {
     "word": "Aside",
@@ -1682,6 +1690,10 @@
   {
     "word": "Bak",
     "meaning": "Şaşma anlatan söz"
+  },
+  {
+    "word": "Bakara",
+    "meaning": "İskambil oyunu türü"
   },
   {
     "word": "Baki",
@@ -5852,6 +5864,10 @@
     "meaning": "Liste başı"
   },
   {
+    "word": "Hiza",
+    "meaning": "Doğru bir çizgi üzerinde bulunma durumu"
+  },
+  {
     "word": "Hiç",
     "meaning": "Boş / Değersiz"
   },
@@ -6808,6 +6824,10 @@
     "meaning": "Jöle"
   },
   {
+    "word": "Jelatin",
+    "meaning": "Ambalaj için kullanılan ince şeffaf madde"
+  },
+  {
     "word": "Jest",
     "meaning": "Beklenmedik iyi davranış"
   },
@@ -6961,7 +6981,7 @@
   },
   {
     "word": "Kaim",
-    "meaning": "Jer zaman var olan"
+    "meaning": "Her zaman var olan"
   },
   {
     "word": "Kaime",
@@ -7314,6 +7334,10 @@
   {
     "word": "Katil",
     "meaning": "Insan öldüren kişi / Cani"
+  },
+  {
+    "word": "Katip",
+    "meaning": "Yazman"
   },
   {
     "word": "Katkı",
@@ -8900,6 +8924,10 @@
     "meaning": "Ulan / Argoda seslenme şekli"
   },
   {
+    "word": "Lanse",
+    "meaning": "Önceleme"
+  },
+  {
     "word": "Lantan",
     "meaning": "Element türü"
   },
@@ -9296,6 +9324,10 @@
     "meaning": "Serüven / Sergüzeşt / Avantür"
   },
   {
+    "word": "Macun",
+    "meaning": "Hamur kıvamına getirilmiş madde"
+  },
+  {
     "word": "Madam",
     "meaning": "Fransa'da evli kadınlara verilen san"
   },
@@ -9490,6 +9522,10 @@
   {
     "word": "Mantıki",
     "meaning": "Mantıklı"
+  },
+  {
+    "word": "Maraba",
+    "meaning": "Çiftçi / Ortakçı"
   },
   {
     "word": "Maral",
@@ -10340,6 +10376,10 @@
     "meaning": "Sertleşmiş el ayak derisi"
   },
   {
+    "word": "Natır",
+    "meaning": "Kadınlar hamamında kadınları yıkayan kişi"
+  },
+  {
     "word": "Naz",
     "meaning": "Cilve / Eda / Şımarıkça davranış"
   },
@@ -10914,6 +10954,10 @@
   {
     "word": "Otağ",
     "meaning": "Büyük süslü çadır / Çerge"
+  },
+  {
+    "word": "Otağı",
+    "meaning": "Büyük ve süslü çadır / Çerge"
   },
   {
     "word": "Otel",
@@ -11586,6 +11630,10 @@
   {
     "word": "Rami",
     "meaning": "Isırgangilerden bir bitki"
+  },
+  {
+    "word": "Ramp",
+    "meaning": "Tiyatro sahnesin de ışıkların izleyiciye en yakın yerleştirildiği yer"
   },
   {
     "word": "Rampa",
@@ -13305,7 +13353,7 @@
   },
   {
     "word": "Talil",
-    "meaning": "Sebep gösterme"
+    "meaning": "Sebep gösterme / Tümdengelim"
   },
   {
     "word": "Talim",
@@ -13330,6 +13378,10 @@
   {
     "word": "Tamahkar",
     "meaning": "Aç gözlü"
+  },
+  {
+    "word": "Tamim",
+    "meaning": "Genelge / Sirküler"
   },
   {
     "word": "Tamirat",
@@ -14440,6 +14492,10 @@
     "meaning": "Çalgı"
   },
   {
+    "word": "Utv",
+    "meaning": "Hafif atv"
+  },
+  {
     "word": "Uy",
     "meaning": "Vay"
   },
@@ -14530,6 +14586,10 @@
   {
     "word": "Uğrak",
     "meaning": "Çok uğranılan yer"
+  },
+  {
+    "word": "Uğru",
+    "meaning": "Hırsız"
   },
   {
     "word": "Uğut",
@@ -15157,7 +15217,7 @@
   },
   {
     "word": "Yemlik",
-    "meaning": "Arpalık / Rüşvet / Arpalık"
+    "meaning": "Arpalık / Rüşvet / Hayvanlara yem verilen kap"
   },
   {
     "word": "Yen",
@@ -15846,6 +15906,10 @@
   {
     "word": "Çağa",
     "meaning": "Çocuk / Bebek"
+  },
+  {
+    "word": "Çağdaş",
+    "meaning": "Aynı çağda yaşayan / Muasır"
   },
   {
     "word": "Çağla",
@@ -16954,6 +17018,10 @@
   {
     "word": "Şirk",
     "meaning": "Eş koşma"
+  },
+  {
+    "word": "Şirket",
+    "meaning": "Ortaklık"
   },
   {
     "word": "Şita",

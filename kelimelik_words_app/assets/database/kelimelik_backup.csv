@@ -223,6 +223,7 @@ Arami,Bir Mezopotamya halkı
 Arap,Ortadoğu ve Afrika halkından olan / Koyu esmer / Fellah
 Araz,Belirti / İlinek
 Arda,Ardıl
+Ardak,İçten çürümeye yüz tutmuş ağaç
 Ardıl,Bir çıkarım da varılan sonuç
 Arena,Siyasi çekişmelerin geçtiği yer
 Argo,Eğitimsiz kişilerin konuşma tarzı
@@ -259,6 +260,7 @@ Asan,Kolay / Kolayca
 Asap,Sinir
 Asar,Yüzyıllar
 Asel,Oligopol / sunumun bir kaç satıcı tarafından yapıldığı piyasa türü
+Aseton,"Eter kokusunda, alev alabilir eritici bir madde"
 Aside,Et ve bamyalı Arap yemeği
 Asit,Hamız / hidrojenli bileşik
 Ask,Askılı mantarların üreme organı
@@ -420,6 +422,7 @@ Badire,Birden ortaya çıkan tehlikeli durum
 Bahis,Konu
 Baht,Şans / Kader / Talih
 Bak,Şaşma anlatan söz
+Bakara,İskambil oyunu türü
 Baki,Sürekli
 Bakir,El değmemiş / Cinsel ilişkide bulunmamış erkek
 Bakmak,Beslemek / Geçindirmek
@@ -1462,6 +1465,7 @@ Hin,Kurnaz / Cin fikirli
 Hint,Hindistan halkından olan
 His,Duygu / Duyu
 Hit,Liste başı
+Hiza,Doğru bir çizgi üzerinde bulunma durumu
 Hiç,Boş / Değersiz
 Hiçlik,Hiç olma durumu
 Hiş,Hişt
@@ -1701,6 +1705,7 @@ Janti,Zarif / Kibar
 Jarse,Esnek kumaş türü
 Je,Harf
 Jel,Jöle
+Jelatin,Ambalaj için kullanılan ince şeffaf madde
 Jest,Beklenmedik iyi davranış
 Jet,Tepkili motorlar ile çalışan uçak
 Jig,Ortaçağ çalgısı
@@ -1739,7 +1744,7 @@ Kahil,Erişkin
 Kahir,Kahreden / Zorlayıcı
 Kahve,Çekirdekleri den içecek elde edilen bir ağaç
 Kaide,Kural
-Kaim,Jer zaman var olan
+Kaim,Her zaman var olan
 Kaime,Buyruk / Ferman / Kayme
 Kainat,Evren / Dünya
 Kaju,Bir çeşit çerez
@@ -1828,6 +1833,7 @@ Kat,Üst üste konmuş şeyler
 Katar,Tren
 Kati,Kesin
 Katil,Insan öldüren kişi / Cani
+Katip,Yazman
 Katkı,Bir şeye katılan başka bir madde
 Katletme,Katletmek işi
 Katı,Ekmeğe katılan
@@ -2224,6 +2230,7 @@ Lam,Mikroskopta kullanılan cam
 Lama,Buda rahibi / Güney Amerika'da bir hayvan türü
 Lame,Metal parlaklığı verilmiş deri
 Lan,Ulan / Argoda seslenme şekli
+Lanse,Önceleme
 Lantan,Element türü
 Laos,Bir ülke adı
 Lap,Yumuşak düşme sesi
@@ -2323,6 +2330,7 @@ Maaş,Aylık
 Mabet,Tapınak
 Macar,Macaristan hakından olan
 Macera,Serüven / Sergüzeşt / Avantür
+Macun,Hamur kıvamına getirilmiş madde
 Madam,Fransa'da evli kadınlara verilen san
 Madama,Madam
 Madem,Değil mi ki anlamında
@@ -2372,6 +2380,7 @@ Mantar,Zehirli zehirsiz ilkel canlı
 Manto,Kadın paltosu
 Mantı,Hamur yemeği çeşidi
 Mantıki,Mantıklı
+Maraba,Çiftçi / Ortakçı
 Maral,Dişi geyik
 Maraz,Hastalık
 Maraş,Kahramanmaraş
@@ -2584,6 +2593,7 @@ Nas,Dogma / Açık kesin yargı
 Nasir,Nedir ustası
 Nasıl,Ne biçimde / Hangi yolla anlamında
 Nasır,Sertleşmiş el ayak derisi
+Natır,Kadınlar hamamında kadınları yıkayan kişi
 Naz,Cilve / Eda / Şımarıkça davranış
 Nazari,Kurumsal
 Nazende,Nazlı
@@ -2728,6 +2738,7 @@ Oruç,İbadet türü
 Ot,İlaç / Zehir
 Otacı,Hekim ya da eczacı anlamında ünvan
 Otağ,Büyük süslü çadır / Çerge
+Otağı,Büyük ve süslü çadır / Çerge
 Otel,Turistik işletme
 Oto,Otomobil
 Otururak,Oturulacak yer
@@ -2896,6 +2907,7 @@ Rakı,Aslan sütü / İçki / İmamsuyu
 Rakım,Yükselti
 Ram,Boyun eğen
 Rami,Isırgangilerden bir bitki
+Ramp,Tiyatro sahnesin de ışıkların izleyiciye en yakın yerleştirildiği yer
 Rampa,Füze fırlatma düzeni
 Rant,Getirim
 Ranza,Üst üste yapılan yatak yeri
@@ -3325,13 +3337,14 @@ Talaş,Rende / Matkap gibi araçlar ile işlenen bir şeylerden dökülen kırı
 Tali,Ikinci derece / İkincil
 Talik,Asma yukarı kaldırma
 Talika,Bir tür at arabası
-Talil,Sebep gösterme
+Talil,Sebep gösterme / Tümdengelim
 Talim,Öğretim / Alıştırma
 Talip,İsteyen / İstekli
 Talk,Hidratlı doğal magnezyum
 Tam,Bütün / Tüm / Eksiksiz
 Tamah,Açgözlülük
 Tamahkar,Aç gözlü
+Tamim,Genelge / Sirküler
 Tamirat,Onarım
 Tamu,Cehennem
 Tan,Alacakaranlık / Fecir
@@ -3609,6 +3622,7 @@ Us,Akıl
 Usat,Asiler/ İsyancılar
 Usta,Becerikli / Mahir
 Ut,Çalgı
+Utv,Hafif atv
 Uy,Vay
 Uyak,Kafiye
 Uyar,Uygun olan
@@ -3632,6 +3646,7 @@ Uçlu,Ucu olan / Ucu çıkan
 Uçucu,Pilot / Uçma yeteneği olan
 Uğra,Yufka açılırken hamurun tahtaya yapışmaması için serpilen un
 Uğrak,Çok uğranılan yer
+Uğru,Hırsız
 Uğut,Bir çeşit buğday yemeği
 Uşak,Çocuk / Erkek hizmetçi
 Vade,Süre / Mühlet / Mehil
@@ -3788,7 +3803,7 @@ Yeme,Yeme işi
 Yemen,Bir ülke
 Yemin,Ant
 Yeminli,Bazı mesleklerde işi doğru yapacağına dair alınan belge
-Yemlik,Arpalık / Rüşvet / Arpalık
+Yemlik,Arpalık / Rüşvet / Hayvanlara yem verilen kap
 Yen,Japon parası
 Yeni,En son edinilen
 Yenik,Mağlup / Aşınmış
@@ -3961,6 +3976,7 @@ Zıt,Karşıt / ters
 Çaça,Genelev işleten kadın
 Çağ,Zaman dilimi
 Çağa,Çocuk / Bebek
+Çağdaş,Aynı çağda yaşayan / Muasır
 Çağla,"Badem, kayısı, erik gibi meyvelerin yenilebilir ham hali"
 Çağrı,Davet
 Çe,Harf
@@ -4238,6 +4254,7 @@ Zıt,Karşıt / ters
 Şip,Biz
 Şirin,Sevimli / Cana yakın
 Şirk,Eş koşma
+Şirket,Ortaklık
 Şita,Kış
 Şive,Söyleyiş özelliği / Naz / Eda
 Şiş,Şişkin / Et pişirme aracı

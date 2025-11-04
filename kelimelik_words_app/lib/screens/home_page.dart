@@ -99,6 +99,7 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
+    const tag = 'home_page';
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
       Provider.of<WordCountProvider>(context, listen: false).setCount(count);
     }
 
-    log('📦 Toplam kayıt sayısı: $count', name: "Home Page");
+    log('📦 Toplam kayıt sayısı: $count', name: tag);
   }
 
   /// 🔍  Arama filtreleme

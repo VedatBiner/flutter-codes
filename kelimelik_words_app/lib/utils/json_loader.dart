@@ -39,18 +39,19 @@ Future<void> loadDataFromDatabase({
   required Function(List<Word>) onLoaded,
   required Function(bool, double, String?, Duration) onLoadingStatusChange,
 }) async {
-  log('🔄 json_loader çalıştı', name: 'JSON Loader');
+  const tag = 'json_loader';
+  log('🔄 json_loader çalıştı', name: tag);
 
-  log("🔄 Veritabanından veri okunuyor...", name: 'JSON Loader');
+  log("🔄 Veritabanından veri okunuyor...", name: tag);
 
   final count = await DbHelper.instance.countRecords();
-  log("🧮 Veritabanındaki kelime sayısı: $count", name: 'JSON Loader');
+  log("🧮 Veritabanındaki kelime sayısı: $count", name: tag);
 
   /// 🔸 Veritabanı boşsa JSON ’dan doldur
   if (count == 0) {
     log(
       "📭 Veritabanı boş. Cihaz/asset JSON yedeğinden veri yükleniyor...",
-      name: 'JSON Loader',
+      name: tag,
     );
 
     try {
@@ -61,13 +62,10 @@ Future<void> loadDataFromDatabase({
 
       String jsonStr;
       if (await file.exists()) {
-        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: 'JSON Loader');
+        log("📁 Cihazdaki JSON yedeği bulundu: $filePath", name: tag);
         jsonStr = await file.readAsString();
       } else {
-        log(
-          "📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...",
-          name: 'JSON Loader',
-        );
+        log("📦 Cihazda JSON bulunamadı, asset ’ten yükleniyor...", name: tag);
         jsonStr = await rootBundle.loadString('assets/database/$fileNameJson');
       }
 
@@ -116,14 +114,14 @@ Future<void> loadDataFromDatabase({
       log(
         "✅ ${loadedWords.length} kelime yüklendi "
         "(${stopwatch.elapsed.inMilliseconds} ms).",
-        name: 'JSON Loader',
+        name: tag,
       );
     } catch (e) {
-      log("❌ JSON yükleme hatası: $e", name: 'JSON Loader');
+      log("❌ JSON yükleme hatası: $e", name: tag);
     }
   } else {
     /// 🔹 Veritabanı dolu ise sadece listeyi döndür
-    log("📦 Veritabanında veri var, yükleme yapılmadı.", name: 'JSON Loader');
+    log("📦 Veritabanında veri var, yükleme yapılmadı.", name: tag);
     final existingWords = await DbHelper.instance.getRecords();
     onLoaded(existingWords);
 

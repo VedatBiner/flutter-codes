@@ -101,11 +101,16 @@ bir chatGPT ortak çalışması :)
 96. `db_lhelper.dart` dosyası `sqlTableName`değişkenine göre düzenlendi. - 31.10.2025
 97. `export_items.dart` dosyasında düzeltme yapıldı. - 31.10.2025
 98. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
+99. log etiketleri tag değişkenine atanıp, okunurluk sağlandı. - 04.11.2025
+100. `drawer_share_tile.dart` ve `share_helper.dart` dosyası eklendi. - 04.11.2025
+101. - drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
 
 - Simdilik yapılanlar yeterli mi?
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
+
+
 
 <BR>
 Ekran Görüntüleri

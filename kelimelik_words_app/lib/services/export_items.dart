@@ -59,6 +59,7 @@ Future<ExportItems> exportItemsToFileFormats({
   int? pageSize, // geriye dönük uyumluluk için (kullanılmıyor)
 }) async {
   final sw = Stopwatch()..start();
+  const tag = 'export_items';
 
   try {
     // 1) Tüm veriyi SQLite 'tan al
@@ -155,16 +156,16 @@ Future<ExportItems> exportItemsToFileFormats({
           );
         }
       } else {
-        log('⚠️ DB dosyası bulunamadı: $dbPath', name: 'Export_items');
+        log('⚠️ DB dosyası bulunamadı: $dbPath', name: tag);
       }
     } catch (e) {
-      log('⚠️ DB yedeği alınamadı: $e', name: 'Export_items');
+      log('⚠️ DB yedeği alınamadı: $e', name: tag);
     }
 
     sw.stop();
     log(
       '📦 Export tamamlandı: ${all.length} kayıt, ${sw.elapsedMilliseconds} ms',
-      name: 'Export_items',
+      name: tag,
     );
 
     return ExportItems(
@@ -179,7 +180,7 @@ Future<ExportItems> exportItemsToFileFormats({
     sw.stop();
     log(
       '❌ Hata (exportWordsToJsonCsvXlsx): $e',
-      name: 'Export_items',
+      name: tag,
       error: e,
       stackTrace: st,
     );
