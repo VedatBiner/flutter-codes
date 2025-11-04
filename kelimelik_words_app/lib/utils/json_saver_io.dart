@@ -1,6 +1,6 @@
 // <📜 ----- lib/utils/json_saver_io.dart ----->
 /*
-  💾 JsonSaver (IO) — Mobil/Desktop’ta dosya kaydetme & paylaşma implementasyonu
+  💾 JsonSaver (IO) — Mobil/Desktop ’ta dosya kaydetme & paylaşma implementasyonu
 
   BU DOSYA NE İŞE YARAR?
   - `lib/utils/json_saver.dart` içindeki **koşullu import** ile, web dışındaki (Android/iOS/Windows/Linux/macOS)
@@ -9,9 +9,9 @@
 
   KULLANILAN BAĞIMLILIKLAR
   - path_provider        → Belgeler/Downloads gibi dizinleri bulmak için
-  - external_path        → Android’te genel **Downloads** dizini yolu için
-  - permission_handler   → Android’te depolama izinlerini istemek için
-  - share_plus           → Belgeler’e kaydedilen dosyayı paylaşmak için
+  - external_path        → Android ’te genel **Downloads** dizini yolu için
+  - permission_handler   → Android ’te depolama izinlerini istemek için
+  - share_plus           → Belgeler ’e kaydedilen dosyayı paylaşmak için
   - dart:developer/log   → Konsola özet bilgi/log yazmak için
 
   ANA METOTLAR
@@ -21,9 +21,9 @@
       • Geriye tam dosya yolunu döndürür.
   - saveToDownloads(text, filename, {subfolder})
       • Önce **Downloads** dizinine yazmayı dener (Android/Desktop).
-      • Başarısız olursa `save(...)` ile Belgeler’e yazıp paylaşır.
+      • Başarısız olursa `save(...)` ile Belgeler ’e yazıp paylaşır.
       • Geriye tam dosya yolunu döndürür.
-  - saveTextToDownloads(...) → metin için `saveToDownloads` kısayolu (contentType IO’da sadece deklaratif).
+  - saveTextToDownloads(...) → metin için `saveToDownloads` kısayolu (contentType IO ’da sadece deklaratif).
   - saveBytesToDownloads(bytes, filename, {subfolder})
       • Bytes olarak yazma (XLSX gibi ikili içerik).
       • Önce Downloads, olmazsa Belgeler + paylaşım.
@@ -32,11 +32,11 @@
   - ANDROID
       • Önce `MANAGE_EXTERNAL_STORAGE` ardından `READ/WRITE_EXTERNAL_STORAGE` iznini dener.
       • İzin verilirse `/storage/emulated/0/Download[/<subfolder>]` içine yazar (gerekirse klasör oluşturur).
-      • İzin verilmezse Belgeler’e kaydedip paylaşır.
+      • İzin verilmezse Belgeler ’e kaydedip paylaşır.
   - iOS
       • “Genel Downloads” yoktur. Belgeler dizinine kaydedilir; paylaşım ile kullanıcı istediği yere aktarabilir.
   - WINDOWS / LINUX / MACOS
-      • `getDownloadsDirectory()` varsa onu, yoksa Belgeler’i kullanır.
+      • `getDownloadsDirectory()` varsa onu, yoksa Belgeler ’i kullanır.
       • `subfolder` verilmişse alt klasör oluşturulur.
 
   DÖNÜŞ DEĞERİ
@@ -49,7 +49,7 @@
       • '❌ ...' hata durumları ve fallback bilgisi
 
   NOTLAR
-  - Android Manifest’te gerekli izinleri tanımladığınızdan emin olun (permission_handler belgelerine bakınız).
+  - Android Manifest ’te gerekli izinleri tanımladığınızdan emin olun (permission_handler belgelerine bakınız).
   - Emulator/cihazlarda farklı depolama politikaları görülebilir; hata durumunda fallback akışı devrededir.
 */
 
