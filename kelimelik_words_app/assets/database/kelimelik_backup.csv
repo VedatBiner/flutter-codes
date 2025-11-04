@@ -244,7 +244,7 @@ Artın,Katyon
 Aruz,Aruz vezni
 Arya,Opera solistinin orkestra eşliğinde söylemesi
 Arı,Bir böcek türü / Saf / Temiz / Günahsız
-Arıtım,Prtrol arıtma işi / Rafinaj
+Arıtım,Petrol arıtma işi / Rafinaj
 Arız,Sonradan ortaya çıkan / Musallat olmuş
 Arıza,Aksama / Aksaklık / Engebe
 Arızi,Dıştan gelen
@@ -758,6 +758,7 @@ Cima,İnsanlarda cinsel ilişki
 Cimri,Nekes / Eli sıkı / Varyemez
 Cin,Akıllı / Zeki
 Cinci,Cin çağırma ile uğraşan kimse
+Cinli,İçinde cin olduğuna inanılan / Öfkeli
 Cins,Tür / Çeşit
 Cinsel,Cinsi / Seksüel
 Cip,Arazi aracı
@@ -1187,10 +1188,12 @@ Feri,İkinci derece / Ayrıntı niteliğinde
 Ferik,Tümgeneral
 Ferli,Parlak
 Fert,Birey
+Ferç,Dişi canlılarda üreme organının bir bölümü
 Fes,Şapka yerine kullanılan kırmızı başlık
 Fetiş,Uğurlu sayılan şey / Cinsel saplantı yaratan obje
 Fevk,Üst / Yukarı
 Fevri,Birden bir yapılan
+Feza,Uzay
 Fidan,Yeni yetişen ağaç veya ağaççık
 Fide,Başka yere dikmek için hazırlanan çiçek veya sebze
 Fiji,Bir ülke adı
@@ -1622,8 +1625,8 @@ Irmak,Nehir
 İroni,Gülmece / Tersini kastederek alay etme
 İrs,Kalıtım
 Irz,Dokunulmaması ve saygı gösterilmesi gereken iffet
-Is,Açıklık / Doğruluk
 İs,Duman lekesi
+Is,Açıklık / Doğruluk
 İsa,Hıristiyanlık kurucusu peygamber
 İsal,Ulaştırma
 İsale,Akıtma
@@ -1785,6 +1788,7 @@ Kana,Geminin baş ve kıçına konan su çekme işaretleri
 Kandil,Aydınlatma aracı
 Kani,Kanmış / İnanmış
 Kanka,Kardeş kadar yakın olan kimse
+Kanlı,Kan davasınfa taraf olan kişi / Kan bulaşmış
 Kano,Kürekle yürütülen hafif tekne
 Kant,Şeker ve limonla içilen sıcak su
 Kantar,Ağırlık tartma aracı / Baskül
@@ -1980,6 +1984,7 @@ Kiraz,İzmir ilçesi / Bir meyve
 Kiril,Kiril alfabesi
 Kirli,Pis
 Kirpi,Memeli hayvan türü
+Kirpik,Göz kapağı kenarındaki kıllar
 Kirve,Sünnet olan çocuğun babası kadar yakının olan kimse
 Kispet,Yağlı güreşlerde kullanılan meşin pantolon
 Kist,Patalojik kitle
@@ -1995,6 +2000,7 @@ Klima,İklimleme cihazı
 Klişe,Basmakalıp
 Klon,Kopya
 Klor,Bir element
+Kloş,Alt tarafı çan biçiminde genişleyen etek
 Koala,Bir tür memeli hayvan
 Kobi,Küçük ve orta büyüklükte işletmelere verilen genel ad
 Kobra,Bir tür yılan
@@ -3047,6 +3053,7 @@ Samsa,Bir tatlı türü
 San,Ün
 Sana,Sen zamirinin yönelme hali
 Sanal,Farazi / Mevhum
+Sanat,Bir şey yapmada gösterilen ustalık
 Sanatlı,Sanatla yapılan / Musanna
 Sancı,Nöbetlerle azalıp çoğalan ağrı
 Santim,Santimetre
@@ -3104,6 +3111,7 @@ Sebil,Hayır için dağıtılan içme suyu
 Secde,Namaz pozisyonu
 Seci,Nesirde yapılan uyak
 Sefa,Eğlence / Zevk / Neşe
+Segah,Türk müziğinde bir makam
 Sek,Su katılmamış
 Seki,Doğal set / Taraça
 Sekil,At eşek ayaklarında bileğe kadar gelen beyazlık
@@ -3767,6 +3775,7 @@ Yatık,Yayvan su kabı
 Yatır,Doğa üstü gücü olan kişinin mezarı
 Yatış,Yatma işi
 Yave,Saçma
+Yavru,Yeni doğan hayvan veya insan
 Yayın,Neşriyat / Basılıp satışa çıkan kitap gazete vs.
 Yaz,Mevsim
 Yazık,Acınma / Kınama / Günah

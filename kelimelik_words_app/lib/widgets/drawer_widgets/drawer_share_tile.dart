@@ -22,6 +22,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants/text_constants.dart';
 import '../../utils/share_helper.dart';
 
 class DrawerShareTile extends StatelessWidget {
@@ -31,10 +32,7 @@ class DrawerShareTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.share, color: Colors.white70),
-      title: const Text(
-        "Yedekleri Paylaş",
-        style: TextStyle(color: Colors.white),
-      ),
+      title: const Text("Yedekleri Paylaş", style: drawerMenuText),
       subtitle: const Text(
         "Download klasöründeki dosyaları paylaş",
         style: TextStyle(color: Colors.white54, fontSize: 12),

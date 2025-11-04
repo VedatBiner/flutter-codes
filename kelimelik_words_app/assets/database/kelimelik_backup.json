@@ -981,7 +981,7 @@
   },
   {
     "word": "Arıtım",
-    "meaning": "Prtrol arıtma işi / Rafinaj"
+    "meaning": "Petrol arıtma işi / Rafinaj"
   },
   {
     "word": "Arız",
@@ -3036,6 +3036,10 @@
     "meaning": "Cin çağırma ile uğraşan kimse"
   },
   {
+    "word": "Cinli",
+    "meaning": "İçinde cin olduğuna inanılan / Öfkeli"
+  },
+  {
     "word": "Cins",
     "meaning": "Tür / Çeşit"
   },
@@ -4752,6 +4756,10 @@
     "meaning": "Birey"
   },
   {
+    "word": "Ferç",
+    "meaning": "Dişi canlılarda üreme organının bir bölümü"
+  },
+  {
     "word": "Fes",
     "meaning": "Şapka yerine kullanılan kırmızı başlık"
   },
@@ -4766,6 +4774,10 @@
   {
     "word": "Fevri",
     "meaning": "Birden bir yapılan"
+  },
+  {
+    "word": "Feza",
+    "meaning": "Uzay"
   },
   {
     "word": "Fidan",
@@ -6492,12 +6504,12 @@
     "meaning": "Dokunulmaması ve saygı gösterilmesi gereken iffet"
   },
   {
-    "word": "Is",
-    "meaning": "Açıklık / Doğruluk"
-  },
-  {
     "word": "İs",
     "meaning": "Duman lekesi"
+  },
+  {
+    "word": "Is",
+    "meaning": "Açıklık / Doğruluk"
   },
   {
     "word": "İsa",
@@ -7142,6 +7154,10 @@
   {
     "word": "Kanka",
     "meaning": "Kardeş kadar yakın olan kimse"
+  },
+  {
+    "word": "Kanlı",
+    "meaning": "Kan davasınfa taraf olan kişi / Kan bulaşmış"
   },
   {
     "word": "Kano",
@@ -7924,6 +7940,10 @@
     "meaning": "Memeli hayvan türü"
   },
   {
+    "word": "Kirpik",
+    "meaning": "Göz kapağı kenarındaki kıllar"
+  },
+  {
     "word": "Kirve",
     "meaning": "Sünnet olan çocuğun babası kadar yakının olan kimse"
   },
@@ -7982,6 +8002,10 @@
   {
     "word": "Klor",
     "meaning": "Bir element"
+  },
+  {
+    "word": "Kloş",
+    "meaning": "Alt tarafı çan biçiminde genişleyen etek"
   },
   {
     "word": "Koala",
@@ -12192,6 +12216,10 @@
     "meaning": "Farazi / Mevhum"
   },
   {
+    "word": "Sanat",
+    "meaning": "Bir şey yapmada gösterilen ustalık"
+  },
+  {
     "word": "Sanatlı",
     "meaning": "Sanatla yapılan / Musanna"
   },
@@ -12418,6 +12446,10 @@
   {
     "word": "Sefa",
     "meaning": "Eğlence / Zevk / Neşe"
+  },
+  {
+    "word": "Segah",
+    "meaning": "Türk müziğinde bir makam"
   },
   {
     "word": "Sek",
@@ -15070,6 +15102,10 @@
   {
     "word": "Yave",
     "meaning": "Saçma"
+  },
+  {
+    "word": "Yavru",
+    "meaning": "Yeni doğan hayvan veya insan"
   },
   {
     "word": "Yayın",
