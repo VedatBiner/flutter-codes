@@ -22,6 +22,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/share_helper.dart';
 
@@ -31,11 +32,11 @@ class DrawerShareTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.share, color: Colors.white70),
+      leading: Icon(Icons.share, color: downLoadButtonColor, size: 32),
       title: const Text("Yedekleri Paylaş", style: drawerMenuText),
-      subtitle: const Text(
+      subtitle: Text(
         "Download klasöründeki dosyaları paylaş",
-        style: TextStyle(color: Colors.white54, fontSize: 12),
+        style: drawerMenuSubtitleText,
       ),
       onTap: () async {
         await shareBackupFolder(); // 📤 paylaşım işlemi başlatılıyor
