@@ -42,20 +42,18 @@ class DbHelper {
   Future<Database> _initDB(String fileName) async {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
+    const tag = 'DB Helper';
 
-    log('📁 Veritabanı hedef konumu: $path', name: 'DB Helper');
+    log('📁 Veritabanı hedef konumu: $path', name: tag);
 
     final internalDbFile = File(path);
 
     if (await internalDbFile.exists()) {
-      log(
-        '📦 Yerel veritabanı zaten var. Doğrudan açılıyor...',
-        name: 'DB Helper',
-      );
+      log('📦 Yerel veritabanı zaten var. Doğrudan açılıyor...', name: tag);
     } else {
       log(
         '🆕 Yerel veritabanı bulunamadı. Yeni veritabanı oluşturulacak.',
-        name: 'DB Helper',
+        name: tag,
       );
     }
 
@@ -157,13 +155,14 @@ class DbHelper {
   /// 📌 JSON yedeği burada geri yükleniyor.
   ///
   Future<void> importRecordsFromJson(BuildContext context) async {
+    const tag = 'db_helper';
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameJson';
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ Yedek dosyası bulunamadı: $filePath', name: 'db_helper');
+        log('❌ Yedek dosyası bulunamadı: $filePath', name: tag);
 
         if (context.mounted) {
           NotificationService.showCustomNotification(
@@ -198,7 +197,7 @@ class DbHelper {
 
       log(
         '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
-        name: 'db_helper',
+        name: tag,
       );
 
       if (context.mounted) {
@@ -213,7 +212,7 @@ class DbHelper {
         );
       }
     } catch (e) {
-      log('🚨 Geri yükleme hatası: $e', name: 'Import');
+      log('🚨 Geri yükleme hatası: $e', name: tag);
     }
   }
 
@@ -243,20 +242,21 @@ class DbHelper {
   /// 📌 CSV yedeği burada geri yükleniyor.
   ///
   Future<void> importRecordsFromCsv() async {
+    const tag = 'db_helper';
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/$fileNameCsv';
       final file = File(filePath);
 
       if (!(await file.exists())) {
-        log('❌ CSV dosyası bulunamadı: $filePath', name: 'Import');
+        log('❌ CSV dosyası bulunamadı: $filePath', name: tag);
         return;
       }
 
       final lines = await file.readAsLines();
 
       if (lines.isEmpty) {
-        log('❌ CSV dosyası boş.', name: 'Import');
+        log('❌ CSV dosyası boş.', name: tag);
         return;
       }
 
@@ -284,9 +284,9 @@ class DbHelper {
         count++;
       }
 
-      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: 'db_helper');
+      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: tag);
     } catch (e) {
-      log('🚨 CSV yükleme hatası: $e', name: 'db_helper');
+      log('🚨 CSV yükleme hatası: $e', name: tag);
     }
   }
 
@@ -416,6 +416,7 @@ class DbHelper {
   Future<void> fetchWordsFromFirestoreAndSaveAsJson() async {
     final firestore = FirebaseFirestore.instance;
     final snapshot = await firestore.collection('kelimeler').get();
+    const tag = 'db_helper';
 
     final List<Map<String, dynamic>> wordList =
         snapshot.docs.map((doc) {
@@ -435,26 +436,24 @@ class DbHelper {
 
     log(
       '✅ Firestore verileri JSON olarak kaydedildi (${wordList.length} kayıt).',
-      name: "db_helper",
+      name: tag,
     );
   }
 
   /// 📌 Firestore 'dan verileri alır.
   Future<void> syncFirestoreIfDatabaseEmpty(BuildContext context) async {
     final count = await countRecords();
+    const tag = 'db_helper';
 
     if (count > 0) {
       log(
         "📦 Veritabanı zaten dolu ($count kayıt). Firestore 'dan veri çekilmeyecek.",
-        name: "db_helper",
+        name: tag,
       );
       return;
     }
 
-    log(
-      "📭 Veritabanı boş. Firestore 'dan veriler çekilecek...",
-      name: "db_helper",
-    );
+    log("📭 Veritabanı boş. Firestore 'dan veriler çekilecek...", name: tag);
 
     await fetchWordsFromFirestoreAndSaveAsJson();
 

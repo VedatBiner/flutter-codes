@@ -83,6 +83,10 @@ türetilmiş ve daha geliştirilmiştir.
 85. `file_info.dart` dosyası yenilendi. `sqlTableName` değişkeni eklendi. - 31.10.2025
 86. `db_helper.dart` dosyası `sqlTableName` değişkenine göre düzenlendi. - 31.10.2025
 87. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
+88. log etiketleri `tag` değişkenine atanıp, okunurluk sağlandı. - 05.11.2025 
+89. `json_saver_io.dart`, `export_items.dart` ve `backup_notification_helper.dart`, `storge_permission_helper.dart`, ve `db_helper.dart` dosyalarında log bilgileri düzeltildi. - 05.11.2025
+90. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 04.11.2025
+91. 
 
 
 Yapılacak başka bir şey var mı ?
