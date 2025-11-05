@@ -8,6 +8,7 @@ import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_info_padding.dart';
 import 'drawer_widgets/drawer_refresh_data_tile.dart';
+import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 import 'drawer_widgets/gr_main_expansion_tile.dart';
 
@@ -40,6 +41,9 @@ class CustomDrawer extends StatelessWidget {
 
             /// 👇 Yedek oluştur
             const DrawerBackupTile(),
+
+            /// 📌 Yedekleri paylaşma butonu
+            const DrawerShareTile(),
 
             /// 👇 YENİ: Verileri tekrar oku
             DrawerRefreshDataTile(onReload: onReload),

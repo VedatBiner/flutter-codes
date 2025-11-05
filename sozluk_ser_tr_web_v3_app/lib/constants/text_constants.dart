@@ -169,3 +169,9 @@ var subtitleText = TextStyle(
   color: menuColor,
   backgroundColor: drawerColor,
 );
+
+/// 📌 Drawer Menü subtitle text stili
+var drawerMenuSubtitleText = const TextStyle(
+  color: Colors.white54,
+  fontSize: 12,
+);

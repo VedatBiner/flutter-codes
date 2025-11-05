@@ -24,9 +24,10 @@ class _DrawerBackupTileState extends State<DrawerBackupTile> {
       message: 'JSON/CSV/XLSX yedeği oluştur',
       child: ListTile(
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
-        title: const Text(
-          'Yedek Oluştur \n(JSON/CSV/XLSX)',
-          style: drawerMenuText,
+        title: const Text('Yedek Oluştur', style: drawerMenuText),
+        subtitle: Text(
+          "Aşağıdaki formatlarda yedek oluşturur: \n(JSON / CSV / XLSX /SQL)",
+          style: drawerMenuSubtitleText,
         ),
         onTap: () async {
           // 1) Drawer kapanınca da yaşayacak güvenli context 'i al
