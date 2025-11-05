@@ -126,3 +126,9 @@ var drawerMenuTitleText = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+
+/// 📌 Drawer Menü subtitle text stili
+var drawerMenuSubtitleText = const TextStyle(
+  color: Colors.white54,
+  fontSize: 12,
+);

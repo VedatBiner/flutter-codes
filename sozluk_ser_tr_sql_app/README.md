@@ -85,8 +85,12 @@ türetilmiş ve daha geliştirilmiştir.
 87. `getWord` metodu `getItem` olarak değiştirildi. - 31.10.2025
 88. log etiketleri `tag` değişkenine atanıp, okunurluk sağlandı. - 05.11.2025 
 89. `json_saver_io.dart`, `export_items.dart` ve `backup_notification_helper.dart`, `storge_permission_helper.dart`, ve `db_helper.dart` dosyalarında log bilgileri düzeltildi. - 05.11.2025
-90. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 04.11.2025
-91. 
+90. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 05.11.2025
+91. `drawer_share_tile.dart` ve `share_helper.dart` dosyası eklendi. - 05.11.2025
+92. `text_constants.dart` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 05.11.2025
+93. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasında düzeltme yapıldı. - 05.11.2025
+94. drawer menüye veri dışarı gönderme seçeneği eklendi. - 05.11.2025
+95. `json_saver_io.dart` dosyası düzeltildi. - 05.11.2025
 
 
 Yapılacak başka bir şey var mı ?

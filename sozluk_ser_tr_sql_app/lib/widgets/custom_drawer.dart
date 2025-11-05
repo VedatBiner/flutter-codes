@@ -9,6 +9,7 @@ import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
+import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
 import 'drawer_widgets/gr_main_expansion_tile.dart';
 
@@ -67,6 +68,10 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Veritabanını Sıfırla
             /// DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
+
+            /// 📌 Yedekleri paylaşma butonu
+            const DrawerShareTile(),
+
             Divider(color: menuColor, thickness: 2),
 
             /// 📌 Versiyon ve yazılım bilgisi

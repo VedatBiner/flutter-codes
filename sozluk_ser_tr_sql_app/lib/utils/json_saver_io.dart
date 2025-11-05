@@ -74,9 +74,8 @@ class JsonSaver {
     log('💾 Belgeler: $path', name: tag);
 
     // Yeni API: SharePlus.instance.share(ShareParams(...))
-    await SharePlus.instance.share(
-      ShareParams(files: [XFile(path)], text: 'Dışa aktarıldı'),
-    );
+    // ✅ Yeni share_plus API
+    await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
 
     return path;
   }
@@ -126,9 +125,8 @@ class JsonSaver {
       await File(path).writeAsBytes(bytes);
 
       // Yeni API: SharePlus.instance.share(ShareParams(...))
-      await SharePlus.instance.share(
-        ShareParams(files: [XFile(path)], text: 'Dışa aktarıldı'),
-      );
+      // ✅ Yeni share_plus API
+      await Share.shareXFiles([XFile(path)], text: 'Dışa aktarıldı');
 
       return path;
     }
