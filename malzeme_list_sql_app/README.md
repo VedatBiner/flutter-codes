@@ -101,7 +101,9 @@
 89. `text_constants.dart` dosyasına `drawerMenuSubtitleText` sabiti eklendi. - 04.11.2025
 90. `drawer_share_tile.dart`ve `share_helper.dart` dosyası eklendi. - 04.11.2025
 91. drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
-92. `json_saver_io.dart` düzeltildi.
+92. `json_saver_io.dart` düzeltildi. - 04.11.2025
+93. `drawer_share__tile.dart` düzeltildi - 05.22.2025
+
 
 
 Hatalar : 
