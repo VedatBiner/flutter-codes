@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
 import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
@@ -51,7 +52,7 @@ class CustomDrawer extends StatelessWidget {
           /// 📤 Yedekleri paylaşma butonu
           const DrawerShareTile(),
 
-          const Divider(color: Colors.white24),
+          Divider(color: menuColor, thickness: 2),
 
           /// 📌 Versiyon ve yazılım bilgisi
           InfoPaddingTile(appVersion: appVersion),

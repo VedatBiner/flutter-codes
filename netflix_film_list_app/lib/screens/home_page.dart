@@ -13,6 +13,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
@@ -54,6 +55,13 @@ class _HomePageState extends State<HomePage> {
 
     // 🚀 Uygulama başlatıldığında tüm veri akışı başlatılır
     _initializeData();
+    _getAppVersion();
+  }
+
+  /// 📌 Versiyonu al
+  void _getAppVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
   /// 🚀 Uygulama başlatıldığında veritabanı kontrolü ve yükleme işlemi

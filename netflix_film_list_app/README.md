@@ -67,9 +67,11 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - `items_card.dart`dosyası oluşturuldu. - 03.11.2025
 - `loading_card.dart`dosyası oluşturuldu. - 03.11.2025
 - `home_page.dart` daha modüler hale getirildi. - 03.11.2025
-- 
+- `imdb_fetcher.dart`dosyası oluşturuldu. - 03.11.2025
+- IMDB 'den API ile veri çekilecek. - 03.11.2025 - devam *******
+- `excel_helper.dart` dosyasında excel çıktı formatı güncellendi. - 05.11.2025
+- `custom_drawer.dart` dosyası güncellendi. - 05.11.2025
+
 
 Hatalar:
 - kodda çok sorun var
-- ilk verilerin oluştuğu dizin içeriği download 'a taşındıktan sonra silinsin.
-- Veriler download 'a kopyalanınca eski dizinden silinmiyor ?

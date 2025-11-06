@@ -75,11 +75,15 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
       final cell = sheet.getRangeByIndex(1, i + 1);
       cell.setText(headers[i]);
       cell.cellStyle.bold = true;
-      cell.cellStyle.backColor = '#1E1E1E'; // koyu gri arka plan
-      cell.cellStyle.fontColor = '#FFFFFF'; // beyaz yazı
+      cell.cellStyle.backColor = '#FF0D47A1';
+      cell.cellStyle.fontColor = '#FFFFFFFF';
       cell.cellStyle.hAlign = xlsio.HAlignType.center;
       cell.cellStyle.vAlign = xlsio.VAlignType.center;
     }
+
+    // 📌 Freeze Panes → 2. satır / 1. sütun (üstteki 1. satırı sabitler)
+    sheet.getRangeByIndex(2, 1).freezePanes();
+    // Not: İlk sütunu da sabitlemek istersen: sheet.freezePanes(2, 2);
 
     // -----------------------------------------------------------
     // 🧩 Verileri satır satır ekle

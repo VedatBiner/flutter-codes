@@ -7,6 +7,9 @@ const String appName = "netflix_film_list_app";
 /// 📌 SQL Tablo adı
 const sqlTableName = "netflixItems";
 
+/// 📌 IMDB API Key
+const apiKey = "bb34e17c";
+
 /// 📌 Dosya adları
 const String fileNameJson = "netflix_list_backup.json";
 const String fileNameCsv = "netflix_list_backup.csv";
