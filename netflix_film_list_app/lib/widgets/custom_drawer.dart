@@ -49,6 +49,9 @@ class CustomDrawer extends StatelessWidget {
           /// 📌 Drawer menü başlığı burada oluşturuluyor
           const DrawerTitleWidget(),
 
+          /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
+          // const DrawerBackupTile(),
+
           /// 📤 Yedekleri paylaşma butonu
           const DrawerShareTile(),
 
