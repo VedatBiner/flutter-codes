@@ -71,6 +71,8 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - IMDB 'den API ile veri çekilecek. - 03.11.2025 - devam *******
 - `excel_helper.dart` dosyasında excel çıktı formatı güncellendi. - 05.11.2025
 - `custom_drawer.dart` dosyası güncellendi. - 05.11.2025
+- film ve dizi listesi izleme tarihine göre yeniden eski ye doğru sıralandı. - 06.11.2025
+- 
 
 
 Hatalar:

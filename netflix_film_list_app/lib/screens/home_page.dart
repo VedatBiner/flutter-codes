@@ -89,12 +89,39 @@ class _HomePageState extends State<HomePage> {
     final records = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
+    // 🔹 İzlenme tarihine göre yeni → eski sırala
+    records.sort((a, b) {
+      // beklenen format: "gg/aa/yy"
+      try {
+        final da = _parseDate(a.watchDate);
+        final db = _parseDate(b.watchDate);
+        return db.compareTo(da); // en yeni en başta
+      } catch (_) {
+        return 0;
+      }
+    });
+
     setState(() {
       allNetflixItems = records;
       netflixItems = records;
     });
 
     log('📦 Toplam kayıt sayısı: $count', name: "HomePage");
+  }
+
+  DateTime _parseDate(String dateStr) {
+    try {
+      final parts = dateStr.split('/');
+      if (parts.length == 3) {
+        final day = int.tryParse(parts[0]) ?? 1;
+        final month = int.tryParse(parts[1]) ?? 1;
+        final year = int.tryParse(parts[2]) ?? 0;
+        return DateTime(year < 100 ? 2000 + year : year, month, day);
+      }
+      return DateTime(1900);
+    } catch (_) {
+      return DateTime(1900);
+    }
   }
 
   /// 🔍 Arama filtreleme
