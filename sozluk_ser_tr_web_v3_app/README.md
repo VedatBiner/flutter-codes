@@ -60,7 +60,7 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 57. `text_constants.dart` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 05.11.2025
 58. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasında düzeltme yapıldı. - 05.11.2025
 59. drawer menüye veri dışarı gönderme seçeneği eklendi. Bu seçenek mobilde çalışıyor. - 05.11.2025
-60. 
+60. `backup_notification_helper.dart`dosyasında bir kaç ufak yazım düzeltmesi yapıldı. - 07.11.2025
 63. 
 
 
