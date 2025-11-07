@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 3.2.0+1
+version: 3.4.0+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -52,6 +52,9 @@ dependencies:
   # -----------------------------
   elegant_notification:        # Ekran içi modern bildirim/toast
   web:
+
+  # archive:                     # ZIP oluşturmak için (pure Dart, web ’de çalışır)
+  path:
 
 dev_dependencies:
   flutter_test:

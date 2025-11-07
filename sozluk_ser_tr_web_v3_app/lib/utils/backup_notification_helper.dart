@@ -107,8 +107,8 @@ Future<void> triggerBackupExport({
     log("Toplam Kayıt sayısı : ${res.count} ✅", name: tag);
     log("-----------------------------------------------", name: tag);
     log("✅ JSON yedeği → ${res.jsonPath}", name: tag);
-    log("✅ CSV  yedeği → ${res.csvPath} ✅", name: tag);
-    log("✅ XLSX yedeği → ${res.xlsxPath} ✅", name: tag);
+    log("✅ CSV  yedeği → ${res.csvPath}", name: tag);
+    log("✅ XLSX yedeği → ${res.xlsxPath}", name: tag);
     log("-----------------------------------------------", name: tag);
   } catch (e) {
     // 🔐 Hata durumunda da context kontrolü

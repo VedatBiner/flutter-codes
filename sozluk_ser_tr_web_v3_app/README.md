@@ -59,11 +59,16 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 56. `json_saver_io.dart` dosyası düzeltildi. - 05.11.2025
 57. `text_constants.dart` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 05.11.2025
 58. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasında düzeltme yapıldı. - 05.11.2025
-59. drawer menüye veri dışarı gönderme seçeneği eklendi. - 05.11.2025
+59. drawer menüye veri dışarı gönderme seçeneği eklendi. Bu seçenek mobilde çalışıyor. - 05.11.2025
+60. 
+63. 
+
 
 
 
 Yapılacaklar : 
 - Alfabetik görünümü sağlanması. Özellikle arama işleminde gerekebilir.
 - mobilde açılış çok uzun sürüyor.
+- yedekleri paylaş adımı Web 'de çalışmıyor ? bu hata çıkıyor : Paylaşım hatası: MissingPluginException(No implementation found for method getExternalStoragePublicDirectory on channel external_path)
+- web de yedekleri zip haline getirip, download dizinine indirip, manuel paylaşma yoluna gidilecek.
 - 
