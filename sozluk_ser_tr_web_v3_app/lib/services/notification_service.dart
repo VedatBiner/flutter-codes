@@ -1,4 +1,4 @@
-// 📃 notification_service.dart
+// © Vedat Biner / 📃 notification_service.dart
 
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
@@ -14,8 +14,8 @@ class NotificationService {
     required Widget message,
     IconData icon = Icons.check_circle,
     Color iconColor = Colors.blue,
-    Alignment position = Alignment.center,
-    AnimationType animation = AnimationType.fromLeft,
+    Alignment position = Alignment.bottomCenter,
+    AnimationType animation = AnimationType.fromBottom,
     required Color progressIndicatorBackground,
     required Color progressIndicatorColor,
 

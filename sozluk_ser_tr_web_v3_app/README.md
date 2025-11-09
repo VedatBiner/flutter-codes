@@ -61,7 +61,9 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 58. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasında düzeltme yapıldı. - 05.11.2025
 59. drawer menüye veri dışarı gönderme seçeneği eklendi. Bu seçenek mobilde çalışıyor. - 05.11.2025
 60. `backup_notification_helper.dart`dosyasında bir kaç ufak yazım düzeltmesi yapıldı. - 07.11.2025
-63. 
+61. Bildirimlerin aşağı alınması için `notification_service.dart`  dosyasında `Alignment position = Alignment.Center` değeri `Alignment position = Alignment.bottomCenter`ve uyumlu olarak
+    `AnimationType animation = AnimationType.fromBottom`  yapıldı. - 09.11.2025
+62. 
 
 
 
@@ -71,4 +73,5 @@ Yapılacaklar :
 - mobilde açılış çok uzun sürüyor.
 - yedekleri paylaş adımı Web 'de çalışmıyor ? bu hata çıkıyor : Paylaşım hatası: MissingPluginException(No implementation found for method getExternalStoragePublicDirectory on channel external_path)
 - web de yedekleri zip haline getirip, download dizinine indirip, manuel paylaşma yoluna gidilecek.
+- Ekleme işlemi zaman zaman yavaşlıyor bu nedenle bildirimlerin ekranın altına alınması ve ekleme sayacından önce çıkmasını deneyelim.
 - 
