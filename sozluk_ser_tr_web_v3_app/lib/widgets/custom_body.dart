@@ -89,14 +89,14 @@ class _CustomBodyState extends State<CustomBody> {
             }),
 
             /// ✅ kelime düzeltme işlemi için
-            onEdit: (word) => showEditWordDialogHandler(
+            onEdit: (word) => showEditItemDialogHandler(
               context,
               word: word,
               onRefetch: widget.onRefetch,
             ),
 
             /// ✅ kelime silme işlemi için
-            onDelete: (word) => showDeleteWordHandler(
+            onDelete: (word) => showDeleteItemHandler(
               context: context,
               word: word,
               onRefetch: widget.onRefetch,

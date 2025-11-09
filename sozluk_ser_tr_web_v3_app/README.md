@@ -63,7 +63,13 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 60. `backup_notification_helper.dart`dosyasında bir kaç ufak yazım düzeltmesi yapıldı. - 07.11.2025
 61. Bildirimlerin aşağı alınması için `notification_service.dart`  dosyasında `Alignment position = Alignment.Center` değeri `Alignment position = Alignment.bottomCenter`ve uyumlu olarak
     `AnimationType animation = AnimationType.fromBottom`  yapıldı. - 09.11.2025
-62. 
+62. `showWordDialogHandler` metodu `showNotificationsHandler` olarak değiştirildi. - 09.11.2025
+63. `showEditWordDialogHandler` metodu `showEditItemDialogHandler` olarak değiştirildi. - 09.11.2025
+64. `showDeleteWordHandler` metodu `showDeleteItemHandler` olarak değiştirildi. - 09.11.2025
+65. `WordDialog` metodu `ItemDialog` olarak değiştirildi. - 09.11.2025
+
+
+
 
 
 
@@ -73,5 +79,5 @@ Yapılacaklar :
 - mobilde açılış çok uzun sürüyor.
 - yedekleri paylaş adımı Web 'de çalışmıyor ? bu hata çıkıyor : Paylaşım hatası: MissingPluginException(No implementation found for method getExternalStoragePublicDirectory on channel external_path)
 - web de yedekleri zip haline getirip, download dizinine indirip, manuel paylaşma yoluna gidilecek.
-- Ekleme işlemi zaman zaman yavaşlıyor bu nedenle bildirimlerin ekranın altına alınması ve ekleme sayacından önce çıkmasını deneyelim.
+- 
 - 

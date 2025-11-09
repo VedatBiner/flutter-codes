@@ -27,7 +27,7 @@ class CustomFAB extends StatelessWidget {
         tooltip: "Yeni kelime ekle",
         backgroundColor: Colors.transparent,
         foregroundColor: buttonIconColor,
-        onPressed: () => showWordDialogHandler(context, onWordAdded),
+        onPressed: () => showNotificationsHandler(context, onWordAdded),
         child: Image.asset('assets/images/add.png', width: 56, height: 56),
       ),
     );

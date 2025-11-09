@@ -10,16 +10,16 @@ import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/item_model.dart';
 
-class WordDialog extends StatefulWidget {
+class ItemDialog extends StatefulWidget {
   final Word? word;
 
-  const WordDialog({super.key, this.word});
+  const ItemDialog({super.key, this.word});
 
   @override
-  State<WordDialog> createState() => _WordDialogState();
+  State<ItemDialog> createState() => _ItemDialogState();
 }
 
-class _WordDialogState extends State<WordDialog> {
+class _ItemDialogState extends State<ItemDialog> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _wordController;
   late TextEditingController _meaningController;

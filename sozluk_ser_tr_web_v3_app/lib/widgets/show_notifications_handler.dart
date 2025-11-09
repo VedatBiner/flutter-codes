@@ -88,14 +88,14 @@ import '../widgets/body_widgets/edit_item_dialog.dart';
 import '../widgets/item_dialog.dart';
 
 /// ADD: Yeni kelime ekleme diyaloğu
-Future<void> showWordDialogHandler(
+Future<void> showNotificationsHandler(
   BuildContext context,
   VoidCallback onWordAdded,
 ) async {
   final result = await showDialog<Word>(
     context: context,
     barrierDismissible: false,
-    builder: (_) => const WordDialog(),
+    builder: (_) => const ItemDialog(),
   );
 
   if (result != null) {
@@ -152,7 +152,7 @@ Future<void> showWordDialogHandler(
 }
 
 /// 📌 Var olan kelimeyi güncelle
-Future<void> showEditWordDialogHandler(
+Future<void> showEditItemDialogHandler(
   BuildContext context, {
   required Word word,
   required Future<void> Function() onRefetch,
@@ -192,7 +192,7 @@ Future<void> showEditWordDialogHandler(
 /// 📌 Silme akışını yönetir:
 /// - deleteWordDialog ile onay alır + siler + refetch eder
 /// - başarılıysa burada bildirimi gösterir
-Future<bool> showDeleteWordHandler({
+Future<bool> showDeleteItemHandler({
   required BuildContext context,
   required Word word,
   required Future<void> Function() onRefetch,
