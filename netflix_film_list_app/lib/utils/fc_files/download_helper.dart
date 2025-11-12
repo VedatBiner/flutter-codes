@@ -68,6 +68,7 @@ Future<void> copyBackupFilesToDownload() async {
       fileNameJson,
       fileNameXlsx,
       fileNameSql,
+      fileNameZip,
     ];
 
     log('📦 Kopyalanacak dosyalar: ${fileNames.join(", ")}', name: tag);
