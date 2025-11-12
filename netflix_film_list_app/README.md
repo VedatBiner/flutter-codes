@@ -76,10 +76,14 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - `file_info.dart`dosyası güncellendi. - 11.11.2025
 - `zip_helper.dart` dosyası oluşturuldu. - 11.11.2025
 - `file_creator.dart` dosyası güncellendi. - 11.11.2025
+- zip formatında yedek download dizinine kopyalanıyor. - 12.11.2025
+- Açılışta izin sorulması `home_page.dart` içine taşındı. 12.11.2023
+- 
 
 
 
 Hatalar:
 - kodda çok sorun var.
-- zip dosya da download dizinine kopyalanmalı.
+- zip dosya mail ile gönderilmesi sorunlu?
+- izin sorma ile ilgili sorun var.
 - 

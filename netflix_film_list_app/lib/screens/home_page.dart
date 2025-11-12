@@ -1,4 +1,4 @@
-// 📦 <----- lib/screens/home_page.dart ----->
+// 📃 <----- lib/screens/home_page.dart ----->
 //
 // 🎬 Netflix Film List App
 // -----------------------------------------------------------
@@ -18,6 +18,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
 import '../utils/file_creator.dart'; // Veri oluşturma & kopyalama akışı
+import '../utils/storage_permission_helper.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/homepage_widgets/items_card.dart';
@@ -68,6 +69,9 @@ class _HomePageState extends State<HomePage> {
   Future<void> _initializeData() async {
     setState(() => isLoadingJson = true);
     final stopwatch = Stopwatch()..start();
+
+    // Önce depolama iznini kontrol et ve iste
+    await ensureStoragePermission();
 
     await initializeAppDataFlow();
     await _loadItems();

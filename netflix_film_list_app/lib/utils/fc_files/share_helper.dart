@@ -56,22 +56,32 @@ Future<void> shareBackupFolder() async {
 
     // 📂 Dizin mevcut mu?
     if (!await dir.exists()) {
-      log('⚠️ Dizin bulunamadı: $folderPath', name: tag);
+      log('⚠️ Paylaşım dizini bulunamadı: $folderPath', name: tag);
       return;
     }
 
-    // 📜 Dizin içindeki tüm dosyaları al (yalnızca File türündekiler)
-    final files = dir.listSync().whereType<File>().toList();
+    // 📜 Sadece zip dosyasını bul
+    final zipFilePath = join(folderPath, fileNameZip);
+    final zipFile = File(zipFilePath);
 
-    if (files.isEmpty) {
-      log('⚠️ Paylaşılacak dosya bulunamadı.', name: tag);
+    // 📂 Zip dosyası mevcut mu?
+    if (!await zipFile.exists()) {
+      log('⚠️ Paylaşılacak ZIP dosyası bulunamadı: $zipFilePath', name: tag);
       return;
     }
 
-    // 📤 share_plus kullanarak sistem paylaşım penceresini aç
+    // Dosya yolunu XFile listesine çevir (tek elemanlı)
+    final xFiles = [XFile(zipFile.path)];
+
+    // 📤 Konsola hangi dosyanın paylaşılacağını yazdır
+    log('📬 Paylaşılıyor: ${basename(zipFile.path)}', name: tag);
+
+    // share_plus kullanarak sistem paylaşım penceresini aç
+    // Not: `shareFiles` metodu hatalıydı, doğrusu `shareXFiles`.
     await Share.shareXFiles(
-      files.map((f) => XFile(f.path)).toList(),
-      subject: '📂 $appName yedek dosyaları',
+      xFiles,
+      subject: '$appName ZIP Yedeği',
+      text: 'Uygulama yedek dosyası ektedir.',
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);
