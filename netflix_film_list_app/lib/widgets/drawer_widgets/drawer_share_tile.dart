@@ -36,7 +36,8 @@ class DrawerShareTile extends StatelessWidget {
         style: TextStyle(color: Colors.white),
       ),
       subtitle: const Text(
-        "Download klasöründeki dosyaları paylaş",
+        "Dosyaları zip formatında"
+        "\nmail ile gönderilir",
         style: TextStyle(color: Colors.white54, fontSize: 12),
       ),
       onTap: () async {

@@ -1,4 +1,4 @@
-// 📃 <----- lib/utils/share_helper.dart ----->
+// 📃 <----- lib/utils/fc_files/share_helper.dart ----->
 //
 // Bu yardımcı dosya, uygulama tarafından oluşturulan yedek dosyaları
 // (CSV, JSON, Excel, SQL) kolayca paylaşmak için tasarlanmıştır.
@@ -71,7 +71,7 @@ Future<void> shareBackupFolder() async {
     // 📤 share_plus kullanarak sistem paylaşım penceresini aç
     await Share.shareXFiles(
       files.map((f) => XFile(f.path)).toList(),
-      text: '📂 $appName yedek dosyaları',
+      subject: '📂 $appName yedek dosyaları',
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);

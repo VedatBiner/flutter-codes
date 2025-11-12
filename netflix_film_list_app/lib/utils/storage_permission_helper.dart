@@ -1,4 +1,4 @@
-// 📃 lib/utils/storage_permission_helper.dart
+// 📃 <----- lib/utils/storage_permission_helper.dart ----->
 //
 // Haricî depolamaya (Downloads vb.) yazabilmek için gerekli izinleri
 // tek bir noktada yöneten yardımcı.
@@ -27,43 +27,48 @@ import 'package:permission_handler/permission_handler.dart';
 Future<bool> ensureStoragePermission() async {
   const tag = 'storage_permission';
 
-  // ✅ Android dışı platformlarda izin gerekmez (örn. iOS, macOS, Web, Windows)
+  // ✅ Android dışı platformlarda izin gerekmez
   if (!Platform.isAndroid) {
-    log('ℹ️  Android dışı platform — depolama izni gereksiz.', name: tag);
+    log('ℹ️ Android dışı platform — depolama izni gereksiz.', name: tag);
     return true;
   }
 
+  // İzinleri Android sürümüne göre doğru ve tekrar istemeyecek şekilde yönetelim.
   try {
-    // 📱 Android 11 (API 30) ve sonrası → manageExternalStorage
-    if (await Permission.manageExternalStorage.isGranted) {
-      log('✔️  MANAGE_EXTERNAL_STORAGE izni zaten var.', name: tag);
-      return true;
-    }
+    // Android 10 ve altı, "manageExternalStorage" iznini tanımaz ve
+    // "permanentlyDenied" olarak döner. Bu davranışı, versiyon tespiti
+    // için kullanabiliriz.
+    final manageStatus = await Permission.manageExternalStorage.status;
 
-    final status = await Permission.manageExternalStorage.request();
-    if (status.isGranted) {
-      log('✔️  MANAGE_EXTERNAL_STORAGE izni yeni verildi.', name: tag);
-      return true;
+    // "permanentlyDenied" DEĞİLSE, bu Android 11+ demektir.
+    if (!manageStatus.isPermanentlyDenied) {
+      // Android 11+ için sadece "manageExternalStorage" iznini yönet.
+      if (await Permission.manageExternalStorage.isGranted) {
+        log('✔️ MANAGE_EXTERNAL_STORAGE izni zaten var.', name: tag);
+        return true;
+      }
+      final status = await Permission.manageExternalStorage.request();
+      if (status.isGranted) {
+        log('✔️ MANAGE_EXTERNAL_STORAGE izni yeni verildi.', name: tag);
+      } else {
+        log('❌ MANAGE_EXTERNAL_STORAGE izni reddedildi.', name: tag);
+      }
+      return status.isGranted; // İzin sonucunu doğrudan döndür.
+    } else {
+      // "permanentlyDenied" ise, bu Android 10 veya altı demektir.
+      // Klasik "storage" iznini kontrol edelim.
+      if (await Permission.storage.isGranted) {
+        log('✔️ STORAGE izni zaten var (legacy).', name: tag);
+        return true;
+      }
+      final status = await Permission.storage.request();
+      if (status.isGranted) {
+        log('✔️ STORAGE izni yeni verildi (legacy).', name: tag);
+      } else {
+        log('❌ STORAGE izni reddedildi (legacy).', name: tag);
+      }
+      return status.isGranted; // İzin sonucunu doğrudan döndür.
     }
-
-    // 📦 Android 10 ve öncesi → klasik storage izni
-    if (await Permission.storage.isGranted) {
-      log('✔️  STORAGE izni zaten var (legacy).', name: tag);
-      return true;
-    }
-
-    final legacyStatus = await Permission.storage.request();
-    if (legacyStatus.isGranted) {
-      log('✔️  STORAGE izni yeni verildi (legacy).', name: tag);
-      return true;
-    }
-
-    // ❌ Hiçbir izin alınamadı
-    log(
-      '❌  Depolama izni reddedildi veya kalıcı olarak engellendi.',
-      name: tag,
-    );
-    return false;
   } catch (e) {
     log('🚨 İzin kontrol hatası: $e', name: tag);
     return false;
