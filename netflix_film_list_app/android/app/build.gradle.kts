@@ -39,12 +39,6 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            // 🔹 Dosya adını özelleştir
-            outputFileName = "netflix_film_list_app-${variant.versionName}.apk"
-        }
-    }
 }
 
 flutter {
