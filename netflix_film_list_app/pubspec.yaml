@@ -3,10 +3,10 @@ description: "A new Flutter project."
 
 publish_to: 'none'
 
-version: 1.1.7+1
+version: 1.1.8+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -55,6 +55,7 @@ dependencies:
   csv:
   intl:
   http:
+  archive:
 
 dev_dependencies:
   flutter_test:

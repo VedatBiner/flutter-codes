@@ -72,8 +72,14 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - `excel_helper.dart` dosyasında excel çıktı formatı güncellendi. - 05.11.2025
 - `custom_drawer.dart` dosyası güncellendi. - 05.11.2025
 - film ve dizi listesi izleme tarihine göre yeniden eski ye doğru sıralandı. - 06.11.2025
-- 
+- `archive` paketi eklendi. - 11.11.2025
+- `file_info.dart`dosyası güncellendi. - 11.11.2025
+- `zip_helper.dart` dosyası oluşturuldu. - 11.11.2025
+- `file_creator.dart` dosyası güncellendi. - 11.11.2025
+
 
 
 Hatalar:
-- kodda çok sorun var
+- kodda çok sorun var.
+- zip dosya da download dizinine kopyalanmalı.
+- 
