@@ -1,58 +1,59 @@
 // 📃 <----- lib/utils/storage_permission_helper.dart ----->
+//
+// 📦 Depolama izin yöneticisi (Permission Manager)
+//
+//  • Android 11+  →  Permission.manageExternalStorage
+//  • Android 10-  →  Permission.storage
+//  • Diğer platformlarda otomatik true döner
+//
+// Bu fonksiyon her çağrıldığında önce mevcut durumu kontrol eder,
+// sadece gerekli olduğunda izin ister. Böylece tekrar tekrar sormaz.
+//
+
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-/// 📌 Depolama izinlerini Android sürümüne göre doğru bir şekilde yönetir.
-///
-/// Geri dönüş:
-/// - `true`  → İzin mevcut veya şimdi verildi.
-/// - `false` → İzin reddedildi veya kalıcı olarak engellendi.
-Future<bool> ensureStoragePermission() async {
-  const tag = 'storage_permission';
+/// 📌 Depolama iznini kontrol eder veya ister.
+/// ✅ True → izin zaten var ya da yeni verildi.
+/// ❌ False → reddedildi.
+Future<bool> ensureStoragePermission({bool requestIfDenied = true}) async {
+  const tag = 'storage_permission_helper';
 
-  // ✅ Android dışı platformlarda izin gerekmez.
-  if (!Platform.isAndroid) {
-    log('ℹ️ Android dışı platform, izin gereksiz.', name: tag);
-    return true;
-  }
+  // 💻 Android dışı platformlarda izin gerekmez
+  if (!Platform.isAndroid) return true;
 
-  // Cihazın Android sürümünü (SDK int) güvenilir bir şekilde alalım.
-  final androidInfo = await DeviceInfoPlugin().androidInfo;
-  final sdkInt = androidInfo.version.sdkInt;
-  log('ℹ️ Android SDK versiyonu: $sdkInt', name: tag);
-
-  Permission permission;
-  // Android 11 (SDK 30) ve üzeri için farklı bir izin gerekiyor.
-  if (sdkInt >= 30) {
-    permission = Permission.manageExternalStorage;
-    log(
-      'ℹ️ Android 11+ → "manageExternalStorage" izni kontrol edilecek.',
-      name: tag,
-    );
-  } else {
-    permission = Permission.storage;
-    log('ℹ️ Android 10 ve altı → "storage" izni kontrol edilecek.', name: tag);
-  }
-
-  // 1. Adım: İzin zaten verilmiş mi diye kontrol et.
-  if (await permission.isGranted) {
-    log('✅ "$permission" izni zaten verilmiş.', name: tag);
-    return true;
-  }
-
-  // 2. Adım: İzin verilmemişse, kullanıcıdan iste.
-  log('⚠️ "$permission" izni isteniyor...', name: tag);
-  final status = await permission.request();
-
-  // Sonucu logla ve döndür.
+  // 🔍 1️⃣ Geniş izin (Android 11+)
+  var status = await Permission.manageExternalStorage.status;
   if (status.isGranted) {
-    log('✅ "$permission" izni başarıyla alındı.', name: tag);
-  } else {
-    log('❌ "$permission" izni reddedildi. Durum: $status', name: tag);
+    log('✅ manageExternalStorage izni zaten verilmiş', name: tag);
+    return true;
   }
 
-  return status.isGranted;
+  // 🔍 2️⃣ Eski izin (Android 10 ve öncesi)
+  status = await Permission.storage.status;
+  if (status.isGranted) {
+    log('✅ storage izni zaten verilmiş', name: tag);
+    return true;
+  }
+
+  // ⚠️ Eğer kullanıcıdan istemek gerekirse (isteğe bağlı)
+  if (requestIfDenied) {
+    final requested = await Permission.manageExternalStorage.request();
+    if (requested.isGranted) {
+      log('✔️ manageExternalStorage izni şimdi verildi', name: tag);
+      return true;
+    }
+
+    final legacyRequested = await Permission.storage.request();
+    if (legacyRequested.isGranted) {
+      log('✔️ storage izni şimdi verildi (legacy)', name: tag);
+      return true;
+    }
+
+    log('❌ Depolama izni reddedildi', name: tag);
+  }
+
+  return false;
 }

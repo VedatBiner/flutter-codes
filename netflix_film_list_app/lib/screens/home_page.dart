@@ -54,6 +54,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    // 📂 Depolama izni sadece bir kez kontrol ediliyor
+    ensureStoragePermission();
     // 🚀 Uygulama başlatıldığında tüm veri akışı başlatılır
     _initializeData();
     _getAppVersion();
