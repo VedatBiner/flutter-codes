@@ -17,6 +17,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
+import '../utils/device_info_helper.dart';
 import '../utils/file_creator.dart'; // Veri oluşturma & kopyalama akışı
 import '../utils/storage_permission_helper.dart';
 import '../widgets/custom_app_bar.dart';
@@ -54,8 +55,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    // 🧠 Cihaz bilgilerini logla
+    logDeviceInfo();
+
     // 📂 Depolama izni sadece bir kez kontrol ediliyor
     ensureStoragePermission();
+
     // 🚀 Uygulama başlatıldığında tüm veri akışı başlatılır
     _initializeData();
     _getAppVersion();
@@ -69,6 +74,7 @@ class _HomePageState extends State<HomePage> {
 
   /// 🚀 Uygulama başlatıldığında veritabanı kontrolü ve yükleme işlemi
   Future<void> _initializeData() async {
+    const tag = 'home_page';
     setState(() => isLoadingJson = true);
     final stopwatch = Stopwatch()..start();
 
@@ -86,12 +92,13 @@ class _HomePageState extends State<HomePage> {
 
     log(
       '✅ Uygulama verisi başarıyla yüklendi (${elapsedTime.inSeconds} sn)',
-      name: 'HomePage',
+      name: tag,
     );
   }
 
   /// 🔄 Veritabanından kayıtları yeniden oku
   Future<void> _loadItems() async {
+    const tag = 'home_page';
     final records = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
@@ -112,7 +119,7 @@ class _HomePageState extends State<HomePage> {
       netflixItems = records;
     });
 
-    log('📦 Toplam kayıt sayısı: $count', name: "HomePage");
+    log('📦 Toplam kayıt sayısı: $count', name: tag);
   }
 
   DateTime _parseDate(String dateStr) {

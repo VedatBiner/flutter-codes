@@ -31,7 +31,7 @@ dependencies:
   # Uygulama bilgisi
   # -----------------------------
   package_info_plus:            # Uygulama sürümü, build numarası, paket adı
-  ## device_info_plus:             # Cihaz modeli, Android/iOS sürümü
+  device_info_plus:             # Cihaz modeli, Android/iOS sürümü
 
   # -----------------------------
   # Durum yönetimi / Modelleme
