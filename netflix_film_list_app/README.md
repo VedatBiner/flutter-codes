@@ -80,7 +80,7 @@ Netflix vs. ile izlenen filmleri tutan uygulama
 - Açılışta izin sorulması `home_page.dart` içine taşındı. 12.11.2023
 - İzin sorunu giderildi. 13.11.2025
 - `device_info_helper.dart`dosyası eklendi. - 13.11.2025
-- 
+- `sql_helper.dart` dosyası compute yapısına uygun hale getirildi. - 13.11.2025
 
 
 
