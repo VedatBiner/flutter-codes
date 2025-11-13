@@ -2,15 +2,9 @@
 //
 // 🎬 Netflix Film List App
 // -----------------------------------------------------------
-// Bu yardımcı dosya JSON → SQL (SQLite) toplu aktarım işlemini (batch import)
-// yüksek performansla ve güvenli şekilde yapar.
-//
-// Adımlar:
-//  1️⃣ Uygulama dizinindeki JSON dosyasını okur.
-//  2️⃣ JSON verilerini `NetflixItem` modeline dönüştürür.
-//  3️⃣ `DbHelper.insertBatch()` yöntemi ile veritabanına toplu ekleme yapar.
-//  4️⃣ Konsola detaylı log mesajları yazar.
-//  5️⃣ Hata durumlarında işlem güvenli şekilde sonlandırılır.
+// JSON → SQL aktarımı işlemini hızlı ve UI dostu hale getirmek için
+// compute() kullanılarak arka planda parse edilir.
+// UI thread donmadan, büyük JSON dosyaları işlenebilir.
 //
 // -----------------------------------------------------------
 
@@ -18,23 +12,21 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart'; // ✅ compute() burada
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../constants/file_info.dart';
 import '../../db/db_helper.dart';
 import '../../models/item_model.dart';
 
-/// 🚀 JSON dosyasını SQLite veritabanına hızlı şekilde aktarır.
-///  • Dosya: `app_flutter/netflix_list_backup.json`
-///  • Batch olarak çalışır → performanslı.
-///  • Veritabanı boşsa veriler eklenir; doluysa işlem yapılmaz.
-/// JSON → SQL batch import (compute() ile)
+/// JSON → SQL batch import (compute() ile hızlandırılmış)
 Future<void> importJsonToDatabaseFast() async {
   const tag = 'JSON→SQL Import (Compute)';
   try {
+    // 📂 JSON dosya yolu
     final directory = await getApplicationDocumentsDirectory();
-    final jsonPath = join(directory.path, 'netflix_list_backup.json');
+    final jsonPath = join(directory.path, fileNameJson);
     final file = File(jsonPath);
 
     if (!await file.exists()) {
@@ -42,13 +34,13 @@ Future<void> importJsonToDatabaseFast() async {
       return;
     }
 
-    // 1️⃣ JSON içeriğini oku
+    // 1️⃣ JSON dosyasını oku
     final jsonStr = await file.readAsString();
 
-    // 2️⃣ compute() ile başka isolate 'ta parse et
+    // 2️⃣ compute() kullanarak ayrı isolate 'ta parse et
     final parsedItems = await compute(_parseJsonToItems, jsonStr);
 
-    // 3️⃣ SQL ’e batch olarak yaz
+    // 3️⃣ Batch olarak SQL 'e aktar
     await DbHelper.instance.insertBatch(parsedItems);
 
     final count = await DbHelper.instance.countRecords();
@@ -58,7 +50,8 @@ Future<void> importJsonToDatabaseFast() async {
   }
 }
 
-/// 🧠 compute() içinde çalışan fonksiyon (UI thread ’den bağımsız)
+/// 🔹 compute() içinde çalışan JSON parse fonksiyonu.
+/// Ana thread 'den tamamen bağımsız çalışır.
 List<NetflixItem> _parseJsonToItems(String jsonStr) {
   final List<dynamic> jsonList = json.decode(jsonStr);
   return jsonList.map((e) {
