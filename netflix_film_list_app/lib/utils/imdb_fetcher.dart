@@ -35,7 +35,7 @@ class ImdbFetcher {
 
       final data = json.decode(res.body);
       if (data['Response'] == 'False') {
-        log('❌ Bulunamadı: $title', name: tag);
+        log('❌ Bulunamadı:  ' /*$title', name: tag*/);
         return null;
       }
 
