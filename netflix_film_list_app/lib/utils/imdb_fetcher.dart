@@ -1,27 +1,75 @@
+// 📃 <----- lib/utils/imdb_fetcher.dart ----->
+//
+// 🎬 IMDb / OMDb Verisi Getirici
+// Netflix geçmişindeki başlıkları IMDb ’den sorgular ve
+// türüne göre (film / dizi) ayırır.
+// -----------------------------------------------------------
+
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
 import '../constants/file_info.dart';
 
-Future<Map<String, dynamic>?> fetchImdbData(String title) async {
-  final url = Uri.parse(
-    'https://www.omdbapi.com/?t=${Uri.encodeComponent(title)}&apikey=$apiKey',
-  );
+// 🎬 Tür enum 'u (movie / series / episode)
+enum ImdbTitleType { movie, series, episode, unknown }
 
-  final response = await http.get(url);
+class ImdbFetcher {
+  static const _baseUrl = 'https://www.omdbapi.com/';
 
-  if (response.statusCode == 200) {
-    final data = json.decode(response.body);
-    if (data['Response'] == 'True') {
+  /// 🔍 IMDb ’den başlığa göre bilgi getirir.
+  Future<Map<String, dynamic>?> fetchInfo(String title) async {
+    final tag = 'imdb_fetcher';
+    try {
+      final uri = Uri.parse(
+        '$_baseUrl?t=${Uri.encodeComponent(title)}&apikey=$apiKey',
+      );
+
+      final res = await http.get(uri);
+
+      if (res.statusCode != 200) {
+        log('⚠️ HTTP hata kodu: ${res.statusCode}', name: tag);
+        return null;
+      }
+
+      final data = json.decode(res.body);
+      if (data['Response'] == 'False') {
+        log('❌ Bulunamadı: $title', name: tag);
+        return null;
+      }
+
       return {
-        'type': data['Type'] ?? 'movie',
+        'title': data['Title'],
+        'year': data['Year'],
+        'type': data['Type'], // movie / series / episode
+        'genre': data['Genre'],
         'poster': data['Poster'],
         'rating': data['imdbRating'],
-        // 'genre': data['Genre'],
-        'year': data['Year'],
       };
+    } catch (e, st) {
+      log(
+        '❌ IMDb isteği hatası: $e',
+        name: 'imdb_fetcher',
+        error: e,
+        stackTrace: st,
+      );
+      return null;
     }
   }
-  return null;
+
+  /// 🎬 Yalnızca TYPE bilgisini döndürür (movie / series / episode)
+  Future<ImdbTitleType> getTitleType(String title) async {
+    final data = await fetchInfo(title);
+
+    if (data == null) return ImdbTitleType.unknown;
+
+    final t = (data['type'] ?? '').toString().toLowerCase();
+
+    if (t == 'movie') return ImdbTitleType.movie;
+    if (t == 'series') return ImdbTitleType.series;
+    if (t == 'episode') return ImdbTitleType.episode;
+
+    return ImdbTitleType.unknown;
+  }
 }
