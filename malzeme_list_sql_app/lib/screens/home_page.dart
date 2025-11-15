@@ -16,6 +16,8 @@
 // 📌 Dart hazır paketleri
 import 'dart:developer';
 
+import 'package:device_info_plus/device_info_plus.dart';
+
 /// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -57,6 +59,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+    /// 🔹 Cihaz bilgisi log
+    _logDeviceInfo();
     _loadInitialData();
     _getAppVersion();
   }
@@ -65,6 +70,16 @@ class _HomePageState extends State<HomePage> {
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     setState(() => appVersion = 'Versiyon: ${info.version}');
+  }
+
+  /// 📌 Cihaz bilgilerini log 'a yazar
+  Future<void> _logDeviceInfo() async {
+    final plugin = DeviceInfoPlugin();
+    final android = await plugin.androidInfo;
+
+    log("📱 Cihaz: ${android.model}", name: "device_info");
+    log("🧩 Android Sürüm: ${android.version.release}", name: "device_info");
+    log("🛠 API: ${android.version.sdkInt}", name: "device_info");
   }
 
   /// 📌 İlk açılışta verileri (gerekirse) yükle

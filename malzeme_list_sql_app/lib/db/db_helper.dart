@@ -32,19 +32,31 @@ class DbHelper {
   Future<Database> _initDB(String fileName) async {
     final dbPath = await getApplicationDocumentsDirectory();
     final path = join(dbPath.path, fileName);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 2,
+      onCreate: _createDB,
+      onUpgrade: _onUpgrade,
+    );
   }
 
   /// 📌 Veritabanı tablolarını oluşturur
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE sqlTableName (
+      CREATE TABLE IF NOT EXISTS sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         malzeme TEXT NOT NULL,
         miktar INTEGER,
         aciklama TEXT
       )
     ''');
+  }
+
+  /// 📌 Veritabanını yükseltir
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < newVersion) {
+      await _createDB(db, newVersion);
+    }
   }
 
   /// 📌 Tüm malzemeleri getir
