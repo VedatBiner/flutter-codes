@@ -105,8 +105,10 @@ bir chatGPT ortak çalışması :)
 100. `drawer_share_tile.dart` ve `share_helper.dart` dosyası eklendi. - 04.11.2025
 101. drawer menüye veri dışarı gönderme seçeneği eklendi. - 04.11.2025
 102. `drawer_backup_tile.dart` ve `drawer_share_tile.dart` dosyasınde düzeltme yapıldı. - 04.11.2025
-103. `text_constants.dart.` dosyasına `drawerMenuSubtitleText` sabiti eklendi. 04.11.2025
-104. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı.
+103. `text_constants.dart.` dosyasına `drawerMenuSubtitleText` sabiti eklendi. - 04.11.2025
+104. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 04.11.2025
+105. NDK güncellemesi yapıldı. (manuel) - 04.11.2025
+106. 
 
 
 - Simdilik yapılanlar yeterli mi?

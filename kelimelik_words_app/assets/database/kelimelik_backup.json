@@ -464,6 +464,10 @@
     "meaning": "Düşman topraklarına yapılan vaskın"
   },
   {
+    "word": "Akıtmak",
+    "meaning": "Akmasını sağlamak"
+  },
+  {
     "word": "Akış",
     "meaning": "Akma işi / Akın"
   },
@@ -758,6 +762,10 @@
   {
     "word": "Angora",
     "meaning": "Ankara keçisinden elde edilen iplik"
+  },
+  {
+    "word": "Angut",
+    "meaning": "Bir kuşu türü"
   },
   {
     "word": "Ani",
@@ -1264,6 +1272,10 @@
     "meaning": "Bir yapıda ortada kalan alan / Hanay / Sahn"
   },
   {
+    "word": "Avrat",
+    "meaning": "Kadın / Karı / Eş"
+  },
+  {
     "word": "Avro",
     "meaning": "Avrupa Birliği ortak parası / Ekü"
   },
@@ -1406,6 +1418,10 @@
   {
     "word": "Aza",
     "meaning": "Üye"
+  },
+  {
+    "word": "Azamet",
+    "meaning": "Ululuk / Büyüklük"
   },
   {
     "word": "Azap",
@@ -1732,6 +1748,10 @@
     "meaning": "El değmemiş / Cinsel ilişkide bulunmamış erkek"
   },
   {
+    "word": "Bakire",
+    "meaning": "Kızığlankız / Erden"
+  },
+  {
     "word": "Bakmak",
     "meaning": "Beslemek / Geçindirmek"
   },
@@ -1918,6 +1938,14 @@
   {
     "word": "Barı",
     "meaning": "Çit"
+  },
+  {
+    "word": "Barış",
+    "meaning": "Sulh / Hazar"
+  },
+  {
+    "word": "Barışçıl",
+    "meaning": "Barışsever"
   },
   {
     "word": "Bas",
@@ -2588,12 +2616,20 @@
     "meaning": "Bor asidi ile oluşan bir tuz cinsi"
   },
   {
+    "word": "Borda",
+    "meaning": "Geminin yanı / Alabanda karşıtı"
+  },
+  {
     "word": "Boru",
     "meaning": "Sıvı aktarmaya yarayan silindir"
   },
   {
     "word": "Borucu",
     "meaning": "Boru yapıp satan kimse"
+  },
+  {
+    "word": "Borç",
+    "meaning": "Geri verilmek üzere alınan para"
   },
   {
     "word": "Bot",
@@ -2802,6 +2838,10 @@
   {
     "word": "Bıcı",
     "meaning": "Kaz veya ördek yavrusu"
+  },
+  {
+    "word": "Bıcıl",
+    "meaning": "Aşık kemiği altındaki küçük kemik"
   },
   {
     "word": "Bıkkın",
@@ -3376,6 +3416,10 @@
     "meaning": "Saniyede geçen su akımı"
   },
   {
+    "word": "Debil",
+    "meaning": "Bedensel ve zihinsel anlamda güçsüz"
+  },
+  {
     "word": "Def",
     "meaning": "Savma"
   },
@@ -3510,6 +3554,10 @@
   {
     "word": "Değil",
     "meaning": "Olumsuzluk kavramı veren ifade"
+  },
+  {
+    "word": "Değim",
+    "meaning": "Liyakat"
   },
   {
     "word": "Değin",
@@ -4256,6 +4304,10 @@
     "meaning": "Geniş"
   },
   {
+    "word": "Entel",
+    "meaning": "Sahte aydın"
+  },
+  {
     "word": "Enöte",
     "meaning": "Bir gök cisminin yörüngesi de merkeze en uzak olduğu nokta"
   },
@@ -4646,6 +4698,10 @@
   {
     "word": "Fal",
     "meaning": "Geleceği öğrenme merakı"
+  },
+  {
+    "word": "Falan",
+    "meaning": "Benzerleri anlamında bir söz / Filan"
   },
   {
     "word": "Falcı",
@@ -5164,6 +5220,10 @@
     "meaning": "Sıkıntı ve üzüntü veren"
   },
   {
+    "word": "Gana",
+    "meaning": "Bir ülke"
+  },
+  {
     "word": "Gani",
     "meaning": "Zengin / Varlıklı"
   },
@@ -5334,6 +5394,10 @@
   {
     "word": "Gidi",
     "meaning": "Azarlama sözü"
+  },
+  {
+    "word": "Giray",
+    "meaning": "Kırım prens ünvanı"
   },
   {
     "word": "Girim",
@@ -5840,12 +5904,28 @@
     "meaning": "Barış"
   },
   {
+    "word": "Haziran",
+    "meaning": "Yılın aylarından"
+  },
+  {
     "word": "Haç",
     "meaning": "Hıristiyanlık sembolü / İstavroz"
   },
   {
     "word": "Haçlı",
     "meaning": "Haçı olan"
+  },
+  {
+    "word": "Haşa",
+    "meaning": "Bir durum veya davranışın kesinlikle kabul edilmediğini anlatan söz"
+  },
+  {
+    "word": "Haşarı",
+    "meaning": "Huysuz / Azgın / Çok yaramaz"
+  },
+  {
+    "word": "Haşarılık",
+    "meaning": "Haşarı olma durumu"
   },
   {
     "word": "Haşıl",
@@ -6074,6 +6154,10 @@
   {
     "word": "İbne",
     "meaning": "Homoseksüel erkek"
+  },
+  {
+    "word": "İbra",
+    "meaning": "Aklama / Temize çıkarma"
   },
   {
     "word": "İcap",
@@ -6461,11 +6545,11 @@
   },
   {
     "word": "İp",
-    "meaning": "İplik"
+    "meaning": "İplik / Asarak öldürme cezası"
   },
   {
     "word": "İp",
-    "meaning": "İplik / Asarak öldürme cezası"
+    "meaning": "İplik"
   },
   {
     "word": "İpek",
@@ -6838,6 +6922,10 @@
   {
     "word": "İşli",
     "meaning": "Üzeri nakışlı"
+  },
+  {
+    "word": "İşlik",
+    "meaning": "Atölye / Gömlek"
   },
   {
     "word": "İşve",
@@ -7374,6 +7462,10 @@
   {
     "word": "Kasa",
     "meaning": "Para saklanan dolap"
+  },
+  {
+    "word": "Kase",
+    "meaning": "Derince çanak"
   },
   {
     "word": "Kaset",
@@ -8008,6 +8100,10 @@
     "meaning": "Müstecir / Bir yeri kira karşılığı tutan kişi"
   },
   {
+    "word": "Kiralı",
+    "meaning": "Kiralanmış olan"
+  },
+  {
     "word": "Kiraz",
     "meaning": "İzmir ilçesi / Bir meyve"
   },
@@ -8264,6 +8360,10 @@
     "meaning": "Küçük orman"
   },
   {
+    "word": "Koruk",
+    "meaning": "Olgunlaşmamış ekşii üzüm"
+  },
+  {
     "word": "Korun",
     "meaning": "Üst derinin en dış tabakası"
   },
@@ -8354,6 +8454,10 @@
   {
     "word": "Kral",
     "meaning": "En yüksek devlet otoritesini bulunduran soylularca seçilmiş kimse"
+  },
+  {
+    "word": "Krank",
+    "meaning": "Motorfa doğrusal hareketi dairesel harekete çevşren dingil"
   },
   {
     "word": "Krem",
@@ -8860,6 +8964,10 @@
     "meaning": "Kırk parçadan oluşmuş"
   },
   {
+    "word": "Kırlık",
+    "meaning": "Kır olan yer"
+  },
+  {
     "word": "Kırma",
     "meaning": "Kırmak işi"
   },
@@ -9256,6 +9364,10 @@
     "meaning": "Parça"
   },
   {
+    "word": "Limit",
+    "meaning": "Sınır"
+  },
+  {
     "word": "Limonlu",
     "meaning": "İçine limon doğranmış"
   },
@@ -9468,6 +9580,10 @@
     "meaning": "Ana / Anne"
   },
   {
+    "word": "Mafiş",
+    "meaning": "Yok kalmadı anlamında bir söz"
+  },
+  {
     "word": "Mafya",
     "meaning": "Yasa dışı örgüt"
   },
@@ -9648,6 +9764,10 @@
     "meaning": "Mantıklı"
   },
   {
+    "word": "Mapus",
+    "meaning": "Mahpus / Cezaevi"
+  },
+  {
     "word": "Maraba",
     "meaning": "Çiftçi / Ortakçı"
   },
@@ -9658,6 +9778,10 @@
   {
     "word": "Maraz",
     "meaning": "Hastalık"
+  },
+  {
+    "word": "Maraza",
+    "meaning": "Hastalık / Çekişme / Kavga"
   },
   {
     "word": "Maraş",
@@ -9754,6 +9878,10 @@
   {
     "word": "Masun",
     "meaning": "Saklanmış / Korunan"
+  },
+  {
+    "word": "Masör",
+    "meaning": "Erkek masajcı"
   },
   {
     "word": "Mat",
@@ -10020,6 +10148,10 @@
     "meaning": "Şarap"
   },
   {
+    "word": "Meyan",
+    "meaning": "Meyan kökü"
+  },
+  {
     "word": "Meyil",
     "meaning": "Eğim / Akıntı / Temayül"
   },
@@ -10226,6 +10358,10 @@
   {
     "word": "Moka",
     "meaning": "Hoş kokulu bir tür kahve"
+  },
+  {
+    "word": "Mokoza",
+    "meaning": "Sümük doku"
   },
   {
     "word": "Mol",
@@ -10514,6 +10650,10 @@
   {
     "word": "Naz",
     "meaning": "Cilve / Eda / Şımarıkça davranış"
+  },
+  {
+    "word": "Nazar",
+    "meaning": "Bakış / Göz atma"
   },
   {
     "word": "Nazari",
@@ -11988,6 +12128,10 @@
     "meaning": "Giysşde göğüs ile omuz arasına eklenen parça"
   },
   {
+    "word": "Robot",
+    "meaning": "Kendi başına işler yapabilen otomatik araç"
+  },
+  {
     "word": "Rok",
     "meaning": "Satranç hamlesi"
   },
@@ -13120,6 +13264,10 @@
     "meaning": "Suyu çok olan"
   },
   {
+    "word": "Suluk",
+    "meaning": "Kuş kafeslerine su konan kap"
+  },
+  {
     "word": "Sumak",
     "meaning": "Baharat elde edilen bir ağaç"
   },
@@ -13310,6 +13458,10 @@
   {
     "word": "Sırp",
     "meaning": "Sırbistan halkından olan"
+  },
+  {
+    "word": "Sırık",
+    "meaning": "Feğnekten uzun kalınca ağaç"
   },
   {
     "word": "Sırım",
@@ -13584,6 +13736,10 @@
     "meaning": "Savaş aracı"
   },
   {
+    "word": "Tanrıcı",
+    "meaning": "Tanrının varlığına inanan / Teist"
+  },
+  {
     "word": "Tanı",
     "meaning": "Teşhis"
   },
@@ -13625,11 +13781,11 @@
   },
   {
     "word": "Taraça",
-    "meaning": "Teras"
+    "meaning": "Teras / Seki"
   },
   {
     "word": "Taraça",
-    "meaning": "Teras / Seki"
+    "meaning": "Teras"
   },
   {
     "word": "Taret",
@@ -14974,6 +15130,10 @@
   {
     "word": "Vesair",
     "meaning": "Diğer"
+  },
+  {
+    "word": "Veto",
+    "meaning": "Karşı çıkma / Engelleme"
   },
   {
     "word": "Vinç",
@@ -17150,6 +17310,10 @@
   {
     "word": "Şevk",
     "meaning": "İstek / Heves"
+  },
+  {
+    "word": "Şevket",
+    "meaning": "Ululuk / Yücelik / Heybet"
   },
   {
     "word": "Şey",
