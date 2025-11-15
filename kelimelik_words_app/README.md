@@ -108,7 +108,11 @@ bir chatGPT ortak çalışması :)
 103. `text_constants.dart.` dosyasına `drawerMenuSubtitleText` sabiti eklendi. - 04.11.2025
 104. `drawer_title.dart`dosyasında başlık düzeltmesi yapıldı. - 04.11.2025
 105. NDK güncellemesi yapıldı. (manuel) - 04.11.2025
-106. 
+106. `device_info_plus` paketi eklendi. - 15.11.2025
+107. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
+108. `home_page.dart` dosyası düzenlendi. - 15.11.2025
+109. 
+
 
 
 - Simdilik yapılanlar yeterli mi?

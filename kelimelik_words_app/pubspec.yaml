@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 1.5.0+1
+version: 1.5.1+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -50,6 +50,7 @@ dependencies:
   # Uygulama bilgisi
   # -----------------------------
   package_info_plus:               # Uygulama sürümü, build numarası, paket adı
+  device_info_plus:                # Cihaz modeli, Android/iOS sürümü
 
   # -----------------------------
   # Listeleme / UX yardımcıları
