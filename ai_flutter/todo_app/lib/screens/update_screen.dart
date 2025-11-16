@@ -1,3 +1,5 @@
+// update_screen.dart
+
 import 'package:flutter/material.dart';
 
 class UpdateScreen extends StatelessWidget {
@@ -14,9 +16,9 @@ class UpdateScreen extends StatelessWidget {
           children: [
             const Icon(Icons.edit_note, size: 100, color: Colors.green),
             const SizedBox(height: 20),
-            const TextField(
+            TextField(
               controller: TextEditingController(text: 'Go to gym'),
-              decoration: InputDecoration(border: OutlineInputBorder()),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
             ),
             const SizedBox(height: 20),
             ElevatedButton(onPressed: () {}, child: const Text('Update')),
