@@ -8,8 +8,7 @@ plugins {
 android {
     namespace = "aa.vb.sozluk_ser_tr_web_v3_app"
     compileSdk = flutter.compileSdkVersion
-    // ndkVersion = flutter.ndkVersion
-    ndkVersion = "27.0.12077973"
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

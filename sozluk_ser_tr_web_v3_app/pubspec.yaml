@@ -1,9 +1,9 @@
 name: sozluk_ser_tr_web_v3_app
-description: "A new Flutter project."
+description: "Ser-Tr Sözlük Web-Mobile Firestore App"
 
 publish_to: 'none'
 
-version: 3.4.0+1
+version: 3.4.1+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -46,6 +46,7 @@ dependencies:
   # Uygulama bilgisi
   # -----------------------------
   package_info_plus:           # Uygulama sürümü, build numarası, paket adı
+  device_info_plus:            # Cihaz modeli, Android/iOS sürümü
 
   # -----------------------------
   # Listeleme / UX yardımcıları

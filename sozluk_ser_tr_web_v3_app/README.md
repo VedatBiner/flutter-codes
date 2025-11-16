@@ -67,6 +67,11 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 63. `showEditWordDialogHandler` metodu `showEditItemDialogHandler` olarak değiştirildi. - 09.11.2025
 64. `showDeleteWordHandler` metodu `showDeleteItemHandler` olarak değiştirildi. - 09.11.2025
 65. `WordDialog` metodu `ItemDialog` olarak değiştirildi. - 09.11.2025
+66. `device_info_plus` paketi eklendi. - 15.11.2025
+67. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
+68. `home_page.dart` dosyası düzenlendi. - 15.11.2025
+69.
+
 
 
 

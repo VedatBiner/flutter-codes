@@ -3,7 +3,7 @@
   🖥️ Ana Ekran (HomePage) — AppBar + Drawer + Canlı Arama Listelemesi
 
   - “Arama modunu aç/kapat” davranışı CustomAppBar.onStartSearch / onClearSearch
-    callback’leri ile HomePage içinden yönetilir (isSearching state).
+    callback ’leri ile HomePage içinden yönetilir (isSearching state).
   - Açılışta WordService.fetchAllWords() ile tüm kelimeler belleğe alınır.
   - Arama kutusuna yazdıkça Sırpça ve Türkçe alanlarında “içeren” eşleşmeye göre
     yerelde filtrelenir.
@@ -12,6 +12,9 @@
 
 // 📌 Dart paketleri burada
 import 'dart:async';
+import 'dart:developer';
+
+import 'package:device_info_plus/device_info_plus.dart';
 
 /// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
@@ -57,6 +60,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    // 🔹 Cihaz bilgisi log
+    _logDeviceInfo();
     _runInitialRead(); // kısa özet + log
     _getAppVersion(); // versiyon
     _loadAllWords(bannerMessage: _loadingMessage); // asıl veriyi çek
@@ -96,6 +101,16 @@ class _HomePageState extends State<HomePage> {
     final info = await PackageInfo.fromPlatform();
     if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
+  }
+
+  /// 📌 Cihaz bilgilerini log 'a yazar
+  Future<void> _logDeviceInfo() async {
+    final plugin = DeviceInfoPlugin();
+    final android = await plugin.androidInfo;
+
+    log("📱 Cihaz: ${android.model}", name: "device_info");
+    log("🧩 Android Sürüm: ${android.version.release}", name: "device_info");
+    log("🛠 API: ${android.version.sdkInt}", name: "device_info");
   }
 
   // 🧪 Kısa özet/log
