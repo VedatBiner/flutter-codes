@@ -1,9 +1,9 @@
 # <----- pubspec.yaml ----->
 name: netflix_test
-description: "A new Flutter project."
+description: "Netflix Film İzleme App"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 2.0.0+1
 
 environment:
   sdk: ^3.10.0-290.4.beta
@@ -11,10 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  csv: ^6.0.0
-  http: ^1.2.1
 
   cupertino_icons: ^1.0.8
+
+  csv:
+  http:
+  fl_chart:
 
 dev_dependencies:
   flutter_test:

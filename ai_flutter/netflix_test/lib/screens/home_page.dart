@@ -6,9 +6,12 @@ import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/omdb_lazy_loader.dart';
+import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final VoidCallback? toggleTheme; // 🌙 Tema değiştirme butonu
+
+  const HomePage({super.key, this.toggleTheme});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -39,38 +42,44 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       allMovies = parsed.movies;
       allSeries = parsed.series;
+
       movies = parsed.movies;
       series = parsed.series;
+
       loading = false;
     });
   }
 
-  // -------------------------
+  // ----------------------------------------------------------------
   // 🔍 Arama + Filtre Uygulama
-  // -------------------------
+  // ----------------------------------------------------------------
   void applySearchAndFilter() {
     final q = searchQuery.toLowerCase().trim();
 
-    // 🔸 Filmler
+    // ---------------------
+    // Filmler
+    // ---------------------
     List<NetflixItem> filteredMovies = allMovies.where((m) {
       return q.isEmpty || m.title.toLowerCase().contains(q);
     }).toList();
 
-    // 🔸 Diziler
+    // ---------------------
+    // Diziler + Bölümler
+    // ---------------------
     List<SeriesGroup> filteredSeries = allSeries.where((s) {
-      final matchName = s.seriesName.toLowerCase().contains(q);
+      final seriesMatch = s.seriesName.toLowerCase().contains(q);
 
-      final matchEpisodes = s.seasons.any(
+      final episodeMatch = s.seasons.any(
         (season) =>
             season.episodes.any((ep) => ep.title.toLowerCase().contains(q)),
       );
 
-      return q.isEmpty ? true : (matchName || matchEpisodes);
+      return q.isEmpty ? true : (seriesMatch || episodeMatch);
     }).toList();
 
-    // -------------------------
-    // 🔄 Filtreleri uygula
-    // -------------------------
+    // ---------------------
+    // Filtre butonu
+    // ---------------------
     final now = DateTime.now();
     final last30 = now.subtract(const Duration(days: 30));
 
@@ -87,7 +96,7 @@ class _HomePageState extends State<HomePage> {
         final latest = s.seasons
             .expand((e) => e.episodes)
             .map((e) => parseDate(e.date))
-            .reduce((a, b) => a.isAfter(b) ? a : b);
+            .reduce((x, y) => x.isAfter(y) ? x : y);
         return latest.isAfter(last30);
       }).toList();
     }
@@ -98,16 +107,43 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // ----------------------------------------------------------------
   Future<void> loadOmdb(NetflixItem movie) async {
     await OmdbLazyLoader.loadOmdbIfNeeded(movie);
     setState(() {});
   }
 
+  // ----------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Netflix İzleme Listesi"),
+
+        actions: [
+          // 📊 İSTATİSTİK SAYFASI
+          IconButton(
+            icon: const Icon(Icons.bar_chart),
+            tooltip: "İstatistikler",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) =>
+                      StatsPage(movies: allMovies, series: allSeries),
+                ),
+              );
+            },
+          ),
+
+          // 🌙 TEMA BUTONU
+          IconButton(
+            icon: const Icon(Icons.brightness_6),
+            tooltip: "Tema Değiştir",
+            onPressed: widget.toggleTheme,
+          ),
+        ],
+
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Padding(
@@ -129,6 +165,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -138,9 +175,9 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(
                     padding: const EdgeInsets.all(10),
                     children: [
-                      _buildSeries(),
+                      _buildSeriesSection(),
                       const SizedBox(height: 20),
-                      _buildMovies(),
+                      _buildMovieSection(),
                     ],
                   ),
                 ),
@@ -149,9 +186,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // -----------------------------
+  // ----------------------------------------------------------------
   // 🔽 Filtre Butonları
-  // -----------------------------
+  // ----------------------------------------------------------------
   Widget _buildFilters() {
     return Padding(
       padding: const EdgeInsets.all(6),
@@ -180,10 +217,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ======================================================
-  // 📺 DİZİLER → Sezon → Bölüm
-  // ======================================================
-  Widget _buildSeries() {
+  // ----------------------------------------------------------------
+  // 📺 Diziler → Sezon → Bölüm
+  // ----------------------------------------------------------------
+  Widget _buildSeriesSection() {
     return Card(
       child: ExpansionTile(
         title: Text("Diziler (${series.length})"),
@@ -209,10 +246,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ======================================================
-  // 🎬 FİLMLER
-  // ======================================================
-  Widget _buildMovies() {
+  // ----------------------------------------------------------------
+  // 🎬 Filmler
+  // ----------------------------------------------------------------
+  Widget _buildMovieSection() {
     return Card(
       child: ExpansionTile(
         title: Text("Filmler (${movies.length})"),
