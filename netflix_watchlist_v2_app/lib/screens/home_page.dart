@@ -9,6 +9,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
+import '../utils/download_directory_helper.dart';
 import '../utils/omdb_lazy_loader.dart';
 import 'stats_page.dart';
 
@@ -49,6 +50,9 @@ class _HomePageState extends State<HomePage> {
     /// 🔹 Versiyon bilgisi
     _getAppVersion();
 
+    /// 🔹 Download klasörü hazırlığı (1 kez)
+    _prepareDownloadDirectory();
+
     loadData();
   }
 
@@ -66,6 +70,17 @@ class _HomePageState extends State<HomePage> {
     log("📱 Cihaz: ${android.model}", name: tag);
     log("🧩 Android Sürüm: ${android.version.release}", name: tag);
     log("🛠 API: ${android.version.sdkInt}", name: tag);
+  }
+
+  /// 📌 Download dizini kontrol et
+  Future<void> _prepareDownloadDirectory() async {
+    final dir = await prepareDownloadDirectory(tag: tag);
+
+    if (dir != null) {
+      log("📂 Download klasörü hazır: ${dir.path}", name: tag);
+    } else {
+      log("⚠️ Download klasörü hazırlanamadı.", name: tag);
+    }
   }
 
   Future<void> loadData() async {

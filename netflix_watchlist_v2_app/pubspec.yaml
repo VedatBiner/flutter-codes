@@ -23,6 +23,19 @@ dependencies:
   package_info_plus:               # Uygulama sürümü, build numarası, paket adı
   device_info_plus:                # Cihaz modeli, Android/iOS sürümü
 
+  # -----------------------------
+  # İzinler
+  # -----------------------------
+  permission_handler:           # Çalışma zamanı izinleri (Android/iOS)
+
+  # -----------------------------
+  # Veritabanı / Depolama
+  # -----------------------------
+  #  sqflite:                      # Cihaz içi SQLite (CRUD)
+  path_provider:                   # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
+  path:                            # Dosya yolu işlemleri (join/dirname/extension)
+  external_path:                   # Android harici depolama (Downloads/DCIM) yolu erişimi
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
