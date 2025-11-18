@@ -1,0 +1,37 @@
+name: netflix_watchlist_v2_app
+description: "Netflix watch list App v2"
+publish_to: 'none'
+
+version: 2.0.0+1
+
+environment:
+  sdk: ^3.10.0-290.4.beta
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  csv:
+  http:
+  fl_chart:
+
+  # -----------------------------
+  # Uygulama bilgisi
+  # -----------------------------
+  package_info_plus:               # Uygulama sürümü, build numarası, paket adı
+  device_info_plus:                # Cihaz modeli, Android/iOS sürümü
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/database/NetflixFilmHistory.csv
