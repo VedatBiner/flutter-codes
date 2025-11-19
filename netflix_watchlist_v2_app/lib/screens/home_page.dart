@@ -220,6 +220,8 @@ class _HomePageState extends State<HomePage> {
         drawer: CustomDrawer(
           // onDatabaseUpdated: _loadItems,
           appVersion: appVersion,
+          allMovies: allMovies,
+          allSeries: allSeries,
           // isFihristMode: isFihristMode,
           // onToggleViewMode: () {
           //   setState(() => isFihristMode = !isFihristMode);

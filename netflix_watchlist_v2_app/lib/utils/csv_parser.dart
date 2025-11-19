@@ -4,6 +4,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+import '../constants/file_info.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 
@@ -34,7 +35,7 @@ String formatDate(DateTime d) {
 class CsvParser {
   static Future<ParsedNetflixData> parseCsvFast() async {
     final raw = await rootBundle.loadString(
-      "assets/database/NetflixFilmHistory.csv",
+      "assets/database/$assetsFileNameCsv",
     );
 
     /// compute → isolate içinde CSV satırlarını çıkarır
