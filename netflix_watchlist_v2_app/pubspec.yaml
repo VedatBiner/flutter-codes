@@ -2,7 +2,7 @@ name: netflix_watchlist_v2_app
 description: "Netflix watch list App v2"
 publish_to: 'none'
 
-version: 2.0.0+1
+version: 2.0.5+1
 
 environment:
   sdk: ^3.10.0-290.4.beta
@@ -48,3 +48,4 @@ flutter:
 
   assets:
     - assets/database/NetflixFilmHistory.csv
+    - assets/images/

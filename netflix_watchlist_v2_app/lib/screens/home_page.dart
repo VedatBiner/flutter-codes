@@ -11,6 +11,7 @@ import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
 import '../utils/omdb_lazy_loader.dart';
+import '../widgets/custom_drawer.dart';
 import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -164,73 +165,85 @@ class _HomePageState extends State<HomePage> {
   // ----------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Netflix İzleme Listesi"),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Netflix İzleme Listesi"),
 
-        actions: [
-          // 📊 İSTATİSTİK SAYFASI
-          IconButton(
-            icon: const Icon(Icons.bar_chart),
-            tooltip: "İstatistikler",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      StatsPage(movies: allMovies, series: allSeries),
-                ),
-              );
-            },
-          ),
-
-          // 🌙 TEMA BUTONU
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            tooltip: "Tema Değiştir",
-            onPressed: widget.toggleTheme,
-          ),
-        ],
-
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                hintText: "Ara (Dizi, Film, Bölüm)...",
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onChanged: (value) {
-                searchQuery = value;
-                applySearchAndFilter();
+          actions: [
+            // 📊 İSTATİSTİK SAYFASI
+            IconButton(
+              icon: const Icon(Icons.bar_chart),
+              tooltip: "İstatistikler",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) =>
+                        StatsPage(movies: allMovies, series: allSeries),
+                  ),
+                );
               },
+            ),
+
+            // 🌙 TEMA BUTONU
+            IconButton(
+              icon: const Icon(Icons.brightness_6),
+              tooltip: "Tema Değiştir",
+              onPressed: widget.toggleTheme,
+            ),
+          ],
+
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(56),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: "Ara (Dizi, Film, Bölüm)...",
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onChanged: (value) {
+                  searchQuery = value;
+                  applySearchAndFilter();
+                },
+              ),
             ),
           ),
         ),
-      ),
 
-      body: loading
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                _buildFilters(),
-                Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.all(10),
-                    children: [
-                      _buildSeriesSection(),
-                      const SizedBox(height: 20),
-                      _buildMovieSection(),
-                    ],
+        // 📁 Drawer
+        drawer: CustomDrawer(
+          // onDatabaseUpdated: _loadItems,
+          appVersion: appVersion,
+          // isFihristMode: isFihristMode,
+          // onToggleViewMode: () {
+          //   setState(() => isFihristMode = !isFihristMode);
+          // },
+        ),
+
+        body: loading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                children: [
+                  _buildFilters(),
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(10),
+                      children: [
+                        _buildSeriesSection(),
+                        const SizedBox(height: 20),
+                        _buildMovieSection(),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 

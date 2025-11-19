@@ -17,7 +17,10 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 10. `path` ve `path_provider` paketleri eklendi. - 18.11.2025
 11. `download_helper.dart` ve `download_directory_helper.dart` dosyaları oluşturuldu. - 18.11.2025
 12. `home_page.dart`içine ilk çalışmada izin kontrolü metodu eklendi. - 18.11.2025
-13. 
+13. Uygulama ikonu değiştirildi. - 18.11.2025
+14. `color_constants.dart` ve `text_constants.dart` dosyaları oluşturuldu. - 19.11.2025
+15. `custom_drawer.dart`, `drawer_title.dart`, `drawer_info_padding_tile.dart` dosyaları oluşturuldu. - 19.11.2025
+16. 
 
 
 
