@@ -19,6 +19,7 @@ import '../constants/file_info.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import 'download_directory_helper.dart';
+import 'omdb_autofill.dart';
 
 /// 📌 CSV tarih formatı dönüştürme (MM/DD/YY → DD/MM/YY)
 String formatCsvDate(String raw) {
@@ -45,6 +46,13 @@ Future<File?> exportAllToCsv(
   const tag = "csv_export";
 
   try {
+    // ---------------------------------------------------------
+    // 🔥 0) CSV export ’tan önce OMDb Auto-Fill çalıştır
+    // ---------------------------------------------------------
+    log("⏳ OMDb Auto-Fill başlıyor...", name: tag);
+    await OmdbAutoFill.fillMissingData(movies);
+    log("✅ OMDb Auto-Fill bitti. CSV üretimine geçiliyor.", name: tag);
+
     final buffer = StringBuffer();
 
     // 1️⃣ CSV başlığı (CATEGORY en sonda + IMDB LINK EKLENDİ)
