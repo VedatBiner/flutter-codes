@@ -111,7 +111,17 @@ bir chatGPT ortak çalışması :)
 106. `device_info_plus` paketi eklendi. - 15.11.2025
 107. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
 108. `home_page.dart` dosyası düzenlendi. - 15.11.2025
-109. 
+109. `file_cretor.dart`ve `zip_helper.dart` dosyası eklendi. - 21.11.2025
+110. bu dosyalarda şimdilik sadece .zip yedeği alınması işlemi yapılacak. - 21.11.2025
+111. `archive` paketi eklendi. - 21.11.2025
+112. `file_info.dart` dosyasına zip dosya adı eklendi. - 21.11.2025
+113. `AndroidManifest.xml` dosyası güncellendi. - 21.11.2025
+114. `storage_permission_handler.dart` dosyası güncellendi. - 21.11.2025
+115. `download_directory_helper.dart` dosyası eklendi. - 21.11.2025
+116. `home_page.dart` dosyası düzenlendi. - 21.11.2025
+
+`
+
 
 
 
@@ -121,6 +131,11 @@ Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - web ile ilgili bölüm çıkarılmalı.
 - Excel, json, csv bölümleri ayrı dosya haline (netflix dosyasındaki gibi) getirilebilir.
+- zip yedeği eklenebilir.
+- animasyon kaldırılabilir.
+- compute yapısı ile performans artışı sağlanabilir.
+- Animasyonlu ve animasyonsuz veri yüklemesi olabilir.
+- 
 
 
 <BR>

@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 1.5.1+1
+version: 1.5.3+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -58,6 +58,8 @@ dependencies:
   elegant_notification:            # Modern toast/notification bileşenleri
   alphabet_list_view:              # A–Z hızlı gezinmeli liste görünümü
   value_layout_builder: ^0.5.0     # Layout sırasında hesaplanan value ’yu builder ’a iletme
+
+  archive:
 
 dev_dependencies:
   flutter_test:

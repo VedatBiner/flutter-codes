@@ -11,4 +11,5 @@ const sqlTableName = "words";
 const String fileNameJson = "kelimelik_backup.json";
 const String fileNameCsv = "kelimelik_backup.csv";
 const String fileNameXlsx = "kelimelik_backup.xlsx";
+const String fileNameZip = "kelimelik_backup.zip";
 const String fileNameSql = "kelimelik.db";

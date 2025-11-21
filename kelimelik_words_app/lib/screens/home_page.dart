@@ -22,6 +22,7 @@ import '../providers/item_count_provider.dart';
 /// 📌 iki ana ekran burada
 import '../screens/alphabet_item_list.dart';
 import '../screens/item_list.dart';
+import '../utils/download_directory_helper.dart';
 import '../utils/json_loader.dart';
 
 /// 📌 AppBar, Drawer, FAB yüklemeleri burada
@@ -55,11 +56,16 @@ class _HomePageState extends State<HomePage> {
   double progress = 0.0;
   String? loadingWord;
   Duration elapsedTime = Duration.zero;
+  static const tag = 'home_page';
 
   @override
   void initState() {
     super.initState();
-    // 🔹 Cihaz bilgisi log
+
+    /// 🔹 Download klasörü hazırlığı (1 kez)
+    _prepareDownloadDirectory();
+
+    /// 🔹 Cihaz bilgisi log
     _logDeviceInfo();
     _loadInitialData();
     _getAppVersion();
@@ -79,6 +85,17 @@ class _HomePageState extends State<HomePage> {
     log("📱 Cihaz: ${android.model}", name: "device_info");
     log("🧩 Android Sürüm: ${android.version.release}", name: "device_info");
     log("🛠 API: ${android.version.sdkInt}", name: "device_info");
+  }
+
+  /// 📌 Download dizini kontrol et
+  Future<void> _prepareDownloadDirectory() async {
+    final dir = await prepareDownloadDirectory(tag: tag); // buradaki sorun ne ?
+
+    if (dir != null) {
+      log("📂 Download klasörü hazır: ${dir.path}", name: tag);
+    } else {
+      log("⚠️ Download klasörü hazırlanamadı.", name: tag);
+    }
   }
 
   /// 📌 İlk açılışta verileri (gerekirse) yükle
@@ -113,7 +130,7 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
-    const tag = 'home_page';
+    // const tag = 'home_page';
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
