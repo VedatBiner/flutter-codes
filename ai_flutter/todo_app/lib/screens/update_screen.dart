@@ -1,9 +1,33 @@
-// update_screen.dart
+// <----- update_screen.dart ----->
 
 import 'package:flutter/material.dart';
 
-class UpdateScreen extends StatelessWidget {
-  const UpdateScreen({super.key});
+class UpdateScreen extends StatefulWidget {
+  // The initial name of the task to be updated.
+  final String initialTaskName;
+
+  const UpdateScreen({super.key, required this.initialTaskName});
+
+  @override
+  State<UpdateScreen> createState() => _UpdateScreenState();
+}
+
+class _UpdateScreenState extends State<UpdateScreen> {
+  final _formKey = GlobalKey<FormState>();
+  late final TextEditingController _taskNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller with the task's current name.
+    _taskNameController = TextEditingController(text: widget.initialTaskName);
+  }
+
+  @override
+  void dispose() {
+    _taskNameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +35,38 @@ class UpdateScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Update Screen')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.edit_note, size: 100, color: Colors.green),
-            const SizedBox(height: 20),
-            TextField(
-              controller: TextEditingController(text: 'Go to gym'),
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: () {}, child: const Text('Update')),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.eco, size: 100, color: Colors.green[400]),
+              const SizedBox(height: 40),
+              TextFormField(
+                controller: _taskNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Task Name',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a task name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Form is valid, handle updating the data here
+                    Navigator.pop(context);
+                  }
+                },
+                child: const Text('Update'),
+              ),
+            ],
+          ),
         ),
       ),
     );

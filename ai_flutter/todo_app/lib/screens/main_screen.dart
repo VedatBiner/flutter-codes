@@ -24,7 +24,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // List of Todo items
+  // The complete list of Todo items
   final List<_TodoInfo> _todoItems = [
     const _TodoInfo(
       icon: Icons.airplanemode_active,
@@ -49,6 +49,35 @@ class _MainScreenState extends State<MainScreen> {
     ),
   ];
 
+  // The list displayed on the screen, which can be filtered
+  late List<_TodoInfo> _filteredTodoItems;
+
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Initially, the filtered list contains all items
+    _filteredTodoItems = _todoItems;
+    _searchController.addListener(_filterList);
+  }
+
+  void _filterList() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      _filteredTodoItems = _todoItems
+          .where((item) => item.text.toLowerCase().contains(query))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_filterList);
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +86,9 @@ class _MainScreenState extends State<MainScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
                 hintText: 'Search',
                 border: OutlineInputBorder(),
               ),
@@ -66,9 +96,9 @@ class _MainScreenState extends State<MainScreen> {
             const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
-                itemCount: _todoItems.length,
+                itemCount: _filteredTodoItems.length,
                 itemBuilder: (context, index) {
-                  final item = _todoItems[index];
+                  final item = _filteredTodoItems[index];
                   return TodoItem(
                     icon: item.icon,
                     text: item.text,
@@ -98,18 +128,18 @@ class TodoItem extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
-    this.iconColor, // Added color property
+    this.iconColor,
   });
 
   final IconData icon;
   final String text;
-  final Color? iconColor; // Added color property
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(icon, color: iconColor), // Used color property
+        leading: Icon(icon, color: iconColor),
         title: Text(text),
         trailing: IconButton(icon: const Icon(Icons.close), onPressed: () {}),
       ),
