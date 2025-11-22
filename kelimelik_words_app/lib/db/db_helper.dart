@@ -1,4 +1,4 @@
-// 📃 <----- word_database.dart ----->
+// 📃 <----- db_helper.dart ----->
 // Tüm veri tabanı işlemleri
 // Tüm CSV JSON işlemleri
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
@@ -49,7 +49,7 @@ class DbHelper {
     await db.execute('''
       CREATE TABLE $sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        word TEXT NOT NULL,
+        word TEXT NOT NULL UNIQUE,
         meaning TEXT NOT NULL
       )
     ''');
@@ -289,5 +289,33 @@ class DbHelper {
 
     words.sort((a, b) => turkishCompare(a.word, b.word));
     return words;
+  }
+
+  // ----------------------------------------------------------------------
+  // 🚀 Hızlı Toplu Ekleme (Batch)
+  // ----------------------------------------------------------------------
+
+  /// Büyük listeleri hızlı eklemek için toplu insert.
+  /// 'word' alanı UNIQUE olduğu için yinelenenler otomatik atlanır.
+  Future<void> insertBatch(List<Word> items) async {
+    if (items.isEmpty) return;
+
+    final db = await database;
+
+    // Daha da hızlı: Transaction + Batch
+    await db.transaction((txn) async {
+      final batch = txn.batch();
+
+      for (final item in items) {
+        batch.insert(
+          sqlTableName,
+          item.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.ignore,
+        );
+      }
+
+      // NoResult → bellek kullanımını azaltır
+      await batch.commit(noResult: true, continueOnError: true);
+    });
   }
 }

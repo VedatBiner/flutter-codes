@@ -119,8 +119,15 @@ bir chatGPT ortak çalışması :)
 114. `storage_permission_handler.dart` dosyası güncellendi. - 21.11.2025
 115. `download_directory_helper.dart` dosyası eklendi. - 21.11.2025
 116. `home_page.dart` dosyası düzenlendi. - 21.11.2025
+117. `csv` paketi eklendi. - 22.11.2025
+118. `csv_helper.dart` ve `json_helper.dart` dosyaları eklendi. - 22.11.2025
+119. `excel_helper.dart` ve `sql_helper.dart` dosyası eklendi. - 22.11.2025
+120. `db_helper.dart` dosyası güncellendi. - 22.11.2025
+121. `csv_parser.dart`dosyası eklendi. - 22.11.2025
+122. `home_page.dart` dosyası tekrar düzenlendi. - 22.11.2025
+123. 
 
-`
+
 
 
 

@@ -67,8 +67,12 @@ class _HomePageState extends State<HomePage> {
 
     /// 🔹 Cihaz bilgisi log
     _logDeviceInfo();
-    _loadInitialData();
+
+    /// 🔹 Uygulama versiyon bilgisi
     _getAppVersion();
+
+    /// 🔹 İlk veri yüklemesi
+    loadData();
   }
 
   /// 📌 Versiyonu al
@@ -81,15 +85,17 @@ class _HomePageState extends State<HomePage> {
   Future<void> _logDeviceInfo() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
-
-    log("📱 Cihaz: ${android.model}", name: "device_info");
-    log("🧩 Android Sürüm: ${android.version.release}", name: "device_info");
-    log("🛠 API: ${android.version.sdkInt}", name: "device_info");
+    log("------------------------------------------", name: tag);
+    log("📱 Cihaz: ${android.model}", name: tag);
+    log("🧩 Android Sürüm: ${android.version.release}", name: tag);
+    log("🛠 API: ${android.version.sdkInt}", name: tag);
+    log("------------------------------------------", name: tag);
   }
 
-  /// 📌 Download dizini kontrol et
+  /// 📌 Download dizinini kontrol eder ve gerekirse oluşturur.
   Future<void> _prepareDownloadDirectory() async {
-    final dir = await prepareDownloadDirectory(tag: tag); // buradaki sorun ne ?
+    // Hata düzeltildi: `prepareDownloadDirectory` metodu parametre almıyor.
+    final dir = await prepareDownloadDirectory();
 
     if (dir != null) {
       log("📂 Download klasörü hazır: ${dir.path}", name: tag);
@@ -98,8 +104,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// 📌 İlk açılışta verileri (gerekirse) yükle
-  void _loadInitialData() async {
+  /// 📌 İlk açılışta verileri yükler.
+  /// Veritabanı boşsa, asset 'ten verileri yükleyip veritabanını oluşturur.
+  Future<void> loadData() async {
     await loadDataFromDatabase(
       context: context,
       onLoaded: (loadedWords) {
@@ -130,7 +137,6 @@ class _HomePageState extends State<HomePage> {
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
   Future<void> _loadWords() async {
-    // const tag = 'home_page';
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 

@@ -30,11 +30,12 @@ import 'package:path_provider/path_provider.dart';
 // 📦 Uygulama içi dosyalar
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
-// import 'fc_files/csv_helper.dart';
+import 'fc_files/csv_helper.dart';
+import 'fc_files/excel_helper.dart';
+import 'fc_files/json_helper.dart';
 // import 'fc_files/download_helper.dart'; // Download dizinine kopyalama
-// import 'fc_files/excel_helper.dart'; // CSV → Excel (Syncfusion)
-// import 'fc_files/json_helper.dart';
 // import 'fc_files/sql_helper.dart'; // JSON → SQL aktarımı burada
+
 import 'fc_files/zip_helper.dart'; // ZIP arşivi oluşturma
 
 /// 🚀 Uygulama başlatıldığında çağrılır.
@@ -75,19 +76,19 @@ Future<void> initializeAppDataFlow() async {
     name: tag,
   );
 
-  // 1️⃣ CSV oluştur (cihazda yoksa)
-  // await createDeviceCsvFromAssetWithDateFix();
+  /// 1️⃣ CSV oluştur (cihazda yoksa)
+  await createDeviceCsvFromAsset();
 
-  // 2️⃣ JSON oluştur (cihazda yoksa)
-  // await createJsonFromAssetCsv();
+  /// 2️⃣ JSON oluştur (cihazda yoksa)
+  await createJsonFromAssetCsv();
 
-  // 3️⃣ Excel oluştur (excel_helper.dart)
-  // await createExcelFromAssetCsvSyncfusion();
+  /// 3️⃣ Excel oluştur (excel_helper.dart)
+  await createExcelFromAssetCsvSyncfusion();
 
-  // 4️⃣ JSON → SQL aktarımı (sql_helper.dart)
+  /// 4️⃣ JSON → SQL aktarımı (sql_helper.dart)
   // await importJsonToDatabaseFast();
 
-  // 5️⃣ ZIP arşivi oluştur
+  /// 5️⃣ ZIP arşivi oluştur
   await createZipArchive();
 
   // 6️⃣ Dosyaları Download dizinine kopyala
