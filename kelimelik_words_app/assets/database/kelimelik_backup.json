@@ -1000,6 +1000,10 @@
     "meaning": "Opera solistinin orkestra eşliğinde söylemesi"
   },
   {
+    "word": "Arzu",
+    "meaning": "Istek / Dilek / Heves"
+  },
+  {
     "word": "Arı",
     "meaning": "Bir böcek türü / Saf / Temiz / Günahsız"
   },
@@ -1578,6 +1582,10 @@
   {
     "word": "Ağlak",
     "meaning": "Ağlamaklı"
+  },
+  {
+    "word": "Ağva",
+    "meaning": "İstanbul'da bir sahil kasabası"
   },
   {
     "word": "Ağyar",
@@ -2834,6 +2842,10 @@
   {
     "word": "Büküm",
     "meaning": "Bükme işi"
+  },
+  {
+    "word": "Bükün",
+    "meaning": "Kelime köklerinde değişiklikler olması / İnsiraf"
   },
   {
     "word": "Büro",
@@ -6268,6 +6280,10 @@
     "meaning": "Yapma / Yerine getirme"
   },
   {
+    "word": "İfade",
+    "meaning": "Anlatım / Deyiş"
+  },
+  {
     "word": "İflas",
     "meaning": "Yenilgiye uğrama / Değerini yitirmr"
   },
@@ -6512,6 +6528,10 @@
     "meaning": "İzlenim / İmaj"
   },
   {
+    "word": "İmha",
+    "meaning": "Ortadan kaldırma / Yok etme"
+  },
+  {
     "word": "İmik",
     "meaning": "Gırtlak"
   },
@@ -6586,10 +6606,6 @@
   {
     "word": "İp",
     "meaning": "İplik / Asarak öldürme cezası"
-  },
-  {
-    "word": "İp",
-    "meaning": "İplik"
   },
   {
     "word": "İpek",
@@ -7366,6 +7382,10 @@
   {
     "word": "Kano",
     "meaning": "Kürekle yürütülen hafif tekne"
+  },
+  {
+    "word": "Kanon",
+    "meaning": "Ard arda duyulan bir yada birden fazla sesin bşrbşrini taklit etmesi ile oluşan bütün"
   },
   {
     "word": "Kant",
@@ -9081,7 +9101,7 @@
   },
   {
     "word": "Kıtal",
-    "meaning": "Vuruşma birbirini öldürme"
+    "meaning": "Vuruşma / Savaş / birbirini öldürme"
   },
   {
     "word": "Kıtık",
@@ -9130,6 +9150,10 @@
   {
     "word": "Kış",
     "meaning": "Çok soğuk hava"
+  },
+  {
+    "word": "Kışla",
+    "meaning": "Askerlerin toplu olarak barındığı yapılar bütünü"
   },
   {
     "word": "Kışın",
@@ -9714,6 +9738,10 @@
   {
     "word": "Makro",
     "meaning": "Büyük, geniş / Mikro karşıtı"
+  },
+  {
+    "word": "Maksat",
+    "meaning": "İstenilen şey / Amaç / Gaye / Erek"
   },
   {
     "word": "Makus",
@@ -10474,6 +10502,10 @@
   {
     "word": "Motel",
     "meaning": "Küçük otel"
+  },
+  {
+    "word": "Motor",
+    "meaning": "Enerjiyi mekanik enerjiye döndüren düzenek"
   },
   {
     "word": "Mucuk",
@@ -13868,10 +13900,6 @@
     "meaning": "Teras / Seki"
   },
   {
-    "word": "Taraça",
-    "meaning": "Teras"
-  },
-  {
     "word": "Taret",
     "meaning": "Zırhlı kule"
   },
@@ -14632,6 +14660,10 @@
     "meaning": "Cümle"
   },
   {
+    "word": "Tümen",
+    "meaning": "On bin Erden oluşan askeri kuvvet"
+  },
+  {
     "word": "Tümör",
     "meaning": "Ur"
   },
@@ -15348,6 +15380,10 @@
     "meaning": "Uzak olmayan"
   },
   {
+    "word": "Yakıt",
+    "meaning": "Enerji ve ısı ortaya çıkaran yanıcı madde"
+  },
+  {
     "word": "Yal",
     "meaning": "Köpek yiyeceği"
   },
@@ -15370,6 +15406,10 @@
   {
     "word": "Yalın",
     "meaning": "Sade/ Alev"
+  },
+  {
+    "word": "Yamak",
+    "meaning": "Bir işte yardımcı olarak çalışan erkek"
   },
   {
     "word": "Yaman",
@@ -16168,6 +16208,10 @@
     "meaning": "Güçlü / Kuvvetli"
   },
   {
+    "word": "Zorluk",
+    "meaning": "Güçlük / Zahmet"
+  },
+  {
     "word": "Zula",
     "meaning": "Kaçak ve yasak şeylerin saklandığı yer"
   },
@@ -16394,6 +16438,10 @@
   {
     "word": "Çağla",
     "meaning": "Badem, kayısı, erik gibi meyvelerin yenilebilir ham hali"
+  },
+  {
+    "word": "Çağlar",
+    "meaning": "Çağlayan"
   },
   {
     "word": "Çağrı",

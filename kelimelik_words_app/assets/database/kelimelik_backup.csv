@@ -249,6 +249,7 @@ Artık,Geri kalan
 Artın,Katyon
 Aruz,Aruz vezni
 Arya,Opera solistinin orkestra eşliğinde söylemesi
+Arzu,Istek / Dilek / Heves
 Arı,Bir böcek türü / Saf / Temiz / Günahsız
 Arıtım,Petrol arıtma işi / Rafinaj
 Arız,Sonradan ortaya çıkan / Musallat olmuş
@@ -394,6 +395,7 @@ Ağca,Akça
 Ağcık,Palmiye çiçeklerindeki telli kın
 Ağda,Macun kıvamına getirişen pekmez eriyiği
 Ağlak,Ağlamaklı
+Ağva,İstanbul'da bir sahil kasabası
 Ağyar,Yabancılar / Eller
 Ağı,Zehir
 Ağıl,Küçükbaş hayvan barınağı
@@ -708,6 +710,7 @@ Böğ,Örümcek türü
 Bük,Dönemeç / Böğürtlen
 Büken,Oynak kemikler arasındaki açıları daraltan kaslar
 Büküm,Bükme işi
+Bükün,Kelime köklerinde değişiklikler olması / İnsiraf
 Büro,Bölüm / Şube
 Büst,Bir heykelcilik türü
 Bütan,Bir tür gaz
@@ -1566,6 +1569,7 @@ Idame,Sürdürme
 İdol,Çok tanrılı dinlerde yapılacak nesne
 İdrak,Algı / Algılama
 İfa,Yapma / Yerine getirme
+İfade,Anlatım / Deyiş
 İflas,Yenilgiye uğrama / Değerini yitirmr
 İfrit,Kötü cin / Öfkeli
 İfşa,Gizli bir şeyi açığa çıkarma
@@ -1627,6 +1631,7 @@ Ilıtma,Işıtmak işi
 İmdat,Tehlikede olana yardım etmek
 İmece,Kırsal kesimde işlerin ortaklaşa isteğe bağlı yapılması
 İmge,İzlenim / İmaj
+İmha,Ortadan kaldırma / Yok etme
 İmik,Gırtlak
 İmla,Yazım
 İmlek,Tanıtıcı özel işaret / Logo
@@ -1646,7 +1651,6 @@ Ilıtma,Işıtmak işi
 İnmek,Konaklamak / Taşıt veya binek hayvanından dışarı gelmek
 İnç,İngiliz uzunluk ölçü birimi
 İp,İplik / Asarak öldürme cezası
-İp,İplik
 İpek,İpek böceği kozalarından çıkarılan ince parlak tel
 İpekçi,İpek satıcısı
 İpçi,İp üreten veya satan kişi
@@ -1841,6 +1845,7 @@ Kani,Kanmış / İnanmış
 Kanka,Kardeş kadar yakın olan kimse
 Kanlı,Kan davasınfa taraf olan kişi / Kan bulaşmış
 Kano,Kürekle yürütülen hafif tekne
+Kanon,Ard arda duyulan bir yada birden fazla sesin bşrbşrini taklit etmesi ile oluşan bütün
 Kant,Şeker ve limonla içilen sıcak su
 Kantar,Ağırlık tartma aracı / Baskül
 Kanı,Inanç / düşünce / kanaat
@@ -2269,7 +2274,7 @@ Kısmet,Talih / Kader
 Kıst,Paylaşımda adaletli davranma
 Kısık,Kısılmış olan
 Kıta,Dörtlük / Parça / Tane
-Kıtal,Vuruşma birbirini öldürme
+Kıtal,Vuruşma / Savaş / birbirini öldürme
 Kıtık,Minder doldurulan keten kendir lifleri
 Kıtır,Patlamış mısır
 Kıyas,Karşılaştırma / Mukayese
@@ -2282,6 +2287,7 @@ Kıç,Popo / Makat / Teknelerin arka tarafı
 Kığ,"Koyun, keçi pisliği / Kığı"
 Kığı,Kığ
 Kış,Çok soğuk hava
+Kışla,Askerlerin toplu olarak barındığı yapılar bütünü
 Kışın,Kış süresince
 La,Nota
 Lades,Tavuk kemiği ile oynanan oyun
@@ -2428,6 +2434,7 @@ Maket,Bazı eserlerin taslak hali
 Maki,Akdeniz bölgesi bitki türü
 Makina,Makine
 Makro,"Büyük, geniş / Mikro karşıtı"
+Maksat,İstenilen şey / Amaç / Gaye / Erek
 Makus,Uğursuz / Kötü
 Mal,Büyükbaş hayvan
 Mala,Sıva aracı
@@ -2618,6 +2625,7 @@ Morina,Balık cinsi
 Moron,Zeka geriliğinin ileri hali
 Mors,Nokta ve çizgilerden oluşan alfabe kullanan telgraf dizisi
 Motel,Küçük otel
+Motor,Enerjiyi mekanik enerjiye döndüren düzenek
 Mucuk,Bir tür küçük sinek
 Mudi,Bankaya para yatıran kimse
 Muf,Uç uca eklenen boru parçası
@@ -3466,7 +3474,6 @@ Tar,Çalgı türü
 Taraf,Yön / Yer
 Tarak,Saç düzeltme aracı
 Taraça,Teras / Seki
-Taraça,Teras
 Taret,Zırhlı kule
 Tarh,Çiçek dikmeye ayrılmış yer
 Tariz,Taşlama
@@ -3657,6 +3664,7 @@ Tül,Çok ince sentetik dokuma
 Tülek,Tüyleri değişmiş kuş
 Tüm,Tümsek / Tümü / Tamamı
 Tümce,Cümle
+Tümen,On bin Erden oluşan askeri kuvvet
 Tümör,Ur
 Tün,Gece
 Tünek,Kuşların tünediği sırık
@@ -3836,12 +3844,14 @@ Yakalık,Yaka yapılmaya uygun olan
 Yakut,Koyu kırmızı renkli değerli bir taş
 Yakım,Yakma işi
 Yakın,Uzak olmayan
+Yakıt,Enerji ve ısı ortaya çıkaran yanıcı madde
 Yal,Köpek yiyeceği
 Yalaka,Dalkavuk / Sırnaşık
 Yalaz,Alev
 Yalman,Eğik / Sarp / Dik
 Yalı,Su kıyısında büyük görkemli ev
 Yalın,Sade/ Alev
+Yamak,Bir işte yardımcı olarak çalışan erkek
 Yaman,olağandışı
 Yamaç,Dağ veya tepenin yanı
 Yamuk,Bir yana eğik olan / Yanlış davranan
@@ -4041,6 +4051,7 @@ Zonk,Zonklamak
 Zor,Sıkıntı / Güçlük / Baskı
 Zorla,İsteksiz yapılan / Zoraki
 Zorlu,Güçlü / Kuvvetli
+Zorluk,Güçlük / Zahmet
 Zula,Kaçak ve yasak şeylerin saklandığı yer
 Zum,Optik kaydırma
 Zurna,Bir tür nefesli çalgı
@@ -4098,6 +4109,7 @@ Zıt,Karşıt / ters
 Çağa,Çocuk / Bebek
 Çağdaş,Aynı çağda yaşayan / Muasır
 Çağla,"Badem, kayısı, erik gibi meyvelerin yenilebilir ham hali"
+Çağlar,Çağlayan
 Çağrı,Davet
 Çe,Harf
 Çek,bir Slav ırkı

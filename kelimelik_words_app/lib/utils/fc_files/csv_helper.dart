@@ -1,9 +1,12 @@
 // 📃 <----- lib/utils/fc_files/csv_helper.dart ----->
 //
-// CSV → Cihaz CSV Güncelleme
+// Asset CSV → Cihaz CSV senkronizasyonu
 // -----------------------------------------------------------
-// • Asset CSV ile cihaz CSV karşılaştırılır.
-// • Duplicate kelimeler (Word sütunu) tespit edilir ve loglanır.
+// • Asset içindeki CSV dosyasını, cihazdaki mevcut CSV ile karşılaştırır.
+// • Asset 'teki kayıt sayısı daha fazlaysa, cihazdaki dosyayı günceller.
+// • Cihazda dosya yoksa, dosyayı oluşturur.
+// • SON AŞAMADA: CSV içindeki duplicate "Word" değerleri raporlanır.
+//   (Sadece 1. sütun = Word alanına göre kontrol)
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -18,21 +21,29 @@ import '../../constants/file_info.dart';
 /// Asset içindeki CSV dosyasını, cihazdaki mevcut CSV ile karşılaştırır.
 /// Asset 'teki kayıt sayısı daha fazlaysa, cihazdaki dosyayı günceller.
 /// Cihazda dosya yoksa, dosyayı oluşturur.
+///
+/// Ek olarak:
+///  • İşlem süresi loglanır (ms cinsinden).
+///  • Son durumda kullanılan CSV dosyası içindeki duplicate "Word" değerleri
+///    konsola yazdırılır.
 Future<void> createOrUpdateDeviceCsvFromAsset() async {
   const tag = 'csv_helper';
+  final sw = Stopwatch()..start();
+
   try {
     // 1. Asset 'teki CSV dosyasını ve kayıt sayısını al
     const assetCsvPath = 'assets/database/$fileNameCsv';
     final assetCsvRaw = await rootBundle.loadString(assetCsvPath);
-
-    // 🔍 Duplicate kontrolü
-    _logCsvDuplicates(assetCsvRaw);
-
     final assetRecordCount = _countCsvLines(assetCsvRaw);
 
     if (assetRecordCount <= 1) {
       // 1 = sadece başlık satırı olabilir
       log('⚠️ Asset CSV boş veya sadece başlık içeriyor.', name: tag);
+      sw.stop();
+      log(
+        '⏱ CSV helper süresi (erken çıkış): ${sw.elapsedMilliseconds} ms',
+        name: tag,
+      );
       return;
     }
 
@@ -48,7 +59,7 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
       final deviceRecordCount = _countCsvLines(deviceCsvRaw);
 
       if (assetRecordCount > deviceRecordCount) {
-        // Asset 'teki dosya daha fazla kayıt içeriyor, üzerine yaz
+        // Asset'teki dosya daha fazla kayıt içeriyor, üzerine yaz
         await deviceFile.writeAsString(assetCsvRaw);
         log(
           '✅ CSV güncellendi (Asset > Cihaz). Kayıt sayısı: $assetRecordCount (Eski: $deviceRecordCount)',
@@ -66,47 +77,89 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
       await deviceFile.writeAsString(assetCsvRaw);
       log('✅ CSV oluşturuldu. Kayıt sayısı: $assetRecordCount', name: tag);
     }
+
+    // 4. Son durumda kullanılan CSV dosyası için duplicate Word analizi
+    if (await deviceFile.exists()) {
+      final finalCsvRaw = await deviceFile.readAsString();
+      _reportCsvDuplicateWords(finalCsvRaw);
+    }
+
+    sw.stop();
+    log('⏱ CSV helper toplam süre: ${sw.elapsedMilliseconds} ms', name: tag);
   } catch (e, st) {
+    sw.stop();
     log(
       '❌ CSV oluşturma/güncelleme hatası: $e',
-      name: 'csv_helper',
+      name: tag,
       error: e,
       stackTrace: st,
     );
   }
 }
 
-/// 🔎 CSV içindeki duplicate Word kayıtlarını tespit et ve logla.
-void _logCsvDuplicates(String csvRaw) {
-  const tag = 'csv_helper_duplicates';
-
-  final lines = csvRaw.split('\n').where((e) => e.trim().isNotEmpty).toList();
-  if (lines.length <= 1) return;
-
-  final Map<String, int> counter = {};
-
-  for (int i = 1; i < lines.length; i++) {
-    final columns = lines[i].split(',');
-    if (columns.isEmpty) continue;
-
-    final word = columns.first.trim();
-    if (word.isEmpty) continue;
-
-    counter[word] = (counter[word] ?? 0) + 1;
-  }
-
-  final duplicates = counter.entries.where((e) => e.value > 1).toList();
-
-  if (duplicates.isNotEmpty) {
-    log('🔁 CSV DUPLICATE LISTESİ', name: tag);
-    for (final d in duplicates) {
-      log('• ${d.key}  →  ${d.value} kez', name: tag);
-    }
-  }
-}
-
+/// CSV metnindeki geçerli satır sayısını (boş satırları hariç tutarak) sayar.
 int _countCsvLines(String rawCsv) {
   if (rawCsv.isEmpty) return 0;
+  // Farklı OS'lerden gelen satır sonu karakterlerini standartlaştır.
   final normalized = rawCsv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
+  // Boş olmayan satırları say.
   return normalized.split('\n').where((line) => line.trim().isNotEmpty).length;
+}
+
+/// CSV içindeki duplicate "Word" değerlerini raporlar.
+/// Sadece 1. sütun temel alınır (Word,Meaning yapısında).
+void _reportCsvDuplicateWords(String rawCsv) {
+  const tag = 'csv_helper_duplicates';
+
+  if (rawCsv.trim().isEmpty) {
+    log('ℹ️ CSV boş, duplicate kontrolü yapılmadı.', name: tag);
+    return;
+  }
+
+  final normalized = rawCsv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
+  final lines = normalized
+      .split('\n')
+      .where((l) => l.trim().isNotEmpty)
+      .toList();
+  if (lines.length <= 1) {
+    log('ℹ️ CSV sadece başlık içeriyor, duplicate yok.', name: tag);
+    return;
+  }
+
+  // 0. satır başlık → dataLines = geri kalan
+  final dataLines = lines.sublist(1);
+
+  final Map<String, int> counts = {};
+  final Map<String, String> displayWord = {};
+  final Map<String, List<int>> lineNumbers = {};
+
+  for (int i = 0; i < dataLines.length; i++) {
+    final line = dataLines[i];
+    final parts = line.split(',');
+    if (parts.isEmpty) continue;
+
+    final word = parts.first.trim();
+    if (word.isEmpty) continue;
+
+    final key = word.toLowerCase();
+    counts[key] = (counts[key] ?? 0) + 1;
+    displayWord.putIfAbsent(key, () => word);
+    lineNumbers.putIfAbsent(key, () => []).add(i + 2); // +2 = 1-based + header
+  }
+
+  final duplicates = counts.entries.where((e) => e.value > 1).toList();
+
+  if (duplicates.isEmpty) {
+    log('✅ CSV içinde duplicate Word yok.', name: tag);
+  } else {
+    log('🔁 CSV duplicate Word listesi:', name: tag);
+    for (final e in duplicates) {
+      final w = displayWord[e.key] ?? e.key;
+      final lines = lineNumbers[e.key] ?? const [];
+      log(
+        '   • "$w" → ${e.value} kez (satırlar: ${lines.join(', ')})',
+        name: tag,
+      );
+    }
+  }
 }

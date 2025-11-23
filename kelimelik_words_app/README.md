@@ -143,7 +143,7 @@ Yapılacaklar :
 - animasyon kaldırılabilir.
 - compute yapısı ile performans artışı sağlanabilir.
 - Animasyonlu ve animasyonsuz veri yüklemesi olabilir.
-- veriler silinince yeniden oluşturulamıyor ?
+
 
 
 <BR>
