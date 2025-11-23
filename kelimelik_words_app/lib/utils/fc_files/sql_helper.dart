@@ -1,67 +1,103 @@
 // 📃 <----- lib/utils/fc_files/sql_helper.dart ----->
 //
-// 📚 Kelimelik App
+// JSON → SQL Import (compute)
 // -----------------------------------------------------------
-// JSON → SQL aktarımı işlemini hızlı ve UI dostu hale getirmek için
-// compute() kullanılarak arka planda parse edilir.
-// UI thread donmadan, büyük JSON dosyaları işlenebilir.
-//
+// • Benchmark: JSON parse + SQL batch süresi
+// • SQL’e eklenemeyen kelimeleri TAM LİSTE olarak konsola yazar
 // -----------------------------------------------------------
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart'; // ✅ compute() burada
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../constants/file_info.dart';
 import '../../db/db_helper.dart';
-import '../../models/item_model.dart'; // Word modelini içerir
+import '../../models/item_model.dart';
 
-/// JSON → SQL batch import (compute() ile hızlandırılmış)
-Future<void> importJsonToDatabaseFast() async {
-  const tag = 'sql_helper';
+Future<Map<String, dynamic>> importJsonToDatabaseFast() async {
+  const tag = 'JSON→SQL Import';
   try {
-    // 📂 JSON dosya yolu
     final directory = await getApplicationDocumentsDirectory();
     final jsonPath = join(directory.path, fileNameJson);
-    final file = File(jsonPath);
 
+    final file = File(jsonPath);
     if (!await file.exists()) {
       log('⚠️ JSON dosyası bulunamadı.', name: tag);
-      return;
+      return {};
     }
 
-    // 1️⃣ JSON dosyasını oku
     final jsonStr = await file.readAsString();
 
-    // 2️⃣ compute() kullanarak ayrı isolate 'ta parse et
+    // ⏱ JSON Parse
+    final swParse = Stopwatch()..start();
     final parsedWords = await compute(_parseJsonToWords, jsonStr);
+    swParse.stop();
 
-    // 3️⃣ Batch olarak SQL 'e aktar
+    // ⏱ SQL Batch Insert
+    final swSql = Stopwatch()..start();
     await DbHelper.instance.insertBatch(parsedWords);
+    swSql.stop();
 
-    final count = await DbHelper.instance.countRecords();
-    log('✅ SQL batch aktarımı tamamlandı ($count kayıt).', name: tag);
+    // SQL sayısı
+    final sqlWords = await DbHelper.instance.getRecords();
+    final sqlSet = sqlWords.map((e) => e.word).toSet();
+
+    // JSON sayısı
+    final jsonCount = parsedWords.length;
+    final sqlCount = sqlWords.length;
+
+    // 🔎 Eksik kelimeleri bul
+    final missingWords = parsedWords
+        .where((w) => !sqlSet.contains(w.word))
+        .toList();
+
+    if (missingWords.isNotEmpty) {
+      log(
+        "❌ SQL’e eklenmeyen ${missingWords.length} kelime tespit edildi:",
+        name: tag,
+      );
+
+      // 200 taneye kadar gösterelim
+      final limit = missingWords.length > 200 ? 200 : missingWords.length;
+
+      for (int i = 0; i < limit; i++) {
+        log("   • ${missingWords[i].word}", name: tag);
+      }
+
+      if (missingWords.length > 200) {
+        log("   ... (${missingWords.length - 200} adet daha)", name: tag);
+      }
+    } else {
+      log("✅ Tüm kelimeler SQL veritabanına başarıyla eklendi.", name: tag);
+    }
+
+    // Benchmark log
+    log('⏱ JSON parse: ${swParse.elapsedMilliseconds} ms', name: tag);
+    log('⏱ SQL batch : ${swSql.elapsedMilliseconds} ms', name: tag);
+
+    return {
+      'jsonCount': jsonCount,
+      'sqlCount': sqlCount,
+      'missing': missingWords.length,
+      'parseMs': swParse.elapsedMilliseconds,
+      'sqlMs': swSql.elapsedMilliseconds,
+    };
   } catch (e, st) {
     log('❌ JSON→SQL import hatası: $e', name: tag, error: e, stackTrace: st);
+    return {};
   }
 }
 
-/// 🔹 compute() içinde çalışan JSON parse fonksiyonu.
-/// Ana thread 'den tamamen bağımsız çalışır.
 List<Word> _parseJsonToWords(String jsonStr) {
   final List<dynamic> jsonList = json.decode(jsonStr);
-
   return jsonList.map((e) {
-    /// JSON içindeki farklı başlık ihtimalleri:
-    final word = e['word'] ?? e['Word'] ?? e['kelime'] ?? e['Kelime'] ?? '';
-
-    final meaning =
-        e['meaning'] ?? e['Meaning'] ?? e['anlam'] ?? e['Anlam'] ?? '';
-
-    return Word(word: word.toString(), meaning: meaning.toString());
+    return Word(
+      word: e['Word'] ?? e['word'],
+      meaning: e['Meaning'] ?? e['meaning'],
+    );
   }).toList();
 }

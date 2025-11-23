@@ -1,6 +1,8 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Veri akışının tamamında tutarlılık raporu eklendi.
+// Veri akışının tamamında:
+// • Benchmark raporu
+// • SQL’e eklenmeyen kelimelerin listesi
 // -----------------------------------------------------------
 
 import 'dart:convert';
@@ -21,10 +23,8 @@ Future<void> initializeAppDataFlow() async {
   const tag = 'file_creator';
   log('🚀 initializeAppDataFlow başladı', name: tag);
 
-  // 1️⃣ CSV: Asset → cihaz (gerekirse güncelle)
   await createOrUpdateDeviceCsvFromAsset();
 
-  // 2️⃣ Veritabanı durumu
   final directory = await getApplicationDocumentsDirectory();
   final dbPath = join(directory.path, fileNameSql);
   final dbFile = File(dbPath);
@@ -46,36 +46,37 @@ Future<void> initializeAppDataFlow() async {
 
   log('⚠️ Veritabanı boş. Veri oluşturma başlıyor…', name: tag);
 
-  // 3️⃣ JSON / Excel / SQL üretim zinciri
-  await createJsonFromAssetCsv();
+  final csvJsonMs = await createJsonFromAssetCsv();
   await createExcelFromAssetCsvSyncfusion();
-  await importJsonToDatabaseFast();
+  final sqlResult = await importJsonToDatabaseFast();
 
-  // 4️⃣ Tutarlılık raporu
+  log("⏱ CSV→JSON: $csvJsonMs ms", name: tag);
+  log("⏱ JSON parse: ${sqlResult['parseMs']} ms", name: tag);
+  log("⏱ SQL insert: ${sqlResult['sqlMs']} ms", name: tag);
+  log(
+    "⏱ TOPLAM: ${csvJsonMs + (sqlResult['parseMs'] ?? 0) + (sqlResult['sqlMs'] ?? 0)} ms",
+    name: tag,
+  );
+
   await _runConsistencyReport();
 
   log('✅ initializeAppDataFlow tamamlandı.', name: tag);
 }
 
-/// 📊 CSV / JSON / SQL veri tutarlılık raporu (orta seviye)
+/// 📊 CSV / JSON / SQL veri tutarlılık raporu
 Future<void> _runConsistencyReport() async {
   const tag = 'file_creator';
 
   final directory = await getApplicationDocumentsDirectory();
 
-  // CSV → satır sayısı & kayıt sayısı
   final csvPath = join(directory.path, fileNameCsv);
   final csvRaw = await File(csvPath).readAsString();
-  final csvTotalLines = countCsvLines(csvRaw); // başlık + veri satırları
-  final csvCount = csvTotalLines > 0 ? csvTotalLines - 1 : 0;
+  final csvCount = csvRaw.split('\n').length - 1;
 
-  // JSON → kayıt sayısı
   final jsonPath = join(directory.path, fileNameJson);
-  final jsonRaw = await File(jsonPath).readAsString();
-  final jsonList = jsonDecode(jsonRaw) as List;
+  final jsonList = jsonDecode(await File(jsonPath).readAsString()) as List;
   final jsonCount = jsonList.length;
 
-  // SQL → kayıt sayısı
   final sqlCount = await DbHelper.instance.countRecords();
 
   log('-------------------------------------------------', name: tag);
@@ -84,48 +85,49 @@ Future<void> _runConsistencyReport() async {
   log('JSON kayıt sayısı: $jsonCount', name: tag);
   log('SQL kayıt sayısı : $sqlCount', name: tag);
 
-  // 🔍 Orta seviye fark analizleri
-  final diffCsvJson = csvCount - jsonCount;
-  final diffJsonSql = jsonCount - sqlCount;
-
-  if (diffCsvJson == 0 && diffJsonSql == 0) {
+  if (csvCount == jsonCount && jsonCount == sqlCount) {
     log('✅ TÜM DOSYALAR UYUMLU ✔', name: tag);
   } else {
-    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmesi gerekiyor.', name: tag);
+    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmeli.', name: tag);
+    log('ℹ JSON → SQL farkı: ${jsonCount - sqlCount}', name: tag);
+  }
+  log('-------------------------------------------------', name: tag);
+  // --------------------------------------------
+  //  JSON → SQL eksik kayıtları bul (detaylı)
+  // --------------------------------------------
+  if (jsonCount != sqlCount) {
+    log("🔎 Eksik SQL kayıtları analiz ediliyor…", name: tag);
 
-    if (diffCsvJson != 0) {
-      if (diffCsvJson > 0) {
-        log(
-          '⚠️ CSV → JSON farkı: ${diffCsvJson.abs()} kayıt (JSON tarafında eksik).',
-          name: tag,
-        );
-      } else {
-        log(
-          '⚠️ CSV → JSON farkı: ${diffCsvJson.abs()} kayıt (CSV tarafında eksik).',
-          name: tag,
-        );
+    // JSON'daki kelimeler (Word alanı)
+    final jsonWords = jsonList
+        .map((e) => (e['Word'] ?? e['word'] ?? '').toString().trim())
+        .where((e) => e.isNotEmpty)
+        .toSet();
+
+    // SQL'den tüm kelimeleri çek
+    final sqlWordsList = await DbHelper.instance.getRecords();
+    final sqlWords = sqlWordsList
+        .map((e) => e.word.trim())
+        .where((e) => e.isNotEmpty)
+        .toSet();
+
+    // SQL'e girmeyenler = JSON - SQL
+    final missing = jsonWords.difference(sqlWords);
+
+    if (missing.isEmpty) {
+      log(
+        "🟢 SQL eksik kayıt yok (UNIQUE nedeni ile sayı farkı yanılgısı olabilir).",
+        name: tag,
+      );
+    } else {
+      log("❌ SQL 'e aktarılmayan ${missing.length} kelime bulundu:", name: tag);
+      for (final m in missing.take(50)) {
+        log("   • $m", name: tag);
       }
-    }
 
-    if (diffJsonSql != 0) {
-      if (diffJsonSql > 0) {
-        log(
-          '⚠️ JSON → SQL farkı: ${diffJsonSql.abs()} kayıt (SQL tarafında eksik).',
-          name: tag,
-        );
-        log(
-          'ℹ️ Not: SQL sayısı JSON\'dan azsa, genellikle veritabanındaki UNIQUE kısıtı nedeniyle\n'
-          '   yinelenen kelimelerin eklenmemesinden kaynaklanır.',
-          name: tag,
-        );
-      } else {
-        log(
-          '⚠️ JSON → SQL farkı: ${diffJsonSql.abs()} kayıt (JSON tarafında eksik).',
-          name: tag,
-        );
+      if (missing.length > 50) {
+        log("… ve ${missing.length - 50} kelime daha.", name: tag);
       }
     }
   }
-
-  log('-------------------------------------------------', name: tag);
 }
