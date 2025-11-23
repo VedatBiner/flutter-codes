@@ -1,4 +1,11 @@
 // 📃 <----- lib/utils/fc_files/csv_helper.dart ----->
+//
+// CSV → Cihaz CSV Güncelleme
+// -----------------------------------------------------------
+// • Asset CSV ile cihaz CSV karşılaştırılır.
+// • Duplicate kelimeler (Word sütunu) tespit edilir ve loglanır.
+// -----------------------------------------------------------
+
 import 'dart:developer';
 import 'dart:io';
 
@@ -18,13 +25,13 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
     const assetCsvPath = 'assets/database/$fileNameCsv';
     final assetCsvRaw = await rootBundle.loadString(assetCsvPath);
 
-    // Toplam satır sayısı (başlık dahil, boş satırlar hariç)
-    final assetTotalLines = countCsvLines(assetCsvRaw);
-    // Gerçek kayıt sayısı = satır sayısı - 1 (başlık)
-    final assetRecordCount = assetTotalLines > 0 ? assetTotalLines - 1 : 0;
+    // 🔍 Duplicate kontrolü
+    _logCsvDuplicates(assetCsvRaw);
 
-    if (assetRecordCount <= 0) {
-      // 0 = sadece başlık veya tamamen boş olabilir
+    final assetRecordCount = _countCsvLines(assetCsvRaw);
+
+    if (assetRecordCount <= 1) {
+      // 1 = sadece başlık satırı olabilir
       log('⚠️ Asset CSV boş veya sadece başlık içeriyor.', name: tag);
       return;
     }
@@ -38,11 +45,10 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
     if (await deviceFile.exists()) {
       // Cihazda dosya var, kayıt sayılarını karşılaştır
       final deviceCsvRaw = await deviceFile.readAsString();
-      final deviceTotalLines = countCsvLines(deviceCsvRaw);
-      final deviceRecordCount = deviceTotalLines > 0 ? deviceTotalLines - 1 : 0;
+      final deviceRecordCount = _countCsvLines(deviceCsvRaw);
 
       if (assetRecordCount > deviceRecordCount) {
-        // Asset'teki dosya daha fazla kayıt içeriyor, üzerine yaz
+        // Asset 'teki dosya daha fazla kayıt içeriyor, üzerine yaz
         await deviceFile.writeAsString(assetCsvRaw);
         log(
           '✅ CSV güncellendi (Asset > Cihaz). Kayıt sayısı: $assetRecordCount (Eski: $deviceRecordCount)',
@@ -70,13 +76,37 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
   }
 }
 
-/// CSV metnindeki **satır sayısını** (boş satırları hariç tutarak) sayar.
-/// - Dönen değer **başlık satırı dahil** satır sayısıdır.
-/// - Gerçek kayıt sayısı için genelde `countCsvLines(...) - 1` kullanılır.
-int countCsvLines(String rawCsv) {
+/// 🔎 CSV içindeki duplicate Word kayıtlarını tespit et ve logla.
+void _logCsvDuplicates(String csvRaw) {
+  const tag = 'csv_helper_duplicates';
+
+  final lines = csvRaw.split('\n').where((e) => e.trim().isNotEmpty).toList();
+  if (lines.length <= 1) return;
+
+  final Map<String, int> counter = {};
+
+  for (int i = 1; i < lines.length; i++) {
+    final columns = lines[i].split(',');
+    if (columns.isEmpty) continue;
+
+    final word = columns.first.trim();
+    if (word.isEmpty) continue;
+
+    counter[word] = (counter[word] ?? 0) + 1;
+  }
+
+  final duplicates = counter.entries.where((e) => e.value > 1).toList();
+
+  if (duplicates.isNotEmpty) {
+    log('🔁 CSV DUPLICATE LISTESİ', name: tag);
+    for (final d in duplicates) {
+      log('• ${d.key}  →  ${d.value} kez', name: tag);
+    }
+  }
+}
+
+int _countCsvLines(String rawCsv) {
   if (rawCsv.isEmpty) return 0;
-  // Farklı OS'lerden gelen satır sonu karakterlerini standartlaştır.
   final normalized = rawCsv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-  // Boş olmayan satırları say.
   return normalized.split('\n').where((line) => line.trim().isNotEmpty).length;
 }
