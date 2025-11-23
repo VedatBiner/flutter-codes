@@ -23,7 +23,7 @@ import '../providers/item_count_provider.dart';
 import '../screens/alphabet_item_list.dart';
 import '../screens/item_list.dart';
 import '../utils/download_directory_helper.dart';
-import '../utils/json_loader.dart';
+import '../utils/file_creator.dart';
 
 /// 📌 AppBar, Drawer, FAB yüklemeleri burada
 import '../widgets/custom_app_bar.dart';
@@ -104,35 +104,12 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// 📌 İlk açılışta verileri yükler.
-  /// Veritabanı boşsa, asset 'ten verileri yükleyip veritabanını oluşturur.
+  /// 📌 İlk açılışta ve menüden tetiklendiğinde veri akışını başlatır.
   Future<void> loadData() async {
-    await loadDataFromDatabase(
-      context: context,
-      onLoaded: (loadedWords) {
-        setState(() {
-          allWords = loadedWords;
-          words = loadedWords;
-        });
-
-        /// 🔥 Provider ile kelime sayısını güncelle
-        Provider.of<WordCountProvider>(
-          context,
-          listen: false,
-        ).setCount(loadedWords.length);
-      },
-
-      /// 🔄 Yükleme ekranı değiştikçe tetiklenir
-      onLoadingStatusChange:
-          (bool loading, double prog, String? currentWord, Duration elapsed) {
-            setState(() {
-              isLoadingJson = loading;
-              progress = prog;
-              loadingWord = currentWord;
-              elapsedTime = elapsed;
-            });
-          },
-    );
+    setState(() => isLoadingJson = true);
+    await initializeAppDataFlow();
+    await _loadWords(); // Veritabanından kelimeleri yükle
+    setState(() => isLoadingJson = false);
   }
 
   /// 🔄  Kelimeleri veritabanından yeniden oku
@@ -212,44 +189,12 @@ class _HomePageState extends State<HomePage> {
                     )
                     onStatus,
                   }) async {
-                    await loadDataFromDatabase(
-                      context: context, //  ⚠️  HomePage’in context ’i
-                      onLoaded: (loadedWords) {
-                        setState(() {
-                          allWords = loadedWords;
-                          words = loadedWords;
-                        });
-
-                        if (mounted) {
-                          Provider.of<WordCountProvider>(
-                            context,
-                            listen: false,
-                          ).setCount(loadedWords.length);
-                        }
-                      },
-
-                      //  ⬇️  Drawer ’a da aynı geri-bildirimi ilet
-                      onLoadingStatusChange:
-                          (
-                            bool loading,
-                            double prog,
-                            String? currentWord,
-                            Duration elapsed,
-                          ) {
-                            setState(() {
-                              isLoadingJson = loading;
-                              progress = prog;
-                              loadingWord = currentWord;
-                              elapsedTime = elapsed;
-                            });
-                            onStatus(
-                              loading,
-                              prog,
-                              currentWord,
-                              elapsed,
-                            ); // ↩︎ ilet
-                          },
-                    );
+                    // Bu bölüm artık doğrudan file_creator.dart'ı tetikliyor.
+                    // Karmaşık geri bildirimler (progress, word vb.) şimdilik kaldırıldı.
+                    onStatus(true, 0, 'Veriler hazırlanıyor...', Duration.zero);
+                    await initializeAppDataFlow();
+                    await _loadWords();
+                    onStatus(false, 1, 'Tamamlandı', Duration.zero);
                   },
             ),
 

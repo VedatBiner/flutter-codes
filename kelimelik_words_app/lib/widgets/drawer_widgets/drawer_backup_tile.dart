@@ -18,12 +18,12 @@ class DrawerBackupTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: 'JSON/CSV/XLSX/SQL\nyedeği oluştur',
+      message: 'JSON/CSV/XLSX/SQL/ZIP\nyedeği oluştur',
       child: ListTile(
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
         title: const Text('Yedek Oluştur', style: drawerMenuText),
         subtitle: Text(
-          "Aşağıdaki formatlarda yedek oluşturur: \n(JSON / CSV / XLSX /SQL)",
+          "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX / SQL / ZIP )",
           style: drawerMenuSubtitleText,
         ),
         onTap: () async {
@@ -36,10 +36,16 @@ class DrawerBackupTile extends StatelessWidget {
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
-                res.jsonPath, // jsonPathDownload
-                res.csvPath, // csvPathDownload
-                res.xlsxPath, // excelPathDownload
-                res.sqlPath, // sqlPathDownload
+                res.jsonPath ??
+                    '', // Hata düzeltildi: Null ise boş string gönder
+                res.csvPath ??
+                    '', // Hata düzeltildi: Null ise boş string gönder
+                res.xlsxPath ??
+                    '', // Hata düzeltildi: Null ise boş string gönder
+                res.sqlPath ??
+                    '', // Hata düzeltildi: Null ise boş string gönder
+                res.zipPath ??
+                    '', // Hata düzeltildi: Null ise boş string gönder
               );
             },
           );

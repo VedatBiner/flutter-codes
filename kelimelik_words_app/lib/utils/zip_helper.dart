@@ -1,4 +1,4 @@
-// 📃 <----- lib/utils/fc_files/zip_helper.dart ----->
+// 📃 <----- lib/utils/zip_helper.dart ----->
 
 import 'dart:developer';
 import 'dart:io';
@@ -7,13 +7,13 @@ import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../constants/file_info.dart';
+import '../constants/file_info.dart';
 
-/// 📚 Belirtilen dosyaları bir zip arşivi olarak oluşturur.
+/// 📚 Belirtilen dosyaları bir zip arşivi olarak oluşturur ve dosya yolunu döndürür.
 ///
 /// Bu fonksiyon, uygulamanın documents dizinindeki JSON, CSV, Excel ve SQL
 /// dosyalarını bularak bunları tek bir .zip dosyası içinde sıkıştırır.
-Future<void> createZipArchive() async {
+Future<String> createZipArchive() async {
   const tag = 'zip_helper';
   log('📦 Zipleme işlemi başlatılıyor...', name: tag);
 
@@ -48,6 +48,7 @@ Future<void> createZipArchive() async {
     encoder.close();
 
     log('✅ Zip arşivi başarıyla oluşturuldu: $zipFilePath', name: tag);
+    return zipFilePath; // Başarı durumunda dosya yolunu döndür
   } catch (e) {
     log('❌ Zipleme sırasında hata oluştu: $e', name: tag);
     // Hata durumunda yeniden fırlatılabilir veya uygun şekilde yönetilebilir.

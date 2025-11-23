@@ -1,4 +1,4 @@
-// <📜 ----- lib/services/export_words.dart ----->
+// 📃 <----- lib/services/export_items.dart ----->
 /*
   📦 SQLite → JSON + CSV + XLSX (+ DB .sqlite) dışa aktarma
 
@@ -33,6 +33,7 @@ import '../constants/file_info.dart'; // fileNameJson/fileNameCsv/fileNameXlsx/f
 import '../db/db_helper.dart'; // DbHelper.instance.getRecords()
 import '../models/item_model.dart';
 import '../utils/json_saver.dart';
+import '../utils/zip_helper.dart'; // Zip arşivi oluşturmak için eklendi
 import 'export_items_formats.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
 
 class ExportItems {
@@ -40,6 +41,7 @@ class ExportItems {
   final String csvPath;
   final String xlsxPath;
   final String sqlPath;
+  final String? zipPath; // Hata için eklendi
   final int count;
   final int elapsedMs;
   const ExportItems({
@@ -47,6 +49,7 @@ class ExportItems {
     required this.csvPath,
     required this.xlsxPath,
     required this.sqlPath,
+    this.zipPath, // Hata için eklendi
     required this.count,
     required this.elapsedMs,
   });
@@ -63,8 +66,6 @@ Future<ExportItems> exportItemsToFileFormats({
 
   try {
     // 1) Tüm veriyi SQLite 'tan al
-    //    📝 Projende metod adı farklıysa şurayı kendi ismine göre değiştir:
-    //    örn: getAllRecords() / fetchAll() / getWords() vb.
     final List<Word> all = await DbHelper.instance.getRecords();
 
     // 2) Alfabetik sırala
@@ -103,17 +104,14 @@ Future<ExportItems> exportItemsToFileFormats({
     // 6) SQLite DB dosyasını da aynı klasöre yedekle (fileNameSql)
     String sqlSavedAt = '-';
     try {
-      // 6.a) Önce DbHelper 'tan AÇIK DB ’nin gerçek yolunu almaya çalış
-      //      (DbHelper.instance.database eğer Database döndürüyorsa)
       String? dbPath;
       try {
-        final db = await DbHelper.instance.database; // <- DbHelper ’ında varsa
-        dbPath = db.path; // gerçek path
+        final db = await DbHelper.instance.database;
+        dbPath = db.path;
       } catch (_) {
         dbPath = null;
       }
 
-      // 6.b) Olmazsa klasik fallback: getDatabasesPath() + fileNameSql
       if (dbPath == null) {
         final dbDir = await getDatabasesPath();
         dbPath = p.join(dbDir, fileNameSql);
@@ -121,46 +119,22 @@ Future<ExportItems> exportItemsToFileFormats({
 
       final dbFile = File(dbPath);
       if (await dbFile.exists()) {
-        // (Opsiyonel) WAL/SHM dosyalarını da kopyala — tutarlı yedek için faydalı
-        final walFile = File('$dbPath-wal');
-        final shmFile = File('$dbPath-shm');
-
-        // Ana .db
         final dbBytes = await dbFile.readAsBytes();
         sqlSavedAt = await JsonSaver.saveBytesToDownloads(
           dbBytes,
-          fileNameSql, // ör: "kelimelik.db"
+          fileNameSql,
           mime: 'application/octet-stream',
           subfolder: subfolder,
         );
-
-        // WAL (varsa)
-        if (await walFile.exists()) {
-          final walBytes = await walFile.readAsBytes();
-          await JsonSaver.saveBytesToDownloads(
-            walBytes,
-            '$fileNameSql-wal',
-            mime: 'application/octet-stream',
-            subfolder: subfolder,
-          );
-        }
-
-        // SHM (varsa)
-        if (await shmFile.exists()) {
-          final shmBytes = await shmFile.readAsBytes();
-          await JsonSaver.saveBytesToDownloads(
-            shmBytes,
-            '$fileNameSql-shm',
-            mime: 'application/octet-stream',
-            subfolder: subfolder,
-          );
-        }
       } else {
         log('⚠️ DB dosyası bulunamadı: $dbPath', name: tag);
       }
     } catch (e) {
       log('⚠️ DB yedeği alınamadı: $e', name: tag);
     }
+
+    // 7) ZIP Arşivi Oluştur
+    final zipSavedAt = await createZipArchive();
 
     sw.stop();
     log(
@@ -172,7 +146,8 @@ Future<ExportItems> exportItemsToFileFormats({
       jsonPath: jsonSavedAt,
       csvPath: csvSavedAt,
       xlsxPath: xlsxSavedAt,
-      sqlPath: sqlSavedAt, // <-- artık tanımlı
+      sqlPath: sqlSavedAt,
+      zipPath: zipSavedAt, // Hata düzeltildi
       count: all.length,
       elapsedMs: sw.elapsedMilliseconds,
     );

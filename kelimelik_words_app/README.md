@@ -124,8 +124,9 @@ bir chatGPT ortak çalışması :)
 119. `excel_helper.dart` ve `sql_helper.dart` dosyası eklendi. - 22.11.2025
 120. `db_helper.dart` dosyası güncellendi. - 22.11.2025
 121. `csv_parser.dart`dosyası eklendi. - 22.11.2025
-122. `home_page.dart` dosyası tekrar düzenlendi. - 22.11.2025
-123. 
+122. `home_page.dart`, `file_creator.dart`, `zip_helper.dart`, `drawer_backup_tile.dart` ve `export_items.dart` dosyası tekrar düzenlendi. - 22.11.2025
+123. `csv_helper.dart`, `json_helper.dart`, `excel_helper.dart`, `sql_helper.dart` ve `file_creator.dart` dosyaları yenilendi. - 23.11.2025
+
 
 
 
@@ -142,7 +143,7 @@ Yapılacaklar :
 - animasyon kaldırılabilir.
 - compute yapısı ile performans artışı sağlanabilir.
 - Animasyonlu ve animasyonsuz veri yüklemesi olabilir.
-- 
+- veriler silinince yeniden oluşturulamıyor ?
 
 
 <BR>

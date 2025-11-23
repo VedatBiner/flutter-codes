@@ -1,128 +1,76 @@
 // 📃 <----- lib/utils/fc_files/excel_helper.dart ----->
 //
-// 🎬 Netflix Film List App
+// Excel oluşturma işlemi
 // -----------------------------------------------------------
-// Bu dosya, asset içindeki CSV verisini okuyarak
-// Syncfusion XLSX formatında biçimli bir Excel dosyası oluşturur.
-//
-// 🧩 Adımlar:
-//   1️⃣ assets/database klasöründen CSV dosyasını okur.
-//   2️⃣ CSV verilerini ayrıştırır.
-//   3️⃣ Başlıkları koyu ve renklendirilmiş şekilde Excel ’e yazar.
-//   4️⃣ Verileri satır satır ekler.
-//   5️⃣ Tüm sütun genişliklerini otomatik ayarlar (auto-fit).
-//   6️⃣ Excel dosyasını uygulamanın app_flutter dizinine kaydeder.
-//
-// 📁 Çıktı dosyası:
-//   /data/user/0/<package_name>/app_flutter/netflix_list_backup.xlsx
-//
-// 🔧 Kütüphaneler:
-//   - syncfusion_flutter_xlsio
-//   - csv
-//   - path_provider
-//   - path
+// • Bu sürümde Excel dosyası HER ZAMAN yeniden oluşturulur.
+// • CSV ile eşleştiğinden emin olmak için aynı verilerden üretilir.
 //
 // -----------------------------------------------------------
 
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:csv/csv.dart';
-import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../../constants/file_info.dart';
 
-/// 📊 Asset içindeki CSV 'yi okuyup biçimli bir Excel (XLSX) dosyası oluşturur.
+/// 📌 Asset CSV 'den cihazda Excel dosyası oluşturur.
+/// NOT: Bu sürümde cihazda eski Excel olsa bile *her zaman* yeniden oluşturulur.
 Future<void> createExcelFromAssetCsvSyncfusion() async {
   const tag = 'excel_helper';
 
   try {
-    // 1️⃣ Asset CSV dosyasını oku
-    const assetCsvPath = 'assets/database/$fileNameCsv';
-    final csvRaw = await rootBundle.loadString(assetCsvPath);
-
-    // 2️⃣ CSV satırlarını ayrıştır (Satır sonu karakterlerini normalize ederek)
-    final normalizedRaw = csvRaw
-        .replaceAll('\r\n', '\n')
-        .replaceAll('\r', '\n');
-    final rows = const CsvToListConverter(
-      eol: '\n',
-      shouldParseNumbers: false,
-    ).convert(normalizedRaw);
-
-    if (rows.isEmpty) {
-      log('⚠️ Asset CSV boş veya okunamadı.', name: tag);
-      return;
-    }
-
-    // 3️⃣ Başlıkları belirle
-    final headers = rows.first.map((e) => e.toString().trim()).toList();
-
-    // 4️⃣ Yeni Excel çalışma kitabı oluştur
-    final workbook = xlsio.Workbook();
-    final sheet = workbook.worksheets[0];
-    sheet.name = 'Kelimeler';
-
-    // -----------------------------------------------------------
-    // 🧱 Başlık satırını yaz ve biçimlendir
-    // -----------------------------------------------------------
-    for (int i = 0; i < headers.length; i++) {
-      final cell = sheet.getRangeByIndex(1, i + 1);
-      cell.setText(headers[i]);
-      cell.cellStyle.bold = true;
-      cell.cellStyle.backColor = '#FF0D47A1'; // Koyu mavi
-      cell.cellStyle.fontColor = '#FFFFFFFF'; // Beyaz
-      cell.cellStyle.hAlign = xlsio.HAlignType.center;
-      cell.cellStyle.vAlign = xlsio.VAlignType.center;
-    }
-
-    // 📌 Freeze Panes → 2. satır / 1. sütun (üstteki 1. satırı sabitler)
-    sheet.getRangeByIndex(2, 1).freezePanes();
-
-    // -----------------------------------------------------------
-    // 🧩 Verileri satır satır ekle
-    // -----------------------------------------------------------
-    for (int r = 1; r < rows.length; r++) {
-      final rowData = rows[r];
-      for (int c = 0; c < headers.length; c++) {
-        if (c < rowData.length) {
-          sheet.getRangeByIndex(r + 1, c + 1).setText(rowData[c].toString());
-        }
-      }
-    }
-
-    // -----------------------------------------------------------
-    // 🧮 Sütun genişliklerini otomatik ayarla
-    // -----------------------------------------------------------
-    for (int c = 1; c <= headers.length; c++) {
-      sheet.autoFitColumn(c);
-    }
-
-    // -----------------------------------------------------------
-    // 💾 Excel dosyasını kaydet
-    // -----------------------------------------------------------
     final directory = await getApplicationDocumentsDirectory();
     final excelPath = join(directory.path, fileNameXlsx);
 
-    if (!await File(excelPath).exists()) {
-      final bytes = workbook.saveAsStream();
-      await File(excelPath).writeAsBytes(bytes, flush: true);
-      log('✅ Excel dosyası oluşturuldu: $excelPath', name: tag);
-      log('📦 Satır sayısı (başlık dahil): ${rows.length}', name: tag);
-    } else {
-      log('ℹ️ Excel zaten mevcut, yeniden oluşturulmadı.', name: tag);
+    // 🔄 Eski Excel varsa silelim (güncel olması için)
+    final file = File(excelPath);
+    if (await file.exists()) {
+      await file.delete();
     }
 
+    // 📥 CSV dosyasını cihazdan oku
+    final csvPath = join(directory.path, fileNameCsv);
+    final csvFile = File(csvPath);
+    if (!await csvFile.exists()) {
+      log('❌ CSV bulunamadı, Excel üretilemedi.', name: tag);
+      return;
+    }
+
+    final csvRaw = await csvFile.readAsString();
+    final rows = csvRaw.split('\n').where((e) => e.trim().isNotEmpty).toList();
+
+    if (rows.isEmpty) {
+      log('⚠️ CSV boş, Excel oluşturulmadı.', name: tag);
+      return;
+    }
+
+    // 📝 Excel oluştur
+    final workbook = xlsio.Workbook();
+    final sheet = workbook.worksheets[0];
+
+    int rowIndex = 1;
+
+    for (var line in rows) {
+      final cells = line.split(',');
+      for (int col = 0; col < cells.length; col++) {
+        sheet.getRangeByIndex(rowIndex, col + 1).setText(cells[col].trim());
+      }
+      rowIndex++;
+    }
+
+    final bytes = workbook.saveAsStream();
     workbook.dispose();
+
+    await File(excelPath).writeAsBytes(bytes);
+
+    // İlk satır başlık olduğu için kayıt sayısı = rows.length - 1
+    final recordCount = rows.length > 0 ? rows.length - 1 : 0;
+
+    log('📘 Excel yeniden oluşturuldu. Kayıt sayısı: $recordCount', name: tag);
   } catch (e, st) {
-    log(
-      '❌ CSV→Excel (Syncfusion) hatası: $e',
-      name: tag,
-      error: e,
-      stackTrace: st,
-    );
+    log('❌ Excel oluşturma hatası: $e', name: tag, error: e, stackTrace: st);
   }
 }

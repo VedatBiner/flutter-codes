@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 1.5.3+1
+version: 2.0.0+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -73,4 +73,4 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
-    - assets/database/kelimelik_backup.json   # örnek yedek dosyası (opsiyonel)
+    - assets/database/ # Bu satır, klasördeki tüm dosyaları dahil eder

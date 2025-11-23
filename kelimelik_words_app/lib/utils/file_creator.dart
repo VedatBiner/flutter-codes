@@ -1,98 +1,131 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// 🎬 Netflix Film List App
-// -----------------------------------------------------------
-// Uygulama veri akışı:
-// 1️⃣ Veritabanı var mı kontrol edilir.
-// 2️⃣ Yoksa asset içindeki CSV okunur, tarih formatı düzeltilir.
-// 3️⃣ CSV → JSON dosyası oluşturulur.
-// 4️⃣ JSON → SQL aktarımı yapılır (sql_helper.dart dosyasında).
-// 5️⃣ Excel dosyası oluşturulur (excel_helper.dart).
-// 6️⃣ Tüm dosyalardan bir ZIP arşivi oluşturulur (zip_helper.dart).
-// 7️⃣ Tüm dosyalar Download/{appName} dizinine kopyalanır (download_helper.dart).
-//
-// Ayrıca:
-//  • Eğer veritabanı zaten varsa, hiçbir yeniden oluşturma yapılmaz.
-//  • Eksik dosyalar otomatik tamamlanır.
-//  • Modern Android izin sistemi ile uyumludur.
-//
-// Kullanım:
-//   await initializeAppDataFlow();
-//
+// Veri akışının tamamında tutarlılık raporu eklendi.
 // -----------------------------------------------------------
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-// 📦 Uygulama içi dosyalar
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
 import 'fc_files/json_helper.dart';
-// import 'fc_files/download_helper.dart'; // Download dizinine kopyalama
-// import 'fc_files/sql_helper.dart'; // JSON → SQL aktarımı burada
+import 'fc_files/sql_helper.dart';
 
-import 'fc_files/zip_helper.dart'; // ZIP arşivi oluşturma
-
-/// 🚀 Uygulama başlatıldığında çağrılır.
-/// Tüm veri dosyalarını, veritabanını ve dışa aktarmayı yönetir.
 Future<void> initializeAppDataFlow() async {
   const tag = 'file_creator';
   log('🚀 initializeAppDataFlow başladı', name: tag);
 
-  // 📂 Dizinleri al
+  // 1️⃣ CSV: Asset → cihaz (gerekirse güncelle)
+  await createOrUpdateDeviceCsvFromAsset();
+
+  // 2️⃣ Veritabanı durumu
   final directory = await getApplicationDocumentsDirectory();
   final dbPath = join(directory.path, fileNameSql);
   final dbFile = File(dbPath);
 
-  // ✅ Veritabanı var mı kontrolü (hem dosya hem kayıt sayısı)
   bool dbExists = await dbFile.exists();
   int recordCount = 0;
 
   if (dbExists) {
     try {
       recordCount = await DbHelper.instance.countRecords();
-    } catch (e) {
-      log('⚠️ Veritabanı kontrolü sırasında hata: $e', name: tag);
-    }
+    } catch (_) {}
   }
 
-  // 🧩 Eğer veritabanı mevcut ve kayıt da varsa işlem yapılmaz
   if (dbExists && recordCount > 0) {
-    log(
-      '[JSON→SQL Import (Batch)] 🟢 Veritabanı zaten dolu ($recordCount kayıt). Tekrar oluşturulmadı.',
-      name: tag,
-    );
+    log('🟢 Veritabanı zaten dolu ($recordCount kayıt).', name: tag);
+    await _runConsistencyReport();
     return;
   }
 
-  // 🔹 Aksi durumda sıfırdan oluşturma süreci başlatılır
-  log(
-    '⚠️ Veritabanı bulunamadı veya boş. Asset CSV ’den veri oluşturulacak.',
-    name: tag,
-  );
+  log('⚠️ Veritabanı boş. Veri oluşturma başlıyor…', name: tag);
 
-  /// 1️⃣ CSV oluştur (cihazda yoksa)
-  await createDeviceCsvFromAsset();
-
-  /// 2️⃣ JSON oluştur (cihazda yoksa)
+  // 3️⃣ JSON / Excel / SQL üretim zinciri
   await createJsonFromAssetCsv();
-
-  /// 3️⃣ Excel oluştur (excel_helper.dart)
   await createExcelFromAssetCsvSyncfusion();
+  await importJsonToDatabaseFast();
 
-  /// 4️⃣ JSON → SQL aktarımı (sql_helper.dart)
-  // await importJsonToDatabaseFast();
-
-  /// 5️⃣ ZIP arşivi oluştur
-  await createZipArchive();
-
-  // 6️⃣ Dosyaları Download dizinine kopyala
-  // await copyBackupFilesToDownload();
+  // 4️⃣ Tutarlılık raporu
+  await _runConsistencyReport();
 
   log('✅ initializeAppDataFlow tamamlandı.', name: tag);
+}
+
+/// 📊 CSV / JSON / SQL veri tutarlılık raporu (orta seviye)
+Future<void> _runConsistencyReport() async {
+  const tag = 'file_creator';
+
+  final directory = await getApplicationDocumentsDirectory();
+
+  // CSV → satır sayısı & kayıt sayısı
+  final csvPath = join(directory.path, fileNameCsv);
+  final csvRaw = await File(csvPath).readAsString();
+  final csvTotalLines = countCsvLines(csvRaw); // başlık + veri satırları
+  final csvCount = csvTotalLines > 0 ? csvTotalLines - 1 : 0;
+
+  // JSON → kayıt sayısı
+  final jsonPath = join(directory.path, fileNameJson);
+  final jsonRaw = await File(jsonPath).readAsString();
+  final jsonList = jsonDecode(jsonRaw) as List;
+  final jsonCount = jsonList.length;
+
+  // SQL → kayıt sayısı
+  final sqlCount = await DbHelper.instance.countRecords();
+
+  log('-------------------------------------------------', name: tag);
+  log('📊 VERİ TUTARLILIK RAPORU', name: tag);
+  log('CSV kayıt sayısı : $csvCount', name: tag);
+  log('JSON kayıt sayısı: $jsonCount', name: tag);
+  log('SQL kayıt sayısı : $sqlCount', name: tag);
+
+  // 🔍 Orta seviye fark analizleri
+  final diffCsvJson = csvCount - jsonCount;
+  final diffJsonSql = jsonCount - sqlCount;
+
+  if (diffCsvJson == 0 && diffJsonSql == 0) {
+    log('✅ TÜM DOSYALAR UYUMLU ✔', name: tag);
+  } else {
+    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmesi gerekiyor.', name: tag);
+
+    if (diffCsvJson != 0) {
+      if (diffCsvJson > 0) {
+        log(
+          '⚠️ CSV → JSON farkı: ${diffCsvJson.abs()} kayıt (JSON tarafında eksik).',
+          name: tag,
+        );
+      } else {
+        log(
+          '⚠️ CSV → JSON farkı: ${diffCsvJson.abs()} kayıt (CSV tarafında eksik).',
+          name: tag,
+        );
+      }
+    }
+
+    if (diffJsonSql != 0) {
+      if (diffJsonSql > 0) {
+        log(
+          '⚠️ JSON → SQL farkı: ${diffJsonSql.abs()} kayıt (SQL tarafında eksik).',
+          name: tag,
+        );
+        log(
+          'ℹ️ Not: SQL sayısı JSON\'dan azsa, genellikle veritabanındaki UNIQUE kısıtı nedeniyle\n'
+          '   yinelenen kelimelerin eklenmemesinden kaynaklanır.',
+          name: tag,
+        );
+      } else {
+        log(
+          '⚠️ JSON → SQL farkı: ${diffJsonSql.abs()} kayıt (JSON tarafında eksik).',
+          name: tag,
+        );
+      }
+    }
+  }
+
+  log('-------------------------------------------------', name: tag);
 }

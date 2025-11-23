@@ -22,7 +22,7 @@ import '../../models/item_model.dart'; // Word modelini içerir
 
 /// JSON → SQL batch import (compute() ile hızlandırılmış)
 Future<void> importJsonToDatabaseFast() async {
-  const tag = 'JSON→SQL Import (Compute)';
+  const tag = 'sql_helper';
   try {
     // 📂 JSON dosya yolu
     final directory = await getApplicationDocumentsDirectory();
@@ -54,7 +54,14 @@ Future<void> importJsonToDatabaseFast() async {
 /// Ana thread 'den tamamen bağımsız çalışır.
 List<Word> _parseJsonToWords(String jsonStr) {
   final List<dynamic> jsonList = json.decode(jsonStr);
+
   return jsonList.map((e) {
-    return Word(word: e['word'] ?? '', meaning: e['meaning'] ?? '');
+    /// JSON içindeki farklı başlık ihtimalleri:
+    final word = e['word'] ?? e['Word'] ?? e['kelime'] ?? e['Kelime'] ?? '';
+
+    final meaning =
+        e['meaning'] ?? e['Meaning'] ?? e['anlam'] ?? e['Anlam'] ?? '';
+
+    return Word(word: word.toString(), meaning: meaning.toString());
   }).toList();
 }

@@ -20,6 +20,7 @@ void showBackupNotification(
   String csvPathDownload,
   String excelPathDownload,
   String sqlPathDownload,
+  String zipPathDownload,
 ) {
   return NotificationService.showCustomNotification(
     context: rootCtx,
@@ -37,6 +38,8 @@ void showBackupNotification(
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
