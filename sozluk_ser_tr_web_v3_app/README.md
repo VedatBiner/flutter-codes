@@ -70,7 +70,8 @@ test amaçlı olarak Firestore üzerinde web den ve mobil 'den CRUD işlemleri y
 66. `device_info_plus` paketi eklendi. - 15.11.2025
 67. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
 68. `home_page.dart` dosyası düzenlendi. - 15.11.2025
-69.
+69. web tarafında device_info hatası giderildi. - 24.11.2025
+70. 
 
 
 

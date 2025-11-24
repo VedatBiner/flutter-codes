@@ -15,6 +15,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart'
+    show kIsWeb, defaultTargetPlatform, TargetPlatform;
 
 /// 📌 Flutter paketleri burada
 import 'package:flutter/material.dart';
@@ -105,12 +107,74 @@ class _HomePageState extends State<HomePage> {
 
   /// 📌 Cihaz bilgilerini log 'a yazar
   Future<void> _logDeviceInfo() async {
-    final plugin = DeviceInfoPlugin();
-    final android = await plugin.androidInfo;
+    try {
+      final di = DeviceInfoPlugin();
 
-    log("📱 Cihaz: ${android.model}", name: "device_info");
-    log("🧩 Android Sürüm: ${android.version.release}", name: "device_info");
-    log("🛠 API: ${android.version.sdkInt}", name: "device_info");
+      if (kIsWeb) {
+        final info = await di.webBrowserInfo;
+        log("🌐 platform=web", name: "device_info");
+        log("🧭 browser=${info.browserName.name}", name: "device_info");
+        log("🧾 userAgent=${info.userAgent ?? ''}", name: "device_info");
+        return;
+      }
+
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.android:
+          final info = await di.androidInfo;
+          log("🤖 platform=android", name: "device_info");
+          log("📱 model=${info.model ?? ''}", name: "device_info");
+          log("🔢 brand=${info.brand ?? ''}", name: "device_info");
+          log(
+            "🧩 android=${info.version.release ?? ''} (sdk=${info.version.sdkInt})",
+            name: "device_info",
+          );
+          break;
+
+        case TargetPlatform.iOS:
+          final info = await di.iosInfo;
+          log("🍎 platform=ios", name: "device_info");
+          log("📱 name=${info.name ?? ''}", name: "device_info");
+          log("🔢 model=${info.model ?? ''}", name: "device_info");
+          log("🧩 iOS=${info.systemVersion ?? ''}", name: "device_info");
+          break;
+
+        case TargetPlatform.macOS:
+          final info = await di.macOsInfo;
+          log(
+            "🖥 platform=macos model=${info.model ?? ''} os=${info.osRelease ?? ''}",
+            name: "device_info",
+          );
+          break;
+
+        case TargetPlatform.windows:
+          final info = await di.windowsInfo;
+          log(
+            "🪟 platform=windows name=${info.computerName ?? ''} product=${info.productName ?? ''}",
+            name: "device_info",
+          );
+          break;
+
+        case TargetPlatform.linux:
+          final info = await di.linuxInfo;
+          log(
+            "🐧 platform=linux name=${info.name ?? ''} version=${info.version ?? ''}",
+            name: "device_info",
+          );
+          break;
+
+        // Fuchsia vs.
+        default:
+          log("❓ platform=unknown", name: "device_info");
+          break;
+      }
+    } catch (e, st) {
+      log(
+        "⚠️ device_info okunamadı: $e",
+        name: "device_info",
+        error: e,
+        stackTrace: st,
+      );
+    }
   }
 
   // 🧪 Kısa özet/log
