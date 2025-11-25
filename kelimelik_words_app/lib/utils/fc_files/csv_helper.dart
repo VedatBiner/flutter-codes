@@ -59,7 +59,7 @@ Future<void> createOrUpdateDeviceCsvFromAsset() async {
       final deviceRecordCount = _countCsvLines(deviceCsvRaw);
 
       if (assetRecordCount > deviceRecordCount) {
-        // Asset'teki dosya daha fazla kayıt içeriyor, üzerine yaz
+        // Asset 'teki dosya daha fazla kayıt içeriyor, üzerine yaz
         await deviceFile.writeAsString(assetCsvRaw);
         log(
           '✅ CSV güncellendi (Asset > Cihaz). Kayıt sayısı: $assetRecordCount (Eski: $deviceRecordCount)',
@@ -109,7 +109,7 @@ int _countCsvLines(String rawCsv) {
 /// CSV içindeki duplicate "Word" değerlerini raporlar.
 /// Sadece 1. sütun temel alınır (Word,Meaning yapısında).
 void _reportCsvDuplicateWords(String rawCsv) {
-  const tag = 'csv_helper_duplicates';
+  const tag = 'csv_helper';
 
   if (rawCsv.trim().isEmpty) {
     log('ℹ️ CSV boş, duplicate kontrolü yapılmadı.', name: tag);

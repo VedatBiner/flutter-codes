@@ -12,14 +12,16 @@
 //   • Veritabanı doluysa yeniden oluşturmaz, sadece rapor çalıştırır.
 //   • CSV / JSON / SQL kayıt sayılarını karşılaştırır.
 //   • CSV & JSON için duplicate "Word" tespiti yapar (sadece Word alanı).
-//   • JSON’da olup SQL ’e girmeyen kelimeleri listeler.
+//   • JSON ’da olup SQL ’e girmemiş kelimeleri listeler.
 //   • Pipeline için toplam süreyi loglar.
+//   • ZIP dosyası her durumda oluşturulur (yeni özellik)
 // -----------------------------------------------------------
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:kelimelik_words_app/utils/zip_helper.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -53,21 +55,32 @@ Future<void> initializeAppDataFlow() async {
     } catch (_) {}
   }
 
-  // Veritabanı doluysa tekrar oluşturma, sadece rapor
+  // --------------------------------------------------------------
+  // ✔ Veritabanı doluysa yeniden oluşturma yok — ama ZIP YİNE DE ÜRETİLİR
+  // --------------------------------------------------------------
   if (dbExists && recordCount > 0) {
     log(
       '🟢 Veritabanı zaten dolu ($recordCount kayıt). Yeniden oluşturulmadı.',
       name: tag,
     );
+
     await _runConsistencyReport();
+
+    // ** ZIP her zaman oluşturulsun (yeni özellik) **
+    await createZipArchive();
+
     totalSw.stop();
     log(
       '⏱ initializeAppDataFlow toplam süre (sadece kontrol): ${totalSw.elapsedMilliseconds} ms',
       name: tag,
     );
+
     return;
   }
 
+  // --------------------------------------------------------------
+  // ✔ Veritabanı boşsa sıfırdan tüm pipeline çalıştırılır
+  // --------------------------------------------------------------
   log('⚠️ Veritabanı boş. Veri oluşturma başlıyor…', name: tag);
 
   // 2️⃣ CSV → JSON
@@ -86,6 +99,9 @@ Future<void> initializeAppDataFlow() async {
   // 5️⃣ Tutarlılık & duplicate raporu
   await _runConsistencyReport();
 
+  // 6️⃣ ZIP arşivi oluştur (her zaman)
+  await createZipArchive();
+
   totalSw.stop();
   log(
     '✅ initializeAppDataFlow tamamlandı. Toplam süre: ${totalSw.elapsedMilliseconds} ms',
@@ -93,18 +109,15 @@ Future<void> initializeAppDataFlow() async {
   );
 }
 
-/// 📊 CSV / JSON / SQL veri tutarlılık + duplicate raporu
-///   • CSV kayıt sayısı (Word bazlı)
-///   • JSON kayıt sayısı
-///   • SQL kayıt sayısı
-///   • CSV & JSON duplicate Word listeleri
-///   • JSON’da olup SQL’e girmemiş kelimeler
+// ======================================================================
+// 📊 CSV / JSON / SQL veri tutarlılık + duplicate + eksik kayıt raporu
+// ======================================================================
 Future<void> _runConsistencyReport() async {
   const tag = 'file_creator';
 
   final directory = await getApplicationDocumentsDirectory();
 
-  // ---------- CSV OKUMA & ANALİZ ----------
+  // ---------- CSV OKUMA ----------
   final csvPath = join(directory.path, fileNameCsv);
   final csvFile = File(csvPath);
   if (!await csvFile.exists()) {
@@ -125,7 +138,6 @@ Future<void> _runConsistencyReport() async {
   final Map<String, List<int>> csvLineNumbers = {};
 
   if (csvLines.length > 1) {
-    // 0. satır başlık → geri kalan veri
     final dataLines = csvLines.sublist(1);
     csvRecordCount = dataLines.length;
 
@@ -140,7 +152,7 @@ Future<void> _runConsistencyReport() async {
       final key = word.toLowerCase();
       csvWordCounts[key] = (csvWordCounts[key] ?? 0) + 1;
       csvDisplayWord.putIfAbsent(key, () => word);
-      csvLineNumbers.putIfAbsent(key, () => []).add(i + 2); // 1-based + header
+      csvLineNumbers.putIfAbsent(key, () => []).add(i + 2);
     }
   }
 
@@ -148,7 +160,7 @@ Future<void> _runConsistencyReport() async {
       .where((e) => e.value > 1)
       .toList();
 
-  // ---------- JSON OKUMA & ANALİZ ----------
+  // ---------- JSON OKUMA ----------
   final jsonPath = join(directory.path, fileNameJson);
   final jsonFile = File(jsonPath);
   if (!await jsonFile.exists()) {
@@ -160,25 +172,25 @@ Future<void> _runConsistencyReport() async {
   final List<dynamic> jsonList = jsonDecode(jsonRaw) as List<dynamic>;
   final int jsonCount = jsonList.length;
 
-  // JSON tarafında Word key'ini tespit et (Word / word)
   String? wordKey;
   if (jsonList.isNotEmpty) {
     final first = jsonList.first as Map<String, dynamic>;
     for (final k in first.keys) {
       if (k.toString().toLowerCase() == 'word') {
-        wordKey = k.toString();
+        wordKey = k;
         break;
       }
     }
-    wordKey ??= first.keys.first.toString();
+    wordKey ??= first.keys.first;
   }
 
   final Map<String, int> jsonWordCounts = {};
   final Map<String, String> jsonDisplayWord = {};
+
   for (final entry in jsonList) {
     final map = entry as Map<String, dynamic>;
-    final raw = map[wordKey] ?? '';
-    final word = raw.toString().trim();
+    final value = map[wordKey] ?? '';
+    final word = value.toString().trim();
     if (word.isEmpty) continue;
 
     final key = word.toLowerCase();
@@ -190,24 +202,20 @@ Future<void> _runConsistencyReport() async {
       .where((e) => e.value > 1)
       .toList();
 
-  // ---------- SQL OKUMA & ANALİZ ----------
+  // ---------- SQL OKUMA ----------
   final dbWords = await DbHelper.instance.getRecords();
   final int sqlCount = dbWords.length;
   final Set<String> sqlWordsLower = dbWords
       .map((w) => w.word.trim().toLowerCase())
       .toSet();
 
-  // JSON'daki kelimeler (lowercase)
   final Set<String> jsonWordsLower = jsonWordCounts.keys.toSet();
 
-  // JSON’da olup SQL’e girmemiş kelimeler
   final missingInSql = jsonWordsLower.difference(sqlWordsLower);
-
-  // Sadece SQL'de bulunan kelimeler (JSON'da olmayan)
   final extraInSql = sqlWordsLower.difference(jsonWordsLower);
 
   // ---------- RAPOR ----------
-  log('-------------------------------------------------', name: tag);
+  log(logLine, name: tag);
   log('📊 VERİ TUTARLILIK RAPORU', name: tag);
   log('CSV kayıt sayısı : $csvRecordCount', name: tag);
   log('JSON kayıt sayısı: $jsonCount', name: tag);
@@ -216,17 +224,17 @@ Future<void> _runConsistencyReport() async {
   if (csvRecordCount == jsonCount && jsonCount == sqlCount) {
     log('✅ TÜM DOSYALAR UYUMLU ✔', name: tag);
   } else {
-    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmesi gerekiyor.', name: tag);
+    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmeli.', name: tag);
   }
 
-  // --- CSV duplicate Word listesi ---
+  // --- CSV duplicate ---
   if (csvDuplicates.isEmpty) {
     log('✅ CSV içinde duplicate Word yok.', name: tag);
   } else {
     log('🔁 CSV duplicate Word listesi:', name: tag);
     for (final e in csvDuplicates) {
-      final w = csvDisplayWord[e.key] ?? e.key;
-      final lines = csvLineNumbers[e.key] ?? const [];
+      final w = csvDisplayWord[e.key]!;
+      final lines = csvLineNumbers[e.key]!;
       log(
         '   • "$w" → ${e.value} kez (satırlar: ${lines.join(', ')})',
         name: tag,
@@ -234,49 +242,42 @@ Future<void> _runConsistencyReport() async {
     }
   }
 
-  // --- JSON duplicate Word listesi ---
+  // --- JSON duplicate ---
   if (jsonDuplicates.isEmpty) {
     log('✅ JSON içinde duplicate Word yok.', name: tag);
   } else {
     log('🔁 JSON duplicate Word listesi:', name: tag);
     for (final e in jsonDuplicates) {
-      final w = jsonDisplayWord[e.key] ?? e.key;
+      final w = jsonDisplayWord[e.key]!;
       log('   • "$w" → ${e.value} kez', name: tag);
     }
   }
 
-  // --- JSON’da olup SQL’e girmemiş kelimeler ---
+  // --- JSON → SQL eksik aktarım ---
   if (missingInSql.isEmpty) {
     log('✅ JSON’daki tüm kelimeler SQL’e aktarılmış.', name: tag);
   } else {
-    log(
-      '❌ JSON’da olup SQL’e girmemiş kelimeler (${missingInSql.length} adet):',
-      name: tag,
-    );
+    log('❌ JSON’da olup SQL’e girmeyen kelimeler:', name: tag);
     for (final key in missingInSql) {
-      final w = jsonDisplayWord[key] ?? key;
-      log('   • $w', name: tag);
+      log('   • ${jsonDisplayWord[key]}', name: tag);
     }
   }
 
-  // --- Sadece SQL’de bulunan kelimeler (opsiyonel bilgi) ---
+  // --- SQL’de fazladan ---
   if (extraInSql.isNotEmpty) {
     log(
       'ℹ️ Sadece SQL’de bulunan kelimeler (${extraInSql.length} adet):',
       name: tag,
     );
-    // İstersen burayı kapatabilirsin; şimdilik sadece ilk birkaçını yazalım.
     int printed = 0;
     for (final key in extraInSql) {
-      final w = key; // DB'den orijinal hali istenirse ayrıca eşleştirilebilir.
-      log('   • $w', name: tag);
-      printed++;
-      if (printed >= 20) {
+      log('   • $key', name: tag);
+      if (++printed >= 20) {
         log('   ... (ilk 20 gösterildi)', name: tag);
         break;
       }
     }
   }
 
-  log('-------------------------------------------------', name: tag);
+  log(logLine, name: tag);
 }

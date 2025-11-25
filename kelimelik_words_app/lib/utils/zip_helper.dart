@@ -1,4 +1,11 @@
 // 📃 <----- lib/utils/zip_helper.dart ----->
+//
+// ZIP oluşturma helper
+// -----------------------------------------------------------
+// • JSON, CSV, XLSX ve veritabanı dosyasını tek bir ZIP 'e toplar
+// • Dosya yollarını ayrıntılı şekilde loglar
+// • ZIP dosyası app_flutter klasöründe oluşturulur
+// -----------------------------------------------------------
 
 import 'dart:developer';
 import 'dart:io';
@@ -9,49 +16,53 @@ import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
 
-/// 📚 Belirtilen dosyaları bir zip arşivi olarak oluşturur ve dosya yolunu döndürür.
-///
-/// Bu fonksiyon, uygulamanın documents dizinindeki JSON, CSV, Excel ve SQL
-/// dosyalarını bularak bunları tek bir .zip dosyası içinde sıkıştırır.
 Future<String> createZipArchive() async {
   const tag = 'zip_helper';
-  log('📦 Zipleme işlemi başlatılıyor...', name: tag);
+  log('📦 ZIP oluşturma başlatılıyor...', name: tag);
 
   try {
-    // 📂 Dizin ve dosya yollarını al
+    // 📂 Uygulama Documents klasörü (app_flutter burada)
     final directory = await getApplicationDocumentsDirectory();
-    final zipFilePath = join(directory.path, fileNameZip);
+    final appPath = directory.path;
 
-    // 🗜️ Zip Encoder oluştur
+    log('📁 ZIP dizini: $appPath', name: tag);
+
+    // ZIP dosyasının yolu
+    final zipPath = join(appPath, fileNameZip);
+    log('📌 ZIP çıkış yolu: $zipPath', name: tag);
+
     final encoder = ZipFileEncoder();
-    encoder.create(zipFilePath);
+    encoder.create(zipPath);
 
-    // 🗂️ Arşivlenecek dosyaların listesi
-    final filesToZip = [
-      File(join(directory.path, fileNameJson)),
-      File(join(directory.path, fileNameCsv)),
-      File(join(directory.path, fileNameXlsx)),
-      File(join(directory.path, fileNameSql)),
-    ];
+    // Arşivlenecek dosyalar
+    final files = {
+      'JSON': File(join(appPath, fileNameJson)),
+      'CSV': File(join(appPath, fileNameCsv)),
+      'Excel': File(join(appPath, fileNameXlsx)),
+      'SQL': File(join(appPath, fileNameSql)),
+    };
 
-    //  dosyaları arşive ekle
-    for (final file in filesToZip) {
+    for (final entry in files.entries) {
+      final type = entry.key;
+      final file = entry.value;
+
+      log('🔍 Kontrol: ${file.path}', name: tag);
+
       if (await file.exists()) {
-        await encoder.addFile(file);
-        log('➕ Arşive eklendi: ${basename(file.path)}', name: tag);
+        encoder.addFile(file);
+        log('➕ Eklendi → $type: ${basename(file.path)}', name: tag);
       } else {
-        log('⚠️ Dosya bulunamadı, arşive eklenemedi: ${file.path}', name: tag);
+        log('⚠️ Yok → $type dosyası bulunamadı: ${file.path}', name: tag);
       }
     }
 
-    // 🤐 Zip dosyasını kapat
     encoder.close();
+    log('✅ ZIP başarıyla oluşturuldu: $zipPath', name: tag);
+    log(logLine, name: tag);
 
-    log('✅ Zip arşivi başarıyla oluşturuldu: $zipFilePath', name: tag);
-    return zipFilePath; // Başarı durumunda dosya yolunu döndür
-  } catch (e) {
-    log('❌ Zipleme sırasında hata oluştu: $e', name: tag);
-    // Hata durumunda yeniden fırlatılabilir veya uygun şekilde yönetilebilir.
+    return zipPath;
+  } catch (e, st) {
+    log('❌ ZIP oluşturulamadı: $e', name: tag, error: e, stackTrace: st);
     rethrow;
   }
 }

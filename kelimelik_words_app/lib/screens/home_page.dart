@@ -11,6 +11,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 /// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/file_info.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
@@ -85,11 +86,11 @@ class _HomePageState extends State<HomePage> {
   Future<void> _logDeviceInfo() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
-    log("------------------------------------------", name: tag);
+    log(logLine, name: tag);
     log("📱 Cihaz: ${android.model}", name: tag);
     log("🧩 Android Sürüm: ${android.version.release}", name: tag);
     log("🛠 API: ${android.version.sdkInt}", name: tag);
-    log("------------------------------------------", name: tag);
+    log(logLine, name: tag);
   }
 
   /// 📌 Download dizinini kontrol eder ve gerekirse oluşturur.

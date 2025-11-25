@@ -126,6 +126,9 @@ bir chatGPT ortak çalışması :)
 121. `csv_parser.dart`dosyası eklendi. - 22.11.2025
 122. `home_page.dart`, `file_creator.dart`, `zip_helper.dart`, `drawer_backup_tile.dart` ve `export_items.dart` dosyası tekrar düzenlendi. - 22.11.2025
 123. `csv_helper.dart`, `json_helper.dart`, `excel_helper.dart`, `sql_helper.dart` ve `file_creator.dart` dosyaları yenilendi. - 23.11.2025
+124. `zip_helper.dart`, `file_creator.drt`, `backup_notification.helper.dart` ve `home_page.dart` düzenlendi. zip dosya oluşuyor ve konsola log 'lanıyor. - 25.11.2025
+125. logLine değişkeni ie log 'larda sabit çizgi çizilmesi sağlandı. - 25.11.2025
+126. 
 
 
 

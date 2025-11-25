@@ -37,6 +37,7 @@ Future<void> backupNotificationHelper({
 }) async {
   // 🔑 await ’ten ÖNCE messenger ’ı al
   final messenger = ScaffoldMessenger.maybeOf(context);
+  const tag = "Backup_notification_helper";
 
   // Başlangıç UI durumu
   onExportingChange(true);
@@ -102,26 +103,14 @@ Future<void> backupNotificationHelper({
     }
 
     // Log
-    log(
-      "-----------------------------------------------------------------------",
-      name: "Backup_notification_helper",
-    );
-    log(
-      "Toplam Kayıt sayısı : ${res.count} ✅",
-      name: "Backup_notification_helper",
-    );
-    log(
-      "-----------------------------------------------------------------------",
-      name: "Backup_notification_helper",
-    );
+    log(logLine, name: tag);
+    log("Toplam Kayıt sayısı : ${res.count} ✅", name: tag);
+    log(logLine, name: tag);
     log("✅ JSON yedeği → ${res.jsonPath}", name: "Backup_notification_helper");
     log("✅ CSV  yedeği → ${res.csvPath}", name: "Backup_notification_helper");
     log("✅ XLSX yedeği → ${res.xlsxPath}", name: "Backup_notification_helper");
     log("✅ SQL  yedeği → ${res.sqlPath}", name: "Backup_notification_helper");
-    log(
-      "-----------------------------------------------------------------------",
-      name: "Backup_notification_helper",
-    );
+    log(logLine, name: tag);
   } catch (e) {
     if (!context.mounted) return;
     onStatusChange('Hata: $e');
