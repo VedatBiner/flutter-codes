@@ -3880,6 +3880,10 @@
     "meaning": "Acıklı olay / Tiyatro türü"
   },
   {
+    "word": "Dudak",
+    "meaning": "Ağzın kenarları"
+  },
+  {
     "word": "Duka",
     "meaning": "Venedik altın akçesi"
   },
@@ -3978,6 +3982,10 @@
   {
     "word": "Dürmek",
     "meaning": "Katlayıp yuvarlamak"
+  },
+  {
+    "word": "Düz",
+    "meaning": "Yatay durumda olan"
   },
   {
     "word": "Düze",
@@ -6252,6 +6260,10 @@
     "meaning": "Sürdürme"
   },
   {
+    "word": "İdare",
+    "meaning": "Yönetmek / Çekip çevirmek"
+  },
+  {
     "word": "İde",
     "meaning": "Düşünce"
   },
@@ -6708,12 +6720,12 @@
     "meaning": "Dokunulmaması ve saygı gösterilmesi gereken iffet"
   },
   {
-    "word": "Is",
-    "meaning": "Açıklık / Doğruluk"
-  },
-  {
     "word": "İs",
     "meaning": "Duman lekesi"
+  },
+  {
+    "word": "Is",
+    "meaning": "Açıklık / Doğruluk"
   },
   {
     "word": "İsa",
@@ -8604,6 +8616,10 @@
     "meaning": "Dantel ipi yumağı"
   },
   {
+    "word": "Kukla",
+    "meaning": "İçine el sokularak oynatılan bebekler"
+  },
+  {
     "word": "Kul",
     "meaning": "Köle / Karavaş"
   },
@@ -8694,6 +8710,10 @@
   {
     "word": "Kurna",
     "meaning": "Hamamlardaki küçük tekne"
+  },
+  {
+    "word": "Kurs",
+    "meaning": "Ağırşak / Belli konuda başarı kazandırmak amacıyla yapılan eğitim etkinlği"
   },
   {
     "word": "Kurtçul",
@@ -8866,6 +8886,10 @@
   {
     "word": "Küfe",
     "meaning": "Yük taşıma sepeti"
+  },
+  {
+    "word": "Küfeci",
+    "meaning": "Küfe yapan kişi / Küfe ile sırtında öteberi taşıyan kimse"
   },
   {
     "word": "Küflü",
@@ -9824,6 +9848,10 @@
     "meaning": "Azerbaycan parası"
   },
   {
+    "word": "Mandal",
+    "meaning": "Çamaşır tutturucu / Evlek"
+  },
+  {
     "word": "Mani",
     "meaning": "Bir çeşit ruh hastalığı"
   },
@@ -9854,6 +9882,10 @@
   {
     "word": "Mantı",
     "meaning": "Hamur yemeği çeşidi"
+  },
+  {
+    "word": "Mantık",
+    "meaning": "Doğru düşünme sanatı"
   },
   {
     "word": "Mantıki",
@@ -10356,6 +10388,10 @@
     "meaning": "Küçük ve sevimli"
   },
   {
+    "word": "Mink",
+    "meaning": "Vizon"
+  },
+  {
     "word": "Minnet",
     "meaning": "Bir iyiliğe karşı kendini borçlu sayma"
   },
@@ -10526,6 +10562,10 @@
   {
     "word": "Mum",
     "meaning": "Aydınlanma aracı"
+  },
+  {
+    "word": "Mumlu",
+    "meaning": "Mumu olan"
   },
   {
     "word": "Munis",
@@ -11233,7 +11273,7 @@
   },
   {
     "word": "Onar",
-    "meaning": "On sayının eleştirmesi"
+    "meaning": "On sayının üleştirme dayı sıfatı"
   },
   {
     "word": "Onarma",
@@ -12196,6 +12236,10 @@
     "meaning": "Alçak / Aşağılık"
   },
   {
+    "word": "Reçel",
+    "meaning": "Meyvelerin şekerle kaynatılmasıdan elde edilen tatlı"
+  },
+  {
     "word": "Rica",
     "meaning": "Dileyiş / Dileme"
   },
@@ -12610,6 +12654,10 @@
   {
     "word": "Sancı",
     "meaning": "Nöbetlerle azalıp çoğalan ağrı"
+  },
+  {
+    "word": "Sanki",
+    "meaning": "Sözde / Güya"
   },
   {
     "word": "Santim",
@@ -14912,6 +14960,10 @@
     "meaning": "Un satan kişi"
   },
   {
+    "word": "Unlu",
+    "meaning": "Un içeren"
+  },
+  {
     "word": "Ur",
     "meaning": "Tümör"
   },
@@ -16026,6 +16078,10 @@
   {
     "word": "Zati",
     "meaning": "Zaten"
+  },
+  {
+    "word": "Zaviye",
+    "meaning": "Küçük tekke  / Açı / Köşe"
   },
   {
     "word": "Zayiçe",

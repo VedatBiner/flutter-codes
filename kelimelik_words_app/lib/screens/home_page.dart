@@ -11,9 +11,10 @@ import 'package:device_info_plus/device_info_plus.dart';
 
 /// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/constants/file_info.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/file_info.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';

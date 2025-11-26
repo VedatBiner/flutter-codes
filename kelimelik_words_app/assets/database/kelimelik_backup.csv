@@ -969,6 +969,7 @@ Doğan,Yırtıcı kuş
 Doğum,Doğma işi / Tevellüt
 Draje,Çikolata kaplı kuru yemiş
 Dram,Acıklı olay / Tiyatro türü
+Dudak,Ağzın kenarları
 Duka,Venedik altın akçesi
 Dul,Eşi ölmüş kadın veya erkek
 Duma,Rus parlementosunun alt kanadı
@@ -994,6 +995,7 @@ Dümen,Yönetim / İdare
 Dün,Geçmiş / Önceki gün
 Dünya,Üzerinde yaşadığımız yer yüzü
 Dürmek,Katlayıp yuvarlamak
+Düz,Yatay durumda olan
 Düze,Doz
 Düğü,Pirinç / İnce bulgur
 Düş,Rüya
@@ -1562,6 +1564,7 @@ Hızma,Buruna takılan süs halkası
 İd,İlkel benlik
 İdam,Ölüm cezası
 Idame,Sürdürme
+İdare,Yönetmek / Çekip çevirmek
 İde,Düşünce
 İdea,Düşünce
 İdeal,Ülkü / uygun
@@ -1676,8 +1679,8 @@ Irmak,Nehir
 İroni,Gülmece / Tersini kastederek alay etme
 İrs,Kalıtım
 Irz,Dokunulmaması ve saygı gösterilmesi gereken iffet
-Is,Açıklık / Doğruluk
 İs,Duman lekesi
+Is,Açıklık / Doğruluk
 İsa,Hıristiyanlık kurucusu peygamber
 İsal,Ulaştırma
 İsale,Akıtma
@@ -2150,6 +2153,7 @@ Kubat,Kaba / Biçimsiz
 Kucak,Ortam / Ocak
 Kudret,Güç / Erk / İktidar
 Kuka,Dantel ipi yumağı
+Kukla,İçine el sokularak oynatılan bebekler
 Kul,Köle / Karavaş
 Kula,Manisa ilçesi
 Kulak,İşitme organı
@@ -2173,6 +2177,7 @@ Kural,Uyulması gereken ilke
 Kuram,Soyut bilgi
 Kurca,Karıştırma / Kaşıma
 Kurna,Hamamlardaki küçük tekne
+Kurs,Ağırşak / Belli konuda başarı kazandırmak amacıyla yapılan eğitim etkinlği
 Kurtçul,Kurtçuklarla beslenen
 Kuru,Suyu nemi olmayan
 Kurum,Bacada biriken is
@@ -2216,6 +2221,7 @@ Köşk,Aydın ilçesi
 Küba,Bir ülke
 Küf,Yeşil renkli mantar
 Küfe,Yük taşıma sepeti
+Küfeci,Küfe yapan kişi / Küfe ile sırtında öteberi taşıyan kimse
 Küflü,Küflenmiş olan
 Kül,Yanık kalıntısı
 Külah,Huni biçiminde bükülmüş kağıt
@@ -2455,6 +2461,7 @@ Mamut,Filgillerden kıllı bir hayvan
 Mana,Anlam
 Manas,Zararlı böcek türü
 Manat,Azerbaycan parası
+Mandal,Çamaşır tutturucu / Evlek
 Mani,Bir çeşit ruh hastalığı
 Mania,Mani / Engel
 Manika,Gemilerde bir baca türü
@@ -2463,6 +2470,7 @@ Mano,Kumar oynatan kişinin kazançtan aldığı pay
 Mantar,Zehirli zehirsiz ilkel canlı
 Manto,Kadın paltosu
 Mantı,Hamur yemeği çeşidi
+Mantık,Doğru düşünme sanatı
 Mantıki,Mantıklı
 Mapus,Mahpus / Cezaevi
 Maraba,Çiftçi / Ortakçı
@@ -2588,6 +2596,7 @@ Mimik,Yüz el kol hareketi ile düşünce anlatma
 Mimli,Kuşku duyulan
 Mine,Saat kadranı
 Minik,Küçük ve sevimli
+Mink,Vizon
 Minnet,Bir iyiliğe karşı kendini borçlu sayma
 Mir,Bey / Emir
 Mira,Arazi üzerinde yön bekirtici tahta
@@ -2631,6 +2640,7 @@ Mudi,Bankaya para yatıran kimse
 Muf,Uç uca eklenen boru parçası
 Mujik,Rus köylüsü
 Mum,Aydınlanma aracı
+Mumlu,Mumu olan
 Munis,Cana yakın / Uysal / Sevimli
 Murç,Betona delik açmak için kullanılan bir alet
 Mus,Köpük şeklinde tatlı
@@ -2807,7 +2817,7 @@ Omuz,Boynun iki yanındaki bölüm
 On,Sayı
 Ona,O zamirinin yönelme durumu almış hali
 Onam,Rıza
-Onar,On sayının eleştirmesi
+Onar,On sayının üleştirme dayı sıfatı
 Onarma,Onarmak işi
 Onarmak,Tamir etmek / Restore etmek
 Onat,Özenli / Dürüst / İyi ahlaklı
@@ -3048,6 +3058,7 @@ Reye,Çizgili kumaş
 Reyon,Mağaza bölümleri
 Reze,Menteşe
 Rezil,Alçak / Aşağılık
+Reçel,Meyvelerin şekerle kaynatılmasıdan elde edilen tatlı
 Rica,Dileyiş / Dileme
 Ricat,Vaz geçme / Gerileme
 Rika,Arap harfi elyazısı biçimi
@@ -3152,6 +3163,7 @@ Sanal,Farazi / Mevhum
 Sanat,Bir şey yapmada gösterilen ustalık
 Sanatlı,Sanatla yapılan / Musanna
 Sancı,Nöbetlerle azalıp çoğalan ağrı
+Sanki,Sözde / Güya
 Santim,Santimetre
 Santra,Başlama vuruşu
 Sanı,Sanma durumu / Zehap
@@ -3727,6 +3739,7 @@ Umur,Aldırış etme / Önem verme
 Umuş,Umma işi
 Un,Öğütülmüş tahıl
 Uncu,Un satan kişi
+Unlu,Un içeren
 Ur,Tümör
 Uran,Sanayi
 Uray,Belediye
@@ -4006,6 +4019,7 @@ Zanlı,Şüpheli
 Zar,Ince perde veya örtü / tavla oyun aracı
 Zat,Kişi
 Zati,Zaten
+Zaviye,Küçük tekke  / Açı / Köşe
 Zayiçe,Yıldız durumlarını gösteren çizelge
 Zaza,Ön Asya'da bir topluluk
 Zaç,Kükürt demir birleşimi

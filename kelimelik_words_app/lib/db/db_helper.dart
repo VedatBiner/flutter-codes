@@ -300,4 +300,12 @@ class DbHelper {
       await batch.commit(noResult: true, continueOnError: true);
     });
   }
+
+  Future<void> closeDb() async {
+    final db = _database;
+    if (db != null && db.isOpen) {
+      await db.close();
+    }
+    _database = null;
+  }
 }

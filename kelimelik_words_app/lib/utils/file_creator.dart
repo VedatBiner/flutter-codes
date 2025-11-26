@@ -1,6 +1,6 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Veri akışının tamamında tutarlılık raporu ve benchmark eklendi.
+// Veri akışının tamamında tutarlılık raporu, rebuild sistemi ve ZIP oluşturma içerir.
 // -----------------------------------------------------------
 // Akış:
 //   1️⃣ CSV (asset) → Cihaz CSV (createOrUpdateDeviceCsvFromAsset)
@@ -9,12 +9,13 @@
 //   4️⃣ JSON → SQL (importJsonToDatabaseFast)
 //
 // Bu dosya:
-//   • Veritabanı doluysa yeniden oluşturmaz, sadece rapor çalıştırır.
+//   • Asset CSV cihaz CSV’den daha yeniyse TAM REBUILD çalıştırır.
+//   • REBUILD sırasında DB bağlantısı kapatılır, DB tamamen silinir.
 //   • CSV / JSON / SQL kayıt sayılarını karşılaştırır.
-//   • CSV & JSON için duplicate "Word" tespiti yapar (sadece Word alanı).
-//   • JSON ’da olup SQL ’e girmemiş kelimeleri listeler.
-//   • Pipeline için toplam süreyi loglar.
-//   • ZIP dosyası her durumda oluşturulur (yeni özellik)
+//   • CSV → JSON eksik kelimeleri raporlar.
+//   • CSV & JSON duplicate Word tespiti yapar.
+//   • JSON’da olup SQL’e girmeyen kayıtları listeler.
+//   • ZIP dosyası her koşulda oluşturulur.
 // -----------------------------------------------------------
 
 import 'dart:convert';
@@ -38,8 +39,8 @@ Future<void> initializeAppDataFlow() async {
 
   log('🚀 initializeAppDataFlow başladı', name: tag);
 
-  // 1️⃣ CSV: asset → cihaz senkronizasyonu
-  await createOrUpdateDeviceCsvFromAsset();
+  // 1️⃣ CSV senkronizasyonu (Asset → Device)
+  final csvSync = await createOrUpdateDeviceCsvFromAsset();
 
   // 📂 Dizin ve DB yolu
   final directory = await getApplicationDocumentsDirectory();
@@ -56,7 +57,62 @@ Future<void> initializeAppDataFlow() async {
   }
 
   // --------------------------------------------------------------
-  // ✔ Veritabanı doluysa yeniden oluşturma yok — ama ZIP YİNE DE ÜRETİLİR
+  // 🛠  Eğer Asset CSV → Device CSV daha yeniyse → TAM REBUILD
+  // --------------------------------------------------------------
+  if (csvSync.needsRebuild) {
+    log(
+      '⚠️ REBUILD gerekli bulundu → TAM YENİDEN KURULUM başlıyor...',
+      name: tag,
+    );
+
+    // 1) Mevcut DB bağlantısını kapat
+    log('🔄 DB bağlantısı kapatılıyor...', name: tag);
+    await DbHelper.instance.closeDb();
+
+    // 2) DB dosyasını sil
+    if (await dbFile.exists()) {
+      await dbFile.delete();
+      log('🗑 DB silindi: $dbPath', name: tag);
+    }
+
+    // 3) JSON, CSV, Excel dosyalarını sil
+    final filesToDelete = [
+      join(directory.path, fileNameJson),
+      join(directory.path, fileNameCsv),
+      join(directory.path, fileNameXlsx),
+    ];
+
+    for (final path in filesToDelete) {
+      final f = File(path);
+      if (await f.exists()) {
+        await f.delete();
+        log('🗑 Silindi: $path', name: tag);
+      }
+    }
+
+    // 4) Pipeline tamamen sıfırdan oluşturuluyor
+    await createOrUpdateDeviceCsvFromAsset();
+    await createJsonFromAssetCsv();
+    await createExcelFromAssetCsvSyncfusion();
+
+    // JSON → SQL
+    await importJsonToDatabaseFast();
+
+    // Rapor
+    await _runConsistencyReport();
+
+    // ZIP her zaman oluşturulsun
+    await createZipArchive();
+
+    log('✨ TAM REBUILD tamamlandı ✓', name: tag);
+
+    totalSw.stop();
+    log('⏱ REBUILD toplam süre: ${totalSw.elapsedMilliseconds} ms', name: tag);
+    return;
+  }
+
+  // --------------------------------------------------------------
+  // ✔ Eğer REBUILD gerekmezse normal kontrol modu
   // --------------------------------------------------------------
   if (dbExists && recordCount > 0) {
     log(
@@ -65,8 +121,6 @@ Future<void> initializeAppDataFlow() async {
     );
 
     await _runConsistencyReport();
-
-    // ** ZIP her zaman oluşturulsun (yeni özellik) **
     await createZipArchive();
 
     totalSw.stop();
@@ -74,32 +128,18 @@ Future<void> initializeAppDataFlow() async {
       '⏱ initializeAppDataFlow toplam süre (sadece kontrol): ${totalSw.elapsedMilliseconds} ms',
       name: tag,
     );
-
     return;
   }
 
   // --------------------------------------------------------------
-  // ✔ Veritabanı boşsa sıfırdan tüm pipeline çalıştırılır
+  // ✔ Veritabanı boş → İlk kurulum
   // --------------------------------------------------------------
-  log('⚠️ Veritabanı boş. Veri oluşturma başlıyor…', name: tag);
+  log('⚠️ Veritabanı boş. İlk kurulum başlıyor…', name: tag);
 
-  // 2️⃣ CSV → JSON
   await createJsonFromAssetCsv();
-
-  // 3️⃣ CSV → Excel (Syncfusion)
   await createExcelFromAssetCsvSyncfusion();
-
-  // 4️⃣ JSON → SQL
-  final importedCount = await importJsonToDatabaseFast();
-  log(
-    'ℹ️ importJsonToDatabaseFast() sonrası SQL kayıt sayısı: $importedCount',
-    name: tag,
-  );
-
-  // 5️⃣ Tutarlılık & duplicate raporu
+  await importJsonToDatabaseFast();
   await _runConsistencyReport();
-
-  // 6️⃣ ZIP arşivi oluştur (her zaman)
   await createZipArchive();
 
   totalSw.stop();
@@ -110,18 +150,17 @@ Future<void> initializeAppDataFlow() async {
 }
 
 // ======================================================================
-// 📊 CSV / JSON / SQL veri tutarlılık + duplicate + eksik kayıt raporu
+// 📊 CSV / JSON / SQL veri tutarlılık + eksik kayıt raporu
 // ======================================================================
 Future<void> _runConsistencyReport() async {
   const tag = 'file_creator';
-
   final directory = await getApplicationDocumentsDirectory();
 
   // ---------- CSV OKUMA ----------
   final csvPath = join(directory.path, fileNameCsv);
   final csvFile = File(csvPath);
   if (!await csvFile.exists()) {
-    log('⚠️ CSV dosyası bulunamadı: $csvPath', name: tag);
+    log('⚠️ CSV bulunamadı: $csvPath', name: tag);
     return;
   }
 
@@ -132,24 +171,23 @@ Future<void> _runConsistencyReport() async {
       .where((l) => l.trim().isNotEmpty)
       .toList();
 
-  int csvRecordCount = 0;
+  int csvCount = 0;
   final Map<String, int> csvWordCounts = {};
-  final Map<String, String> csvDisplayWord = {};
   final Map<String, List<int>> csvLineNumbers = {};
+  final Map<String, String> csvDisplayWord = {};
 
   if (csvLines.length > 1) {
-    final dataLines = csvLines.sublist(1);
-    csvRecordCount = dataLines.length;
+    final data = csvLines.sublist(1);
+    csvCount = data.length;
 
-    for (int i = 0; i < dataLines.length; i++) {
-      final line = dataLines[i];
+    for (int i = 0; i < data.length; i++) {
+      final line = data[i];
       final parts = line.split(',');
       if (parts.isEmpty) continue;
 
       final word = parts.first.trim();
-      if (word.isEmpty) continue;
-
       final key = word.toLowerCase();
+
       csvWordCounts[key] = (csvWordCounts[key] ?? 0) + 1;
       csvDisplayWord.putIfAbsent(key, () => word);
       csvLineNumbers.putIfAbsent(key, () => []).add(i + 2);
@@ -164,24 +202,23 @@ Future<void> _runConsistencyReport() async {
   final jsonPath = join(directory.path, fileNameJson);
   final jsonFile = File(jsonPath);
   if (!await jsonFile.exists()) {
-    log('⚠️ JSON dosyası bulunamadı: $jsonPath', name: tag);
+    log('⚠️ JSON bulunamadı: $jsonPath', name: tag);
     return;
   }
 
   final jsonRaw = await jsonFile.readAsString();
-  final List<dynamic> jsonList = jsonDecode(jsonRaw) as List<dynamic>;
+  final List<dynamic> jsonList = jsonDecode(jsonRaw);
   final int jsonCount = jsonList.length;
 
-  String? wordKey;
+  String wordKey = 'Word';
   if (jsonList.isNotEmpty) {
-    final first = jsonList.first as Map<String, dynamic>;
+    final first = jsonList.first;
     for (final k in first.keys) {
       if (k.toString().toLowerCase() == 'word') {
         wordKey = k;
         break;
       }
     }
-    wordKey ??= first.keys.first;
   }
 
   final Map<String, int> jsonWordCounts = {};
@@ -189,8 +226,7 @@ Future<void> _runConsistencyReport() async {
 
   for (final entry in jsonList) {
     final map = entry as Map<String, dynamic>;
-    final value = map[wordKey] ?? '';
-    final word = value.toString().trim();
+    final word = map[wordKey]?.toString().trim() ?? '';
     if (word.isEmpty) continue;
 
     final key = word.toLowerCase();
@@ -202,81 +238,70 @@ Future<void> _runConsistencyReport() async {
       .where((e) => e.value > 1)
       .toList();
 
-  // ---------- SQL OKUMA ----------
+  // ---------- SQL ----------
   final dbWords = await DbHelper.instance.getRecords();
   final int sqlCount = dbWords.length;
-  final Set<String> sqlWordsLower = dbWords
-      .map((w) => w.word.trim().toLowerCase())
-      .toSet();
 
-  final Set<String> jsonWordsLower = jsonWordCounts.keys.toSet();
+  final sqlWordsLower = dbWords.map((w) => w.word.trim().toLowerCase()).toSet();
 
-  final missingInSql = jsonWordsLower.difference(sqlWordsLower);
-  final extraInSql = sqlWordsLower.difference(jsonWordsLower);
+  final jsonWordsLower = jsonWordCounts.keys.toSet();
+
+  final missingInJson = csvWordCounts.keys.toSet().difference(jsonWordsLower);
 
   // ---------- RAPOR ----------
   log(logLine, name: tag);
   log('📊 VERİ TUTARLILIK RAPORU', name: tag);
-  log('CSV kayıt sayısı : $csvRecordCount', name: tag);
+  log('CSV kayıt sayısı : $csvCount', name: tag);
   log('JSON kayıt sayısı: $jsonCount', name: tag);
   log('SQL kayıt sayısı : $sqlCount', name: tag);
 
-  if (csvRecordCount == jsonCount && jsonCount == sqlCount) {
-    log('✅ TÜM DOSYALAR UYUMLU ✔', name: tag);
+  if (csvCount == jsonCount && jsonCount == sqlCount) {
+    log('✅ TÜM DOSYALAR UYUMLU', name: tag);
   } else {
-    log('❌ TUTARSIZLIK VAR! ✔ Kontrol edilmeli.', name: tag);
+    log('❌ TUTARSIZLIK VAR → Kontrol edilmeli!', name: tag);
   }
 
-  // --- CSV duplicate ---
+  // CSV duplicate
   if (csvDuplicates.isEmpty) {
-    log('✅ CSV içinde duplicate Word yok.', name: tag);
+    log('✅ CSV duplicate yok.', name: tag);
   } else {
-    log('🔁 CSV duplicate Word listesi:', name: tag);
+    log('🔁 CSV duplicate listesi:', name: tag);
     for (final e in csvDuplicates) {
       final w = csvDisplayWord[e.key]!;
       final lines = csvLineNumbers[e.key]!;
       log(
-        '   • "$w" → ${e.value} kez (satırlar: ${lines.join(', ')})',
+        ' • "$w" → ${e.value} kez (satırlar: ${lines.join(', ')})',
         name: tag,
       );
     }
   }
 
-  // --- JSON duplicate ---
+  // JSON duplicate
   if (jsonDuplicates.isEmpty) {
-    log('✅ JSON içinde duplicate Word yok.', name: tag);
+    log('✅ JSON duplicate yok.', name: tag);
   } else {
-    log('🔁 JSON duplicate Word listesi:', name: tag);
+    log('🔁 JSON duplicate listesi:', name: tag);
     for (final e in jsonDuplicates) {
       final w = jsonDisplayWord[e.key]!;
-      log('   • "$w" → ${e.value} kez', name: tag);
+      log(' • "$w" → ${e.value} kez', name: tag);
     }
   }
 
-  // --- JSON → SQL eksik aktarım ---
-  if (missingInSql.isEmpty) {
-    log('✅ JSON’daki tüm kelimeler SQL’e aktarılmış.', name: tag);
-  } else {
-    log('❌ JSON’da olup SQL’e girmeyen kelimeler:', name: tag);
-    for (final key in missingInSql) {
-      log('   • ${jsonDisplayWord[key]}', name: tag);
-    }
-  }
+  // CSV → JSON eksik kelimeler
+  final missingList = missingInJson.toList()..sort();
 
-  // --- SQL’de fazladan ---
-  if (extraInSql.isNotEmpty) {
+  if (missingList.isNotEmpty) {
     log(
-      'ℹ️ Sadece SQL’de bulunan kelimeler (${extraInSql.length} adet):',
+      '❌ CSV → JSON eksik kelimeler (${missingList.length} adet):',
       name: tag,
     );
-    int printed = 0;
-    for (final key in extraInSql) {
-      log('   • $key', name: tag);
-      if (++printed >= 20) {
-        log('   ... (ilk 20 gösterildi)', name: tag);
-        break;
-      }
+    for (final key in missingList) {
+      final w = csvDisplayWord[key]!;
+      final lines = csvLineNumbers[key]!;
+      log(' • "$w" (satırlar: ${lines.join(', ')})', name: tag);
     }
+  } else {
+    log('✅ CSV → JSON tüm kelimeler aktarılmış.', name: tag);
   }
 
   log(logLine, name: tag);
