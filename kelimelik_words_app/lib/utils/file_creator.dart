@@ -13,7 +13,6 @@
 //   8️⃣ Notification gösterme
 // -----------------------------------------------------------
 
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -27,6 +26,7 @@ import '../utils/zip_helper.dart';
 import '../widgets/show_notification_handler.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
+import 'fc_files/fc_report.dart';
 import 'fc_files/json_helper.dart';
 import 'fc_files/sql_helper.dart';
 
@@ -82,7 +82,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await createJsonFromAssetCsv();
     await createExcelFromAssetCsvSyncfusion();
     await importJsonToDatabaseFast();
-    await _runConsistencyReport();
+    await runConsistencyReport();
 
     /// 📌 ZIP oluştur
     final zipFull = await createZipArchive();
@@ -109,7 +109,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   if (dbExists && recordCount > 0) {
     log("🟢 DB zaten dolu ($recordCount kayıt).", name: tag);
 
-    await _runConsistencyReport();
+    await runConsistencyReport();
     if (!context.mounted) return;
 
     /// 📌 Notification
@@ -138,7 +138,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   await createJsonFromAssetCsv();
   await createExcelFromAssetCsvSyncfusion();
   await importJsonToDatabaseFast();
-  await _runConsistencyReport();
+  await runConsistencyReport();
 
   if (!context.mounted) return;
 
@@ -157,40 +157,4 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     "✅ initializeAppDataFlow tamamlandı: ${sw.elapsedMilliseconds} ms",
     name: tag,
   );
-}
-
-// ======================================================================
-// 📊 Raporlama
-// ======================================================================
-Future<void> _runConsistencyReport() async {
-  final directory = await getApplicationDocumentsDirectory();
-  final csvPath = join(directory.path, fileNameCsv);
-  final jsonPath = join(directory.path, fileNameJson);
-
-  /// 📜 CSV
-  final csvRaw = await File(csvPath).readAsString();
-  final csvLines = csvRaw
-      .replaceAll("\r\n", "\n")
-      .replaceAll("\r", "\n")
-      .split("\n")
-      .where((e) => e.trim().isNotEmpty)
-      .toList();
-  final csvCount = csvLines.length - 1;
-
-  /// 📜 JSON
-  final jsonList = jsonDecode(await File(jsonPath).readAsString()) as List;
-  final jsonCount = jsonList.length;
-
-  /// 📜 SQL
-  final sqlCount = await DbHelper.instance.countRecords();
-
-  log(logLine, name: tag);
-  log("📊 CSV: $csvCount | JSON: $jsonCount | SQL: $sqlCount", name: tag);
-  log(
-    csvCount == jsonCount && jsonCount == sqlCount
-        ? "✅ TUTARLI"
-        : "❌ TUTARSIZLIK VAR",
-    name: tag,
-  );
-  log(logLine, name: tag);
 }
