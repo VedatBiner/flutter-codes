@@ -2,10 +2,12 @@
 //
 // CSV senkronizasyon ve asset → cihaz kopyalama işlemleri
 // -----------------------------------------------------------
-// Yeni Özellikler:
-// • Asset CSV cihaz CSV’den daha yeni mi? (checkCsvSyncStatus)
-// • Asset daha yeniyse REBUILD kararı file_creator.dart tarafından alınır
-// • createOrUpdateDeviceCsvFromAsset artık rebuild kontrol sonucu döndürür
+// • CsvSyncResult: asset / device CSV karşılaştırma sonuçları
+// • createOrUpdateDeviceCsvFromAsset():
+//     - Asset ve cihaz CSV 'yi okur
+//     - Kayıt sayılarını karşılaştırır
+//     - Asset daha yeni ise cihaz CSV 'yi günceller
+//     - needsRebuild = assetCount != deviceCount
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -34,118 +36,94 @@ class CsvSyncResult {
   });
 }
 
-/// Asset CSV cihaz CSV ’den yeni mi?
-/// Rebuild kararını üretir.
-Future<CsvSyncResult> checkCsvSyncStatus() async {
-  const tag = 'csv_helper';
-
+/// Asset CSV tam metin okuma
+Future<String> _loadAssetCsvRaw() async {
   const assetCsvPath = 'assets/database/$fileNameCsv';
-  final assetCsvRaw = await rootBundle.loadString(assetCsvPath);
-  final assetCount = _countCsvLines(assetCsvRaw);
+  return rootBundle.loadString(assetCsvPath);
+}
 
+/// Cihaz CSV tam okuma
+Future<String> _loadDeviceCsvRaw() async {
   final directory = await getApplicationDocumentsDirectory();
   final devicePath = join(directory.path, fileNameCsv);
-  final deviceFile = File(devicePath);
+  final file = File(devicePath);
+  return file.existsSync() ? file.readAsString() : '';
+}
 
-  if (!await deviceFile.exists()) {
+/// Cihaz CSV kaydetme
+Future<void> _saveDeviceCsv(String content) async {
+  final directory = await getApplicationDocumentsDirectory();
+  final path = join(directory.path, fileNameCsv);
+  await File(path).writeAsString(content);
+}
+
+/// CSV senkronizasyonu (DETAYLI RAPOR + Rebuild kararı)
+Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
+  const tag = "csv_helper";
+
+  try {
+    // 🟦 Asset CSV
+    final assetRaw = await _loadAssetCsvRaw();
+    final assetCount = _countCsvLines(assetRaw);
+
+    if (assetCount <= 1) {
+      log("⚠ Asset CSV boş veya sadece başlık içeriyor.", name: tag);
+      return CsvSyncResult(
+        deviceExists: false,
+        assetIsNewer: false,
+        needsRebuild: false,
+        assetCount: assetCount,
+        deviceCount: 0,
+      );
+    }
+
+    // 🟧 Device CSV
+    final deviceRaw = await _loadDeviceCsvRaw();
+    final deviceExists = deviceRaw.isNotEmpty;
+    final deviceCount = deviceExists ? _countCsvLines(deviceRaw) : 0;
+
+    // 🟨 Kararlar
+    final assetIsNewer = assetCount > deviceCount;
+    final needsRebuild = assetCount != deviceCount;
+
     log(
-      '📊 CSV Sync: Cihaz CSV yok → Asset daha yeni (ilk kurulum)',
+      "📊 CSV Sync → Asset: $assetCount | Device: $deviceCount | Newer: $assetIsNewer | Rebuild: $needsRebuild",
       name: tag,
     );
 
+    // Cihaz CSV güncellemesi
+    if (!deviceExists || assetIsNewer) {
+      await _saveDeviceCsv(assetRaw);
+      log(
+        deviceExists
+            ? "✅ CSV güncellendi → Asset > Device"
+            : "📁 CSV ilk kez oluşturuldu",
+        name: tag,
+      );
+    }
+
+    return CsvSyncResult(
+      deviceExists: deviceExists,
+      assetIsNewer: assetIsNewer,
+      needsRebuild: needsRebuild,
+      assetCount: assetCount,
+      deviceCount: deviceCount,
+    );
+  } catch (e, st) {
+    log("❌ CSV sync hatası: $e", name: tag, error: e, stackTrace: st);
     return CsvSyncResult(
       deviceExists: false,
-      assetIsNewer: true,
-      needsRebuild: true,
-      assetCount: assetCount,
+      assetIsNewer: false,
+      needsRebuild: false,
+      assetCount: 0,
       deviceCount: 0,
     );
   }
-
-  final deviceRaw = await deviceFile.readAsString();
-  final deviceCount = _countCsvLines(deviceRaw);
-
-  final assetNewer = assetCount > deviceCount;
-  final rebuild = assetCount != deviceCount;
-
-  log(
-    '📊 CSV Sync – Asset: $assetCount, Device: $deviceCount, Asset > Device = $assetNewer',
-    name: tag,
-  );
-
-  return CsvSyncResult(
-    deviceExists: true,
-    assetIsNewer: assetNewer,
-    needsRebuild: rebuild,
-    assetCount: assetCount,
-    deviceCount: deviceCount,
-  );
 }
 
-/// Asset içindeki CSV cihazdaki CSV 'den daha yeniyse cihaz dosyasını günceller.
-/// Return → REBUILD kararı + CSV durum bilgileri
-Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
-  const tag = 'csv_helper';
-
-  final assetCsv = await loadAssetCsv();
-  final deviceCsv = await loadDeviceCsv();
-
-  final assetCount = assetCsv.length;
-  final deviceCount = deviceCsv.length;
-
-  final assetIsNewer = assetCount > deviceCount;
-  final rebuildNeeded = assetCount != deviceCount;
-
-  if (assetIsNewer) {
-    await saveDeviceCsv(assetCsv);
-    log('📁 CSV güncellendi. Yeni kayıt sayısı: $assetCount', name: tag);
-  }
-
-  return CsvSyncResult(
-    deviceExists: true,
-    assetIsNewer: assetIsNewer,
-    needsRebuild: rebuildNeeded,
-    assetCount: assetCount,
-    deviceCount: deviceCount,
-  );
-}
-
-/// CSV satır sayısı (boş satırlar hariç)
+/// CSV satır sayısı (boşlar hariç)
 int _countCsvLines(String rawCsv) {
   if (rawCsv.isEmpty) return 0;
-
   final normalized = rawCsv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-
-  return normalized.split('\n').where((line) => line.trim().isNotEmpty).length;
-}
-
-/// Asset CSV oku
-Future<List<String>> loadAssetCsv() async {
-  const path = 'assets/database/$fileNameCsv';
-  final raw = await rootBundle.loadString(path);
-
-  final normalized = raw.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-
-  return normalized.split('\n').where((l) => l.trim().isNotEmpty).toList();
-}
-
-/// Device CSV oku
-Future<List<String>> loadDeviceCsv() async {
-  final directory = await getApplicationDocumentsDirectory();
-  final path = join(directory.path, fileNameCsv);
-  final file = File(path);
-
-  if (!await file.exists()) return [];
-
-  final raw = await file.readAsString();
-  final normalized = raw.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-
-  return normalized.split('\n').where((l) => l.trim().isNotEmpty).toList();
-}
-
-/// Device CSV kaydet
-Future<void> saveDeviceCsv(List<String> lines) async {
-  final directory = await getApplicationDocumentsDirectory();
-  final file = File(join(directory.path, fileNameCsv));
-  await file.writeAsString(lines.join('\n'));
+  return normalized.split("\n").where((e) => e.trim().isNotEmpty).length;
 }

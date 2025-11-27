@@ -31,7 +31,7 @@ import '../utils/file_creator.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
-import '../widgets/sql_loading_card.dart';
+// import '../widgets/sql_loading_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
   /// 📌 İlk açılışta ve menüden tetiklendiğinde veri akışını başlatır.
   Future<void> loadData() async {
     setState(() => isLoadingJson = true);
-    await initializeAppDataFlow();
+    await initializeAppDataFlow(context);
     await _loadWords(); // Veritabanından kelimeleri yükle
     setState(() => isLoadingJson = false);
   }
@@ -191,10 +191,10 @@ class _HomePageState extends State<HomePage> {
                     )
                     onStatus,
                   }) async {
-                    // Bu bölüm artık doğrudan file_creator.dart'ı tetikliyor.
+                    // Bu bölüm artık doğrudan file_creator.dart 'ı tetikliyor.
                     // Karmaşık geri bildirimler (progress, word vb.) şimdilik kaldırıldı.
                     onStatus(true, 0, 'Veriler hazırlanıyor...', Duration.zero);
-                    await initializeAppDataFlow();
+                    await initializeAppDataFlow(context);
                     await _loadWords();
                     onStatus(false, 1, 'Tamamlandı', Duration.zero);
                   },
@@ -214,12 +214,12 @@ class _HomePageState extends State<HomePage> {
         ),
 
         // 🔄 Yükleme kartı
-        if (isLoadingJson)
-          SQLLoadingCard(
-            progress: progress,
-            loadingWord: loadingWord,
-            elapsedTime: elapsedTime,
-          ),
+        // if (isLoadingJson)
+        //   SQLLoadingCard(
+        //     progress: progress,
+        //     loadingWord: loadingWord,
+        //     elapsedTime: elapsedTime,
+        //   ),
       ],
     );
   }

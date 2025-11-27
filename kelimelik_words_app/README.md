@@ -129,7 +129,10 @@ bir chatGPT ortak çalışması :)
 124. `zip_helper.dart`, `file_creator.dart`, `backup_notification.helper.dart` ve `home_page.dart` düzenlendi. zip dosya oluşuyor ve konsola log 'lanıyor. - 25.11.2025
 125. logLine değişkeni ie log 'larda sabit çizgi çizilmesi sağlandı. - 25.11.2025
 126. `file_creator.drt`, `csv_helper.dart` ve `db_helper.dart`dosyaları güncellendi. - 26.11.2025
-127. 
+127. `show_notifications_handler.dart` dosyası güncellendi. - 26.11.2025
+128. veriler oluşunca notification verilmesi sağlandı. - 27.11.2025
+129. `csv_helper.dart` dosyası güncellendi - 27.11.2025
+130. 
 
 
 
@@ -147,7 +150,6 @@ Yapılacaklar :
 - animasyon kaldırılabilir.
 - compute yapısı ile performans artışı sağlanabilir.
 - Animasyonlu ve animasyonsuz veri yüklemesi olabilir.
-
 
 
 

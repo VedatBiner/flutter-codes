@@ -52,6 +52,44 @@ void showBackupNotification(
   );
 }
 
+void showCreateDbNotification(
+  BuildContext rootCtx,
+  String jsonPathDownload,
+  String csvPathDownload,
+  String excelPathDownload,
+  String sqlPathDownload,
+  String zipPathDownload,
+) {
+  return NotificationService.showCustomNotification(
+    context: rootCtx,
+    title: ' ',
+    message: RichText(
+      text: TextSpan(
+        style: normalBlackText,
+        children: [
+          const TextSpan(text: '\nVeriler yüklendi\n\n', style: kelimeAddText),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(csvPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(excelPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(zipPathDownload)}\n"),
+        ],
+      ),
+    ),
+    icon: Icons.download_for_offline_outlined,
+    iconColor: Colors.green,
+    progressIndicatorColor: Colors.green,
+    progressIndicatorBackground: Colors.green.shade100,
+    width: 260,
+    height: 260,
+  );
+}
+
 /// 📌 Notification göster - Kelime Silindi
 ///
 void showDeleteNotification(BuildContext context, Word word) {
