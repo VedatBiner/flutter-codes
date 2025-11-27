@@ -37,7 +37,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
   log("🚀 initializeAppDataFlow başladı", name: tag);
 
-  // 0️⃣ Tüm dosya yollarını tek yerde hesapla
+  /// 0️⃣ Tüm dosya yollarını tek yerde hesapla
   final directory = await getApplicationDocumentsDirectory();
   final jsonFull = join(directory.path, fileNameJson);
   final csvFull = join(directory.path, fileNameCsv);
@@ -45,7 +45,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final sqlFull = join(directory.path, fileNameSql);
   final zipFull = join(directory.path, fileNameZip);
 
-  // 1️⃣ CSV Sync
+  ///1️⃣ CSV Sync
   final csvSync = await createOrUpdateDeviceCsvFromAsset();
 
   // DB mevcut mu?
@@ -85,7 +85,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await _runConsistencyReport();
 
     /// 📌 ZIP oluştur
-    final createdZip = await createZipArchive();
+    final zipFull = await createZipArchive();
     if (!context.mounted) return;
 
     /// 📌 Notification
@@ -95,7 +95,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       csvFull,
       excelFull,
       sqlFull,
-      createdZip,
+      zipFull,
     );
 
     sw.stop();
@@ -110,7 +110,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     log("🟢 DB zaten dolu ($recordCount kayıt).", name: tag);
 
     await _runConsistencyReport();
-    final zipPath = await createZipArchive();
     if (!context.mounted) return;
 
     /// 📌 Notification
@@ -120,7 +119,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       csvFull,
       excelFull,
       sqlFull,
-      zipPath,
+      zipFull,
     );
 
     sw.stop();
@@ -141,7 +140,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   await importJsonToDatabaseFast();
   await _runConsistencyReport();
 
-  final zipPath = await createZipArchive();
   if (!context.mounted) return;
 
   /// 📌 Notification
@@ -151,7 +149,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     csvFull,
     excelFull,
     sqlFull,
-    zipPath,
+    zipFull,
   );
 
   sw.stop();
