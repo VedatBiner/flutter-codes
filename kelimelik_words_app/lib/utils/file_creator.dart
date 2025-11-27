@@ -112,7 +112,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await _runConsistencyReport();
     final zipPath = await createZipArchive();
 
-    // Notification
+    /// 📌 Notification
     showCreateDbNotification(
       context,
       jsonFull,
@@ -142,6 +142,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
   final zipPath = await createZipArchive();
 
+  /// 📌 Notification
   showCreateDbNotification(
     context,
     jsonFull,
