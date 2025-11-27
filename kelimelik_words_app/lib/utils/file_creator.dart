@@ -33,7 +33,6 @@ import 'fc_files/sql_helper.dart';
 const tag = "file_creator";
 
 Future<void> initializeAppDataFlow(BuildContext context) async {
-  // const tag = "file_creator";
   final sw = Stopwatch()..start();
 
   log("🚀 initializeAppDataFlow başladı", name: tag);
@@ -87,6 +86,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     /// 📌 ZIP oluştur
     final createdZip = await createZipArchive();
+    if (!context.mounted) return;
 
     /// 📌 Notification
     showCreateDbNotification(
@@ -111,6 +111,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     await _runConsistencyReport();
     final zipPath = await createZipArchive();
+    if (!context.mounted) return;
 
     /// 📌 Notification
     showCreateDbNotification(
@@ -141,6 +142,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   await _runConsistencyReport();
 
   final zipPath = await createZipArchive();
+  if (!context.mounted) return;
 
   /// 📌 Notification
   showCreateDbNotification(
@@ -163,8 +165,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 // 📊 Raporlama
 // ======================================================================
 Future<void> _runConsistencyReport() async {
-  // const tag = "consistency";
-
   final directory = await getApplicationDocumentsDirectory();
   final csvPath = join(directory.path, fileNameCsv);
   final jsonPath = join(directory.path, fileNameJson);
