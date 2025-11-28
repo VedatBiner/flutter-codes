@@ -82,7 +82,12 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await createJsonFromAssetCsv();
     await createExcelFromAssetCsvSyncfusion();
     await importJsonToDatabaseFast();
-    await runConsistencyReport();
+    await runFullDataReport(
+      csvToJsonMs: 0,
+      jsonToSqlMs: 0,
+      totalPipelineMs: 0,
+      insertDurations: [],
+    );
 
     /// 📌 ZIP oluştur
     final zipFull = await createZipArchive();
@@ -109,7 +114,12 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   if (dbExists && recordCount > 0) {
     log("🟢 DB zaten dolu ($recordCount kayıt).", name: tag);
 
-    await runConsistencyReport();
+    await runFullDataReport(
+      csvToJsonMs: 0,
+      jsonToSqlMs: 0,
+      totalPipelineMs: 0,
+      insertDurations: [],
+    );
     if (!context.mounted) return;
 
     /// 📌 Notification
@@ -138,7 +148,12 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   await createJsonFromAssetCsv();
   await createExcelFromAssetCsvSyncfusion();
   await importJsonToDatabaseFast();
-  await runConsistencyReport();
+  await runFullDataReport(
+    csvToJsonMs: 0,
+    jsonToSqlMs: 0,
+    totalPipelineMs: 0,
+    insertDurations: [],
+  );
 
   if (!context.mounted) return;
 
