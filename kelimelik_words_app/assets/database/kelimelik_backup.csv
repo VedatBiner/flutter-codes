@@ -108,6 +108,7 @@ Akne,Sivilce
 Akor,Üç veya daha fazla sesin tınlaması
 Akpas,Bir tür mantar
 Aks,Dingil
+Aksan,Vurgu
 Aksu,Katarakt / Antalya ilçesi
 Akur,Kuduruk / Azgın / Şiddetli
 Akut,İveğen
@@ -465,6 +466,7 @@ Ballı,Şanslı
 Balo,Danslı ve özel giysili gece eğlencesi
 Balon,Atmosferde gszla uçabilen küre biçimli araç / Çocuk oyuncağı
 Balsam,Bir tür reçine
+Balta,"Ağaç kesme, yontma aracı"
 Balzam,Balsam
 Balık,Splungaçla nefes alan su hayvanları
 Bam,Sazın en kalın teli
@@ -998,6 +1000,7 @@ Dümen,Yönetim / İdare
 Dün,Geçmiş / Önceki gün
 Dünya,Üzerinde yaşadığımız yer yüzü
 Dürmek,Katlayıp yuvarlamak
+Düyek,Türk müziğinde usul
 Düz,Yatay durumda olan
 Düze,Doz
 Düğü,Pirinç / İnce bulgur
@@ -1684,8 +1687,8 @@ Irmak,Nehir
 İroni,Gülmece / Tersini kastederek alay etme
 İrs,Kalıtım
 Irz,Dokunulmaması ve saygı gösterilmesi gereken iffet
-İs,Duman lekesi
 Is,Açıklık / Doğruluk
+İs,Duman lekesi
 İsa,Hıristiyanlık kurucusu peygamber
 İsal,Ulaştırma
 İsale,Akıtma
@@ -1819,6 +1822,7 @@ Kakalama,Kakalamak işi
 Kakao,Hint bademi / Ağaç cinsi
 Kaklık,Kaya ve ağaç oyuklarında su birikintisi
 Kakül,Alna düşen kısa saç / perçem
+Kakım,Sansar gillerden etçil bir hayvan
 Kakış,Kakma işi
 Kal,Söz / Lakırdı / Laf
 Kala,Kaldığında
@@ -1848,6 +1852,7 @@ Kamil,Yetkin / Erişkin / Mükemmel
 Kamu,Halk / Halk hizmeti gören devlet organları
 Kan,Soy / Vücut sıvısı
 Kana,Geminin baş ve kıçına konan su çekme işaretleri
+Kanca,Bir şey çekmeye yarayan ucu çengelli demir çubuk
 Kandil,Aydınlatma aracı
 Kani,Kanmış / İnanmış
 Kanka,Kardeş kadar yakın olan kimse
@@ -2309,6 +2314,7 @@ Ladik,Samsun ilçesi
 Ladin,Çam türü
 Laf,Söz
 Lahit,Taş veya mermer oyma mezar
+Laik,Din işlerini devlet işlerinden ayırma
 Lain,Lanetlenmiş / Melun
 Lak,Bir çeşit zamk
 Lakacı,Lakcı
@@ -2862,6 +2868,7 @@ Ovalı,Ova halkından olan
 Oy,Tercih / Seçim
 Oya,Ince dantel
 Oyma,Oyma işi
+Oyum,Oyma işi
 Oyun,Vakit geçirmeye yarayan eğlence
 Ozan,Şair
 Oğan,Tanrı
@@ -3513,6 +3520,7 @@ Tasa,Kaygı / Endişe / Gam
 Tasalı,Tasasın olan
 Tasar,"Bir işin seviyesini gösteren resim, düzey, plan"
 Tasarı,Olmadı veya yapılması istenen şeyin zihindeki hali
+Tasgir,Küçültme / Ufak duruma getirme
 Tat,Duyum
 Tatar,Türk soyundan bir halk
 Tatil,Dinlenmek amacıyla çalışmadan geçirilen zaman
@@ -4414,6 +4422,7 @@ Zıt,Karşıt / ters
 Şilte,Içi yün veya pamukla dolu döşek
 Şimal,Kuzey
 Şimdi,Şu anda / Bulunduğumuz zamanda
+Şime,Huy
 Şip,Biz
 Şirin,Sevimli / Cana yakın
 Şirk,Eş koşma
