@@ -133,7 +133,8 @@ bir chatGPT ortak çalışması :)
 128. veriler oluşunca notification verilmesi sağlandı. - 27.11.2025
 129. `csv_helper.dart` dosyası güncellendi - 27.11.2025
 130. Raporlama işi için `fc_report.dart` dosyası oluşturuldu. - 27.11.2025
-131. 
+131. Detaylı raporlama yaptırıldı. - 28.11.2025
+132. 
 
 
 
