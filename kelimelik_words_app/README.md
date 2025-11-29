@@ -135,8 +135,10 @@ bir chatGPT ortak çalışması :)
 130. Raporlama işi için `fc_report.dart` dosyası oluşturuldu. - 27.11.2025
 131. Detaylı raporlama yaptırıldı. - 28.11.2025
 132. `sql_helper.dart` dosyası güncellendi. - 29.11.2025
-133. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı.
-134. 
+133. `zip_helper.dart` dosyası güncellendi. - 29.11.2025
+133. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı. - 29.11.2025
+134. `assets\animations\fileupload.json` dosyası kaldırıldı. - 29.11.2025
+135. 
 
 
 
@@ -150,7 +152,6 @@ bir chatGPT ortak çalışması :)
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - web ile ilgili bölüm çıkarılmalı.
-- Excel, json, csv bölümleri ayrı dosya haline (netflix dosyasındaki gibi) getirilebilir.
 - zip yedeği eklenebilir.
 - animasyon kaldırılabilir.
 - compute yapısı ile performans artışı sağlanabilir.

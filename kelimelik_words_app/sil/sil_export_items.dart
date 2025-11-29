@@ -34,7 +34,6 @@ import '../db/db_helper.dart'; // DbHelper.instance.getRecords()
 import '../models/item_model.dart';
 import '../utils/fc_files/zip_helper.dart'; // Zip arşivi oluşturmak için eklendi
 import '../utils/json_saver.dart';
-import 'export_items_formats.dart'; // JsonSaver.saveToDownloads / saveTextToDownloads / saveBytesToDownloads
 
 class ExportItems {
   final String jsonPath;

@@ -1,10 +1,7 @@
 // 📃 <----- lib/utils/zip_helper.dart ----->
 //
-// ZIP oluşturma helper
-// -----------------------------------------------------------
-// • JSON, CSV, XLSX ve veritabanı dosyasını tek bir ZIP 'e toplar
-// • Dosya yollarını ayrıntılı şekilde loglar
-// • ZIP dosyası app_flutter klasöründe oluşturulur
+// JSON / CSV / XLSX / SQL dosyalarını ZIP haline getirir.
+// ZIP dosyası app_flutter dizinine oluşturulur ve tam path döndürülür.
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -16,53 +13,62 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../constants/file_info.dart';
 
+/// 📦 ZIP arşivi oluşturur ve ZIP dosyasının TAM PATH 'ini döndürür.
+///
+/// ZIP içine eklenen dosyalar:
+///   • kelimelik_backup.json
+///   • kelimelik_backup.csv
+///   • kelimelik_backup.xlsx
+///   • kelimelik.db
+///
+/// Dönüş:
+///   → /data/user/0/aa.vb.kelimelik_word_app/app_flutter/kelimelik_backup.zip
 Future<String> createZipArchive() async {
   const tag = 'zip_helper';
   log('📦 ZIP oluşturma başlatılıyor...', name: tag);
 
-  try {
-    // 📂 Uygulama Documents klasörü (app_flutter burada)
-    final directory = await getApplicationDocumentsDirectory();
-    final appPath = directory.path;
+  // 📂 Uygulama dizini
+  final directory = await getApplicationDocumentsDirectory();
 
-    log('📁 ZIP dizini: $appPath', name: tag);
+  // 📁 ZIP tam yolu (FULL PATH)
+  final zipFullPath = join(directory.path, fileNameZip);
+  log('📁 ZIP dizini  : ${directory.path}', name: tag);
+  log('📄 ZIP dosyası : $zipFullPath', name: tag);
 
-    // ZIP dosyasının yolu
-    final zipPath = join(appPath, fileNameZip);
-    log('📌 ZIP çıkış yolu: $zipPath', name: tag);
+  // 🗜️ ZIP Encoder
+  final encoder = ZipFileEncoder();
+  encoder.create(zipFullPath);
 
-    final encoder = ZipFileEncoder();
-    encoder.create(zipPath);
+  // 🗂 Arşive eklenecek dosyalar
+  final filesToZip = [
+    File(join(directory.path, fileNameJson)),
+    File(join(directory.path, fileNameCsv)),
+    File(join(directory.path, fileNameXlsx)),
+    File(join(directory.path, fileNameSql)),
+  ];
 
-    // Arşivlenecek dosyalar
-    final files = {
-      'JSON': File(join(appPath, fileNameJson)),
-      'CSV': File(join(appPath, fileNameCsv)),
-      'Excel': File(join(appPath, fileNameXlsx)),
-      'SQL': File(join(appPath, fileNameSql)),
-    };
+  // 🔍 Dosyaları tek tek ekle
+  for (final file in filesToZip) {
+    final fileName = basename(file.path);
 
-    for (final entry in files.entries) {
-      final type = entry.key;
-      final file = entry.value;
-
-      log('🔍 Kontrol: ${file.path}', name: tag);
-
-      if (await file.exists()) {
-        encoder.addFile(file);
-        log('➕ Eklendi → $type: ${basename(file.path)}', name: tag);
-      } else {
-        log('⚠️ Yok → $type dosyası bulunamadı: ${file.path}', name: tag);
-      }
+    // ✔ Dosya var mı kontrol et
+    if (await file.exists()) {
+      encoder.addFile(file);
+      log('➕ Eklendi → $fileName', name: tag);
+    } else {
+      log('⚠️ Dosya bulunamadı, eklenemedi → ${file.path}', name: tag);
     }
-
-    encoder.close();
-    log('✅ ZIP başarıyla oluşturuldu: $zipPath', name: tag);
-    log(logLine, name: tag);
-
-    return zipPath;
-  } catch (e, st) {
-    log('❌ ZIP oluşturulamadı: $e', name: tag, error: e, stackTrace: st);
-    rethrow;
   }
+
+  // 🤐 ZIP kapat
+  encoder.close();
+
+  // ✔ Güvenlik kontrolü
+  if (!await File(zipFullPath).exists()) {
+    log('❌ ZIP oluşturulamadı! (Dosya bulunamadı)', name: tag);
+  } else {
+    log('✅ ZIP başarıyla oluşturuldu: $zipFullPath', name: tag);
+  }
+
+  return zipFullPath; // FULL PATH DÖNÜYOR! 🔥
 }
