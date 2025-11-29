@@ -23,7 +23,9 @@ Future<Map<String, String>> runFullExport({String? subfolder}) async {
   final xlsxFull = join(basePath, fileNameXlsx);
   final sqlFull = join(basePath, fileNameSql);
 
+  log(logLine, name: tag);
   log("📦 Export başladı...", name: tag);
+  log(logLine, name: tag);
 
   // ================================
   // 1️⃣ SQL → CSV
@@ -73,7 +75,7 @@ Future<Map<String, String>> runFullExport({String? subfolder}) async {
   // 4️⃣ ZIP oluştur
   // ================================
   final zipPath = await createZipArchive();
-  log("📦 ZIP oluşturuldu: $zipPath", name: tag);
+  log("✅ ZIP oluşturuldu: $zipPath", name: tag);
 
   // ================================
   // 5️⃣ Download klasörüne kopyala
@@ -98,11 +100,12 @@ Future<Map<String, String>> runFullExport({String? subfolder}) async {
     fileNameCsv: await copy(csvFull),
     fileNameXlsx: await copy(xlsxFull),
     fileNameSql: await copy(sqlFull),
-    fileNameZip: await copy(zipPath), // 👈 ZIP artık download ’a kopyalanıyor
+    fileNameZip: await copy(zipPath),
     "count": rows.length.toString(),
   };
 
   log("📁 Tüm dosyalar Download klasörüne kopyalandı", name: tag);
+  log(logLine, name: tag);
 
   return map;
 }

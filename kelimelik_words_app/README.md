@@ -138,7 +138,8 @@ bir chatGPT ortak çalışması :)
 133. `zip_helper.dart` dosyası güncellendi. - 29.11.2025
 133. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı. - 29.11.2025
 134. `assets\animations\fileupload.json` dosyası kaldırıldı. - 29.11.2025
-135. 
+135. eski `export_items.dart`, `export_items_formats.dart`, `json_loader.dart` ve `sql_loading_card.dart` dosyaları kaldırıldı. - 29.11.2025
+136. 
 
 
 
@@ -152,10 +153,8 @@ bir chatGPT ortak çalışması :)
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - web ile ilgili bölüm çıkarılmalı.
-- zip yedeği eklenebilir.
-- animasyon kaldırılabilir.
 - compute yapısı ile performans artışı sağlanabilir.
-- Animasyonlu ve animasyonsuz veri yüklemesi olabilir.
+- log 'larda düzeltmeler gerekli
 
 
 

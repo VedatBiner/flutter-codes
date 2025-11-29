@@ -105,6 +105,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     sw.stop();
     log("⏱ REBUILD tamamlandı: ${sw.elapsedMilliseconds} ms", name: tag);
+    logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
     return;
   }
 
@@ -137,6 +138,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       "⏱ initializeAppDataFlow bitti: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
+    logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
     return;
   }
 
@@ -172,4 +174,5 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     "✅ initializeAppDataFlow tamamlandı: ${sw.elapsedMilliseconds} ms",
     name: tag,
   );
+  logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
 }

@@ -2,8 +2,12 @@
 // Kelime varsa mesaj verip uyarıyor
 // Kelime yoksa listeye ekliyor.
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
+
+import '../constants/file_info.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/text_constants.dart';
@@ -11,6 +15,8 @@ import '../db/db_helper.dart';
 import '../models/item_model.dart';
 import '../services/notification_service.dart';
 import 'item_dialog.dart';
+
+const tag = "Notification_handler";
 
 /// 📌 Yedekleme bildirim gösterir
 ///
@@ -24,12 +30,15 @@ void showBackupNotification(
 ) {
   return NotificationService.showCustomNotification(
     context: rootCtx,
-    title: 'Yedek Oluşturuldu',
+    title: ' ',
     message: RichText(
       text: TextSpan(
         style: normalBlackText,
         children: [
-          const TextSpan(text: '\nDownload :\n', style: kelimeAddText),
+          const TextSpan(
+            text: '\nVeriler yedeklendi ... :\n\n',
+            style: kelimeAddText,
+          ),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: '✅ '),
@@ -60,6 +69,13 @@ void showCreateDbNotification(
   String sqlPathDownload,
   String zipPathDownload,
 ) {
+  logCreate(
+    jsonPathDownload,
+    csvPathDownload,
+    excelPathDownload,
+    sqlPathDownload,
+    zipPathDownload,
+  );
   return NotificationService.showCustomNotification(
     context: rootCtx,
     title: ' ',
@@ -218,4 +234,20 @@ Future<void> showWordDialogHandler(
     /// 📌 Notification göster - Kelime eklendi
     showAddNotification(context, result);
   }
+}
+
+void logCreate(
+  String csvPathDownload,
+  String jsonPathDownload,
+  xlsxPathDownload,
+  sqlPathDownload,
+  zipPathDownload,
+) {
+  log(logLine, name: tag);
+  log("✅ CSV oluşturuldu: $csvPathDownload", name: tag);
+  log("✅ JSON oluşturuldu: $jsonPathDownload", name: tag);
+  log("✅ XLSX oluşturuldu: $xlsxPathDownload", name: tag);
+  log("✅ SQL oluşturuldu: $sqlPathDownload", name: tag);
+  log("✅ ZIP oluşturuldu: $zipPathDownload", name: tag);
+  log(logLine, name: tag);
 }

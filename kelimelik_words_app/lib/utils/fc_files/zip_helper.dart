@@ -67,7 +67,7 @@ Future<String> createZipArchive() async {
   if (!await File(zipFullPath).exists()) {
     log('❌ ZIP oluşturulamadı! (Dosya bulunamadı)', name: tag);
   } else {
-    log('✅ ZIP başarıyla oluşturuldu: $zipFullPath', name: tag);
+    // log('✅ ZIP başarıyla oluşturuldu: $zipFullPath', name: tag);
   }
 
   return zipFullPath; // FULL PATH DÖNÜYOR! 🔥
