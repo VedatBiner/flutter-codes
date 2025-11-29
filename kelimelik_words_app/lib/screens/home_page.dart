@@ -211,14 +211,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-
-        // 🔄 Yükleme kartı
-        // if (isLoadingJson)
-        //   SQLLoadingCard(
-        //     progress: progress,
-        //     loadingWord: loadingWord,
-        //     elapsedTime: elapsedTime,
-        //   ),
       ],
     );
   }

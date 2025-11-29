@@ -138,7 +138,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       "⏱ initializeAppDataFlow bitti: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
-    logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
+    // logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
     return;
   }
 
