@@ -14,7 +14,7 @@ import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../constants/file_info.dart';
+import '../../constants/file_info.dart';
 
 Future<String> createZipArchive() async {
   const tag = 'zip_helper';

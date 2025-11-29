@@ -22,13 +22,13 @@ import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
-import '../utils/zip_helper.dart';
 import '../widgets/show_notification_handler.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
 import 'fc_files/fc_report.dart';
 import 'fc_files/json_helper.dart';
 import 'fc_files/sql_helper.dart';
+import 'fc_files/zip_helper.dart';
 
 const tag = "file_creator";
 

@@ -26,7 +26,7 @@ import '../../models/item_model.dart'; // Word modelini içerir
 /// JSON → SQL batch import (compute() ile hızlandırılmış)
 /// İşlem süresi alt kırılımlarıyla birlikte loglanır.
 Future<int> importJsonToDatabaseFast() async {
-  const tag = 'JSON→SQL Import (Compute)';
+  const tag = 'sql_helper';
   final totalSw = Stopwatch()..start();
 
   try {

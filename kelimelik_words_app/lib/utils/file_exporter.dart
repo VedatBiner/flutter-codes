@@ -1,15 +1,9 @@
 // 📃 <----- lib/utils/file_exporter.dart ----->
 //
-// Tam Yedek Alma Sistemi
-// -----------------------------------------------------------
-// Akış:
-//   1️⃣ SQL → CSV export
-//   2️⃣ CSV → XLSX export
-//   3️⃣ SQL → JSON export
-//   4️⃣ CSV / XLSX / JSON üzerine yazılır
-//   5️⃣ ZIP dosyası yeniden oluşturulur
-//   6️⃣ Tüm dosyalar Download/uygulama_adi içine kopyalanır
-// -----------------------------------------------------------
+// SQL → CSV → XLSX → JSON → ZIP
+// Tüm yedek dosyalarını üretir ve döner.
+// UI bu dosyayı DOĞRUDAN kullanmaz → export_items.dart kullanır.
+//
 
 import 'dart:convert';
 import 'dart:developer';
@@ -17,173 +11,113 @@ import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
-import 'zip_helper.dart';
+import 'fc_files/zip_helper.dart';
 
-const tag = "file_exporter";
+/// 📌 Tüm export işlemlerini çalıştırır.
+/// Geriye: Map<String,String> döner → dosya yolları.
+Future<Map<String, String>> runFullExport({String? subfolder}) async {
+  const tag = "file_exporter";
 
-/// Ana fonksiyon → Tüm yedekleme sürecini yönetir
-Future<void> exportAllData() async {
-  final sw = Stopwatch()..start();
+  // Uygulama Documents dizini
+  final directory = await getApplicationDocumentsDirectory();
+  final basePath = directory.path;
 
-  log("📦 Yedekleme süreci başladı…", name: tag);
+  // Tek noktadan tüm dosya yolları:
+  final jsonFull = join(basePath, fileNameJson);
+  final csvFull = join(basePath, fileNameCsv);
+  final xlsxFull = join(basePath, fileNameXlsx);
+  final sqlFull = join(basePath, fileNameSql);
 
-  // 📌 Storage iznini iste
-  await _ensureStoragePermission();
+  log("📦 Export başladı...", name: tag);
 
-  // 📌 Belgeler dizini
-  final dir = await getApplicationDocumentsDirectory();
-  final csvFull = join(dir.path, fileNameCsv);
-  final xlsxFull = join(dir.path, fileNameXlsx);
-  final jsonFull = join(dir.path, fileNameJson);
-  final sqlFull = join(dir.path, fileNameSql);
-  final zipFull = join(dir.path, fileNameZip);
-
-  // -----------------------------------------------------------
+  // ============================================================
   // 1️⃣ SQL → CSV
-  // -----------------------------------------------------------
-  await _exportSqlToCsv(csvFull);
+  // ============================================================
 
-  // -----------------------------------------------------------
-  // 2️⃣ CSV → XLSX
-  // -----------------------------------------------------------
-  await _exportCsvToExcel(csvFull, xlsxFull);
+  final rows = await DbHelper.instance.getRawRecords(); // Word,Meaning listesi
+  final csvBuffer = StringBuffer("Word,Meaning\n");
 
-  // -----------------------------------------------------------
-  // 3️⃣ SQL → JSON
-  // -----------------------------------------------------------
-  await _exportSqlToJson(jsonFull);
-
-  // -----------------------------------------------------------
-  // 4️⃣ ZIP dosyasını yeniden oluştur
-  // -----------------------------------------------------------
-  final zipPath = await createZipArchive();
-  log("🗜 ZIP oluşturuldu: $zipPath", name: tag);
-
-  // -----------------------------------------------------------
-  // 5️⃣ Tüm dosyaları Download/x klasörüne kopyala
-  // -----------------------------------------------------------
-  await _copyAllBackupsToDownload([
-    csvFull,
-    xlsxFull,
-    jsonFull,
-    sqlFull,
-    zipFull,
-  ]);
-
-  sw.stop();
-  log("✅ Tüm yedekleme tamamlandı: ${sw.elapsedMilliseconds} ms", name: tag);
-}
-
-//
-// -----------------------------------------------------------
-// 🔧 SQL → CSV
-// -----------------------------------------------------------
-Future<void> _exportSqlToCsv(String csvFull) async {
-  log("➡ SQL → CSV export başlıyor…", name: tag);
-
-  final words = await DbHelper.instance.getRecords();
-  final buffer = StringBuffer();
-
-  buffer.writeln("Word,Meaning");
-
-  for (final w in words) {
-    final safeMeaning = w.meaning.replaceAll(",", ";");
-    buffer.writeln("${w.word},$safeMeaning");
+  for (final r in rows) {
+    csvBuffer.writeln("${r.word},${r.meaning}");
   }
 
-  await File(csvFull).writeAsString(buffer.toString());
-  log("✔ CSV oluşturuldu: $csvFull", name: tag);
-}
+  await File(csvFull).writeAsString(csvBuffer.toString());
+  log("✅ CSV oluşturuldu: $csvFull", name: tag);
 
-//
-// -----------------------------------------------------------
-// 🔧 SQL → JSON
-// -----------------------------------------------------------
-Future<void> _exportSqlToJson(String jsonFull) async {
-  log("➡ SQL → JSON export başlıyor…", name: tag);
+  // ============================================================
+  // 2️⃣ CSV → XLSX
+  // ============================================================
 
-  final words = await DbHelper.instance.getRecords();
+  final workbook = xlsio.Workbook();
+  final sheet = workbook.worksheets[0];
 
-  final list = words
-      .map((w) => {"Word": w.word, "Meaning": w.meaning})
+  // Başlık
+  sheet.getRangeByIndex(1, 1).setText("Word");
+  sheet.getRangeByIndex(1, 2).setText("Meaning");
+
+  // Satırlar
+  for (int i = 0; i < rows.length; i++) {
+    sheet.getRangeByIndex(i + 2, 1).setText(rows[i].word);
+    sheet.getRangeByIndex(i + 2, 2).setText(rows[i].meaning);
+  }
+
+  final bytes = workbook.saveAsStream();
+  workbook.dispose();
+  await File(xlsxFull).writeAsBytes(bytes);
+  log("✅ XLSX oluşturuldu: $xlsxFull", name: tag);
+
+  // ============================================================
+  // 3️⃣ CSV → JSON
+  // ============================================================
+
+  final jsonList = rows
+      .map((r) => {"Word": r.word, "Meaning": r.meaning})
       .toList();
 
-  final jsonStr = const JsonEncoder.withIndent("  ").convert(list);
-  await File(jsonFull).writeAsString(jsonStr);
+  final jsonString = const JsonEncoder.withIndent("  ").convert(jsonList);
+  await File(jsonFull).writeAsString(jsonString);
+  log("✅ JSON oluşturuldu: $jsonFull", name: tag);
 
-  log("✔ JSON oluşturuldu: $jsonFull", name: tag);
-}
+  // ============================================================
+  // 4️⃣ ZIP → tümünü sıkıştır
+  // ============================================================
 
-//
-// -----------------------------------------------------------
-// 🔧 CSV → XLSX (Syncfusion veya Excel paketi ile)
-// -----------------------------------------------------------
-Future<void> _exportCsvToExcel(String csvFull, String xlsxFull) async {
-  log("➡ CSV → XLSX export başlıyor…", name: tag);
+  final zipPath = await createZipArchive();
+  log("📦 ZIP oluşturuldu: $zipPath", name: tag);
 
-  final csv = await File(csvFull).readAsString();
-  final lines = csv.split("\n").where((e) => e.trim().isNotEmpty).toList();
+  // ============================================================
+  // 5️⃣ Download klasörüne kopyala (subfolder)
+  // ============================================================
 
-  // Excel paketi ile basit XLSX oluşturma
-  final rows = lines.map((e) => e.split(",")).toList();
-
-  // excel paketi kullanılıyor:
-  final excel = Excel.createExcel();
-  final sheet = excel['Sheet1'];
-
-  for (int r = 0; r < rows.length; r++) {
-    for (int c = 0; c < rows[r].length; c++) {
-      sheet
-              .cell(CellIndex.indexByColumnRow(columnIndex: c, rowIndex: r))
-              .value =
-          rows[r][c];
-    }
-  }
-
-  final excelBytes = excel.encode();
-  if (excelBytes != null) {
-    await File(xlsxFull).writeAsBytes(excelBytes);
-    log("✔ XLSX oluşturuldu: $xlsxFull", name: tag);
-  }
-}
-
-//
-// -----------------------------------------------------------
-// 🔧 Tüm yedek dosyalarını Download klasörüne kopyalama
-// -----------------------------------------------------------
-Future<void> _copyAllBackupsToDownload(List<String> filePaths) async {
-  final downloads = Directory("/storage/emulated/0/Download/$appName");
+  final downloads = Directory(
+    "/storage/emulated/0/Download/${subfolder ?? appName}",
+  );
 
   if (!await downloads.exists()) {
     await downloads.create(recursive: true);
-    log("📁 Download klasörü oluşturuldu: ${downloads.path}", name: tag);
   }
 
-  for (final srcPath in filePaths) {
-    final file = File(srcPath);
-    if (await file.exists()) {
-      final newPath = join(downloads.path, basename(srcPath));
-      await file.copy(newPath);
-      log("📤 Kopyalandı → $newPath", name: tag);
-    } else {
-      log("⚠️ Kopyalanamadı, dosya yok: $srcPath", name: tag);
-    }
+  Future<String> copy(String srcPath) async {
+    final filename = basename(srcPath);
+    final dst = join(downloads.path, filename);
+    await File(srcPath).copy(dst);
+    return dst;
   }
-}
 
-//
-// -----------------------------------------------------------
-// 🔧 Depolama izni
-// -----------------------------------------------------------
-Future<void> _ensureStoragePermission() async {
-  if (await Permission.storage.isGranted) return;
+  final map = {
+    fileNameJson: await copy(jsonFull),
+    fileNameCsv: await copy(csvFull),
+    fileNameXlsx: await copy(xlsxFull),
+    fileNameSql: await copy(sqlFull),
+    fileNameZip: await copy(zipPath),
+    "count": rows.length.toString(),
+  };
 
-  final status = await Permission.storage.request();
-  if (!status.isGranted) {
-    log("❌ Storage izni verilmedi!", name: tag);
-  }
+  log("📁 Dosyalar download klasörüne kopyalandı.", name: tag);
+
+  return map;
 }

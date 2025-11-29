@@ -20,6 +20,7 @@ Abo,Şaşma / Hayret sözü / Abu
 Abone,Süreli yayınları parasını önceden ödeyerek alma işi
 Abu,Şaşma / Korku ifadesi
 Abuk,Saçma / Söz
+Abuli,İrade yitimi
 Abus,Somurtkan / Asık yüz
 Acar,Atılgan / Çevik / Enerjik / Acara
 Ace,Servis sayısı
@@ -143,6 +144,7 @@ Alil,Hastalıklı
 Alim,Bilen
 Alimane,Alime yakışır
 Alize,Tropikal rüzgar
+Alkış,El çırpma / Kargış karşıtı
 Allı,Üzerinde al renk bulunan
 Allık,Süs için yanaklara sürülen boya
 Alma,Alma işi / Ahiz / İttihaz / Derç / Kabız
@@ -274,6 +276,7 @@ Aseton,"Eter kokusunda, alev alabilir eritici bir madde"
 Aside,Et ve bamyalı Arap yemeği
 Asit,Hamız / hidrojenli bileşik
 Ask,Askılı mantarların üreme organı
+Asma,Bir tür üzüm veren bitki
 Asri,Çağdaş
 Ast,Rütbece küçük olan asker
 Astar,Kumaşın içine dikilen ince kat
@@ -379,7 +382,7 @@ Azış,Azma işi
 Aç,Gözü doymaz
 Açan,Oynak kemiklerin genişletme kasları
 Açar,Anahtar / Ön içki
-Açlık,Aç olma durumu
+Açlık,Aç olma durumu / Kıtlık
 Açmaz,Içinden çıkılmaz zor durum
 Açı,Görüş / Yön / Zaviye
 Açık,Engelsiz / Serbest
@@ -2192,6 +2195,7 @@ Kurs,Ağırşak / Belli konuda başarı kazandırmak amacıyla yapılan eğitim 
 Kurtçul,Kurtçuklarla beslenen
 Kuru,Suyu nemi olmayan
 Kurum,Bacada biriken is
+Kuruma,Kurumak işi
 Kurun,Çağ
 Kut,Mutluluk / Rahmet / Bereket
 Kutan,Saka kuşu
@@ -2386,7 +2390,7 @@ Lime,Parça
 Limit,Sınır
 Limonlu,İçine limon doğranmış
 Linet,İshal
-Link,Ilişim / Atın eşkin yürüyüşü
+Link,İlişim / Atın eşkin yürüyüşü
 Linç,Birden çok kişi tarafından yargısız öldürülmek
 Lipit,Hayvan ve bitki dokularının çözeltide eriyen bölümü
 Lir,Mitolojik çalgı
@@ -2549,11 +2553,13 @@ Mega,Büyük
 Meh,Ay
 Mehdi,Doğru yolda olan
 Mehil,Bir işi için tanınan ek süre
+Mekan,Ev / Yurt / Yer
 Meke,Yaban ördeği cinsi
 Mekruh,Iğrenç / Tiksindirici
 Melek,Dini manevi varlık / Ferişte
 Meleke,Yatkınlık / Alışkanlık / Yeti
 Meles,Beli çökük at
+Melez,Hibrit / Karışık / Karışık
 Melik,Padişah / Hükümdar / Hakan
 Melon,Yuvarlak bombeli şaka
 Meltem,Karadan denize doğru esen mevsim rüzgarı
@@ -3768,6 +3774,7 @@ Urgan,Bir tür ince halat
 Urla,İzmir ilçesi
 Uruk,Soy / Sülale
 Urum,Azak kıyısında yaşayan Türk halkı
+Urup,Arşının sekizde biri / bir şeyin dörtte biri
 Us,Akıl
 Usat,Asiler/ İsyancılar
 Usta,Becerikli / Mahir
@@ -3904,6 +3911,7 @@ Yaralı,Yarası olan
 Yaran,Dostlar
 Yarar,Fayda / Çıkar
 Yaratım,Kreasyon
+Yaraş,Girişken kimse
 Yaren,Arkadaş / Yakın dost
 Yarı,Devre arası
 Yarış,Yarışma / Rekabet
@@ -4276,6 +4284,7 @@ Zıt,Karşıt / ters
 Öte,Bir şeyin arka bölümü / Daha fazla / Daha çok
 Öteki,Diğeri / Öbürü
 Ötme,Örnek işi
+Ötüm,Kuşlar için ötme zamanı
 Öveç,Iki üç yaşındaki erkek koyun
 Öyle,Ona benzer / o tarzda
 Öz,Benlik

@@ -96,7 +96,6 @@ class _HomePageState extends State<HomePage> {
 
   /// 📌 Download dizinini kontrol eder ve gerekirse oluşturur.
   Future<void> _prepareDownloadDirectory() async {
-    // Hata düzeltildi: `prepareDownloadDirectory` metodu parametre almıyor.
     final dir = await prepareDownloadDirectory();
 
     if (dir != null) {

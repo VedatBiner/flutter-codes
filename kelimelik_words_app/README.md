@@ -134,7 +134,10 @@ bir chatGPT ortak çalışması :)
 129. `csv_helper.dart` dosyası güncellendi - 27.11.2025
 130. Raporlama işi için `fc_report.dart` dosyası oluşturuldu. - 27.11.2025
 131. Detaylı raporlama yaptırıldı. - 28.11.2025
-132. 
+132. `sql_helper.dart` dosyası güncellendi. - 29.11.2025
+133. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı.
+134. 
+
 
 
 
