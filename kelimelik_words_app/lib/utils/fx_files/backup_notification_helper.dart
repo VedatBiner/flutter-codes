@@ -52,7 +52,7 @@ Future<void> backupNotificationHelper({
       ),
     );
 
-    overlay?.insert(bannerEntry!);
+    overlay.insert(bannerEntry!);
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       elapsedSec.value++;
     });

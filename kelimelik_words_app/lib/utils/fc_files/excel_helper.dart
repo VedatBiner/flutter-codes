@@ -67,7 +67,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     await File(excelPath).writeAsBytes(bytes);
 
     // İlk satır başlık olduğu için kayıt sayısı = rows.length - 1
-    final recordCount = rows.length > 0 ? rows.length - 1 : 0;
+    final recordCount = rows.isNotEmpty ? rows.length - 1 : 0;
 
     log('📘 Excel yeniden oluşturuldu. Kayıt sayısı: $recordCount', name: tag);
   } catch (e, st) {

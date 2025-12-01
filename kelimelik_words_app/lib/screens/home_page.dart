@@ -98,11 +98,13 @@ class _HomePageState extends State<HomePage> {
   Future<void> _prepareDownloadDirectory() async {
     final dir = await prepareDownloadDirectory();
 
+    log(logLine, name: tag);
     if (dir != null) {
       log("📂 Download klasörü hazır: ${dir.path}", name: tag);
     } else {
       log("⚠️ Download klasörü hazırlanamadı.", name: tag);
     }
+    log(logLine, name: tag);
   }
 
   /// 📌 İlk açılışta ve menüden tetiklendiğinde veri akışını başlatır.
@@ -126,6 +128,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     log('📦 Toplam kayıt sayısı: $count', name: tag);
+    log(logLine, name: tag);
   }
 
   /// 🔍  Arama filtreleme

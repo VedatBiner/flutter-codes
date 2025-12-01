@@ -121,9 +121,9 @@ Future<void> runFullDataReport({
   // 📌 BENCHMARK BÖLÜMÜ
   // ----------------------------------------------------
   log("⚡ BENCHMARK", name: tag);
-  log("• CSV → JSON: ${csvToJsonMs} ms", name: tag);
-  log("• JSON → SQL: ${jsonToSqlMs} ms", name: tag);
-  log("• TOPLAM Pipeline: ${totalPipelineMs} ms", name: tag);
+  log("• CSV → JSON: $csvToJsonMs ms", name: tag);
+  log("• JSON → SQL: $jsonToSqlMs ms", name: tag);
+  log("• TOPLAM Pipeline: $totalPipelineMs ms", name: tag);
   log(logLine, name: tag);
 
   // ----------------------------------------------------

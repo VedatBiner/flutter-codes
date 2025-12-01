@@ -114,6 +114,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   // ----------------------------------------------------------
   if (dbExists && recordCount > 0) {
     log("🟢 DB zaten dolu ($recordCount kayıt).", name: tag);
+    log(logLine, name: tag);
 
     await runFullDataReport(
       csvToJsonMs: 0,
@@ -138,7 +139,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       "⏱ initializeAppDataFlow bitti: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
-    // logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
+    log(logLine, name: tag);
     return;
   }
 
@@ -175,4 +176,5 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     name: tag,
   );
   logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
+  log(logLine, name: tag);
 }
