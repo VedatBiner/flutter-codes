@@ -79,6 +79,7 @@ Future<void> backupNotificationHelper({
     }
 
     log("🔄 Export tamamlandı.", name: tag);
+    log(logLine, name: tag);
   } catch (e) {
     if (context.mounted) {
       onStatusChange("Hata: $e");
