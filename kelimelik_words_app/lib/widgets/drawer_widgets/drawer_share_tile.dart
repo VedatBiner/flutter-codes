@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
 import '../../utils/share_helper.dart';
+import '../show_notification_handler.dart';
 
 class DrawerShareTile extends StatelessWidget {
   const DrawerShareTile({super.key});
@@ -41,6 +42,7 @@ class DrawerShareTile extends StatelessWidget {
       onTap: () async {
         await shareBackupFolder(); // 📤 paylaşım işlemi başlatılıyor
         if (context.mounted) Navigator.pop(context);
+        showShareFilesNotification(context);
       },
     );
   }

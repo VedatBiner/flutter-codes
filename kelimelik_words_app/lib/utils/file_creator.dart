@@ -1,17 +1,5 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
-//
 // Tam Pipeline + Rebuild sistemi + Notification + ZIP
-// -----------------------------------------------------------
-// Akış:
-//   1️⃣ CSV Sync → createOrUpdateDeviceCsvFromAsset()
-//   2️⃣ Eğer needsRebuild = true → TAM REBUILD
-//   3️⃣ CSV → JSON
-//   4️⃣ CSV → Excel
-//   5️⃣ JSON → SQL
-//   6️⃣ Raporlama
-//   7️⃣ ZIP oluşturma
-//   8️⃣ Notification gösterme
-// -----------------------------------------------------------
 
 import 'dart:developer';
 import 'dart:io';
@@ -22,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
+import '../widgets/bottom_banner_helper.dart';
 import '../widgets/show_notification_handler.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
@@ -34,10 +23,11 @@ const tag = "file_creator";
 
 Future<void> initializeAppDataFlow(BuildContext context) async {
   final sw = Stopwatch()..start();
-
   log("🚀 initializeAppDataFlow başladı", name: tag);
 
-  /// 0️⃣ Tüm dosya yollarını tek yerde hesapla
+  // ----------------------------------------------------------
+  // 📌 Tüm dosya yollarını tek seferde hesapla
+  // ----------------------------------------------------------
   final directory = await getApplicationDocumentsDirectory();
   final jsonFull = join(directory.path, fileNameJson);
   final csvFull = join(directory.path, fileNameCsv);
@@ -45,16 +35,17 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final sqlFull = join(directory.path, fileNameSql);
   final zipFull = join(directory.path, fileNameZip);
 
-  ///1️⃣ CSV Sync
+  // ----------------------------------------------------------
+  // 1️⃣ CSV Sync
+  // ----------------------------------------------------------
   final csvSync = await createOrUpdateDeviceCsvFromAsset();
 
-  // DB mevcut mu?
   final dbFile = File(sqlFull);
   final dbExists = await dbFile.exists();
   final recordCount = dbExists ? await DbHelper.instance.countRecords() : 0;
 
   // ----------------------------------------------------------
-  // 🛠 REBUILD — CSV cihazdaki ile uyuşmuyorsa
+  // 🛠 REBUILD GEREKİYOR
   // ----------------------------------------------------------
   if (csvSync.needsRebuild) {
     log(
@@ -62,84 +53,101 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       name: tag,
     );
 
-    /// 📌 DB kapat ve sil
-    await DbHelper.instance.closeDb();
-    if (await dbFile.exists()) {
-      await dbFile.delete();
-      log("🗑 DB silindi: $sqlFull", name: tag);
-    }
-
-    /// 📌 JSON & Excel sil
-    for (final p in [jsonFull, excelFull]) {
-      final f = File(p);
-      if (await f.exists()) {
-        await f.delete();
-        log("🗑 Silindi: $p", name: tag);
-      }
-    }
-
-    /// 📌 Yeniden üretim
-    await createJsonFromAssetCsv();
-    await createExcelFromAssetCsvSyncfusion();
-    await importJsonToDatabaseFast();
-    await runFullDataReport(
-      csvToJsonMs: 0,
-      jsonToSqlMs: 0,
-      totalPipelineMs: 0,
-      insertDurations: [],
-    );
-
-    /// 📌 ZIP oluştur
-    final zipFull = await createZipArchive();
     if (!context.mounted) return;
 
-    /// 📌 Notification
-    showCreateDbNotification(
+    final bannerCtrl = showLoadingBanner(
       context,
-      jsonFull,
-      csvFull,
-      excelFull,
-      sqlFull,
-      zipFull,
+      message: "Lütfen bekleyiniz,\nVeriler oluşturuluyor...",
     );
+
+    try {
+      await DbHelper.instance.closeDb();
+
+      if (await dbFile.exists()) {
+        await dbFile.delete();
+        log("🗑 DB silindi: $sqlFull", name: tag);
+      }
+
+      for (final p in [jsonFull, excelFull]) {
+        final f = File(p);
+        if (await f.exists()) {
+          await f.delete();
+          log("🗑 Silindi: $p", name: tag);
+        }
+      }
+
+      await createJsonFromAssetCsv();
+      await createExcelFromAssetCsvSyncfusion();
+      await importJsonToDatabaseFast();
+
+      await runFullDataReport(
+        csvToJsonMs: 0,
+        jsonToSqlMs: 0,
+        totalPipelineMs: 0,
+        insertDurations: [],
+      );
+
+      final zipOut = await createZipArchive();
+
+      if (!context.mounted) return;
+
+      showCreateDbNotification(
+        context,
+        jsonFull,
+        csvFull,
+        excelFull,
+        sqlFull,
+        zipOut,
+      );
+    } finally {
+      bannerCtrl.close(); // ✔ kapanmazsa banner sonsuza kadar kalır
+    }
 
     sw.stop();
     log("⏱ REBUILD tamamlandı: ${sw.elapsedMilliseconds} ms", name: tag);
-    logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
     return;
   }
 
   // ----------------------------------------------------------
-  // ✔ Normal mod (REBUILD yok)
+  // ✔ Normal mod (DB dolu)
   // ----------------------------------------------------------
   if (dbExists && recordCount > 0) {
     log("🟢 DB zaten dolu ($recordCount kayıt).", name: tag);
-    log(logLine, name: tag);
 
-    await runFullDataReport(
-      csvToJsonMs: 0,
-      jsonToSqlMs: 0,
-      totalPipelineMs: 0,
-      insertDurations: [],
-    );
     if (!context.mounted) return;
 
-    /// 📌 Notification
-    showCreateDbNotification(
+    final bannerCtrl = showLoadingBanner(
       context,
-      jsonFull,
-      csvFull,
-      excelFull,
-      sqlFull,
-      zipFull,
+      message: "Lütfen bekleyiniz,\nveriler hazırlanıyor...",
     );
+
+    try {
+      await runFullDataReport(
+        csvToJsonMs: 0,
+        jsonToSqlMs: 0,
+        totalPipelineMs: 0,
+        insertDurations: [],
+      );
+
+      if (!context.mounted) return;
+
+      showCreateDbNotification(
+        context,
+        jsonFull,
+        csvFull,
+        excelFull,
+        sqlFull,
+        zipFull,
+      );
+    } finally {
+      bannerCtrl.close();
+    }
 
     sw.stop();
     log(
       "⏱ initializeAppDataFlow bitti: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
-    log(logLine, name: tag);
     return;
   }
 
@@ -148,33 +156,43 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   // ----------------------------------------------------------
   log("⚠️ İlk kurulum başlıyor…", name: tag);
 
-  await createJsonFromAssetCsv();
-  await createExcelFromAssetCsvSyncfusion();
-  await importJsonToDatabaseFast();
-  await runFullDataReport(
-    csvToJsonMs: 0,
-    jsonToSqlMs: 0,
-    totalPipelineMs: 0,
-    insertDurations: [],
-  );
-
   if (!context.mounted) return;
 
-  /// 📌 Notification
-  showCreateDbNotification(
+  final bannerCtrl = showLoadingBanner(
     context,
-    jsonFull,
-    csvFull,
-    excelFull,
-    sqlFull,
-    zipFull,
+    message: "Lütfen bekleyiniz,\nveriler okunuyor...",
   );
+
+  try {
+    await createJsonFromAssetCsv();
+    await createExcelFromAssetCsvSyncfusion();
+    await importJsonToDatabaseFast();
+
+    await runFullDataReport(
+      csvToJsonMs: 0,
+      jsonToSqlMs: 0,
+      totalPipelineMs: 0,
+      insertDurations: [],
+    );
+
+    if (!context.mounted) return;
+
+    showCreateDbNotification(
+      context,
+      jsonFull,
+      csvFull,
+      excelFull,
+      sqlFull,
+      zipFull,
+    );
+  } finally {
+    bannerCtrl.close();
+  }
 
   sw.stop();
   log(
     "✅ initializeAppDataFlow tamamlandı: ${sw.elapsedMilliseconds} ms",
     name: tag,
   );
-  logCreate(csvFull, jsonFull, excelFull, sqlFull, zipFull);
   log(logLine, name: tag);
 }

@@ -75,7 +75,9 @@ Future<void> shareBackupFolder() async {
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);
+    log(logLine, name: tag);
   } catch (e) {
     log('🚨 Paylaşım hatası: $e', name: tag);
+    log(logLine, name: tag);
   }
 }

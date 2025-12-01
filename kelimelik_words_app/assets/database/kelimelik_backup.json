@@ -681,7 +681,7 @@
   },
   {
     "word": "Amber",
-    "meaning": "Amber balığından çıkn güzel kokulu madde"
+    "meaning": "Amber balığından çıkan güzel kokulu madde"
   },
   {
     "word": "Amca",
@@ -1098,6 +1098,10 @@
   {
     "word": "Aside",
     "meaning": "Et ve bamyalı Arap yemeği"
+  },
+  {
+    "word": "Asilik",
+    "meaning": "Başkaldırıcılık"
   },
   {
     "word": "Asit",
@@ -3316,6 +3320,10 @@
     "meaning": "Henüz"
   },
   {
+    "word": "Dahi",
+    "meaning": "Bile / de / da"
+  },
+  {
     "word": "Dahil",
     "meaning": "Bir işe karışmış olma"
   },
@@ -3574,6 +3582,10 @@
   {
     "word": "Deni",
     "meaning": "Alçak / Kötü / Kişiliksiz"
+  },
+  {
+    "word": "Derik",
+    "meaning": "Mardin ilçesi"
   },
   {
     "word": "Derili",
@@ -8318,6 +8330,10 @@
   {
     "word": "Klima",
     "meaning": "İklimleme cihazı"
+  },
+  {
+    "word": "Klip",
+    "meaning": "Müzik parçasını görüntü eşliğinde veren film"
   },
   {
     "word": "Klişe",
@@ -14808,6 +14824,10 @@
     "meaning": "Cümle"
   },
   {
+    "word": "Tümel",
+    "meaning": "Külli / Tikel karşıtı"
+  },
+  {
     "word": "Tümen",
     "meaning": "On bin Erden oluşan askeri kuvvet"
   },
@@ -14862,6 +14882,10 @@
   {
     "word": "Tüyo",
     "meaning": "Gizli bilgi / Kopya"
+  },
+  {
+    "word": "Tüzel",
+    "meaning": "Hukuki / Hukuksal"
   },
   {
     "word": "Tık",
@@ -15826,6 +15850,10 @@
   {
     "word": "Yeke",
     "meaning": "Iri / Kocaman"
+  },
+  {
+    "word": "Yekta",
+    "meaning": "Tek / Eşsiz"
   },
   {
     "word": "Yekun",
@@ -17194,6 +17222,10 @@
   {
     "word": "Özlü",
     "meaning": "Özü olan / Kıvamlı"
+  },
+  {
+    "word": "Özlük",
+    "meaning": "Kişi / Zat"
   },
   {
     "word": "Öznel",

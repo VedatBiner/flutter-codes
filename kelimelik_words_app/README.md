@@ -136,10 +136,11 @@ bir chatGPT ortak çalışması :)
 131. Detaylı raporlama yaptırıldı. - 28.11.2025
 132. `sql_helper.dart` dosyası güncellendi. - 29.11.2025
 133. `zip_helper.dart` dosyası güncellendi. - 29.11.2025
-133. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı. - 29.11.2025
-134. `assets\animations\fileupload.json` dosyası kaldırıldı. - 29.11.2025
-135. eski `export_items.dart`, `export_items_formats.dart`, `json_loader.dart` ve `sql_loading_card.dart` dosyaları kaldırıldı. - 29.11.2025
-136. 
+134. `zip_helper.dart` dosyası `fc_files` dizinine kopyalandı. - 29.11.2025
+135. `assets\animations\fileupload.json` dosyası kaldırıldı. - 29.11.2025
+136. eski `export_items.dart`, `export_items_formats.dart`, `json_loader.dart`, `json_loader_io.dart` ve `sql_loading_card.dart` dosyaları kaldırıldı. - 29.11.2025
+137. `loading_bottombanner.dart` dosyasının adı `bottom_banner_helper.dart` olarak değiştirildi. - 01.12.2025
+138. `bottom_banner_helper.dart` dosyası düzenlendi. - 01.12.2025
 
 
 
@@ -152,7 +153,6 @@ bir chatGPT ortak çalışması :)
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
-- web ile ilgili bölüm çıkarılmalı.
 - compute yapısı ile performans artışı sağlanabilir.
 - log 'larda düzeltmeler gerekli
 
