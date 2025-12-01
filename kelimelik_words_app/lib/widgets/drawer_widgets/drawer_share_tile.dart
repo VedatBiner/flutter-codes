@@ -41,6 +41,7 @@ class DrawerShareTile extends StatelessWidget {
       ),
       onTap: () async {
         await shareBackupFolder(); // 📤 paylaşım işlemi başlatılıyor
+        if (!context.mounted) return;
         if (context.mounted) Navigator.pop(context);
         showShareFilesNotification(context);
       },

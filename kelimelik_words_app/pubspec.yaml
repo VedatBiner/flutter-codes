@@ -19,7 +19,6 @@ dependencies:
   # -----------------------------
   cupertino_icons: ^1.0.8          # iOS tarzı ikon seti
   font_awesome_flutter:            # Geniş ikon koleksiyonu (FA)
-  lottie:                          # JSON animasyonları (loading/empty state)
 
   # -----------------------------
   # Durum yönetimi / Modelleme

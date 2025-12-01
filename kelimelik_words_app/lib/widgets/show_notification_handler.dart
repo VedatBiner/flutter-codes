@@ -106,21 +106,7 @@ void showCreateDbNotification(
   );
 }
 
-void showShareFilesNotification(
-  BuildContext rootCtx,
-  // String jsonPathDownload,
-  // String csvPathDownload,
-  // String excelPathDownload,
-  // String sqlPathDownload,
-  // String zipPathDownload,
-) {
-  // logCreate(
-  //   jsonPathDownload,
-  //   csvPathDownload,
-  //   excelPathDownload,
-  //   sqlPathDownload,
-  //   zipPathDownload,
-  // );
+void showShareFilesNotification(BuildContext rootCtx) {
   return NotificationService.showCustomNotification(
     context: rootCtx,
     title: ' ',
@@ -132,16 +118,6 @@ void showShareFilesNotification(
             text: '\nDosyalar Dış ortam\nile paylaşılmıştır\n\n',
             style: kelimeAddText,
           ),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(csvPathDownload)}\n"),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
