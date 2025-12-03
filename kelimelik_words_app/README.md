@@ -143,7 +143,8 @@ bir chatGPT ortak çalışması :)
 138. `bottom_banner_helper.dart` dosyası düzenlendi. - 01.12.2025
 139. yedekler dışarı ile paylaşılınca da notification veriyor. - 02.12.2025
 140. `ìtem_card.dart`, `home_page.dart`, `alphabet_item_list.dart` ve `ìtem_list` dosyalarında performans düzeltmeleri yapıldı. - 03.12.2025
-141. 
+141. `custom_app_bar.drt` dosyası da düzenlendi. - - 03.12.2025
+142. 
 
 
 
@@ -160,7 +161,7 @@ Yapılacaklar :
 - Hatalar : 
     - zip dosya içinde sadece json ve csv var ?
     - paylaşım yapınca zip içinde sadece json var?
-    - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor.
+    - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - provider ile kelime sayısı sürekli güncellenmiyor ?
     - provider düzgün çalışmayınca yeni kelimeler veri tabanına eklenmiyor ?
     - Yeni kelime eklenmesi sorunlu ?
