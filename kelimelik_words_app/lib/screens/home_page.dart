@@ -5,6 +5,7 @@
 //
 
 // 📌 Dart hazır paketleri
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -31,7 +32,6 @@ import '../utils/file_creator.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_fab.dart';
-// import '../widgets/sil_sql_loading_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,6 +49,9 @@ class _HomePageState extends State<HomePage> {
   bool isSearching = false;
   bool isFihristMode = true;
   final TextEditingController searchController = TextEditingController();
+
+  // 🔁 Arama için debounce (klavye takılmasını engeller)
+  Timer? _searchDebounce;
 
   // ℹ️  Uygulama versiyonu
   String appVersion = '';
@@ -77,9 +80,18 @@ class _HomePageState extends State<HomePage> {
     loadData();
   }
 
+  @override
+  void dispose() {
+    // Debounce timer ’ı ve controller ’ı düzgün kapat
+    _searchDebounce?.cancel();
+    searchController.dispose();
+    super.dispose();
+  }
+
   /// 📌 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
+    if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
@@ -112,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => isLoadingJson = true);
     await initializeAppDataFlow(context);
     await _loadWords(); // Veritabanından kelimeleri yükle
+    if (!mounted) return;
     setState(() => isLoadingJson = false);
   }
 
@@ -120,31 +133,52 @@ class _HomePageState extends State<HomePage> {
     allWords = await DbHelper.instance.getRecords();
     final count = await DbHelper.instance.countRecords();
 
+    if (!mounted) return;
     setState(() => words = allWords);
 
     // 🔥 Provider sayacı
-    if (mounted) {
-      Provider.of<WordCountProvider>(context, listen: false).setCount(count);
-    }
+    Provider.of<WordCountProvider>(context, listen: false).setCount(count);
 
     log('📦 Toplam kayıt sayısı: $count', name: tag);
     log(logLine, name: tag);
   }
 
-  /// 🔍  Arama filtreleme
+  /// 🔍  Arama filtreleme (DEBOUNCE ’LU)
+  ///
+  /// Her tuşta hemen filtre yapmak yerine 250 ms bekler.
+  /// Böylece klavye animasyonu akıcı olur, liste kasmaz.
   void _filterWords(String query) {
-    final filtered = allWords.where((word) {
-      final q = query.toLowerCase();
-      return word.word.toLowerCase().contains(q) ||
-          word.meaning.toLowerCase().contains(q);
-    }).toList();
+    // Boş arama → direkt tüm listeyi göster
+    if (query.trim().isEmpty) {
+      _searchDebounce?.cancel();
+      if (!mounted) return;
+      setState(() => words = allWords);
+      return;
+    }
 
-    setState(() => words = filtered);
+    // Önceki timer ’ı iptal et
+    if (_searchDebounce?.isActive ?? false) {
+      _searchDebounce!.cancel();
+    }
+
+    // 250 ms sonra aramayı çalıştır
+    _searchDebounce = Timer(const Duration(milliseconds: 250), () {
+      final q = query.toLowerCase();
+
+      final filtered = allWords.where((word) {
+        return word.word.toLowerCase().contains(q) ||
+            word.meaning.toLowerCase().contains(q);
+      }).toList();
+
+      if (!mounted) return;
+      setState(() => words = filtered);
+    });
   }
 
   /// ❌  Aramayı temizle
   void _clearSearch() {
     searchController.clear();
+    _searchDebounce?.cancel();
     setState(() {
       isSearching = false;
       words = allWords;
@@ -193,8 +227,6 @@ class _HomePageState extends State<HomePage> {
                     )
                     onStatus,
                   }) async {
-                    // Bu bölüm artık doğrudan file_creator.dart 'ı tetikliyor.
-                    // Karmaşık geri bildirimler (progress, word vb.) şimdilik kaldırıldı.
                     onStatus(true, 0, 'Veriler hazırlanıyor...', Duration.zero);
                     await initializeAppDataFlow(context);
                     await _loadWords();

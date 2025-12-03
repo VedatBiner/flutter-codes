@@ -141,8 +141,9 @@ bir chatGPT ortak çalışması :)
 136. eski `export_items.dart`, `export_items_formats.dart`, `json_loader.dart`, `json_loader_io.dart` ve `sql_loading_card.dart` dosyaları kaldırıldı. - 29.11.2025
 137. `loading_bottombanner.dart` dosyasının adı `bottom_banner_helper.dart` olarak değiştirildi. - 01.12.2025
 138. `bottom_banner_helper.dart` dosyası düzenlendi. - 01.12.2025
-139. yedekler dışarı ile paylaşılınca da notification veriyor.
-140. 
+139. yedekler dışarı ile paylaşılınca da notification veriyor. - 02.12.2025
+140. `ìtem_card.dart`, `home_page.dart`, `alphabet_item_list.dart` ve `ìtem_list` dosyalarında performans düzeltmeleri yapıldı. - 03.12.2025
+141. 
 
 
 
@@ -156,6 +157,13 @@ bir chatGPT ortak çalışması :)
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - compute yapısı ile performans artışı sağlanabilir.
+- Hatalar : 
+    - zip dosya içinde sadece json ve csv var ?
+    - paylaşım yapınca zip içinde sadece json var?
+    - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor.
+    - provider ile kelime sayısı sürekli güncellenmiyor ?
+    - provider düzgün çalışmayınca yeni kelimeler veri tabanına eklenmiyor ?
+    - Yeni kelime eklenmesi sorunlu ?
 
 
 

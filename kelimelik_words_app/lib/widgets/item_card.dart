@@ -29,45 +29,53 @@ class WordCard extends StatelessWidget {
     required this.onDelete,
   });
 
-  // 📌 Kart görünümü
-  //
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-      child: GestureDetector(
-        onLongPress: onLongPress,
-        onTap: onTap,
-        child: Card(
-          elevation: 5,
-          color: cardLightColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(word.word, style: kelimeText),
-                    const Divider(thickness: 1),
-                    Text(word.meaning, style: anlamText),
-                  ],
-                ),
-              ),
-              if (isSelected)
+    return RepaintBoundary(
+      // 🔥 performans canavarı
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        child: InkWell(
+          onLongPress: onLongPress,
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Card(
+            elevation: 5,
+            color: cardLightColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 🔥 Bu alan artık statik → build maliyeti düşer
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 12,
-                    right: 12,
-                    bottom: 12,
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(word.word, style: kelimeText),
+                      const Divider(thickness: 1),
+                      Text(word.meaning, style: anlamText),
+                    ],
                   ),
-                  child: WordActionButtons(onEdit: onEdit, onDelete: onDelete),
                 ),
-            ],
+
+                // 🔥 sadece seçili olduğunda render edilir
+                if (isSelected)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 12,
+                      bottom: 12,
+                    ),
+                    child: WordActionButtons(
+                      onEdit: onEdit,
+                      onDelete: onDelete,
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
