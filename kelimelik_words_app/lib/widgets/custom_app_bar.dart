@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../providers/item_count_provider.dart';
+import '../widgets/safe_text_field.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSearching;
@@ -34,40 +35,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: drawerColor,
       iconTheme: IconThemeData(color: menuColor),
       titleTextStyle: TextStyle(color: menuColor),
+
+      /// 🔍 Arama modu
       title: isSearching
-          ? TextField(
+          ? SafeTextField(
               controller: searchController,
               autofocus: true,
-              decoration: InputDecoration(
-                isDense: true,
-                hintText: 'Kelime ara ...',
-                hintStyle: hintStil,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                suffixIcon: IconButton(
-                  icon: const FaIcon(
-                    FontAwesomeIcons.eraser,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    searchController.clear();
-                    onSearchChanged('');
-                  },
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: menuColor, width: 2),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: menuColor, width: 2),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
+              labelText: "Kelime ara ...",
               onChanged: onSearchChanged,
+              fillColor: Colors.white,
+
+              /// ✔️ KAYBOLAN SİLME BUTONU BURADA!
+              suffixIcon: IconButton(
+                icon: const FaIcon(FontAwesomeIcons.eraser, color: Colors.red),
+                onPressed: () {
+                  searchController.clear();
+                  onSearchChanged('');
+                },
+              ),
             )
           : Consumer<WordCountProvider>(
               builder: (context, wordCountProvider, _) {
@@ -78,6 +63,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
 
+      /// 🔧 Aksiyonlar
       actions: [
         isSearching
             ? IconButton(
@@ -88,7 +74,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   width: 48,
                   height: 48,
                 ),
-                // icon: const Icon(Icons.clear),
                 onPressed: onClearSearch,
               )
             : IconButton(

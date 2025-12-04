@@ -551,11 +551,11 @@ Baymak,Sıkmak / Bunaltmak / Kandırmak
 Bayt,Sekiz bitten oluşan sayısal veri
 Baytar,Veteriner hekim
 Baz,Temel
-Bazlı,baz bulunan
 Baza,Yatak altında bulunan sandık bölgesi
 Bazal,Baz özellikleri taşıyan madde
 Bazen,Ara sıra
 Bazı,Bazen / Kimi / Bir takım
+Bazlı,baz bulunan
 Be,Seslenme sözü / Harf
 Bebek,Meme veya kucak cocuğu
 Becet,Serçegillerden küçük bir kuş
@@ -734,11 +734,11 @@ Büve,Bir çeşit saldırgan sinek
 Büz,Künk
 Caba,Para vermeden / Bedava
 Cacık,Bir tür yoğurtlu yiyecek
+Cadde,ana yol
 Cadı,Kötülük yaparak zarar veren kadın
 Cağ,Parmaklık / Korkuluk
 Cahil,Öğrenim görmemiş
 Caiz,Dince yapılmasında sakınca olmayan
-Cadde,ana yol
 Caka,Gösteriş / Çalım / Fiyaka / Kabadayılık
 Cam,Sert saydam çabuk kırılır cisim
 Camız,Manda
@@ -1650,6 +1650,7 @@ Havlı,Havı olan
 Hay,İyi dilek / Şaşma / Sevinme sözü
 Haya,Utanma duygusu / Utanç
 Hayal,İmge / Görüntü / Gölge
+Hayalet,Peri hortlak gibi görüldüğü varsayılan şeyler
 Hayalı,Utangaç / Sıkılgan
 Hayali,Sanal / Fantastik
 Hayat,Yaşam / Canlı / Sağ
@@ -1949,6 +1950,7 @@ Jüt,Çuval Yapılan Hint bitkisi
 Kaba,Zevksiz / Sakil / Özensiz
 Kabak,Bir tür sebze
 Kabe,Kutsal mekan
+Kabile,Boy
 Kabin,Özel bölme
 Kabir,Mezar / Sin
 Kabul,Akseptans / Razı olma
@@ -2122,6 +2124,7 @@ Keçe,Kaba kumaş
 Keçeci,Keçe yapan veya satan kimse
 Keçi,Hayvan türü
 Keder,Acı / Üzüntü / Izdırap / Tasa
+Kedi,Kedigillerden bir hayvan / Pisik
 Kef,Pişen etin üstünde biriken köpük
 Kefal,Balık cinsi
 Kefe,Terazi gözü

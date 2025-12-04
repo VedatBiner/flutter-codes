@@ -10,6 +10,7 @@ import '../theme.dart';
 import 'screens/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [

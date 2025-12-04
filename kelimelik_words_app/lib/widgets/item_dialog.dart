@@ -1,6 +1,11 @@
 // 📃 <----- item_dialog.dart ----->
+//
+// Yeni kelime ekleme & düzenleme dialog 'u.
+// SafeTextField entegrasyonu ile cihaz klavye hataları tamamen çözülür.
+// ---------------------------------------------------------------------
 
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/widgets/safe_text_field.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/button_constants.dart';
@@ -19,39 +24,22 @@ class WordDialog extends StatefulWidget {
 
 class _WordDialogState extends State<WordDialog> {
   final _formKey = GlobalKey<FormState>();
-
-  late TextEditingController _wordController;
-  late TextEditingController _meaningController;
-
-  // 🔥 Klavye donmasını engelleyen FocusNode
-  final FocusNode _wordFocus = FocusNode();
-  final FocusNode _meaningFocus = FocusNode();
+  late final TextEditingController _wordController;
+  late final TextEditingController _meaningController;
 
   @override
   void initState() {
     super.initState();
-
     _wordController = TextEditingController(text: widget.word?.word ?? '');
     _meaningController = TextEditingController(
       text: widget.word?.meaning ?? '',
     );
-
-    // 🔥 Güvenli gecikmeli autofocus — Flutter bug fix
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 50), () {
-        if (mounted) {
-          _wordFocus.requestFocus();
-        }
-      });
-    });
   }
 
   @override
   void dispose() {
     _wordController.dispose();
     _meaningController.dispose();
-    _wordFocus.dispose();
-    _meaningFocus.dispose();
     super.dispose();
   }
 
@@ -71,6 +59,7 @@ class _WordDialogState extends State<WordDialog> {
         side: BorderSide(color: drawerColor, width: 5),
       ),
 
+      // 📌 Üst başlık barı
       titlePadding: EdgeInsets.zero,
       title: Container(
         width: double.infinity,
@@ -89,6 +78,7 @@ class _WordDialogState extends State<WordDialog> {
         ),
       ),
 
+      // 📌 İçerik
       content: Form(
         key: _formKey,
         child: Column(
@@ -96,69 +86,49 @@ class _WordDialogState extends State<WordDialog> {
           children: [
             const SizedBox(height: 12),
 
-            /// 🔥 Otomatik focus artık buradan yönlendirilir
-            TextFormField(
+            // ================================
+            //  🔡 Kelime Girişi — SafeTextField
+            // ================================
+            SafeTextField(
               controller: _wordController,
-              focusNode: _wordFocus,
-              decoration: InputDecoration(
-                labelText: 'Kelime',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: drawerColor, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.amber.shade600,
-                    width: 2.5,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              textInputAction: TextInputAction.next,
-              validator: (value) =>
-                  value == null || value.isEmpty ? 'Boş olamaz' : null,
-              onFieldSubmitted: (_) => _meaningFocus.requestFocus(),
+              labelText: "Kelime",
+              autofocus: true,
+              validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
+              borderColor: drawerColor,
+              focusBorderColor: Colors.amber.shade600,
             ),
 
             const SizedBox(height: 12),
 
-            TextFormField(
+            // ===================================
+            //  📘 Anlam Girişi — SafeTextField
+            // ===================================
+            SafeTextField(
               controller: _meaningController,
-              focusNode: _meaningFocus,
-              decoration: InputDecoration(
-                labelText: 'Anlamı',
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: drawerColor, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.amber.shade600,
-                    width: 2.5,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              textInputAction: TextInputAction.done,
-              validator: (value) =>
-                  value == null || value.isEmpty ? 'Boş olamaz' : null,
-              onFieldSubmitted: (_) {},
+              labelText: "Anlamı",
+              validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
+              borderColor: drawerColor,
+              focusBorderColor: Colors.amber.shade600,
             ),
           ],
         ),
       ),
 
+      // 📌 Alt butonlar
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            /// ❌ İptal
             ElevatedButton(
               style: elevatedCancelButtonStyle,
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('İptal', style: editButtonText),
             ),
+
             const SizedBox(width: 16),
 
+            /// 💾 Kaydet
             ElevatedButton(
               style: elevatedAddButtonStyle,
               onPressed: () {
@@ -173,6 +143,7 @@ class _WordDialogState extends State<WordDialog> {
               },
               child: const Text('Kaydet', style: editButtonText),
             ),
+
             const SizedBox(width: 12),
           ],
         ),

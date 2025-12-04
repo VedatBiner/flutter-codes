@@ -143,8 +143,11 @@ bir chatGPT ortak çalışması :)
 138. `bottom_banner_helper.dart` dosyası düzenlendi. - 01.12.2025
 139. yedekler dışarı ile paylaşılınca da notification veriyor. - 02.12.2025
 140. `ìtem_card.dart`, `home_page.dart`, `alphabet_item_list.dart` ve `ìtem_list` dosyalarında performans düzeltmeleri yapıldı. - 03.12.2025
-141. `custom_app_bar.drt` dosyası da düzenlendi. - - 03.12.2025
-142. 
+141. `custom_app_bar.drt` dosyası da düzenlendi. - 03.12.2025
+142. `ìtem_dialog.dart` klavye hatasına karşı düzeltildi. - 04.12.2025
+143. `safe_text_field.dart` dosyası klavye güvenliği için yeni eklendi. - 04.12.2025
+144. `custom_app_bar.drt` dosyası da güvenli düzeltildi. - 04.12.2025
+145. `safe_keyboard.dart` dosyası eklendi - 04.12.2025
 
 
 
