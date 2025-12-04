@@ -19,22 +19,39 @@ class WordDialog extends StatefulWidget {
 
 class _WordDialogState extends State<WordDialog> {
   final _formKey = GlobalKey<FormState>();
+
   late TextEditingController _wordController;
   late TextEditingController _meaningController;
+
+  // 🔥 Klavye donmasını engelleyen FocusNode
+  final FocusNode _wordFocus = FocusNode();
+  final FocusNode _meaningFocus = FocusNode();
 
   @override
   void initState() {
     super.initState();
+
     _wordController = TextEditingController(text: widget.word?.word ?? '');
     _meaningController = TextEditingController(
       text: widget.word?.meaning ?? '',
     );
+
+    // 🔥 Güvenli gecikmeli autofocus — Flutter bug fix
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 50), () {
+        if (mounted) {
+          _wordFocus.requestFocus();
+        }
+      });
+    });
   }
 
   @override
   void dispose() {
     _wordController.dispose();
     _meaningController.dispose();
+    _wordFocus.dispose();
+    _meaningFocus.dispose();
     super.dispose();
   }
 
@@ -53,6 +70,7 @@ class _WordDialogState extends State<WordDialog> {
         borderRadius: BorderRadius.circular(16),
         side: BorderSide(color: drawerColor, width: 5),
       ),
+
       titlePadding: EdgeInsets.zero,
       title: Container(
         width: double.infinity,
@@ -70,14 +88,18 @@ class _WordDialogState extends State<WordDialog> {
           textAlign: TextAlign.center,
         ),
       ),
+
       content: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 12),
+
+            /// 🔥 Otomatik focus artık buradan yönlendirilir
             TextFormField(
               controller: _wordController,
+              focusNode: _wordFocus,
               decoration: InputDecoration(
                 labelText: 'Kelime',
                 enabledBorder: OutlineInputBorder(
@@ -92,14 +114,17 @@ class _WordDialogState extends State<WordDialog> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              autofocus: true,
               textInputAction: TextInputAction.next,
               validator: (value) =>
                   value == null || value.isEmpty ? 'Boş olamaz' : null,
+              onFieldSubmitted: (_) => _meaningFocus.requestFocus(),
             ),
+
             const SizedBox(height: 12),
+
             TextFormField(
               controller: _meaningController,
+              focusNode: _meaningFocus,
               decoration: InputDecoration(
                 labelText: 'Anlamı',
                 enabledBorder: OutlineInputBorder(
@@ -117,10 +142,12 @@ class _WordDialogState extends State<WordDialog> {
               textInputAction: TextInputAction.done,
               validator: (value) =>
                   value == null || value.isEmpty ? 'Boş olamaz' : null,
+              onFieldSubmitted: (_) {},
             ),
           ],
         ),
       ),
+
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -131,6 +158,7 @@ class _WordDialogState extends State<WordDialog> {
               child: const Text('İptal', style: editButtonText),
             ),
             const SizedBox(width: 16),
+
             ElevatedButton(
               style: elevatedAddButtonStyle,
               onPressed: () {
