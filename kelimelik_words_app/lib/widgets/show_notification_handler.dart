@@ -182,6 +182,10 @@ void showUpdateNotification(BuildContext context, Word updated) {
 /// 📌 Notification göster - Kelime eklendi
 ///
 void showAddNotification(BuildContext context, Word result) {
+  /// 📌 Log yazdır
+  log(logLine, name: tag);
+  log("Kelime eklendi: ${result.word}", name: tag);
+  log(logLine, name: tag);
   return NotificationService.showCustomNotification(
     context: context,
     title: 'Kelime Ekleme İşlemi',
