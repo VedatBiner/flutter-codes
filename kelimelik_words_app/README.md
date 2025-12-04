@@ -151,7 +151,7 @@ bir chatGPT ortak çalışması :)
 
 
 
-
+cd 
 
 
 

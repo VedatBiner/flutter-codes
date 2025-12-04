@@ -45,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onChanged: onSearchChanged,
               fillColor: Colors.white,
 
-              /// ✔️ KAYBOLAN SİLME BUTONU BURADA!
+              /// Silme butonu
               suffixIcon: IconButton(
                 icon: const FaIcon(FontAwesomeIcons.eraser, color: Colors.red),
                 onPressed: () {

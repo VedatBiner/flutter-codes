@@ -92,6 +92,8 @@ class _WordDialogState extends State<WordDialog> {
             SafeTextField(
               controller: _wordController,
               labelText: "Kelime",
+              hint: "Yeni kelime giriniz",
+              hintStyle: hintStil,
               autofocus: true,
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
               borderColor: drawerColor,
@@ -106,6 +108,8 @@ class _WordDialogState extends State<WordDialog> {
             SafeTextField(
               controller: _meaningController,
               labelText: "Anlamı",
+              hint: "Kelimenin anlamını giriniz",
+              hintStyle: hintStil,
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
               borderColor: drawerColor,
               focusBorderColor: Colors.amber.shade600,

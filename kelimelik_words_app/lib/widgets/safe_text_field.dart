@@ -18,11 +18,14 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
+
 class SafeTextField extends StatefulWidget {
   final TextEditingController controller;
 
   final String? labelText;
   final String? hint;
+  final TextStyle? hintStyle; // 👈 YENİ EKLENDİ
 
   /// 🔥 Yeni: onChanged desteği
   final ValueChanged<String>? onChanged;
@@ -46,6 +49,7 @@ class SafeTextField extends StatefulWidget {
     required this.controller,
     this.labelText,
     this.hint,
+    this.hintStyle, // 👈 YENİ
     this.onChanged,
     this.suffixIcon, // 👈 YENİ
     this.fillColor, // 👈 YENİ
@@ -95,6 +99,7 @@ class _SafeTextFieldState extends State<SafeTextField> {
         decoration: InputDecoration(
           labelText: widget.labelText,
           hintText: widget.hint,
+          hintStyle: widget.hintStyle,
           isDense: true,
 
           /// ✔ fillColor dışarıdan gelirse kullan, gelmezse beyaz
@@ -105,7 +110,7 @@ class _SafeTextFieldState extends State<SafeTextField> {
           suffixIcon: widget.suffixIcon,
 
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderColor, width: 2),
+            borderSide: BorderSide(color: menuColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
