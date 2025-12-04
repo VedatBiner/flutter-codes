@@ -29,6 +29,7 @@ class _AlphabetWordListState extends State<AlphabetWordList>
   @override
   bool get wantKeepAlive => true; // 👈 fihrist ekranı korunur
 
+  /// 📌 Fihrist için grup yapılarını oluşturur
   List<AlphabetListViewItemGroup> _buildGroupedItems() {
     final Map<String, List<Word>> grouped = {};
 
@@ -54,13 +55,20 @@ class _AlphabetWordListState extends State<AlphabetWordList>
             word: word,
             isSelected: isSelected,
             onTap: () => setState(() => selectedIndex = null),
+
+            /// 📌 kart uzun basıldığında
+            /// düzenle / sil butonları gösterilir
             onLongPress: () =>
                 setState(() => selectedIndex = isSelected ? null : index),
+
+            /// 📌 düzenleme metodu
             onEdit: () => editWord(
               context: context,
               word: word,
               onUpdated: widget.onUpdated,
             ),
+
+            /// 📌 silme metodu
             onDelete: () => confirmDelete(
               context: context,
               word: word,
@@ -91,6 +99,7 @@ class _AlphabetWordListState extends State<AlphabetWordList>
         key: const PageStorageKey("fihrist_list"), // 👈 scroll + konum sabit
         items: _buildGroupedItems(),
         options: AlphabetListViewOptions(
+          /// 📌 Fihrist harfleri için ayarlar
           scrollbarOptions: ScrollbarOptions(
             symbols: turkishAlphabet,
             jumpToSymbolsWithNoEntries: true,
@@ -123,10 +132,14 @@ class _AlphabetWordListState extends State<AlphabetWordList>
               );
             },
           ),
+
+          /// 📌 Liste görünümü ayarları
           listOptions: ListOptions(
             backgroundColor: cardPageColor,
             stickySectionHeader: false,
             showSectionHeaderForEmptySections: true,
+
+            /// 📌 Baş harf görseli ayarları
             listHeaderBuilder: (context, symbol) => Padding(
               padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
               child: Align(
@@ -155,6 +168,8 @@ class _AlphabetWordListState extends State<AlphabetWordList>
               ),
             ),
           ),
+
+          /// 📌 Ortadaki büyük harf overlay için ayarlar
           overlayOptions: OverlayOptions(
             alignment: Alignment.centerRight,
             overlayBuilder: (context, symbol) {
