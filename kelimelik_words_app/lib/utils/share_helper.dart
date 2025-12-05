@@ -37,20 +37,21 @@ import '../../constants/file_info.dart';
 ///  - Dizin varsa içindeki dosyaları (CSV, JSON, XLSX, SQL vb.) listeler.
 ///  - Dosya varsa sistemin paylaşım menüsünü açar.
 ///
-/// Log çıktıları konsolda `[External Share]` etiketiyle görünür.
+/// Log çıktıları konsolda `[share_helper]` etiketiyle görünür.
 ///
 /// ⚠️ Not: Dosya paylaşımı için depolama izni (`ensureStoragePermission()`)
 ///        önceden verilmiş olmalıdır.
 ///
 Future<void> shareBackupFolder() async {
   const tag = 'share_helper';
+
   try {
     // 📁 Download dizinini bul
     final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
       ExternalPath.DIRECTORY_DOWNLOAD,
     );
 
-    // Hedef klasör (örnek: /storage/emulated/0/Download/netflix_film_list_app)
+    // Hedef klasör (örnek: /storage/emulated/0/Download/kelimelik_words_app)
     final folderPath = join(downloadDir, appName);
     final dir = Directory(folderPath);
 
@@ -68,10 +69,14 @@ Future<void> shareBackupFolder() async {
       return;
     }
 
+    // XFile listesine dönüştür
+    final xFiles = files.map((f) => XFile(f.path)).toList();
+
     // 📤 share_plus kullanarak sistem paylaşım penceresini aç
     await Share.shareXFiles(
-      files.map((f) => XFile(f.path)).toList(),
+      xFiles,
       text: '📂 $appName yedek dosyaları',
+      subject: '$appName backup files',
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);

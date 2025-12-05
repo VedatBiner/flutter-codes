@@ -150,7 +150,8 @@ bir chatGPT ortak çalışması :)
 145. `safe_keyboard.dart` dosyası eklendi - 04.12.2025
 146. `zip_helper.dart`, `backup_notification_helper.dart`, `file_exporter.dart` ve `file_creator.dart` dosyaları güncellendi. - 05.12.2025
 147. `export_items.dart` dosyası eklendi. - 05.12.2025
-148. 
+148. `share_helper.dart`dosyası güncellendi. - 05.12.2025
+149. 
 
 
 
