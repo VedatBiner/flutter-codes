@@ -1,5 +1,17 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
+//
 // Tam Pipeline + Rebuild sistemi + Notification + ZIP
+// -----------------------------------------------------------
+// Akış:
+//   1️⃣ CSV Sync → createOrUpdateDeviceCsvFromAsset()
+//   2️⃣ Eğer needsRebuild = true → TAM REBUILD
+//   3️⃣ CSV → JSON
+//   4️⃣ CSV → Excel
+//   5️⃣ JSON → SQL
+//   6️⃣ Benchmark + Duplicate Report (fc_report.dart)
+//   7️⃣ ZIP oluşturma
+//   8️⃣ Notification gösterme
+// -----------------------------------------------------------
 
 import 'dart:developer';
 import 'dart:io';
@@ -21,6 +33,9 @@ import 'fc_files/zip_helper.dart';
 
 const tag = "file_creator";
 
+/// ------------------------------------------------------------
+/// Tüm Pipeline için tek fonksiyon
+/// ------------------------------------------------------------
 Future<void> initializeAppDataFlow(BuildContext context) async {
   final sw = Stopwatch()..start();
   log("🚀 initializeAppDataFlow başladı", name: tag);
@@ -34,6 +49,8 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final excelFull = join(directory.path, fileNameXlsx);
   final sqlFull = join(directory.path, fileNameSql);
   final zipFull = join(directory.path, fileNameZip);
+
+  List<String> backupFiles = [jsonFull, csvFull, excelFull, sqlFull];
 
   // ----------------------------------------------------------
   // 1️⃣ CSV Sync
@@ -87,7 +104,8 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         insertDurations: [],
       );
 
-      final zipOut = await createZipArchive();
+      /// ✔ ZIP oluştur — artık parametreli!
+      final zipOut = await createZipArchive(files: backupFiles);
 
       if (!context.mounted) return;
 
@@ -100,7 +118,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         zipOut,
       );
     } finally {
-      bannerCtrl.close(); // ✔ kapanmazsa banner sonsuza kadar kalır
+      bannerCtrl.close();
     }
 
     sw.stop();
@@ -129,6 +147,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         insertDurations: [],
       );
 
+      /// ✔ ZIP oluştur
+      final zipOut = await createZipArchive(files: backupFiles);
+
       if (!context.mounted) return;
 
       showCreateDbNotification(
@@ -137,7 +158,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         csvFull,
         excelFull,
         sqlFull,
-        zipFull,
+        zipOut,
       );
     } finally {
       bannerCtrl.close();
@@ -175,6 +196,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       insertDurations: [],
     );
 
+    /// ✔ ZIP oluştur
+    final zipOut = await createZipArchive(files: backupFiles);
+
     if (!context.mounted) return;
 
     showCreateDbNotification(
@@ -183,7 +207,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       csvFull,
       excelFull,
       sqlFull,
-      zipFull,
+      zipOut,
     );
   } finally {
     bannerCtrl.close();
