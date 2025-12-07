@@ -188,6 +188,7 @@ class _AlphabetWordListState extends State<AlphabetWordList>
                       symbol,
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.primary,
                       ),

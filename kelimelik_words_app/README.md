@@ -153,7 +153,7 @@ bir chatGPT ortak çalışması :)
 148. `share_helper.dart`dosyası güncellendi. - 05.12.2025
 149. `excel_helper.dart`dosyası güncellendi. - 06.12.2025
 150. `drawer_backup_tile.dart` dosyası düzeltildi. 06.12.2025
-151. 
+151. `custom_app_bar.drt` dosyası düzeltildi. - 07.12.2025
 
 
 

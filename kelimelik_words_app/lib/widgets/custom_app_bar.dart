@@ -41,9 +41,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? SafeTextField(
               controller: searchController,
               autofocus: true,
-              labelText: "Kelime ara ...",
+              // labelText: "Kelime ara ...",
               onChanged: onSearchChanged,
               fillColor: Colors.white,
+              hint: 'Kelime ara ...',
+              hintStyle: hintStil,
 
               /// Silme butonu
               suffixIcon: IconButton(
