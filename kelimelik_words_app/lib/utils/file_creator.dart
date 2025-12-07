@@ -44,13 +44,16 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   // 📌 Tüm dosya yollarını tek seferde hesapla
   // ----------------------------------------------------------
   final directory = await getApplicationDocumentsDirectory();
-  final jsonFull = join(directory.path, fileNameJson);
-  final csvFull = join(directory.path, fileNameCsv);
-  final excelFull = join(directory.path, fileNameXlsx);
-  final sqlFull = join(directory.path, fileNameSql);
-  final zipFull = join(directory.path, fileNameZip);
+  final basePath = directory.path;
 
-  List<String> backupFiles = [jsonFull, csvFull, excelFull, sqlFull];
+  final jsonFull = join(basePath, fileNameJson);
+  final csvFull = join(basePath, fileNameCsv);
+  final excelFull = join(basePath, fileNameXlsx);
+  final sqlFull = join(basePath, fileNameSql);
+  // final zipFull = join(basePath, fileNameZip); // ZIP yolu artık createZipArchive içinden geliyor
+
+  // ZIP'e girecek dosya listesi
+  final List<String> backupFiles = [jsonFull, csvFull, excelFull, sqlFull];
 
   // ----------------------------------------------------------
   // 1️⃣ CSV Sync
@@ -78,6 +81,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     );
 
     try {
+      // DB kapat + sil
       await DbHelper.instance.closeDb();
 
       if (await dbFile.exists()) {
@@ -85,6 +89,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         log("🗑 DB silindi: $sqlFull", name: tag);
       }
 
+      // Eski JSON & Excel'i sil
       for (final p in [jsonFull, excelFull]) {
         final f = File(p);
         if (await f.exists()) {
@@ -93,10 +98,12 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         }
       }
 
+      // Yeniden üretim
       await createJsonFromAssetCsv();
       await createExcelFromAssetCsvSyncfusion();
       await importJsonToDatabaseFast();
 
+      // Benchmark + rapor (şimdilik dummy değerler)
       await runFullDataReport(
         csvToJsonMs: 0,
         jsonToSqlMs: 0,
@@ -104,8 +111,11 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         insertDurations: [],
       );
 
-      /// ✔ ZIP oluştur — artık parametreli!
-      final zipOut = await createZipArchive(files: backupFiles);
+      /// ✔ ZIP oluştur — yeni imzaya göre (outputDir + files)
+      final zipOut = await createZipArchive(
+        outputDir: basePath,
+        files: backupFiles,
+      );
 
       if (!context.mounted) return;
 
@@ -147,8 +157,11 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
         insertDurations: [],
       );
 
-      /// ✔ ZIP oluştur
-      final zipOut = await createZipArchive(files: backupFiles);
+      /// ✔ ZIP oluştur — yeni imza
+      final zipOut = await createZipArchive(
+        outputDir: basePath,
+        files: backupFiles,
+      );
 
       if (!context.mounted) return;
 
@@ -196,8 +209,11 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       insertDurations: [],
     );
 
-    /// ✔ ZIP oluştur
-    final zipOut = await createZipArchive(files: backupFiles);
+    /// ✔ ZIP oluştur — yeni imza
+    final zipOut = await createZipArchive(
+      outputDir: basePath,
+      files: backupFiles,
+    );
 
     if (!context.mounted) return;
 

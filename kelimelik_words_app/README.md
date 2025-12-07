@@ -151,7 +151,9 @@ bir chatGPT ortak çalışması :)
 146. `zip_helper.dart`, `backup_notification_helper.dart`, `file_exporter.dart` ve `file_creator.dart` dosyaları güncellendi. - 05.12.2025
 147. `export_items.dart` dosyası eklendi. - 05.12.2025
 148. `share_helper.dart`dosyası güncellendi. - 05.12.2025
-149. 
+149. `excel_helper.dart`dosyası güncellendi. - 06.12.2025
+150. `drawer_backup_tile.dart` dosyası düzeltildi. 06.12.2025
+151. 
 
 
 

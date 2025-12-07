@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
-import '../../utils/fx_files/backup_notification_helper.dart';
+// ❗ DÜZELTİLDİ: fx_files yanlış klasördü
+import '../../utils/backup_notification_helper.dart';
 import '../show_notification_handler.dart';
 
 class DrawerBackupTile extends StatelessWidget {
@@ -29,23 +30,18 @@ class DrawerBackupTile extends StatelessWidget {
         onTap: () async {
           await backupNotificationHelper(
             context: context,
-            onStatusChange: (_) {}, // istersen burada SnackBar/Log yapabilirsin
-            onExportingChange:
-                (_) {}, // istersen burada loading state bağlarsın
-            // ✅ Gerçek callback: ExportResultX → handler bildirimi
+            onStatusChange: (_) {},
+            onExportingChange: (_) {},
+
+            // 🎉 EXPORT BAŞARILI → NOTIFICATION GÖSTER
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
-                res.jsonPath ??
-                    '', // Hata düzeltildi: Null ise boş string gönder
-                res.csvPath ??
-                    '', // Hata düzeltildi: Null ise boş string gönder
-                res.xlsxPath ??
-                    '', // Hata düzeltildi: Null ise boş string gönder
-                res.sqlPath ??
-                    '', // Hata düzeltildi: Null ise boş string gönder
-                res.zipPath ??
-                    '', // Hata düzeltildi: Null ise boş string gönder
+                res.jsonPath,
+                res.csvPath,
+                res.excelPath, // ❗ xlsxPath yerine excelPath
+                res.sqlPath,
+                res.zipPath,
               );
             },
           );

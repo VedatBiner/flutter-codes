@@ -67,12 +67,6 @@ LoadingBannerController showLoadingBanner(
 }) {
   // Overlay bulunmazsa bile çökmeyi önle
   final overlay = Overlay.of(context, rootOverlay: true);
-  if (overlay == null) {
-    // Fallback: boş entry döndür ama crash olmasın
-    return LoadingBannerController(
-      OverlayEntry(builder: (_) => const SizedBox.shrink()),
-    );
-  }
 
   late OverlayEntry entry;
 

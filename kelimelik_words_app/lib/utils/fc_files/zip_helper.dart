@@ -1,12 +1,4 @@
 // 📃 <----- lib/utils/fc_files/zip_helper.dart ----->
-//
-//  Verilen dosya listesi ile ZIP oluşturur.
-//  Artık: createZipArchive(files: [...]) şeklinde çağrılır.
-//
-//  NOT:
-//  • ZIP systemTemp içine oluşturulur (Android için güvenli).
-//  • Hata yoksa tam ZIP yolu döner.
-//
 
 import 'dart:developer';
 import 'dart:io';
@@ -18,16 +10,17 @@ import '../../constants/file_info.dart';
 
 const _tag = "zip_helper";
 
-/// 📦 Verilen dosya listesiyle ZIP oluşturur.
-/// Örnek:
-/// final zipPath = await createZipArchive(files: [jsonFull, csvFull, ...]);
-Future<String> createZipArchive({required List<String> files}) async {
+/// Verilen dosya listesiyle ZIP oluşturur.
+/// files içinde verilen TAM YOLLAR zip 'e eklenir.
+/// ZIP daima device Documents içine değil → çağıran dosyanın belirttiği
+/// path 'e yazılır.
+Future<String> createZipArchive({
+  required List<String> files,
+  required String outputDir, // 🔥 ZIP ’in nereye yazılacağı
+}) async {
+  final zipPath = join(outputDir, fileNameZip);
+
   final encoder = ZipFileEncoder();
-
-  // Geçici bir klasör oluştur (Android ’de güvenli yol)
-  final Directory baseDir = await Directory.systemTemp.createTemp();
-  final zipPath = join(baseDir.path, fileNameZip);
-
   encoder.create(zipPath);
 
   for (final filePath in files) {
@@ -35,9 +28,9 @@ Future<String> createZipArchive({required List<String> files}) async {
 
     if (await file.exists()) {
       encoder.addFile(file);
-      log("📦 ZIP ’e eklendi: $filePath", name: _tag);
+      log("📦 ZIP’e eklendi: $filePath", name: _tag);
     } else {
-      log("⚠️ ZIP ’e eklenemedi (dosya yok): $filePath", name: _tag);
+      log("⚠️ ZIP’e eklenemedi (dosya yok): $filePath", name: _tag);
     }
   }
 

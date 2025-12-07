@@ -1,7 +1,7 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 //
 //  Yedekleme (Export) sürecini UI ’dan bağımsız yöneten yardımcı dosya.
-//  Eksiksiz SQL → CSV → JSON → XLSX → ZIP pipeline ’ı export_items.dart üzerinden çalıştırır.
+//  Eksiksiz SQL → CSV → JSON → XLSX → ZIP pipeline ’ı sil_export_items.dart üzerinden çalıştırır.
 //
 //  • Alt bant (LoadingBottomBanner) tek satır ile açılır: showLoadingBanner()
 //  • Export sürecini duruma göre onStatusChange ile bildirir
@@ -14,9 +14,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../../constants/file_info.dart';
-import '../../widgets/bottom_banner_helper.dart';
-import 'export_items.dart';
+import '../constants/file_info.dart';
+import '../services/export_items.dart';
+import '../widgets/bottom_banner_helper.dart';
 
 Future<void> backupNotificationHelper({
   required BuildContext context,
@@ -50,7 +50,7 @@ Future<void> backupNotificationHelper({
   try {
     // ----------------------------------------------------------
     // 🚀 Tüm export işlemleri (SQL → CSV/JSON/XLSX → ZIP)
-    // export_items.dart → file_exporter.dart zinciri
+    // sil_export_items.dart → file_exporter.dart zinciri
     // ----------------------------------------------------------
     final res = await exportItemsToFileFormats(subfolder: subfolder ?? appName);
 

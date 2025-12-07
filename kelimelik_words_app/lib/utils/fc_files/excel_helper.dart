@@ -74,3 +74,49 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     log('❌ Excel oluşturma hatası: $e', name: tag, error: e, stackTrace: st);
   }
 }
+
+Future<void> exportItemsToExcelFromList(String excelPath, List items) async {
+  final file = File(excelPath);
+  if (await file.exists()) await file.delete();
+
+  final workbook = xlsio.Workbook();
+  final sheet = workbook.worksheets[0];
+
+  sheet.getRangeByIndex(1, 1).setText("Kelime");
+  sheet.getRangeByIndex(1, 2).setText("Anlam");
+
+  int row = 2;
+  for (var item in items) {
+    sheet.getRangeByIndex(row, 1).setText(item.word);
+    sheet.getRangeByIndex(row, 2).setText(item.meaning);
+    row++;
+  }
+
+  final bytes = workbook.saveAsStream();
+  workbook.dispose();
+
+  await file.writeAsBytes(bytes);
+}
+
+Future<void> exportItemsToExcel(String excelPath, List items) async {
+  final file = File(excelPath);
+  if (await file.exists()) await file.delete();
+
+  final workbook = xlsio.Workbook();
+  final sheet = workbook.worksheets[0];
+
+  sheet.getRangeByIndex(1, 1).setText("Kelime");
+  sheet.getRangeByIndex(1, 2).setText("Anlam");
+
+  int row = 2;
+  for (var item in items) {
+    sheet.getRangeByIndex(row, 1).setText(item.word);
+    sheet.getRangeByIndex(row, 2).setText(item.meaning);
+    row++;
+  }
+
+  final bytes = workbook.saveAsStream();
+  workbook.dispose();
+
+  await file.writeAsBytes(bytes);
+}

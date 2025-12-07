@@ -1,144 +1,131 @@
 // 📃 <----- lib/utils/file_exporter.dart ----->
 //
-// SQL → CSV / JSON / XLSX → ZIP → Download kopyalama
-// Tüm dosyalar EN GÜNCEL SQL verisinden yeniden üretilir.
+// SQL → CSV → JSON → XLSX → ZIP pipeline
+// -----------------------------------------------------------
+// Bu dosya, veritabanındaki en güncel verilere göre
+// 4 dosya üretir:
 //
+// 1) kelimelik_backup.json
+// 2) kelimelik_backup.csv
+// 3) kelimelik_backup.xlsx
+// 4) kelimelik.db  (birebir kopya)
+// 5) kelimelik_backup.zip (tüm dosyalar içinde)
+//
+// Tüm üretim işlemleri Documents/{appName} altına yapılır.
+// Download erişimi home_page.dart tarafından yönetilir.
 
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
+import '../widgets/bottom_banner_helper.dart';
+import 'fc_files/excel_helper.dart'; // <-- Excel için
+// <-- JSON üretimi için
 import 'fc_files/zip_helper.dart';
 
 const _tag = "file_exporter";
 
-/// Full export işlemini tetikler:
-/// 1) En güncel SQL → rows
-/// 2) CSV üret
-/// 3) JSON üret
-/// 4) XLSX üret
-/// 5) ZIP üret
-/// 6) Download klasörüne kopyala
-Future<Map<String, String>> runFullExport({String? subfolder}) async {
-  log("🚀 Full Export başladı...", name: _tag);
-
-  final dir = await getApplicationDocumentsDirectory();
-  final basePath = dir.path;
-
-  final csvFull = join(basePath, fileNameCsv);
-  final jsonFull = join(basePath, fileNameJson);
-  final xlsxFull = join(basePath, fileNameXlsx);
-  final sqlFull = join(basePath, fileNameSql);
-
-  // -----------------------------
-  // 1️⃣ EN GÜNCEL SQL verisini çek
-  // -----------------------------
-  final rows = await DbHelper.instance.getRecords();
-  log("📦 SQL 'den okunan kayıt sayısı: ${rows.length}", name: _tag);
-
-  // -----------------------------
-  // 2️⃣ CSV üret (SIFIRDAN)
-  // -----------------------------
-  final csvBuffer = StringBuffer("Word,Meaning\n");
-  for (final r in rows) {
-    csvBuffer.writeln("${r.word},${r.meaning}");
-  }
-  await File(csvFull).writeAsString(csvBuffer.toString());
-  log("✅ CSV oluşturuldu → $csvFull", name: _tag);
-
-  // -----------------------------
-  // 3️⃣ JSON üret (SIFIRDAN)
-  // -----------------------------
-  final jsonList = rows
-      .map((r) => {"Word": r.word, "Meaning": r.meaning})
-      .toList();
-
-  await File(
-    jsonFull,
-  ).writeAsString(const JsonEncoder.withIndent("  ").convert(jsonList));
-  log("✅ JSON oluşturuldu → $jsonFull", name: _tag);
-
-  // -----------------------------
-  // 4️⃣ XLSX üret (SIFIRDAN)
-  // -----------------------------
-  final workbook = xlsio.Workbook();
-  final sheet = workbook.worksheets[0];
-
-  sheet.getRangeByIndex(1, 1).setText("Word");
-  sheet.getRangeByIndex(1, 2).setText("Meaning");
-
-  for (int i = 0; i < rows.length; i++) {
-    sheet.getRangeByIndex(i + 2, 1).setText(rows[i].word);
-    sheet.getRangeByIndex(i + 2, 2).setText(rows[i].meaning);
-  }
-
-  final excelBytes = workbook.saveAsStream();
-  workbook.dispose();
-  await File(xlsxFull).writeAsBytes(excelBytes);
-  log("✅ XLSX oluşturuldu → $xlsxFull", name: _tag);
-
-  // -----------------------------
-  // 5️⃣ ZIP üret (EN GÜNCEL DOSYALARLA)
-  // -----------------------------
-  final zipFull = await createZipArchive(
-    files: [csvFull, jsonFull, xlsxFull, sqlFull],
-  );
-  log("📦 ZIP oluşturuldu → $zipFull", name: _tag);
-
-  // -----------------------------
-  // 6️⃣ Download dizinine kopyala
-  // -----------------------------
-  final result = await _copyToDownloadFolder(
-    subfolder,
-    csv: csvFull,
-    json: jsonFull,
-    xlsx: xlsxFull,
-    sql: sqlFull,
-    zip: zipFull,
-  );
-
-  log("🎉 Full Export tamamlandı.", name: _tag);
-  log("📁 Download klasörüne kopyalanan dosyalar:", name: _tag);
-  result.forEach((key, value) => log("$key → $value", name: _tag));
-
-  return result;
-}
-
-/// Download klasörüne güvenli kopyalama
-Future<Map<String, String>> _copyToDownloadFolder(
-  String? subfolder, {
-  required String csv,
-  required String json,
-  required String xlsx,
-  required String sql,
-  required String zip,
+/// 📤 *TAM EXPORT PIPELINE*
+Future<void> runFullExportPipeline(
+  BuildContext context, {
+  void Function(String msg)? onStatus,
+  void Function(bool exporting)? onExporting,
+  void Function(String zipPath)? onFinished,
 }) async {
-  final folder = Directory(
-    "/storage/emulated/0/Download/${subfolder ?? appName}",
+  onStatus?.call("Export başlatılıyor…");
+  onExporting?.call(true);
+
+  final banner = showLoadingBanner(
+    context,
+    message: "Lütfen bekleyiniz…\nYedek hazırlanıyor.",
   );
 
-  if (!await folder.exists()) {
-    await folder.create(recursive: true);
-  }
+  try {
+    log("🚀 Export pipeline başladı", name: _tag);
 
-  Future<String> cp(String src) async {
-    final dst = join(folder.path, basename(src));
-    await File(src).copy(dst);
-    return dst;
-  }
+    //----------------------------------------------------------------------
+    // 📁 Documents/{appName} klasörünü oluştur
+    //----------------------------------------------------------------------
+    final documents = await getApplicationDocumentsDirectory();
+    final exportDir = Directory(join(documents.path, appName));
+    await exportDir.create(recursive: true);
 
-  return {
-    fileNameCsv: await cp(csv),
-    fileNameJson: await cp(json),
-    fileNameXlsx: await cp(xlsx),
-    fileNameSql: await cp(sql),
-    fileNameZip: await cp(zip),
-    "count": (await DbHelper.instance.countRecords()).toString(),
-  };
+    onStatus?.call("SQL verileri okunuyor…");
+
+    //----------------------------------------------------------------------
+    // 🔥 SQL → Liste
+    //----------------------------------------------------------------------
+    final items = await DbHelper.instance.getRecords();
+    final count = items.length;
+
+    log("📌 Toplam kayıt: $count", name: _tag);
+    onStatus?.call("$count kayıt işleniyor…");
+
+    //----------------------------------------------------------------------
+    // 1️⃣ CSV Üret (DbHelper fonksiyonu)
+    //----------------------------------------------------------------------
+    onStatus?.call("CSV oluşturuluyor…");
+    final csvPath = await DbHelper.instance.exportRecordsToCsv();
+
+    //----------------------------------------------------------------------
+    // 2️⃣ JSON Üret (DbHelper fonksiyonu)
+    //----------------------------------------------------------------------
+    onStatus?.call("JSON oluşturuluyor…");
+    final jsonPath = await DbHelper.instance.exportRecordsToJson();
+
+    //----------------------------------------------------------------------
+    // 3️⃣ XLSX Üret — veritabanındaki güncel kayıtlarla
+    //----------------------------------------------------------------------
+    onStatus?.call("XLSX oluşturuluyor…");
+
+    final excelPath = join(exportDir.path, fileNameXlsx);
+    await exportItemsToExcelFromList(excelPath, items);
+
+    //----------------------------------------------------------------------
+    // 4️⃣ SQL dosyasının kopyasını export klasörüne al
+    //----------------------------------------------------------------------
+    onStatus?.call("Veritabanı kopyalanıyor…");
+
+    final dbOriginal = await getApplicationDocumentsDirectory();
+    final dbFullPath = join(dbOriginal.path, fileNameSql);
+
+    final sqlCopyPath = join(exportDir.path, fileNameSql);
+    await File(dbFullPath).copy(sqlCopyPath);
+
+    //----------------------------------------------------------------------
+    // 5️⃣ ZIP oluştur — TÜM DOSYALAR
+    //----------------------------------------------------------------------
+    onStatus?.call("ZIP oluşturuluyor…");
+
+    final zipPath = await createZipArchive(
+      outputDir: exportDir.path,
+      files: [csvPath, jsonPath, excelPath, sqlCopyPath],
+    );
+
+    log("🎁 ZIP tamamlandı: $zipPath", name: _tag);
+
+    //----------------------------------------------------------------------
+    // ✔ Tamamlandı
+    //----------------------------------------------------------------------
+    onStatus?.call("Export tamamlandı.");
+    onFinished?.call(zipPath);
+  } catch (e, st) {
+    log("❌ Export hata: $e", name: _tag, error: e, stackTrace: st);
+    onStatus?.call("Hata: $e");
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Export Hatası: $e")));
+    }
+  } finally {
+    banner.close();
+    onExporting?.call(false);
+    log("🏁 Export pipeline bitti", name: _tag);
+  }
 }
