@@ -157,7 +157,7 @@ bir chatGPT ortak çalışması :)
 152. Geçici olarak Normal Görünüm seçeneği iptal edildi. - 08.12.2025
 153. `custom_drawer.dart` ve `home_page.dart` dosyaları güncellendi. 152. adıma göre - 08.12.2025
 154. `sync_helper.dart` dosyası eklenerek hatalı veri kaybı düzeltildi. - 08.12.2025
-155. `fc_report.dart` dosyası güncellendi. - 08.12.2025
+155. `fc_report.dart` ve `alphabet_item_list.dart` dosyası güncellendi. - 08.12.2025
 156. 
 
 
