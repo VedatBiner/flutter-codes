@@ -158,7 +158,9 @@ bir chatGPT ortak çalışması :)
 153. `custom_drawer.dart` ve `home_page.dart` dosyaları güncellendi. 152. adıma göre - 08.12.2025
 154. `sync_helper.dart` dosyası eklenerek hatalı veri kaybı düzeltildi. - 08.12.2025
 155. `fc_report.dart` ve `alphabet_item_list.dart` dosyası güncellendi. - 08.12.2025
-156. 
+156. `safe_text_field.dart` dosyası düzeltildi. - 08.12.2025
+157. text kutularının renkleri ve alfabetik seçimde harf boyutu düzeltildi. - 08.12.2025
+158. 
 
 
 
@@ -172,7 +174,7 @@ Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_word_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - compute yapısı ile performans artışı sağlanabilir.
 - Hatalar : 
-    - zip dosya içinde sadece json ve csv var ?
+    - zip (backup) dosya içinde sadece json ve csv var ?
     - paylaşım yapınca zip içinde sadece json var?
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - Yeni kelime eklenmesi sorunlu ? (veri kaybı)

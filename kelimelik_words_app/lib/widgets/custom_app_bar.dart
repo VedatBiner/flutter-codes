@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: drawerColor,
+      backgroundColor: menuColor,
       iconTheme: IconThemeData(color: menuColor),
       titleTextStyle: TextStyle(color: menuColor),
 
@@ -41,7 +41,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? SafeTextField(
               controller: searchController,
               autofocus: true,
-              // labelText: "Kelime ara ...",
               onChanged: onSearchChanged,
               fillColor: Colors.white,
               hint: 'Kelime ara ...',

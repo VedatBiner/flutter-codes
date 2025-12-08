@@ -18,8 +18,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants/color_constants.dart';
-
 class SafeTextField extends StatefulWidget {
   final TextEditingController controller;
 
@@ -87,7 +85,7 @@ class _SafeTextFieldState extends State<SafeTextField> {
   @override
   Widget build(BuildContext context) {
     final borderColor = widget.borderColor ?? Colors.grey.shade400;
-    final focusColor = widget.focusBorderColor ?? Colors.blue;
+    final focusBorderColor = widget.focusBorderColor ?? Colors.blue;
 
     return RepaintBoundary(
       child: TextFormField(
@@ -110,11 +108,11 @@ class _SafeTextFieldState extends State<SafeTextField> {
           suffixIcon: widget.suffixIcon,
 
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: menuColor, width: 2),
+            borderSide: BorderSide(color: borderColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: focusColor, width: 2),
+            borderSide: BorderSide(color: focusBorderColor, width: 2),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
