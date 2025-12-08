@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
-import 'drawer_widgets/drawer_change_view_tile.dart';
 import 'drawer_widgets/drawer_info_padding.dart';
 import 'drawer_widgets/drawer_share_tile.dart';
 import 'drawer_widgets/drawer_title.dart';
@@ -50,10 +49,11 @@ class CustomDrawer extends StatelessWidget {
             Divider(thickness: 2, color: menuColor, height: 0),
 
             /// 📌 Görünüm değiştirme
-            DrawerChangeViewTile(
-              isFihristMode: isFihristMode,
-              onToggleViewMode: onToggleViewMode,
-            ),
+            /// Bir süre iptal
+            // DrawerChangeViewTile(
+            //   isFihristMode: isFihristMode,
+            //   onToggleViewMode: onToggleViewMode,
+            // ),
 
             /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
             const DrawerBackupTile(),

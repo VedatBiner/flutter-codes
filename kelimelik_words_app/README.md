@@ -154,6 +154,12 @@ bir chatGPT ortak çalışması :)
 149. `excel_helper.dart`dosyası güncellendi. - 06.12.2025
 150. `drawer_backup_tile.dart` dosyası düzeltildi. 06.12.2025
 151. `custom_app_bar.drt` dosyası düzeltildi. - 07.12.2025
+152. Geçici olarak Normal Görünüm seçeneği iptal edildi. - 08.12.2025
+153. `custom_drawer.dart` ve `home_page.dart` dosyaları güncellendi. 152. adıma göre - 08.12.2025
+154. `sync_helper.dart` dosyası eklenerek hatalı veri kaybı düzeltildi. - 08.12.2025
+155. `fc_report.dart` dosyası güncellendi. - 08.12.2025
+156. 
+
 
 
 
@@ -169,9 +175,7 @@ Yapılacaklar :
     - zip dosya içinde sadece json ve csv var ?
     - paylaşım yapınca zip içinde sadece json var?
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
-    - provider ile kelime sayısı sürekli güncellenmiyor ?
-    - provider düzgün çalışmayınca yeni kelimeler veri tabanına eklenmiyor ?
-    - Yeni kelime eklenmesi sorunlu ?
+    - Yeni kelime eklenmesi sorunlu ? (veri kaybı)
 
 
 

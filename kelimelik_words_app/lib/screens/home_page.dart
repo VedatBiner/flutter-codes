@@ -24,7 +24,6 @@ import '../providers/item_count_provider.dart';
 
 /// 📌 iki ana ekran burada
 import '../screens/alphabet_item_list.dart';
-import '../screens/item_list.dart';
 import '../utils/download_directory_helper.dart';
 import '../utils/file_creator.dart';
 
@@ -235,9 +234,13 @@ class _HomePageState extends State<HomePage> {
             ),
 
             /// 📄  Liste gövdesi
-            body: isFihristMode
-                ? AlphabetWordList(words: words, onUpdated: _loadWords)
-                : WordList(words: words, onUpdated: _loadWords),
+            /// Bir süre ikinci seçenek iptal
+            // body: isFihristMode
+            //     ? AlphabetWordList(words: words, onUpdated: _loadWords)
+            //     : WordList(words: words, onUpdated: _loadWords),
+
+            /// Geçici olarak sadece alfabetik liste olsun
+            body: AlphabetWordList(words: words, onUpdated: _loadWords),
 
             // ➕  FAB
             floatingActionButton: CustomFAB(
