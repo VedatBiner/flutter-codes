@@ -1,18 +1,20 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Tam Pipeline + Incremental Sync + Notification + ZIP
+// Incremental Sync + JSON + Excel + ZIP + Download kopyalama
 // -----------------------------------------------------------
 // Yeni akış:
-//   1️⃣ CSV Sync → createOrUpdateDeviceCsvFromAsset()
-//   2️⃣ CSV ↔ SQL Incremental Sync → syncCsvWithDatabase()
+//   1️⃣ Asset CSV → Device CSV senkronizasyonu
+//      (createOrUpdateDeviceCsvFromAsset)
+//   2️⃣ CSV ↔ SQL Incremental Sync (syncCsvWithDatabase)
 //       • Eksik kelimeler eklenir
 //       • Anlamı değişen kelimeler güncellenir
 //       • Kullanıcının eklediği kelimeler SİLİNMEZ
 //   3️⃣ CSV → JSON (her zaman yeniden oluşturulur)
 //   4️⃣ CSV → Excel (her zaman yeniden oluşturulur)
-//   5️⃣ Benchmark + Duplicate Report (fc_report.dart)
+//   5️⃣ Benchmark raporu (fc_report.dart)
 //   6️⃣ ZIP oluşturma (JSON + CSV + XLSX + SQL)
-//   7️⃣ Notification gösterme
+//   7️⃣ ZIP + diğer dosyaları Download/{appName} klasörüne kopyalama
+//   8️⃣ Notification gösterme
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -22,9 +24,9 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
-import '../db/db_helper.dart';
 import '../widgets/bottom_banner_helper.dart';
 import '../widgets/show_notification_handler.dart';
+import 'external_copy.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
 import 'fc_files/fc_report.dart';
@@ -34,28 +36,23 @@ import 'fc_files/zip_helper.dart';
 
 const tag = "file_creator";
 
-/// ------------------------------------------------------------
-/// Tüm Pipeline için TEK giriş noktası
-/// ------------------------------------------------------------
 Future<void> initializeAppDataFlow(BuildContext context) async {
   final sw = Stopwatch()..start();
   log("🚀 initializeAppDataFlow başladı", name: tag);
 
-  // ----------------------------------------------------------
-  // 📌 Tüm dosya yollarını tek seferde hesapla
-  // ----------------------------------------------------------
-  final directory = await getApplicationDocumentsDirectory();
-  final jsonFull = join(directory.path, fileNameJson);
-  final csvFull = join(directory.path, fileNameCsv);
-  final excelFull = join(directory.path, fileNameXlsx);
-  final sqlFull = join(directory.path, fileNameSql);
+  // 📂 Uygulamanın Documents dizini
+  final dir = await getApplicationDocumentsDirectory();
 
-  // ZIP içine girecek dosyalar
+  // Bu dosyalar HER ZAMAN burada üretilecek
+  final jsonFull = join(dir.path, fileNameJson);
+  final csvFull = join(dir.path, fileNameCsv);
+  final excelFull = join(dir.path, fileNameXlsx);
+  final sqlFull = join(dir.path, fileNameSql);
+
   final backupFiles = <String>[jsonFull, csvFull, excelFull, sqlFull];
 
   if (!context.mounted) return;
 
-  // Alt banner
   final bannerCtrl = showLoadingBanner(
     context,
     message: "Lütfen bekleyiniz,\nveriler senkronize ediliyor...",
@@ -66,29 +63,25 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     // 1️⃣ Asset CSV → Device CSV senkronizasyonu
     // ----------------------------------------------------------
     final csvSync = await createOrUpdateDeviceCsvFromAsset();
-    log("📄 CSV Sync tamamlandı. changed=${csvSync.needsRebuild}", name: tag);
+    log("📄 CSV Sync: changed=${csvSync.needsRebuild}", name: tag);
 
     // ----------------------------------------------------------
     // 2️⃣ CSV ↔ SQL Incremental Sync
     // ----------------------------------------------------------
-    final syncResult = await syncCsvWithDatabase();
-
-    // Toplam kayıt sayısını bir de doğrudan DB 'den loglayalım
-    final dbCount = await DbHelper.instance.countRecords();
-    log("📦 DB toplam kayıt (sync sonrası): $dbCount", name: tag);
+    await syncCsvWithDatabase();
 
     // ----------------------------------------------------------
-    // 3️⃣ CSV → JSON (her zaman güncel üret)
+    // 3️⃣ CSV → JSON (güncel dosya)
     // ----------------------------------------------------------
     await createJsonFromAssetCsv();
 
     // ----------------------------------------------------------
-    // 4️⃣ CSV → Excel (her zaman güncel üret)
+    // 4️⃣ CSV → Excel (güncel dosya)
     // ----------------------------------------------------------
     await createExcelFromAssetCsvSyncfusion();
 
     // ----------------------------------------------------------
-    // 5️⃣ Raporlama & Benchmark (şimdilik süre değerleri 0)
+    // 5️⃣ Benchmark + Tutarlılık Raporu
     // ----------------------------------------------------------
     await runFullDataReport(
       csvToJsonMs: 0,
@@ -101,12 +94,20 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     // 6️⃣ ZIP oluştur (JSON + CSV + XLSX + SQL)
     // ----------------------------------------------------------
     final zipOut = await createZipArchive(
-      outputDir: directory.path,
+      outputDir: dir.path,
       files: backupFiles,
     );
 
     // ----------------------------------------------------------
-    // 7️⃣ Notification göster (ZIP yolu ile birlikte)
+    // 7️⃣ Download/{appName} dizinine kopyala
+    // ----------------------------------------------------------
+    await copyBackupToDownload(
+      files: [...backupFiles, zipOut],
+      folderName: appName,
+    );
+
+    // ----------------------------------------------------------
+    // 8️⃣ Notification göster
     // ----------------------------------------------------------
     if (!context.mounted) return;
 
@@ -117,10 +118,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       excelFull,
       sqlFull,
       zipOut,
-      // extraMessage:
-      //     "CSV↔SQL Sync → +${syncResult.inserted} insert, "
-      //     "+${syncResult.updated} update, "
-      //     "Toplam DB: $dbCount",
     );
 
     sw.stop();
@@ -128,9 +125,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       "✅ initializeAppDataFlow tamamlandı: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
-    log(logLine, name: tag);
   } finally {
-    // Banner her durumda kapatılsın
     bannerCtrl.close();
   }
 }

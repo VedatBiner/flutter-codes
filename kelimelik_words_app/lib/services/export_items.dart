@@ -1,14 +1,8 @@
 // 📃 <----- lib/utils/export_items.dart ----->
 //
 // SQL → CSV → JSON → XLSX → ZIP üretir.
-// Bu dosya, db_helper.dart, json_helper.dart ve excel_helper.dart
-// yapısına %100 uyumludur.
 // -----------------------------------------------------------
-// • CSV: DbHelper.exportRecordsToCsv()
-// • JSON: List<Word> → JSON string
-// • Excel: List<Word> → XLSX (Syncfusion)
-// • SQL: DB dosyasını birebir kopyalar
-// • ZIP: 4 dosyayı tek arşivde birleştirir
+// db_helper.dart + excel_helper.dart ile tam uyumlu
 // -----------------------------------------------------------
 
 import 'dart:convert';
@@ -41,13 +35,6 @@ class ExportItems {
   });
 }
 
-/// 🔥 SQL → CSV → JSON → XLSX → ZIP Pipeline
-///
-/// subfolder: "kelimelik_words_app" veya başka bir isim olabilir.
-/// export klasörü: {Documents}/{subfolder}/
-///
-/// Bu pipeline tamamen **senin mevcut db_helper, json_helper, excel_helper**
-/// dosyalarınla uyumludur.
 Future<ExportItems> exportItemsToFileFormats({
   required String? subfolder,
 }) async {
@@ -60,7 +47,7 @@ Future<ExportItems> exportItemsToFileFormats({
 
   log("📂 Export klasörü: ${exportDir.path}", name: tag);
 
-  // 📄 Üretilecek dosyaların tam yolları
+  // 📄 Dosya yolları
   final csvPath = join(exportDir.path, fileNameCsv);
   final jsonPath = join(exportDir.path, fileNameJson);
   final excelPath = join(exportDir.path, fileNameXlsx);
@@ -75,36 +62,36 @@ Future<ExportItems> exportItemsToFileFormats({
   log("📌 Export edilecek toplam kayıt: $count", name: tag);
 
   // ----------------------------------------------------------
-  // 2️⃣ CSV oluştur
+  // 2️⃣ CSV
   // ----------------------------------------------------------
-  // DbHelper CSV 'yi Documents içine oluşturur → sonra exportDir 'e kopyalanır.
   final deviceCsvPath = await DbHelper.instance.exportRecordsToCsv();
   await File(deviceCsvPath).copy(csvPath);
 
   // ----------------------------------------------------------
-  // 3️⃣ JSON oluştur (Word list → JSON String)
+  // 3️⃣ JSON
   // ----------------------------------------------------------
   final jsonStr = exportItemsToJsonString(items);
   await File(jsonPath).writeAsString(jsonStr);
 
   // ----------------------------------------------------------
-  // 4️⃣ XLSX oluştur (Word list → Excel)
+  // 4️⃣ XLSX — DOĞRU FONKSİYON
   // ----------------------------------------------------------
   await exportItemsToExcel(excelPath, items);
 
   // ----------------------------------------------------------
-  // 5️⃣ SQL dosyasını kopyala
+  // 5️⃣ SQL dosyası kopyalama
   // ----------------------------------------------------------
   final sqlOriginal = File(join(docs.path, fileNameSql));
+
   if (await sqlOriginal.exists()) {
     await sqlOriginal.copy(sqlPath);
     log("📦 SQL kopyalandı: $sqlPath", name: tag);
   } else {
-    log("❌ SQL dosyası bulunamadı! ZIP 'e eklenemeyecek.", name: tag);
+    log("❌ SQL dosyası bulunamadı!", name: tag);
   }
 
   // ----------------------------------------------------------
-  // 6️⃣ ZIP oluştur — tüm dosyalar
+  // 6️⃣ ZIP oluştur
   // ----------------------------------------------------------
   final zipPath = await createZipArchive(
     outputDir: exportDir.path,
@@ -123,6 +110,7 @@ Future<ExportItems> exportItemsToFileFormats({
   );
 }
 
+// JSON formatlama (indent)
 String exportItemsToJsonString(List items) {
   final list = items.map((w) => w.toMap()).toList();
   return const JsonEncoder.withIndent('  ').convert(list);

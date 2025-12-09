@@ -115,7 +115,7 @@ void showShareFilesNotification(BuildContext rootCtx) {
         style: normalBlackText,
         children: [
           TextSpan(
-            text: '\nDosyalar Dış ortam\nile paylaşılmıştır\n\n',
+            text: '\nDosyalar paylaşılmıştır ... \n\n',
             style: kelimeAddText,
           ),
         ],

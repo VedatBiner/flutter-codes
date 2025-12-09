@@ -74,9 +74,8 @@ Future<void> shareBackupFolder() async {
 
     // 📤 share_plus kullanarak sistem paylaşım penceresini aç
     await Share.shareXFiles(
-      xFiles,
+      files.map((f) => XFile(f.path)).toList(),
       text: '📂 $appName yedek dosyaları',
-      subject: '$appName backup files',
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);

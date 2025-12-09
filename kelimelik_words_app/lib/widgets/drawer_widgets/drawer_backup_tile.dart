@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
-// ❗ DÜZELTİLDİ: fx_files yanlış klasördü
 import '../../utils/backup_notification_helper.dart';
 import '../show_notification_handler.dart';
 
@@ -37,10 +36,10 @@ class DrawerBackupTile extends StatelessWidget {
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
+                res.sqlPath,
                 res.jsonPath,
                 res.csvPath,
-                res.excelPath, // ❗ xlsxPath yerine excelPath
-                res.sqlPath,
+                res.excelPath,
                 res.zipPath,
               );
             },
