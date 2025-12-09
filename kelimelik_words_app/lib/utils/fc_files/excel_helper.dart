@@ -91,9 +91,9 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
       rowIndex++;
     }
 
-    // 📏 Sütun genişlikleri
-    sheet.getRangeByIndex(1, 1).columnWidth = 30;
-    sheet.getRangeByIndex(1, 2).columnWidth = 60;
+    // 📏 Sütun genişlikleri — ARTIK AUTO-FIT ile otomatik!
+    sheet.autoFitColumn(1);
+    sheet.autoFitColumn(2);
 
     // 💾 Kaydet
     final bytes = workbook.saveAsStream();
@@ -144,6 +144,9 @@ Future<void> exportItemsToExcelFromList(
     style.borders.all.lineStyle = xlsio.LineStyle.thin;
   }
 
+  // ✅ AUTO FILTER EKLE
+  sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, 1, 2);
+
   // Freeze Panes
   sheet.getRangeByIndex(2, 1).freezePanes();
 
@@ -155,9 +158,9 @@ Future<void> exportItemsToExcelFromList(
     row++;
   }
 
-  // 📏 Sütun genişlikleri
-  sheet.getRangeByIndex(1, 1).columnWidth = 30;
-  sheet.getRangeByIndex(1, 2).columnWidth = 60;
+  // 📏 Sütun genişlikleri — AUTO-FIT
+  sheet.autoFitColumn(1);
+  sheet.autoFitColumn(2);
 
   // 💾 Kaydet
   final bytes = workbook.saveAsStream();
