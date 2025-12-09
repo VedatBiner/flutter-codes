@@ -182,7 +182,7 @@ Yapılacaklar :
     - paylaşım yapınca zip içinde sadece json ve csv var?
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - Excel dosyasına formatlama işlemi başladı.
-    - Download dizinine kopyalama sorunlu ?
+    - Download dizinine kopyalama sorunlu ? lokal dizine iki kez içi içe kopyalıyor ?
     - 
 
 

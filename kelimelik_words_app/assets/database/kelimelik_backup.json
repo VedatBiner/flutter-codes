@@ -109,7 +109,7 @@
   },
   {
     "Word": "Acemi",
-    "Meaning": "İşinde, mesleğinde yeni olan"
+    "Meaning": "İşinde"
   },
   {
     "Word": "Aceze",
@@ -497,7 +497,7 @@
   },
   {
     "Word": "Akabe",
-    "Meaning": "Tehlikeli, sarp zor geçit"
+    "Meaning": "Tehlikeli"
   },
   {
     "Word": "Akad",
@@ -674,6 +674,10 @@
   {
     "Word": "Alçak",
     "Meaning": "Aşağılık / Soysuz / Namert"
+  },
+  {
+    "Word": "Alçı",
+    "Meaning": "alçı taşının pişirilip toz haline getirilmesinden elde edilen madde"
   },
   {
     "Word": "Aldı",
@@ -893,7 +897,7 @@
   },
   {
     "Word": "Anam",
-    "Meaning": "Şaşma, beğenme, üzüntü sözü"
+    "Meaning": "Şaşma"
   },
   {
     "Word": "Anamal",
@@ -1225,7 +1229,7 @@
   },
   {
     "Word": "Aseton",
-    "Meaning": "Eter kokusunda, alev alabilir eritici bir madde"
+    "Meaning": "Eter kokusunda"
   },
   {
     "Word": "Ası",
@@ -1901,7 +1905,11 @@
   },
   {
     "Word": "Balık",
-    "Meaning": "Splungaçla nefes alan su hayvanları"
+    "Meaning": "Solungaçla nefes alan su hayvanları"
+  },
+  {
+    "Word": "Balıklı",
+    "Meaning": "balığı olan"
   },
   {
     "Word": "Balici",
@@ -1929,7 +1937,7 @@
   },
   {
     "Word": "Balta",
-    "Meaning": "Ağaç kesme, yontma aracı"
+    "Meaning": "Ağaç kesme"
   },
   {
     "Word": "Balzam",
@@ -2153,7 +2161,7 @@
   },
   {
     "Word": "Batik",
-    "Meaning": "Kumaş, deri, kağıt süsleme yöntemi"
+    "Meaning": "Kumaş"
   },
   {
     "Word": "Baton",
@@ -2214,6 +2222,10 @@
   {
     "Word": "Bazı",
     "Meaning": "Bazen / Kimi / Bir takım"
+  },
+  {
+    "Word": "Bazlı",
+    "Meaning": "baz bulunan"
   },
   {
     "Word": "Be",
@@ -2417,7 +2429,7 @@
   },
   {
     "Word": "Beton",
-    "Meaning": "Çimentodan yapılan sert, dayanıklı yapı malzemesi"
+    "Meaning": "Çimentodan yapılan sert"
   },
   {
     "Word": "Bey",
@@ -2509,11 +2521,11 @@
   },
   {
     "Word": "Bilek",
-    "Meaning": "Güç / Kuvvet / Elle, ayakla kolun, bacağın birleştiği yer"
+    "Meaning": "Güç / Kuvvet / Elle"
   },
   {
     "Word": "Bilet",
-    "Meaning": "Para ile alınan, tiyatro, konser vb. giriş belgesi"
+    "Meaning": "Para ile alınan"
   },
   {
     "Word": "Bilge",
@@ -2525,7 +2537,7 @@
   },
   {
     "Word": "Bilir",
-    "Meaning": "Anlar, yapar anlamında bir söz"
+    "Meaning": "Anlar"
   },
   {
     "Word": "Bilye",
@@ -2609,7 +2621,7 @@
   },
   {
     "Word": "Bitki",
-    "Meaning": "Nebat / Otsu, odunsu canlılar"
+    "Meaning": "Nebat / Otsu"
   },
   {
     "Word": "Bitli",
@@ -2617,7 +2629,7 @@
   },
   {
     "Word": "Biye",
-    "Meaning": "Elbisenin yaka, kol, etek çevresine geçirilen şerit"
+    "Meaning": "Elbisenin yaka"
   },
   {
     "Word": "Biz",
@@ -2741,7 +2753,7 @@
   },
   {
     "Word": "Boza",
-    "Meaning": "Arpa, darı ve mısır gibi tahıllardan yapılan tatlı ve mayhoş içecek"
+    "Meaning": "Arpa"
   },
   {
     "Word": "Bozacı",
@@ -2926,6 +2938,10 @@
   {
     "Word": "Cacık",
     "Meaning": "Bir tür yoğurtlu yiyecek"
+  },
+  {
+    "Word": "Cadde",
+    "Meaning": "ana yol"
   },
   {
     "Word": "Cadı",
@@ -3145,7 +3161,7 @@
   },
   {
     "Word": "Cırt",
-    "Meaning": "Kağıt, kumaş yırtılma sesi"
+    "Meaning": "Kağıt"
   },
   {
     "Word": "Cıs",
@@ -3333,7 +3349,7 @@
   },
   {
     "Word": "Çağla",
-    "Meaning": "Badem, kayısı, erik gibi meyvelerin yenilebilir ham hali"
+    "Meaning": "Badem"
   },
   {
     "Word": "Çağlar",
@@ -3369,7 +3385,7 @@
   },
   {
     "Word": "Çakır",
-    "Meaning": "Açık mavi, ela göz"
+    "Meaning": "Açık mavi"
   },
   {
     "Word": "Çakış",
@@ -3421,7 +3437,7 @@
   },
   {
     "Word": "Çanta",
-    "Meaning": "Deri, meşin, köseleden yapılan eşya taşıma aracı"
+    "Meaning": "Deri"
   },
   {
     "Word": "Çap",
@@ -3485,7 +3501,7 @@
   },
   {
     "Word": "Çayan",
-    "Meaning": "Akrep, çıyan gibi zehirli hayvan"
+    "Meaning": "Akrep"
   },
   {
     "Word": "Çayır",
@@ -3761,7 +3777,7 @@
   },
   {
     "Word": "Çir",
-    "Meaning": "Kayısı, erik kurusu"
+    "Meaning": "Kayısı"
   },
   {
     "Word": "Çis",
@@ -4001,7 +4017,7 @@
   },
   {
     "Word": "Daral",
-    "Meaning": "Sıkılmak, bunalmak anlamında"
+    "Meaning": "Sıkılmak"
   },
   {
     "Word": "Darı",
@@ -4029,7 +4045,7 @@
   },
   {
     "Word": "Davar",
-    "Meaning": "Koyun, keçi sürüsü"
+    "Meaning": "Koyun"
   },
   {
     "Word": "Dayak",
@@ -4117,7 +4133,7 @@
   },
   {
     "Word": "Delik",
-    "Meaning": "Dar, üçük açıklık"
+    "Meaning": "Dar"
   },
   {
     "Word": "Delil",
@@ -4161,7 +4177,7 @@
   },
   {
     "Word": "Denge",
-    "Meaning": "Zihinsel, duygusal uyum / İstikrar"
+    "Meaning": "Zihinsel"
   },
   {
     "Word": "Deni",
@@ -4353,7 +4369,7 @@
   },
   {
     "Word": "Dival",
-    "Meaning": "Altı mukavva destekli, üstü sırmalı işleme"
+    "Meaning": "Altı mukavva destekli"
   },
   {
     "Word": "Divane",
@@ -4373,7 +4389,7 @@
   },
   {
     "Word": "Diz",
-    "Meaning": "Kaval, baldır ve uyluk kemiklerinin birleşim yeri"
+    "Meaning": "Kaval"
   },
   {
     "Word": "Dize",
@@ -4997,7 +5013,7 @@
   },
   {
     "Word": "Enik",
-    "Meaning": "Kedi, köpek yavrusu"
+    "Meaning": "Kedi"
   },
   {
     "Word": "Enir",
@@ -5270,6 +5286,10 @@
   {
     "Word": "Evlik",
     "Meaning": "Hanelik"
+  },
+  {
+    "Word": "Evrak",
+    "Meaning": "resmi kurumlarda işlem gören belgeler"
   },
   {
     "Word": "Ey",
@@ -5617,7 +5637,7 @@
   },
   {
     "Word": "Film",
-    "Meaning": "Fotoğraf ve sinemada kullanılan selüloz, sayfam bükülebilir şerit"
+    "Meaning": "Fotoğraf ve sinemada kullanılan selüloz"
   },
   {
     "Word": "Filo",
@@ -5841,7 +5861,7 @@
   },
   {
     "Word": "Gaf",
-    "Meaning": "Yersiz, beceriksiz davranış / Pot"
+    "Meaning": "Yersiz"
   },
   {
     "Word": "Gafil",
@@ -5913,7 +5933,7 @@
   },
   {
     "Word": "Gard",
-    "Meaning": "Eskrim, bok gibi oyunlarda korunma durumu"
+    "Meaning": "Eskrim"
   },
   {
     "Word": "Gark",
@@ -6437,7 +6457,7 @@
   },
   {
     "Word": "Hamiyet",
-    "Meaning": "Bir insanın yurdunu, ailesini, kendisini koruma çabası"
+    "Meaning": "Bir insanın yurdunu"
   },
   {
     "Word": "Hamur",
@@ -6582,6 +6602,10 @@
   {
     "Word": "Hayal",
     "Meaning": "İmge / Görüntü / Gölge"
+  },
+  {
+    "Word": "Hayalet",
+    "Meaning": "Peri hortlak gibi görüldüğü varsayılan şeyler"
   },
   {
     "Word": "Hayalı",
@@ -6981,7 +7005,7 @@
   },
   {
     "Word": "İbik",
-    "Meaning": "Horoz, hindi gibi kanatlılarda tepede bulunan kırmızı deri uzantısı"
+    "Meaning": "Horoz"
   },
   {
     "Word": "İbis",
@@ -7253,7 +7277,7 @@
   },
   {
     "Word": "İlik",
-    "Meaning": "Kemik içini dolduran, kan hücresi yapan doku"
+    "Meaning": "Kemik içini dolduran"
   },
   {
     "Word": "İlim",
@@ -7629,7 +7653,7 @@
   },
   {
     "Word": "İzam",
-    "Meaning": "Bir kimseyi gönderme, yollama"
+    "Meaning": "Bir kimseyi gönderme"
   },
   {
     "Word": "İzan",
@@ -7778,6 +7802,10 @@
   {
     "Word": "Kabe",
     "Meaning": "Kutsal mekan"
+  },
+  {
+    "Word": "Kabile",
+    "Meaning": "Boy"
   },
   {
     "Word": "Kabin",
@@ -8165,7 +8193,7 @@
   },
   {
     "Word": "Karış",
-    "Meaning": "Baş parmak, serçe parmağı arası açıklık"
+    "Meaning": "Baş parmak"
   },
   {
     "Word": "Kari",
@@ -8349,7 +8377,7 @@
   },
   {
     "Word": "Kavim",
-    "Meaning": "Boy, soy, töre bakımından birbirine bağlı insan topluluğu"
+    "Meaning": "Boy"
   },
   {
     "Word": "Kavis",
@@ -8369,7 +8397,7 @@
   },
   {
     "Word": "Kayak",
-    "Meaning": "Kar, su, çim üzerinde kayma aracı"
+    "Meaning": "Kar"
   },
   {
     "Word": "Kayar",
@@ -8470,6 +8498,10 @@
   {
     "Word": "Keder",
     "Meaning": "Acı / Üzüntü / Izdırap / Tasa"
+  },
+  {
+    "Word": "Kedi",
+    "Meaning": "Kedigillerden bir hayvan / Pisik"
   },
   {
     "Word": "Kef",
@@ -8625,7 +8657,7 @@
   },
   {
     "Word": "Kerti",
-    "Meaning": "Kerte / Bayat (ekmek, et)"
+    "Meaning": "Kerte / Bayat (ekmek"
   },
   {
     "Word": "Kertik",
@@ -8749,7 +8781,7 @@
   },
   {
     "Word": "Kığ",
-    "Meaning": "Koyun, keçi pisliği / Kığı"
+    "Meaning": "Koyun"
   },
   {
     "Word": "Kığı",
@@ -9497,7 +9529,7 @@
   },
   {
     "Word": "Krep",
-    "Meaning": "Yumurta, süt ve un ile tavada yapılan bir yiyecek"
+    "Meaning": "Yumurta"
   },
   {
     "Word": "Krepe",
@@ -9634,6 +9666,10 @@
   {
     "Word": "Kura",
     "Meaning": "Çekilişle sonuç belirleme"
+  },
+  {
+    "Word": "Kuraklık",
+    "Meaning": "Kurak olma durumu / Yağışsızlık"
   },
   {
     "Word": "Kural",
@@ -9829,7 +9865,7 @@
   },
   {
     "Word": "Kürek",
-    "Meaning": "Toprak, kömür atmays yarayan araç"
+    "Meaning": "Toprak"
   },
   {
     "Word": "Kürk",
@@ -10201,7 +10237,7 @@
   },
   {
     "Word": "Lirik",
-    "Meaning": "Coşkun, ilhamla dolu"
+    "Meaning": "Coşkun"
   },
   {
     "Word": "Lise",
@@ -10221,7 +10257,7 @@
   },
   {
     "Word": "Lobi",
-    "Meaning": "Otel, tiyatro gibi yerlerde girişe yakın geniş alan"
+    "Meaning": "Otel"
   },
   {
     "Word": "Loca",
@@ -10229,7 +10265,7 @@
   },
   {
     "Word": "Lodos",
-    "Meaning": "Güney, güneybatıdan esen rüzgar"
+    "Meaning": "Güney"
   },
   {
     "Word": "Logo",
@@ -10457,7 +10493,7 @@
   },
   {
     "Word": "Makro",
-    "Meaning": "Büyük, geniş / Mikro karşıtı"
+    "Meaning": "Büyük"
   },
   {
     "Word": "Maksat",
@@ -10681,7 +10717,7 @@
   },
   {
     "Word": "Masal",
-    "Meaning": "Cin, cadı, peri içeren edebi eser"
+    "Meaning": "Cin"
   },
   {
     "Word": "Masalı",
@@ -10749,7 +10785,7 @@
   },
   {
     "Word": "Maviş",
-    "Meaning": "Ak tenli, mavi gözlü"
+    "Meaning": "Ak tenli"
   },
   {
     "Word": "Maya",
@@ -11341,7 +11377,7 @@
   },
   {
     "Word": "Mülk",
-    "Meaning": "Ev, dükkan gibi taşınmaz mal"
+    "Meaning": "Ev"
   },
   {
     "Word": "Mürai",
@@ -11441,7 +11477,7 @@
   },
   {
     "Word": "Namlu",
-    "Meaning": "Tabanca, tüfek gibi silaların önündeki boru biçimli parça"
+    "Meaning": "Tabanca"
   },
   {
     "Word": "Namus",
@@ -11997,7 +12033,7 @@
   },
   {
     "Word": "Ons",
-    "Meaning": "Altın, platin, gümüş gbi metalkeri. ölçü birimi"
+    "Meaning": "Altın"
   },
   {
     "Word": "Onur",
@@ -12441,7 +12477,7 @@
   },
   {
     "Word": "Palet",
-    "Meaning": "Tesamların renkleri dizip, boya karıştırdığı tahta"
+    "Meaning": "Tesamların renkleri dizip"
   },
   {
     "Word": "Paletli",
@@ -12473,7 +12509,7 @@
   },
   {
     "Word": "Pano",
-    "Meaning": "Bildiri, duyuru asmak için kullanılan levha"
+    "Meaning": "Bildiri"
   },
   {
     "Word": "Para",
@@ -12545,7 +12581,7 @@
   },
   {
     "Word": "Pati",
-    "Meaning": "Kedi, köpeklerin ön ayağı"
+    "Meaning": "Kedi"
   },
   {
     "Word": "Pay",
@@ -12901,7 +12937,7 @@
   },
   {
     "Word": "Pür",
-    "Meaning": "Çam, ardıç gibi ağaçların iğne gibi yaprakları"
+    "Meaning": "Çam"
   },
   {
     "Word": "Püre",
@@ -13341,7 +13377,7 @@
   },
   {
     "Word": "Rulo",
-    "Meaning": "Silindir biçimli pasta, köfte"
+    "Meaning": "Silindir biçimli pasta"
   },
   {
     "Word": "Rum",
@@ -13361,7 +13397,7 @@
   },
   {
     "Word": "Rupi",
-    "Meaning": "Hindistan, Pakistan parası"
+    "Meaning": "Hindistan"
   },
   {
     "Word": "Rus",
@@ -13689,7 +13725,7 @@
   },
   {
     "Word": "Saraç",
-    "Meaning": "Koşum, eyer takımı yapan kimse"
+    "Meaning": "Koşum"
   },
   {
     "Word": "Sarak",
@@ -13921,7 +13957,7 @@
   },
   {
     "Word": "Sepi",
-    "Meaning": "Deri, post için uygulanan işlemler"
+    "Meaning": "Deri"
   },
   {
     "Word": "Sepili",
@@ -14305,7 +14341,7 @@
   },
   {
     "Word": "Soğuk",
-    "Meaning": "Düşük ısılı, sıcak karşıtı"
+    "Meaning": "Düşük ısılı"
   },
   {
     "Word": "Sokak",
@@ -14341,7 +14377,7 @@
   },
   {
     "Word": "Somun",
-    "Meaning": "Yuvarlak, tombul ekmek"
+    "Meaning": "Yuvarlak"
   },
   {
     "Word": "Son",
@@ -14373,7 +14409,7 @@
   },
   {
     "Word": "Sota",
-    "Meaning": "Uygun, elverişli yer"
+    "Meaning": "Uygun"
   },
   {
     "Word": "Sote",
@@ -14577,7 +14613,7 @@
   },
   {
     "Word": "Süreç",
-    "Meaning": "Vetire / Proses / İlerleyen, tekrarlayan olaylar"
+    "Meaning": "Vetire / Proses / İlerleyen"
   },
   {
     "Word": "Sürüm",
@@ -14625,7 +14661,7 @@
   },
   {
     "Word": "Şair",
-    "Meaning": "Ozan / Şiir yazan, okuyan kişi"
+    "Meaning": "Ozan / Şiir yazan"
   },
   {
     "Word": "Şak",
@@ -14633,7 +14669,7 @@
   },
   {
     "Word": "Şaka",
-    "Meaning": "Güldürmek, rğlendirmek amacıyla söylenen söz / Latife"
+    "Meaning": "Güldürmek"
   },
   {
     "Word": "Şakıt",
@@ -15169,7 +15205,7 @@
   },
   {
     "Word": "Tahıl",
-    "Meaning": "Hububat / Buğday, arpa, mısır genel adları"
+    "Meaning": "Hububat / Buğday"
   },
   {
     "Word": "Tahin",
@@ -15237,7 +15273,7 @@
   },
   {
     "Word": "Takmak",
-    "Meaning": "Ad, lakap koymak / Borç bırakmak"
+    "Meaning": "Ad"
   },
   {
     "Word": "Takoz",
@@ -15441,7 +15477,7 @@
   },
   {
     "Word": "Tasar",
-    "Meaning": "Bir işin seviyesini gösteren resim, düzey, plan"
+    "Meaning": "Bir işin seviyesini gösteren resim"
   },
   {
     "Word": "Tasarı",
@@ -15741,7 +15777,7 @@
   },
   {
     "Word": "Terim",
-    "Meaning": "Bilimsel, sanatsal konularda özel bir kavramı karşılayan kelime"
+    "Meaning": "Bilimsel"
   },
   {
     "Word": "Terli",
@@ -15777,7 +15813,7 @@
   },
   {
     "Word": "Teyel",
-    "Meaning": "Seyrek, eğreti dikiş"
+    "Meaning": "Seyrek"
   },
   {
     "Word": "Tez",
@@ -15869,7 +15905,7 @@
   },
   {
     "Word": "Tıs",
-    "Meaning": "Kaz, kedi, yılan sesi"
+    "Meaning": "Kaz"
   },
   {
     "Word": "Ti",
@@ -16101,7 +16137,7 @@
   },
   {
     "Word": "Tuh",
-    "Meaning": "Yazıklar olsun, vah vah anlamında"
+    "Meaning": "Yazıklar olsun"
   },
   {
     "Word": "Tul",
@@ -16845,7 +16881,7 @@
   },
   {
     "Word": "Vegan",
-    "Meaning": "Hayvansal ürün yemeyen, içmeyen kimse"
+    "Meaning": "Hayvansal ürün yemeyen"
   },
   {
     "Word": "Vekil",
@@ -17321,11 +17357,11 @@
   },
   {
     "Word": "Yele",
-    "Meaning": "At, aslan gibi hayvanların ensesindeki uzun kıllar"
+    "Meaning": "At"
   },
   {
     "Word": "Yelek",
-    "Meaning": "Kolsu, kısa giysi"
+    "Meaning": "Kolsu"
   },
   {
     "Word": "Yeleli",
@@ -17473,7 +17509,7 @@
   },
   {
     "Word": "Yol",
-    "Meaning": "Kara, hava, denizde gidilen mesafe / Tarik"
+    "Meaning": "Kara"
   },
   {
     "Word": "Yolak",
@@ -17894,5 +17930,273 @@
   {
     "Word": "Zümre",
     "Meaning": "Topluluk / Camia"
+  },
+  {
+    "Word": "Adalı",
+    "Meaning": "ada halkından olan"
+  },
+  {
+    "Word": "Alat",
+    "Meaning": "aletler"
+  },
+  {
+    "Word": "Aşıkl",
+    "Meaning": "aşığı olan"
+  },
+  {
+    "Word": "Bern",
+    "Meaning": "İsviçre başkenti"
+  },
+  {
+    "Word": "Besici",
+    "Meaning": "sığır davar satan besleyen kimse"
+  },
+  {
+    "Word": "Biçim",
+    "Meaning": "biçme işi / Şekil / Eşgal"
+  },
+  {
+    "Word": "Buket",
+    "Meaning": "çiçek demeti"
+  },
+  {
+    "Word": "Ense",
+    "Meaning": "boyun arkası"
+  },
+  {
+    "Word": "Finiş",
+    "Meaning": "bitme / Varış"
+  },
+  {
+    "Word": "İdamlık",
+    "Meaning": "ölüm cezası gerektiren"
+  },
+  {
+    "Word": "İlhak",
+    "Meaning": "katma / bağlama / Ekleme"
+  },
+  {
+    "Word": "İncik",
+    "Meaning": "baldır"
+  },
+  {
+    "Word": "Koçan",
+    "Meaning": "Mısır tanelerinden kalan sert parça"
+  },
+  {
+    "Word": "Kuşlak",
+    "Meaning": "av kuşları bol olan yer"
+  },
+  {
+    "Word": "Mardinli",
+    "Meaning": "Mardin ilinden olan"
+  },
+  {
+    "Word": "Mavna",
+    "Meaning": "büyük yük teknesi"
+  },
+  {
+    "Word": "Pilli",
+    "Meaning": "pili olan"
+  },
+  {
+    "Word": "Sarkaç",
+    "Meaning": "Rakkas / Pandül"
+  },
+  {
+    "Word": "Sinir",
+    "Meaning": "duyu ve hareket organlarının beyin ile iletişimini sağlayan teller"
+  },
+  {
+    "Word": "Tapir",
+    "Meaning": "hortumlu bir Afrika hayvanı"
+  },
+  {
+    "Word": "Tavla",
+    "Meaning": "at ahırı / Bir tahta oyunu"
+  },
+  {
+    "Word": "Temdit",
+    "Meaning": "uzatma / Sürdürme"
+  },
+  {
+    "Word": "Tuşba",
+    "Meaning": "van ilçedi"
+  },
+  {
+    "Word": "Tırt",
+    "Meaning": "İşe yaramayan kimse"
+  },
+  {
+    "Word": "Uğur",
+    "Meaning": "talih / Şans"
+  },
+  {
+    "Word": "Vacip",
+    "Meaning": "İslam dinine göre yapılması gerekli olan"
+  },
+  {
+    "Word": "Varan",
+    "Meaning": "bir olayın tekrar edeceği belirtilerek tekrar sayısı önüne konulan kelime"
+  },
+  {
+    "Word": "Varit",
+    "Meaning": "olabileceği akla gelen"
+  },
+  {
+    "Word": "Yarım",
+    "Meaning": "bir bütünün yarısı olan miktar"
+  },
+  {
+    "Word": "Yaşıt",
+    "Meaning": "aynı yaşta olanlar"
+  },
+  {
+    "Word": "Yulaf",
+    "Meaning": "hayvan yemi olarak kullanılan bir bitki"
+  },
+  {
+    "Word": "Zekilik",
+    "Meaning": "Zeli olma durumu / Zeyreklik"
+  },
+  {
+    "Word": "Çatma",
+    "Meaning": "çatmak işi"
+  },
+  {
+    "Word": "Çatmak",
+    "Meaning": "yükü hayvana iki yanlı yüklemek"
+  },
+  {
+    "Word": "Ömür",
+    "Meaning": "yaşam"
+  },
+  {
+    "Word": "Diyet",
+    "Meaning": "kefaret / Kan parası / Rejim / Perhiz"
+  },
+  {
+    "Word": "Fonda",
+    "Meaning": "gemilerin demir attığı yer"
+  },
+  {
+    "Word": "Geceki",
+    "Meaning": "gece olan / Gece yapılan"
+  },
+  {
+    "Word": "Laçka",
+    "Meaning": "gevşemiş / Verimsiz"
+  },
+  {
+    "Word": "Lütuf",
+    "Meaning": "İyilik / Yardım / İhsan / Atıfet / İnayet"
+  },
+  {
+    "Word": "Makul",
+    "Meaning": "Akla uygun / Akıllıca"
+  },
+  {
+    "Word": "Mesen",
+    "Meaning": "Sanat ve bilim admalarını koruyan kimse"
+  },
+  {
+    "Word": "Cihet",
+    "Meaning": "Yön / Yan / Taraf"
+  },
+  {
+    "Word": "Hırka",
+    "Meaning": "Ceket biçiminde üst giysi"
+  },
+  {
+    "Word": "Model",
+    "Meaning": "Biçim / Benzer / Tip"
+  },
+  {
+    "Word": "Nadan",
+    "Meaning": "Bilgisiz / Cahil / Kaba / Kötü"
+  },
+  {
+    "Word": "Tırtıl",
+    "Meaning": "Yumurtadan çıkan kelebek kurtçuklarının ilk hali"
+  },
+  {
+    "Word": "Vuru",
+    "Meaning": "Kalbin atım hareketi"
+  },
+  {
+    "Word": "Yitim",
+    "Meaning": "Kayıp"
+  },
+  {
+    "Word": "Alkil",
+    "Meaning": "Alkol kökü"
+  },
+  {
+    "Word": "Cıva",
+    "Meaning": "Bir element"
+  },
+  {
+    "Word": "Kavara",
+    "Meaning": "Balı alınmış petek"
+  },
+  {
+    "Word": "Saten",
+    "Meaning": "Atlas / Bir kumaş türü"
+  },
+  {
+    "Word": "Satürn",
+    "Meaning": "Altıncı gezegen / Zühal / Sekendiz"
+  },
+  {
+    "Word": "Zail",
+    "Meaning": "Yok olan / Ortadan kalkan"
+  },
+  {
+    "Word": "Apre",
+    "Meaning": "Dokumacılık ve boyacılıkta cila olarak kullanılan madde"
+  },
+  {
+    "Word": "Azılı",
+    "Meaning": "Azgın / Gözü bir şeyden yılmayan"
+  },
+  {
+    "Word": "Cedit",
+    "Meaning": "Yeni"
+  },
+  {
+    "Word": "Derman",
+    "Meaning": "Güç / Takat / Mecal"
+  },
+  {
+    "Word": "Dolay",
+    "Meaning": "Civar"
+  },
+  {
+    "Word": "Ecir",
+    "Meaning": "Sevap / Ücret"
+  },
+  {
+    "Word": "Havran",
+    "Meaning": "Balıkesir ilçesi"
+  },
+  {
+    "Word": "Hızlıca",
+    "Meaning": "Hızlı bir biçimde"
+  },
+  {
+    "Word": "Nalın",
+    "Meaning": "Takunya"
+  },
+  {
+    "Word": "Peki",
+    "Meaning": "Evet / Pekala"
+  },
+  {
+    "Word": "Çekiç",
+    "Meaning": "Çivi çakma / Madem dövme aracı"
+  },
+  {
+    "Word": "Çöp",
+    "Meaning": "Atılan pis veya yararsız şeyler / Gübür"
   }
 ]
