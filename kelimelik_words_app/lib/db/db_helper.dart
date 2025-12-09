@@ -1,4 +1,5 @@
 // 📃 <----- db_helper.dart ----->
+//
 // Tüm veri tabanı işlemleri
 // Tüm CSV JSON işlemleri
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
@@ -11,6 +12,7 @@ import 'dart:io';
 
 /// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // <-- asset DB kopyalamak için eklendi
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -18,7 +20,6 @@ import 'package:sqflite/sqflite.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/file_info.dart';
 import '../models/item_model.dart';
-import '../services/notification_service.dart';
 
 class DbHelper {
   // Singleton pattern: Sınıfın tek bir örneği olmasını sağlar.
@@ -35,12 +36,53 @@ class DbHelper {
     return _database!;
   }
 
-  /// Veritabanını cihazda başlatır.
-  /// Uygulamanın belge dizininde veritabanı dosyasını açar veya oluşturur.
+  /// --------------------------------------------------------------------------
+  /// 🚀 VERİTABANI BAŞLATMA + ASSET'TEN OTOMATİK KOPYALAMA
+  /// --------------------------------------------------------------------------
+  ///
+  /// Eğer cihazda kelimelik_words_app.db yoksa → assets/database klasöründen
+  /// birebir veritabanı dosyası kopyalanır.
+  ///
   Future<Database> _initDB(String fileName) async {
-    final dbPath = await getApplicationDocumentsDirectory();
-    final path = join(dbPath.path, fileName);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    final dbDir = await getApplicationDocumentsDirectory();
+    final dbFullPath = join(dbDir.path, fileName);
+
+    final dbFile = File(dbFullPath);
+
+    // 📌 Eğer veritabanı yoksa — assets/database içinden kopyala
+    if (!await dbFile.exists()) {
+      log(
+        "📂 DB bulunamadı → asset'ten kopyalanıyor: $dbFullPath",
+        name: "DbHelper",
+      );
+
+      try {
+        // Asset içindeki DB'yi oku
+        final data = await rootBundle.load("assets/database/$fileNameSql");
+
+        // Bytes formatına çevir
+        final bytes = data.buffer.asUint8List(
+          data.offsetInBytes,
+          data.lengthInBytes,
+        );
+
+        // Cihaza veritabanı olarak yaz
+        await dbFile.writeAsBytes(bytes, flush: true);
+
+        log("✅ Asset DB başarıyla kopyalandı.", name: "DbHelper");
+      } catch (e) {
+        log("❌ Asset DB kopyalama hatası: $e", name: "DbHelper");
+      }
+    } else {
+      log("📌 DB zaten mevcut, doğrudan açılıyor…", name: "DbHelper");
+    }
+
+    // 📌 DB artık var → read/write modunda açılır
+    return await openDatabase(
+      dbFullPath,
+      version: 1,
+      onCreate: _createDB, // Eğer hiç yoksa tabloyu oluşturur
+    );
   }
 
   /// Veritabanı ilk kez oluşturulduğunda `words` tablosunu yaratır.
@@ -55,22 +97,21 @@ class DbHelper {
     ''');
   }
 
-  /// Veritabanı dosyasını diskten tamamen siler.
-  /// Önce veritabanı bağlantısını kapatır, sonra dosyayı siler.
+  /// --------------------------------------------------------------------------
+  /// 📌 Veritabanı dosyasını tamamen sil
+  /// --------------------------------------------------------------------------
   Future<void> deleteDatabaseFile() async {
-    final dbPath = await getApplicationDocumentsDirectory();
-    final path = join(dbPath.path, fileNameSql);
+    final dbDir = await getApplicationDocumentsDirectory();
+    final path = join(dbDir.path, fileNameSql);
 
-    // Veritabanı bağlantısını güvenle kapat
     if (_database != null) {
       await _database!.close();
       _database = null;
     }
 
-    // Veritabanı dosyasını fiziksel olarak sil
     if (await File(path).exists()) {
       await File(path).delete();
-      log('Veritabanı dosyası silindi: $path', name: 'DbHelper');
+      log('🗑 Veritabanı dosyası silindi: $path', name: 'DbHelper');
     }
   }
 
@@ -79,7 +120,7 @@ class DbHelper {
     final db = await instance.database;
     final result = await db.query(sqlTableName);
     final words = result.map((e) => Word.fromMap(e)).toList();
-    return _sortTurkish(words); // Türkçe karakterlere göre sıralama uygula
+    return _sortTurkish(words);
   }
 
   /// Belirli bir kelimeyi adına göre veritabanında arar.
@@ -125,171 +166,144 @@ class DbHelper {
     return result ?? 0;
   }
 
-  /// Veritabanındaki tüm kayıtları bir JSON dosyasına aktarır.
-  /// Dosyayı uygulamanın belge dizinine kaydeder ve dosya yolunu döndürür.
+  /// --------------------------------------------------------------------------
+  /// JSON EXPORT
+  /// --------------------------------------------------------------------------
   Future<String> exportRecordsToJson() async {
     final words = await getRecords();
-    final wordMaps = words.map((w) => w.toMap()).toList();
-    final jsonString = jsonEncode(wordMaps);
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/$fileNameJson';
-    final file = File(filePath);
-    await file.writeAsString(jsonString);
-    return filePath;
+    final maps = words.map((w) => w.toMap()).toList();
+    final jsonStr = jsonEncode(maps);
+    final dir = await getApplicationDocumentsDirectory();
+    final path = "${dir.path}/$fileNameJson";
+    await File(path).writeAsString(jsonStr);
+    return path;
   }
 
-  /// Bir JSON dosyasından veritabanına kayıtları geri yükler.
-  /// Önce mevcut tüm kayıtları siler, sonra JSON 'daki kayıtları ekler.
+  /// JSON IMPORT
   Future<void> importRecordsFromJson(BuildContext context) async {
     const tag = 'db_helper';
-    try {
-      final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/$fileNameJson';
-      final file = File(filePath);
 
-      if (!(await file.exists())) {
-        log('❌ Yedek dosyası bulunamadı: $filePath', name: tag);
-        if (context.mounted) {
-          NotificationService.showCustomNotification(
-            context: context,
-            title: 'Dosya Bulunamadı',
-            message: const Text('JSON yedek dosyası bulunamadı.'),
-            icon: Icons.error_outline,
-            iconColor: Colors.red,
-            progressIndicatorColor: Colors.red,
-            progressIndicatorBackground: Colors.red.shade100,
-          );
-        }
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final path = "${dir.path}/$fileNameJson";
+      final file = File(path);
+
+      if (!await file.exists()) {
+        log("❌ JSON bulunamadı: $path", name: tag);
         return;
       }
 
-      final jsonString = await file.readAsString();
-      final List<dynamic> jsonList = jsonDecode(jsonString);
+      final jsonStr = await file.readAsString();
+      final List<dynamic> list = jsonDecode(jsonStr);
+
       final db = await database;
-      await db.delete(sqlTableName); // Önce eski kayıtları temizle
-      for (var item in jsonList) {
-        final word = Word.fromMap(item);
-        await insertRecord(word);
+      await db.delete(sqlTableName);
+
+      for (final item in list) {
+        await insertRecord(Word.fromMap(item));
       }
 
-      log(
-        '✅ JSON yedeği başarıyla yüklendi. (${jsonList.length} kayıt)',
-        name: tag,
-      );
-      if (context.mounted) {
-        NotificationService.showCustomNotification(
-          context: context,
-          title: 'JSON Yedeği Yüklendi',
-          message: Text('${jsonList.length} kelime başarıyla yüklendi.'),
-          icon: Icons.upload_file,
-          iconColor: Colors.green,
-          progressIndicatorColor: Colors.green,
-          progressIndicatorBackground: Colors.green.shade100,
-        );
-      }
+      log("✅ JSON Import tamamlandı (${list.length} kayıt)", name: tag);
     } catch (e) {
-      log('🚨 Geri yükleme hatası: $e', name: tag);
-      if (context.mounted) {
-        NotificationService.showCustomNotification(
-          context: context,
-          title: 'Yükleme Hatası',
-          message: Text('Bir hata oluştu: $e'),
-          icon: Icons.error,
-          iconColor: Colors.red,
-          progressIndicatorColor: Colors.red,
-          progressIndicatorBackground: Colors.red.shade100,
-        );
-      }
+      log("🚨 JSON import hatası: $e", name: tag);
     }
   }
 
-  /// Veritabanındaki tüm kayıtları bir CSV dosyasına aktarır.
+  /// --------------------------------------------------------------------------
+  /// CSV EXPORT
+  /// --------------------------------------------------------------------------
   Future<String> exportRecordsToCsv() async {
-    final words = await DbHelper.instance.getRecords();
+    final words = await getRecords();
     final buffer = StringBuffer();
-    buffer.writeln('Kelime,Anlam'); // Başlık satırı
-    for (var word in words) {
-      final kelime = word.word.replaceAll(',', '');
-      final anlam = word.meaning.replaceAll(',', '');
-      buffer.writeln('$kelime,$anlam');
+
+    buffer.writeln("Kelime,Anlam");
+
+    for (var w in words) {
+      final kelime = w.word.replaceAll(",", "");
+      final anlam = w.meaning.replaceAll(",", "");
+      buffer.writeln("$kelime,$anlam");
     }
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/$fileNameCsv';
-    final file = File(filePath);
-    await file.writeAsString(buffer.toString());
-    return filePath;
+
+    final dir = await getApplicationDocumentsDirectory();
+    final path = "${dir.path}/$fileNameCsv";
+    await File(path).writeAsString(buffer.toString());
+    return path;
   }
 
-  /// Bir CSV dosyasından veritabanına kayıtları geri yükler.
-  /// Önce mevcut kayıtları siler, sonra CSV'deki kayıtları ekler.
+  /// --------------------------------------------------------------------------
+  /// CSV IMPORT
+  /// --------------------------------------------------------------------------
   Future<void> importRecordsFromCsv() async {
     const tag = 'db_helper';
     try {
-      final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/$fileNameCsv';
-      final file = File(filePath);
+      final dir = await getApplicationDocumentsDirectory();
+      final path = "${dir.path}/$fileNameCsv";
+      final file = File(path);
 
-      if (!(await file.exists())) {
-        log('❌ CSV dosyası bulunamadı: $filePath', name: tag);
+      if (!await file.exists()) {
+        log("❌ CSV bulunamadı", name: tag);
         return;
       }
 
       final lines = await file.readAsLines();
-      if (lines.isEmpty) {
-        log('❌ CSV dosyası boş.', name: tag);
-        return;
-      }
+      if (lines.isEmpty) return;
 
       final db = await database;
-      await db.delete(sqlTableName); // Eski kayıtları temizle
+      await db.delete(sqlTableName);
+
       int count = 0;
       for (int i = 1; i < lines.length; i++) {
-        // İlk satır başlık olduğu için atla
         final line = lines[i].trim();
         if (line.isEmpty) continue;
-        final parts = line.split(',');
+
+        final parts = line.split(",");
         if (parts.length < 2) continue;
+
         final kelime = parts[0].trim();
-        final anlam = parts.sublist(1).join(',').trim();
+        final anlam = parts.sublist(1).join(",").trim();
+
         if (kelime.isNotEmpty && anlam.isNotEmpty) {
-          final word = Word(word: kelime, meaning: anlam);
-          await insertRecord(word);
+          await insertRecord(Word(word: kelime, meaning: anlam));
           count++;
         }
       }
 
-      log('✅ CSV yedeği başarıyla yüklendi. ($count kayıt)', name: tag);
-      log('📂 CSV dosya konumu: $filePath', name: tag);
+      log("✅ CSV import tamamlandı ($count kayıt)", name: tag);
     } catch (e) {
-      log('🚨 CSV yükleme hatası: $e', name: tag);
+      log("🚨 CSV import hatası: $e", name: tag);
     }
   }
 
-  /// Kelime listesini Türkçe alfabe kurallarına göre sıralar.
+  /// --------------------------------------------------------------------------
+  /// TÜRKÇE SIRALAMA
+  /// --------------------------------------------------------------------------
   List<Word> _sortTurkish(List<Word> words) {
-    const turkishAlphabet =
-        'AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz';
+    const alphabet =
+        "AaBbCcÇçDdEeFfGgĞğHhIıİiJjKkLlMmNnOoÖöPpRrSsŞşTtUuÜüVvYyZz";
 
-    int turkishCompare(String a, String b) {
+    int trCompare(String a, String b) {
       for (int i = 0; i < a.length && i < b.length; i++) {
-        final ai = turkishAlphabet.indexOf(a[i]);
-        final bi = turkishAlphabet.indexOf(b[i]);
+        final ai = alphabet.indexOf(a[i]);
+        final bi = alphabet.indexOf(b[i]);
         if (ai != bi) return ai.compareTo(bi);
       }
       return a.length.compareTo(b.length);
     }
 
-    words.sort((a, b) => turkishCompare(a.word, b.word));
+    words.sort((a, b) => trCompare(a.word, b.word));
     return words;
   }
 
-  /// Büyük bir kelime listesini veritabanına hızlı bir şekilde ekler.
-  /// Yinelenen kayıtları (`UNIQUE` kısıtlaması sayesinde) göz ardı eder.
+  /// --------------------------------------------------------------------------
+  /// HIZLI BATCH INSERT
+  /// --------------------------------------------------------------------------
   Future<void> insertBatch(List<Word> items) async {
     if (items.isEmpty) return;
     final db = await database;
+
     await db.transaction((txn) async {
       final batch = txn.batch();
+
       for (final item in items) {
         batch.insert(
           sqlTableName,
@@ -297,10 +311,14 @@ class DbHelper {
           conflictAlgorithm: ConflictAlgorithm.ignore,
         );
       }
-      await batch.commit(noResult: true, continueOnError: true);
+
+      await batch.commit(noResult: true);
     });
   }
 
+  /// --------------------------------------------------------------------------
+  /// DB Bağlantısını kapat
+  /// --------------------------------------------------------------------------
   Future<void> closeDb() async {
     final db = _database;
     if (db != null && db.isOpen) {

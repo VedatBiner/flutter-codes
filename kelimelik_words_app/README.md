@@ -163,7 +163,8 @@ bir chatGPT ortak çalışması :)
 158. `external_copy.dart` dosyası ile download dizinine kopyalama yapılacak. - 08.12.2025
 159. `drawer_bakup_tile.dart` dosyası düzeltildi. - 08.12.2025
 160. `excel_helper.dart`, `external_copy.dart`, `file_exporter.dart` ve `file_creator.dart` dosyaları güncellendi. - 09.12.2025
-161. 
+161. `db_helper.dart` dosyası düzenlendi. - 09.12.2025
+
 
 
 
@@ -180,8 +181,7 @@ Yapılacaklar :
     - zip (backup) dosya içinde sadece json ve csv var ?
     - paylaşım yapınca zip içinde sadece json ve csv var?
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
-    - Yeni kelime eklenmesi sorunlu ? (veri kaybı)
-    - Excel dosyasına formatlama eklenecek.
+    - Excel dosyasına formatlama işlemi başladı.
     - Download dizinine kopyalama sorunlu ?
     - 
 
