@@ -43,6 +43,10 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   // 📂 Uygulamanın Documents dizini
   final dir = await getApplicationDocumentsDirectory();
 
+  log(logLine, name: tag);
+  log("***** Dizin ***** : $dir", name: tag);
+  log(logLine, name: tag);
+
   // Bu dosyalar HER ZAMAN burada üretilecek
   final jsonFull = join(dir.path, fileNameJson);
   final csvFull = join(dir.path, fileNameCsv);
@@ -113,10 +117,10 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     showCreateDbNotification(
       context,
-      jsonFull,
+      sqlFull,
       csvFull,
       excelFull,
-      sqlFull,
+      jsonFull,
       zipOut,
     );
 

@@ -88,6 +88,17 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
         sheet.getRangeByIndex(rowIndex, 2).setText(cells[1].trim());
       }
 
+      // 🎨 ZEBRA RENK — Çift satırlar pastel açık mavi
+      if (rowIndex % 2 == 0) {
+        final rng = sheet.getRangeByIndex(rowIndex, 1, rowIndex, 2);
+        rng.cellStyle.backColorRgb = const Color.fromARGB(
+          255,
+          220,
+          235,
+          255,
+        ); // pastel açık mavi
+      }
+
       rowIndex++;
     }
 
@@ -155,6 +166,16 @@ Future<void> exportItemsToExcelFromList(
   for (var item in items) {
     sheet.getRangeByIndex(row, 1).setText(getColumn1Value(item));
     sheet.getRangeByIndex(row, 2).setText(getColumn2Value(item));
+    // 🎨 ZEBRA RENK — Çift satırlar pastel açık mavi
+    if (row % 2 == 0) {
+      final rng = sheet.getRangeByIndex(row, 1, row, 2);
+      rng.cellStyle.backColorRgb = const Color.fromARGB(
+        255,
+        220,
+        235,
+        255,
+      ); // pastel açık mavi
+    }
     row++;
   }
 

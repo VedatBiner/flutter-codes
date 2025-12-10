@@ -22,10 +22,10 @@ const tag = "Notification_handler";
 ///
 void showBackupNotification(
   BuildContext rootCtx,
-  String jsonPathDownload,
-  String csvPathDownload,
-  String excelPathDownload,
   String sqlPathDownload,
+  String csvPathDownload,
+  String jsonPathDownload,
+  String excelPathDownload,
   String zipPathDownload,
 ) {
   return NotificationService.showCustomNotification(
@@ -63,17 +63,17 @@ void showBackupNotification(
 
 void showCreateDbNotification(
   BuildContext rootCtx,
-  String jsonPathDownload,
-  String csvPathDownload,
-  String excelPathDownload,
   String sqlPathDownload,
+  String csvPathDownload,
+  String jsonPathDownload,
+  String excelPathDownload,
   String zipPathDownload,
 ) {
   logCreate(
-    jsonPathDownload,
-    csvPathDownload,
-    excelPathDownload,
     sqlPathDownload,
+    csvPathDownload,
+    jsonPathDownload,
+    excelPathDownload,
     zipPathDownload,
   );
   return NotificationService.showCustomNotification(
@@ -126,7 +126,7 @@ void showShareFilesNotification(BuildContext rootCtx) {
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
     width: 260,
-    height: 260,
+    height: 200,
   );
 }
 

@@ -164,6 +164,8 @@ bir chatGPT ortak çalışması :)
 159. `drawer_bakup_tile.dart` dosyası düzeltildi. - 08.12.2025
 160. `excel_helper.dart`, `external_copy.dart`, `file_exporter.dart` ve `file_creator.dart` dosyaları güncellendi. - 09.12.2025
 161. `db_helper.dart` dosyası düzenlendi. - 09.12.2025
+162. `excel_helper.dart`, `file_creator.dart` ve `show_notification_handler.dart` dosyaları güncellendi. - 10.12.2025
+163. 
 
 
 
@@ -182,7 +184,8 @@ Yapılacaklar :
     - paylaşım yapınca zip içinde sadece json ve csv var?
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - Download dizinine kopyalama sorunlu ? lokal dizine iki kez içi içe kopyalıyor ?
-    - CSV dosyası sıralı mı ?
+    - CSV JSON karşılaştırmasını her zaman yapmasın.
+    - 
 
 
 

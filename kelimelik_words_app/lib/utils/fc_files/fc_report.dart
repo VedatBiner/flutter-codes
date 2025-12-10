@@ -1,15 +1,14 @@
 // 📃 <----- lib/utils/fc_files/fc_report.dart ----->
 //
-// Gelişmiş Tutarlılık Raporu + Benchmark Analizleri (Incremental Sync uyumlu)
-// ---------------------------------------------------------------------------
+// Gelişmiş Tutarlılık Raporu + Benchmark Analizleri
+// --------------------------------------------------------
 // ✔ CSV → JSON analiz
-// ✔ CSV → SQL analiz (Eksik kayıt / Farklı anlam)
-// ✔ JSON → SQL analiz (Opsiyonel doğruluk kontrolü)
+// ✔ JSON → SQL analiz
 // ✔ Duplicate tespiti (CSV & JSON)
 // ✔ CSV → JSON eksik kayıtlar
 // ✔ CREATE hız analizi: En yavaş 10 insert
 // ✔ Pipeline benchmark: csvToJsonMs, jsonToSqlMs, totalMs
-// ---------------------------------------------------------------------------
+// --------------------------------------------------------
 
 import 'dart:convert';
 import 'dart:developer';
@@ -19,8 +18,6 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../constants/file_info.dart';
-import '../../db/db_helper.dart';
-import '../../models/item_model.dart';
 
 const tag = "fc_report";
 
@@ -38,16 +35,16 @@ Future<void> runFullDataReport({
   log("📊 BENCHMARK + VERİ ANALİZİ RAPORU BAŞLADI", name: tag);
   log(logLine, name: tag);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 📂 DOSYA YOLLARI
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   final directory = await getApplicationDocumentsDirectory();
   final csvPath = join(directory.path, fileNameCsv);
   final jsonPath = join(directory.path, fileNameJson);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 📌 CSV OKUMA
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   final csvRaw = await File(csvPath).readAsString();
   final csvLines = csvRaw
       .replaceAll("\r\n", "\n")
@@ -79,26 +76,58 @@ Future<void> runFullDataReport({
       .where((e) => e.value > 1)
       .toList();
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 📌 JSON OKUMA
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   final jsonList = jsonDecode(await File(jsonPath).readAsString()) as List;
   final jsonCount = jsonList.length;
 
-  String wordKey = "Word";
+  // ----------------------------------------------------
+  // 📌 JSON'da kelime alanının anahtarını bul
+  //     • Önce "word"
+  //     • Sonra "kelime"
+  //     • Hiçbiri yoksa ilk anahtarı kullan
+  // ----------------------------------------------------
+  String wordKey = "word";
+
   if (jsonList.isNotEmpty) {
-    for (final k in (jsonList.first as Map).keys) {
-      if (k.toString().toLowerCase() == "word") {
-        wordKey = k;
-        break;
+    final first = jsonList.first as Map<String, dynamic>;
+    final keys = first.keys.toList();
+
+    String? detected;
+
+    for (final k in keys) {
+      final lower = k.toString().toLowerCase();
+      if (lower == "word") {
+        detected = k.toString();
+        break; // en ideal senaryo
       }
     }
+
+    // "word" bulunamadıysa "kelime"yi dene
+    if (detected == null) {
+      for (final k in keys) {
+        final lower = k.toString().toLowerCase();
+        if (lower == "kelime") {
+          detected = k.toString();
+          break;
+        }
+      }
+    }
+
+    // Hâlâ yoksa ilk anahtarı kullan
+    wordKey = detected ?? keys.first.toString();
+
+    log("🔎 JSON kelime alanı olarak kullanılacak key: '$wordKey'", name: tag);
+  } else {
+    log("⚠️ JSON listesi boş, kelime anahtarı tespit edilemedi.", name: tag);
   }
 
   final Map<String, int> jsonWordCounts = {};
   for (final entry in jsonList) {
     final map = entry as Map<String, dynamic>;
     final word = map[wordKey]?.toString().trim() ?? "";
+    if (word.isEmpty) continue; // boş kelimeleri sayma
     final key = word.toLowerCase();
     jsonWordCounts[key] = (jsonWordCounts[key] ?? 0) + 1;
   }
@@ -107,83 +136,43 @@ Future<void> runFullDataReport({
       .where((e) => e.value > 1)
       .toList();
 
-  // ---------------------------------------------------------------------------
-  // 📌 SQL OKUMA (Incremental Sync sonrası)
-  // ---------------------------------------------------------------------------
-  final dbWords = await DbHelper.instance.getRecords();
-  final sqlCount = dbWords.length;
-
-  final Map<String, Word> sqlMap = {
-    for (final w in dbWords) w.word.toLowerCase(): w,
-  };
-
-  // ---------------------------------------------------------------------------
-  // 📌 CSV → SQL eksik kelimeler
-  // ---------------------------------------------------------------------------
-  final missingCsvToSql = <String>[];
-
-  for (final entry in csvWordCounts.entries) {
-    if (!sqlMap.containsKey(entry.key)) {
-      missingCsvToSql.add(csvDisplayWord[entry.key] ?? entry.key);
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // 📌 CSV → SQL anlamı farklı olanlar
-  // ---------------------------------------------------------------------------
-  final meaningDiffs = <String>[];
-
-  for (final entry in csvWordCounts.entries) {
-    final key = entry.key;
-    final sqlWord = sqlMap[key];
-    if (sqlWord == null) continue;
-
-    final csvLine = csvLines[csvLineNumbers[key]!.first - 1];
-    final parts = csvLine.split(',');
-    final csvMeaning = parts.length > 1
-        ? parts.sublist(1).join(',').trim()
-        : "";
-
-    if (sqlWord.meaning.trim() != csvMeaning.trim()) {
-      meaningDiffs.add(
-        "${sqlWord.word} → CSV:[$csvMeaning] | SQL:[${sqlWord.meaning}]",
-      );
-    }
-  }
-
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 📌 CSV → JSON eksik kelimeler
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   final missingCsvToJson = csvWordCounts.keys.toSet().difference(
     jsonWordCounts.keys.toSet(),
   );
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 📌 BENCHMARK BÖLÜMÜ
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   log("⚡ BENCHMARK", name: tag);
+  log("• CSV satır sayısı (header hariç): $csvCount", name: tag);
+  log("• JSON kayıt sayısı: $jsonCount", name: tag);
   log("• CSV → JSON: $csvToJsonMs ms", name: tag);
   log("• JSON → SQL: $jsonToSqlMs ms", name: tag);
   log("• TOPLAM Pipeline: $totalPipelineMs ms", name: tag);
   log(logLine, name: tag);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 🐌 EN YAVAŞ 10 INSERT ANALİZİ
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   log("🐌 En Yavaş 10 INSERT (ms)", name: tag);
 
   final sorted = [...insertDurations]
     ..sort((a, b) => (b["ms"] as int).compareTo(a["ms"] as int));
 
-  for (final item in sorted.take(10)) {
+  final slowest = sorted.take(10).toList();
+
+  for (final item in slowest) {
     log("• ${item['word']} → ${item['ms']} ms", name: tag);
   }
 
   log(logLine, name: tag);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 🔁 CSV Duplicate
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   if (csvDuplicates.isEmpty) {
     log("✅ CSV duplicate yok", name: tag);
   } else {
@@ -198,9 +187,9 @@ Future<void> runFullDataReport({
 
   log(logLine, name: tag);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // 🔁 JSON Duplicate
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   if (jsonDuplicates.isEmpty) {
     log("✅ JSON duplicate yok", name: tag);
   } else {
@@ -212,9 +201,9 @@ Future<void> runFullDataReport({
 
   log(logLine, name: tag);
 
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   // ❌ CSV → JSON eksik kelimeler
-  // ---------------------------------------------------------------------------
+  // ----------------------------------------------------
   if (missingCsvToJson.isEmpty) {
     log("✅ Tüm CSV kelimeleri JSON ’a aktarılmış", name: tag);
   } else {
@@ -225,34 +214,6 @@ Future<void> runFullDataReport({
   }
 
   log(logLine, name: tag);
-
-  // ---------------------------------------------------------------------------
-  // ❌ CSV → SQL eksik kelimeler
-  // ---------------------------------------------------------------------------
-  if (missingCsvToSql.isEmpty) {
-    log("✅ CSV ’deki tüm kelimeler SQL  ’de mevcut", name: tag);
-  } else {
-    log("❌ CSV → SQL eksik kayıtlar (${missingCsvToSql.length})", name: tag);
-    for (final w in missingCsvToSql) {
-      log("• $w", name: tag);
-    }
-  }
-
-  log(logLine, name: tag);
-
-  // ---------------------------------------------------------------------------
-  // ❌ CSV ↔ SQL anlam farkı olan kelimeler
-  // ---------------------------------------------------------------------------
-  if (meaningDiffs.isEmpty) {
-    log("✅ CSV ve SQL anlamları tamamen uyumlu", name: tag);
-  } else {
-    log("❌ CSV ↔ SQL anlam farklılıkları (${meaningDiffs.length})", name: tag);
-    for (final line in meaningDiffs) {
-      log("• $line", name: tag);
-    }
-  }
-
-  log(logLine, name: tag);
-  log("📊 RAPOR TAMAMLANDI — Incremental Sync ile uyumlu", name: tag);
+  log("📊 RAPOR TAMAMLANDI", name: tag);
   log(logLine, name: tag);
 }
