@@ -27,8 +27,11 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     final directory = await getApplicationDocumentsDirectory();
     final excelPath = join(directory.path, fileNameXlsx);
 
-    if (await File(excelPath).exists()) {
-      await File(excelPath).delete();
+    log("📄 Excel hedef yolu: $excelPath", name: tag);
+
+    final file = File(excelPath);
+    if (await file.exists()) {
+      await file.delete();
     }
 
     final csvPath = join(directory.path, fileNameCsv);
@@ -41,47 +44,27 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
 
     final csvRaw = await csvFile.readAsString();
     final rows = csvRaw.split('\n').where((e) => e.trim().isNotEmpty).toList();
-    if (rows.isEmpty) return;
 
     final workbook = xlsio.Workbook();
     final sheet = workbook.worksheets[0];
 
-    // 🔵 Başlıklar
     final headers = ['Kelime', 'Anlam'];
     for (int i = 0; i < headers.length; i++) {
       final cell = sheet.getRangeByIndex(1, i + 1);
       cell.setText(headers[i]);
-      final style = cell.cellStyle;
-
-      style.bold = true;
-      style.backColorRgb = const Color.fromARGB(255, 13, 71, 161);
-      style.fontColorRgb = const Color.fromARGB(255, 255, 255, 255);
-      style.hAlign = xlsio.HAlignType.center;
-      style.vAlign = xlsio.VAlignType.center;
-      style.borders.all.lineStyle = xlsio.LineStyle.thin;
     }
 
-    // 🟦 AUTO FILTER EKLE — Eksik olan kısım buydu!
-    sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, 1, 2);
-
-    // Freeze
     sheet.getRangeByIndex(2, 1).freezePanes();
 
     int rowIndex = 2;
     for (int i = 1; i < rows.length; i++) {
       final cells = rows[i].split(',');
-
-      sheet.getRangeByIndex(rowIndex, 1).setText(cells[0].trim());
+      if (cells.isNotEmpty) {
+        sheet.getRangeByIndex(rowIndex, 1).setText(cells[0].trim());
+      }
       if (cells.length > 1) {
         sheet.getRangeByIndex(rowIndex, 2).setText(cells[1].trim());
       }
-
-      // Zebra
-      if (rowIndex % 2 == 0) {
-        final rng = sheet.getRangeByIndex(rowIndex, 1, rowIndex, 2);
-        rng.cellStyle.backColorRgb = const Color.fromARGB(255, 220, 235, 255);
-      }
-
       rowIndex++;
     }
 
@@ -90,11 +73,15 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
 
     final bytes = workbook.saveAsStream();
     workbook.dispose();
-
     await File(excelPath).writeAsBytes(bytes);
-    log('📘 Excel oluşturuldu.', name: tag);
+
+    if (await File(excelPath).exists()) {
+      log("✅ Excel fiziksel olarak oluşturuldu!", name: tag);
+    } else {
+      log("❌ EXCEL OLUŞTURULAMADI!", name: tag);
+    }
   } catch (e, st) {
-    log('❌ Excel hata: $e', name: tag, error: e, stackTrace: st);
+    log('❌ Excel oluşturma hatası: $e', name: tag, error: e, stackTrace: st);
   }
 }
 

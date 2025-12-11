@@ -18,6 +18,7 @@
 // -----------------------------------------------------------
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
@@ -53,8 +54,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final excelFull = join(dir.path, fileNameXlsx);
   final sqlFull = join(dir.path, fileNameSql);
 
-  final backupFiles = <String>[jsonFull, csvFull, excelFull, sqlFull];
-
   if (!context.mounted) return;
 
   final bannerCtrl = showLoadingBanner(
@@ -85,6 +84,18 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await createExcelFromAssetCsvSyncfusion();
 
     // ----------------------------------------------------------
+    // EXCEL GERÇEKTEN OLUŞTU MU?
+    // (ZIP'e eklenmeden önce mutlaka doğruluyoruz)
+    // ----------------------------------------------------------
+    final excelFile = File(excelFull);
+
+    if (!await excelFile.exists()) {
+      log("❌ Excel bulunamadı! ZIP'e eklenmeyecek.", name: tag);
+    } else {
+      log("📘 Excel dosyası bulundu: $excelFull", name: tag);
+    }
+
+    // ----------------------------------------------------------
     // 5️⃣ Benchmark + Tutarlılık Raporu
     // ----------------------------------------------------------
     await runFullDataReport(
@@ -96,17 +107,24 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     // ----------------------------------------------------------
     // 6️⃣ ZIP oluştur (JSON + CSV + XLSX + SQL)
+    // — Excel yoksa ZIP içine alınmaz (güvenli mekanizma)
     // ----------------------------------------------------------
+    final filesToZip = <String>[jsonFull, csvFull, sqlFull];
+
+    if (await excelFile.exists()) {
+      filesToZip.add(excelFull);
+    }
+
     final zipOut = await createZipArchive(
       outputDir: dir.path,
-      files: backupFiles,
+      files: filesToZip,
     );
 
     // ----------------------------------------------------------
     // 7️⃣ Download/{appName} dizinine kopyala
     // ----------------------------------------------------------
     await copyBackupToDownload(
-      files: [...backupFiles, zipOut],
+      files: [...filesToZip, zipOut],
       folderName: appName,
     );
 
