@@ -102,6 +102,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
 /// 📌 GENERIC Excel oluşturucu (her model için çalışır)
 ///    export_items.dart tarafından çağrılır.
 /// ---------------------------------------------------------------------------
+// 📌 GENERIC Excel oluşturucu (her model için çalışır)
 Future<void> exportItemsToExcelFromList(
   String excelPath,
   List<dynamic> items, {
@@ -118,7 +119,6 @@ Future<void> exportItemsToExcelFromList(
 
   // 🔵 Başlıklar
   final headers = [column1Header, column2Header];
-
   for (int i = 0; i < headers.length; i++) {
     final cell = sheet.getRangeByIndex(1, i + 1);
     cell.setText(headers[i]);
@@ -132,9 +132,6 @@ Future<void> exportItemsToExcelFromList(
     style.borders.all.lineStyle = xlsio.LineStyle.thin;
   }
 
-  // ✅ AUTO FILTER EKLE
-  sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, 1, 2);
-
   // Freeze Panes
   sheet.getRangeByIndex(2, 1).freezePanes();
 
@@ -143,27 +140,28 @@ Future<void> exportItemsToExcelFromList(
   for (var item in items) {
     sheet.getRangeByIndex(row, 1).setText(getColumn1Value(item));
     sheet.getRangeByIndex(row, 2).setText(getColumn2Value(item));
-    // 🎨 ZEBRA RENK — Çift satırlar pastel açık mavi
+
+    // 🎨 Zebra satırlar — pastel mavi
     if (row % 2 == 0) {
       final rng = sheet.getRangeByIndex(row, 1, row, 2);
-      rng.cellStyle.backColorRgb = const Color.fromARGB(
-        255,
-        220,
-        235,
-        255,
-      ); // pastel açık mavi
+      rng.cellStyle.backColorRgb = const Color.fromARGB(255, 220, 235, 255);
     }
+
     row++;
   }
 
-  // 📏 Sütun genişlikleri — AUTO-FIT
+  final lastRow = row - 1;
+
+  // ✔ AutoFilter — tüm aralığa
+  sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 2);
+
+  // ✔ Sütun genişlikleri otomatik ayarlanır
   sheet.autoFitColumn(1);
   sheet.autoFitColumn(2);
 
   // 💾 Kaydet
   final bytes = workbook.saveAsStream();
   workbook.dispose();
-
   await file.writeAsBytes(bytes);
 }
 
