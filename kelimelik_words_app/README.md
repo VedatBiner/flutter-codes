@@ -165,7 +165,8 @@ bir chatGPT ortak çalışması :)
 160. `excel_helper.dart`, `external_copy.dart`, `file_exporter.dart` ve `file_creator.dart` dosyaları güncellendi. - 09.12.2025
 161. `db_helper.dart` dosyası düzenlendi. - 09.12.2025
 162. `excel_helper.dart`, `file_creator.dart` ve `show_notification_handler.dart` dosyaları güncellendi. - 10.12.2025
-163. 
+163. `excel_helper.dart` dosyası güncellendi. - 11.12.2025
+164. 
 
 
 

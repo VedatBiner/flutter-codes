@@ -1189,6 +1189,7 @@ Düşes,Dükün karısı
 Düşeş,Zarla oynanan oyunlarda iki tane altı gelmesi
 Düyek,Türk müziğinde usul
 Düz,Yatay durumda olan
+Düzce,Bir ilimiz
 Düze,Doz
 Ebat,Boyut
 Ebe,Doğum işini yaptıran kadın / Nine
@@ -1263,6 +1264,7 @@ Elim,Acıklı
 Elk,Bir tür iri geyik
 Elli,Bir sayı
 Elma,Bir meyve
+Elmacı,Elma üreten ve satan kişi
 Elmas,Mücevher olarak kullanılan değerli taş / Elmastıraş
 Elti,Kadına göre kocasının erkek kardeşlerinin eşleri
 Em,İlaç / Merhem
@@ -1548,6 +1550,7 @@ Genç,İhtiyar karşıtı
 Gene,Yine
 Genel,Bütünü bakımından ele alınan
 Genetik,Kalıtım bilimi
+Genom,Gametlerde bulunan kromozomlar
 Geren,Verimsiz / Tuzlu toprak
 Geri,Arka / Bir şeyin sona kalan bölümü
 Gerici,Germe işi yapan / İlerici karşıtı / Mürteci
@@ -1751,6 +1754,7 @@ Huylu,Işkilli / Kuşkulu
 Huzur,Dirlik / Rahatlık
 Hüda,Tanrı
 Hülle,Medeni kanun öncesi bir tür anlaşmalı evlilik
+Hüma,Şans getirdiğine inanılan talih kuşu
 Hür,Özgür
 Hüzün,Gam / Keder / Sıkıntı
 Idame,Sürdürme
@@ -1768,6 +1772,7 @@ Ilıtma,Işıtmak işi
 Ir,Şiir
 Ira,Karakter
 Irak,Uzak
+Iraklı,Irak halkından olan
 Irama,Iramak işi
 Iramak,Uzaklaşmak / Uzamak
 Irgat,Tarım işçisi / Rençber
@@ -1893,6 +1898,7 @@ Itri,İtırlı / Kokulu
 İnal,Kendisine inanılan kimse
 İnam,Emanet / Vedia
 İnan,İnanmak işi
+İnat,Ayak direme
 İnci,İstridyeden elde edilen taş
 İncik,baldır
 İncir,Bir meyve
@@ -2103,6 +2109,7 @@ Karot,Beton gibi malzemelerin dayanıklılığını ölçme için alınan silind
 Kars,Bir ilimiz
 Karslı,Kars ilinden olan kimse
 Karşıt,Birbirine aykırı olan / Zıt / Kontrast
+Kart,Gençliği ve körpeliği kalmamış
 Kartal,İstanbul ilçesi / Yırtıcı bir kuş
 Karun,Çok zengin kimse
 Kas,Adale
@@ -2223,6 +2230,7 @@ Kesi,Kesilmiş yer
 Kesif,Yoğun
 Kesik,Kesilmiş olan
 Kesim,Bölüm / Kısım / Parça / Kesme işi
+Kesin,Mutlak / Kati / Maktu
 Kesir,Bir birimin bölündüğü parçalar
 Kesit,Toplumun bölümü / Kesim
 Kesme,Kesmek işi
@@ -2394,6 +2402,7 @@ Koşu,Koşma
 Koşuk,Koşma / Şiir
 Koşul,Şart
 Koşun,Koşu / Yarış
+Koşut,Paralel
 Kot,Kumaş türü / blucin
 Kota,Kontenjan sınırı / İthal mal ticaret sınırı
 Kov,Dedikodu
@@ -2844,7 +2853,7 @@ Minik,Küçük ve sevimli
 Mink,Vizon
 Minnet,Bir iyiliğe karşı kendini borçlu sayma
 Mir,Bey / Emir
-Mira,Arazi üzerinde yön bekirtici tahta
+Mira,Arazi üzerinde yön belirtici tahta
 Miraç,Göğe çıkma
 Miri,Devlet hazinesi / Beylik
 Mirza,İran'da soyluluk sanı
@@ -2950,11 +2959,13 @@ Nazari,Kurumsal
 Nazende,Nazlı
 Nazır,Bakan
 Nazi,Nazizm yanlısı olan kimse
+Nazik,İnce yapılı / Narin
 Nazil,İnen / İnmiş
 Nazilli,Aydın ilçesi
 Nazir,Benzer / Eş / Örnek
 Ne,Harf / Soru
 Nebat,Bitki
+Nebati,Bitkisel
 Nebi,Kitap indirilmemiş peygamber
 Nebze,Az miktar
 Nece,Hangi dilde
@@ -2976,6 +2987,7 @@ Nesnel,Nesne ile ilgili
 Net,İyi duyulan
 Nev,Şekil / Cins / Tür
 Neva,Ses / Ahenk / Nağme
+Nevale,Azık
 Nevi,Mısır
 Nevir,Yüz rengi / Bet / Beniz
 Ney,Çalgı
@@ -3286,6 +3298,7 @@ Postlu,Postu olan
 Poşu,Baş örtüsü türü
 Pot,Yanlışlık / Hata / Gaf
 Pota,Maden eritilen kap
+Potur,Bir tür pantolon
 Poy,Pastırma çemeninde kullanılan bitki
 Poz,Fotoğrafta duruş
 Pöç,Kuyruk sokumu kemiği
@@ -3487,6 +3500,7 @@ Sanal,Farazi / Mevhum
 Sanat,Bir şey yapmada gösterilen ustalık
 Sanatlı,Sanatla yapılan / Musanna
 Sancı,Nöbetlerle azalıp çoğalan ağrı
+Sandal,Kürekli deniz aracı / Sandalet / Bir ağaç türü
 Sanı,Sanma durumu / Zehap
 Sanık,Maznun / Suçlu olduğu düşünülerek mahkemeye verilen kişi
 Sanki,Sözde / Güya
@@ -3651,6 +3665,7 @@ Soba,Isınma aracı
 Soda,Temizlik tuzu
 Sodalı,Içinde soda bulunan
 Sof,Astarlık kumaş
+Sofa,Hol
 Sofalı,Sofası olan
 Sofu,Dinin yasaklarına bütünüyle uyan
 Soğan,Yemeklere tat veren güzel kokulu bitki
@@ -3703,6 +3718,7 @@ Sumak,Baharat elde edilen bir ağaç
 Sumo,Japon güreşi
 Suna,Erkek ördek
 Sunak,Tapınaklarda kurban kesilen taş masa
+Suni,Yapay / Yapmacık
 Sunmak,Radyo TV programı takdim etmek / Arz etmek
 Sunu,Sunulan şey / Takdim / Arz
 Sunum,Sunma işi
@@ -3737,6 +3753,7 @@ Süt,Memelilerin yavru besleme sıvısı
 Şair,Ozan / Şiir yazan
 Şak,Yarık / Çatlak
 Şaka,Güldürmek
+Şakak,Elmacık kemiğinin üzerindeki bölge
 Şakıt,Murana
 Şaki,Haydut
 Şakrak,Şen / Neşeli / Hayat dolu
@@ -3772,6 +3789,7 @@ Süt,Memelilerin yavru besleme sıvısı
 Şatır,Neşeli / Keyifli / Şen
 Şato,Kuleler ile çevrili konak
 Şavk,Işık
+Şavkımak,Işık saçmak
 Şavul,Çekül
 Şayi,Yaygın / Yayılmış
 Şaz,Ayrık / Kural dışı
@@ -4167,6 +4185,7 @@ Uçucu,Pilot / Uçma yeteneği olan
 Udi,Ut çalan
 Uf,Acı sıkıntı sözü
 Ufak,Boyutları normalden küçük
+Ufki,Yatay
 Ufo,Kimliği belirlenemeyen gök cisimleri
 Ufuk,Çevre / çevren / Dolay
 Uful,Yıldızın batması / Ölme
@@ -4316,6 +4335,7 @@ Veto,Karşı çıkma / Engelleme
 Vın,Vınlama sesi
 Vız,Böcek uçarken çıkan ses
 Vinç,Ağır yük kaldırmaya ve taşımaya yarar araç
+Vira,Arasız / Maçına makinesi çevrilmesi için verilen komut
 Viraj,Dönemeç
 Virane,Yıkıntı / Harap olmuş yapı
 Vire,Bir kalenin teslimi / Vere

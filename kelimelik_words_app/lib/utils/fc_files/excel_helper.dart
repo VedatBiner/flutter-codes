@@ -18,7 +18,7 @@ import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 import '../../constants/file_info.dart';
 
 /// ---------------------------------------------------------------------------
-/// 📌 CSV’den Excel oluşturur (Kelime – Anlam)
+/// 📌 CSV ’den Excel oluşturur (Kelime – Anlam)
 /// ---------------------------------------------------------------------------
 Future<void> createExcelFromAssetCsvSyncfusion() async {
   const tag = 'excel_helper';
@@ -27,13 +27,10 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     final directory = await getApplicationDocumentsDirectory();
     final excelPath = join(directory.path, fileNameXlsx);
 
-    // 🔄 Eski Excel dosyasını sil
-    final file = File(excelPath);
-    if (await file.exists()) {
-      await file.delete();
+    if (await File(excelPath).exists()) {
+      await File(excelPath).delete();
     }
 
-    // 📥 CSV dosyasını oku
     final csvPath = join(directory.path, fileNameCsv);
     final csvFile = File(csvPath);
 
@@ -44,17 +41,12 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
 
     final csvRaw = await csvFile.readAsString();
     final rows = csvRaw.split('\n').where((e) => e.trim().isNotEmpty).toList();
+    if (rows.isEmpty) return;
 
-    if (rows.isEmpty) {
-      log('⚠️ CSV boş, Excel oluşturulmadı.', name: tag);
-      return;
-    }
-
-    // 📝 Excel oluştur
     final workbook = xlsio.Workbook();
     final sheet = workbook.worksheets[0];
 
-    // 🔵 Başlık satırı
+    // 🔵 Başlıklar
     final headers = ['Kelime', 'Anlam'];
     for (int i = 0; i < headers.length; i++) {
       final cell = sheet.getRangeByIndex(1, i + 1);
@@ -69,55 +61,40 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
       style.borders.all.lineStyle = xlsio.LineStyle.thin;
     }
 
-    // Freeze Panes – başlık sabit kalsın
+    // 🟦 AUTO FILTER EKLE — Eksik olan kısım buydu!
+    sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, 1, 2);
+
+    // Freeze
     sheet.getRangeByIndex(2, 1).freezePanes();
 
-    // 📊 Veri satırları
     int rowIndex = 2;
-
     for (int i = 1; i < rows.length; i++) {
       final cells = rows[i].split(',');
 
-      // Kelime
-      if (cells.isNotEmpty) {
-        sheet.getRangeByIndex(rowIndex, 1).setText(cells[0].trim());
-      }
-
-      // Anlam
+      sheet.getRangeByIndex(rowIndex, 1).setText(cells[0].trim());
       if (cells.length > 1) {
         sheet.getRangeByIndex(rowIndex, 2).setText(cells[1].trim());
       }
 
-      // 🎨 ZEBRA RENK — Çift satırlar pastel açık mavi
+      // Zebra
       if (rowIndex % 2 == 0) {
         final rng = sheet.getRangeByIndex(rowIndex, 1, rowIndex, 2);
-        rng.cellStyle.backColorRgb = const Color.fromARGB(
-          255,
-          220,
-          235,
-          255,
-        ); // pastel açık mavi
+        rng.cellStyle.backColorRgb = const Color.fromARGB(255, 220, 235, 255);
       }
 
       rowIndex++;
     }
 
-    // 📏 Sütun genişlikleri — ARTIK AUTO-FIT ile otomatik!
     sheet.autoFitColumn(1);
     sheet.autoFitColumn(2);
 
-    // 💾 Kaydet
     final bytes = workbook.saveAsStream();
     workbook.dispose();
 
     await File(excelPath).writeAsBytes(bytes);
-
-    log(
-      '📘 Excel yeniden oluşturuldu. Kayıt sayısı: ${rows.length - 1}',
-      name: tag,
-    );
+    log('📘 Excel oluşturuldu.', name: tag);
   } catch (e, st) {
-    log('❌ Excel oluşturma hatası: $e', name: tag, error: e, stackTrace: st);
+    log('❌ Excel hata: $e', name: tag, error: e, stackTrace: st);
   }
 }
 
