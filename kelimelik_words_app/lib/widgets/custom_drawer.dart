@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
             //   onToggleViewMode: onToggleViewMode,
             // ),
 
-            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
+            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL/ZIP)
             const DrawerBackupTile(),
 
             /// 📌 Yedekleri paylaşma butonu
