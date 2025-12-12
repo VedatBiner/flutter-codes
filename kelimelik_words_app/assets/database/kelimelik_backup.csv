@@ -1105,6 +1105,7 @@ Dindaş,Aynı dinden olan kimse
 Dinek,Dinlenmek için durulan yer
 Dingo,Dingonın ahırından gelir
 Dini,Dinle ilgili / Dinsel
+Diniş,Dinme işi
 Dip,Taban / alt bölüm
 Direk,Sütun
 Direkt,Aracısız
@@ -1533,7 +1534,7 @@ Gazi,Savaştan sağ dönen kimse
 Gazlı,Gazı olan
 Ge,Harf
 Gebe,Hamile / Yüklü
-Gebeş,Bodur / Şişman
+Gebeş,Bodur / Şişman / Aptal / Sersem
 Gece,Geceleyin
 Geceki,gece olan / Gece yapılan
 Geç,Belli zamandan sonra olan
@@ -1885,6 +1886,7 @@ Itri,İtırlı / Kokulu
 İmame,Tesbih tepeliği
 İman,İnanç
 İmar,Bayındırlık
+İmaret,İmarethane
 İmbat,Deniz yeli
 İmdat,Tehlikede olana yardım etmek
 İmece,Kırsal kesimde işlerin ortaklaşa isteğe bağlı yapılması
@@ -2141,6 +2143,7 @@ Katip,Yazman
 Katkı,Bir şeye katılan başka bir madde
 Katletme,Katletmek işi
 Kav,İçki Mahzeni
+Kavaf,Ucuz kemer cüzdan ayakkabı yapan satan esnaf
 Kavak,Samsun ilçesi
 Kavara,Balı alınmış petek
 Kavat,Pezevenk
@@ -2467,8 +2470,10 @@ Kuma,Aynı erkekle evli kadınlar
 Kuman,Kıpçak
 Kumanya,Yolluk yiyecek
 Kumar,Ortaya para konarak oynanan talih oyunu
+Kumaş,Makinede dokunmuş dokuma
 Kumla,Kumluk yer
 Kumul,Kum tepesi / Eksibe
+Kunt,Ağır / Kalın / Dayanıklı / Sağlam
 Kup,Giysi kesimi
 Kupa,Cam veya seramikten yapılı büyük bardak
 Kur,Gönül kazanmaya çalışma
@@ -3035,6 +3040,7 @@ Obje,Nesne
 Obur,Doymak bilmez
 Ocak,Yılın ilk ayı
 Ocaklık,Mutfak / Baca
+Ocuma,Ocumak işi
 Ocumak,Ürkmek / Çekinmek / Soğumak
 Od,Ateş
 Oda,Serbest meslek üyelerini toplayan birlik
@@ -3543,6 +3549,7 @@ Saz,Müzik aleti / Kamış / Kiliz / Kofa
 Sazak,Bataklık / Sazlık
 Sazlı,Saz çalınarak yapılan
 Se,Harf / Üç
+Sebat,Direşme / Bir işi sonuna kadar sürdürme
 Sebil,Hayır için dağıtılan içme suyu
 Secde,Namaz pozisyonu
 Seci,Nesirde yapılan uyak
@@ -3563,6 +3570,7 @@ Sele,Bisikletin oturacak yeri
 Selek,Cömert
 Sem,Zehir / İşitme
 Sema,Gök
+Semai,Türk müziğinde bir usul
 Seme,Sersem / Ahmak / Alık
 Semt,Şehirlerde yerleşim birimi
 Sena,Övme
@@ -3684,6 +3692,7 @@ Sonar,Denizaltılarda kullanılan bir cihaz
 Sonat,Bir tür müzik eseri
 Sone,Batılı şiir türü
 Soru,Sual / Karşılık gerektiren söz
+Sorun,Sıkıntı veren durum / Dert
 Sorunlu,Sorunu olan
 Sos,Yemeklerde kullanılan karışım
 Sota,Uygun
@@ -4259,6 +4268,7 @@ Uzo,Yunan rakısı
 Ülen,Ulan
 Üleş,Pay
 Ülke,Devlet / Diyar / Memleket
+Ülker,Bir yıldız kümesi / Pervin / Süreyya
 Ülser,Sindirim sistemi yarası / Karha
 Ümit,Umut
 Ümmet,Hz. Muhammed çevresinde toplanan müslümanların tümü

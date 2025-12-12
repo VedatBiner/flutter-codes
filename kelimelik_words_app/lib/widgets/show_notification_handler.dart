@@ -92,8 +92,8 @@ void showCreateDbNotification(
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          const TextSpan(text: '✅ '),
-          TextSpan(text: "${p.basename(zipPathDownload)}\n"),
+          // const TextSpan(text: '✅ '),
+          // TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
@@ -276,6 +276,6 @@ void logCreate(
   log("✅ JSON oluşturuldu: $jsonPathDownload", name: tag);
   log("✅ XLSX oluşturuldu: $xlsxPathDownload", name: tag);
   log("✅ SQL oluşturuldu: $sqlPathDownload", name: tag);
-  log("✅ ZIP oluşturuldu: $zipPathDownload", name: tag);
+  // log("✅ ZIP oluşturuldu: $zipPathDownload", name: tag);
   log(logLine, name: tag);
 }

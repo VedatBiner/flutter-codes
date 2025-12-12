@@ -166,8 +166,10 @@ bir chatGPT ortak çalışması :)
 161. `db_helper.dart` dosyası düzenlendi. - 09.12.2025
 162. `excel_helper.dart`, `file_creator.dart` ve `show_notification_handler.dart` dosyaları güncellendi. - 10.12.2025
 163. `excel_helper.dart` dosyası güncellendi. - 11.12.2025
-164. Excel dosyasındaki auto filter sorunu giderildi.  - 11.12.2025
-165. 
+164. Excel dosyasındaki auto filter sorunu giderildi. - 11.12.2025
+165. `file_creator.dart` dosyasında artık zip işlemi yok. - 12.12.2025
+166. `show_notification_handler.dart` dosyası düzenlendi. - 12.12.2025
+167. 
 
 
 

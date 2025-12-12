@@ -4424,6 +4424,10 @@
     "Anlam": "Dinle ilgili / Dinsel"
   },
   {
+    "Kelime": "Diniş",
+    "Anlam": "Dinme işi"
+  },
+  {
     "Kelime": "Dip",
     "Anlam": "Taban / alt bölüm"
   },
@@ -6137,7 +6141,7 @@
   },
   {
     "Kelime": "Gebeş",
-    "Anlam": "Bodur / Şişman"
+    "Anlam": "Bodur / Şişman / Aptal / Sersem"
   },
   {
     "Kelime": "Gece",
@@ -7544,6 +7548,10 @@
     "Anlam": "Bayındırlık"
   },
   {
+    "Kelime": "İmaret",
+    "Anlam": "İmarethane"
+  },
+  {
     "Kelime": "İmbat",
     "Anlam": "Deniz yeli"
   },
@@ -8566,6 +8574,10 @@
   {
     "Kelime": "Kav",
     "Anlam": "İçki Mahzeni"
+  },
+  {
+    "Kelime": "Kavaf",
+    "Anlam": "Ucuz kemer cüzdan ayakkabı yapan satan esnaf"
   },
   {
     "Kelime": "Kavak",
@@ -9872,12 +9884,20 @@
     "Anlam": "Ortaya para konarak oynanan talih oyunu"
   },
   {
+    "Kelime": "Kumaş",
+    "Anlam": "Makinede dokunmuş dokuma"
+  },
+  {
     "Kelime": "Kumla",
     "Anlam": "Kumluk yer"
   },
   {
     "Kelime": "Kumul",
     "Anlam": "Kum tepesi / Eksibe"
+  },
+  {
+    "Kelime": "Kunt",
+    "Anlam": "Ağır / Kalın / Dayanıklı / Sağlam"
   },
   {
     "Kelime": "Kup",
@@ -12144,6 +12164,10 @@
     "Anlam": "Mutfak / Baca"
   },
   {
+    "Kelime": "Ocuma",
+    "Anlam": "Ocumak işi"
+  },
+  {
     "Kelime": "Ocumak",
     "Anlam": "Ürkmek / Çekinmek / Soğumak"
   },
@@ -14176,6 +14200,10 @@
     "Anlam": "Harf / Üç"
   },
   {
+    "Kelime": "Sebat",
+    "Anlam": "Direşme / Bir işi sonuna kadar sürdürme"
+  },
+  {
     "Kelime": "Sebil",
     "Anlam": "Hayır için dağıtılan içme suyu"
   },
@@ -14254,6 +14282,10 @@
   {
     "Kelime": "Sema",
     "Anlam": "Gök"
+  },
+  {
+    "Kelime": "Semai",
+    "Anlam": "Türk müziğinde bir usul"
   },
   {
     "Kelime": "Seme",
@@ -14738,6 +14770,10 @@
   {
     "Kelime": "Soru",
     "Anlam": "Sual / Karşılık gerektiren söz"
+  },
+  {
+    "Kelime": "Sorun",
+    "Anlam": "Sıkıntı veren durum / Dert"
   },
   {
     "Kelime": "Sorunlu",
@@ -17038,6 +17074,10 @@
   {
     "Kelime": "Ülke",
     "Anlam": "Devlet / Diyar / Memleket"
+  },
+  {
+    "Kelime": "Ülker",
+    "Anlam": "Bir yıldız kümesi / Pervin / Süreyya"
   },
   {
     "Kelime": "Ülser",

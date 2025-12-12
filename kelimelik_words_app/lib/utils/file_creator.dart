@@ -1,6 +1,6 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Incremental Sync + JSON + Excel + ZIP + Download kopyalama
+// Incremental Sync + JSON + Excel + Download kopyalama
 // -----------------------------------------------------------
 // Yeni akış:
 //   1️⃣ Asset CSV → Device CSV senkronizasyonu
@@ -12,13 +12,11 @@
 //   3️⃣ CSV → JSON (her zaman yeniden oluşturulur)
 //   4️⃣ CSV → Excel (her zaman yeniden oluşturulur)
 //   5️⃣ Benchmark raporu (fc_report.dart)
-//   6️⃣ ZIP oluşturma (JSON + CSV + XLSX + SQL)
-//   7️⃣ ZIP + diğer dosyaları Download/{appName} klasörüne kopyalama
-//   8️⃣ Notification gösterme
+//   6️⃣ JSON + CSV + XLSX + SQL dosyalarını Download/{appName} klasörüne kopyalama
+//   7️⃣ Notification gösterme
 // -----------------------------------------------------------
 
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
@@ -33,7 +31,6 @@ import 'fc_files/excel_helper.dart';
 import 'fc_files/fc_report.dart';
 import 'fc_files/json_helper.dart';
 import 'fc_files/sync_helper.dart';
-import 'fc_files/zip_helper.dart';
 
 const tag = "file_creator";
 
@@ -45,7 +42,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final dir = await getApplicationDocumentsDirectory();
 
   log(logLine, name: tag);
-  log("***** Dizin ***** : $dir", name: tag);
+  log("***** Dizin ***** : ${dir.path}", name: tag);
   log(logLine, name: tag);
 
   // Bu dosyalar HER ZAMAN burada üretilecek
@@ -84,18 +81,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await createExcelFromAssetCsvSyncfusion();
 
     // ----------------------------------------------------------
-    // EXCEL GERÇEKTEN OLUŞTU MU?
-    // (ZIP'e eklenmeden önce mutlaka doğruluyoruz)
-    // ----------------------------------------------------------
-    final excelFile = File(excelFull);
-
-    if (!await excelFile.exists()) {
-      log("❌ Excel bulunamadı! ZIP'e eklenmeyecek.", name: tag);
-    } else {
-      log("📘 Excel dosyası bulundu: $excelFull", name: tag);
-    }
-
-    // ----------------------------------------------------------
     // 5️⃣ Benchmark + Tutarlılık Raporu
     // ----------------------------------------------------------
     await runFullDataReport(
@@ -106,30 +91,14 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     );
 
     // ----------------------------------------------------------
-    // 6️⃣ ZIP oluştur (JSON + CSV + XLSX + SQL)
-    // — Excel yoksa ZIP içine alınmaz (güvenli mekanizma)
+    // 6️⃣ Download/{appName} dizinine kopyala
     // ----------------------------------------------------------
-    final filesToZip = <String>[jsonFull, csvFull, sqlFull];
+    final filesToCopy = <String>[jsonFull, csvFull, excelFull, sqlFull];
 
-    if (await excelFile.exists()) {
-      filesToZip.add(excelFull);
-    }
-
-    final zipOut = await createZipArchive(
-      outputDir: dir.path,
-      files: filesToZip,
-    );
+    await copyBackupToDownload(files: filesToCopy, folderName: appName);
 
     // ----------------------------------------------------------
-    // 7️⃣ Download/{appName} dizinine kopyala
-    // ----------------------------------------------------------
-    await copyBackupToDownload(
-      files: [...filesToZip, zipOut],
-      folderName: appName,
-    );
-
-    // ----------------------------------------------------------
-    // 8️⃣ Notification göster
+    // 7️⃣ Notification göster
     // ----------------------------------------------------------
     if (!context.mounted) return;
 
@@ -139,7 +108,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       csvFull,
       excelFull,
       jsonFull,
-      zipOut,
+      "", // ZIP artık yok
     );
 
     sw.stop();
