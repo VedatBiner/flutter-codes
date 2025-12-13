@@ -170,7 +170,9 @@ bir chatGPT ortak çalışması :)
 165. `file_creator.dart` dosyasında artık zip işlemi yok. - 12.12.2025
 166. `show_notification_handler.dart` dosyası düzenlendi. - 12.12.2025
 167. `custom_drawer.dart` dosyası güncellendi. - 12.12.2025
-168. 
+168. `file_creator.dart` dosyası excel format sorunu düzeltildi. - 13.12.2025
+169. `excel_helper.dart` dosyası düzeltildi. - 13.12.2025
+170. 
 
 
 

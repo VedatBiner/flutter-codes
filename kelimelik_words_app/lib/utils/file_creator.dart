@@ -12,7 +12,7 @@
 //   3️⃣ CSV → JSON (her zaman yeniden oluşturulur)
 //   4️⃣ CSV → Excel (her zaman yeniden oluşturulur)
 //   5️⃣ Benchmark raporu (fc_report.dart)
-//   6️⃣ JSON + CSV + XLSX + SQL dosyalarını Download/{appName} klasörüne kopyalama
+//   6️⃣ Tüm dosyaları Download/{appName} dizinine kopyalama
 //   7️⃣ Notification gösterme
 // -----------------------------------------------------------
 
@@ -38,14 +38,10 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final sw = Stopwatch()..start();
   log("🚀 initializeAppDataFlow başladı", name: tag);
 
-  // 📂 Uygulamanın Documents dizini
+  // 📂 Uygulamanın Documents dizini (GEÇİCİ üretim alanı)
   final dir = await getApplicationDocumentsDirectory();
 
-  log(logLine, name: tag);
-  log("***** Dizin ***** : ${dir.path}", name: tag);
-  log(logLine, name: tag);
-
-  // Bu dosyalar HER ZAMAN burada üretilecek
+  // 🔹 Bu dosyalar SADECE burada üretilir
   final jsonFull = join(dir.path, fileNameJson);
   final csvFull = join(dir.path, fileNameCsv);
   final excelFull = join(dir.path, fileNameXlsx);
@@ -91,11 +87,13 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     );
 
     // ----------------------------------------------------------
-    // 6️⃣ Download/{appName} dizinine kopyala
+    // 6️⃣ Download/{appName} dizinine KOPYALA
+    // ⚠️ Uygulama içi klasör OLUŞTURULMAZ
     // ----------------------------------------------------------
-    final filesToCopy = <String>[jsonFull, csvFull, excelFull, sqlFull];
-
-    await copyBackupToDownload(files: filesToCopy, folderName: appName);
+    await copyBackupToDownload(
+      files: [jsonFull, csvFull, excelFull, sqlFull],
+      folderName: appName, // kelimelik_words_app
+    );
 
     // ----------------------------------------------------------
     // 7️⃣ Notification göster
@@ -108,7 +106,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       csvFull,
       excelFull,
       jsonFull,
-      "", // ZIP artık yok
+      '', // ZIP artık yok
     );
 
     sw.stop();

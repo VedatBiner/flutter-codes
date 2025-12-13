@@ -481,6 +481,7 @@ Balcı,Bal uapıp satan kimse
 Baldo,Pirinç cinsi
 Bale,Sahne düzeni ve müziğe dayalı gösteri türü
 Balen,Yaka düz tutucu çubuk
+Balgam,Ağızdan atılan sümüksü madde
 Balık,Solungaçla nefes alan su hayvanları
 Balıklı,balığı olan
 Balici,Yapıştırıcı madde bağımlısı olan kimse
@@ -588,6 +589,7 @@ Belli,Belirli
 Bemol,Bir sesin yarım ton kalınlaşacağını anlayan nota işareti
 Ben,Vücutta beliren kabartı
 Bence,Bana göre
+Bende,Kul / Köle
 Benek,Nokta / Puan
 Benli,Ben bulunan
 Benlik,Şahsiyet / Kibir / Gurur
@@ -698,6 +700,7 @@ Bot,Küçük gemi / Ayakkabı türü
 Boya,Renk verici madde
 Boyar,Rusya'da soyluluk ünvanı
 Boyut,Format / Genişlik / Kapsam
+Boz,Açık toprak rengi
 Boza,Arpa
 Bozacı,Boza yapan veya satan kimse
 Bozuk,Bozulmuş olan
@@ -1266,6 +1269,7 @@ Elk,Bir tür iri geyik
 Elli,Bir sayı
 Elma,Bir meyve
 Elmacı,Elma üreten ve satan kişi
+Elmacık,Elmacık kemiği
 Elmas,Mücevher olarak kullanılan değerli taş / Elmastıraş
 Elti,Kadına göre kocasının erkek kardeşlerinin eşleri
 Em,İlaç / Merhem
@@ -1323,6 +1327,7 @@ Esef,Üzüntü / Kaygı / Tasa
 Eseme,Mantık
 Esen,Sağlıklı
 Esenlik,Esen olma durumu
+Eser,Yayın / Kitap / Yapıt
 Esik,Çukur
 Esim,Yelin esişi
 Esin,Sabah yeli
@@ -2003,6 +2008,7 @@ Jüt,Çuval Yapılan Hint bitkisi
 Kaba,Zevksiz / Sakil / Özensiz
 Kabak,Bir tür sebze
 Kabe,Kutsal mekan
+Kabil,Olanaklı
 Kabile,Boy
 Kabin,Özel bölme
 Kabir,Mezar / Sin
@@ -2135,6 +2141,8 @@ Kaşıntı,Kaşınma isteği uyandıran duygu
 Kat,Üst üste konmuş şeyler
 Katar,Tren
 Katı,Ekmeğe katılan
+Katık,Ekmekle yenen peynir zeytin gibi yiyecekler
+Katıklı,İçinde katık bulunan
 Katım,Katma işi
 Katır,At ile eşek çiftleşmesinden olan hayvan / Kaba / Bayağı
 Kati,Kesin
@@ -2204,7 +2212,7 @@ Kemani,Alaturka müzikte keman çalan kimse
 Keme,Büyük Sıçan
 Kement,Idam için kullanılan ip
 Kemer,Antalya ilçesi
-Kemik,Insan ve hayvanların temel yapısı
+Kemik,İnsan ve hayvanların temel yapısı
 Kenar,Bir şeyi çevreleyen çizgi
 Kene,Asalak bir böcek / Sakırga
 Kenet,Iki cismi bağlamaya yarayan iki ucu kıvrık metal parça
@@ -2284,6 +2292,7 @@ Kırma,Kırmak işi
 Kırmız,Kırmız böceğinden çıkan boya
 Kısas,Kıssalar / Hikayeler / Öyküler
 Kısık,Kısılmış olan
+Kısıt,Kısıtlılık / Kısıtlama / Hacir
 Kısmet,Talih / Kader
 Kıst,Paylaşımda adaletli davranma
 Kış,Çok soğuk hava
@@ -2916,6 +2925,7 @@ Muz,Meyve cinsi
 Mül,Şarap
 Mülhak,Karargahta subay yardımcısı
 Mülk,Ev
+Mülki,Ülke yönetimine ilişkin
 Mürai,İki yüzlü
 Müren,Güzel
 Mürt,Ölmüş hayvan
@@ -3202,7 +3212,7 @@ Paletli,Paletli olan
 Palto,Soğuk havalarda giyilen kalın giysi
 Palu,Elazığ ilçesi
 Panama,Bir ülke / Kumaş türü
-Panç,Yumruk
+Panç,Yumruk / Bir tür alköllü içki
 Pane,Yemek malzemesini yumurta ve galeta unundan geçirme
 Panel,Açık oturum / Dikdörtgen düzgün parça
 Pano,Bildiri
@@ -3488,6 +3498,7 @@ Salak,Aptal / Dengesiz kişi
 Salar,Çin'de yaşayan Oğuz kökenli Türk halkı
 Salaş,Derme çatma / Kötü görünen
 Salat,Namaz
+Salata,Bazı sebzelerle yapılan zeytin yağ limon ile yenen bir yiyecek türü
 Salı,Haftanın günlerinden
 Salık,Tavsiye
 Salik,bir yola giren
@@ -3597,6 +3608,7 @@ Seriş,Serme işi
 Sertçe,Sert bir biçimde
 Ses,Seda / duygu
 Sesli,Sesi olan
+Seslik,Sesli belgelerin saklandığı yer
 Set,Masa tenisi voleybol gibi oyunlarda maç bölümleri
 Seter,Uzun tüylü İngiliz köpeği
 Setik,İnce bulgur
@@ -4419,6 +4431,7 @@ Yasama,Yasa koyma / Teşri
 Yasin,Kur'an surelerinden biri
 Yaslı,Yas tutan
 Yaş,Hayatın evrelerinin her biri
+Yaşa,Yaşasın / Oley / Ole
 Yaşam,Ömür / Hayat
 Yaşama,Yaşamak işi
 Yaşıl,Fosil
@@ -4436,7 +4449,9 @@ Yatır,Doğa üstü gücü olan kişinin mezarı
 Yatış,Yatma işi
 Yatmak,Uyumak veya dinlenmek için yatay pozisyonda bulunmak
 Yave,Saçma
+Yaver,Yardımcı / Emir subayı
 Yavru,Yeni doğan hayvan veya insan
+Yayık,Yayılmış /Yayvan
 Yayın,Neşriyat / Basılıp satışa çıkan kitap gazete vs.
 Yaz,Mevsim
 Yazar,Muharrir

@@ -1928,6 +1928,10 @@
     "Anlam": "Yaka düz tutucu çubuk"
   },
   {
+    "Kelime": "Balgam",
+    "Anlam": "Ağızdan atılan sümüksü madde"
+  },
+  {
     "Kelime": "Balık",
     "Anlam": "Solungaçla nefes alan su hayvanları"
   },
@@ -2354,6 +2358,10 @@
   {
     "Kelime": "Bence",
     "Anlam": "Bana göre"
+  },
+  {
+    "Kelime": "Bende",
+    "Anlam": "Kul / Köle"
   },
   {
     "Kelime": "Benek",
@@ -2794,6 +2802,10 @@
   {
     "Kelime": "Boyut",
     "Anlam": "Format / Genişlik / Kapsam"
+  },
+  {
+    "Kelime": "Boz",
+    "Anlam": "Açık toprak rengi"
   },
   {
     "Kelime": "Boza",
@@ -5068,6 +5080,10 @@
     "Anlam": "Elma üreten ve satan kişi"
   },
   {
+    "Kelime": "Elmacık",
+    "Anlam": "Elmacık kemiği"
+  },
+  {
     "Kelime": "Elmas",
     "Anlam": "Mücevher olarak kullanılan değerli taş / Elmastıraş"
   },
@@ -5294,6 +5310,10 @@
   {
     "Kelime": "Esenlik",
     "Anlam": "Esen olma durumu"
+  },
+  {
+    "Kelime": "Eser",
+    "Anlam": "Yayın / Kitap / Yapıt"
   },
   {
     "Kelime": "Esik",
@@ -8016,6 +8036,10 @@
     "Anlam": "Kutsal mekan"
   },
   {
+    "Kelime": "Kabil",
+    "Anlam": "Olanaklı"
+  },
+  {
     "Kelime": "Kabile",
     "Anlam": "Boy"
   },
@@ -8544,6 +8568,14 @@
     "Anlam": "Ekmeğe katılan"
   },
   {
+    "Kelime": "Katık",
+    "Anlam": "Ekmekle yenen peynir zeytin gibi yiyecekler"
+  },
+  {
+    "Kelime": "Katıklı",
+    "Anlam": "İçinde katık bulunan"
+  },
+  {
     "Kelime": "Katım",
     "Anlam": "Katma işi"
   },
@@ -8821,7 +8853,7 @@
   },
   {
     "Kelime": "Kemik",
-    "Anlam": "Insan ve hayvanların temel yapısı"
+    "Anlam": "İnsan ve hayvanların temel yapısı"
   },
   {
     "Kelime": "Kenar",
@@ -9138,6 +9170,10 @@
   {
     "Kelime": "Kısık",
     "Anlam": "Kısılmış olan"
+  },
+  {
+    "Kelime": "Kısıt",
+    "Anlam": "Kısıtlılık / Kısıtlama / Hacir"
   },
   {
     "Kelime": "Kısmet",
@@ -11668,6 +11704,10 @@
     "Anlam": "Ev"
   },
   {
+    "Kelime": "Mülki",
+    "Anlam": "Ülke yönetimine ilişkin"
+  },
+  {
     "Kelime": "Mürai",
     "Anlam": "İki yüzlü"
   },
@@ -12813,7 +12853,7 @@
   },
   {
     "Kelime": "Panç",
-    "Anlam": "Yumruk"
+    "Anlam": "Yumruk / Bir tür alköllü içki"
   },
   {
     "Kelime": "Pane",
@@ -13956,6 +13996,10 @@
     "Anlam": "Namaz"
   },
   {
+    "Kelime": "Salata",
+    "Anlam": "Bazı sebzelerle yapılan zeytin yağ limon ile yenen bir yiyecek türü"
+  },
+  {
     "Kelime": "Salı",
     "Anlam": "Haftanın günlerinden"
   },
@@ -14390,6 +14434,10 @@
   {
     "Kelime": "Sesli",
     "Anlam": "Sesi olan"
+  },
+  {
+    "Kelime": "Seslik",
+    "Anlam": "Sesli belgelerin saklandığı yer"
   },
   {
     "Kelime": "Set",
@@ -17680,6 +17728,10 @@
     "Anlam": "Hayatın evrelerinin her biri"
   },
   {
+    "Kelime": "Yaşa",
+    "Anlam": "Yaşasın / Oley / Ole"
+  },
+  {
     "Kelime": "Yaşam",
     "Anlam": "Ömür / Hayat"
   },
@@ -17748,8 +17800,16 @@
     "Anlam": "Saçma"
   },
   {
+    "Kelime": "Yaver",
+    "Anlam": "Yardımcı / Emir subayı"
+  },
+  {
     "Kelime": "Yavru",
     "Anlam": "Yeni doğan hayvan veya insan"
+  },
+  {
+    "Kelime": "Yayık",
+    "Anlam": "Yayılmış /Yayvan"
   },
   {
     "Kelime": "Yayın",
