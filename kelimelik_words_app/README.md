@@ -173,6 +173,9 @@ bir chatGPT ortak çalışması :)
 168. `file_creator.dart` dosyası excel format sorunu düzeltildi. - 13.12.2025
 169. `excel_helper.dart` dosyası düzeltildi. - 13.12.2025
 170. `file_infoe.dart` dosyasına `backupDirName` eklendi. - 13.12.2025
+171. `drawer_backup_tile.dart` ve `file_creator.dart` dosyası düzenlendi. - 14.12.2025
+172. `file_creator.dart`, `export_items.dart` ve `backup_notification_helper.dart` dosyası düzenlendi. - 14.12.2025
+173
 
 
 

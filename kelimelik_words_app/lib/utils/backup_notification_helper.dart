@@ -1,12 +1,13 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 //
 //  Yedekleme (Export) sürecini UI ’dan bağımsız yöneten yardımcı dosya.
-//  Eksiksiz SQL → CSV → JSON → XLSX → ZIP pipeline ’ı sil_export_items.dart üzerinden çalıştırır.
+//  SQL → CSV → JSON → XLSX pipeline ’ını çalıştırır.
+//  ❌ ZIP şu an devre dışıdır.
 //
-//  • Alt bant (LoadingBottomBanner) tek satır ile açılır: showLoadingBanner()
+//  • Alt bant (LoadingBottomBanner) tek satır ile açılır
 //  • Export sürecini duruma göre onStatusChange ile bildirir
-//  • Export tamamlanınca onSuccessNotify ile UI tarafına tüm dosya path ’leri gönderilir
-//  • Hata durumunda Snack bar ile kullanıcı bilgilendirilir
+//  • Export tamamlanınca onSuccessNotify ile UI tarafına path’ler gönderilir
+//  • Hata durumunda SnackBar ile kullanıcı bilgilendirilir
 //
 // ---------------------------------------------------------------------------
 
@@ -14,7 +15,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../constants/file_info.dart';
 import '../services/export_items.dart';
 import '../widgets/bottom_banner_helper.dart';
 
@@ -29,15 +29,12 @@ Future<void> backupNotificationHelper({
 
   /// Export tamamlanınca sonuç UI ’ya iletilir
   void Function(BuildContext ctx, ExportItems res)? onSuccessNotify,
-
-  /// İsteğe bağlı: Download/{subfolder} hedef klasörü
-  String? subfolder,
 }) async {
   const tag = "BackupNotificationHelper";
 
   // İlk durum bildirimi
   onExportingChange(true);
-  onStatusChange("Export başlatılıyor...");
+  onStatusChange("Yedek hazırlanıyor...");
 
   // ----------------------------------------------------------
   // 🔥 Alt bant banner → Tek satırlık helper ile açılır
@@ -49,26 +46,30 @@ Future<void> backupNotificationHelper({
 
   try {
     // ----------------------------------------------------------
-    // 🚀 Tüm export işlemleri (SQL → CSV/JSON/XLSX → ZIP)
-    // sil_export_items.dart → file_exporter.dart zinciri
+    // 🚀 Export işlemleri
+    // • Dosyalar GEÇİCİ olarak:
+    //   app_flutter/kelimelik_backups
+    //   dizinine üretilir
+    // • Download kopyalama + cleanup
+    //   export_items.dart içinde yapılır
     // ----------------------------------------------------------
-    final res = await exportItemsToFileFormats(subfolder: subfolder ?? appName);
+    final res = await exportItemsToFileFormats();
 
     // Kullanıcıya bilgi ver
     onStatusChange("Tamamlandı: ${res.count} kayıt.");
 
-    // UI tarafında başarı bildirimi (notification)
+    // UI tarafında başarı bildirimi
     if (onSuccessNotify != null && context.mounted) {
       onSuccessNotify(context, res);
     }
 
-    // Log çıktıları
-    log("🔄 Export tamamlandı.", name: tag);
-    log(logLine, name: tag);
-  } catch (e) {
+    log("✅ Yedekleme tamamlandı.", name: tag);
+  } catch (e, st) {
     // ----------------------------------------------------------
     // ❌ Hata yakalandı
     // ----------------------------------------------------------
+    log("❌ Yedekleme hatası: $e", name: tag, stackTrace: st);
+
     if (context.mounted) {
       final msg = "Hata: $e";
       onStatusChange(msg);
@@ -80,7 +81,6 @@ Future<void> backupNotificationHelper({
     // ----------------------------------------------------------
     bannerCtrl.close();
 
-    // Export durumu bitti
     if (context.mounted) {
       onExportingChange(false);
     }

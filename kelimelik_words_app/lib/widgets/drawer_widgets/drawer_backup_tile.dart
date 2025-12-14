@@ -31,8 +31,6 @@ class DrawerBackupTile extends StatelessWidget {
             context: context,
             onStatusChange: (_) {},
             onExportingChange: (_) {},
-
-            // 🎉 EXPORT BAŞARILI → NOTIFICATION GÖSTER
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
@@ -40,7 +38,7 @@ class DrawerBackupTile extends StatelessWidget {
                 res.jsonPath,
                 res.csvPath,
                 res.excelPath,
-                res.zipPath,
+                "", // zip yok
               );
             },
           );

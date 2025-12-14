@@ -45,9 +45,7 @@ class ExportItems {
 ///
 /// ZIP içine **Documents/{appName} klasörünün TAMAMI** eklenir.
 /// ZIP adı: fileNameZip
-Future<ExportItems> exportItemsToFileFormats({
-  required String? subfolder,
-}) async {
+Future<ExportItems> exportItemsToFileFormats({String? subfolder}) async {
   const tag = "export_items";
 
   // ----------------------------------------------------------

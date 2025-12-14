@@ -139,4 +139,37 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   } finally {
     bannerCtrl.close();
   }
+
+  // 7️⃣ Download dizinine kopyala + temp klasörü sil
+  await copyBackupsToDownloadAndCleanup();
+}
+
+Future<void> copyBackupsToDownloadAndCleanup() async {
+  // 📂 app_flutter dizini
+  final docsDir = await getApplicationDocumentsDirectory();
+
+  // 📦 Geçici backup dizini
+  final tempBackupDir = Directory(join(docsDir.path, 'kelimelik_backups'));
+
+  if (!await tempBackupDir.exists()) return;
+
+  // 📥 Download hedefi
+  final downloadDir = Directory(
+    '/storage/emulated/0/Download/kelimelik_words_app',
+  );
+
+  if (!await downloadDir.exists()) {
+    await downloadDir.create(recursive: true);
+  }
+
+  // 🔄 Dosyaları kopyala
+  final files = tempBackupDir.listSync().whereType<File>();
+
+  for (final file in files) {
+    final targetPath = join(downloadDir.path, basename(file.path));
+    await file.copy(targetPath);
+  }
+
+  // 🧹 Geçici dizini TAMAMEN sil
+  await tempBackupDir.delete(recursive: true);
 }
