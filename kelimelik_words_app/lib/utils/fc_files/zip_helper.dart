@@ -10,13 +10,11 @@ import '../../constants/file_info.dart';
 
 const _tag = "zip_helper";
 
-/// Verilen dosya listesiyle ZIP oluşturur.
-/// files içinde verilen TAM YOLLAR zip 'e eklenir.
-/// ZIP daima device Documents içine değil → çağıran dosyanın belirttiği
-/// path 'e yazılır.
+/// Verilen dosyaları, BULUNDUKLARI klasörde ZIP haline getirir.
+/// ZIP dosyası da aynı klasöre yazılır.
 Future<String> createZipArchive({
   required List<String> files,
-  required String outputDir, // 🔥 ZIP ’in nereye yazılacağı
+  required String outputDir,
 }) async {
   final zipPath = join(outputDir, fileNameZip);
 
@@ -28,9 +26,9 @@ Future<String> createZipArchive({
 
     if (await file.exists()) {
       encoder.addFile(file);
-      log("📦 ZIP’e eklendi: $filePath", name: _tag);
+      log("📦 ZIP’e eklendi: ${basename(filePath)}", name: _tag);
     } else {
-      log("⚠️ ZIP’e eklenemedi (dosya yok): $filePath", name: _tag);
+      log("⚠️ ZIP’e eklenemedi (yok): $filePath", name: _tag);
     }
   }
 

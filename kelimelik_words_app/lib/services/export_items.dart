@@ -1,21 +1,27 @@
 // 📃 <----- lib/utils/export_items.dart ----->
 //
 // SQL → CSV → JSON → XLSX → ZIP üretir.
+// Bu dosya, db_helper.dart, json_helper.dart ve excel_helper.dart
+// yapısına %100 uyumludur.
 // -----------------------------------------------------------
-// db_helper.dart + excel_helper.dart ile tam uyumlu
+// • CSV: DbHelper.exportRecordsToCsv()
+// • JSON: List<Word> → JSON string
+// • Excel: List<Word> → XLSX (Syncfusion)
+// • SQL: DB dosyasını birebir kopyalar
+// • ZIP: kelimelik_words_app klasörünün TAMAMI tek zip içinde
 // -----------------------------------------------------------
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../utils/fc_files/excel_helper.dart';
-import '../utils/fc_files/zip_helper.dart';
 
 class ExportItems {
   final int count;
@@ -35,19 +41,27 @@ class ExportItems {
   });
 }
 
+/// 🔥 SQL → CSV → JSON → XLSX → ZIP Pipeline
+///
+/// ZIP içine **Documents/{appName} klasörünün TAMAMI** eklenir.
+/// ZIP adı: fileNameZip
 Future<ExportItems> exportItemsToFileFormats({
   required String? subfolder,
 }) async {
   const tag = "export_items";
 
-  // 📁 Documents klasörü
+  // ----------------------------------------------------------
+  // 📁 Documents/{appName} klasörü
+  // ----------------------------------------------------------
   final docs = await getApplicationDocumentsDirectory();
   final exportDir = Directory(join(docs.path, subfolder ?? appName));
   await exportDir.create(recursive: true);
 
   log("📂 Export klasörü: ${exportDir.path}", name: tag);
 
+  // ----------------------------------------------------------
   // 📄 Dosya yolları
+  // ----------------------------------------------------------
   final csvPath = join(exportDir.path, fileNameCsv);
   final jsonPath = join(exportDir.path, fileNameJson);
   final excelPath = join(exportDir.path, fileNameXlsx);
@@ -59,46 +73,50 @@ Future<ExportItems> exportItemsToFileFormats({
   final items = await DbHelper.instance.getRecords();
   final count = items.length;
 
-  log("📌 Export edilecek toplam kayıt: $count", name: tag);
-
   // ----------------------------------------------------------
   // 2️⃣ CSV
   // ----------------------------------------------------------
-  final deviceCsvPath = await DbHelper.instance.exportRecordsToCsv();
-  await File(deviceCsvPath).copy(csvPath);
+  final deviceCsv = await DbHelper.instance.exportRecordsToCsv();
+  await File(deviceCsv).copy(csvPath);
 
   // ----------------------------------------------------------
   // 3️⃣ JSON
   // ----------------------------------------------------------
-  final jsonStr = exportItemsToJsonString(items);
+  final jsonStr = const JsonEncoder.withIndent(
+    '  ',
+  ).convert(items.map((e) => e.toMap()).toList());
   await File(jsonPath).writeAsString(jsonStr);
 
   // ----------------------------------------------------------
-  // 4️⃣ XLSX — DOĞRU FONKSİYON
+  // 4️⃣ XLSX (FORMATLI)
   // ----------------------------------------------------------
   await exportItemsToExcel(excelPath, items);
 
   // ----------------------------------------------------------
-  // 5️⃣ SQL dosyası kopyalama
+  // 5️⃣ SQL kopyala
   // ----------------------------------------------------------
   final sqlOriginal = File(join(docs.path, fileNameSql));
-
   if (await sqlOriginal.exists()) {
     await sqlOriginal.copy(sqlPath);
-    log("📦 SQL kopyalandı: $sqlPath", name: tag);
-  } else {
-    log("❌ SQL dosyası bulunamadı!", name: tag);
   }
 
   // ----------------------------------------------------------
-  // 6️⃣ ZIP oluştur
+  // 6️⃣ ZIP → klasör bazlı
   // ----------------------------------------------------------
-  final zipPath = await createZipArchive(
-    outputDir: exportDir.path,
-    files: [csvPath, jsonPath, excelPath, sqlPath],
+  final zipPath = join(docs.path, fileNameZip);
+
+  final encoder = ZipFileEncoder();
+  encoder.create(zipPath);
+
+  // 🔥 ÖNEMLİ: klasörün TAMAMI zip ’e ekleniyor
+  encoder.addDirectory(
+    exportDir,
+    includeDirName: true, // kelimelik_words_app ismi ZIP içinde görünsün
   );
 
-  log("🎁 ZIP oluşturuldu: $zipPath", name: tag);
+  encoder.close();
+
+  log("🎁 ZIP oluşturuldu (klasör bazlı): $zipPath", name: tag);
 
   return ExportItems(
     count: count,
@@ -108,10 +126,4 @@ Future<ExportItems> exportItemsToFileFormats({
     sqlPath: sqlPath,
     zipPath: zipPath,
   );
-}
-
-// JSON formatlama (indent)
-String exportItemsToJsonString(List items) {
-  final list = items.map((w) => w.toMap()).toList();
-  return const JsonEncoder.withIndent('  ').convert(list);
 }

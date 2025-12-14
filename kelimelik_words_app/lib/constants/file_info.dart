@@ -14,4 +14,7 @@ const String fileNameXlsx = "kelimelik_backup.xlsx";
 const String fileNameZip = "kelimelik_backup.zip";
 const String fileNameSql = "kelimelik.db";
 
+/// 📌 Yedekler ve zip buraya alınsın.
+const String backupDirName = "storage/emulated/0/Download/$appName";
+
 const logLine = '-------------------------------------------------';

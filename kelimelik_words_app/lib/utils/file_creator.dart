@@ -1,22 +1,21 @@
 // 📃 <----- lib/utils/file_creator.dart ----->
 //
-// Incremental Sync + JSON + Excel + Download kopyalama
+// Incremental Sync + JSON + Excel (ZIP YOK)
 // -----------------------------------------------------------
-// Yeni akış:
+// HEDEF DİZİN (TEK VE SABİT):
+//   aa.vb.kelimelik_words_app/app_flutter/kelimelik_backups
+//
+// AKIŞ:
 //   1️⃣ Asset CSV → Device CSV senkronizasyonu
-//      (createOrUpdateDeviceCsvFromAsset)
-//   2️⃣ CSV ↔ SQL Incremental Sync (syncCsvWithDatabase)
-//       • Eksik kelimeler eklenir
-//       • Anlamı değişen kelimeler güncellenir
-//       • Kullanıcının eklediği kelimeler SİLİNMEZ
-//   3️⃣ CSV → JSON (her zaman yeniden oluşturulur)
-//   4️⃣ CSV → Excel (her zaman yeniden oluşturulur)
-//   5️⃣ Benchmark raporu (fc_report.dart)
-//   6️⃣ Tüm dosyaları Download/{appName} dizinine kopyalama
-//   7️⃣ Notification gösterme
+//   2️⃣ CSV ↔ SQL Incremental Sync
+//   3️⃣ CSV → JSON
+//   4️⃣ CSV → Excel (formatlı)
+//   5️⃣ Dosyaları kelimelik_backups dizinine kopyala
+//   6️⃣ Notification göster
 // -----------------------------------------------------------
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
@@ -25,7 +24,6 @@ import 'package:path_provider/path_provider.dart';
 import '../constants/file_info.dart';
 import '../widgets/bottom_banner_helper.dart';
 import '../widgets/show_notification_handler.dart';
-import 'external_copy.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
 import 'fc_files/fc_report.dart';
@@ -38,28 +36,42 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final sw = Stopwatch()..start();
   log("🚀 initializeAppDataFlow başladı", name: tag);
 
-  // 📂 Uygulamanın Documents dizini (GEÇİCİ üretim alanı)
-  final dir = await getApplicationDocumentsDirectory();
+  // ----------------------------------------------------------
+  // 📂 app_flutter dizini
+  // ----------------------------------------------------------
+  final appDir = await getApplicationDocumentsDirectory();
 
-  // 🔹 Bu dosyalar SADECE burada üretilir
-  final jsonFull = join(dir.path, fileNameJson);
-  final csvFull = join(dir.path, fileNameCsv);
-  final excelFull = join(dir.path, fileNameXlsx);
-  final sqlFull = join(dir.path, fileNameSql);
+  // ----------------------------------------------------------
+  // 📦 SADECE TEK BACKUP DİZİNİ
+  // ----------------------------------------------------------
+  final backupDir = Directory(join(appDir.path, 'kelimelik_backups'));
+
+  if (!await backupDir.exists()) {
+    await backupDir.create(recursive: true);
+  }
+
+  log("📂 Backup dizini: ${backupDir.path}", name: tag);
+
+  // ----------------------------------------------------------
+  // 📄 Hedef dosyalar (TEK YER)
+  // ----------------------------------------------------------
+  final csvTarget = join(backupDir.path, fileNameCsv);
+  final jsonTarget = join(backupDir.path, fileNameJson);
+  final excelTarget = join(backupDir.path, fileNameXlsx);
+  final sqlTarget = join(backupDir.path, fileNameSql);
 
   if (!context.mounted) return;
 
   final bannerCtrl = showLoadingBanner(
     context,
-    message: "Lütfen bekleyiniz,\nveriler senkronize ediliyor...",
+    message: "Lütfen bekleyiniz,\nyedek hazırlanıyor...",
   );
 
   try {
     // ----------------------------------------------------------
-    // 1️⃣ Asset CSV → Device CSV senkronizasyonu
+    // 1️⃣ CSV senkronizasyonu
     // ----------------------------------------------------------
-    final csvSync = await createOrUpdateDeviceCsvFromAsset();
-    log("📄 CSV Sync: changed=${csvSync.needsRebuild}", name: tag);
+    await createOrUpdateDeviceCsvFromAsset();
 
     // ----------------------------------------------------------
     // 2️⃣ CSV ↔ SQL Incremental Sync
@@ -67,17 +79,17 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await syncCsvWithDatabase();
 
     // ----------------------------------------------------------
-    // 3️⃣ CSV → JSON (güncel dosya)
+    // 3️⃣ CSV → JSON
     // ----------------------------------------------------------
     await createJsonFromAssetCsv();
 
     // ----------------------------------------------------------
-    // 4️⃣ CSV → Excel (güncel dosya)
+    // 4️⃣ CSV → Excel (formatlı)
     // ----------------------------------------------------------
     await createExcelFromAssetCsvSyncfusion();
 
     // ----------------------------------------------------------
-    // 5️⃣ Benchmark + Tutarlılık Raporu
+    // 5️⃣ RAPOR
     // ----------------------------------------------------------
     await runFullDataReport(
       csvToJsonMs: 0,
@@ -87,26 +99,33 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     );
 
     // ----------------------------------------------------------
-    // 6️⃣ Download/{appName} dizinine KOPYALA
-    // ⚠️ Uygulama içi klasör OLUŞTURULMAZ
+    // 6️⃣ DOSYALARI SADECE kelimelik_backups DİZİNİNE KOPYALA
     // ----------------------------------------------------------
-    await copyBackupToDownload(
-      files: [jsonFull, csvFull, excelFull, sqlFull],
-      folderName: appName, // kelimelik_words_app
-    );
+    Future<void> copyIfExists(String from, String to) async {
+      final f = File(from);
+      if (await f.exists()) {
+        await f.copy(to);
+        log("✅ Kopyalandı: $to", name: tag);
+      }
+    }
+
+    await copyIfExists(join(appDir.path, fileNameCsv), csvTarget);
+    await copyIfExists(join(appDir.path, fileNameJson), jsonTarget);
+    await copyIfExists(join(appDir.path, fileNameXlsx), excelTarget);
+    await copyIfExists(join(appDir.path, fileNameSql), sqlTarget);
 
     // ----------------------------------------------------------
-    // 7️⃣ Notification göster
+    // 7️⃣ Notification
     // ----------------------------------------------------------
     if (!context.mounted) return;
 
     showCreateDbNotification(
       context,
-      sqlFull,
-      csvFull,
-      excelFull,
-      jsonFull,
-      '', // ZIP artık yok
+      sqlTarget,
+      csvTarget,
+      excelTarget,
+      jsonTarget,
+      "", // ZIP YOK
     );
 
     sw.stop();
@@ -114,6 +133,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       "✅ initializeAppDataFlow tamamlandı: ${sw.elapsedMilliseconds} ms",
       name: tag,
     );
+  } catch (e, st) {
+    log("❌ initializeAppDataFlow hatası: $e", name: tag, stackTrace: st);
+    rethrow;
   } finally {
     bannerCtrl.close();
   }

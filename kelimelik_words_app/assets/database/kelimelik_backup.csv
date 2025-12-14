@@ -1137,6 +1137,7 @@ Dizin,Fihrist / İndeks
 Do,Nota
 Dobra,Açık sözlü
 Doğan,Yırtıcı kuş
+Doğu,Şark / Maşrık / bir yön
 Doğum,Doğma işi / Tevellüt
 Doha,Katar başkenti
 Dok,Gemi havuzu
@@ -1700,6 +1701,7 @@ Hayalet,Peri hortlak gibi görüldüğü varsayılan şeyler
 Hayalı,Utangaç / Sıkılgan
 Hayali,Sanal / Fantastik
 Hayat,Yaşam / Canlı / Sağ
+Hayati,Hayatla ilgili / Büyük önem taşıyan
 Haybe,Boş / İşe yaramaz / Anlamsız
 Haz,Hoşlanma / Zevk
 Haza,Tam anlamıyla
@@ -2078,6 +2080,7 @@ Kamil,Yetkin / Erişkin / Mükemmel
 Kamu,Halk / Halk hizmeti gören devlet organları
 Kan,Soy / Vücut sıvısı
 Kana,Geminin baş ve kıçına konan su çekme işaretleri
+Kanal,Yol / Hat / Su yolu
 Kanca,Bir şey çekmeye yarayan ucu çengelli demir çubuk
 Kandil,Aydınlatma aracı
 Kanı,Inanç / düşünce / kanaat
@@ -2856,6 +2859,7 @@ Mil,Uzaklık ölçü birimi
 Milas,Muğla ilçesi
 Milat,Herhangi bir olayın başlangıcı
 Milim,Milimetre
+Milis,Silahlı halk gücü
 Milli,Mil içeren
 Milyon,Bir sayı
 Mim,Biten yazının altına konan işaret
@@ -2876,6 +2880,7 @@ Misafir,Konuk
 Misal,Örnek
 Misel,Koloid iyonların bütünlüğü
 Misk,Mis
+Misket,Üzüm cinsi / Bilye / Halk oyunu türü
 Miso,Tuzlu bir tatlandırıco
 Mit,Efsaneleşen kavram ya da kişi
 Mitil,Bir çeşit yorgan
@@ -3402,6 +3407,7 @@ Rıh,Mürekkep kurutmak için kullanılan ince kum
 Rica,Dileyiş / Dileme
 Ricat,Vaz geçme / Gerileme
 Rika,Arap harfi elyazısı biçimi
+Rimel,Yağlı sürme / Maskara
 Rina,Tırpana
 Rint,Gönül eri / Sarhoş / Ayyaş
 Risale,Kitapçık
@@ -3499,6 +3505,7 @@ Salar,Çin'de yaşayan Oğuz kökenli Türk halkı
 Salaş,Derme çatma / Kötü görünen
 Salat,Namaz
 Salata,Bazı sebzelerle yapılan zeytin yağ limon ile yenen bir yiyecek türü
+Salatalık,Hıyar
 Salı,Haftanın günlerinden
 Salık,Tavsiye
 Salik,bir yola giren
@@ -3651,6 +3658,7 @@ Siğil,Deride oluşan küçük ur
 Sih,Hindistan 'fa bir topluluk
 Sik,Erkeklik organı
 Silgi,Tebeşirle yazılanları silmeye yarayan araç
+Sili,İffetli / Temiz / Kilim
 Sille,Elin içiyle vurulan tokat
 Silo,Ambar
 Sim,Gümüş / İşaret
@@ -3682,6 +3690,7 @@ Siz,Şahıs zamiri
 Sizce,Size göre
 Smaç,Voleybolda vuruş stili
 Soba,Isınma aracı
+Sobe,Saklambaç sözü
 Soda,Temizlik tuzu
 Sodalı,Içinde soda bulunan
 Sof,Astarlık kumaş
@@ -4017,6 +4026,7 @@ Teğet,bir eğrinin kenarından geçen doğru
 Tein,Çayda bulunan kafein benzeri madde
 Tek,Yegane
 Teke,Erkek keçi
+Teker,Tekerlek
 Tekil,Teklik
 Tekila,Sert bir Meksika içkisi
 Tekin,Güvenilir
@@ -4356,6 +4366,7 @@ Vesair,Diğer
 Veto,Karşı çıkma / Engelleme
 Vın,Vınlama sesi
 Vız,Böcek uçarken çıkan ses
+Vida,Döndürülerek bir yere sokulan burmalı çivi
 Vinç,Ağır yük kaldırmaya ve taşımaya yarar araç
 Vira,Arasız / Maçına makinesi çevrilmesi için verilen komut
 Viraj,Dönemeç
@@ -4495,6 +4506,7 @@ Yetinme,İktifa / Kanaat / Yetinmek durumu
 Yetiş,Yardım isteme sözü
 Yıkı,Harabe
 Yıkık,Yıkılmış olan / Harap / Viran
+Yıkıntı,Virane / Yıkım
 Yıl,Oniki aylık dönem
 Yılan,Sürüngen türü
 Yılık,Şaşı göz
