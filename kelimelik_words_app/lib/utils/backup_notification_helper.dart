@@ -12,9 +12,13 @@
 // ---------------------------------------------------------------------------
 
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
+import '../constants/file_info.dart';
 import '../services/export_items.dart';
 import '../widgets/bottom_banner_helper.dart';
 
@@ -64,6 +68,19 @@ Future<void> backupNotificationHelper({
     }
 
     log("✅ Yedekleme tamamlandı.", name: tag);
+
+    // ----------------------------------------------------------
+    // 🧹 GEÇİCİ kelimelik_words_app klasörünü SİL
+    // ----------------------------------------------------------
+    final docsDir = await getApplicationDocumentsDirectory();
+    final tempBackupDir = Directory(
+      join(docsDir.path, appName), // kelimelik_words_app
+    );
+
+    if (await tempBackupDir.exists()) {
+      await tempBackupDir.delete(recursive: true);
+      log("🧹 Geçici klasör silindi: ${tempBackupDir.path}", name: tag);
+    }
   } catch (e, st) {
     // ----------------------------------------------------------
     // ❌ Hata yakalandı
