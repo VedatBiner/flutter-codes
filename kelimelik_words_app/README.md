@@ -176,7 +176,8 @@ bir chatGPT ortak çalışması :)
 171. `drawer_backup_tile.dart` ve `file_creator.dart` dosyası düzenlendi. - 14.12.2025
 172. `file_creator.dart`, `export_items.dart` ve `backup_notification_helper.dart` dosyası düzenlendi. - 14.12.2025
 173. `export_items.dart`, `external_copy.dart` ve `backup_notification_helper.dart` dosyası güncellendi. - 15.12.2025
-174. 
+174. `show_notification_handler.dart` güncellendi. - 15.12.2025
+175. 
 
 
 

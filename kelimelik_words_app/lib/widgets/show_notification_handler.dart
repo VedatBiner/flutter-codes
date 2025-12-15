@@ -36,7 +36,7 @@ void showBackupNotification(
         style: normalBlackText,
         children: [
           const TextSpan(
-            text: '\nVeriler yedeklendi ... :\n\n',
+            text: '\nVeriler yedeklendi ... \n\n',
             style: kelimeAddText,
           ),
           const TextSpan(text: '✅ '),
@@ -47,8 +47,9 @@ void showBackupNotification(
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          const TextSpan(text: '✅ '),
-          TextSpan(text: "${p.basename(zipPathDownload)}\n"),
+          // Şimdilik iptal
+          // const TextSpan(text: '✅ '),
+          // TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
