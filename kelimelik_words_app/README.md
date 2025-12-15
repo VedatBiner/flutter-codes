@@ -175,7 +175,8 @@ bir chatGPT ortak çalışması :)
 170. `file_infoe.dart` dosyasına `backupDirName` eklendi. - 13.12.2025
 171. `drawer_backup_tile.dart` ve `file_creator.dart` dosyası düzenlendi. - 14.12.2025
 172. `file_creator.dart`, `export_items.dart` ve `backup_notification_helper.dart` dosyası düzenlendi. - 14.12.2025
-173
+173. `export_items.dart`, `external_copy.dart` ve `backup_notification_helper.dart` dosyası güncellendi. - 15.12.2025
+174. 
 
 
 
@@ -195,6 +196,10 @@ Yapılacaklar :
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - Download dizinine kopyalama sorunlu ? lokal dizine iki kez içi içe kopyalıyor ?
     - Son güncel yedek dizini içine alınması denenecek.
+    - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
+    - SQL tablosuna yeni bir sütun ekleyip ekleme zamanını gün ay yıl olarak yazmayı eklesek ?
+    - zip yedeği sadece paylaşma seçilince yapılsın ?
+    - 
 
 
 

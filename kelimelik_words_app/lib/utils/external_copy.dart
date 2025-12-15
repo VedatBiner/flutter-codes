@@ -46,3 +46,39 @@ Future<String> copyBackupToDownload({
 
   return targetDir.path;
 }
+
+/// 📌 Download kopyalama sonrası geçici klasörü güvenli siler
+Future<void> deleteTempBackupFolderIfSafe({
+  required String tempDirPath,
+  required List<String> expectedFileNames,
+  required String downloadDirPath,
+}) async {
+  const tag = "external_copy_cleanup";
+
+  final tempDir = Directory(tempDirPath);
+  if (!await tempDir.exists()) {
+    log("ℹ️ Geçici klasör zaten yok: $tempDirPath", name: tag);
+    return;
+  }
+
+  // 🔎 Download dizininde dosyalar gerçekten var mı?
+  bool allFilesExist = true;
+
+  for (final fileName in expectedFileNames) {
+    final downloadFile = File(join(downloadDirPath, fileName));
+    if (!await downloadFile.exists()) {
+      log("❌ Download 'da eksik dosya: ${downloadFile.path}", name: tag);
+      allFilesExist = false;
+      break;
+    }
+  }
+
+  if (!allFilesExist) {
+    log("⚠️ Güvenlik nedeniyle klasör silinmedi.", name: tag);
+    return;
+  }
+
+  // 🧹 GÜVENLİ SİLME
+  await tempDir.delete(recursive: true);
+  log("🧹 Geçici klasör silindi: $tempDirPath", name: tag);
+}

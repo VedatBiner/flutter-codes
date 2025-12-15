@@ -6,7 +6,7 @@
 //
 //  • Alt bant (LoadingBottomBanner) tek satır ile açılır
 //  • Export sürecini duruma göre onStatusChange ile bildirir
-//  • Export tamamlanınca onSuccessNotify ile UI tarafına path’ler gönderilir
+//  • Export tamamlanınca onSuccessNotify ile UI tarafına path ’ler gönderilir
 //  • Hata durumunda SnackBar ile kullanıcı bilgilendirilir
 //
 // ---------------------------------------------------------------------------
@@ -18,7 +18,6 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../constants/file_info.dart';
 import '../services/export_items.dart';
 import '../widgets/bottom_banner_helper.dart';
 
@@ -54,10 +53,10 @@ Future<void> backupNotificationHelper({
     // • Dosyalar GEÇİCİ olarak:
     //   app_flutter/kelimelik_backups
     //   dizinine üretilir
-    // • Download kopyalama + cleanup
+    // • Download kopyalama işlemi
     //   export_items.dart içinde yapılır
     // ----------------------------------------------------------
-    final res = await exportItemsToFileFormats();
+    final res = await exportItemsToFileFormats(subfolder: 'kelimelik_backups');
 
     // Kullanıcıya bilgi ver
     onStatusChange("Tamamlandı: ${res.count} kayıt.");
@@ -70,16 +69,17 @@ Future<void> backupNotificationHelper({
     log("✅ Yedekleme tamamlandı.", name: tag);
 
     // ----------------------------------------------------------
-    // 🧹 GEÇİCİ kelimelik_words_app klasörünü SİL
+    // 🧹 SADECE geçici kelimelik_backups klasörünü sil
+    // ❗ appName (kelimelik_words_app) ASLA silinmez
     // ----------------------------------------------------------
     final docsDir = await getApplicationDocumentsDirectory();
-    final tempBackupDir = Directory(
-      join(docsDir.path, appName), // kelimelik_words_app
-    );
+    final tempBackupsDir = Directory(join(docsDir.path, 'kelimelik_backups'));
 
-    if (await tempBackupDir.exists()) {
-      await tempBackupDir.delete(recursive: true);
-      log("🧹 Geçici klasör silindi: ${tempBackupDir.path}", name: tag);
+    if (await tempBackupsDir.exists()) {
+      await tempBackupsDir.delete(recursive: true);
+      log("🧹 Geçici klasör silindi: ${tempBackupsDir.path}", name: tag);
+    } else {
+      log("ℹ️ Geçici klasör bulunamadı, silme atlandı.", name: tag);
     }
   } catch (e, st) {
     // ----------------------------------------------------------

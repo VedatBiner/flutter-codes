@@ -1,21 +1,20 @@
 // 📃 <----- lib/utils/export_items.dart ----->
 //
-// SQL → CSV → JSON → XLSX → ZIP üretir.
+// SQL → CSV → JSON → XLSX üretir.
 // Bu dosya, db_helper.dart, json_helper.dart ve excel_helper.dart
 // yapısına %100 uyumludur.
 // -----------------------------------------------------------
 // • CSV: DbHelper.exportRecordsToCsv()
 // • JSON: List<Word> → JSON string
-// • Excel: List<Word> → XLSX (Syncfusion)
-// • SQL: DB dosyasını birebir kopyalar
-// • ZIP: kelimelik_words_app klasörünün TAMAMI tek zip içinde
+// • Excel: List<Word> → XLSX (Syncfusion – formatlı)
+// • SQL: DB dosyası birebir kopyalanır
+// • ZIP: ❌ ŞİMDİLİK İPTAL
 // -----------------------------------------------------------
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:archive/archive_io.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -29,6 +28,8 @@ class ExportItems {
   final String jsonPath;
   final String excelPath;
   final String sqlPath;
+
+  /// ZIP artık yok → boş string
   final String zipPath;
 
   ExportItems({
@@ -41,18 +42,21 @@ class ExportItems {
   });
 }
 
-/// 🔥 SQL → CSV → JSON → XLSX → ZIP Pipeline
+/// 🔥 SQL → CSV → JSON → XLSX Pipeline
 ///
-/// ZIP içine **Documents/{appName} klasörünün TAMAMI** eklenir.
-/// ZIP adı: fileNameZip
-Future<ExportItems> exportItemsToFileFormats({String? subfolder}) async {
+/// • Geçici klasör: Documents/{subfolder}
+/// • ZIP üretilmez
+/// • Klasör silme işlemi DIŞARIDAN yapılır
+Future<ExportItems> exportItemsToFileFormats({
+  required String subfolder,
+}) async {
   const tag = "export_items";
 
   // ----------------------------------------------------------
-  // 📁 Documents/{appName} klasörü
+  // 📁 Documents/{subfolder} klasörü (GEÇİCİ)
   // ----------------------------------------------------------
   final docs = await getApplicationDocumentsDirectory();
-  final exportDir = Directory(join(docs.path, subfolder ?? appName));
+  final exportDir = Directory(join(docs.path, subfolder));
   await exportDir.create(recursive: true);
 
   log("📂 Export klasörü: ${exportDir.path}", name: tag);
@@ -71,6 +75,8 @@ Future<ExportItems> exportItemsToFileFormats({String? subfolder}) async {
   final items = await DbHelper.instance.getRecords();
   final count = items.length;
 
+  log("📌 Export edilecek kayıt: $count", name: tag);
+
   // ----------------------------------------------------------
   // 2️⃣ CSV
   // ----------------------------------------------------------
@@ -86,35 +92,21 @@ Future<ExportItems> exportItemsToFileFormats({String? subfolder}) async {
   await File(jsonPath).writeAsString(jsonStr);
 
   // ----------------------------------------------------------
-  // 4️⃣ XLSX (FORMATLI)
+  // 4️⃣ XLSX (FORMATLI – excel_helper.dart)
   // ----------------------------------------------------------
   await exportItemsToExcel(excelPath, items);
 
   // ----------------------------------------------------------
-  // 5️⃣ SQL kopyala
+  // 5️⃣ SQL dosyasını kopyala
   // ----------------------------------------------------------
   final sqlOriginal = File(join(docs.path, fileNameSql));
   if (await sqlOriginal.exists()) {
     await sqlOriginal.copy(sqlPath);
+  } else {
+    log("⚠️ SQL dosyası bulunamadı", name: tag);
   }
 
-  // ----------------------------------------------------------
-  // 6️⃣ ZIP → klasör bazlı
-  // ----------------------------------------------------------
-  final zipPath = join(docs.path, fileNameZip);
-
-  final encoder = ZipFileEncoder();
-  encoder.create(zipPath);
-
-  // 🔥 ÖNEMLİ: klasörün TAMAMI zip ’e ekleniyor
-  encoder.addDirectory(
-    exportDir,
-    includeDirName: true, // kelimelik_words_app ismi ZIP içinde görünsün
-  );
-
-  encoder.close();
-
-  log("🎁 ZIP oluşturuldu (klasör bazlı): $zipPath", name: tag);
+  log("✅ Export tamamlandı (ZIP yok)", name: tag);
 
   return ExportItems(
     count: count,
@@ -122,6 +114,6 @@ Future<ExportItems> exportItemsToFileFormats({String? subfolder}) async {
     jsonPath: jsonPath,
     excelPath: excelPath,
     sqlPath: sqlPath,
-    zipPath: zipPath,
+    zipPath: "", // ZIP bilinçli olarak boş
   );
 }
