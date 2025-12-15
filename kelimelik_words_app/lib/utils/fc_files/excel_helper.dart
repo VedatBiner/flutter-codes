@@ -64,7 +64,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     // --------------------------------------------------------
     // 🔵 BAŞLIK SATIRI (FORMATLI)
     // --------------------------------------------------------
-    final headers = ['Kelime', 'Anlam'];
+    final headers = ['Kelime', 'Anlam', 'Tarih'];
 
     for (int i = 0; i < headers.length; i++) {
       final cell = sheet.getRangeByIndex(1, i + 1);
@@ -104,7 +104,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
 
       // 🎨 Zebra satırlar (pastel açık mavi)
       if (rowIndex % 2 == 0) {
-        final rng = sheet.getRangeByIndex(rowIndex, 1, rowIndex, 2);
+        final rng = sheet.getRangeByIndex(rowIndex, 1, rowIndex, 3);
         rng.cellStyle.backColorRgb = const Color.fromARGB(255, 220, 235, 255);
       }
 
@@ -116,13 +116,14 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
     // --------------------------------------------------------
     // 🔍 AutoFilter — TÜM TABLOYA
     // --------------------------------------------------------
-    sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 2);
+    sheet.autoFilters.filterRange = sheet.getRangeByIndex(1, 1, lastRow, 3);
 
     // --------------------------------------------------------
     // 📏 Sütun genişlikleri — AUTO FIT
     // --------------------------------------------------------
     sheet.autoFitColumn(1);
     sheet.autoFitColumn(2);
+    sheet.autoFitColumn(3);
 
     // --------------------------------------------------------
     // 💾 KAYDET

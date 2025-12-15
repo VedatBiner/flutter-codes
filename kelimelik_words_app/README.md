@@ -177,7 +177,8 @@ bir chatGPT ortak çalışması :)
 172. `file_creator.dart`, `export_items.dart` ve `backup_notification_helper.dart` dosyası düzenlendi. - 14.12.2025
 173. `export_items.dart`, `external_copy.dart` ve `backup_notification_helper.dart` dosyası güncellendi. - 15.12.2025
 174. `show_notification_handler.dart` güncellendi. - 15.12.2025
-175. 
+175. `ìtem_model.dart`, `excel_helper.dart` ve `db_helper.dart` dosyası güncellendi. - 15.12.2025
+176. sql veri tabanına 3. sütun olarak veri ekleme tarihi eklenmesi deneniyor.
 
 
 
@@ -197,6 +198,10 @@ Yapılacaklar :
     - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
     - SQL tablosuna yeni bir sütun ekleyip ekleme zamanını gün ay yıl olarak yazmayı eklesek ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
+    - xlsx, csv, json ve db için tarih bilgileri doğru geliyor mu  kontrol et 
+    - xlsx, csv ve json 'a tarih bilgileri gelmiyor. 
+    - xlsx 'e sadece boş sütun başlığı olarak geliyor.
+    - db içine tarih doğru geliyor.
     - 
 
 

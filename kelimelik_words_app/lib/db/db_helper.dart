@@ -12,24 +12,27 @@ import 'dart:io';
 
 /// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // <-- asset DB kopyalamak için eklendi
+import 'package:flutter/services.dart'; // <-- asset DB kopyalamak için
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-/// 📌 Yardımcı yüklemeler burada
+/// 📌 Yardımcı yüklemeler
 import '../constants/file_info.dart';
 import '../models/item_model.dart';
 
+const tag = "db_helper";
+
 class DbHelper {
-  // Singleton pattern: Sınıfın tek bir örneği olmasını sağlar.
+  // Singleton
   static final DbHelper instance = DbHelper._init();
   static Database? _database;
 
   DbHelper._init();
 
-  /// Veritabanı örneğini döndürür.
-  /// Eğer veritabanı daha önce oluşturulmamışsa, `_initDB` ile başlatır.
+  /// --------------------------------------------------------------------------
+  /// DATABASE INSTANCE
+  /// --------------------------------------------------------------------------
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDB(fileNameSql);
@@ -39,66 +42,81 @@ class DbHelper {
   /// --------------------------------------------------------------------------
   /// 🚀 VERİTABANI BAŞLATMA + ASSET'TEN OTOMATİK KOPYALAMA
   /// --------------------------------------------------------------------------
-  ///
-  /// Eğer cihazda kelimelik_words_app.db yoksa → assets/database klasöründen
-  /// birebir veritabanı dosyası kopyalanır.
-  ///
   Future<Database> _initDB(String fileName) async {
     final dbDir = await getApplicationDocumentsDirectory();
     final dbFullPath = join(dbDir.path, fileName);
 
     final dbFile = File(dbFullPath);
 
-    // 📌 Eğer veritabanı yoksa — assets/database içinden kopyala
+    // 📌 Asset DB kopyalama
     if (!await dbFile.exists()) {
-      log(
-        "📂 DB bulunamadı → asset'ten kopyalanıyor: $dbFullPath",
-        name: "DbHelper",
-      );
+      log("📂 DB bulunamadı → asset 'ten kopyalanıyor: $dbFullPath", name: tag);
 
       try {
-        // Asset içindeki DB'yi oku
         final data = await rootBundle.load("assets/database/$fileNameSql");
-
-        // Bytes formatına çevir
         final bytes = data.buffer.asUint8List(
           data.offsetInBytes,
           data.lengthInBytes,
         );
-
-        // Cihaza veritabanı olarak yaz
         await dbFile.writeAsBytes(bytes, flush: true);
-
-        log("✅ Asset DB başarıyla kopyalandı.", name: "DbHelper");
+        log("✅ Asset DB başarıyla kopyalandı.", name: tag);
       } catch (e) {
-        log("❌ Asset DB kopyalama hatası: $e", name: "DbHelper");
+        log("❌ Asset DB kopyalama hatası: $e", name: tag);
       }
     } else {
-      log("📌 DB zaten mevcut, doğrudan açılıyor…", name: "DbHelper");
+      log("📌 DB zaten mevcut, doğrudan açılıyor…", name: tag);
     }
 
-    // 📌 DB artık var → read/write modunda açılır
     return await openDatabase(
       dbFullPath,
-      version: 1,
-      onCreate: _createDB, // Eğer hiç yoksa tabloyu oluşturur
+      version: 2, // 🔥 ARTIRILDI
+      onCreate: _createDB,
+      onUpgrade: _onUpgradeDB, // 🔥 MIGRATION
     );
   }
 
-  /// Veritabanı ilk kez oluşturulduğunda `words` tablosunu yaratır.
-  /// `word` sütunu, aynı kelimenin tekrar eklenmesini önlemek için UNIQUE'dir.
-  Future _createDB(Database db, int version) async {
+  /// --------------------------------------------------------------------------
+  /// 🧱 İLK TABLO OLUŞTURMA
+  /// --------------------------------------------------------------------------
+  Future<void> _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE $sqlTableName (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         word TEXT NOT NULL UNIQUE,
-        meaning TEXT NOT NULL
+        meaning TEXT NOT NULL,
+        created_at TEXT
       )
+    ''');
+
+    // İlk kayıtlar için varsayılan tarih
+    await db.execute('''
+      UPDATE $sqlTableName
+      SET created_at = '14.12.2025'
+      WHERE created_at IS NULL
     ''');
   }
 
   /// --------------------------------------------------------------------------
-  /// 📌 Veritabanı dosyasını tamamen sil
+  /// 🔁 MIGRATION (TARİH SÜTUNU EKLEME)
+  /// --------------------------------------------------------------------------
+  Future<void> _onUpgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      log("🔄 DB upgrade başlatıldı (v$oldVersion → v$newVersion)", name: tag);
+
+      await db.execute("ALTER TABLE $sqlTableName ADD COLUMN created_at TEXT");
+
+      await db.execute('''
+        UPDATE $sqlTableName
+        SET created_at = '14.12.2025'
+        WHERE created_at IS NULL
+      ''');
+
+      log("✅ created_at sütunu eklendi ve dolduruldu", name: tag);
+    }
+  }
+
+  /// --------------------------------------------------------------------------
+  /// 🗑 DB DOSYASINI TAMAMEN SİL
   /// --------------------------------------------------------------------------
   Future<void> deleteDatabaseFile() async {
     final dbDir = await getApplicationDocumentsDirectory();
@@ -111,11 +129,13 @@ class DbHelper {
 
     if (await File(path).exists()) {
       await File(path).delete();
-      log('🗑 Veritabanı dosyası silindi: $path', name: 'DbHelper');
+      log('🗑 Veritabanı silindi: $path', name: tag);
     }
   }
 
-  /// Veritabanındaki tüm kelime kayıtlarını alır ve Türkçe'ye göre sıralar.
+  /// --------------------------------------------------------------------------
+  /// 📥 TÜM KAYITLAR
+  /// --------------------------------------------------------------------------
   Future<List<Word>> getRecords() async {
     final db = await instance.database;
     final result = await db.query(sqlTableName);
@@ -123,7 +143,6 @@ class DbHelper {
     return _sortTurkish(words);
   }
 
-  /// Belirli bir kelimeyi adına göre veritabanında arar.
   Future<Word?> getItem(String word) async {
     final db = await instance.database;
     final result = await db.query(
@@ -134,13 +153,15 @@ class DbHelper {
     return result.isNotEmpty ? Word.fromMap(result.first) : null;
   }
 
-  /// Veritabanına yeni bir kelime ekler.
   Future<int> insertRecord(Word word) async {
     final db = await instance.database;
-    return await db.insert(sqlTableName, word.toMap());
+    final map = word.toMap();
+
+    map['created_at'] ??= '14.12.2025';
+
+    return await db.insert(sqlTableName, map);
   }
 
-  /// Var olan bir kelimeyi ID'sine göre günceller.
   Future<int> updateRecord(Word word) async {
     final db = await instance.database;
     return await db.update(
@@ -151,13 +172,11 @@ class DbHelper {
     );
   }
 
-  /// Belirtilen ID'ye sahip kelimeyi veritabanından siler.
   Future<int> deleteRecord(int id) async {
     final db = await instance.database;
     return await db.delete(sqlTableName, where: 'id = ?', whereArgs: [id]);
   }
 
-  /// Veritabanındaki toplam kayıt sayısını döndürür.
   Future<int> countRecords() async {
     final db = await instance.database;
     final result = Sqflite.firstIntValue(
@@ -167,61 +186,54 @@ class DbHelper {
   }
 
   /// --------------------------------------------------------------------------
-  /// JSON EXPORT
+  /// JSON EXPORT / IMPORT
   /// --------------------------------------------------------------------------
   Future<String> exportRecordsToJson() async {
     final words = await getRecords();
-    final maps = words.map((w) => w.toMap()).toList();
-    final jsonStr = jsonEncode(maps);
+    final jsonStr = jsonEncode(words.map((w) => w.toMap()).toList());
     final dir = await getApplicationDocumentsDirectory();
     final path = "${dir.path}/$fileNameJson";
     await File(path).writeAsString(jsonStr);
     return path;
   }
 
-  /// JSON IMPORT
   Future<void> importRecordsFromJson(BuildContext context) async {
-    const tag = 'db_helper';
+    final dir = await getApplicationDocumentsDirectory();
+    final path = "${dir.path}/$fileNameJson";
+    final file = File(path);
 
-    try {
-      final dir = await getApplicationDocumentsDirectory();
-      final path = "${dir.path}/$fileNameJson";
-      final file = File(path);
+    if (!await file.exists()) return;
 
-      if (!await file.exists()) {
-        log("❌ JSON bulunamadı: $path", name: tag);
-        return;
-      }
+    final list = jsonDecode(await file.readAsString());
+    final db = await database;
 
-      final jsonStr = await file.readAsString();
-      final List<dynamic> list = jsonDecode(jsonStr);
+    await db.delete(sqlTableName);
 
-      final db = await database;
-      await db.delete(sqlTableName);
-
-      for (final item in list) {
-        await insertRecord(Word.fromMap(item));
-      }
-
-      log("✅ JSON Import tamamlandı (${list.length} kayıt)", name: tag);
-    } catch (e) {
-      log("🚨 JSON import hatası: $e", name: tag);
+    for (final item in list) {
+      final map = Map<String, dynamic>.from(item);
+      map['created_at'] ??= '14.12.2025';
+      await insertRecord(Word.fromMap(map));
     }
   }
 
   /// --------------------------------------------------------------------------
-  /// CSV EXPORT
+  /// CSV EXPORT / IMPORT
   /// --------------------------------------------------------------------------
   Future<String> exportRecordsToCsv() async {
     final words = await getRecords();
     final buffer = StringBuffer();
 
-    buffer.writeln("Kelime,Anlam");
+    // 🔹 Başlık
+    buffer.writeln("Kelime,Anlam,Tarih");
 
     for (var w in words) {
       final kelime = w.word.replaceAll(",", "");
       final anlam = w.meaning.replaceAll(",", "");
-      buffer.writeln("$kelime,$anlam");
+
+      // created_at yoksa sabit tarih
+      final tarih = (w as dynamic).createdAt ?? '14.12.2025';
+
+      buffer.writeln("$kelime,$anlam,$tarih");
     }
 
     final dir = await getApplicationDocumentsDirectory();
@@ -230,47 +242,25 @@ class DbHelper {
     return path;
   }
 
-  /// --------------------------------------------------------------------------
-  /// CSV IMPORT
-  /// --------------------------------------------------------------------------
   Future<void> importRecordsFromCsv() async {
-    const tag = 'db_helper';
-    try {
-      final dir = await getApplicationDocumentsDirectory();
-      final path = "${dir.path}/$fileNameCsv";
-      final file = File(path);
+    final dir = await getApplicationDocumentsDirectory();
+    final path = "${dir.path}/$fileNameCsv";
+    final file = File(path);
 
-      if (!await file.exists()) {
-        log("❌ CSV bulunamadı", name: tag);
-        return;
-      }
+    if (!await file.exists()) return;
 
-      final lines = await file.readAsLines();
-      if (lines.isEmpty) return;
+    final lines = await file.readAsLines();
+    final db = await database;
 
-      final db = await database;
-      await db.delete(sqlTableName);
+    await db.delete(sqlTableName);
 
-      int count = 0;
-      for (int i = 1; i < lines.length; i++) {
-        final line = lines[i].trim();
-        if (line.isEmpty) continue;
+    for (int i = 1; i < lines.length; i++) {
+      final parts = lines[i].split(',');
+      if (parts.length < 2) continue;
 
-        final parts = line.split(",");
-        if (parts.length < 2) continue;
-
-        final kelime = parts[0].trim();
-        final anlam = parts.sublist(1).join(",").trim();
-
-        if (kelime.isNotEmpty && anlam.isNotEmpty) {
-          await insertRecord(Word(word: kelime, meaning: anlam));
-          count++;
-        }
-      }
-
-      log("✅ CSV import tamamlandı ($count kayıt)", name: tag);
-    } catch (e) {
-      log("🚨 CSV import hatası: $e", name: tag);
+      await insertRecord(
+        Word(word: parts[0].trim(), meaning: parts.sublist(1).join(',')),
+      );
     }
   }
 
@@ -295,7 +285,7 @@ class DbHelper {
   }
 
   /// --------------------------------------------------------------------------
-  /// HIZLI BATCH INSERT
+  /// BATCH INSERT
   /// --------------------------------------------------------------------------
   Future<void> insertBatch(List<Word> items) async {
     if (items.isEmpty) return;
@@ -303,26 +293,25 @@ class DbHelper {
 
     await db.transaction((txn) async {
       final batch = txn.batch();
-
       for (final item in items) {
+        final map = item.toMap();
+        map['created_at'] ??= '14.12.2025';
         batch.insert(
           sqlTableName,
-          item.toMap(),
+          map,
           conflictAlgorithm: ConflictAlgorithm.ignore,
         );
       }
-
       await batch.commit(noResult: true);
     });
   }
 
   /// --------------------------------------------------------------------------
-  /// DB Bağlantısını kapat
+  /// DB KAPAT
   /// --------------------------------------------------------------------------
   Future<void> closeDb() async {
-    final db = _database;
-    if (db != null && db.isOpen) {
-      await db.close();
+    if (_database != null && _database!.isOpen) {
+      await _database!.close();
     }
     _database = null;
   }

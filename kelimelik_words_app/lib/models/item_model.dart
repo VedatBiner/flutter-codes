@@ -6,8 +6,14 @@ class Word extends Equatable {
   final int? id;
   final String word;
   final String meaning;
+  final String? createdAt;
 
-  const Word({this.id, required this.word, required this.meaning});
+  const Word({
+    this.id,
+    required this.word,
+    required this.meaning,
+    this.createdAt,
+  });
 
   /// 📌 Equatable karşılaştırması için kullanılacak alanlar
   @override
@@ -23,11 +29,21 @@ class Word extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'word': word, 'meaning': meaning};
+    return {
+      'id': id,
+      'word': word,
+      'meaning': meaning,
+      'created_at': createdAt,
+    };
   }
 
   factory Word.fromMap(Map<String, dynamic> map) {
-    return Word(id: map['id'], word: map['word'], meaning: map['meaning']);
+    return Word(
+      id: map['id'],
+      word: map['word'],
+      meaning: map['meaning'],
+      createdAt: map['created_at'],
+    );
   }
 
   /// ✅ JSON ’dan veri okumak için
