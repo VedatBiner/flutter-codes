@@ -192,11 +192,8 @@ Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_words_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
 - compute yapısı ile performans artışı sağlanabilir.
 - Hatalar : 
-    - zip (backup) dosya içinde sadece json ve csv var ?
-    - paylaşım yapınca zip içinde sadece json ve csv var?
+    
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
-    - Download dizinine kopyalama sorunlu ? lokal dizine iki kez içi içe kopyalıyor ?
-    - Son güncel yedek dizini içine alınması denenecek.
     - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
     - SQL tablosuna yeni bir sütun ekleyip ekleme zamanını gün ay yıl olarak yazmayı eklesek ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
