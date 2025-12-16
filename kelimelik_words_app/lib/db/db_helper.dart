@@ -5,8 +5,6 @@
 // Türkçe harflere göre sıralama metodu burada tanımlanıyor
 //
 
-// 📌 Dart hazır paketleri
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -181,18 +179,6 @@ class DbHelper {
       await db.rawQuery('SELECT COUNT(*) FROM $sqlTableName'),
     );
     return result ?? 0;
-  }
-
-  /// --------------------------------------------------------------------------
-  /// JSON EXPORT / IMPORT
-  /// --------------------------------------------------------------------------
-  Future<String> exportRecordsToJson() async {
-    final words = await getRecords();
-    final jsonStr = jsonEncode(words.map((w) => w.toMap()).toList());
-    final dir = await getApplicationDocumentsDirectory();
-    final path = "${dir.path}/$fileNameJson";
-    await File(path).writeAsString(jsonStr);
-    return path;
   }
 
   /// --------------------------------------------------------------------------
