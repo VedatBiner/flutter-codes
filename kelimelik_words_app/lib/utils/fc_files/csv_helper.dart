@@ -1,15 +1,11 @@
 // 📃 <----- lib/utils/fc_files/csv_helper.dart ----->
 //
-// CSV senkronizasyon ve asset → cihaz kopyalama işlemleri
+// CSV senkronizasyon + CSV üretimi (TEK MERKEZ)
 // -----------------------------------------------------------
-// • CsvSyncResult: asset / device CSV karşılaştırma sonuçları
-// • createOrUpdateDeviceCsvFromAsset():
-//     - Asset ve cihaz CSV 'yi okur
-//     - Kayıt sayılarını karşılaştırır
-//     - Asset daha yeni ise cihaz CSV 'yi günceller
-//     - needsRebuild = assetCount != deviceCount
-//     - 📌 ÖNEMLİ: Asset CSV'de "Tarih" sütunu varsa
-//       ASLA tekrar tarih eklenmez
+// • Asset CSV → Device CSV senkronizasyonu
+// • DB → CSV üretimi
+// • Tarih sütunu TEK YERDEN kontrol edilir
+// • Asset CSV'de "Tarih" varsa ASLA tekrar eklenmez
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -20,8 +16,13 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../constants/file_info.dart';
+import '../../db/db_helper.dart';
 
-/// CSV karşılaştırma sonucu veri sınıfı
+const tag = "csv_helper";
+
+/// ---------------------------------------------------------------------------
+/// CSV karşılaştırma sonucu
+/// ---------------------------------------------------------------------------
 class CsvSyncResult {
   final bool deviceExists;
   final bool assetIsNewer;
@@ -39,7 +40,7 @@ class CsvSyncResult {
 }
 
 /// ---------------------------------------------------------------------------
-/// 📌 Asset CSV tam metin okuma
+/// Asset CSV oku
 /// ---------------------------------------------------------------------------
 Future<String> _loadAssetCsvRaw() async {
   const assetCsvPath = 'assets/database/$fileNameCsv';
@@ -47,33 +48,30 @@ Future<String> _loadAssetCsvRaw() async {
 }
 
 /// ---------------------------------------------------------------------------
-/// 📌 Cihaz CSV tam okuma
+/// Device CSV oku
 /// ---------------------------------------------------------------------------
 Future<String> _loadDeviceCsvRaw() async {
-  final directory = await getApplicationDocumentsDirectory();
-  final devicePath = join(directory.path, fileNameCsv);
-  final file = File(devicePath);
+  final dir = await getApplicationDocumentsDirectory();
+  final path = join(dir.path, fileNameCsv);
+  final file = File(path);
   return file.existsSync() ? file.readAsString() : '';
 }
 
 /// ---------------------------------------------------------------------------
-/// 📌 Cihaz CSV kaydetme
+/// Device CSV yaz
 /// ---------------------------------------------------------------------------
 Future<void> _saveDeviceCsv(String content) async {
-  final directory = await getApplicationDocumentsDirectory();
-  final path = join(directory.path, fileNameCsv);
+  final dir = await getApplicationDocumentsDirectory();
+  final path = join(dir.path, fileNameCsv);
   await File(path).writeAsString(content);
 }
 
 /// ---------------------------------------------------------------------------
-/// 📌 CSV başlığında "Tarih" sütunu var mı?
+/// CSV başlığında "Tarih" var mı?
 /// ---------------------------------------------------------------------------
 bool _csvHasDateColumn(String csvRaw) {
   if (csvRaw.isEmpty) return false;
-
-  final normalized = csvRaw.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-
-  final firstLine = normalized.split('\n').first.trim();
+  final firstLine = csvRaw.split('\n').first.trim();
   if (firstLine.isEmpty) return false;
 
   final headers = firstLine.split(',').map((e) => e.trim()).toList();
@@ -81,27 +79,28 @@ bool _csvHasDateColumn(String csvRaw) {
 }
 
 /// ---------------------------------------------------------------------------
-/// 📌 CSV satır sayısı (boşlar hariç)
+/// CSV satır sayısı
 /// ---------------------------------------------------------------------------
 int _countCsvLines(String rawCsv) {
   if (rawCsv.isEmpty) return 0;
-  final normalized = rawCsv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
-  return normalized.split('\n').where((e) => e.trim().isNotEmpty).length;
+  return rawCsv
+      .replaceAll('\r\n', '\n')
+      .replaceAll('\r', '\n')
+      .split('\n')
+      .where((e) => e.trim().isNotEmpty)
+      .length;
 }
 
 /// ---------------------------------------------------------------------------
-/// 🔄 CSV senkronizasyonu (GÜVENLİ – TARİH TEKRARI YOK)
+/// 🔄 Asset → Device CSV senkronizasyonu
 /// ---------------------------------------------------------------------------
 Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
-  const tag = "csv_helper";
-
   try {
-    // 🟦 Asset CSV
     final assetRaw = await _loadAssetCsvRaw();
     final assetCount = _countCsvLines(assetRaw);
 
     if (assetCount <= 1) {
-      log("⚠ Asset CSV boş veya sadece başlık içeriyor.", name: tag);
+      log("⚠ Asset CSV boş.", name: tag);
       return CsvSyncResult(
         deviceExists: false,
         assetIsNewer: false,
@@ -111,42 +110,16 @@ Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
       );
     }
 
-    // 📌 Asset CSV başlık kontrolü
-    final assetHasDate = _csvHasDateColumn(assetRaw);
-    if (assetHasDate) {
-      log("📅 Asset CSV 'Tarih' sütunu içeriyor.", name: tag);
-    } else {
-      log("ℹ Asset CSV 'Tarih' sütunu içermiyor.", name: tag);
-    }
-
-    // 🟧 Device CSV
     final deviceRaw = await _loadDeviceCsvRaw();
     final deviceExists = deviceRaw.isNotEmpty;
     final deviceCount = deviceExists ? _countCsvLines(deviceRaw) : 0;
 
-    // 🟨 Kararlar
     final assetIsNewer = assetCount > deviceCount;
     final needsRebuild = assetCount != deviceCount;
 
-    log(
-      "📊 CSV Sync → Asset: $assetCount | Device: $deviceCount | Newer: $assetIsNewer | Rebuild: $needsRebuild",
-      name: tag,
-    );
-
-    // ----------------------------------------------------------
-    // 📌 Cihaz CSV güncelleme kararı
-    // ----------------------------------------------------------
     if (!deviceExists || assetIsNewer) {
-      // 🔐 TARİH VARSA → BİREBİR KOPYA
-      // ❌ Tarih ekleme / kolon genişletme YOK
       await _saveDeviceCsv(assetRaw);
-
-      log(
-        deviceExists
-            ? "✅ CSV güncellendi (asset daha yeni)"
-            : "📁 CSV ilk kez oluşturuldu",
-        name: tag,
-      );
+      log("✅ Device CSV asset 'ten güncellendi", name: tag);
     }
 
     return CsvSyncResult(
@@ -157,7 +130,7 @@ Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
       deviceCount: deviceCount,
     );
   } catch (e, st) {
-    log("❌ CSV sync hatası: $e", name: tag, error: e, stackTrace: st);
+    log("❌ CSV sync hatası: $e", name: tag, stackTrace: st);
     return CsvSyncResult(
       deviceExists: false,
       assetIsNewer: false,
@@ -166,4 +139,36 @@ Future<CsvSyncResult> createOrUpdateDeviceCsvFromAsset() async {
       deviceCount: 0,
     );
   }
+}
+
+/// ---------------------------------------------------------------------------
+/// 🧾 DB → CSV ÜRETİMİ (TEK YER)
+// ---------------------------------------------------------------------------
+/// • Tarih DB 'den okunur (created_at)
+/// • Header zaten "Tarih" içerir
+/// • Asla ekstra sütun eklenmez
+Future<String> exportCsvFromDatabase() async {
+  const fixedDate = "14.12.2025";
+
+  final words = await DbHelper.instance.getRecords();
+  final buffer = StringBuffer();
+
+  buffer.writeln("Kelime,Anlam,Tarih");
+
+  for (final w in words) {
+    final kelime = w.word.replaceAll(",", "");
+    final anlam = w.meaning.replaceAll(",", "");
+    final tarih = (w.createdAt?.isNotEmpty ?? false) ? w.createdAt! : fixedDate;
+
+    buffer.writeln("$kelime,$anlam,$tarih");
+  }
+
+  final dir = await getApplicationDocumentsDirectory();
+  final path = join(dir.path, fileNameCsv);
+
+  await File(path).writeAsString(buffer.toString());
+
+  log("📄 CSV üretildi: $path (${words.length} kayıt)", name: tag);
+
+  return path;
 }

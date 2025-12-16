@@ -196,35 +196,6 @@ class DbHelper {
   }
 
   /// --------------------------------------------------------------------------
-  /// CSV EXPORT / IMPORT
-  /// --------------------------------------------------------------------------
-  Future<String> exportRecordsToCsv() async {
-    final words = await getRecords();
-    final buffer = StringBuffer();
-
-    // 🔹 CSV başlıkları
-    buffer.writeln("Kelime,Anlam,Tarih");
-
-    // 🔹 Sabit tarih (şimdilik)
-    const fixedDate = "14.12.2025";
-
-    for (var w in words) {
-      final kelime = w.word.replaceAll(",", "");
-      final anlam = w.meaning.replaceAll(",", "");
-
-      // 🔹 Tarih sütunu DOLU
-      buffer.writeln("$kelime,$anlam,$fixedDate");
-    }
-
-    final dir = await getApplicationDocumentsDirectory();
-    final path = "${dir.path}/$fileNameCsv";
-
-    await File(path).writeAsString(buffer.toString());
-
-    return path;
-  }
-
-  /// --------------------------------------------------------------------------
   /// TÜRKÇE SIRALAMA
   /// --------------------------------------------------------------------------
   List<Word> _sortTurkish(List<Word> words) {

@@ -180,7 +180,7 @@ bir chatGPT ortak çalışması :)
 175. `ìtem_model.dart`, `excel_helper.dart` ve `db_helper.dart` dosyası güncellendi. - 15.12.2025
 176. sql veri tabanına 3. sütun olarak veri ekleme tarihi eklenmesi deneniyor. - 15.12.2025
 177. `CSV_helper.dart` dosyası güncellenerek tarih sütunu eklendi. - 16.12.2025
-178. `db_helper.dart` dosyası güncellendi. - 16.12.2025
+178. `db_helper.dart` ve `export_items.dart` dosyası güncellendi. - 16.12.2025
 179. 
 
 

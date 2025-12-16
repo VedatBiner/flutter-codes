@@ -20,6 +20,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
+import '../utils/fc_files/csv_helper.dart';
 import '../utils/fc_files/excel_helper.dart';
 
 class ExportItems {
@@ -78,9 +79,9 @@ Future<ExportItems> exportItemsToFileFormats({
   log("📌 Export edilecek kayıt: $count", name: tag);
 
   // ----------------------------------------------------------
-  // 2️⃣ CSV
+  // 2️⃣ CSV (TEK MERKEZ: csv_helper.dart)
   // ----------------------------------------------------------
-  final deviceCsv = await DbHelper.instance.exportRecordsToCsv();
+  final deviceCsv = await exportCsvFromDatabase();
   await File(deviceCsv).copy(csvPath);
 
   // ----------------------------------------------------------
