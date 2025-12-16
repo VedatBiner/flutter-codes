@@ -180,7 +180,7 @@ bir chatGPT ortak çalışması :)
 175. `ìtem_model.dart`, `excel_helper.dart` ve `db_helper.dart` dosyası güncellendi. - 15.12.2025
 176. sql veri tabanına 3. sütun olarak veri ekleme tarihi eklenmesi deneniyor. - 15.12.2025
 177. `CSV_helper.dart` dosyası güncellenerek tarih sütunu eklendi. - 16.12.2025
-178. `db_helper.dart` ve `export_items.dart` dosyası güncellendi. - 16.12.2025
+178. `db_helper.dart`,`json_helper.dart` ve `export_items.dart` dosyası güncellendi. - 16.12.2025
 179. 
 
 
@@ -199,13 +199,10 @@ Yapılacaklar :
     
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
-    - SQL tablosuna yeni bir sütun ekleyip ekleme zamanını gün ay yıl olarak yazmayı eklesek ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
-    - xlsx, csv, json ve db için tarih bilgileri doğru geliyor mu  kontrol et 
-    - xlsx, csv ve json 'a tarih bilgileri gelmiyor. 
+    - xlsx  tarih bilgileri gelmiyor. 
     - xlsx 'e sadece boş sütun başlığı olarak geliyor.
-    - db içine tarih doğru geliyor.
-    - db_helper.dart içindeki csv metotlarını iptal edelim. İki yerde vs işi var csv işleri sadece csv_helper.dart ile yapılsın.
+    - 
     - 
 
 

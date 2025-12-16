@@ -3,7 +3,8 @@
 // MÜKEMMEL CSV → JSON DÖNÜŞTÜRÜCÜ
 // ------------------------------------------------------------
 // ✔ Virgüllü değerlerde bile bozulmaz
-// ✔ Her satırı garanti 2 hücreye dönüştürür
+// ✔ 2 veya 3 sütunlu CSV ile çalışır
+// ✔ Tarih sütunu varsa JSON'a otomatik ekler
 // ✔ Bozuk satırları loglar ama uygulamayı bozmaz
 // ✔ JSON çıktısı %100 eksiksiz olur
 // ------------------------------------------------------------
@@ -12,7 +13,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -23,17 +23,23 @@ Future<void> createJsonFromAssetCsv() async {
   final sw = Stopwatch()..start();
 
   try {
-    // CSV dosyasını asset ’ten oku
-    const assetCsvPath = 'assets/database/$fileNameCsv';
-    final csvRaw = await rootBundle.loadString(assetCsvPath);
+    // CSV dosyasını ASSET yerine ARTIK CİHAZDAN OKUYORUZ
+    final directory = await getApplicationDocumentsDirectory();
+    final csvPath = join(directory.path, fileNameCsv);
 
-    // 🔥 Yeni, güvenli parser ’ı kullan
+    final csvFile = File(csvPath);
+    if (!await csvFile.exists()) {
+      log("❌ CSV bulunamadı: $csvPath", name: tag);
+      return;
+    }
+
+    final csvRaw = await csvFile.readAsString();
+
+    // 🔥 Güvenli parser
     final jsonList = _safeCsvToJson(csvRaw);
 
     // JSON dosyasını kaydet
-    final directory = await getApplicationDocumentsDirectory();
     final jsonPath = join(directory.path, fileNameJson);
-
     final jsonStr = const JsonEncoder.withIndent("  ").convert(jsonList);
     await File(jsonPath).writeAsString(jsonStr);
 
@@ -46,11 +52,11 @@ Future<void> createJsonFromAssetCsv() async {
 }
 
 /// ------------------------------------------------------------
-/// 🎯 GÜVENLİ CSV → JSON PARSER
+/// 🎯 GÜVENLİ CSV → JSON PARSER (TARİH DESTEKLİ)
 /// ------------------------------------------------------------
-/// 1) Satırı virgülle böl
-/// 2) Eğer 2 sütun yoksa kalanını Anlam içine birleştir
-/// 3) BOM, CRLF, boş satır, bozuk satır → güvenli şekilde işlenir
+/// • 2 sütun: Kelime,Anlam
+/// • 3 sütun: Kelime,Anlam,Tarih
+/// • Fazla virgüller Anlam içinde kalır
 /// ------------------------------------------------------------
 List<Map<String, dynamic>> _safeCsvToJson(String csvRaw) {
   const tag = "json_parser";
@@ -63,8 +69,11 @@ List<Map<String, dynamic>> _safeCsvToJson(String csvRaw) {
   final lines = normalized.split('\n');
   if (lines.length < 2) return [];
 
-  // Başlıkları oku
+  // Başlıklar
   final headers = lines.first.split(',').map((e) => e.trim()).toList();
+
+  final hasDateColumn = headers.length >= 3 && headers.contains('Tarih');
+
   final jsonList = <Map<String, dynamic>>[];
 
   for (int i = 1; i < lines.length; i++) {
@@ -75,25 +84,35 @@ List<Map<String, dynamic>> _safeCsvToJson(String csvRaw) {
       continue;
     }
 
-    // 🔥 SÜPER GÜVENLİ PARSER:
-    // - Kelime virgül içeremez → ilk virgüle kadar kelime
-    // - Geri kalan her şey "Anlam" içine girer
-    final splitIndex = line.indexOf(',');
+    final parts = line.split(',');
 
-    if (splitIndex == -1) {
-      log("⚠️ Virgül bulunamadı, satır atlandı: $line", name: tag);
+    if (parts.length < 2) {
+      log("⚠️ Geçersiz satır ($i): $line", name: tag);
       continue;
     }
 
-    final kelime = line.substring(0, splitIndex).trim();
-    final anlam = line.substring(splitIndex + 1).trim();
+    final kelime = parts[0].trim();
+
+    // Anlam: 2. sütundan sona kadar (tarih hariç)
+    final anlamEndIndex = hasDateColumn ? parts.length - 1 : parts.length;
+    final anlam = parts.sublist(1, anlamEndIndex).join(',').trim();
 
     if (kelime.isEmpty || anlam.isEmpty) {
-      log("⚠️ Eksik veri (satır $i): $line", name: tag);
+      log("⚠️ Eksik veri ($i): $line", name: tag);
       continue;
     }
 
-    jsonList.add({headers[0]: kelime, headers[1]: anlam});
+    final row = <String, dynamic>{'Kelime': kelime, 'Anlam': anlam};
+
+    // 📅 Tarih varsa ekle
+    if (hasDateColumn && parts.length >= 3) {
+      final tarih = parts.last.trim();
+      if (tarih.isNotEmpty) {
+        row['Tarih'] = tarih;
+      }
+    }
+
+    jsonList.add(row);
   }
 
   return jsonList;
