@@ -6,12 +6,13 @@
 //   aa.vb.kelimelik_words_app/app_flutter/kelimelik_backups
 //
 // AKIŞ:
-//   1️⃣ Asset CSV → Device CSV senkronizasyonu
+//   1️⃣ DB → CSV (TEK KAYNAK)
 //   2️⃣ CSV ↔ SQL Incremental Sync
 //   3️⃣ CSV → JSON
 //   4️⃣ CSV → Excel (formatlı)
 //   5️⃣ Dosyaları kelimelik_backups dizinine kopyala
-//   6️⃣ Notification göster
+//   6️⃣ Download’a kopyala
+//   7️⃣ Geçici dizini sil
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -42,10 +43,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final appDir = await getApplicationDocumentsDirectory();
 
   // ----------------------------------------------------------
-  // 📦 SADECE TEK BACKUP DİZİNİ
+  // 📦 TEK BACKUP DİZİNİ
   // ----------------------------------------------------------
   final backupDir = Directory(join(appDir.path, 'kelimelik_backups'));
-
   if (!await backupDir.exists()) {
     await backupDir.create(recursive: true);
   }
@@ -53,7 +53,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   log("📂 Backup dizini: ${backupDir.path}", name: tag);
 
   // ----------------------------------------------------------
-  // 📄 Hedef dosyalar (TEK YER)
+  // 📄 Hedef dosyalar
   // ----------------------------------------------------------
   final csvTarget = join(backupDir.path, fileNameCsv);
   final jsonTarget = join(backupDir.path, fileNameJson);
@@ -69,9 +69,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
   try {
     // ----------------------------------------------------------
-    // 1️⃣ CSV senkronizasyonu
+    // 1️⃣ DB → CSV (TEK DOĞRU CSV)
     // ----------------------------------------------------------
-    await createOrUpdateDeviceCsvFromAsset();
+    final csvPath = await exportCsvFromDatabase();
 
     // ----------------------------------------------------------
     // 2️⃣ CSV ↔ SQL Incremental Sync
@@ -99,7 +99,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     );
 
     // ----------------------------------------------------------
-    // 6️⃣ DOSYALARI SADECE kelimelik_backups DİZİNİNE KOPYALA
+    // 6️⃣ DOSYALARI kelimelik_backups DİZİNİNE KOPYALA
     // ----------------------------------------------------------
     Future<void> copyIfExists(String from, String to) async {
       final f = File(from);
@@ -109,7 +109,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
       }
     }
 
-    await copyIfExists(join(appDir.path, fileNameCsv), csvTarget);
+    await copyIfExists(csvPath, csvTarget);
     await copyIfExists(join(appDir.path, fileNameJson), jsonTarget);
     await copyIfExists(join(appDir.path, fileNameXlsx), excelTarget);
     await copyIfExists(join(appDir.path, fileNameSql), sqlTarget);
@@ -140,20 +140,18 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     bannerCtrl.close();
   }
 
-  // 7️⃣ Download dizinine kopyala + temp klasörü sil
+  // ----------------------------------------------------------
+  // 8️⃣ Download ’a kopyala + temp dizini sil
+  // ----------------------------------------------------------
   await copyBackupsToDownloadAndCleanup();
 }
 
 Future<void> copyBackupsToDownloadAndCleanup() async {
-  // 📂 app_flutter dizini
   final docsDir = await getApplicationDocumentsDirectory();
-
-  // 📦 Geçici backup dizini
   final tempBackupDir = Directory(join(docsDir.path, 'kelimelik_backups'));
 
   if (!await tempBackupDir.exists()) return;
 
-  // 📥 Download hedefi
   final downloadDir = Directory(
     '/storage/emulated/0/Download/kelimelik_words_app',
   );
@@ -162,7 +160,6 @@ Future<void> copyBackupsToDownloadAndCleanup() async {
     await downloadDir.create(recursive: true);
   }
 
-  // 🔄 Dosyaları kopyala
   final files = tempBackupDir.listSync().whereType<File>();
 
   for (final file in files) {
@@ -170,6 +167,6 @@ Future<void> copyBackupsToDownloadAndCleanup() async {
     await file.copy(targetPath);
   }
 
-  // 🧹 Geçici dizini TAMAMEN sil
+  // 🧹 Geçici dizini tamamen sil
   await tempBackupDir.delete(recursive: true);
 }
