@@ -200,8 +200,6 @@ Yapılacaklar :
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
-    - xlsx  tarih bilgileri gelmiyor. 
-    - xlsx 'e sadece boş sütun başlığı olarak geliyor.
     - 
     - 
 
