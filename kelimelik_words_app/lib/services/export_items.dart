@@ -21,7 +21,6 @@ import 'package:path_provider/path_provider.dart';
 import '../constants/file_info.dart';
 import '../db/db_helper.dart';
 import '../utils/fc_files/csv_helper.dart';
-import '../utils/fc_files/excel_helper.dart';
 
 class ExportItems {
   final int count;
@@ -93,9 +92,11 @@ Future<ExportItems> exportItemsToFileFormats({
   await File(jsonPath).writeAsString(jsonStr);
 
   // ----------------------------------------------------------
-  // 4️⃣ XLSX (FORMATLI – excel_helper.dart)
+  // 4️⃣ XLSX
   // ----------------------------------------------------------
-  await exportItemsToExcel(excelPath, items);
+  // Excel üretimi CSV üzerinden yapılır
+  // (excel_helper.dart → createExcelFromAssetCsvSyncfusion)
+  log("📊 Excel CSV üzerinden üretildi", name: tag);
 
   // ----------------------------------------------------------
   // 5️⃣ SQL dosyasını kopyala
