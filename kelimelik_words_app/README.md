@@ -178,7 +178,10 @@ bir chatGPT ortak çalışması :)
 173. `export_items.dart`, `external_copy.dart` ve `backup_notification_helper.dart` dosyası güncellendi. - 15.12.2025
 174. `show_notification_handler.dart` güncellendi. - 15.12.2025
 175. `ìtem_model.dart`, `excel_helper.dart` ve `db_helper.dart` dosyası güncellendi. - 15.12.2025
-176. sql veri tabanına 3. sütun olarak veri ekleme tarihi eklenmesi deneniyor.
+176. sql veri tabanına 3. sütun olarak veri ekleme tarihi eklenmesi deneniyor. - 15.12.2025
+177. `CSV_helper.dart` dosyası güncellenerek tarih sütunu eklendi. - 16.12.2025
+178. `db_helper.dart` dosyası güncellendi. - 16.12.2025
+179. 
 
 
 
@@ -202,6 +205,7 @@ Yapılacaklar :
     - xlsx, csv ve json 'a tarih bilgileri gelmiyor. 
     - xlsx 'e sadece boş sütun başlığı olarak geliyor.
     - db içine tarih doğru geliyor.
+    - db_helper.dart içindeki csv metotlarını iptal edelim. İki yerde vs işi var csv işleri sadece csv_helper.dart ile yapılsın.
     - 
 
 

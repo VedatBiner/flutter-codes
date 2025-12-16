@@ -10,8 +10,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-/// 📌 Flutter hazır paketleri
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // <-- asset DB kopyalamak için
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -91,7 +89,7 @@ class DbHelper {
     // İlk kayıtlar için varsayılan tarih
     await db.execute('''
       UPDATE $sqlTableName
-      SET created_at = '14.12.2025'
+      SET created_at = '15.12.2025'
       WHERE created_at IS NULL
     ''');
   }
@@ -107,7 +105,7 @@ class DbHelper {
 
       await db.execute('''
         UPDATE $sqlTableName
-        SET created_at = '14.12.2025'
+        SET created_at = '15.12.2025'
         WHERE created_at IS NULL
       ''');
 
@@ -157,7 +155,7 @@ class DbHelper {
     final db = await instance.database;
     final map = word.toMap();
 
-    map['created_at'] ??= '14.12.2025';
+    map['created_at'] ??= '15.12.2025';
 
     return await db.insert(sqlTableName, map);
   }
@@ -197,25 +195,6 @@ class DbHelper {
     return path;
   }
 
-  Future<void> importRecordsFromJson(BuildContext context) async {
-    final dir = await getApplicationDocumentsDirectory();
-    final path = "${dir.path}/$fileNameJson";
-    final file = File(path);
-
-    if (!await file.exists()) return;
-
-    final list = jsonDecode(await file.readAsString());
-    final db = await database;
-
-    await db.delete(sqlTableName);
-
-    for (final item in list) {
-      final map = Map<String, dynamic>.from(item);
-      map['created_at'] ??= '14.12.2025';
-      await insertRecord(Word.fromMap(map));
-    }
-  }
-
   /// --------------------------------------------------------------------------
   /// CSV EXPORT / IMPORT
   /// --------------------------------------------------------------------------
@@ -223,45 +202,26 @@ class DbHelper {
     final words = await getRecords();
     final buffer = StringBuffer();
 
-    // 🔹 Başlık
+    // 🔹 CSV başlıkları
     buffer.writeln("Kelime,Anlam,Tarih");
+
+    // 🔹 Sabit tarih (şimdilik)
+    const fixedDate = "14.12.2025";
 
     for (var w in words) {
       final kelime = w.word.replaceAll(",", "");
       final anlam = w.meaning.replaceAll(",", "");
 
-      // created_at yoksa sabit tarih
-      final tarih = (w as dynamic).createdAt ?? '14.12.2025';
-
-      buffer.writeln("$kelime,$anlam,$tarih");
+      // 🔹 Tarih sütunu DOLU
+      buffer.writeln("$kelime,$anlam,$fixedDate");
     }
 
     final dir = await getApplicationDocumentsDirectory();
     final path = "${dir.path}/$fileNameCsv";
+
     await File(path).writeAsString(buffer.toString());
+
     return path;
-  }
-
-  Future<void> importRecordsFromCsv() async {
-    final dir = await getApplicationDocumentsDirectory();
-    final path = "${dir.path}/$fileNameCsv";
-    final file = File(path);
-
-    if (!await file.exists()) return;
-
-    final lines = await file.readAsLines();
-    final db = await database;
-
-    await db.delete(sqlTableName);
-
-    for (int i = 1; i < lines.length; i++) {
-      final parts = lines[i].split(',');
-      if (parts.length < 2) continue;
-
-      await insertRecord(
-        Word(word: parts[0].trim(), meaning: parts.sublist(1).join(',')),
-      );
-    }
   }
 
   /// --------------------------------------------------------------------------
@@ -295,7 +255,7 @@ class DbHelper {
       final batch = txn.batch();
       for (final item in items) {
         final map = item.toMap();
-        map['created_at'] ??= '14.12.2025';
+        map['created_at'] ??= '15.12.2025';
         batch.insert(
           sqlTableName,
           map,
