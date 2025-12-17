@@ -153,7 +153,7 @@ class DbHelper {
     final db = await instance.database;
     final map = word.toMap();
 
-    map['created_at'] ??= '15.12.2025';
+    map['created_at'] ??= _todayAsString();
 
     return await db.insert(sqlTableName, map);
   }
@@ -231,5 +231,13 @@ class DbHelper {
       await _database!.close();
     }
     _database = null;
+  }
+
+  String _todayAsString() {
+    final now = DateTime.now();
+    final day = now.day.toString().padLeft(2, '0');
+    final month = now.month.toString().padLeft(2, '0');
+    final year = now.year.toString();
+    return "$day.$month.$year"; // 15.12.2025 formatı
   }
 }

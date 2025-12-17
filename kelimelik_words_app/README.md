@@ -182,6 +182,8 @@ bir chatGPT ortak çalışması :)
 177. `CSV_helper.dart` dosyası güncellenerek tarih sütunu eklendi. - 16.12.2025
 178. `db_helper.dart`,`json_helper.dart` ve `export_items.dart` dosyası güncellendi. - 16.12.2025
 179.  `CSV_helper.dart` ve `sync_helper.dart` dosyası güncellendi. - 17.12.2025
+180. yeni girilen kayıtta bugünün tarihi girilmesi sağlandı. - 17.12.2025
+181. 
 
 
 
@@ -201,7 +203,7 @@ Yapılacaklar :
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
-    - download içine kopyalanan CSV dosyasında bir çok tarih var ?
+    - `file_exporter.dart` dosyası kullanılıyor mu ?
     - 
 
 
