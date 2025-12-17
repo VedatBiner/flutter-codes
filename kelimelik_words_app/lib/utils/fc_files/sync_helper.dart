@@ -10,6 +10,13 @@
 // -----------------------------------------------------------
 // Bu dosya, db_helper.dart içindeki mevcut yapıya %100 uyumludur.
 //
+// ⚠️ NOT (GÜNCEL DURUM):
+// CSV artık 3 sütun içerir: Kelime,Anlam,Tarih
+// Bu nedenle sync sırasında:
+//   - Kelime = 1. sütun
+//   - Anlam  = 2. sütun
+//   - Tarih  = 3. sütun (VARSA) okunur ama DB’ye meaning olarak yazılmaz
+// -----------------------------------------------------------
 
 import 'dart:developer';
 import 'dart:io';
@@ -69,21 +76,21 @@ Future<CsvDbSyncResult> syncCsvWithDatabase() async {
     );
   }
 
-  // İlk satır başlık olduğu için atlıyoruz (DbHelper.importRecordsFromCsv ile uyumlu)
+  // İlk satır başlık olduğu için atlıyoruz
   final dataLines = lines.skip(1).where((l) => l.trim().isNotEmpty).toList();
 
   // 3️⃣ CSV → Word list
+  // CSV formatı: Kelime,Anlam,Tarih
+  // Bu sync işlemi için Tarih (3. sütun) DB’ye meaning olarak yazılmaz.
   final List<Word> csvWords = [];
   for (final line in dataLines) {
     final parts = line.split(',');
-    if (parts.isEmpty) continue;
+    if (parts.length < 2) continue;
 
     final kelime = parts[0].trim();
-    if (kelime.isEmpty) continue;
+    final anlam = parts[1].trim(); // ✅ SADECE 2. SÜTUN
 
-    final anlam = parts.length > 1 ? parts.sublist(1).join(',').trim() : '';
-
-    if (anlam.isEmpty) continue;
+    if (kelime.isEmpty || anlam.isEmpty) continue;
 
     csvWords.add(Word(word: kelime, meaning: anlam));
   }
@@ -106,7 +113,7 @@ Future<CsvDbSyncResult> syncCsvWithDatabase() async {
     final existing = dbMap[key];
 
     if (existing == null) {
-      // DB'de yok → yeni eklenecek
+      // DB 'de yok → yeni eklenecek
       toInsert.add(csvWord);
     } else {
       // Var ama anlamı farklı mı?
