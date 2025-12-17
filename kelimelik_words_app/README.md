@@ -183,7 +183,8 @@ bir chatGPT ortak çalışması :)
 178. `db_helper.dart`,`json_helper.dart` ve `export_items.dart` dosyası güncellendi. - 16.12.2025
 179.  `CSV_helper.dart` ve `sync_helper.dart` dosyası güncellendi. - 17.12.2025
 180. yeni girilen kayıtta bugünün tarihi girilmesi sağlandı. - 17.12.2025
-181. 
+181. `file_exporter.dart`iptal edildi. - 17.12.2025
+182. 
 
 
 
@@ -201,10 +202,9 @@ Yapılacaklar :
 - Hatalar : 
     
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
-    - mobil cihazdaki veri adedi ile sanal cihazdaki sayı tutarsız ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
     - `file_exporter.dart` dosyası kullanılıyor mu ?
-    - 
+    - Kelime boyu istatistikleri ve listesi olabilir mi ?
 
 
 
