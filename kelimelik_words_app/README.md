@@ -184,7 +184,8 @@ bir chatGPT ortak çalışması :)
 179.  `CSV_helper.dart` ve `sync_helper.dart` dosyası güncellendi. - 17.12.2025
 180. yeni girilen kayıtta bugünün tarihi girilmesi sağlandı. - 17.12.2025
 181. `file_exporter.dart`iptal edildi. - 17.12.2025
-182. 
+182. Zip işleri iptal `zip_helper.dart` silindi. - 18.12.2025
+183. 
 
 
 
@@ -203,8 +204,7 @@ Yapılacaklar :
     
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
     - zip yedeği sadece paylaşma seçilince yapılsın ?
-    - `file_exporter.dart` dosyası kullanılıyor mu ?
-    - Kelime boyu istatistikleri ve listesi olabilir mi ?
+    - Ayrı bir sayfada Kelime boyu istatistikleri ve listesi olabilir mi ?
 
 
 
