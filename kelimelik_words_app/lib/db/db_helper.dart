@@ -17,7 +17,7 @@ import 'package:sqflite/sqflite.dart';
 import '../constants/file_info.dart';
 import '../models/item_model.dart';
 
-const tag = "db_helper";
+const _tag = "db_helper";
 
 class DbHelper {
   // Singleton
@@ -46,7 +46,10 @@ class DbHelper {
 
     // 📌 Asset DB kopyalama
     if (!await dbFile.exists()) {
-      log("📂 DB bulunamadı → asset 'ten kopyalanıyor: $dbFullPath", name: tag);
+      log(
+        "📂 DB bulunamadı → asset 'ten kopyalanıyor: $dbFullPath",
+        name: _tag,
+      );
 
       try {
         final data = await rootBundle.load("assets/database/$fileNameSql");
@@ -55,12 +58,12 @@ class DbHelper {
           data.lengthInBytes,
         );
         await dbFile.writeAsBytes(bytes, flush: true);
-        log("✅ Asset DB başarıyla kopyalandı.", name: tag);
+        log("✅ Asset DB başarıyla kopyalandı.", name: _tag);
       } catch (e) {
-        log("❌ Asset DB kopyalama hatası: $e", name: tag);
+        log("❌ Asset DB kopyalama hatası: $e", name: _tag);
       }
     } else {
-      log("📌 DB zaten mevcut, doğrudan açılıyor…", name: tag);
+      log("📌 DB zaten mevcut, doğrudan açılıyor…", name: _tag);
     }
 
     return await openDatabase(
@@ -97,7 +100,7 @@ class DbHelper {
   /// --------------------------------------------------------------------------
   Future<void> _onUpgradeDB(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < 2) {
-      log("🔄 DB upgrade başlatıldı (v$oldVersion → v$newVersion)", name: tag);
+      log("🔄 DB upgrade başlatıldı (v$oldVersion → v$newVersion)", name: _tag);
 
       await db.execute("ALTER TABLE $sqlTableName ADD COLUMN created_at TEXT");
 
@@ -107,7 +110,7 @@ class DbHelper {
         WHERE created_at IS NULL
       ''');
 
-      log("✅ created_at sütunu eklendi ve dolduruldu", name: tag);
+      log("✅ created_at sütunu eklendi ve dolduruldu", name: _tag);
     }
   }
 
@@ -125,7 +128,7 @@ class DbHelper {
 
     if (await File(path).exists()) {
       await File(path).delete();
-      log('🗑 Veritabanı silindi: $path', name: tag);
+      log('🗑 Veritabanı silindi: $path', name: _tag);
     }
   }
 

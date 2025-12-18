@@ -96,11 +96,11 @@ class _WordDialogState extends State<WordDialog> {
               hintStyle: hintStil,
               autofocus: true,
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
-              borderColor: drawerColor,
-              focusBorderColor: Colors.amber.shade600,
+              borderColor: menuColor,
+              focusBorderColor: drawerColor,
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 24),
 
             // ===================================
             //  📘 Anlam Girişi — SafeTextField
@@ -111,8 +111,8 @@ class _WordDialogState extends State<WordDialog> {
               hint: "Kelimenin anlamını giriniz",
               hintStyle: hintStil,
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
-              borderColor: drawerColor,
-              focusBorderColor: Colors.amber.shade600,
+              borderColor: menuColor,
+              focusBorderColor: drawerColor,
             ),
           ],
         ),

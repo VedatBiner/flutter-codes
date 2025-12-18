@@ -39,6 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       /// 🔍 Arama modu
       title: isSearching
           ? SafeTextField(
+              focusBorderColor: menuColor,
               controller: searchController,
               autofocus: true,
               onChanged: onSearchChanged,
