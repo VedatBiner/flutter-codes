@@ -185,8 +185,10 @@ bir chatGPT ortak çalışması :)
 180. yeni girilen kayıtta bugünün tarihi girilmesi sağlandı. - 17.12.2025
 181. `file_exporter.dart`iptal edildi. - 17.12.2025
 182. Zip işleri iptal `zip_helper.dart` silindi. - 18.12.2025
-183. `ìtem_dialog.dart` dosyası düzenlendi. - 18.12.2025
-184. 
+183. `ìtem_dialog.dart` ve `custom_app_bar.dart` dosyaları düzenlendi. - 18.12.2025
+184. İstatistikler için `word_statsPage.dart`, `drawer_stats_tile.dart` dosyaları oluşturuldu. - 19.12.2025
+185. `custom_drawer.dart`dosyası güncellendi. - 19.12.2025
+
 
 
 
