@@ -1,4 +1,4 @@
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +14,9 @@ class WordsStatsPage extends StatefulWidget {
 }
 
 class _WordsStatsPageState extends State<WordsStatsPage> {
-  Map<int, int> lengthStats = {};
-  List<Word> allWords = [];
-  List<Word> filteredWords = [];
-
-  int? selectedLength; // dropdown seçimi
+  final Map<int, List<Word>> _byLength = {};
+  List<Word> _filteredWords = [];
+  int? _selectedLength;
 
   @override
   void initState() {
@@ -26,138 +24,107 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
     _loadStats();
   }
 
-  /// ----------------------------------------------------------
-  /// 🔹 DB’den kelimeleri al + istatistik çıkar
-  /// ----------------------------------------------------------
   Future<void> _loadStats() async {
     final words = await DbHelper.instance.getRecords();
 
-    final Map<int, int> stats = {};
+    _byLength.clear();
 
     for (final w in words) {
       final len = w.word.length;
-      stats[len] = (stats[len] ?? 0) + 1;
+      _byLength.putIfAbsent(len, () => []).add(w);
     }
 
     setState(() {
-      allWords = words;
-      lengthStats = stats;
+      _filteredWords = words;
     });
-
-    log("📊 Kelime uzunlukları: $lengthStats", name: "words_stats");
-  }
-
-  /// ----------------------------------------------------------
-  /// 🔹 Dropdown filtre
-  /// ----------------------------------------------------------
-  void _filterByLength(int? length) {
-    setState(() {
-      selectedLength = length;
-      if (length == null) {
-        filteredWords = [];
-      } else {
-        filteredWords = allWords.where((w) => w.word.length == length).toList();
-      }
-    });
-  }
-
-  /// ----------------------------------------------------------
-  /// 🔹 Pie Chart data
-  /// ----------------------------------------------------------
-  List<PieChartSectionData> _buildPieSections() {
-    final total = lengthStats.values.fold<int>(0, (a, b) => a + b);
-
-    return lengthStats.entries.map((e) {
-      final percent = (e.value / total) * 100;
-
-      return PieChartSectionData(
-        value: e.value.toDouble(),
-        title: "${e.key}\n(${percent.toStringAsFixed(1)}%)",
-        radius: 60,
-        titleStyle: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      );
-    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final totalWords = _byLength.values.fold<int>(0, (a, b) => a + b.length);
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Kelime İstatistikleri")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            // ---------------- PIE CHART ----------------
-            SizedBox(
-              height: 260,
-              child: PieChart(
-                PieChartData(
-                  sections: _buildPieSections(),
-                  sectionsSpace: 2,
-                  centerSpaceRadius: 30,
+      appBar: AppBar(title: const Text('Kelime İstatistikleri')),
+      body: Column(
+        children: [
+          // ---------------- PIE CHART ----------------
+          SizedBox(
+            height: 280,
+            child: PieChart(
+              PieChartData(
+                sections: _buildSections(totalWords),
+                sectionsSpace: 2,
+                centerSpaceRadius: 40,
+                pieTouchData: PieTouchData(
+                  touchCallback: (event, response) {
+                    if (response?.touchedSection == null) return;
+
+                    final index = response!.touchedSection!.touchedSectionIndex;
+
+                    final length = _byLength.keys.toList()..sort();
+
+                    setState(() {
+                      _selectedLength = length[index];
+                      _filteredWords = _byLength[_selectedLength]!;
+                    });
+                  },
                 ),
               ),
             ),
+          ),
 
-            const SizedBox(height: 16),
-
-            // ---------------- DROPDOWN ----------------
-            Row(
-              children: [
-                const Text(
-                  "Harf Sayısı:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(width: 12),
-                DropdownButton<int>(
-                  value: selectedLength,
-                  hint: const Text("Seç"),
-                  items: [2, 3, 4, 5, 6, 7]
-                      .map(
-                        (e) =>
-                            DropdownMenuItem(value: e, child: Text("$e harf")),
-                      )
-                      .toList(),
-                  onChanged: _filterByLength,
-                ),
-                if (selectedLength != null)
-                  IconButton(
-                    icon: const Icon(Icons.clear),
-                    onPressed: () => _filterByLength(null),
-                  ),
-              ],
+          if (_selectedLength != null)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '${_selectedLength} harfli kelimeler (${_filteredWords.length})',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
 
-            const SizedBox(height: 8),
+          const Divider(),
 
-            // ---------------- LIST ----------------
-            Expanded(
-              child: filteredWords.isEmpty
-                  ? const Center(
-                      child: Text(
-                        "Filtre seçilmedi",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: filteredWords.length,
-                      itemBuilder: (_, i) {
-                        final w = filteredWords[i];
-                        return ListTile(
-                          title: Text(w.word),
-                          subtitle: Text(w.meaning),
-                          trailing: Text("${w.word.length}"),
-                        );
-                      },
-                    ),
+          // ---------------- WORD LIST ----------------
+          Expanded(
+            child: ListView.builder(
+              itemCount: _filteredWords.length,
+              itemBuilder: (_, i) {
+                final w = _filteredWords[i];
+                return ListTile(title: Text(w.word), subtitle: Text(w.meaning));
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  // ---------------- PIE SECTIONS ----------------
+  List<PieChartSectionData> _buildSections(int total) {
+    final keys = _byLength.keys.toList()..sort();
+    final rnd = Random(1);
+
+    return List.generate(keys.length, (i) {
+      final len = keys[i];
+      final count = _byLength[len]!.length;
+      final percent = (count / total * 100);
+
+      return PieChartSectionData(
+        value: count.toDouble(),
+        title: '${len}h\n$count\n${percent.toStringAsFixed(1)}%',
+        radius: _selectedLength == len ? 110 : 100,
+        titleStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+        color: Color.fromARGB(
+          255,
+          100 + rnd.nextInt(155),
+          100 + rnd.nextInt(155),
+          100 + rnd.nextInt(155),
+        ),
+      );
+    });
   }
 }

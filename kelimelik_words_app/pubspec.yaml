@@ -65,6 +65,7 @@ dependencies:
 
 
   fl_chart:
+  intl:
 
 dev_dependencies:
   flutter_test:

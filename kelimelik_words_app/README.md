@@ -206,7 +206,6 @@ Yapılacaklar :
 - Hatalar : 
     
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
-    - Ayrı bir sayfada Kelime boyu istatistikleri ve listesi olabilir mi ?
 
 
 
