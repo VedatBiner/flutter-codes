@@ -188,6 +188,8 @@ bir chatGPT ortak çalışması :)
 183. `ìtem_dialog.dart` ve `custom_app_bar.dart` dosyaları düzenlendi. - 18.12.2025
 184. İstatistikler için `word_statsPage.dart`, `drawer_stats_tile.dart` dosyaları oluşturuldu. - 19.12.2025
 185. `custom_drawer.dart`dosyası güncellendi. - 19.12.2025
+186. `chart_colors.dart` ve `word_length_legend.dart` dosyaları eklendi. - 19.12.2025
+187. 
 
 
 
