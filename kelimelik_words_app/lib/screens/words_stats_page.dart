@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/chart_colors.dart';
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
+import '../widgets/word_length_legend.dart';
 
 class WordsStatsPage extends StatefulWidget {
   const WordsStatsPage({super.key});
@@ -31,17 +33,23 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
 
     for (final w in words) {
       final len = w.word.length;
+      if (len > 15) continue; // 🔒 maksimum 15
+
       _byLength.putIfAbsent(len, () => []).add(w);
     }
 
     setState(() {
-      _filteredWords = words;
+      _filteredWords = words.where((w) => w.word.length <= 15).toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final totalWords = _byLength.values.fold<int>(0, (a, b) => a + b.length);
+
+    final legendData = {
+      for (final e in _byLength.entries) e.key: e.value.length,
+    };
 
     return Scaffold(
       appBar: AppBar(title: const Text('Kelime İstatistikleri')),
@@ -61,15 +69,24 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
 
                     final index = response!.touchedSection!.touchedSectionIndex;
 
-                    final length = _byLength.keys.toList()..sort();
+                    final keys = _byLength.keys.toList()..sort();
 
                     setState(() {
-                      _selectedLength = length[index];
+                      _selectedLength = keys[index];
                       _filteredWords = _byLength[_selectedLength]!;
                     });
                   },
                 ),
               ),
+            ),
+          ),
+
+          // ---------------- LEGEND ----------------
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: WordLengthLegend(
+              data: legendData,
+              selected: _selectedLength,
             ),
           ),
 
@@ -102,7 +119,6 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
   // ---------------- PIE SECTIONS ----------------
   List<PieChartSectionData> _buildSections(int total) {
     final keys = _byLength.keys.toList()..sort();
-    final rnd = Random(1);
 
     return List.generate(keys.length, (i) {
       final len = keys[i];
@@ -118,12 +134,7 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-        color: Color.fromARGB(
-          255,
-          100 + rnd.nextInt(155),
-          100 + rnd.nextInt(155),
-          100 + rnd.nextInt(155),
-        ),
+        color: ChartColors.wordLengthColors[len - 1],
       );
     });
   }
