@@ -1,9 +1,11 @@
-import 'dart:math';
+// 📃 <----- word_stats_page.dart ----->
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 import '../constants/chart_colors.dart';
+import '../constants/text_constants.dart';
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
 import '../widgets/word_length_legend.dart';
@@ -52,7 +54,11 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
     };
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Kelime İstatistikleri')),
+      backgroundColor: cardPageColor,
+      appBar: AppBar(
+        backgroundColor: drawerColor,
+        title: Text('Kelime İstatistikleri', style: itemCountStil),
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
@@ -66,11 +72,22 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
                 centerSpaceRadius: 40,
                 pieTouchData: PieTouchData(
                   touchCallback: (event, response) {
-                    if (response?.touchedSection == null) return;
+                    final touched = response?.touchedSection;
+                    if (touched == null) return;
 
-                    final index = response!.touchedSection!.touchedSectionIndex;
-
+                    final index = touched.touchedSectionIndex;
                     final keys = _byLength.keys.toList()..sort();
+
+                    // 🔒 GÜVENLİK KONTROLÜ
+                    if (index < 0 || index >= keys.length) {
+                      setState(() {
+                        _selectedLength = null;
+                        _filteredWords = _byLength.values
+                            .expand((e) => e)
+                            .toList();
+                      });
+                      return;
+                    }
 
                     setState(() {
                       _selectedLength = keys[index];
