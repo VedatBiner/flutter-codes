@@ -120,6 +120,19 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
               child: WordLengthLegend(
                 data: legendData,
                 selected: _selectedLength,
+                onTap: (len) {
+                  setState(() {
+                    _selectedLength = len;
+
+                    if (len == null) {
+                      _filteredWords = _byLength.values
+                          .expand((e) => e)
+                          .toList();
+                    } else {
+                      _filteredWords = _byLength[len]!;
+                    }
+                  });
+                },
               ),
             ),
           ),

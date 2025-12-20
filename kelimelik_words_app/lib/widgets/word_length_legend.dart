@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../constants/chart_colors.dart';
+import '../constants/text_constants.dart';
 
 class WordLengthLegend extends StatelessWidget {
-  final Map<int, int> data;
+  final Map<int, int> data; // length -> count
   final int? selected;
+  final ValueChanged<int?> onTap;
 
   const WordLengthLegend({
     super.key,
     required this.data,
     required this.selected,
+    required this.onTap,
   });
 
   @override
@@ -17,30 +20,54 @@ class WordLengthLegend extends StatelessWidget {
     final keys = data.keys.toList()..sort();
 
     return Wrap(
-      spacing: 12,
+      spacing: 10,
       runSpacing: 8,
       children: keys.map((len) {
-        final index = len - 1;
-        final color = ChartColors.wordLengthColors[index];
-        final count = data[len]!;
+        final isSelected = selected == len;
+        final colorIndex = (len - 1).clamp(
+          0,
+          ChartColors.wordLengthColors.length - 1,
+        );
+        final chipColor = ChartColors.wordLengthColors[colorIndex];
 
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 14,
-              height: 14,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-                border: selected == len
-                    ? Border.all(color: Colors.black, width: 2)
-                    : null,
-              ),
+        return InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: () {
+            // Aynı elemana tekrar dokun -> filtre kalksın
+            onTap(isSelected ? null : len);
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected ? chipColor : Colors.transparent,
+              border: Border.all(color: chipColor, width: 1.5),
+              borderRadius: BorderRadius.circular(20),
             ),
-            const SizedBox(width: 6),
-            Text('$len harf ($count)'),
-          ],
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Renk noktası
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: chipColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 8),
+
+                // Yazı
+                Text(
+                  '$len h (${data[len]})',
+                  style: anlamText.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: isSelected ? Colors.white : null,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       }).toList(),
     );

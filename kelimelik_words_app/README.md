@@ -191,7 +191,8 @@ bir chatGPT ortak çalışması :)
 186. `chart_colors.dart` ve `word_length_legend.dart` dosyaları eklendi. - 19.12.2025
 187. `custom_drawer.dart` dosyasında ufak güncellemeler yapıldı. - 20.12.2025
 188. `show_notification_handler.dart` dosyasında bildirim boyutu değiştirildi. - 20.12.2025
-189. 
+189. `word_statsPage.dart` dosyasında görsel değişiklikler yapıldı. - 20.12.2025
+190. 
 
 
 
