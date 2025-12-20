@@ -100,14 +100,27 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
               ),
             ),
           ),
+
           const SizedBox(height: 10),
           const Divider(height: 2),
+
           // ---------------- LEGEND ----------------
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: WordLengthLegend(
-              data: legendData,
-              selected: _selectedLength,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.red, // 🔴 kırmızı çerçeve
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(8), // köşeler yumuşak
+                color: Colors.transparent, // arka plan şeffaf
+              ),
+              child: WordLengthLegend(
+                data: legendData,
+                selected: _selectedLength,
+              ),
             ),
           ),
 
