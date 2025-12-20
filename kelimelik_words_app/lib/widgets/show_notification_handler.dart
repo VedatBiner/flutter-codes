@@ -47,9 +47,6 @@ void showBackupNotification(
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          // Şimdilik iptal
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
@@ -58,7 +55,7 @@ void showBackupNotification(
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
     width: 260,
-    height: 280,
+    height: 220,
   );
 }
 
@@ -75,7 +72,6 @@ void showCreateDbNotification(
     csvPathDownload,
     jsonPathDownload,
     excelPathDownload,
-    zipPathDownload,
   );
   return NotificationService.showCustomNotification(
     context: rootCtx,
@@ -93,8 +89,6 @@ void showCreateDbNotification(
           TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
           const TextSpan(text: '✅ '),
           TextSpan(text: "${p.basename(excelPathDownload)}\n"),
-          // const TextSpan(text: '✅ '),
-          // TextSpan(text: "${p.basename(zipPathDownload)}\n"),
         ],
       ),
     ),
@@ -103,7 +97,7 @@ void showCreateDbNotification(
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
     width: 260,
-    height: 260,
+    height: 220,
   );
 }
 
@@ -270,13 +264,11 @@ void logCreate(
   String jsonPathDownload,
   xlsxPathDownload,
   sqlPathDownload,
-  zipPathDownload,
 ) {
   log(logLine, name: tag);
   log("✅ CSV oluşturuldu: $csvPathDownload", name: tag);
   log("✅ JSON oluşturuldu: $jsonPathDownload", name: tag);
   log("✅ XLSX oluşturuldu: $xlsxPathDownload", name: tag);
   log("✅ SQL oluşturuldu: $sqlPathDownload", name: tag);
-  // log("✅ ZIP oluşturuldu: $zipPathDownload", name: tag);
   log(logLine, name: tag);
 }

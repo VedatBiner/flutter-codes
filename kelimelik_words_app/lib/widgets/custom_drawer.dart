@@ -57,6 +57,7 @@ class CustomDrawer extends StatelessWidget {
             // ),
 
             /// 📌 İstatistikler
+            const SizedBox(height: 10),
             const DrawerStatTile(),
 
             /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL/ZIP)
@@ -76,6 +77,7 @@ class CustomDrawer extends StatelessWidget {
 
             /// 📌 Versiyon ve yazılım bilgisi
             InfoPaddingTile(appVersion: appVersion),
+            const SizedBox(height: 10),
           ],
         ),
       ),

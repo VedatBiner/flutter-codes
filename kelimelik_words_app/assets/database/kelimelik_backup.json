@@ -976,7 +976,7 @@
   },
   {
     "Kelime": "Alo",
-    "Anlam": "Telefon konuşması bsşlangıcı",
+    "Anlam": "Telefon konuşması başlangıcı",
     "Tarih": "15.12.2025"
   },
   {
@@ -2328,6 +2328,11 @@
     "Kelime": "Bağlık",
     "Anlam": "Bağ yeri / Üzümü çok olan yer",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Bahane",
+    "Anlam": "Uydurma sebep",
+    "Tarih": "19.12.2025"
   },
   {
     "Kelime": "Bahis",
@@ -8455,6 +8460,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Hariç",
+    "Anlam": "Dış / Dışarı",
+    "Tarih": "19.12.2025"
+  },
+  {
     "Kelime": "Harp",
     "Anlam": "Savaş",
     "Tarih": "15.12.2025"
@@ -10255,6 +10265,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kafalı",
+    "Anlam": "Kafası olan / Bilgili",
+    "Tarih": "20.12.2025"
+  },
+  {
     "Kelime": "Kafe",
     "Anlam": "Hafif yiyecekler ve içecekler satılan yer",
     "Tarih": "15.12.2025"
@@ -11205,6 +11220,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kemerli",
+    "Anlam": "Kemer biçiminde olan",
+    "Tarih": "15.12.2025"
+  },
+  {
     "Kelime": "Kemik",
     "Anlam": "İnsan ve hayvanların temel yapısı",
     "Tarih": "15.12.2025"
@@ -12142,6 +12162,11 @@
   {
     "Kelime": "Konur",
     "Anlam": "Esmer / Açık kestane rengi",
+    "Tarih": "19.12.2025"
+  },
+  {
+    "Kelime": "Konya",
+    "Anlam": "Bir ilimiz",
     "Tarih": "19.12.2025"
   },
   {
@@ -14753,6 +14778,11 @@
     "Kelime": "Munis",
     "Anlam": "Cana yakın / Uysal / Sevimli",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Murat",
+    "Anlam": "İstek / Dilek",
+    "Tarih": "19.12.2025"
   },
   {
     "Kelime": "Murç",
@@ -17690,6 +17720,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Saki",
+    "Anlam": "İçki dağıtan kimse",
+    "Tarih": "19.12.2025"
+  },
+  {
     "Kelime": "Sakim",
     "Anlam": "Bozuk / Yanlış",
     "Tarih": "15.12.2025"
@@ -18885,6 +18920,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Staj",
+    "Anlam": "Uygulamalı meslek öğrenme dönemi",
+    "Tarih": "20.12.2025"
+  },
+  {
     "Kelime": "Star",
     "Anlam": "Yıldız",
     "Tarih": "15.12.2025"
@@ -19093,6 +19133,11 @@
     "Kelime": "Süreç",
     "Anlam": "Vetire / Proses / İlerleyen",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Sürek",
+    "Anlam": "Hızlı süren / Hızlı giden",
+    "Tarih": "19.12.2025"
   },
   {
     "Kelime": "Sürüm",
@@ -21168,6 +21213,11 @@
     "Kelime": "Tuz",
     "Anlam": "Sodyum klorür",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Tuzak",
+    "Anlam": "Birini tehlikeli duruma düşürmek için kurulan komplo / hayvan uskalamak niçin kurulan düzenek",
+    "Tarih": "19.12.2025"
   },
   {
     "Kelime": "Tuzla",

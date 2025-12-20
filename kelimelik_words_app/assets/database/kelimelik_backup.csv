@@ -194,7 +194,7 @@ Allı,Üzerinde al renk bulunan,15.12.2025
 Allık,Süs için yanaklara sürülen boya,15.12.2025
 Alma,Alma işi / Ahiz / İttihaz / Derç / Kabız,15.12.2025
 Alman,Cermen soyundan olan,15.12.2025
-Alo,Telefon konuşması bsşlangıcı,15.12.2025
+Alo,Telefon konuşması başlangıcı,15.12.2025
 Alp,Yiğit / Kahraman,15.12.2025
 Alt,Bir şeyin yere bakan yanı,15.12.2025
 Altar,Sunak,15.12.2025
@@ -465,6 +465,7 @@ Bağıl,Görece,15.12.2025
 Bağım,Birşeyin vey kimsenin gücü yada etkisi altında tutma,15.12.2025
 Bağır,Göğüs,15.12.2025
 Bağlık,Bağ yeri / Üzümü çok olan yer,15.12.2025
+Bahane,Uydurma sebep,19.12.2025
 Bahis,Konu,15.12.2025
 Baht,Şans / Kader / Talih,15.12.2025
 Bak,Şaşma anlatan söz,15.12.2025
@@ -1690,6 +1691,7 @@ Hara,Hare / At yetiştirilen yer,15.12.2025
 Haraç,Zorbalıkla alınan para,15.12.2025
 Harar,Büyük çuval,15.12.2025
 Hare,Meneviş / Dalgır / bir kumaş türü,15.12.2025
+Hariç,Dış / Dışarı,19.12.2025
 Harp,Savaş,15.12.2025
 Has,Özgü,15.12.2025
 Hasa,Patiska,15.12.2025
@@ -2050,6 +2052,7 @@ Kadim,Ezeli / Başlangıcı olmayan,15.12.2025
 Kadir,Değer / Kıymet / İtibar,15.12.2025
 Kadit,Çok zayıf / İskelet,15.12.2025
 Kafa,İnsan başı / Ser,15.12.2025
+Kafalı,Kafası olan / Bilgili,20.12.2025
 Kafe,Hafif yiyecekler ve içecekler satılan yer,15.12.2025
 Kafes,Demir çubuklu bölme,15.12.2025
 Kafi,Yeterli,15.12.2025
@@ -2240,6 +2243,7 @@ Kemani,Alaturka müzikte keman çalan kimse,15.12.2025
 Keme,Büyük Sıçan,15.12.2025
 Kement,Idam için kullanılan ip,15.12.2025
 Kemer,Antalya ilçesi,15.12.2025
+Kemerli,Kemer biçiminde olan,15.12.2025
 Kemik,İnsan ve hayvanların temel yapısı,15.12.2025
 Kenar,Bir şeyi çevreleyen çizgi,15.12.2025
 Kene,Asalak bir böcek / Sakırga,15.12.2025
@@ -2428,6 +2432,7 @@ Kontur,Redimde nesneyi belirgin gösteren çevre çizgisi,15.12.2025
 Konuk,Konakçının üzerindeki asalak,15.12.2025
 Konulmak,Koyma veya konulma işi yapmak,18.12.2025
 Konur,Esmer / Açık kestane rengi,19.12.2025
+Konya,Bir ilimiz,19.12.2025
 Kopal,Bir tür reçine,15.12.2025
 Kor,Iyice yanarak ateş haline gelmiş odun kömür parçası,15.12.2025
 Kore,Irade dışı hareketler gösteren hastalık,15.12.2025
@@ -2950,6 +2955,7 @@ Mujik,Rus köylüsü,15.12.2025
 Mum,Aydınlanma aracı,15.12.2025
 Mumlu,Mumu olan,15.12.2025
 Munis,Cana yakın / Uysal / Sevimli,15.12.2025
+Murat,İstek / Dilek,19.12.2025
 Murç,Betona delik açmak için kullanılan bir alet,15.12.2025
 Mus,Köpük şeklinde tatlı,15.12.2025
 Muska,Bir tür dinsel nesne,15.12.2025
@@ -3537,6 +3543,7 @@ Sakar,Sık sık önemsiz küçük kazalar yapan kimse,15.12.2025
 Sakat,Bozuk veya eksik,15.12.2025
 Sake,Japon rakısı,15.12.2025
 Sakın,Asla,15.12.2025
+Saki,İçki dağıtan kimse,19.12.2025
 Sakim,Bozuk / Yanlış,15.12.2025
 Saklı,Saklanmış olan,15.12.2025
 Sako,Palyoya benzer üstlük,15.12.2025
@@ -3776,6 +3783,7 @@ Söve,Pencere kapı kenarındaki süs kalıpları,15.12.2025
 Söven,Büyük sopa,15.12.2025
 Söz,Kelam / Laf / Kavikil,15.12.2025
 Sprey,Püskürtücü,15.12.2025
+Staj,Uygulamalı meslek öğrenme dönemi,20.12.2025
 Star,Yıldız,15.12.2025
 Stent,Kalp damarı açma cihazı,15.12.2025
 Steril,Arınık / Kısır,15.12.2025
@@ -3818,6 +3826,7 @@ Sürahi,Içecek koyulan cam veya plastik kap,15.12.2025
 Sürat,Hız,15.12.2025
 Süre,Olayın başı ile sonu arasındaki zaman,15.12.2025
 Süreç,Vetire / Proses / İlerleyen,15.12.2025
+Sürek,Hızlı süren / Hızlı giden,19.12.2025
 Sürüm,Revaç / Versiyon,15.12.2025
 Süs,Süsleme / Süslenme,15.12.2025
 Süsen,Bir süs bitkisi,15.12.2025
@@ -4233,6 +4242,7 @@ Tutu,İpotek,15.12.2025
 Tutum,Tutulacak yol,15.12.2025
 Tuva,Tuva özerk Cumhuriyeti halkından olan,15.12.2025
 Tuz,Sodyum klorür,15.12.2025
+Tuzak,Birini tehlikeli duruma düşürmek için kurulan komplo / hayvan uskalamak niçin kurulan düzenek,19.12.2025
 Tuzla,İstanbul ilçesi,15.12.2025
 Tüf,Yanardağların püskürttüğü çökelti taşı,15.12.2025
 Tül,Çok ince sentetik dokuma,15.12.2025

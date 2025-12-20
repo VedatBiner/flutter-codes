@@ -55,9 +55,10 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
       appBar: AppBar(title: const Text('Kelime İstatistikleri')),
       body: Column(
         children: [
+          const SizedBox(height: 10),
           // ---------------- PIE CHART ----------------
           SizedBox(
-            height: 280,
+            height: 300,
             child: PieChart(
               PieChartData(
                 sections: _buildSections(totalWords),
@@ -80,7 +81,8 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
               ),
             ),
           ),
-
+          const SizedBox(height: 10),
+          const Divider(height: 2),
           // ---------------- LEGEND ----------------
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -94,12 +96,13 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '${_selectedLength} harfli kelimeler (${_filteredWords.length})',
+                '$_selectedLength harfli kelimeler (${_filteredWords.length})',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
 
-          const Divider(),
+          const SizedBox(height: 10),
+          const Divider(height: 2),
 
           // ---------------- WORD LIST ----------------
           Expanded(
