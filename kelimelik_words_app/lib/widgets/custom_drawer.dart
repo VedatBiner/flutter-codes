@@ -48,6 +48,7 @@ class CustomDrawer extends StatelessWidget {
             const DrawerTitleWidget(),
 
             Divider(thickness: 2, color: menuColor, height: 0),
+            const SizedBox(height: 10),
 
             /// 📌 Görünüm değiştirme
             /// Bir süre iptal
@@ -57,14 +58,16 @@ class CustomDrawer extends StatelessWidget {
             // ),
 
             /// 📌 İstatistikler
-            const SizedBox(height: 10),
             const DrawerStatTile(),
+            const SizedBox(height: 8),
 
-            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL/ZIP)
+            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
             const DrawerBackupTile(),
+            const SizedBox(height: 8),
 
             /// 📌 Yedekleri paylaşma butonu
             const DrawerShareTile(),
+            const SizedBox(height: 8),
 
             /// 📌 Veritabanını Yenile (SQL)
             /// DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),

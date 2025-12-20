@@ -23,7 +23,7 @@ class DrawerBackupTile extends StatelessWidget {
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
         title: const Text('Yedek Oluştur', style: drawerMenuText),
         subtitle: Text(
-          "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX / SQL / ZIP)",
+          "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX / SQL)",
           style: drawerMenuSubtitleText,
         ),
         onTap: () async {

@@ -141,8 +141,8 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               _selectedLength == null
-                  ? 'Toplam kelime sayısı: ${_filteredWords.length}'
-                  : '$_selectedLength harfli kelimeler (${_filteredWords.length})',
+                  ? 'Toplam kelime sayısı : ${_filteredWords.length}'
+                  : '$_selectedLength harfli kelime sayısı : ${_filteredWords.length}',
               style: anlamText,
             ),
           ),
@@ -152,11 +152,20 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
 
           // ---------------- WORD LIST ----------------
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: _filteredWords.length,
+              separatorBuilder: (_, __) => const Divider(
+                height: 1,
+                thickness: 0.8,
+                indent: 12,
+                endIndent: 12,
+              ),
               itemBuilder: (_, i) {
                 final w = _filteredWords[i];
-                return ListTile(title: Text(w.word), subtitle: Text(w.meaning));
+                return ListTile(
+                  title: Text(w.word, style: kelimeText),
+                  subtitle: Text(w.meaning, style: anlamText),
+                );
               },
             ),
           ),
