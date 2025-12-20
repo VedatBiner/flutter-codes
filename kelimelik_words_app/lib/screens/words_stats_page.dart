@@ -73,13 +73,12 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
                 pieTouchData: PieTouchData(
                   touchCallback: (event, response) {
                     final touched = response?.touchedSection;
-                    if (touched == null) return;
-
-                    final index = touched.touchedSectionIndex;
                     final keys = _byLength.keys.toList()..sort();
 
-                    // 🔒 GÜVENLİK KONTROLÜ
-                    if (index < 0 || index >= keys.length) {
+                    // 🔹 Ortaya / boşluğa dokunuldu
+                    if (touched == null ||
+                        touched.touchedSectionIndex < 0 ||
+                        touched.touchedSectionIndex >= keys.length) {
                       setState(() {
                         _selectedLength = null;
                         _filteredWords = _byLength.values
@@ -88,6 +87,9 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
                       });
                       return;
                     }
+
+                    // 🔹 Dilime dokunuldu
+                    final index = touched.touchedSectionIndex;
 
                     setState(() {
                       _selectedLength = keys[index];
@@ -109,14 +111,15 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             ),
           ),
 
-          if (_selectedLength != null)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '$_selectedLength harfli kelimeler (${_filteredWords.length})',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _selectedLength == null
+                  ? 'Toplam kelime sayısı: ${_filteredWords.length}'
+                  : '$_selectedLength harfli kelimeler (${_filteredWords.length})',
+              style: anlamText,
             ),
+          ),
 
           const SizedBox(height: 10),
           const Divider(height: 2),
@@ -149,11 +152,7 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
         value: count.toDouble(),
         title: '${len}h\n$count\n${percent.toStringAsFixed(1)}%',
         radius: _selectedLength == len ? 110 : 100,
-        titleStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+        titleStyle: pieChartText,
         color: ChartColors.wordLengthColors[len - 1],
       );
     });

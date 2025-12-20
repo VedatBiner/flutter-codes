@@ -118,3 +118,10 @@ var drawerMenuSubtitleText = const TextStyle(
   color: Colors.white54,
   fontSize: 12,
 );
+
+/// 📌 Pie Chart text stili
+var pieChartText = const TextStyle(
+  color: Colors.white,
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+);
