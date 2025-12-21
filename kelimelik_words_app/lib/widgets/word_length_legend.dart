@@ -60,7 +60,7 @@ class WordLengthLegend extends StatelessWidget {
                 // Yazı
                 Text(
                   '$len h (${data[len]})',
-                  style: anlamText.copyWith(
+                  style: legendText.copyWith(
                     fontWeight: FontWeight.w600,
                     color: isSelected ? Colors.white : null,
                   ),

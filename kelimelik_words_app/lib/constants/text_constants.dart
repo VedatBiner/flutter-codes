@@ -139,3 +139,10 @@ const anlamStatText = TextStyle(
   // fontWeight: FontWeight.bold,
   color: Colors.blue,
 );
+
+/// 📌 legend text stili
+const legendText = TextStyle(
+  fontSize: 10,
+  // fontWeight: FontWeight.bold,
+  color: Colors.blue,
+);
