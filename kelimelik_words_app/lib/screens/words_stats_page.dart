@@ -57,6 +57,12 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
       backgroundColor: cardPageColor,
       appBar: AppBar(
         backgroundColor: drawerColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: menuColor, size: 28),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text('Kelime İstatistikleri', style: itemCountStil),
       ),
       body: Column(
@@ -148,7 +154,7 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             ),
           ),
 
-          // const SizedBox(height: 10),
+          const SizedBox(height: 4),
           // const Divider(height: 2),
 
           // ---------------- WORD LIST ----------------
