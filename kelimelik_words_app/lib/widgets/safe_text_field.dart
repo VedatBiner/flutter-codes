@@ -99,6 +99,10 @@ class _SafeTextFieldState extends State<SafeTextField> {
           hintText: widget.hint,
           hintStyle: widget.hintStyle,
           isDense: true,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 12,
+          ),
 
           /// ✔ fillColor dışarıdan gelirse kullan, gelmezse beyaz
           filled: true,

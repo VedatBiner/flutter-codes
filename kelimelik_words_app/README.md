@@ -193,7 +193,7 @@ bir chatGPT ortak çalışması :)
 188. `show_notification_handler.dart` dosyasında bildirim boyutu değiştirildi. - 20.12.2025
 189. `word_statsPage.dart` dosyasında görsel değişiklikler yapıldı. - 20.12.2025
 190. `word_statsPage.dart` dosyasında görsel değişiklikler yapıldı. - 21.12.2025
-191. `text_constants.dart` dosyası düzenlendi. - 21.12.2025
+191. `text_constants.dart` ve `safe_text_field.dart` dosyası düzenlendi. - 21.12.2025
 
 
 

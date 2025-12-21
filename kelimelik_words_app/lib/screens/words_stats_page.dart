@@ -161,11 +161,11 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
           Expanded(
             child: ListView.separated(
               itemCount: _filteredWords.length,
-              separatorBuilder: (_, __) => const Divider(
+              separatorBuilder: (_, _) => const Divider(
                 height: 1,
                 thickness: 0.8,
-                indent: 12,
-                endIndent: 12,
+                indent: 10,
+                endIndent: 10,
               ),
               itemBuilder: (_, i) {
                 final w = _filteredWords[i];
