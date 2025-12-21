@@ -61,10 +61,11 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 10),
-          // ---------------- PIE CHART ----------------
+          const SizedBox(height: 16),
+
+          /// 📌 ---------------- PIE CHART ----------------
           SizedBox(
-            height: 300,
+            height: 280,
             child: PieChart(
               PieChartData(
                 sections: _buildSections(totalWords),
@@ -88,7 +89,7 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
                       return;
                     }
 
-                    // 🔹 Dilime dokunuldu
+                    /// 🔹 Dilime dokunuldu
                     final index = touched.touchedSectionIndex;
 
                     setState(() {
@@ -101,10 +102,20 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             ),
           ),
 
-          const SizedBox(height: 10),
-          const Divider(height: 2),
+          const SizedBox(height: 8),
 
-          // ---------------- LEGEND ----------------
+          /// 📌 Kelime Sayısını göster
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _selectedLength == null
+                  ? 'Toplam kelime sayısı : ${_filteredWords.length}'
+                  : '$_selectedLength harfli kelime sayısı : ${_filteredWords.length}',
+              style: anlamText,
+            ),
+          ),
+
+          /// 📌 Legend göster
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Container(
@@ -137,18 +148,8 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              _selectedLength == null
-                  ? 'Toplam kelime sayısı : ${_filteredWords.length}'
-                  : '$_selectedLength harfli kelime sayısı : ${_filteredWords.length}',
-              style: anlamText,
-            ),
-          ),
-
-          const SizedBox(height: 10),
-          const Divider(height: 2),
+          // const SizedBox(height: 10),
+          // const Divider(height: 2),
 
           // ---------------- WORD LIST ----------------
           Expanded(
@@ -163,8 +164,8 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
               itemBuilder: (_, i) {
                 final w = _filteredWords[i];
                 return ListTile(
-                  title: Text(w.word, style: kelimeText),
-                  subtitle: Text(w.meaning, style: anlamText),
+                  title: Text(w.word, style: kelimeStatText),
+                  subtitle: Text(w.meaning, style: anlamStatText),
                 );
               },
             ),

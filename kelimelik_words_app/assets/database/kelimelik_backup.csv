@@ -233,6 +233,7 @@ Anamal,Sermaye,15.12.2025
 Anane,Gelenek,15.12.2025
 Anasır,Ögeler,15.12.2025
 Anat,Anlar / Zamanlar,15.12.2025
+Ancak,Yalnızca / Olsa olsa,21.12.2025
 Andıç,Uyarı notu,15.12.2025
 Angora,Ankara keçisinden elde edilen iplik,15.12.2025
 Angut,Bir kuşu türü,15.12.2025
@@ -568,6 +569,7 @@ Baytar,Veteriner hekim,15.12.2025
 Baz,Temel,15.12.2025
 Baza,Yatak altında bulunan sandık bölgesi,15.12.2025
 Bazal,Baz özellikleri taşıyan madde,15.12.2025
+Bazalı,Bazası olan,20.12.2025
 Bazen,Ara sıra,15.12.2025
 Bazı,Bazen / Kimi / Bir takım,15.12.2025
 Bazlı,baz bulunan,15.12.2025
@@ -847,6 +849,7 @@ Cisim,Gövde / Beden / Vücut,15.12.2025
 Ciyak,Kuş tüyü,15.12.2025
 Conta,Geçirgenliği engellemek için kauçuk ve kurşundan yapılan parça,15.12.2025
 Cop,Kalın kısa değnek,15.12.2025
+Coşku,Büyük bir istekle ortaya çıkan geçici heyecan durumu,20.12.2025
 Cönk,Büyük yelkenli gemi,15.12.2025
 Cuk,Denk gelmek,15.12.2025
 Cukka,Hayvan veya insan memesi,15.12.2025
@@ -1192,6 +1195,7 @@ Duma,Rus parlementosunun alt kanadı,15.12.2025
 Dun,Alçak / Aşağılık,15.12.2025
 Dur,Biraz zaman geçsin anlamında söz,15.12.2025
 Durak,Toplu taşıma araçlarının durmak zorunda olduğu yer,15.12.2025
+Dural,Hep aynı durumda ve değişmeden kalan,21.12.2025
 Duş,Suyu yukardan püskürtme ile yıkanma,15.12.2025
 Dut,Meyve çeşidi,15.12.2025
 Dutluk,Dut bahçesi,15.12.2025
@@ -1318,6 +1322,7 @@ Epe,Kılıç oyunu,15.12.2025
 Epey,Az denemeyevek kadar / Oldukça / Hayli,15.12.2025
 Er,Erkek,15.12.2025
 Erat,Erler,15.12.2025
+Erek,Amaç / Gaye / Maksat / Hedef,21.12.2025
 Eren,Ermiş,15.12.2025
 Erg,Büyük Sahra 'da kumullarla örtülü bölge,15.12.2025
 Ergani,Diyarbakır ilçesi,15.12.2025
@@ -1540,6 +1545,7 @@ Gama,Yunan harflarinden biri,15.12.2025
 Gamlı,Sıkıntı ve üzüntü veren,15.12.2025
 Gana,Bir ülke,15.12.2025
 Gani,Zengin / Varlıklı,15.12.2025
+Ganj,Hindistan'da bir nehir,20.12.2025
 Ganyan,At yarışlarında birinciliği kazanan at,15.12.2025
 Gar,Büyük tren istasyonu,15.12.2025
 Garaz,Kin / Hedef / Maksat,15.12.2025
@@ -2574,7 +2580,7 @@ Kür,Tedavi yöntemi,15.12.2025
 Kürdan,Diş temizleme aracı,15.12.2025
 Kürdi,Türk sanat müziği makamı,15.12.2025
 Küre,Yeryüzü / Dünya,15.12.2025
-Kürek,Toprak,15.12.2025
+Kürek,Toprak atmaya yarar araç / Kürek cezası,15.12.2025
 Kürk,Hayvan postundan yapılmış giysi,15.12.2025
 Kürt,Asya ırkı,15.12.2025
 Küs,Küsmüş / Dargın,15.12.2025
@@ -3283,6 +3289,7 @@ Patalya,Bir tür savaş gemisi sandalı,15.12.2025
 Paten,Buz üzerinde kaymak için kullanılan araç,15.12.2025
 Pati,Kedi,15.12.2025
 Patik,Altı yumuşak küçük çocuk ayakkabısı,15.12.2025
+Patrik,Ortodoks kiliselerin başkanı,20.12.2025
 Pay,Marj / Hisse,15.12.2025
 Payas,Hatay ilçesi,15.12.2025
 Paye,Rütbe / Derece / Aşama,15.12.2025
@@ -3840,7 +3847,7 @@ Süt,Memelilerin yavru besleme sıvısı,15.12.2025
 Şaibeli,Şaibesi olan,15.12.2025
 Şair,Ozan / Şiir yazan,15.12.2025
 Şak,Yarık / Çatlak,15.12.2025
-Şaka,Güldürmek,15.12.2025
+Şaka,Güldürmek için yapılan hareket veya söz / Latife,15.12.2025
 Şakak,Elmacık kemiğinin üzerindeki bölge,15.12.2025
 Şakıt,Murana,15.12.2025
 Şaki,Haydut,15.12.2025
@@ -4604,6 +4611,7 @@ Yuka,Derin olmayan / Sığ,15.12.2025
 Yulaf,hayvan yemi olarak kullanılan bir bitki,15.12.2025
 Yuma,Yumak işi,15.12.2025
 Yurt,Memleket / Diyar / Göçebe çadırı,15.12.2025
+Yutma,Yutmak işi,20.12.2025
 Yutuş,Yutma işi,15.12.2025
 Yük,Eşya,15.12.2025
 Yüklü,Yükü olan / Gebe / Varlıklı,15.12.2025

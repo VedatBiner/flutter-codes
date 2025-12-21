@@ -125,3 +125,17 @@ var pieChartText = const TextStyle(
   fontSize: 12,
   fontWeight: FontWeight.bold,
 );
+
+/// 📌 Kelime İstatistik liste text stili
+final kelimeStatText = const TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+  color: Colors.red,
+);
+
+/// 📌 anlam İstatistik liste text stili
+const anlamStatText = TextStyle(
+  fontSize: 10,
+  // fontWeight: FontWeight.bold,
+  color: Colors.blue,
+);
