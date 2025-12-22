@@ -17,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function(String) onSearchChanged;
   final VoidCallback onClearSearch;
   final VoidCallback onStartSearch;
+  final VoidCallback onDrawerPressed;
   final int itemCount;
 
   const CustomAppBar({
@@ -26,6 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onSearchChanged,
     required this.onClearSearch,
     required this.onStartSearch,
+    required this.onDrawerPressed,
     required this.itemCount,
   });
 
@@ -35,6 +37,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: drawerColor,
       iconTheme: IconThemeData(color: menuColor),
       titleTextStyle: TextStyle(color: menuColor),
+      automaticallyImplyLeading: false,
+
+      leading: IconButton(
+        icon: Icon(Icons.menu, color: menuColor),
+        tooltip: 'Menü',
+        onPressed: onDrawerPressed, // ✅ kontrol HomePage’de
+      ),
 
       /// 🔍 Arama modu
       title: isSearching

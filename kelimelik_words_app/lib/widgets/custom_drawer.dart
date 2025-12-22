@@ -17,6 +17,7 @@ class CustomDrawer extends StatelessWidget {
   final String appVersion;
   final bool isFihristMode;
   final VoidCallback onToggleViewMode;
+  final VoidCallback onCloseSearch;
 
   /// 📌 JSON ’dan veri yüklemek için üst bileşenden gelen fonksiyon
   ///    İmza → ({ctx, onStatus})
@@ -33,6 +34,7 @@ class CustomDrawer extends StatelessWidget {
     required this.isFihristMode,
     required this.onToggleViewMode,
     required this.onLoadJsonData,
+    required this.onCloseSearch,
   });
 
   @override

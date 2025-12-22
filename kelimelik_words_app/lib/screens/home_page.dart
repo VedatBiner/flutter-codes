@@ -40,6 +40,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // 🔢  Veri listeleri
   List<Word> words = [];
   List<Word> allWords = [];
@@ -191,6 +192,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         SafeArea(
           child: Scaffold(
+            key: _scaffoldKey,
             // 📜 AppBar
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(64),
@@ -201,6 +203,12 @@ class _HomePageState extends State<HomePage> {
                 onClearSearch: _clearSearch,
                 onStartSearch: () => setState(() => isSearching = true),
                 itemCount: words.length,
+                onDrawerPressed: () {
+                  if (isSearching) {
+                    _clearSearch(); // 🔥 ARAMA KAPANIR
+                  }
+                  _scaffoldKey.currentState?.openDrawer(); // 🔥 DRAWER AÇILIR
+                },
               ),
             ),
 
@@ -212,7 +220,7 @@ class _HomePageState extends State<HomePage> {
               onToggleViewMode: () {
                 setState(() => isFihristMode = !isFihristMode);
               },
-
+              onCloseSearch: _clearSearch,
               //  ⬇️  Yeni imzalı geri-çağrı
               onLoadJsonData:
                   ({
