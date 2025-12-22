@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 2.4.0+1
+version: 2.4.1+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -63,14 +63,18 @@ dependencies:
   # -----------------------------
   csv:                             # CSV parse, read, write işlemleri
 
-
+  # -----------------------------
+  # Grafik / Tarih
+  # -----------------------------
   fl_chart:
   intl:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0            # Dart/Flutter linter kuralları
+  flutter_lints: ^6.0.0 # Dart/Flutter linter kuralları
+
+  #  flutter_launcher_icons:
 
 flutter:
   uses-material-design: true
@@ -78,3 +82,11 @@ flutter:
   assets:
     - assets/images/
     - assets/database/
+
+# flutter_launcher_icons:
+#   android: true
+  #   ios: true
+  #   image_path: "assets/images/appicon.png"
+  #  adaptive_icon_background: "#FFFFFF"
+  # adaptive_icon_foreground: "assets/images/appicon.png"
+  # min_sdk_android: 21

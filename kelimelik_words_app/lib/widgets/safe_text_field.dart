@@ -40,6 +40,9 @@ class SafeTextField extends StatefulWidget {
   final Color? borderColor;
   final Color? focusBorderColor;
 
+  final double? height;
+  final double? width;
+
   final bool autofocus;
 
   const SafeTextField({
@@ -56,6 +59,8 @@ class SafeTextField extends StatefulWidget {
     this.borderColor,
     this.focusBorderColor,
     this.autofocus = false,
+    this.height,
+    this.width,
   });
 
   @override
@@ -99,9 +104,9 @@ class _SafeTextFieldState extends State<SafeTextField> {
           hintText: widget.hint,
           hintStyle: widget.hintStyle,
           isDense: true,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 12,
+          contentPadding: EdgeInsets.symmetric(
+            vertical: widget.height ?? 12,
+            horizontal: widget.width ?? 12,
           ),
 
           /// ✔ fillColor dışarıdan gelirse kullan, gelmezse beyaz

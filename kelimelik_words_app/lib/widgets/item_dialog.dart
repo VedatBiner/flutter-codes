@@ -98,6 +98,7 @@ class _WordDialogState extends State<WordDialog> {
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
               borderColor: menuColor,
               focusBorderColor: drawerColor,
+              height: 14,
             ),
 
             const SizedBox(height: 24),
@@ -113,6 +114,7 @@ class _WordDialogState extends State<WordDialog> {
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
               borderColor: menuColor,
               focusBorderColor: drawerColor,
+              height: 14,
             ),
           ],
         ),
