@@ -46,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               fillColor: Colors.white,
               hint: 'Kelime ara ...',
               hintStyle: hintStil,
-              height: 10,
+              height: 8,
               // width: 12,
 
               /// Silme butonu

@@ -196,7 +196,7 @@ bir chatGPT ortak çalışması :)
 191. `text_constants.dart` ve `safe_text_field.dart` dosyası düzenlendi. - 21.12.2025
 192. uygulama ikonu değişti. - 22.12.2025
 193. text giriş alanı için parametre belirlendi. 22.12.2025
-194. `safe_text_field.dart`, `custom_app_bar.dart` dosyası düzenlendi. - 22.12.2025
+194. `safe_text_field.dart`, `custom_app_bar.dart` ve `ìtem_dialog.dart` dosyası düzenlendi. - 22.12.2025
 195. 
 
 
@@ -214,10 +214,6 @@ bir chatGPT ortak çalışması :)
 
 Yapılacaklar :
 - Cihazdaki veriler ile sanal cihaz verisini güncelle. Sanal cihazda /dat/data/aa.vb.kelimelik_words_app/app_flutter/kelimelik.db dosyasını silip, çalıştırınca veriler güncelleniyor.
-- ikon değişikliği
-- pubspec.yaml düzenlemesi
-- arama kutusu boyutu küçülecek
-- veri giriş kutuları büyüyecek
 - drawer 'a basılınca açık arama kutusu kapanacak
 - legend biraz daha küçülse ?
 - 
