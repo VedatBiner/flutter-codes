@@ -20,8 +20,8 @@ class WordLengthLegend extends StatelessWidget {
     final keys = data.keys.toList()..sort();
 
     return Wrap(
-      spacing: 10,
-      runSpacing: 8,
+      spacing: 6,
+      runSpacing: 6,
       children: keys.map((len) {
         final isSelected = selected == len;
         final colorIndex = (len - 1).clamp(
@@ -37,19 +37,19 @@ class WordLengthLegend extends StatelessWidget {
             onTap(isSelected ? null : len);
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             decoration: BoxDecoration(
               color: isSelected ? chipColor : Colors.transparent,
               border: Border.all(color: chipColor, width: 1.5),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Renk noktası
                 Container(
-                  width: 10,
-                  height: 10,
+                  width: 6,
+                  height: 6,
                   decoration: BoxDecoration(
                     color: chipColor,
                     shape: BoxShape.circle,

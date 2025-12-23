@@ -199,7 +199,7 @@ bir chatGPT ortak çalışması :)
 194. `safe_text_field.dart`, `custom_app_bar.dart` ve `ìtem_dialog.dart` dosyası düzenlendi. - 22.12.2025
 195. `custom_drawer.dart` ve `home_page.dart` dosyası düzenlendi. (arama kutusunun kapanması için) - 22.12.2025
 196. uygulama ikonu değişti. - 23.12.2025
-197. 
+197. `word_length_legend.dart` ve `word_statsPage.dart` dosyalarında ufak değişiklikler yapıldı. - 23.12.2025
 
 
 

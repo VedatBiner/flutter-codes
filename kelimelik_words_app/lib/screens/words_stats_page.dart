@@ -155,7 +155,6 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
           ),
 
           const SizedBox(height: 4),
-          // const Divider(height: 2),
 
           // ---------------- WORD LIST ----------------
           Expanded(
