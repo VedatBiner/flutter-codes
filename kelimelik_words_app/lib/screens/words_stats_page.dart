@@ -123,9 +123,9 @@ class _WordsStatsPageState extends State<WordsStatsPage> {
 
           /// 📌 Legend göster
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.red, // 🔴 kırmızı çerçeve
