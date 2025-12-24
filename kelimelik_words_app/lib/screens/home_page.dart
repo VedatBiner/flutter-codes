@@ -266,7 +266,7 @@ class _HomePageState extends State<HomePage> {
             //     : WordList(words: words, onUpdated: _loadWords),
 
             /// Geçici olarak sadece alfabetik liste olsun
-            body: AlphabetWordList(words: words, onUpdated: _loadWords),
+            body: AlphabetItemList(words: words, onUpdated: _loadWords),
 
             // ➕  FAB
             floatingActionButton: CustomFAB(

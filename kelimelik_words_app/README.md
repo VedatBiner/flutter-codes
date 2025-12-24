@@ -203,7 +203,9 @@ bir chatGPT ortak çalışması :)
 198. `active_word_card_provider.dart` dosyası eklendi. - 24.12.2025
 199. bu provider için `main.dart` dosyasına ekleme yapıldı. - 24.12.2025
 200. `item_list.dart`, `home_page.dart` ve `alphabet_word_list.dart` dosyası güncellendi. - 24.12.2025
-201. 
+201. `WordList` sınıfı `ItemList`olarak değiştirildi. - 24.12.2025
+202. `AlphabetWordList` sınıfı `AlphabetItemList`olarak değiştirildi. - 24.12.2025
+ 
 
 
 

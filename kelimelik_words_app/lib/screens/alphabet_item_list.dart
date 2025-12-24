@@ -17,21 +17,21 @@ import '../providers/active_word_card_provider.dart';
 import '../widgets/item_actions.dart';
 import '../widgets/item_card.dart';
 
-class AlphabetWordList extends StatefulWidget {
+class AlphabetItemList extends StatefulWidget {
   final List<Word> words;
   final VoidCallback onUpdated;
 
-  const AlphabetWordList({
+  const AlphabetItemList({
     super.key,
     required this.words,
     required this.onUpdated,
   });
 
   @override
-  State<AlphabetWordList> createState() => _AlphabetWordListState();
+  State<AlphabetItemList> createState() => _AlphabetItemListState();
 }
 
-class _AlphabetWordListState extends State<AlphabetWordList> {
+class _AlphabetItemListState extends State<AlphabetItemList> {
   /// 📌 Fihrist için grup yapılarını oluşturur
   List<AlphabetListViewItemGroup> _buildGroupedItems(
     BuildContext context,

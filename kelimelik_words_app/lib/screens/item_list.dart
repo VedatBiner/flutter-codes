@@ -7,17 +7,17 @@ import '../providers/active_word_card_provider.dart';
 import '../widgets/item_actions.dart';
 import '../widgets/item_card.dart';
 
-class WordList extends StatefulWidget {
+class ItemList extends StatefulWidget {
   final List<Word> words;
   final VoidCallback onUpdated;
 
-  const WordList({super.key, required this.words, required this.onUpdated});
+  const ItemList({super.key, required this.words, required this.onUpdated});
 
   @override
-  State<WordList> createState() => _WordListState();
+  State<ItemList> createState() => _ItemListState();
 }
 
-class _WordListState extends State<WordList>
+class _ItemListState extends State<ItemList>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
