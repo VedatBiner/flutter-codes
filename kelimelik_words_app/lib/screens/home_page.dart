@@ -20,6 +20,7 @@ import '../constants/file_info.dart';
 /// 📌 Yardımcı yüklemeler burada
 import '../db/db_helper.dart';
 import '../models/item_model.dart';
+import '../providers/active_word_card_provider.dart';
 import '../providers/item_count_provider.dart';
 
 /// 📌 iki ana ekran burada
@@ -41,6 +42,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // 🔢  Veri listeleri
   List<Word> words = [];
   List<Word> allWords = [];
@@ -193,6 +195,22 @@ class _HomePageState extends State<HomePage> {
         SafeArea(
           child: Scaffold(
             key: _scaffoldKey,
+
+            onDrawerChanged: (isOpen) {
+              if (isOpen) {
+                // 🔥 Drawer AÇILDI → açık kartları kapat
+                Provider.of<ActiveWordCardProvider>(
+                  context,
+                  listen: false,
+                ).close();
+
+                // 🔍 Arama açıksa onu da kapat
+                if (isSearching) {
+                  _clearSearch();
+                }
+              }
+            },
+
             // 📜 AppBar
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(64),

@@ -26,6 +26,8 @@ class _WordListState extends State<WordList>
   Widget build(BuildContext context) {
     super.build(context);
 
+    final activeIndex = context.watch<ActiveWordCardProvider>().activeIndex;
+
     if (widget.words.isEmpty) {
       return const Center(child: Text('Henüz kelime eklenmedi.'));
     }
@@ -40,8 +42,7 @@ class _WordListState extends State<WordList>
         itemCount: widget.words.length,
         itemBuilder: (context, index) {
           final word = widget.words[index];
-          final activeCard = context.watch<ActiveWordCardProvider>();
-          final isSelected = activeCard.activeWordId == word.id;
+          final isSelected = activeIndex == index;
 
           return WordCard(
             key: ValueKey(word.id),
@@ -50,16 +51,23 @@ class _WordListState extends State<WordList>
             onTap: () {
               context.read<ActiveWordCardProvider>().close();
             },
+
             onLongPress: () {
-              isSelected
-                  ? context.read<ActiveWordCardProvider>().close()
-                  : context.read<ActiveWordCardProvider>().open(word.id!);
+              final provider = context.read<ActiveWordCardProvider>();
+
+              if (isSelected) {
+                provider.close();
+              } else {
+                provider.open(index);
+              }
             },
+
             onEdit: () => editWord(
               context: context,
               word: word,
               onUpdated: widget.onUpdated,
             ),
+
             onDelete: () => confirmDelete(
               context: context,
               word: word,

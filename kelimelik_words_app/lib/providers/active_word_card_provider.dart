@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ActiveWordCardProvider extends ChangeNotifier {
-  int? _activeWordId;
+  int? _activeIndex;
 
-  int? get activeWordId => _activeWordId;
+  int? get activeIndex => _activeIndex;
 
-  void open(int id) {
-    _activeWordId = id;
+  void open(int index) {
+    _activeIndex = index;
     notifyListeners();
   }
 
   void close() {
-    _activeWordId = null;
-    notifyListeners();
+    if (_activeIndex != null) {
+      _activeIndex = null;
+      notifyListeners();
+    }
   }
 }

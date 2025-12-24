@@ -1,16 +1,19 @@
 // 📃 <----- alphabet_item_list.dart ----->
-//
 // Fihrist görünümlü listeleme için kullanılır.
 
 import 'package:alphabet_list_view/alphabet_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-/// 📌 sabitler burada
+/// 📌 sabitler
 import '../constants/color_constants.dart';
 import '../constants/turkish_alphabet.dart';
 
-/// 📌 Yardımcı yüklemeler burada
+/// 📌 modeller / provider
 import '../models/item_model.dart';
+import '../providers/active_word_card_provider.dart';
+
+/// 📌 widgetlar
 import '../widgets/item_actions.dart';
 import '../widgets/item_card.dart';
 
@@ -29,10 +32,11 @@ class AlphabetWordList extends StatefulWidget {
 }
 
 class _AlphabetWordListState extends State<AlphabetWordList> {
-  int? selectedIndex;
-
   /// 📌 Fihrist için grup yapılarını oluşturur
-  List<AlphabetListViewItemGroup> _buildGroupedItems() {
+  List<AlphabetListViewItemGroup> _buildGroupedItems(
+    BuildContext context,
+    int? activeIndex,
+  ) {
     Map<String, List<Word>> grouped = {};
 
     for (var word in widget.words) {
@@ -49,21 +53,27 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
         tag: letter,
         children: items.map((word) {
           final index = widget.words.indexOf(word);
-          final isSelected = selectedIndex == index;
+          final isSelected = activeIndex == index;
 
           return WordCard(
-            key: ValueKey(word.id), // doğru ID
-            word: word, // doğru word nesnesi
+            key: ValueKey(word.id),
+            word: word,
             isSelected: isSelected,
 
+            /// 📌 Kart üzerine dokun → kapat
             onTap: () {
-              if (selectedIndex != null) {
-                setState(() => selectedIndex = null);
-              }
+              context.read<ActiveWordCardProvider>().close();
             },
 
+            /// 📌 Uzun bas → aç / kapa
             onLongPress: () {
-              setState(() => selectedIndex = isSelected ? null : index);
+              final provider = context.read<ActiveWordCardProvider>();
+
+              if (isSelected) {
+                provider.close();
+              } else {
+                provider.open(index);
+              }
             },
 
             /// 📌 düzenle
@@ -73,7 +83,7 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
               onUpdated: widget.onUpdated,
             ),
 
-            /// 📌 silme
+            /// 📌 sil
             onDelete: () => confirmDelete(
               context: context,
               word: word,
@@ -91,15 +101,17 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
       return const Center(child: Text('Henüz kelime eklenmedi.'));
     }
 
+    final activeIndex = context.watch<ActiveWordCardProvider>().activeIndex;
+
     return GestureDetector(
       onTap: () {
-        if (selectedIndex != null) {
-          setState(() => selectedIndex = null);
-        }
+        // 📌 Boşluğa dokun → açık kartları kapat
+        context.read<ActiveWordCardProvider>().close();
       },
       behavior: HitTestBehavior.translucent,
       child: AlphabetListView(
-        items: _buildGroupedItems(),
+        items: _buildGroupedItems(context, activeIndex),
+
         options: AlphabetListViewOptions(
           scrollbarOptions: ScrollbarOptions(
             symbols: turkishAlphabet,
@@ -149,11 +161,9 @@ class _AlphabetWordListState extends State<AlphabetWordList> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                      top: 8,
-                      right: 16,
-                      bottom: 8,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
                     ),
                     child: Text(
                       symbol,
