@@ -2,6 +2,7 @@
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
+import 'package:kelimelik_words_app/providers/active_word_card_provider.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -17,6 +18,7 @@ void main() {
         ChangeNotifierProvider(
           create: (_) => WordCountProvider()..updateCount(),
         ),
+        ChangeNotifierProvider(create: (_) => ActiveWordCardProvider()),
       ],
       child: const MyApp(),
     ),

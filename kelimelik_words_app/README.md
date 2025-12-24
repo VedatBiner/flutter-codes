@@ -200,6 +200,9 @@ bir chatGPT ortak çalışması :)
 195. `custom_drawer.dart` ve `home_page.dart` dosyası düzenlendi. (arama kutusunun kapanması için) - 22.12.2025
 196. uygulama ikonu değişti. - 23.12.2025
 197. `word_length_legend.dart` ve `word_statsPage.dart` dosyalarında ufak değişiklikler yapıldı. - 23.12.2025
+198. `active_word_card_provider.dart` dosyası eklendi. - 24.12.2025
+199. bu provider için `main.dart` dosyasına ekleme yapıldı. - 24.12.2025
+200. 
 
 
 

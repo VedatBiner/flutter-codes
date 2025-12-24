@@ -1,7 +1,9 @@
 // 📃 <----- item_list.dart ----->
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/item_model.dart';
+import '../providers/active_word_card_provider.dart';
 import '../widgets/item_actions.dart';
 import '../widgets/item_card.dart';
 
@@ -17,14 +19,12 @@ class WordList extends StatefulWidget {
 
 class _WordListState extends State<WordList>
     with AutomaticKeepAliveClientMixin {
-  int? selectedIndex;
-
   @override
-  bool get wantKeepAlive => true; // 👈 Liste EKRANDA KALSIN, yeniden kurulmasın
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // 👈 keepAlive için gerekli
+    super.build(context);
 
     if (widget.words.isEmpty) {
       return const Center(child: Text('Henüz kelime eklenmedi.'));
@@ -32,25 +32,29 @@ class _WordListState extends State<WordList>
 
     return GestureDetector(
       onTap: () {
-        if (selectedIndex != null) {
-          setState(() => selectedIndex = null);
-        }
+        context.read<ActiveWordCardProvider>().close();
       },
       behavior: HitTestBehavior.translucent,
       child: ListView.builder(
-        key: const PageStorageKey("classic_list"), // 👈 scroll pozisyonu kaydet
+        key: const PageStorageKey("classic_list"),
         itemCount: widget.words.length,
         itemBuilder: (context, index) {
           final word = widget.words[index];
-          final isSelected = selectedIndex == index;
+          final activeCard = context.watch<ActiveWordCardProvider>();
+          final isSelected = activeCard.activeWordId == word.id;
 
           return WordCard(
-            key: ValueKey(word.id), // 👈 Item sabit kalsın, rebuild azaltır
+            key: ValueKey(word.id),
             word: word,
             isSelected: isSelected,
-            onTap: () => setState(() => selectedIndex = null),
-            onLongPress: () =>
-                setState(() => selectedIndex = isSelected ? null : index),
+            onTap: () {
+              context.read<ActiveWordCardProvider>().close();
+            },
+            onLongPress: () {
+              isSelected
+                  ? context.read<ActiveWordCardProvider>().close()
+                  : context.read<ActiveWordCardProvider>().open(word.id!);
+            },
             onEdit: () => editWord(
               context: context,
               word: word,
