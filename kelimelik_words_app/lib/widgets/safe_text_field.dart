@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 
 class SafeTextField extends StatefulWidget {
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   final String? labelText;
   final String? hint;
@@ -61,6 +62,7 @@ class SafeTextField extends StatefulWidget {
     this.autofocus = false,
     this.height,
     this.width,
+    this.focusNode,
   });
 
   @override
@@ -95,7 +97,7 @@ class _SafeTextFieldState extends State<SafeTextField> {
     return RepaintBoundary(
       child: TextFormField(
         controller: widget.controller,
-        focusNode: _focus,
+        focusNode: widget.focusNode ?? _focus,
         autofocus: widget.autofocus,
         validator: widget.validator,
 

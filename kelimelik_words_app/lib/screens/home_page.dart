@@ -65,6 +65,8 @@ class _HomePageState extends State<HomePage> {
   Duration elapsedTime = Duration.zero;
   static const tag = 'home_page';
 
+  final FocusNode _searchFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -85,6 +87,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     // Debounce timer ’ı ve controller ’ı düzgün kapat
+    _searchFocusNode.dispose();
     _searchDebounce?.cancel();
     searchController.dispose();
     super.dispose();
@@ -217,9 +220,20 @@ class _HomePageState extends State<HomePage> {
               child: CustomAppBar(
                 isSearching: isSearching,
                 searchController: searchController,
+                searchFocusNode: _searchFocusNode,
                 onSearchChanged: _filterWords,
                 onClearSearch: _clearSearch,
-                onStartSearch: () => setState(() => isSearching = true),
+                onStartSearch: () {
+                  setState(() => isSearching = true);
+
+                  // 🔥 KLAVYEYİ TEK SEFER AÇ
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (mounted) {
+                      _searchFocusNode.requestFocus();
+                    }
+                  });
+                },
+
                 itemCount: words.length,
                 onDrawerPressed: () {
                   if (isSearching) {

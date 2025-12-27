@@ -26,6 +26,7 @@ class _WordDialogState extends State<WordDialog> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _wordController;
   late final TextEditingController _meaningController;
+  final FocusNode _wordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,12 +35,19 @@ class _WordDialogState extends State<WordDialog> {
     _meaningController = TextEditingController(
       text: widget.word?.meaning ?? '',
     );
+    // 🔥 Dialog açıldıktan SONRA klavye aç
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _wordFocusNode.requestFocus();
+      }
+    });
   }
 
   @override
   void dispose() {
     _wordController.dispose();
     _meaningController.dispose();
+    _wordFocusNode.dispose();
     super.dispose();
   }
 
@@ -94,7 +102,8 @@ class _WordDialogState extends State<WordDialog> {
               labelText: "Kelime",
               hint: "Yeni kelime giriniz",
               hintStyle: hintStil,
-              autofocus: true,
+              autofocus: false,
+              focusNode: _wordFocusNode,
               validator: (v) => v == null || v.isEmpty ? "Boş olamaz" : null,
               borderColor: menuColor,
               focusBorderColor: drawerColor,

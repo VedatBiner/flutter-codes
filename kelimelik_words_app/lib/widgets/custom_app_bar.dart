@@ -18,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onClearSearch;
   final VoidCallback onStartSearch;
   final VoidCallback onDrawerPressed;
+  final FocusNode searchFocusNode;
   final int itemCount;
 
   const CustomAppBar({
@@ -28,6 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.onClearSearch,
     required this.onStartSearch,
     required this.onDrawerPressed,
+    required this.searchFocusNode,
     required this.itemCount,
   });
 
@@ -50,8 +52,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? SafeTextField(
               focusBorderColor: menuColor,
               controller: searchController,
-              autofocus: true,
+              autofocus: false,
               onChanged: onSearchChanged,
+              focusNode: searchFocusNode,
               fillColor: Colors.white,
               hint: 'Kelime ara ...',
               hintStyle: hintStil,
