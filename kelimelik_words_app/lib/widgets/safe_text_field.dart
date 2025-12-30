@@ -100,12 +100,15 @@ class _SafeTextFieldState extends State<SafeTextField> {
         focusNode: widget.focusNode ?? _focus,
         autofocus: widget.autofocus,
         validator: widget.validator,
+        keyboardAppearance: Brightness.light,
+        textInputAction: TextInputAction.next,
 
         decoration: InputDecoration(
           labelText: widget.labelText,
           hintText: widget.hint,
           hintStyle: widget.hintStyle,
           isDense: true,
+
           contentPadding: EdgeInsets.symmetric(
             vertical: widget.height ?? 12,
             horizontal: widget.width ?? 12,

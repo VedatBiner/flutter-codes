@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
   // 🔎  Arama & görünüm durumları
   bool isSearching = false;
   bool isFihristMode = true;
+  bool _suspendList = false;
   final TextEditingController searchController = TextEditingController();
 
   // 🔁 Arama için debounce (klavye takılmasını engeller)
@@ -224,13 +225,20 @@ class _HomePageState extends State<HomePage> {
                 onSearchChanged: _filterWords,
                 onClearSearch: _clearSearch,
                 onStartSearch: () {
-                  setState(() => isSearching = true);
+                  setState(() {
+                    _suspendList = true;
+                    isSearching = true;
+                  });
 
-                  // 🔥 KLAVYEYİ TEK SEFER AÇ
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) {
-                      _searchFocusNode.requestFocus();
-                    }
+                  // 🔥 klavye UI sakinleşince gelsin
+                  Future.delayed(const Duration(milliseconds: 120), () {
+                    if (!mounted) return;
+                    _searchFocusNode.requestFocus();
+
+                    // listeyi geri aç
+                    setState(() {
+                      _suspendList = false;
+                    });
                   });
                 },
 
@@ -280,7 +288,9 @@ class _HomePageState extends State<HomePage> {
             //     : WordList(words: words, onUpdated: _loadWords),
 
             /// Geçici olarak sadece alfabetik liste olsun
-            body: AlphabetItemList(words: words, onUpdated: _loadWords),
+            body: _suspendList
+                ? const SizedBox.shrink() // 👈 klavye açılırken liste çizilmez
+                : AlphabetItemList(words: words, onUpdated: _loadWords),
 
             // ➕  FAB
             floatingActionButton: CustomFAB(

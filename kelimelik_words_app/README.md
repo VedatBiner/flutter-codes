@@ -206,6 +206,11 @@ bir chatGPT ortak çalışması :)
 201. `WordList` sınıfı `ItemList`olarak değiştirildi. - 24.12.2025
 202. `AlphabetWordList` sınıfı `AlphabetItemList`olarak değiştirildi. - 24.12.2025
 203. Klavye yavaşlaması sorunu için `home_page.dart`, `home_page.dart`, `ìtem_dialog.dart` ve `safe_text_field.dart` dosyaları güncellendi. - 27.12.2025
+204. `safe_text_field.dart` ve `home_page.dart` dosyası düzenlendi. - 28.12.2025
+205. `alphabet_item_list.dart` dosyasından, `AlphabetWordListView` metodu ayrı bir dosyaya çıkarıldı. - 28.12.2025
+206. yeni dosya `alphabet_word_list.view_dart` oldu. - 28.12.2025
+207. 
+
 
 
 
