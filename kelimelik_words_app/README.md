@@ -209,7 +209,8 @@ bir chatGPT ortak çalışması :)
 204. `safe_text_field.dart` ve `home_page.dart` dosyası düzenlendi. - 28.12.2025
 205. `alphabet_item_list.dart` dosyasından, `AlphabetWordListView` metodu ayrı bir dosyaya çıkarıldı. - 28.12.2025
 206. yeni dosya `alphabet_word_list.view_dart` oldu. - 28.12.2025
-207. 
+207. `drawer_info_padding.dart` dosyası güncellendi. - 03.01.2026
+208. 
 
 
 
@@ -229,6 +230,8 @@ Yapılacaklar :
 - Hatalar : 
     
     - arama ve ekleme bölümünde klavye yavaş ve kesikli geliyor. Performans iyileştirme yapıldı ama ?
+    - Belki GetX ile daha yeni güncellemeler yapılabilir.
+    - 
 
 
 
