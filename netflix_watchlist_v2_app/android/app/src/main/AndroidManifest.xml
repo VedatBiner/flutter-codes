@@ -4,7 +4,7 @@
     <!-- Android 10 (API 29) ve öncesi için eski depolama izni -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
-        android:label="netflix_watchlist_v2_app"
+        android:label="Netflix Watchlist"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round">
