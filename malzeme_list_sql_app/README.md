@@ -106,6 +106,8 @@
 94. `device_info_plus` paketi eklendi. - 15.11.2025
 95. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
 96. `home_page.dart` dosyası düzenlendi. - 15.11.2025
+97. `db_helper.dart` ve `pubspec.yaml`dart dosyaları güncellenerek karşılaşılan hatalar giderildi. - 13.01.2026
+98. 
 
 
 
