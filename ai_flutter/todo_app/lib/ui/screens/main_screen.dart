@@ -1,20 +1,8 @@
 // <----- main_screen.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/data/entity/todos.dart';
 import '../../ui/screens/save_screen.dart';
-
-// A simple data class for Todo items
-class _TodoInfo {
-  final IconData icon;
-  final String text;
-  final Color color;
-
-  const _TodoInfo({
-    required this.icon,
-    required this.text,
-    required this.color,
-  });
-}
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,32 +13,16 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   // The complete list of Todo items
-  final List<_TodoInfo> _todoItems = [
-    const _TodoInfo(
-      icon: Icons.airplanemode_active,
-      text: 'Buy a plane ticket',
-      color: Colors.blue,
-    ),
-    const _TodoInfo(
-      icon: Icons.work,
-      text: 'Join the meeting',
-      color: Colors.orange,
-    ),
-    const _TodoInfo(
-      icon: Icons.sports_gymnastics,
-      text: 'Go to gym',
-      color: Colors.green,
-    ),
-    const _TodoInfo(icon: Icons.edit, text: 'Edit files', color: Colors.purple),
-    const _TodoInfo(
-      icon: Icons.school,
-      text: 'Attend English class',
-      color: Colors.red,
-    ),
+  final List<Todos> _todoItems = [
+    Todos(id: 1, name: 'Buy a plane ticket', image: 'simsek.png'),
+    Todos(id: 2, name: 'Join the meeting', image: 'simsek.png'),
+    Todos(id: 3, name: 'Go to gym', image: 'simsek.png'),
+    Todos(id: 4, name: 'Edit files', image: 'simsek.png'),
+    Todos(id: 5, name: 'Attend English class', image: 'simsek.png'),
   ];
 
   // The list displayed on the screen, which can be filtered
-  late List<_TodoInfo> _filteredTodoItems;
+  late List<Todos> _filteredTodoItems;
 
   final TextEditingController _searchController = TextEditingController();
 
@@ -66,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
     final query = _searchController.text.toLowerCase();
     setState(() {
       _filteredTodoItems = _todoItems
-          .where((item) => item.text.toLowerCase().contains(query))
+          .where((item) => item.name.toLowerCase().contains(query))
           .toList();
     });
   }
@@ -81,10 +53,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ToDos'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('ToDos'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -103,11 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                 itemCount: _filteredTodoItems.length,
                 itemBuilder: (context, index) {
                   final item = _filteredTodoItems[index];
-                  return TodoItem(
-                    icon: item.icon,
-                    text: item.text,
-                    iconColor: item.color,
-                  );
+                  return TodoItem(todo: item);
                 },
               ),
             ),
@@ -128,27 +93,17 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({
-    super.key,
-    required this.icon,
-    required this.text,
-    this.iconColor,
-  });
+  const TodoItem({super.key, required this.todo});
 
-  final IconData icon;
-  final String text;
-  final Color? iconColor;
+  final Todos todo;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(icon, color: iconColor),
-        title: Text(text),
-        trailing: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () {},
-        ),
+        leading: Image.asset('assets/${todo.image}'),
+        title: Text(todo.name),
+        trailing: IconButton(icon: const Icon(Icons.close), onPressed: () {}),
       ),
     );
   }
