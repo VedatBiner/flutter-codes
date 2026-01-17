@@ -1,7 +1,7 @@
 // <----- main_screen.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/save_screen.dart';
+import '../../ui/screens/save_screen.dart';
 
 // A simple data class for Todo items
 class _TodoInfo {

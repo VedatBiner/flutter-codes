@@ -1,7 +1,7 @@
 // <----- main.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/screens/main_screen.dart';
+import '../ui/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
