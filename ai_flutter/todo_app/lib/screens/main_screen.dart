@@ -81,7 +81,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ToDos')),
+      appBar: AppBar(
+        title: const Text('ToDos'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -91,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
               decoration: const InputDecoration(
                 hintText: 'Search',
                 border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
               ),
             ),
             const SizedBox(height: 8),
@@ -141,7 +145,10 @@ class TodoItem extends StatelessWidget {
       child: ListTile(
         leading: Icon(icon, color: iconColor),
         title: Text(text),
-        trailing: IconButton(icon: const Icon(Icons.close), onPressed: () {}),
+        trailing: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {},
+        ),
       ),
     );
   }

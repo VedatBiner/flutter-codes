@@ -32,13 +32,16 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Update Screen')),
+      appBar: AppBar(
+        title: const Text('Update Screen'),
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Icon(Icons.eco, size: 100, color: Colors.green[400]),
               const SizedBox(height: 40),
@@ -56,14 +59,22 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 },
               ),
               const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Form is valid, handle updating the data here
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Text('Update'),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    foregroundColor: Colors.white,
+                    textStyle: const TextStyle(fontSize: 18),
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      // Form is valid, handle updating the data here
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text('Update'),
+                ),
               ),
             ],
           ),
