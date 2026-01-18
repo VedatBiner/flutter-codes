@@ -32,10 +32,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update Screen'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Update Screen'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -43,7 +40,19 @@ class _UpdateScreenState extends State<UpdateScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(Icons.eco, size: 100, color: Colors.green[400]),
+              Image.asset(
+                'assets/images/gezegen.png',
+                height: 100,
+                width: 100,
+                errorBuilder: (context, error, stackTrace) {
+                  /// resim yoksa bunu göster
+                  return Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 28,
+                    color: Colors.grey,
+                  );
+                },
+              ),
               const SizedBox(height: 40),
               TextFormField(
                 controller: _taskNameController,

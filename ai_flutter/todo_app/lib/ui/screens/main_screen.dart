@@ -14,11 +14,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   // The complete list of Todo items
   final List<Todos> _todoItems = [
-    Todos(id: 1, name: 'Buy a plane ticket', image: 'simsek.png'),
-    Todos(id: 2, name: 'Join the meeting', image: 'simsek.png'),
-    Todos(id: 3, name: 'Go to gym', image: 'simsek.png'),
-    Todos(id: 4, name: 'Edit files', image: 'simsek.png'),
-    Todos(id: 5, name: 'Attend English class', image: 'simsek.png'),
+    Todos(id: 1, name: 'Buy a plane ticket', image: 'agac.png'),
+    Todos(id: 2, name: 'Join the meeting', image: 'araba.png'),
+    Todos(id: 3, name: 'Go to gym', image: 'cicek.png'),
+    Todos(id: 4, name: 'Edit files', image: 'damla.png'),
+    Todos(id: 5, name: 'Attend English class', image: 'gunes.png'),
   ];
 
   // The list displayed on the screen, which can be filtered
@@ -53,7 +53,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ToDos'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('ToDos'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -80,6 +84,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
         onPressed: () {
           Navigator.push(
             context,
@@ -101,7 +107,17 @@ class TodoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Image.asset('assets/${todo.image}'),
+        leading: Image.asset(
+          'assets/images/${todo.image}',
+          errorBuilder: (context, error, stackTrace) {
+            /// resim yoksa bunu göster
+            return Icon(
+              Icons.image_not_supported_outlined,
+              size: 28,
+              color: Colors.grey,
+            );
+          },
+        ),
         title: Text(todo.name),
         trailing: IconButton(icon: const Icon(Icons.close), onPressed: () {}),
       ),
