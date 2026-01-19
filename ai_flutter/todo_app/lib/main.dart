@@ -1,6 +1,7 @@
 // <----- main.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/theme/app_colors.dart';
 import '../ui/screens/main_screen.dart';
 
 void main() {
@@ -16,13 +17,18 @@ class MyApp extends StatelessWidget {
       title: 'Todo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.mainColor),
         useMaterial3: true,
         fontFamily: "Oswald",
+        scaffoldBackgroundColor: AppColors.backgroundColor,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.deepPurple,
-          foregroundColor: Colors.white,
-          titleTextStyle: TextStyle(fontFamily: "Oswald"),
+          backgroundColor: AppColors.mainColor,
+          foregroundColor: AppColors.white,
+          titleTextStyle: TextStyle(
+            fontFamily: "Oswald",
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       home: const MainScreen(),
