@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/entity/todos.dart';
+import 'package:todo_app/ui/theme/app_colors.dart';
 import '../../ui/screens/save_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -53,10 +54,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('ToDos'),
+        title: const Text('ToDos', style: TextStyle(color: AppColors.white)),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.mainColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -66,8 +68,13 @@ class _MainScreenState extends State<MainScreen> {
               controller: _searchController,
               decoration: const InputDecoration(
                 hintText: 'Search',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.search),
+                filled: true,
+                fillColor: AppColors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderSide: BorderSide.none,
+                ),
+                prefixIcon: Icon(Icons.search, color: AppColors.darkGray),
               ),
             ),
             const SizedBox(height: 8),
@@ -84,8 +91,8 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
+        backgroundColor: AppColors.mainColor,
+        foregroundColor: AppColors.white,
         onPressed: () {
           Navigator.push(
             context,
@@ -106,20 +113,23 @@ class TodoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: AppColors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: ListTile(
         leading: Image.asset(
           'assets/images/${todo.image}',
           errorBuilder: (context, error, stackTrace) {
-            /// resim yoksa bunu göster
-            return Icon(
+            return const Icon(
               Icons.image_not_supported_outlined,
               size: 28,
-              color: Colors.grey,
+              color: AppColors.darkGray,
             );
           },
         ),
-        title: Text(todo.name),
-        trailing: IconButton(icon: const Icon(Icons.close), onPressed: () {}),
+        title: Text(todo.name, style: const TextStyle(color: AppColors.darkGray)),
+        trailing: const Icon(Icons.close, color: AppColors.darkGray),
       ),
     );
   }

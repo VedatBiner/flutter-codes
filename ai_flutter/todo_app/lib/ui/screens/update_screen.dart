@@ -1,6 +1,7 @@
 // <----- update_screen.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/ui/theme/app_colors.dart';
 
 class UpdateScreen extends StatefulWidget {
   // The initial name of the task to be updated.
@@ -32,7 +33,16 @@ class _UpdateScreenState extends State<UpdateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Update Screen'), centerTitle: true),
+      backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: const Text('Update Screen', style: TextStyle(color: AppColors.white)),
+        centerTitle: true,
+        backgroundColor: AppColors.mainColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppColors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -58,7 +68,12 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 controller: _taskNameController,
                 decoration: const InputDecoration(
                   labelText: 'Task Name',
-                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: AppColors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -72,9 +87,13 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(fontSize: 18),
+                    backgroundColor: AppColors.mainColor,
+                    foregroundColor: AppColors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
