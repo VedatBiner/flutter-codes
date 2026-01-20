@@ -1,22 +1,45 @@
 // 📃 <----- theme.dart ----->
 
 import 'package:flutter/material.dart';
+import 'constants/text_constants.dart'; // ✅ drawerMenuTitleText için
 
 class CustomTheme {
   const CustomTheme._();
 
   static final theme = ThemeData(
     useMaterial3: false,
+
+    // ------------------------------------------------------------
+    // 🎨 RENK ŞEMASI
+    // ------------------------------------------------------------
     colorScheme: ColorScheme.fromSeed(
       seedColor: _blue,
       primary: _blue,
       secondary: _yellow,
     ),
+
+    // ------------------------------------------------------------
+    // 📌 APP BAR TEMASI
+    // - Drawer (hamburger) ikon rengi
+    // - AppBar action ikonları
+    // ------------------------------------------------------------
+    appBarTheme: AppBarTheme(
+      iconTheme: IconThemeData(
+        color: drawerMenuTitleText.color, // 🔥 Drawer ikon rengi
+      ),
+    ),
+
+    // ------------------------------------------------------------
+    // 📌 BOTTOM SHEET
+    // ------------------------------------------------------------
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.transparent,
     ),
   );
 
+  // ------------------------------------------------------------
+  // 🔵 MAVİ RENK PALETİ
+  // ------------------------------------------------------------
   static const MaterialColor _blue = MaterialColor(
     _bluePrimaryValue,
     <int, Color>{
@@ -34,6 +57,9 @@ class CustomTheme {
   );
   static const int _bluePrimaryValue = 0xFF0277BD;
 
+  // ------------------------------------------------------------
+  // 🟡 SARI RENK PALETİ
+  // ------------------------------------------------------------
   static const MaterialColor _yellow = MaterialColor(
     _yellowPrimaryValue,
     <int, Color>{

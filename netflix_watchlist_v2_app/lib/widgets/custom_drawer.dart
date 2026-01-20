@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/color_constants.dart';
+import '../constants/text_constants.dart'; // ✅ drawerMenuTitleText
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_export_all.dart'; // <-- TEK CSV EXPORTER
@@ -44,16 +45,24 @@ class CustomDrawer extends StatelessWidget {
           // ------------------------------------------------------------------
           ListTile(
             leading: const Icon(Icons.download, color: Colors.white),
-            title: const Text(
+
+            /// 🔹 BUTON BAŞLIĞI (drawerMenuTitleText)
+            title: Text(
               "CSV Dışa Aktar (Film + Dizi)",
-              style: TextStyle(color: Colors.white),
+              style: drawerMenuTitleText,
             ),
-            subtitle: const Text(
+
+            /// 🔹 ALT AÇIKLAMA (aynı stilin yumuşatılmış hali)
+            subtitle: Text(
               "Tüm liste + OMDb verileri",
-              style: TextStyle(color: Colors.white70),
+              style: drawerMenuTitleText.copyWith(
+                fontSize: 12,
+                color: drawerMenuTitleText.color?.withOpacity(0.7),
+              ),
             ),
+
             onTap: () async {
-              // 1️⃣ Drawer’ı kapat
+              // 1️⃣ Drawer ’ı kapat
               Navigator.pop(context);
 
               // 2️⃣ Biraz bekle (context güvenli hâle gelsin)

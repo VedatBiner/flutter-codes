@@ -22,7 +22,14 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 15. `custom_drawer.dart`, `drawer_title.dart`, `drawer_info_padding_tile.dart` dosyaları oluşturuldu. - 19.11.2025
 16. `csv_export_all.dart` ve `csv_move_to_download.dart` dosyaları oluşturuldu. - 19.11.2025
 17. ikon değişikliği yapıldı. - 20.11.2025
-18. 
+18. Mini dizi / Film ayrımı düzeltildi. - 20.01.2026
+19. `pubspec.yaml` dosyasında açıklamalar düzenlendi. - 20.01.2026
+20. `csv_parser.dart` dosyası düzenlendi. - 20.01.2026
+21. `theme.dart` dosyası güncellendi. - 20.01.2026
+22. `home_page.dart` dosyası düzenlendi. - 20.01.2026
+23. `custom_drawer.dart` dosyası düzenlendi. - 20.01.2026
+
+
 
 
 

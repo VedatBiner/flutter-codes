@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../constants/text_constants.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
@@ -168,7 +169,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Netflix İzleme Listesi"),
+          title: Text("Netflix Watchlist", style: drawerMenuTitleText),
 
           actions: [
             // 📊 İSTATİSTİK SAYFASI
