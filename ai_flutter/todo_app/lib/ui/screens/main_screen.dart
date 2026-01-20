@@ -3,9 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/entity/todos.dart';
-import 'package:todo_app/ui/screens/update_screen.dart';
-import 'package:todo_app/ui/theme/app_colors.dart';
+import '../../data/entity/todos.dart';
+import '../../ui/screens/update_screen.dart';
+import '../../ui/theme/app_colors.dart';
 import '../../ui/screens/save_screen.dart';
 
 class MainScreen extends StatefulWidget {

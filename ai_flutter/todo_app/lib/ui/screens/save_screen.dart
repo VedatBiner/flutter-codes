@@ -1,7 +1,7 @@
 // <----- save_screen.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/theme/app_colors.dart';
+import '../../ui/theme/app_colors.dart';
 
 class SaveScreen extends StatefulWidget {
   final String imageName;
@@ -26,7 +26,10 @@ class _SaveScreenState extends State<SaveScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('Save Screen', style: TextStyle(color: AppColors.white)),
+        title: const Text(
+          'Save Screen',
+          style: TextStyle(color: AppColors.white),
+        ),
         centerTitle: true,
         backgroundColor: AppColors.mainColor,
         leading: IconButton(
@@ -84,7 +87,10 @@ class _SaveScreenState extends State<SaveScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {

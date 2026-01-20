@@ -1,8 +1,8 @@
 // <----- update_screen.dart ----->
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/data/entity/todos.dart';
-import 'package:todo_app/ui/theme/app_colors.dart';
+import '../../data/entity/todos.dart';
+import '../../ui/theme/app_colors.dart';
 
 class UpdateScreen extends StatefulWidget {
   final Todos todo;
@@ -35,7 +35,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: const Text('Update Screen', style: TextStyle(color: AppColors.white)),
+        title: const Text(
+          'Update Screen',
+          style: TextStyle(color: AppColors.white),
+        ),
         centerTitle: true,
         backgroundColor: AppColors.mainColor,
         leading: IconButton(
@@ -93,7 +96,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
