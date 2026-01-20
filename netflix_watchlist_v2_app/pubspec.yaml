@@ -2,20 +2,20 @@ name: netflix_watchlist_v2_app
 description: "Netflix watch list App v2"
 publish_to: 'none'
 
-version: 2.0.5+1
+version: 2.0.6+1
 
 environment:
-  sdk: ^3.10.0-290.4.beta
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.8           # iOS stilinde ikonlar
 
-  csv:
-  http:
-  fl_chart:
+  csv:                             # CSV dosyalarını okuma/yazma
+  http:                            # HTTP istekleri (GET/POST)
+  fl_chart:                        # Grafik ve şema oluşturma
 
   # -----------------------------
   # Uygulama bilgisi
@@ -26,17 +26,14 @@ dependencies:
   # -----------------------------
   # İzinler
   # -----------------------------
-  permission_handler:           # Çalışma zamanı izinleri (Android/iOS)
+  permission_handler:              # Çalışma zamanı izinleri (Android/iOS)
 
   # -----------------------------
   # Veritabanı / Depolama
   # -----------------------------
-  #  sqflite:                      # Cihaz içi SQLite (CRUD)
   path_provider:                   # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
   path:                            # Dosya yolu işlemleri (join/dirname/extension)
   external_path:                   # Android harici depolama (Downloads/DCIM) yolu erişimi
-
-  # flutter_launcher_icons:
 
 dev_dependencies:
   flutter_test:
@@ -51,11 +48,3 @@ flutter:
   assets:
     - assets/database/NetflixFilmHistory.csv
     - assets/images/
-
-# flutter_launcher_icons:
-#   android: true
-#   ios: true
-#   image_path: "assets/images/app_icon.png"
-#   adaptive_icon_background: "#FFFFFF"
-#   adaptive_icon_foreground: "assets/images/app_icon.png"
-#   min_sdk_android: 21
