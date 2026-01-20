@@ -110,13 +110,16 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: AppColors.mainColor,
         foregroundColor: AppColors.white,
         onPressed: () {
-          final randomImage = _imageAssets[Random().nextInt(_imageAssets.length)];
+          final randomImage =
+              _imageAssets[Random().nextInt(_imageAssets.length)];
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => SaveScreen(imageName: randomImage),
             ),
-          );
+          ).then((_) {
+            print("Returned from SaveScreen");
+          });
         },
         child: const Icon(Icons.add),
       ),
@@ -133,17 +136,15 @@ class TodoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: AppColors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ListTile(
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => UpdateScreen(todo: todo),
-            ),
-          );
+            MaterialPageRoute(builder: (context) => UpdateScreen(todo: todo)),
+          ).then((_) {
+            print("Returned from UpdateScreen");
+          });
         },
         leading: Image.asset(
           'assets/images/${todo.image}',
@@ -155,7 +156,10 @@ class TodoItem extends StatelessWidget {
             );
           },
         ),
-        title: Text(todo.name, style: const TextStyle(color: AppColors.darkGray)),
+        title: Text(
+          todo.name,
+          style: const TextStyle(color: AppColors.darkGray),
+        ),
         trailing: const Icon(Icons.close, color: AppColors.darkGray),
       ),
     );
