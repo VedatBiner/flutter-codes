@@ -1,5 +1,7 @@
 // <----- main_screen.dart ----->
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/entity/todos.dart';
 import 'package:todo_app/ui/theme/app_colors.dart';
@@ -20,6 +22,19 @@ class _MainScreenState extends State<MainScreen> {
     Todos(id: 3, name: 'Go to gym', image: 'cicek.png'),
     Todos(id: 4, name: 'Edit files', image: 'damla.png'),
     Todos(id: 5, name: 'Attend English class', image: 'gunes.png'),
+  ];
+
+  final List<String> _imageAssets = [
+    'agac.png',
+    'araba.png',
+    'cicek.png',
+    'damla.png',
+    'gezegen.png',
+    'gunes.png',
+    'roket.png',
+    'semsiye.png',
+    'simsek.png',
+    'yildiz.png',
   ];
 
   // The list displayed on the screen, which can be filtered
@@ -94,9 +109,12 @@ class _MainScreenState extends State<MainScreen> {
         backgroundColor: AppColors.mainColor,
         foregroundColor: AppColors.white,
         onPressed: () {
+          final randomImage = _imageAssets[Random().nextInt(_imageAssets.length)];
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const SaveScreen()),
+            MaterialPageRoute(
+              builder: (context) => SaveScreen(imageName: randomImage),
+            ),
           );
         },
         child: const Icon(Icons.add),

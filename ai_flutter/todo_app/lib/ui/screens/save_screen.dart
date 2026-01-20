@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/ui/theme/app_colors.dart';
 
 class SaveScreen extends StatefulWidget {
-  const SaveScreen({super.key});
+  final String imageName;
+  const SaveScreen({super.key, required this.imageName});
 
   @override
   State<SaveScreen> createState() => _SaveScreenState();
@@ -41,12 +42,12 @@ class _SaveScreenState extends State<SaveScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(
-                'assets/images/gezegen.png',
+                'assets/images/${widget.imageName}',
                 height: 100,
                 width: 100,
                 errorBuilder: (context, error, stackTrace) {
                   /// resim yoksa bunu göster
-                  return Icon(
+                  return const Icon(
                     Icons.image_not_supported_outlined,
                     size: 28,
                     color: Colors.grey,
