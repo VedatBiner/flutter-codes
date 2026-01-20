@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/data/entity/todos.dart';
+import 'package:todo_app/ui/screens/update_screen.dart';
 import 'package:todo_app/ui/theme/app_colors.dart';
 import '../../ui/screens/save_screen.dart';
 
@@ -136,6 +137,14 @@ class TodoItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => UpdateScreen(todo: todo),
+            ),
+          );
+        },
         leading: Image.asset(
           'assets/images/${todo.image}',
           errorBuilder: (context, error, stackTrace) {

@@ -1,13 +1,13 @@
 // <----- update_screen.dart ----->
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/data/entity/todos.dart';
 import 'package:todo_app/ui/theme/app_colors.dart';
 
 class UpdateScreen extends StatefulWidget {
-  // The initial name of the task to be updated.
-  final String initialTaskName;
+  final Todos todo;
 
-  const UpdateScreen({super.key, required this.initialTaskName});
+  const UpdateScreen({super.key, required this.todo});
 
   @override
   State<UpdateScreen> createState() => _UpdateScreenState();
@@ -21,7 +21,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
   void initState() {
     super.initState();
     // Initialize the controller with the task's current name.
-    _taskNameController = TextEditingController(text: widget.initialTaskName);
+    _taskNameController = TextEditingController(text: widget.todo.name);
   }
 
   @override
@@ -51,12 +51,12 @@ class _UpdateScreenState extends State<UpdateScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(
-                'assets/images/gezegen.png',
+                'assets/images/${widget.todo.image}',
                 height: 100,
                 width: 100,
                 errorBuilder: (context, error, stackTrace) {
                   /// resim yoksa bunu göster
-                  return Icon(
+                  return const Icon(
                     Icons.image_not_supported_outlined,
                     size: 28,
                     color: Colors.grey,
