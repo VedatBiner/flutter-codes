@@ -63,6 +63,7 @@ Adama,Adamak işi,15.12.2025
 Adaş,Adları aynı olan,15.12.2025
 Adat,Töreler / Adetler,15.12.2025
 Aday,Namzet,15.12.2025
+Adedi,Sayıca,19.01.2026
 Adem,Yokluk,15.12.2025
 Adese,Mercek / Kovucuk,15.12.2025
 Adet,Sayı / Tane,15.12.2025
@@ -474,6 +475,7 @@ Badal,Merdiven,15.12.2025
 Badat,Bir tür yer elması,15.12.2025
 Bade,Şarap / İçki,15.12.2025
 Badem,Yemiş,15.12.2025
+Bademli,İçinde badem bulunan,17.01.2026
 Badi,Ördek,15.12.2025
 Badik,Ördek / Palaz,15.12.2025
 Badire,Birden ortaya çıkan tehlikeli durum,15.12.2025
@@ -566,6 +568,7 @@ Baş,Başlangıç / Topluluk yöneticisi,15.12.2025
 Başak,Ekinlerin tanelerini taşıyan başı,15.12.2025
 Başaklı,Başağı olan,08.01.2026
 Başarı,Başarma işi / Muvaffakiyet,15.12.2025
+Başçı,İşçi başı / Koyun kuzu başı satan kimse,17.01.2026
 Başçık,Çiçeklern erkek orgsnlarında çiçek tozu tsşıyan torbacık / Haşefer,15.12.2025
 Başlık,Başı korumak için giyilen şapka / Serpuş,15.12.2025
 Bat,Boru ağzı açmaya yarar takoz,15.12.2025
@@ -602,6 +605,7 @@ Be,Seslenme sözü / Harf,15.12.2025
 Bebek,Meme veya kucak cocuğu,15.12.2025
 Becet,Serçegillerden küçük bir kuş,15.12.2025
 Bed,Kötü / Çirkin,15.12.2025
+Bedel,Değer / Fiyat / Kıymet,17.01.2026
 Bedii,Rstetik,15.12.2025
 Bedik,Kazakların hastalık iyileştirme töreni,15.12.2025
 Bedir,Dolunay,15.12.2025
@@ -682,7 +686,7 @@ Biga,Çanakkale ilçesi,15.12.2025
 Bila,Bir tür olumsuzluk eki,15.12.2025
 Bilar,Kalafat işlerinde kullanılan bir macun,15.12.2025
 Bile,Birlikte / Üstelik,15.12.2025
-Bilek,Güç / Kuvvet / Elle,15.12.2025
+Bilek,Güç / Kuvvet / Elle kolun ayakla bacağın birleştiği yer,15.12.2025
 Bilet,Para ile alınan,15.12.2025
 Bilge,Bilgili / İyi ahlaklı,15.12.2025
 Bili,Bilgi,15.12.2025
@@ -788,6 +792,7 @@ Buz,Donmuş su,15.12.2025
 Buzla,Deniz suyunun donması ile oluşan buz alanı / Bankiz / Aysflit,15.12.2025
 Bük,Dönemeç / Böğürtlen,15.12.2025
 Büken,Oynak kemikler arasındaki açıları daraltan kaslar,15.12.2025
+Bükmek,Eğmek / Katlamak / Döndürmek,20.01.2026
 Büküm,Bükme işi,15.12.2025
 Bükün,Kelime köklerinde değişiklikler olması / İnsiraf,15.12.2025
 Bülten,Süreli veya süresiz yayınlanan duyuru,17.01.2026
@@ -947,10 +952,12 @@ Cüzi,Çok az,15.12.2025
 Çapa,Çapalama işi,15.12.2025
 Çapak,Göz pınarlarında biriken kuru akıntı,15.12.2025
 Çapar,Postacı / Ulak,15.12.2025
+Çapari,Bir tür olta takımı,20.01.2026
 Çar,Rus imparatoru,15.12.2025
 Çardak,Kameriye,15.12.2025
 Çare,Çözüm yolu / Deva,15.12.2025
 Çarık,Bir tür ayakkabı,15.12.2025
+Çariçe,Kadın çar,19.01.2026
 Çark,Tekerlek şeklinde makine parçası,15.12.2025
 Çarpan,Çarpma işlemi terimi,15.12.2025
 Çat,Erzurum ilçesi,15.12.2025
@@ -1016,6 +1023,7 @@ Cüzi,Çok az,15.12.2025
 Çıralık,Çıra konulan yer,15.12.2025
 Çıt,Hafif ve anlık ses,15.12.2025
 Çıta,Düzgün kesilmiş ensiz tahta,15.12.2025
+Çıtak,Kaba / huysuz / Kavgacı,18.01.2026
 Çıtır,Diken / Çalı,15.12.2025
 Çift,Küçük maşa / eş,15.12.2025
 Çigan,Çingene,15.12.2025
@@ -1368,6 +1376,7 @@ Em,İlaç / Merhem,15.12.2025
 Eman,Radyoaktif ölçü birimi,15.12.2025
 Emare,Belirti / İz / İpucu,15.12.2025
 Emaret,Beylik,08.01.2026
+Emay,Bir tür koruyucu boya,17.01.2026
 Emaye,Üzeri emay ile kaplanmış olan,15.12.2025
 Emeç,Yosunların tutunma organı,15.12.2025
 Emek,Uzun yorucu çalışma,15.12.2025
@@ -1382,6 +1391,7 @@ Enam,Yaratılmış bütün canlılar,15.12.2025
 Encam,Gelecek,15.12.2025
 Endam,Beden / Boy / Pos,15.12.2025
 Ender,Çok az / Seyrek,15.12.2025
+Enek,Enenmiş / Burulmuş / Erkekliği giderilmiş,19.01.2026
 Enez,Edirne ilçesi,15.12.2025
 Enik,Kedi,15.12.2025
 Enir,Bir tür yaban mersini,15.12.2025
@@ -1392,6 +1402,7 @@ Ense,boyun arkası,15.12.2025
 Entel,Sahte aydın,15.12.2025
 Epe,Kılıç oyunu,15.12.2025
 Epey,Az denemeyevek kadar / Oldukça / Hayli,15.12.2025
+Epik,Destansı,18.01.2026
 Er,Erkek,15.12.2025
 Erat,Erler,15.12.2025
 Erek,Amaç / Gaye / Maksat / Hedef,21.12.2025
@@ -1458,6 +1469,7 @@ Evci,Yatil gğnlerinş evinde geçiren öğrenci veya asker,24.12.2025
 Evç,En yüce yer / Yer öte / Gün öte,15.12.2025
 Evet,Olumlu cümlede anlam pekiştiren söz,15.12.2025
 Evgin,Acil,15.12.2025
+Evham,Kuruntular,19.01.2026
 Eviç,Klasik Türk müziğinde bileşik makam,15.12.2025
 Evla,Daha iyi / Yeğ,15.12.2025
 Evli,Evlenmiş olan,07.01.2026
@@ -1845,6 +1857,7 @@ Helen,Grek,15.12.2025
 Hem,Açıklayıcı nitelikli iki ifadeyi bağlayan bağlaç,15.12.2025
 Hemen,Çabucak,15.12.2025
 Hep,Her zaman / Daima,15.12.2025
+Herik,Bir tür koyun,18.01.2026
 Herk,Dürüldğjten sonra nadasa bırakılan tarla,15.12.2025
 Hey,Dikkat çekme sözü,15.12.2025
 Heyelan,Toprak kayması,18.12.2025
@@ -1897,7 +1910,6 @@ Hüzün,Gam / Keder / Sıkıntı,15.12.2025
 Idame,Sürdürme,15.12.2025
 Iğıl,Yavaş akan su,15.12.2025
 Ih,Deve çöktürme sesi,15.12.2025
-Ilca,Zorlama / Zorunda bırakma,15.12.2025
 Ilgar,Dizginleri çekilince atın dört nala koşması,15.12.2025
 Ilgaz,Çankırı ilçesi,05.01.2026
 Ilgın,Konya ilçesi,15.12.2025
@@ -1946,12 +1958,15 @@ Itri,İtırlı / Kokulu,15.12.2025
 İcar,Kira,15.12.2025
 İcat,Buluş,15.12.2025
 İcaz,Az sözle çok şey anlatma,15.12.2025
+İcazet,İzin / Onay / Diploma,19.01.2026
 İcbar,Zorlama / Zorunda bırakma,15.12.2025
 İcmal,Gösterge / Özet,15.12.2025
 İcra,Bir işi yerine getirme,15.12.2025
 İcracı,İcra kararlarını uygulayan görevli,15.12.2025
 İç,Oyuk boşluğu,15.12.2025
 İçel,Mersin 'in eski adı,15.12.2025
+İçim,İçme işi / İçiş,18.01.2026
+İçimlik,İçilecek miktarda olan,18.01.2026
 İçin,Amacıyla / Maksadıyla,15.12.2025
 İçiş,İçme işi,15.12.2025
 İçit,İçilecek şey,15.12.2025
@@ -2003,6 +2018,7 @@ Itri,İtırlı / Kokulu,15.12.2025
 İlan,Duyuru,15.12.2025
 İlanen,Duyuru yoluyla,15.12.2025
 İlave,Ekleme / Ulama,15.12.2025
+İlca,Zorlama / Zorunda bırakma,15.12.2025
 İle,Bağlama sözcüğü,15.12.2025
 İlek,İncir dölleyen sinek,15.12.2025
 İleti,Bilgi / Mesaj,15.12.2025
@@ -2210,6 +2226,7 @@ Kala,Kaldığında,15.12.2025
 Kalak,Burun / Burun ucu / Gelin tacı,15.12.2025
 Kalan,Artan,15.12.2025
 Kalas,Kalın biçilmiş uzun tahta,15.12.2025
+Kalay,Bir element,19.01.2026
 Kale,Denizli ilçesi,15.12.2025
 Kaleci,File bekçisi / Top oyunlarının bazısında yoğun kaleye girmesini engellemek le görevli kişi,15.12.2025
 Kalem,Yazma aracı / Çeşit / Tür,15.12.2025
@@ -2285,6 +2302,8 @@ Kartel,Bir tür dayanışma birliği,18.12.2025
 Karun,Çok zengin kimse,15.12.2025
 Kas,Adale,15.12.2025
 Kasa,Para saklanan dolap,15.12.2025
+Kasalı,Kasası olan,15.12.2025
+Kasalık,Kasa yapmaya uygun tahta,18.01.2026
 Kasap,Yenecek hayvanları kesen veya satan kimse,07.01.2026
 Kase,Derince çanak,15.12.2025
 Kaset,Manyetik şerit olan kayıt aracı,15.12.2025
@@ -2398,6 +2417,7 @@ Kerh,Tiksinme / İğrenme,15.12.2025
 Kerhen,İstemeyerek / Tiksinerek / İğrenerek,15.12.2025
 Kerim,Eli açık / Cömert / Soylu,15.12.2025
 Keriz,Geriz / Çirkef / Pislik / Eğlenti / Kumar,15.12.2025
+Kerte,Çentik / Derece / Radde,19.01.2026
 Kerti,Kerte / Bayat (ekmek,15.12.2025
 Kertik,Gedik / Çentik,15.12.2025
 Kes,Bir çeşit jimnastik ayakkabısı,15.12.2025
@@ -3835,6 +3855,7 @@ Seci,Nesirde yapılan uyak,15.12.2025
 Seçi,Fark / Ayrıntı / Seçme işi,15.12.2025
 Seçki,Seçme eserler / Antoloji / Güldeste,15.12.2025
 Sefa,Eğlence / Zevk / Neşe,15.12.2025
+Sefil,Sefalet çeken / Yoksul / Alçak,19.01.2026
 Segah,Türk müziğinde bir makam,15.12.2025
 Sek,Su katılmamış,15.12.2025
 Sekant,Kesen doğru,07.01.2026
@@ -4022,6 +4043,7 @@ Suare,Gece gösterimi,15.12.2025
 Sucu,Su satan kişi / Saka,15.12.2025
 Sucuk,Barsak içine baharatlı et doldurularak yapılan yiyecek,15.12.2025
 Suç,Yasalara aykırı davranış / Cürüm,15.12.2025
+Suçlu,Mücrim / Kabahati olan / Suçu olan,17.01.2026
 Sudoku,Bir zeka oyunu,17.12.2025
 Sufi,Mutasavvıf,15.12.2025
 Sukut,Düşme,15.12.2025
@@ -4193,6 +4215,7 @@ Taalluk,İlgi / İlinti,15.12.2025
 Tab,Bası / Huy / Karakter / Mizaç,15.12.2025
 Taba,Tütün rengi,15.12.2025
 Tabak,Yiyecek koymaya yarayan kap,15.12.2025
+Tabaka,Katman / Derece,19.01.2026
 Taban,Ayağın alt yüzü,15.12.2025
 Tabi,Bağımlı,15.12.2025
 Tabii,Doğada bulunan,15.12.2025
@@ -4515,6 +4538,7 @@ Tüy,Deri üzerindeki ince uzantılar,15.12.2025
 Tüyo,Gizli bilgi / Kopya,15.12.2025
 Tüzel,Hukuki / Hukuksal,15.12.2025
 Uca,Kuyruk sokumu kemiği,15.12.2025
+Ucuz,Az emekle elde edilen / Bayağı,19.01.2026
 Uç,Kenar / Tepe,15.12.2025
 Uçak,Tayyare,15.12.2025
 Uçaksız,Uçağı olmayan,15.12.2025
@@ -4525,6 +4549,7 @@ Uçucu,Pilot / Uçma yeteneği olan,15.12.2025
 Udi,Ut çalan,15.12.2025
 Uf,Acı sıkıntı sözü,15.12.2025
 Ufak,Boyutları normalden küçük,15.12.2025
+Ufarak,Biraz ufak,18.01.2026
 Ufki,Yatay,15.12.2025
 Ufo,Kimliği belirlenemeyen gök cisimleri,15.12.2025
 Ufuk,Çevre / çevren / Dolay,15.12.2025
@@ -4568,6 +4593,7 @@ Uruk,Soy / Sülale,15.12.2025
 Urum,Azak kıyısında yaşayan Türk halkı,15.12.2025
 Urup,Arşının sekizde biri / bir şeyin dörtte biri,15.12.2025
 Us,Akıl,15.12.2025
+Usare,Öz su,18.01.2026
 Usat,Asiler/ İsyancılar / Başkaldıranlar,15.12.2025
 Usta,Becerikli / Mahir,15.12.2025
 Usul,Yöntem / Tarz / Metot,15.12.2025
@@ -4717,6 +4743,7 @@ Yahut,Veya / Ya da,15.12.2025
 Yak,Tibet öküzü,15.12.2025
 Yaka,Giysilerin boynu çeviren bölümü,15.12.2025
 Yakalık,Yaka yapılmaya uygun olan,15.12.2025
+Yakı,Isı ile vücuda yapışan eczalı parça,18.01.2026
 Yakım,Yakma işi,15.12.2025
 Yakın,Uzak olmayan,15.12.2025
 Yakıt,Enerji ve ısı ortaya çıkaran yanıcı madde,15.12.2025
@@ -4763,6 +4790,7 @@ Yasal,Kanuni / Meşru / Legal,15.12.2025
 Yasalı,Yasaya uygun,15.12.2025
 Yasama,Yasa koyma / Teşri,15.12.2025
 Yasin,Kur'an surelerinden biri,15.12.2025
+Yaslamak,Dayandırmak,20.01.2026
 Yaslı,Yas tutan,15.12.2025
 Yaş,Hayatın evrelerinin her biri,15.12.2025
 Yaşa,Yaşasın / Oley / Ole,15.12.2025
@@ -4841,6 +4869,7 @@ Yılan,Sürüngen türü,15.12.2025
 Yılık,Şaşı göz,15.12.2025
 Yır,Şiir,15.12.2025
 Yırık,Yırtılmış,15.12.2025
+Yirmi,Bir sayı,17.01.2026
 Yitik,Kayıp olan şey,15.12.2025
 Yitim,Kayıp,15.12.2025
 Yiv,Sarmal girinti veya çıkıntı,15.12.2025

@@ -320,6 +320,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Adedi",
+    "Anlam": "Sayıca",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "Adem",
     "Anlam": "Yokluk",
     "Tarih": "15.12.2025"
@@ -2375,6 +2380,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Bademli",
+    "Anlam": "İçinde badem bulunan",
+    "Tarih": "17.01.2026"
+  },
+  {
     "Kelime": "Badi",
     "Anlam": "Ördek",
     "Tarih": "15.12.2025"
@@ -2835,6 +2845,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Başçı",
+    "Anlam": "İşçi başı / Koyun kuzu başı satan kimse",
+    "Tarih": "17.01.2026"
+  },
+  {
     "Kelime": "Başçık",
     "Anlam": "Çiçeklern erkek orgsnlarında çiçek tozu tsşıyan torbacık / Haşefer",
     "Tarih": "15.12.2025"
@@ -3013,6 +3028,11 @@
     "Kelime": "Bed",
     "Anlam": "Kötü / Çirkin",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Bedel",
+    "Anlam": "Değer / Fiyat / Kıymet",
+    "Tarih": "17.01.2026"
   },
   {
     "Kelime": "Bedii",
@@ -3416,7 +3436,7 @@
   },
   {
     "Kelime": "Bilek",
-    "Anlam": "Güç / Kuvvet / Elle",
+    "Anlam": "Güç / Kuvvet / Elle kolun ayakla bacağın birleştiği yer",
     "Tarih": "15.12.2025"
   },
   {
@@ -3943,6 +3963,11 @@
     "Kelime": "Büken",
     "Anlam": "Oynak kemikler arasındaki açıları daraltan kaslar",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Bükmek",
+    "Anlam": "Eğmek / Katlamak / Döndürmek",
+    "Tarih": "20.01.2026"
   },
   {
     "Kelime": "Büküm",
@@ -4740,6 +4765,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Çapari",
+    "Anlam": "Bir tür olta takımı",
+    "Tarih": "20.01.2026"
+  },
+  {
     "Kelime": "Çar",
     "Anlam": "Rus imparatoru",
     "Tarih": "15.12.2025"
@@ -4758,6 +4788,11 @@
     "Kelime": "Çarık",
     "Anlam": "Bir tür ayakkabı",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Çariçe",
+    "Anlam": "Kadın çar",
+    "Tarih": "19.01.2026"
   },
   {
     "Kelime": "Çark",
@@ -5083,6 +5118,11 @@
     "Kelime": "Çıta",
     "Anlam": "Düzgün kesilmiş ensiz tahta",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Çıtak",
+    "Anlam": "Kaba / huysuz / Kavgacı",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "Çıtır",
@@ -6845,6 +6885,11 @@
     "Tarih": "08.01.2026"
   },
   {
+    "Kelime": "Emay",
+    "Anlam": "Bir tür koruyucu boya",
+    "Tarih": "17.01.2026"
+  },
+  {
     "Kelime": "Emaye",
     "Anlam": "Üzeri emay ile kaplanmış olan",
     "Tarih": "15.12.2025"
@@ -6915,6 +6960,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Enek",
+    "Anlam": "Enenmiş / Burulmuş / Erkekliği giderilmiş",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "Enez",
     "Anlam": "Edirne ilçesi",
     "Tarih": "15.12.2025"
@@ -6963,6 +7013,11 @@
     "Kelime": "Epey",
     "Anlam": "Az denemeyevek kadar / Oldukça / Hayli",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Epik",
+    "Anlam": "Destansı",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "Er",
@@ -7293,6 +7348,11 @@
     "Kelime": "Evgin",
     "Anlam": "Acil",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Evham",
+    "Anlam": "Kuruntular",
+    "Tarih": "19.01.2026"
   },
   {
     "Kelime": "Eviç",
@@ -9230,6 +9290,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Herik",
+    "Anlam": "Bir tür koyun",
+    "Tarih": "18.01.2026"
+  },
+  {
     "Kelime": "Herk",
     "Anlam": "Dürüldğjten sonra nadasa bırakılan tarla",
     "Tarih": "15.12.2025"
@@ -9490,11 +9555,6 @@
     "Tarih": "15.12.2025"
   },
   {
-    "Kelime": "Ilca",
-    "Anlam": "Zorlama / Zorunda bırakma",
-    "Tarih": "15.12.2025"
-  },
-  {
     "Kelime": "Ilgar",
     "Anlam": "Dizginleri çekilince atın dört nala koşması",
     "Tarih": "15.12.2025"
@@ -9735,6 +9795,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "İcazet",
+    "Anlam": "İzin / Onay / Diploma",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "İcbar",
     "Anlam": "Zorlama / Zorunda bırakma",
     "Tarih": "15.12.2025"
@@ -9763,6 +9828,16 @@
     "Kelime": "İçel",
     "Anlam": "Mersin 'in eski adı",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "İçim",
+    "Anlam": "İçme işi / İçiş",
+    "Tarih": "18.01.2026"
+  },
+  {
+    "Kelime": "İçimlik",
+    "Anlam": "İçilecek miktarda olan",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "İçin",
@@ -10017,6 +10092,11 @@
   {
     "Kelime": "İlave",
     "Anlam": "Ekleme / Ulama",
+    "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "İlca",
+    "Anlam": "Zorlama / Zorunda bırakma",
     "Tarih": "15.12.2025"
   },
   {
@@ -11055,6 +11135,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kalay",
+    "Anlam": "Bir element",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "Kale",
     "Anlam": "Denizli ilçesi",
     "Tarih": "15.12.2025"
@@ -11428,6 +11513,16 @@
     "Kelime": "Kasa",
     "Anlam": "Para saklanan dolap",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kasalı",
+    "Anlam": "Kasası olan",
+    "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kasalık",
+    "Anlam": "Kasa yapmaya uygun tahta",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "Kasap",
@@ -11993,6 +12088,11 @@
     "Kelime": "Keriz",
     "Anlam": "Geriz / Çirkef / Pislik / Eğlenti / Kumar",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kerte",
+    "Anlam": "Çentik / Derece / Radde",
+    "Tarih": "19.01.2026"
   },
   {
     "Kelime": "Kerti",
@@ -19180,6 +19280,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Sefil",
+    "Anlam": "Sefalet çeken / Yoksul / Alçak",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "Segah",
     "Anlam": "Türk müziğinde bir makam",
     "Tarih": "15.12.2025"
@@ -20115,6 +20220,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Suçlu",
+    "Anlam": "Mücrim / Kabahati olan / Suçu olan",
+    "Tarih": "17.01.2026"
+  },
+  {
     "Kelime": "Sudoku",
     "Anlam": "Bir zeka oyunu",
     "Tarih": "17.12.2025"
@@ -20968,6 +21078,11 @@
     "Kelime": "Tabak",
     "Anlam": "Yiyecek koymaya yarayan kap",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Tabaka",
+    "Anlam": "Katman / Derece",
+    "Tarih": "19.01.2026"
   },
   {
     "Kelime": "Taban",
@@ -22580,6 +22695,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Ucuz",
+    "Anlam": "Az emekle elde edilen / Bayağı",
+    "Tarih": "19.01.2026"
+  },
+  {
     "Kelime": "Uç",
     "Anlam": "Kenar / Tepe",
     "Tarih": "15.12.2025"
@@ -22628,6 +22748,11 @@
     "Kelime": "Ufak",
     "Anlam": "Boyutları normalden küçük",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Ufarak",
+    "Anlam": "Biraz ufak",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "Ufki",
@@ -22843,6 +22968,11 @@
     "Kelime": "Us",
     "Anlam": "Akıl",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Usare",
+    "Anlam": "Öz su",
+    "Tarih": "18.01.2026"
   },
   {
     "Kelime": "Usat",
@@ -23590,6 +23720,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Yakı",
+    "Anlam": "Isı ile vücuda yapışan eczalı parça",
+    "Tarih": "18.01.2026"
+  },
+  {
     "Kelime": "Yakım",
     "Anlam": "Yakma işi",
     "Tarih": "15.12.2025"
@@ -23818,6 +23953,11 @@
     "Kelime": "Yasin",
     "Anlam": "Kur'an surelerinden biri",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Yaslamak",
+    "Anlam": "Dayandırmak",
+    "Tarih": "20.01.2026"
   },
   {
     "Kelime": "Yaslı",
@@ -24208,6 +24348,11 @@
     "Kelime": "Yırık",
     "Anlam": "Yırtılmış",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Yirmi",
+    "Anlam": "Bir sayı",
+    "Tarih": "17.01.2026"
   },
   {
     "Kelime": "Yitik",
