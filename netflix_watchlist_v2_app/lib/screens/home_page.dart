@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/text_constants.dart';
+import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
 import '../utils/omdb_lazy_loader.dart';
+import '../utils/search_and_filter.dart';
 import '../widgets/custom_drawer.dart';
+import '../widgets/filter_chips.dart';
 import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,8 +26,6 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
-enum FilterOption { all, movies, series, last30days }
 
 class _HomePageState extends State<HomePage> {
   List<NetflixItem> allMovies = [];
@@ -100,60 +101,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // ----------------------------------------------------------------
-  // 🔍 Arama + Filtre Uygulama
-  // ----------------------------------------------------------------
-  void applySearchAndFilter() {
-    final q = searchQuery.toLowerCase().trim();
-
-    // ---------------------
-    // Filmler
-    // ---------------------
-    List<NetflixItem> filteredMovies = allMovies.where((m) {
-      return q.isEmpty || m.title.toLowerCase().contains(q);
-    }).toList();
-
-    // ---------------------
-    // Diziler + Bölümler
-    // ---------------------
-    List<SeriesGroup> filteredSeries = allSeries.where((s) {
-      final seriesMatch = s.seriesName.toLowerCase().contains(q);
-
-      final episodeMatch = s.seasons.any(
-        (season) =>
-            season.episodes.any((ep) => ep.title.toLowerCase().contains(q)),
-      );
-
-      return q.isEmpty ? true : (seriesMatch || episodeMatch);
-    }).toList();
-
-    // ---------------------
-    // Filtre butonu
-    // ---------------------
-    final now = DateTime.now();
-    final last30 = now.subtract(const Duration(days: 30));
-
-    if (filter == FilterOption.movies) {
-      filteredSeries = [];
-    } else if (filter == FilterOption.series) {
-      filteredMovies = [];
-    } else if (filter == FilterOption.last30days) {
-      filteredMovies = filteredMovies
-          .where((m) => parseDate(m.date).isAfter(last30))
-          .toList();
-
-      filteredSeries = filteredSeries.where((s) {
-        final latest = s.seasons
-            .expand((e) => e.episodes)
-            .map((e) => parseDate(e.date))
-            .reduce((x, y) => x.isAfter(y) ? x : y);
-        return latest.isAfter(last30);
-      }).toList();
-    }
+  void _updateFilteredResults() {
+    final results = applySearchAndFilter(
+      searchQuery: searchQuery,
+      filter: filter,
+      allMovies: allMovies,
+      allSeries: allSeries,
+    );
 
     setState(() {
-      movies = filteredMovies;
-      series = filteredSeries;
+      movies = results['movies'] as List<NetflixItem>;
+      series = results['series'] as List<SeriesGroup>;
     });
   }
 
@@ -209,8 +167,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 onChanged: (value) {
-                  searchQuery = value;
-                  applySearchAndFilter();
+                  setState(() {
+                    searchQuery = value;
+                    _updateFilteredResults();
+                  });
                 },
               ),
             ),
@@ -233,7 +193,15 @@ class _HomePageState extends State<HomePage> {
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-                  _buildFilters(),
+                  FilterChips(
+                    filter: filter,
+                    onSelected: (newFilter) {
+                      setState(() {
+                        filter = newFilter;
+                        _updateFilteredResults();
+                      });
+                    },
+                  ),
                   Expanded(
                     child: ListView(
                       padding: const EdgeInsets.all(10),
@@ -247,37 +215,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
       ),
-    );
-  }
-
-  // ----------------------------------------------------------------
-  // 🔽 Filtre Butonları
-  // ----------------------------------------------------------------
-  Widget _buildFilters() {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: Wrap(
-        spacing: 8,
-        children: [
-          _filterChip("Tümü", FilterOption.all),
-          _filterChip("Filmler", FilterOption.movies),
-          _filterChip("Diziler", FilterOption.series),
-          _filterChip("Son 30 Gün", FilterOption.last30days),
-        ],
-      ),
-    );
-  }
-
-  Widget _filterChip(String label, FilterOption option) {
-    final selected = filter == option;
-
-    return ChoiceChip(
-      label: Text(label),
-      selected: selected,
-      onSelected: (_) {
-        filter = option;
-        applySearchAndFilter();
-      },
     );
   }
 
