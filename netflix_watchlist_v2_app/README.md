@@ -28,6 +28,12 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 21. `theme.dart` dosyası güncellendi. - 20.01.2026
 22. `home_page.dart` dosyası düzenlendi. - 20.01.2026
 23. `custom_drawer.dart` dosyası düzenlendi. - 20.01.2026
+24. `drawer_info_padding_tile_dart` dosyası düzenlendi. - 22.01.2026
+25. `custom_drawer.dart` dosyası düzenlendi. - 22.01.2026
+26. `drawer_share_tile.dart` dosyası eklendi. - 22.01.2026
+27. `drawer_backup_tile.dart` dosyası eklendi. - 22.01.2026
+28. 
+
 
 
 
