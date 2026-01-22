@@ -35,6 +35,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 28. `show_notification_handler.dart` dosyası eklendi. - 22.01.2026
 29. `elegant_notification` ve `share_plus` paketi eklendi. - 22.01.2026
 30. `filter_chips.dart` ve `filer_option.dart` dosyası oluşturuldu. - 22.01.2026
+31. `oswald` font eklendi. - 22.01.2026
+32. `theme.dart` dosyası güncellendi. - 22.01.2026
 
 
 

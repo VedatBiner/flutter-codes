@@ -50,3 +50,8 @@ flutter:
   assets:
     - assets/database/NetflixFilmHistory.csv
     - assets/images/
+
+  fonts:
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/oswald.ttf

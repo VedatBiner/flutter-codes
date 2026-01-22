@@ -7,6 +7,7 @@ class CustomTheme {
   const CustomTheme._();
 
   static final theme = ThemeData(
+    fontFamily: 'Oswald',
     useMaterial3: false,
 
     // ------------------------------------------------------------
