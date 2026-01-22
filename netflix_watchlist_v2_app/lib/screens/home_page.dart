@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/text_constants.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
@@ -160,10 +161,19 @@ class _HomePageState extends State<HomePage> {
               child: TextField(
                 decoration: InputDecoration(
                   filled: true,
+                  fillColor: Colors.white,
                   hintText: "Ara (Dizi, Film, Bölüm)...",
                   prefixIcon: const Icon(Icons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: menuColor),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: menuColor),
                   ),
                 ),
                 onChanged: (value) {
@@ -179,14 +189,9 @@ class _HomePageState extends State<HomePage> {
 
         // 📁 Drawer
         drawer: CustomDrawer(
-          // onDatabaseUpdated: _loadItems,
           appVersion: appVersion,
           allMovies: allMovies,
           allSeries: allSeries,
-          // isFihristMode: isFihristMode,
-          // onToggleViewMode: () {
-          //   setState(() => isFihristMode = !isFihristMode);
-          // },
         ),
 
         body: loading
