@@ -1,8 +1,8 @@
 // 📁 lib/widgets/filter_chips.dart
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
 import '../models/filter_option.dart';
-import '../screens/home_page.dart';
 
 class FilterChips extends StatelessWidget {
   final FilterOption filter;
@@ -32,6 +32,16 @@ class FilterChips extends StatelessWidget {
 
   Widget _filterChip(String label, FilterOption option) {
     final selected = filter == option;
+
+    if (option == FilterOption.all) {
+      return ChoiceChip(
+        label: Text(label, style: TextStyle(color: menuColor)),
+        selected: selected,
+        onSelected: (_) => onSelected(option),
+        backgroundColor: Colors.indigo,
+        selectedColor: Colors.indigoAccent[800],
+      );
+    }
 
     return ChoiceChip(
       label: Text(label),
