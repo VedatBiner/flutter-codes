@@ -21,7 +21,7 @@ class DrawerBackupTile extends StatelessWidget {
       message: 'JSON/CSV/XLSX\nyedeği oluştur',
       child: ListTile(
         leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
-        title: Text('Yedek Oluştur', style: drawerMenuTitleText),
+        title: Text('Yedek Oluştur', style: drawerMenuText),
         subtitle: Text(
           "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX)",
           style: drawerMenuSubtitleText,

@@ -13,3 +13,5 @@ const String fileNameCsv = "netflix_list_backup.csv";
 // const String fileNameXlsx = "netflix_list_backup.xlsx";
 // const String fileNameZip = "netflix_list_backup.zip";
 // const String fileNameSql = "netflix_list.db";
+
+const logLine = '-------------------------------------------------';

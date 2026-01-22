@@ -32,7 +32,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 25. `custom_drawer.dart` dosyası düzenlendi. - 22.01.2026
 26. `drawer_share_tile.dart` dosyası eklendi. - 22.01.2026
 27. `drawer_backup_tile.dart` dosyası eklendi. - 22.01.2026
-28. 
+28. `show_notification_handler.dart` dosyası eklendi. - 22.01.2026
+29. `elegant_notification` ve `share_plus` paketi eklendi. - 22.01.2026
+30. 
 
 
 

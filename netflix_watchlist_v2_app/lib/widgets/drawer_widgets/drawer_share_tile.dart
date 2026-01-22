@@ -36,7 +36,7 @@ class DrawerShareTile extends StatelessWidget {
       leading: Icon(Icons.share, color: downLoadButtonColor, size: 32),
       title: const Text("Yedekleri Paylaş", style: drawerMenuText),
       subtitle: Text(
-        "Download klasöründeki dosyaları paylaş",
+        "Download klasöründeki\ndosyaları paylaş",
         style: drawerMenuSubtitleText,
       ),
       onTap: () async {
