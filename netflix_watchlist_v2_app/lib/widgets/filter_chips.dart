@@ -16,16 +16,24 @@ class FilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: Wrap(
-        spacing: 8,
-        children: [
-          _filterChip("Tümü", FilterOption.all),
-          _filterChip("Filmler", FilterOption.movies),
-          _filterChip("Diziler", FilterOption.series),
-          _filterChip("Son 30 Gün", FilterOption.last30days),
-        ],
+    // ChipTheme ile sarmalayarak tüm chiplerin metin stilini
+    // hem seçili hem de seçili değilken aynı yapıyoruz.
+    return ChipTheme(
+      data: ChipTheme.of(context).copyWith(
+        labelStyle: TextStyle(color: menuColor),
+        secondaryLabelStyle: TextStyle(color: menuColor), // selected style
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: Wrap(
+          spacing: 8,
+          children: [
+            _filterChip("Tümü", FilterOption.all),
+            _filterChip("Filmler", FilterOption.movies),
+            _filterChip("Diziler", FilterOption.series),
+            _filterChip("Son 30 Gün", FilterOption.last30days),
+          ],
+        ),
       ),
     );
   }
@@ -33,20 +41,12 @@ class FilterChips extends StatelessWidget {
   Widget _filterChip(String label, FilterOption option) {
     final selected = filter == option;
 
-    if (option == FilterOption.all) {
-      return ChoiceChip(
-        label: Text(label, style: TextStyle(color: menuColor)),
-        selected: selected,
-        onSelected: (_) => onSelected(option),
-        backgroundColor: Colors.indigo,
-        selectedColor: Colors.indigoAccent[800],
-      );
-    }
-
     return ChoiceChip(
       label: Text(label),
       selected: selected,
       onSelected: (_) => onSelected(option),
+      backgroundColor: drawerColor,
+      selectedColor: editButtonColor,
     );
   }
 }
