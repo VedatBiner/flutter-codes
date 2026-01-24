@@ -40,7 +40,7 @@ class CsvParser {
 
     /// compute → isolate içinde CSV satırlarını çıkarır
     final List<Map<String, String>> rows =
-    await compute<String, List<Map<String, String>>>(_parseCsvIsolate, raw);
+        await compute<String, List<Map<String, String>>>(_parseCsvIsolate, raw);
 
     List<NetflixItem> movies = [];
     Map<String, Map<int, List<EpisodeItem>>> seriesMap = {};
@@ -49,30 +49,42 @@ class CsvParser {
       final title = row['title']!;
       final date = row['date']!;
 
-      // ----------------------------------------------------------
-      // 📺 DİZİ TESPİTİ (Sezon + Mini Dizi + Bölüm formatları)
-      // ----------------------------------------------------------
       if (_isSeriesTitle(title)) {
         final parts = title.split(":");
-
-        // 🔹 Dizi adı normalize edilir (Mini Dizi temizlenir)
         final seriesName = _normalizeSeriesName(parts[0].trim());
 
         int season = 1;
+        String epTitle;
 
-        // 🔹 Sezon bilgisi varsa al
-        if (parts.length > 1) {
+        if (parts.length > 2) {
+          // Format: "Series: Season X: Episode"
           final rawSeason = parts[1]
               .replaceAll("Sezon", "")
               .replaceAll(".", "")
               .replaceAll("Mini Dizi", "")
               .trim();
-
           season = int.tryParse(rawSeason) ?? 1;
-        }
+          epTitle = parts[2].trim();
+        } else if (parts.length == 2) {
+          // Format: "Series: Episode" or "Series: Season X"
+          final part2 = parts[1].trim();
+          final rawSeason = part2
+              .replaceAll("Sezon", "")
+              .replaceAll(".", "")
+              .replaceAll("Mini Dizi", "")
+              .trim();
+          final parsedSeason = int.tryParse(rawSeason);
 
-        // 🔹 Bölüm adı
-        final epTitle = parts.length > 2 ? parts[2].trim() : "Bölüm";
+          if (part2.toLowerCase().contains('sezon') && parsedSeason != null) {
+            season = parsedSeason;
+            epTitle = "Bölüm"; // Default episode name
+          } else {
+            epTitle = part2;
+          }
+        } else {
+          // Format: "Series" (e.g. from "My Mini Dizi")
+          epTitle = "Bölüm";
+        }
 
         seriesMap.putIfAbsent(seriesName, () => {});
         seriesMap[seriesName]!.putIfAbsent(season, () => []);
@@ -152,15 +164,15 @@ class CsvParser {
   /// 📺 Dizi tespiti
   /// - "Sezon" geçenler
   /// - "Mini Dizi" geçenler
-  /// - Çoklu ":" içeren bölüm formatları
+  /// - ":" içerenler
   static bool _isSeriesTitle(String title) {
     final t = title.toLowerCase();
 
     if (t.contains("mini dizi")) return true;
     if (t.contains("sezon")) return true;
 
-    // Örn: Dizi: Sezon: Bölüm
-    if (":".allMatches(title).length >= 2) return true;
+    // Örn: Dizi: Bölüm
+    if (title.contains(":")) return true;
 
     return false;
   }

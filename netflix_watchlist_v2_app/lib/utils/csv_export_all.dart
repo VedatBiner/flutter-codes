@@ -40,9 +40,9 @@ String formatCsvDate(String raw) {
 
 /// 📦 Filmler + Diziler tek CSV olarak dışa aktarılır (GLOBAL A→Z)
 Future<File?> exportAllToCsv(
-  List<NetflixItem> movies,
-  List<SeriesGroup> series,
-) async {
+    List<NetflixItem> movies,
+    List<SeriesGroup> series,
+    ) async {
   const tag = "csv_export";
 
   try {

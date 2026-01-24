@@ -37,6 +37,19 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 30. `filter_chips.dart` ve `filer_option.dart` dosyası oluşturuldu. - 22.01.2026
 31. `oswald` font eklendi. - 22.01.2026
 32. `theme.dart` dosyası güncellendi. - 22.01.2026
+33. `backup_notification_helper.dart`, `bottom_banner_helper.dart` ve `export_items.dart` dosyası oluşturuldu. - 23.01.2026
+34. `drawer_backup_tile.dart` dosyası düzenlendi. - 23.01.2026
+35. `csv_helper.dart` ve èxcel_helper.dart` dosyası oluşturuldu. - 23.01.2026
+36. `syncfusion_flutter_xlsio` paketi eklendi. - 23.01.2026
+37. `pubspec.yaml` dosyası düzenlendi. - 23.01.2026
+38. `filinfo.dart`, `netflix_item.dart`, `csv_export_all.dart` ve `csv_parser.dart` dosyaları düzeltildi. - 24.01.2026
+39. `drawer_backup_tile.dart`, `custom_drawer.dart` ve  `show_notification_handler.dart` dosyaları düzeltildi. - 24.01.2026
+40. `export_items.dart`, `backup_notification_helper.dart`, `csv_helper.dart`, `bottom_banner_helper.dart` ve `excel_helper.dart` dosyaları eklendi. - 24.01.2026
+41. 
+
+
+
+
 
 
 
@@ -49,11 +62,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 
 
 Yapılacaklar:
-- Drawer menü ile versiyon bilgisi al
 - Download dizinlerine yazma izinlerini hallet. Bu işlem home_page_dart içinde en başta olsun.
 - Tema görünümü ve dosya adlarını düzenle
 - ikon görüntülerini düzelt
 - csv dosyayı film bilgilerini de içerecek şekilde büyüt
 - bu CSV dosyasından sql (db), xlsx / json yedek gönderimi için zip dosyaları oluştur.
-- pubspec.yaml sayfasını düzenle
 - Dark mode / light mode kodu oluştur.

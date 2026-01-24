@@ -2,7 +2,7 @@ name: netflix_watchlist_v2_app
 description: "Netflix watch list App v2"
 publish_to: 'none'
 
-version: 2.1.0+1
+version: 2.1.2+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"
@@ -16,7 +16,12 @@ dependencies:
   csv:                             # CSV dosyalarını okuma/yazma
   http:                            # HTTP istekleri (GET/POST)
   fl_chart:                        # Grafik ve şema oluşturma
-  elegant_notification:            # Modern toast/notification bileşenleri
+  elegant_notification:            # Başarılı/hata bildirimleri
+
+  # -----------------------------
+  # İhracat / Paylaşım / Excel
+  # -----------------------------
+  syncfusion_flutter_xlsio:        # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
   share_plus:                      # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
 
   # -----------------------------
