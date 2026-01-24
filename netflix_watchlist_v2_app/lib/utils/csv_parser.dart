@@ -38,7 +38,6 @@ class CsvParser {
       "assets/database/$assetsFileNameCsv",
     );
 
-    /// compute → isolate içinde CSV satırlarını çıkarır
     final List<Map<String, String>> rows =
         await compute<String, List<Map<String, String>>>(_parseCsvIsolate, raw);
 
@@ -57,131 +56,77 @@ class CsvParser {
         String epTitle;
 
         if (parts.length > 2) {
-          // Format: "Series: Season X: Episode"
-          final rawSeason = parts[1]
-              .replaceAll("Sezon", "")
-              .replaceAll(".", "")
-              .replaceAll("Mini Dizi", "")
-              .trim();
+          final rawSeason = parts[1].replaceAll(RegExp(r'[^0-9]'), '');
           season = int.tryParse(rawSeason) ?? 1;
           epTitle = parts[2].trim();
         } else if (parts.length == 2) {
-          // Format: "Series: Episode" or "Series: Season X"
           final part2 = parts[1].trim();
-          final rawSeason = part2
-              .replaceAll("Sezon", "")
-              .replaceAll(".", "")
-              .replaceAll("Mini Dizi", "")
-              .trim();
-          final parsedSeason = int.tryParse(rawSeason);
-
-          if (part2.toLowerCase().contains('sezon') && parsedSeason != null) {
-            season = parsedSeason;
-            epTitle = "Bölüm"; // Default episode name
+          if (part2.toLowerCase().startsWith('sezon')) {
+            final rawSeason = part2.replaceAll(RegExp(r'[^0-9]'), '');
+            season = int.tryParse(rawSeason) ?? 1;
+            epTitle = "Bölüm";
           } else {
             epTitle = part2;
           }
         } else {
-          // Format: "Series" (e.g. from "My Mini Dizi")
           epTitle = "Bölüm";
         }
 
         seriesMap.putIfAbsent(seriesName, () => {});
         seriesMap[seriesName]!.putIfAbsent(season, () => []);
-
-        seriesMap[seriesName]![season]!.add(
-          EpisodeItem(title: epTitle, date: date),
-        );
+        seriesMap[seriesName]![season]!.add(EpisodeItem(title: epTitle, date: date));
       } else {
-        // ----------------------------------------------------------
-        // 🎬 FİLM
-        // ----------------------------------------------------------
         movies.add(NetflixItem(title: title, date: date, type: "movie"));
       }
     }
 
-    // 🔥 Filmleri en son izlenene göre sırala
-    movies.sort((a, b) {
-      return parseDate(b.date).compareTo(parseDate(a.date));
-    });
+    movies.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
 
-    // 🔥 Dizileri oluştur
     List<SeriesGroup> seriesGroups = [];
-
     seriesMap.forEach((seriesName, seasonMap) {
       List<SeasonGroup> seasons = [];
-
       seasonMap.forEach((seasonNumber, episodes) {
-        // Bölümleri tarihe göre sırala
-        episodes.sort((a, b) {
-          return parseDate(b.date).compareTo(parseDate(a.date));
-        });
-
-        seasons.add(
-          SeasonGroup(seasonNumber: seasonNumber, episodes: episodes),
-        );
+        episodes.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
+        seasons.add(SeasonGroup(seasonNumber: seasonNumber, episodes: episodes));
       });
-
       seasons.sort((a, b) => a.seasonNumber.compareTo(b.seasonNumber));
-
       seriesGroups.add(SeriesGroup(seriesName: seriesName, seasons: seasons));
     });
 
-    // 🔥 Dizileri tüm bölümlerin en yeni tarihine göre sırala
     seriesGroups.sort((a, b) {
-      final lastA = a.seasons
-          .expand((s) => s.episodes)
-          .map((e) => parseDate(e.date))
-          .reduce((x, y) => x.isAfter(y) ? x : y);
-
-      final lastB = b.seasons
-          .expand((s) => s.episodes)
-          .map((e) => parseDate(e.date))
-          .reduce((x, y) => x.isAfter(y) ? x : y);
-
+      final lastA = a.seasons.expand((s) => s.episodes).map((e) => parseDate(e.date)).reduce((x, y) => x.isAfter(y) ? x : y);
+      final lastB = b.seasons.expand((s) => s.episodes).map((e) => parseDate(e.date)).reduce((x, y) => x.isAfter(y) ? x : y);
       return lastB.compareTo(lastA);
     });
 
     return ParsedNetflixData(movies: movies, series: seriesGroups);
   }
 
-  /// isolate fonksiyonu (sadece CSV satırlarını çıkarır)
   static List<Map<String, String>> _parseCsvIsolate(String raw) {
     final rows = const CsvToListConverter().convert(raw, eol: "\n");
-
     if (rows.isNotEmpty) rows.removeAt(0);
-
-    return rows
-        .map(
-          (r) => {
-        'title': r[0].toString().trim(),
-        'date': r[1].toString().trim(),
-      },
-    )
-        .toList();
+    return rows.map((r) => {'title': r[0].toString().trim(), 'date': r[1].toString().trim()}).toList();
   }
 
-  /// 📺 Dizi tespiti
-  /// - "Sezon" geçenler
-  /// - "Mini Dizi" geçenler
-  /// - ":" içerenler
   static bool _isSeriesTitle(String title) {
     final t = title.toLowerCase();
+    if (t.contains("mini dizi") || t.contains("sezon")) return true;
+    if (":".allMatches(title).length >= 2) return true;
 
-    if (t.contains("mini dizi")) return true;
-    if (t.contains("sezon")) return true;
-
-    // Örn: Dizi: Bölüm
-    if (title.contains(":")) return true;
-
+    if (title.contains(":")) {
+      final parts = title.split(":");
+      if (parts.length > 1) {
+        final subtitle = parts[1].trim();
+        final wordCount = subtitle.split(" ").where((s) => s.isNotEmpty).length;
+        if (wordCount < 4) {
+          return true;
+        }
+      }
+    }
     return false;
   }
 
-  /// 🔧 "Mini Dizi" ifadesini dizi adından temizler
   static String _normalizeSeriesName(String name) {
-    return name
-        .replaceAll(RegExp(r"\s*mini dizi\s*", caseSensitive: false), "")
-        .replaceAll(RegExp(r"\s+"), " ")
-        .trim();
+    return name.replaceAll(RegExp(r"\s*mini dizi\s*", caseSensitive: false), "").trim();
   }
 }
