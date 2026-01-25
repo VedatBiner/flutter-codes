@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../constants/color_constants.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_export_all.dart';
@@ -33,37 +32,35 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // Arka plan rengi artık temadan dinamik olarak alınacak.
-      // Hardcoded renkler kaldırıldı.
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           /// 📌 Drawer başlığı
           const DrawerTitleWidget(),
 
-          Divider(color: menuColor, thickness: 2),
+          const Divider(thickness: 2),
 
           /// 📌 Yedek oluştur (JSON/CSV/XLSX)
           const DrawerBackupTile(),
           const SizedBox(height: 8),
 
           /// 📌 Yedekleri paylaşma butonu
-          // DrawerShareTile(
-          //   onShareCsv: () async {
-          //     // Drawer 'ı kapat
-          //     Navigator.of(context).pop();
-          //
-          //     // CSV dosyasını oluştur
-          //     final file = await exportAllToCsv(allMovies, allSeries);
-          //     if (file == null) return;
-          //
-          //     // Paylaşım menüsünü aç
-          //     await ShareHelper.shareCsv(file);
-          //   },
-          // ),
+          DrawerShareTile(
+            // onShareCsv: () async {
+            //   // Drawer'ı kapat
+            //   Navigator.of(context).pop();
+            //
+            //   // CSV dosyasını oluştur
+            //   final file = await exportAllToCsv(allMovies, allSeries);
+            //   if (file == null) return;
+            //
+            //   // Paylaşım menüsünü aç
+            //   await ShareHelper.shareCsv(file);
+            // },
+          ),
           const SizedBox(height: 8),
 
-          Divider(color: menuColor, thickness: 2),
+          const Divider(thickness: 2),
 
           /// 📌 Versiyon & bilgi
           InfoPaddingTile(appVersion: appVersion),

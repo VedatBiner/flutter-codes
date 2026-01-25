@@ -3,12 +3,8 @@
 // bir widget ’a taşıdık. Böylece custom_drawer.dart daha okunur oldu.
 //
 
-// 📌 Flutter paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
-import '../../constants/color_constants.dart';
-import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
 import '../show_notification_handler.dart';
 
@@ -20,11 +16,12 @@ class DrawerBackupTile extends StatelessWidget {
     return Tooltip(
       message: 'JSON/CSV/XLSX\nyedeği oluştur',
       child: ListTile(
-        leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
-        title: Text('Yedek Oluştur', style: drawerMenuText),
-        subtitle: Text(
+        // Sabit renkler ve stiller kaldırıldı.
+        // Widget artık renklerini ve stillerini mevcut temadan alacak.
+        leading: const Icon(Icons.download, size: 32),
+        title: const Text('Yedek Oluştur'),
+        subtitle: const Text(
           "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX)",
-          style: drawerMenuSubtitleText,
         ),
         onTap: () async {
           await backupNotificationHelper(

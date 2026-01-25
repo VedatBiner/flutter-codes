@@ -113,7 +113,7 @@ void showCreateDbNotification(
     iconColor: Colors.green,
     progressIndicatorColor: Colors.green,
     progressIndicatorBackground: Colors.green.shade100,
-    width: 260,
+    width: 300,
     height: 220,
   );
 }
