@@ -96,8 +96,6 @@ class _HomePageState extends State<HomePage> {
     log("📜 CSV dosyası yüklendi.", name: tag);
     log(logLine, name: tag);
 
-
-
     setState(() {
       allMovies = parsed.movies;
       allSeries = parsed.series;

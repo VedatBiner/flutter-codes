@@ -15,7 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../constants/file_info.dart';
+import '../../../constants/file_info.dart';
 // import '../../db/db_helper.dart';
 // import '../../models/item_model.dart';
 

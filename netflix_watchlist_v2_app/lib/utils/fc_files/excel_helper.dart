@@ -15,7 +15,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
-import '../../constants/file_info.dart';
+import '../../../constants/file_info.dart';
 
 /// ---------------------------------------------------------------------------
 /// 📌 CSV ’den Excel oluşturur (Kelime – Anlam – Tarih)
