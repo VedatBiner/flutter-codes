@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             // 📊 İSTATİSTİK SAYFASI
             IconButton(
-              icon: const Icon(Icons.bar_chart),
+              icon: Icon(Icons.bar_chart, color: drawerMenuTitleText.color),
               tooltip: "İstatistikler",
               onPressed: () {
                 Navigator.push(
@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
 
             // 🌙 TEMA BUTONU
             IconButton(
-              icon: const Icon(Icons.brightness_6),
+              icon: Icon(Icons.brightness_6, color: drawerMenuTitleText.color),
               tooltip: "Tema Değiştir",
               onPressed: widget.toggleTheme,
             ),

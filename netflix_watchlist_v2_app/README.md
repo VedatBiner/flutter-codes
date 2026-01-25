@@ -47,7 +47,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 40. `export_items.dart`, `backup_notification_helper.dart`, `csv_helper.dart`, `bottom_banner_helper.dart` ve `excel_helper.dart` dosyaları eklendi. - 24.01.2026
 41. `home_page.dart`, `file_info.dart` ve `show_notification_handler.dart` dosyası düzenlendi. - 25.01.2026
 42. `file_creator.dart`, `json_helper.dart` dosyası oluşturuldu. - 25.01.2026
-43. 
+43. `theme.dart` dosyası düzenlendi. - 25.01.2026
+`
 
 
 

@@ -25,8 +25,13 @@ class CustomTheme {
     // - AppBar action ikonları
     // ------------------------------------------------------------
     appBarTheme: AppBarTheme(
+      // Drawer (hamburger) ikonu için renk
       iconTheme: IconThemeData(
         color: drawerMenuTitleText.color, // 🔥 Drawer ikon rengi
+      ),
+      // Sağdaki action ikonları için renk
+      actionsIconTheme: IconThemeData(
+        color: drawerMenuTitleText.color,
       ),
     ),
 
