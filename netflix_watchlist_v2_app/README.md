@@ -54,20 +54,15 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 
 
 
-
-
-
-
-
-
-
-
-
-
 Yapılacaklar:
-- Download dizinlerine yazma izinlerini hallet. Bu işlem home_page_dart içinde en başta olsun.
 - Tema görünümü ve dosya adlarını düzenle
 - ikon görüntülerini düzelt
 - csv dosyayı film bilgilerini de içerecek şekilde büyüt
 - bu CSV dosyasından sql (db), xlsx / json yedek gönderimi için zip dosyaları oluştur.
 - Dark mode / light mode kodu oluştur.
+- Storage/Download dizinine dosyalar kopyalanmıyor.
+- CSV dosyası sadece : Kelime,Anlam,Tarih başlığında kalıyor.
+- json dosyası da bomboş.
+- excel dosyası oluşmuyor.
+- 
+- 

@@ -14,6 +14,7 @@ import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
+import '../utils/file_creator.dart';
 import '../utils/omdb_lazy_loader.dart';
 import '../utils/search_and_filter.dart';
 import '../widgets/custom_drawer.dart';
@@ -58,7 +59,11 @@ class _HomePageState extends State<HomePage> {
     /// 🔹 Download klasörü hazırlığı (1 kez)
     _prepareDownloadDirectory();
 
+    /// 🔹 Listeyi oluştur
     loadData();
+
+    /// 🔹 CSV/JSON/XLSX oluştur
+    initializeAppDataFlow(context);
   }
 
   /// 📌 Versiyonu al
