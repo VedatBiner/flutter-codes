@@ -4,11 +4,13 @@ import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/file_info.dart';
 import '../constants/text_constants.dart';
+import '../controllers/theme_controller.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
@@ -22,15 +24,15 @@ import '../widgets/filter_chips.dart';
 import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
-  final VoidCallback? toggleTheme; // 🌙 Tema değiştirme butonu
-
-  const HomePage({super.key, this.toggleTheme});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final ThemeController themeController = Get.find();
+
   List<NetflixItem> allMovies = [];
   List<SeriesGroup> allSeries = [];
 
@@ -160,7 +162,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: Icon(Icons.brightness_6, color: drawerMenuTitleText.color),
               tooltip: "Tema Değiştir",
-              onPressed: widget.toggleTheme,
+              onPressed: themeController.toggleTheme,
             ),
           ],
 

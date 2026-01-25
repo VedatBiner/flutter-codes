@@ -1,22 +1,31 @@
+// 📁 lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../theme.dart';
+import 'controllers/theme_controller.dart';
 import 'screens/home_page.dart';
+import 'theme.dart';
 
 void main() {
-  runApp(const NetflixFilmListApp());
+  runApp(const MyApp());
 }
 
-class NetflixFilmListApp extends StatelessWidget {
-  const NetflixFilmListApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Netflix Film List App',
-      debugShowCheckedModeBanner: false,
-      theme: CustomTheme.theme,
-      home: const HomePage(),
-    );
+    final ThemeController themeController = Get.put(ThemeController());
+
+    return Obx(() {
+      return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Netflix Watchlist',
+        theme: CustomTheme.theme,
+        darkTheme: ThemeData.dark(),
+        themeMode: themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+        home: const HomePage(),
+      );
+    });
   }
 }

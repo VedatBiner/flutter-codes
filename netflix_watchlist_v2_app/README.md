@@ -48,6 +48,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 41. `home_page.dart`, `file_info.dart` ve `show_notification_handler.dart` dosyası düzenlendi. - 25.01.2026
 42. `file_creator.dart`, `json_helper.dart` dosyası oluşturuldu. - 25.01.2026
 43. `theme.dart` dosyası düzenlendi. - 25.01.2026
+44. `get` paketi eklendi. - 25.01.2026
+45. `theme_controller.dart` dosyası oluşturuldu. - 25.01.2026
+46. 
 `
 
 
@@ -56,14 +59,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 
 
 Yapılacaklar:
-- Tema görünümü ve dosya adlarını düzenle
-- ikon görüntülerini düzelt
+
 - csv dosyayı film bilgilerini de içerecek şekilde büyüt
-- bu CSV dosyasından sql (db), xlsx / json yedek gönderimi için zip dosyaları oluştur.
-- Dark mode / light mode kodu oluştur.
 - Storage/Download dizinine dosyalar kopyalanmıyor.
 - CSV dosyası sadece : Kelime,Anlam,Tarih başlığında kalıyor.
 - json dosyası da bomboş.
 - excel dosyası oluşmuyor.
-- 
-- 
