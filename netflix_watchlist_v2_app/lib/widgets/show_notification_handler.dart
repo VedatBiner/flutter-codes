@@ -2,27 +2,52 @@
 
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
 
 import '../constants/text_constants.dart';
 import '../services/notification_service.dart';
 
+/// 📌 Yedekleme bildirim gösterir
+///
 void showBackupNotification(
-  BuildContext context,
-  String jsonPath,
-  String csvPath,
-  String excelPath,
-) {
-  ElegantNotification.success(
-    title: const Text("Yedekleme Başarılı"),
-    description: Text(
-      "Aşağıdaki dosyalar oluşturuldu:\n\n"
-      "• $jsonPath\n"
-      "• $csvPath\n"
-      "• $excelPath",
+    BuildContext rootCtx,
+    // String sqlPathDownload,
+    String csvPathDownload,
+    String jsonPathDownload,
+    String excelPathDownload,
+    // String zipPathDownload,
+    ) {
+  return NotificationService.showCustomNotification(
+    context: rootCtx,
+    title: ' ',
+    message: RichText(
+      text: TextSpan(
+        style: normalBlackText,
+        children: [
+          const TextSpan(
+            text: '\nVeriler yedeklendi ... \n\n',
+            style: kelimeAddText,
+          ),
+         // const TextSpan(text: '✅ '),
+         //  TextSpan(text: "${p.basename(sqlPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(csvPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(jsonPathDownload)}\n"),
+          const TextSpan(text: '✅ '),
+          TextSpan(text: "${p.basename(excelPathDownload)}\n"),
+        ],
+      ),
     ),
-    onDismiss: () {},
-  ).show(context);
+    icon: Icons.download_for_offline_outlined,
+    iconColor: Colors.green,
+    progressIndicatorColor: Colors.green,
+    progressIndicatorBackground: Colors.green.shade100,
+    width: 320,
+    height: 200,
+  );
 }
+
 
 void showShareFilesNotification(BuildContext rootCtx) {
   return NotificationService.showCustomNotification(

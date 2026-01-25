@@ -51,7 +51,7 @@ Future<void> shareBackupFolder() async {
       ExternalPath.DIRECTORY_DOWNLOAD,
     );
 
-    // Hedef klasör (örnek: /storage/emulated/0/Download/kelimelik_words_app)
+    // Hedef klasör (örnek: /storage/emulated/0/Download/netflix_watchlist_v2_app)
     final folderPath = join(downloadDir, appName);
     final dir = Directory(folderPath);
 

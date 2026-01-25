@@ -51,12 +51,12 @@ Future<void> backupNotificationHelper({
     // ----------------------------------------------------------
     // 🚀 Export işlemleri
     // • Dosyalar GEÇİCİ olarak:
-    //   app_flutter/kelimelik_backups
+    //   app_flutter/netflix_watch_list_backups
     //   dizinine üretilir
     // • Download kopyalama işlemi
     //   export_items.dart içinde yapılır
     // ----------------------------------------------------------
-    final res = await exportItemsToFileFormats(subfolder: 'kelimelik_backups');
+    final res = await exportItemsToFileFormats(subfolder: 'netflix_watch_list_backups');
 
     // Kullanıcıya bilgi ver
     onStatusChange("Tamamlandı: ${res.count} kayıt.");
@@ -69,11 +69,11 @@ Future<void> backupNotificationHelper({
     log("✅ Yedekleme tamamlandı.", name: tag);
 
     // ----------------------------------------------------------
-    // 🧹 SADECE geçici kelimelik_backups klasörünü sil
-    // ❗ appName (kelimelik_words_app) ASLA silinmez
+    // 🧹 SADECE geçici netflix_watch_list_backups klasörünü sil
+    // ❗ appName (netflix_watch_list_v2_app) ASLA silinmez
     // ----------------------------------------------------------
     final docsDir = await getApplicationDocumentsDirectory();
-    final tempBackupsDir = Directory(join(docsDir.path, 'kelimelik_backups'));
+    final tempBackupsDir = Directory(join(docsDir.path, 'netflix_watch_list_backups'));
 
     if (await tempBackupsDir.exists()) {
       await tempBackupsDir.delete(recursive: true);

@@ -42,10 +42,12 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 35. `csv_helper.dart` ve èxcel_helper.dart` dosyası oluşturuldu. - 23.01.2026
 36. `syncfusion_flutter_xlsio` paketi eklendi. - 23.01.2026
 37. `pubspec.yaml` dosyası düzenlendi. - 23.01.2026
-38. `filinfo.dart`, `netflix_item.dart`, `csv_export_all.dart` ve `csv_parser.dart` dosyaları düzeltildi. - 24.01.2026
+38. `file_info.dart`, `netflix_item.dart`, `csv_export_all.dart` ve `csv_parser.dart` dosyaları düzeltildi. - 24.01.2026
 39. `drawer_backup_tile.dart`, `custom_drawer.dart` ve  `show_notification_handler.dart` dosyaları düzeltildi. - 24.01.2026
 40. `export_items.dart`, `backup_notification_helper.dart`, `csv_helper.dart`, `bottom_banner_helper.dart` ve `excel_helper.dart` dosyaları eklendi. - 24.01.2026
-41. 
+41. `home_page.dart`, `file_info.dart` ve `show_notification_handler.dart` dosyası düzenlendi. - 25.01.2026
+42. 
+
 
 
 

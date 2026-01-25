@@ -1,6 +1,6 @@
 // 📁 lib/widgets/drawer_widgets/drawer_share_tile.dart
 //
-// Kelimelik Words App
+// Netflix Watchlist v2 App
 // -----------------------------------------------------------
 // Bu widget, Drawer menüsünde yer alan “Yedekleri Paylaş” seçeneğini
 // tek başına yönetir.
