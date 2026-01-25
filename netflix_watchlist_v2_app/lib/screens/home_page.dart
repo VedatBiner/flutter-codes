@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/color_constants.dart';
+import '../constants/file_info.dart';
 import '../constants/text_constants.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
@@ -71,9 +72,11 @@ class _HomePageState extends State<HomePage> {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
 
+    log(logLine, name: tag);
     log("📱 Cihaz: ${android.model}", name: tag);
     log("🧩 Android Sürüm: ${android.version.release}", name: tag);
     log("🛠 API: ${android.version.sdkInt}", name: tag);
+    log(logLine, name: tag);
   }
 
   /// 📌 Download dizini kontrol et
@@ -85,11 +88,13 @@ class _HomePageState extends State<HomePage> {
     } else {
       log("⚠️ Download klasörü hazırlanamadı.", name: tag);
     }
+    log(logLine, name: tag);
   }
 
   Future<void> loadData() async {
     final parsed = await CsvParser.parseCsvFast();
     log("📜 CSV dosyası yüklendi.", name: tag);
+    log(logLine, name: tag);
 
     setState(() {
       allMovies = parsed.movies;
