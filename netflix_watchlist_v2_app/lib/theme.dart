@@ -43,6 +43,21 @@ class CustomTheme {
     ),
   );
 
+  // Özel appBarTheme ayarlarını içeren yeni karanlık tema
+  static final darkTheme = ThemeData.dark().copyWith(
+    // `fontFamily` doğrudan `copyWith` içinde kullanılamaz.
+    // Bunun yerine `textTheme`'i `apply` ile güncelliyoruz.
+    textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Oswald'),
+    appBarTheme: ThemeData.dark().appBarTheme.copyWith(
+          iconTheme: IconThemeData(
+            color: drawerMenuTitleText.color,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: drawerMenuTitleText.color,
+          ),
+        ),
+  );
+
   // ------------------------------------------------------------
   // 🔵 MAVİ RENK PALETİ
   // ------------------------------------------------------------

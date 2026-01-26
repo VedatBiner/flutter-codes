@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Netflix Watchlist',
         theme: CustomTheme.theme,
-        darkTheme: ThemeData.dark(),
+        darkTheme: CustomTheme.darkTheme, // Özel karanlık tema
         themeMode: themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
         home: const HomePage(),
       );

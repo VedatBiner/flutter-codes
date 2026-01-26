@@ -140,6 +140,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: drawerMenuTitleText.color),
           title: Text("Netflix Watchlist", style: drawerMenuTitleText),
 
           actions: [
