@@ -6,8 +6,11 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
+import '../utils/csv_export_all.dart';
+import '../utils/share_helper.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_info_padding_tile.dart';
 import 'drawer_widgets/drawer_share_tile.dart';
@@ -30,13 +33,14 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: drawerColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           /// 📌 Drawer başlığı
           const DrawerTitleWidget(),
 
-          const Divider(thickness: 2),
+          Divider(color: menuColor, thickness: 2),
 
           /// 📌 Yedek oluştur (JSON/CSV/XLSX)
           const DrawerBackupTile(),
@@ -45,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
           /// 📌 Yedekleri paylaşma butonu
           DrawerShareTile(
             // onShareCsv: () async {
-            //   // Drawer'ı kapat
+            //   // Drawer 'ı kapat
             //   Navigator.of(context).pop();
             //
             //   // CSV dosyasını oluştur
@@ -54,11 +58,11 @@ class CustomDrawer extends StatelessWidget {
             //
             //   // Paylaşım menüsünü aç
             //   await ShareHelper.shareCsv(file);
-            // },
+           // },
           ),
           const SizedBox(height: 8),
 
-          const Divider(thickness: 2),
+          Divider(color: menuColor, thickness: 2),
 
           /// 📌 Versiyon & bilgi
           InfoPaddingTile(appVersion: appVersion),
