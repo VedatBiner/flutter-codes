@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   get:                             # GetX state management
-  cupertino_icons: ^1.0.8           # iOS stilinde ikonlar
+  cupertino_icons: ^1.0.8          # iOS stilinde ikonlar
 
   csv:                             # CSV dosyalarını okuma/yazma
   http:                            # HTTP istekleri (GET/POST)

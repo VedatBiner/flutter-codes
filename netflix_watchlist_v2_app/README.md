@@ -51,7 +51,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 44. `get` paketi eklendi. - 25.01.2026
 45. `theme_controller.dart` dosyası oluşturuldu. - 25.01.2026
 46. `theme.dart`, `home_page.dart` ve `custom_drawer.dart` dosyası düzenlendi. - 26.01.2026
-`
+47. `custom_drawer.dart` dosyası güncellendi. - 28.01.2026
 
 
 

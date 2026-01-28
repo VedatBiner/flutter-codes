@@ -32,15 +32,18 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Drawer(
-      backgroundColor: drawerColor,
+      // Aydınlık temada mavi, karanlık temada ise Scaffold 'un arka plan rengi
+      backgroundColor: isDarkMode ? Theme.of(context).scaffoldBackgroundColor : drawerColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           /// 📌 Drawer başlığı
           const DrawerTitleWidget(),
 
-          Divider(color: menuColor, thickness: 2),
+          const Divider(thickness: 2),
 
           /// 📌 Yedek oluştur (JSON/CSV/XLSX)
           const DrawerBackupTile(),
@@ -58,11 +61,11 @@ class CustomDrawer extends StatelessWidget {
             //
             //   // Paylaşım menüsünü aç
             //   await ShareHelper.shareCsv(file);
-           // },
+            // },
           ),
           const SizedBox(height: 8),
 
-          Divider(color: menuColor, thickness: 2),
+          const Divider(thickness: 2),
 
           /// 📌 Versiyon & bilgi
           InfoPaddingTile(appVersion: appVersion),
