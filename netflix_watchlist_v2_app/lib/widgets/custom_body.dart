@@ -65,6 +65,7 @@ class CustomBody extends StatelessWidget {
       child: ExpansionTile(
         collapsedBackgroundColor: isLightTheme ? Colors.red : null,
         backgroundColor: isLightTheme ? Colors.red.shade700 : null,
+        childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
@@ -73,23 +74,51 @@ class CustomBody extends StatelessWidget {
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
         ),
-        children: series.map((s) => _buildSeriesTile(s, isLightTheme)).toList(),
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: ListView.separated(
+              itemCount: series.length,
+              separatorBuilder: (context, index) =>
+                  Divider(color: Colors.grey.shade300, height: 1),
+              itemBuilder: (context, index) =>
+                  _buildSeriesTile(series[index], isLightTheme),
+            ),
+          )
+        ],
       ),
     );
   }
 
   Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
     return ExpansionTile(
-      backgroundColor: isLightTheme ? Colors.red.shade100 : null,
-      title: Text(group.seriesName),
+      backgroundColor: isLightTheme ? cardLightColor : null,
+      collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
+      iconColor: isLightTheme ? Colors.black : null,
+      collapsedIconColor: isLightTheme ? Colors.black : null,
+      title: Text(
+        group.seriesName,
+        style: TextStyle(
+            color: isLightTheme ? Colors.black : null,
+            fontWeight: FontWeight.bold),
+      ),
       children: group.seasons.map((season) {
         return ExpansionTile(
-          backgroundColor: isLightTheme ? Colors.red.shade50 : null,
-          title: Text("Sezon ${season.seasonNumber}"),
+          backgroundColor: isLightTheme ? cardLightColor : null,
+          collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
+          iconColor: isLightTheme ? Colors.black : null,
+          collapsedIconColor: isLightTheme ? Colors.black : null,
+          title: Text(
+            "Sezon ${season.seasonNumber}",
+            style: TextStyle(color: isLightTheme ? Colors.black : null),
+          ),
           children: season.episodes.map((ep) {
             return ListTile(
-                title: Text(ep.title),
-                subtitle: Text(formatDate(parseDate(ep.date))));
+              tileColor: isLightTheme ? cardLightColor : null,
+              textColor: isLightTheme ? Colors.black : null,
+              title: Text(ep.title),
+              subtitle: Text(formatDate(parseDate(ep.date))),
+            );
           }).toList(),
         );
       }).toList(),
@@ -106,8 +135,8 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
-        backgroundColor: isLightTheme ? filmLightColor : null,
-        collapsedBackgroundColor: isLightTheme ? filmLightColor : null,
+        backgroundColor: isLightTheme ? Colors.indigo : null,
+        collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
@@ -119,8 +148,6 @@ class CustomBody extends StatelessWidget {
         ),
         children: [
           SizedBox(
-            // Liste için kaydırılabilir bir alan oluşturur.
-            // Cihaz ekran yüksekliğinin yarısı kadar bir alan ayırır.
             height: MediaQuery.of(context).size.height * 0.6,
             child: ListView.separated(
               itemCount: movies.length,
@@ -137,9 +164,9 @@ class CustomBody extends StatelessWidget {
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
     return ListTile(
-      tileColor: isLightTheme ? Colors.white: null,
-      iconColor: isLightTheme ? Colors.white : null,
-      textColor: isLightTheme ? Colors.white : null,
+      tileColor: isLightTheme ? cardLightColor : null,
+      iconColor: isLightTheme ? Colors.black : null,
+      textColor: isLightTheme ? Colors.black : null,
       leading: movie.poster == null
           ? const Icon(Icons.movie)
           : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
