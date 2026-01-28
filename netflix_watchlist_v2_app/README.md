@@ -52,6 +52,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 45. `theme_controller.dart` dosyası oluşturuldu. - 25.01.2026
 46. `theme.dart`, `home_page.dart` ve `custom_drawer.dart` dosyası düzenlendi. - 26.01.2026
 47. `custom_drawer.dart` dosyası güncellendi. - 28.01.2026
+48. `home_page.dart` dosyası güncellendi. - 28.01.2026
+49. arama kutusu appbar 'a alındı. - 28.01.2026
 
 
 

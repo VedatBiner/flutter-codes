@@ -32,6 +32,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ThemeController themeController = Get.find();
+  final _searchController = TextEditingController();
 
   List<NetflixItem> allMovies = [];
   List<SeriesGroup> allSeries = [];
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   List<SeriesGroup> series = [];
 
   bool loading = true;
+  bool _isSearchVisible = false;
   String searchQuery = "";
   FilterOption filter = FilterOption.all;
 
@@ -68,6 +70,12 @@ class _HomePageState extends State<HomePage> {
     initializeAppDataFlow(context);
   }
 
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   /// 📌 Versiyonu al
   void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
@@ -78,7 +86,6 @@ class _HomePageState extends State<HomePage> {
   Future<void> _logDeviceInfo() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
-
     log(logLine, name: tag);
     log("📱 Cihaz: ${android.model}", name: tag);
     log("🧩 Android Sürüm: ${android.version.release}", name: tag);
@@ -89,7 +96,6 @@ class _HomePageState extends State<HomePage> {
   /// 📌 Download dizini kontrol et
   Future<void> _prepareDownloadDirectory() async {
     final dir = await prepareDownloadDirectory(tag: tag);
-
     if (dir != null) {
       log("📂 Download klasörü hazır: ${dir.path}", name: tag);
     } else {
@@ -102,14 +108,11 @@ class _HomePageState extends State<HomePage> {
     final parsed = await CsvParser.parseCsvFast();
     log("📜 CSV dosyası yüklendi.", name: tag);
     log(logLine, name: tag);
-
     setState(() {
       allMovies = parsed.movies;
       allSeries = parsed.series;
-
       movies = parsed.movies;
       series = parsed.series;
-
       loading = false;
     });
   }
@@ -121,20 +124,17 @@ class _HomePageState extends State<HomePage> {
       allMovies: allMovies,
       allSeries: allSeries,
     );
-
     setState(() {
       movies = results['movies'] as List<NetflixItem>;
       series = results['series'] as List<SeriesGroup>;
     });
   }
 
-  // ----------------------------------------------------------------
   Future<void> loadOmdb(NetflixItem movie) async {
     await OmdbLazyLoader.loadOmdbIfNeeded(movie);
     setState(() {});
   }
 
-  // ----------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -142,8 +142,23 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           iconTheme: IconThemeData(color: drawerMenuTitleText.color),
           title: Text("Netflix Watchlist", style: drawerMenuTitleText),
-
           actions: [
+            // 🔍 ARAMA BUTONU
+            IconButton(
+              icon: Icon(Icons.search, color: drawerMenuTitleText.color),
+              tooltip: "Ara",
+              onPressed: () {
+                setState(() {
+                  _isSearchVisible = !_isSearchVisible;
+                  if (!_isSearchVisible) {
+                    _searchController.clear();
+                    searchQuery = "";
+                    _updateFilteredResults();
+                  }
+                });
+              },
+            ),
+
             // 📊 İSTATİSTİK SAYFASI
             IconButton(
               icon: Icon(Icons.bar_chart, color: drawerMenuTitleText.color),
@@ -152,8 +167,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) =>
-                        StatsPage(movies: allMovies, series: allSeries),
+                    builder: (_) => StatsPage(movies: allMovies, series: allSeries),
                   ),
                 );
               },
@@ -166,47 +180,41 @@ class _HomePageState extends State<HomePage> {
               onPressed: themeController.toggleTheme,
             ),
           ],
-
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(56),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: "Ara (Dizi, Film, Bölüm)...",
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+          bottom: _isSearchVisible
+              ? PreferredSize(
+                  preferredSize: const Size.fromHeight(56),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: _searchController,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ara (Dizi, Film, Bölüm)...",
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: menuColor),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: menuColor),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                          _updateFilteredResults();
+                        });
+                      },
+                    ),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: menuColor),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: menuColor),
-                  ),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                    _updateFilteredResults();
-                  });
-                },
-              ),
-            ),
-          ),
+                )
+              : null,
         ),
-
-        // 📁 Drawer
-        drawer: CustomDrawer(
-          appVersion: appVersion,
-          allMovies: allMovies,
-          allSeries: allSeries,
-        ),
-
+        drawer: CustomDrawer(appVersion: appVersion, allMovies: allMovies, allSeries: allSeries),
         body: loading
             ? const Center(child: CircularProgressIndicator())
             : Column(
@@ -255,19 +263,13 @@ class _HomePageState extends State<HomePage> {
         return ExpansionTile(
           title: Text("Sezon ${season.seasonNumber}"),
           children: season.episodes.map((ep) {
-            return ListTile(
-              title: Text(ep.title),
-              subtitle: Text(formatDate(parseDate(ep.date))),
-            );
+            return ListTile(title: Text(ep.title), subtitle: Text(formatDate(parseDate(ep.date))));
           }).toList(),
         );
       }).toList(),
     );
   }
 
-  // ----------------------------------------------------------------
-  // 🎬 Filmler
-  // ----------------------------------------------------------------
   Widget _buildMovieSection() {
     return Card(
       child: ExpansionTile(
@@ -279,9 +281,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMovieTile(NetflixItem movie) {
     return ListTile(
-      leading: movie.poster == null
-          ? const Icon(Icons.movie)
-          : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
+      leading: movie.poster == null ? const Icon(Icons.movie) : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
       title: Text(movie.title),
       subtitle: Text(
         "${formatDate(parseDate(movie.date))}\n"
