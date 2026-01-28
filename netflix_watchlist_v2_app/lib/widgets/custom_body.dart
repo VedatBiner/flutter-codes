@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/color_constants.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
@@ -97,6 +98,10 @@ class CustomBody extends StatelessWidget {
 
   Widget _buildMovieSection(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
+
+    // Film listesi için ListTile widget 'larını oluştur.
+    final movieTiles = movies.map((m) => _buildMovieTile(m, isLightTheme)).toList();
+
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
@@ -104,8 +109,9 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
+        backgroundColor: isLightTheme ? Colors.indigo : null,
+        childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
-        backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
@@ -114,14 +120,24 @@ class CustomBody extends StatelessWidget {
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
         ),
-        children: movies.map((m) => _buildMovieTile(m, isLightTheme)).toList(),
+        // Aydınlık tema ise ayırıcı ekle, değilse doğrudan listeyi kullan.
+        children: isLightTheme
+            ? ListTile.divideTiles(
+                context: context,
+                tiles: movieTiles,
+                color: Colors.grey.shade300, // lightGrey ayırıcı
+              ).toList()
+            : movieTiles,
       ),
     );
   }
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
     return ListTile(
-      tileColor: isLightTheme ? Colors.indigo.shade50 : null,
+      tileColor: isLightTheme ? cardLightColor : null,
+      // Aydınlık temada ikon ve metin rengini beyaz yap.
+      iconColor: isLightTheme ? Colors.white : null,
+      textColor: isLightTheme ? Colors.white : null,
       leading: movie.poster == null
           ? const Icon(Icons.movie)
           : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
