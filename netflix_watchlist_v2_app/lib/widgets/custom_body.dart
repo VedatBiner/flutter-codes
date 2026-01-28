@@ -42,9 +42,9 @@ class CustomBody extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(10),
             children: [
-              _buildSeriesSection(),
+              _buildSeriesSection(context),
               const SizedBox(height: 20),
-              _buildMovieSection(),
+              _buildMovieSection(context),
             ],
           ),
         ),
@@ -52,20 +52,36 @@ class CustomBody extends StatelessWidget {
     );
   }
 
-  Widget _buildSeriesSection() {
+  Widget _buildSeriesSection(BuildContext context) {
+    final isLightTheme = Theme.of(context).brightness == Brightness.light;
+
     return Card(
+      clipBehavior: Clip.antiAlias, // Köşelerin yuvarlak kalmasını sağlar
+      margin: EdgeInsets.zero,
       child: ExpansionTile(
-        title: Text("Diziler (${series.length})"),
-        children: series.map(_buildSeriesTile).toList(),
+        collapsedBackgroundColor: isLightTheme ? Colors.red : null,
+        backgroundColor: isLightTheme ? Colors.red.shade700 : null,
+        iconColor: isLightTheme ? Colors.white : null,
+        collapsedIconColor: isLightTheme ? Colors.white : null,
+        title: Text(
+          "Diziler (${series.length})",
+          style: isLightTheme
+              ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+              : null,
+        ),
+        children: series.map((s) => _buildSeriesTile(s, isLightTheme)).toList(),
       ),
     );
   }
 
-  Widget _buildSeriesTile(SeriesGroup group) {
+  Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
     return ExpansionTile(
+      // Aydınlık temada iç içe geçmiş ExpansionTile'ların arkaplanını ayarla
+      backgroundColor: isLightTheme ? Colors.red.shade100 : null,
       title: Text(group.seriesName),
       children: group.seasons.map((season) {
         return ExpansionTile(
+          backgroundColor: isLightTheme ? Colors.red.shade50 : null,
           title: Text("Sezon ${season.seasonNumber}"),
           children: season.episodes.map((ep) {
             return ListTile(
@@ -77,17 +93,31 @@ class CustomBody extends StatelessWidget {
     );
   }
 
-  Widget _buildMovieSection() {
+  Widget _buildMovieSection(BuildContext context) {
+    final isLightTheme = Theme.of(context).brightness == Brightness.light;
     return Card(
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
       child: ExpansionTile(
-        title: Text("Filmler (${movies.length})"),
-        children: movies.map(_buildMovieTile).toList(),
+        collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
+        backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
+        iconColor: isLightTheme ? Colors.white : null,
+        collapsedIconColor: isLightTheme ? Colors.white : null,
+        title: Text(
+          "Filmler (${movies.length})",
+          style: isLightTheme
+              ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+              : null,
+        ),
+        children: movies.map((m) => _buildMovieTile(m, isLightTheme)).toList(),
       ),
     );
   }
 
-  Widget _buildMovieTile(NetflixItem movie) {
+  Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
     return ListTile(
+      // Aydınlık temada film satırlarının arka planını ayarla
+      tileColor: isLightTheme ? Colors.indigo.shade50 : null,
       leading: movie.poster == null
           ? const Icon(Icons.movie)
           : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),

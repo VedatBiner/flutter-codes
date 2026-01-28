@@ -6,6 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/file_info.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
@@ -133,8 +134,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = Theme.of(context).brightness == Brightness.light;
+
     return SafeArea(
       child: Scaffold(
+        backgroundColor: isLightTheme ? cardLightColor : null,
 
         /// 🔵 appBar
         appBar: CustomAppBar(
