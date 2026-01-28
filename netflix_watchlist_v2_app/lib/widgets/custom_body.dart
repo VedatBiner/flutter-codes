@@ -9,7 +9,7 @@ import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import 'filter_chips.dart';
 
-class CustomBody extends StatelessWidget {
+class CustomBody extends StatefulWidget {
   final bool loading;
   final List<NetflixItem> movies;
   final List<SeriesGroup> series;
@@ -28,16 +28,24 @@ class CustomBody extends StatelessWidget {
   });
 
   @override
+  State<CustomBody> createState() => _CustomBodyState();
+}
+
+class _CustomBodyState extends State<CustomBody> {
+  final _seriesController = ExpansionTileController();
+  final _moviesController = ExpansionTileController();
+
+  @override
   Widget build(BuildContext context) {
-    if (loading) {
+    if (widget.loading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return Column(
       children: [
         FilterChips(
-          filter: filter,
-          onSelected: onFilterSelected,
+          filter: widget.filter,
+          onSelected: widget.onFilterSelected,
         ),
         Expanded(
           child: ListView(
@@ -63,13 +71,19 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
+        controller: _seriesController,
+        onExpansionChanged: (isExpanding) {
+          if (isExpanding) {
+            _moviesController.collapse();
+          }
+        },
         collapsedBackgroundColor: isLightTheme ? Colors.red : null,
         backgroundColor: isLightTheme ? Colors.red.shade700 : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
-          "Diziler (${series.length})",
+          "Diziler (${widget.series.length})",
           style: isLightTheme
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
@@ -78,11 +92,11 @@ class CustomBody extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.6,
             child: ListView.separated(
-              itemCount: series.length,
+              itemCount: widget.series.length,
               separatorBuilder: (context, index) =>
                   Divider(color: Colors.grey.shade300, height: 1),
               itemBuilder: (context, index) =>
-                  _buildSeriesTile(series[index], isLightTheme),
+                  _buildSeriesTile(widget.series[index], isLightTheme),
             ),
           )
         ],
@@ -135,13 +149,19 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
+        controller: _moviesController,
+        onExpansionChanged: (isExpanding) {
+          if (isExpanding) {
+            _seriesController.collapse();
+          }
+        },
         backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
-          "Filmler (${movies.length})",
+          "Filmler (${widget.movies.length})",
           style: isLightTheme
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
@@ -150,11 +170,11 @@ class CustomBody extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.6,
             child: ListView.separated(
-              itemCount: movies.length,
+              itemCount: widget.movies.length,
               separatorBuilder: (context, index) =>
                   Divider(color: Colors.grey.shade300, height: 1),
               itemBuilder: (context, index) =>
-                  _buildMovieTile(movies[index], isLightTheme),
+                  _buildMovieTile(widget.movies[index], isLightTheme),
             ),
           )
         ],
@@ -163,7 +183,6 @@ class CustomBody extends StatelessWidget {
   }
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
-    // ListTile'ı Container ile sarmalayarak arka plan rengini daha güvenilir bir şekilde ayarlıyoruz.
     return Container(
       color: isLightTheme ? cardLightColor : null,
       child: ListTile(
@@ -177,7 +196,7 @@ class CustomBody extends StatelessWidget {
           "${formatDate(parseDate(movie.date))}\n"
           "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
         ),
-        onTap: () => onMovieTap(movie),
+        onTap: () => widget.onMovieTap(movie),
       ),
     );
   }
