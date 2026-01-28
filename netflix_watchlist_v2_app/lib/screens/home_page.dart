@@ -182,9 +182,9 @@ class _HomePageState extends State<HomePage> {
           ],
           bottom: _isSearchVisible
               ? PreferredSize(
-                  preferredSize: const Size.fromHeight(56),
+                  preferredSize: const Size.fromHeight(48),
                   child: Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     child: TextField(
                       controller: _searchController,
                       autofocus: true,
@@ -196,11 +196,11 @@ class _HomePageState extends State<HomePage> {
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: menuColor),
+                          borderSide: BorderSide(color: menuColor, width: 2.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: menuColor),
+                          borderSide: BorderSide(color: menuColor, width: 2.0),
                         ),
                       ),
                       onChanged: (value) {
@@ -270,6 +270,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // ----------------------------------------------------------------
+  // 🎬 Filmler
+  // ----------------------------------------------------------------
   Widget _buildMovieSection() {
     return Card(
       child: ExpansionTile(
