@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
           iconTheme: IconThemeData(color: drawerMenuTitleText.color),
           title: Text("Netflix Watchlist", style: drawerMenuTitleText),
           actions: [
-            // 🔍 ARAMA BUTONU
+            /// 🔍 ARAMA BUTONU
             IconButton(
               icon: Icon(Icons.search, color: drawerMenuTitleText.color),
               tooltip: "Ara",
@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
 
-            // 📊 İSTATİSTİK SAYFASI
+            /// 📊 İSTATİSTİK SAYFASI
             IconButton(
               icon: Icon(Icons.bar_chart, color: drawerMenuTitleText.color),
               tooltip: "İstatistikler",
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
 
-            // 🌙 TEMA BUTONU
+            /// 🌙 TEMA BUTONU
             IconButton(
               icon: Icon(Icons.brightness_6, color: drawerMenuTitleText.color),
               tooltip: "Tema Değiştir",
@@ -189,11 +189,11 @@ class _HomePageState extends State<HomePage> {
                       controller: _searchController,
                       autofocus: true,
                       decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Ara (Dizi, Film, Bölüm)...",
                         prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: menuColor, width: 2.0),
@@ -244,9 +244,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ----------------------------------------------------------------
-  // 📺 Diziler → Sezon → Bölüm
-  // ----------------------------------------------------------------
+  /// ----------------------------------------------------------------
+  /// 📺 Diziler → Sezon → Bölüm
+  /// ----------------------------------------------------------------
   Widget _buildSeriesSection() {
     return Card(
       child: ExpansionTile(
@@ -270,9 +270,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // ----------------------------------------------------------------
-  // 🎬 Filmler
-  // ----------------------------------------------------------------
+  /// ----------------------------------------------------------------
+  /// 🎬 Filmler
+  /// ----------------------------------------------------------------
   Widget _buildMovieSection() {
     return Card(
       child: ExpansionTile(
