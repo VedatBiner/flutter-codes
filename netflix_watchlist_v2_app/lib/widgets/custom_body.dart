@@ -135,7 +135,7 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
-        backgroundColor: isLightTheme ? Colors.indigo : null,
+        backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
@@ -163,19 +163,22 @@ class CustomBody extends StatelessWidget {
   }
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
-    return ListTile(
-      tileColor: isLightTheme ? cardLightColor : null,
-      iconColor: isLightTheme ? Colors.black : null,
-      textColor: isLightTheme ? Colors.black : null,
-      leading: movie.poster == null
-          ? const Icon(Icons.movie)
-          : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
-      title: Text(movie.title),
-      subtitle: Text(
-        "${formatDate(parseDate(movie.date))}\n"
-        "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
+    // ListTile'ı Container ile sarmalayarak arka plan rengini daha güvenilir bir şekilde ayarlıyoruz.
+    return Container(
+      color: isLightTheme ? cardLightColor : null,
+      child: ListTile(
+        iconColor: isLightTheme ? Colors.black : null,
+        textColor: isLightTheme ? Colors.black : null,
+        leading: movie.poster == null
+            ? const Icon(Icons.movie)
+            : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
+        title: Text(movie.title),
+        subtitle: Text(
+          "${formatDate(parseDate(movie.date))}\n"
+          "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
+        ),
+        onTap: () => onMovieTap(movie),
       ),
-      onTap: () => onMovieTap(movie),
     );
   }
 }
