@@ -54,6 +54,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 47. `custom_drawer.dart` dosyası güncellendi. - 28.01.2026
 48. `home_page.dart` dosyası güncellendi. - 28.01.2026
 49. arama kutusu appbar 'a alındı. - 28.01.2026
+50. `custom_app_bar.dart` dosyası ile AppBar ayrıldı. - 28.01.2026
+51. 
 
 
 

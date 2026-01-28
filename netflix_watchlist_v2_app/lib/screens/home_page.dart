@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../constants/color_constants.dart';
 import '../constants/file_info.dart';
-import '../constants/text_constants.dart';
-import '../controllers/theme_controller.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
@@ -19,6 +16,7 @@ import '../utils/download_directory_helper.dart';
 import '../utils/file_creator.dart';
 import '../utils/omdb_lazy_loader.dart';
 import '../utils/search_and_filter.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/filter_chips.dart';
 import 'stats_page.dart';
@@ -31,7 +29,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final ThemeController themeController = Get.find();
   final _searchController = TextEditingController();
 
   List<NetflixItem> allMovies = [];
@@ -139,80 +136,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: drawerMenuTitleText.color),
-          title: Text("Netflix Watchlist", style: drawerMenuTitleText),
-          actions: [
-            /// 🔍 ARAMA BUTONU
-            IconButton(
-              icon: Icon(Icons.search, color: drawerMenuTitleText.color),
-              tooltip: "Ara",
-              onPressed: () {
-                setState(() {
-                  _isSearchVisible = !_isSearchVisible;
-                  if (!_isSearchVisible) {
-                    _searchController.clear();
-                    searchQuery = "";
-                    _updateFilteredResults();
-                  }
-                });
-              },
-            ),
-
-            /// 📊 İSTATİSTİK SAYFASI
-            IconButton(
-              icon: Icon(Icons.bar_chart, color: drawerMenuTitleText.color),
-              tooltip: "İstatistikler",
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => StatsPage(movies: allMovies, series: allSeries),
-                  ),
-                );
-              },
-            ),
-
-            /// 🌙 TEMA BUTONU
-            IconButton(
-              icon: Icon(Icons.brightness_6, color: drawerMenuTitleText.color),
-              tooltip: "Tema Değiştir",
-              onPressed: themeController.toggleTheme,
-            ),
-          ],
-          bottom: _isSearchVisible
-              ? PreferredSize(
-                  preferredSize: const Size.fromHeight(48),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: TextField(
-                      controller: _searchController,
-                      autofocus: true,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Ara (Dizi, Film, Bölüm)...",
-                        prefixIcon: const Icon(Icons.search),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: menuColor, width: 2.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: menuColor, width: 2.0),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                          _updateFilteredResults();
-                        });
-                      },
-                    ),
-                  ),
-                )
-              : null,
+        appBar: CustomAppBar(
+          isSearchVisible: _isSearchVisible,
+          onSearchPressed: () {
+            setState(() {
+              _isSearchVisible = !_isSearchVisible;
+              if (!_isSearchVisible) {
+                _searchController.clear();
+                searchQuery = "";
+                _updateFilteredResults();
+              }
+            });
+          },
+          onStatsPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => StatsPage(movies: allMovies, series: allSeries),
+              ),
+            );
+          },
+          searchController: _searchController,
+          onSearchChanged: (value) {
+            setState(() {
+              searchQuery = value;
+              _updateFilteredResults();
+            });
+          },
         ),
         drawer: CustomDrawer(appVersion: appVersion, allMovies: allMovies, allSeries: allSeries),
         body: loading
@@ -244,9 +194,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// ----------------------------------------------------------------
-  /// 📺 Diziler → Sezon → Bölüm
-  /// ----------------------------------------------------------------
+  // ----------------------------------------------------------------
+  // 📺 Diziler → Sezon → Bölüm
+  // ----------------------------------------------------------------
   Widget _buildSeriesSection() {
     return Card(
       child: ExpansionTile(
@@ -270,9 +220,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// ----------------------------------------------------------------
-  /// 🎬 Filmler
-  /// ----------------------------------------------------------------
+  // ----------------------------------------------------------------
+  // 🎬 Filmler
+  // ----------------------------------------------------------------
   Widget _buildMovieSection() {
     return Card(
       child: ExpansionTile(
@@ -284,7 +234,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildMovieTile(NetflixItem movie) {
     return ListTile(
-      leading: movie.poster == null ? const Icon(Icons.movie) : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
+      leading: movie.poster == null
+          ? const Icon(Icons.movie)
+          : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
       title: Text(movie.title),
       subtitle: Text(
         "${formatDate(parseDate(movie.date))}\n"
