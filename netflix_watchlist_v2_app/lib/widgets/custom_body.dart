@@ -56,8 +56,11 @@ class CustomBody extends StatelessWidget {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
 
     return Card(
-      clipBehavior: Clip.antiAlias, // Köşelerin yuvarlak kalmasını sağlar
+      clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: ExpansionTile(
         collapsedBackgroundColor: isLightTheme ? Colors.red : null,
         backgroundColor: isLightTheme ? Colors.red.shade700 : null,
@@ -76,7 +79,6 @@ class CustomBody extends StatelessWidget {
 
   Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
     return ExpansionTile(
-      // Aydınlık temada iç içe geçmiş ExpansionTile'ların arkaplanını ayarla
       backgroundColor: isLightTheme ? Colors.red.shade100 : null,
       title: Text(group.seriesName),
       children: group.seasons.map((season) {
@@ -98,6 +100,9 @@ class CustomBody extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: ExpansionTile(
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
@@ -116,7 +121,6 @@ class CustomBody extends StatelessWidget {
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
     return ListTile(
-      // Aydınlık temada film satırlarının arka planını ayarla
       tileColor: isLightTheme ? Colors.indigo.shade50 : null,
       leading: movie.poster == null
           ? const Icon(Icons.movie)
