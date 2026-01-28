@@ -42,3 +42,6 @@ Color cardPageColor = const Color(0xFFD0E3FF);
 
 /// 📌 Notification rengi burada belirleniyor.
 Color notificationColor = Colors.white;
+
+/// 📌 Film light background rengi burada belirleniyor.
+Color filmLightColor = Colors.indigo;

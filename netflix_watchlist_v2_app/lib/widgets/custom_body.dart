@@ -99,9 +99,6 @@ class CustomBody extends StatelessWidget {
   Widget _buildMovieSection(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
 
-    // Film listesi için ListTile widget 'larını oluştur.
-    final movieTiles = movies.map((m) => _buildMovieTile(m, isLightTheme)).toList();
-
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
@@ -109,9 +106,9 @@ class CustomBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: ExpansionTile(
-        backgroundColor: isLightTheme ? Colors.indigo : null,
+        backgroundColor: isLightTheme ? filmLightColor : null,
+        collapsedBackgroundColor: isLightTheme ? filmLightColor : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
-        collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
@@ -120,22 +117,27 @@ class CustomBody extends StatelessWidget {
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
         ),
-        // Aydınlık tema ise ayırıcı ekle, değilse doğrudan listeyi kullan.
-        children: isLightTheme
-            ? ListTile.divideTiles(
-                context: context,
-                tiles: movieTiles,
-                color: Colors.grey.shade300, // lightGrey ayırıcı
-              ).toList()
-            : movieTiles,
+        children: [
+          SizedBox(
+            // Liste için kaydırılabilir bir alan oluşturur.
+            // Cihaz ekran yüksekliğinin yarısı kadar bir alan ayırır.
+            height: MediaQuery.of(context).size.height * 0.6,
+            child: ListView.separated(
+              itemCount: movies.length,
+              separatorBuilder: (context, index) =>
+                  Divider(color: Colors.grey.shade300, height: 1),
+              itemBuilder: (context, index) =>
+                  _buildMovieTile(movies[index], isLightTheme),
+            ),
+          )
+        ],
       ),
     );
   }
 
   Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
     return ListTile(
-      tileColor: isLightTheme ? cardLightColor : null,
-      // Aydınlık temada ikon ve metin rengini beyaz yap.
+      tileColor: isLightTheme ? Colors.white: null,
       iconColor: isLightTheme ? Colors.white : null,
       textColor: isLightTheme ? Colors.white : null,
       leading: movie.poster == null
