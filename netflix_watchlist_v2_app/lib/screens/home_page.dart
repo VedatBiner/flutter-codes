@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/file_info.dart';
@@ -17,8 +16,8 @@ import '../utils/file_creator.dart';
 import '../utils/omdb_lazy_loader.dart';
 import '../utils/search_and_filter.dart';
 import '../widgets/custom_app_bar.dart';
+import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';
-import '../widgets/filter_chips.dart';
 import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -136,6 +135,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
+        /// 🔵 appBar
         appBar: CustomAppBar(
           isSearchVisible: _isSearchVisible,
           onSearchPressed: () {
@@ -164,85 +165,29 @@ class _HomePageState extends State<HomePage> {
             });
           },
         ),
-        drawer: CustomDrawer(appVersion: appVersion, allMovies: allMovies, allSeries: allSeries),
-        body: loading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  FilterChips(
-                    filter: filter,
-                    onSelected: (newFilter) {
-                      setState(() {
-                        filter = newFilter;
-                        _updateFilteredResults();
-                      });
-                    },
-                  ),
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.all(10),
-                      children: [
-                        _buildSeriesSection(),
-                        const SizedBox(height: 20),
-                        _buildMovieSection(),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-      ),
-    );
-  }
 
-  // ----------------------------------------------------------------
-  // 📺 Diziler → Sezon → Bölüm
-  // ----------------------------------------------------------------
-  Widget _buildSeriesSection() {
-    return Card(
-      child: ExpansionTile(
-        title: Text("Diziler (${series.length})"),
-        children: series.map(_buildSeriesTile).toList(),
-      ),
-    );
-  }
+        /// 🔵 drawer
+        drawer: CustomDrawer(
+          appVersion: appVersion,
+          allMovies: allMovies,
+          allSeries: allSeries,
+        ),
 
-  Widget _buildSeriesTile(SeriesGroup group) {
-    return ExpansionTile(
-      title: Text(group.seriesName),
-      children: group.seasons.map((season) {
-        return ExpansionTile(
-          title: Text("Sezon ${season.seasonNumber}"),
-          children: season.episodes.map((ep) {
-            return ListTile(title: Text(ep.title), subtitle: Text(formatDate(parseDate(ep.date))));
-          }).toList(),
-        );
-      }).toList(),
-    );
-  }
-
-  // ----------------------------------------------------------------
-  // 🎬 Filmler
-  // ----------------------------------------------------------------
-  Widget _buildMovieSection() {
-    return Card(
-      child: ExpansionTile(
-        title: Text("Filmler (${movies.length})"),
-        children: movies.map(_buildMovieTile).toList(),
+        /// 🔵 body
+        body: CustomBody(
+          loading: loading,
+          movies: movies,
+          series: series,
+          filter: filter,
+          onFilterSelected: (newFilter) {
+            setState(() {
+              filter = newFilter;
+              _updateFilteredResults();
+            });
+          },
+          onMovieTap: (movie) => loadOmdb(movie),
+        ),
       ),
-    );
-  }
-
-  Widget _buildMovieTile(NetflixItem movie) {
-    return ListTile(
-      leading: movie.poster == null
-          ? const Icon(Icons.movie)
-          : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
-      title: Text(movie.title),
-      subtitle: Text(
-        "${formatDate(parseDate(movie.date))}\n"
-        "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
-      ),
-      onTap: () => loadOmdb(movie),
     );
   }
 }
