@@ -8,7 +8,7 @@
 // AKIŞ:
 //   1️⃣ CSV → JSON
 //   2️⃣ CSV → Excel (formatlı)
-//   3️⃣ Dosyaları kelimelik_backups dizinine kopyala
+//   3️⃣ Dosyaları netflix_watch_list_v2_backups dizinine kopyala
 //   4️⃣ Download ’a kopyala
 //   5️⃣ Geçici dizini sil
 // -----------------------------------------------------------
@@ -43,7 +43,7 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   // ----------------------------------------------------------
   // 📦 TEK BACKUP DİZİNİ
   // ----------------------------------------------------------
-  final backupDir = Directory(join(appDir.path, 'netflix_watch_list_backups'));
+  final backupDir = Directory(join(appDir.path, 'netflix_watch_list_v2_backups'));
   if (!await backupDir.exists()) {
     await backupDir.create(recursive: true);
   }

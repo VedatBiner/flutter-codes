@@ -158,7 +158,7 @@ Future<String> exportCsvFromDatabase() async {
   // final words = await DbHelper.instance.getRecords();
 
   final buffer = StringBuffer();
-  buffer.writeln("Kelime,Anlam,Tarih");
+  buffer.writeln("Title,Date");
 
   // for (final Word w in words) {
   //   final kelime = w.word.replaceAll(',', '').trim();
