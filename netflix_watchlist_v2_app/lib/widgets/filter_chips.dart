@@ -16,12 +16,16 @@ class FilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ChipTheme ile sarmalayarak tüm chiplerin metin stilini
-    // hem seçili hem de seçili değilken aynı yapıyoruz.
+    // `ChipTheme.of(context).copyWith` yerine yeni bir `ChipThemeData`
+    // oluşturarak, butonların görünümünün tema değişikliklerinden
+    // etkilenmemesini sağlıyoruz.
     return ChipTheme(
-      data: ChipTheme.of(context).copyWith(
-        labelStyle: TextStyle(color: menuColor),
-        secondaryLabelStyle: TextStyle(color: menuColor), // selected style
+      data: ChipThemeData(
+        backgroundColor: drawerColor,
+        selectedColor: editButtonColor,
+        labelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
+        secondaryLabelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
+        shape: const StadiumBorder(),
       ),
       child: Padding(
         padding: const EdgeInsets.all(6),
@@ -45,8 +49,6 @@ class FilterChips extends StatelessWidget {
       label: Text(label),
       selected: selected,
       onSelected: (_) => onSelected(option),
-      backgroundColor: drawerColor,
-      selectedColor: editButtonColor,
     );
   }
 }
