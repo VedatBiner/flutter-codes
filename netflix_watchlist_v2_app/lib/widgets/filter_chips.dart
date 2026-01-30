@@ -26,6 +26,7 @@ class FilterChips extends StatelessWidget {
         labelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
         secondaryLabelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
         shape: const StadiumBorder(),
+        showCheckmark: false, // Onay (tick) işaretini kaldırır.
       ),
       child: Padding(
         padding: const EdgeInsets.all(6),
