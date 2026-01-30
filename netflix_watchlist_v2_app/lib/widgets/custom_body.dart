@@ -32,8 +32,8 @@ class CustomBody extends StatefulWidget {
 }
 
 class _CustomBodyState extends State<CustomBody> {
-  final _seriesController = ExpansibleController();
-  final _moviesController = ExpansibleController();
+  final _seriesController = ExpansionTileController();
+  final _moviesController = ExpansionTileController();
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ class _CustomBodyState extends State<CustomBody> {
         ),
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: ListView.separated(
               itemCount: widget.movies.length,
               separatorBuilder: (context, index) =>

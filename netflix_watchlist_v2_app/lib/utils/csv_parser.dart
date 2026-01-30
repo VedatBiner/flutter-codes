@@ -33,8 +33,38 @@ String formatDate(DateTime d) {
   return "$dd/$mm/$yyyy";
 }
 
+/// Dizi adından "mini dizi" gibi ekleri temizler.
+String _normalizeSeriesName(String name) {
+  return name.replaceAll(RegExp(r"\s*mini dizi\s*", caseSensitive: false), "").trim();
+}
+
+/// Dizi başlığını tespit etmek için kullanılan yardımcı fonksiyon.
+bool _isSeriesTitle(String title, Set<String> seriesPrefixes) {
+  final t = title.toLowerCase();
+
+  // 1. Kesin anahtar kelimelerle kontrol et.
+  if (t.contains("bölüm") || t.contains("sezon") || t.contains("mini dizi")) {
+    return true;
+  }
+  // 2. Birden fazla ":" içerenler her zaman dizidir (örn: Dizi: Sezon: Bölüm).
+  if (":".allMatches(title).length >= 2) {
+    return true;
+  }
+
+  if (title.contains(':')) {
+    final prefix = title.split(':')[0].trim();
+
+    // 3. Ön analizde birden çok kez tekrarlandığı tespit edilen başlıklar dizidir.
+    if (seriesPrefixes.contains(prefix)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 /// Performans için tüm CSV işleme mantığını içeren üst düzey fonksiyon.
-/// Bu fonksiyon `compute` tarafından ayrı bir isolate'te çalıştırılır.
+/// Bu fonksiyon `compute` tarafından ayrı bir isolate 'te çalıştırılır.
 ParsedNetflixData _parseAndStructureData(String raw) {
   final rows = const CsvToListConverter().convert(raw, eol: "\n");
   if (rows.isNotEmpty) rows.removeAt(0); // Başlık satırını kaldır
@@ -46,6 +76,21 @@ ParsedNetflixData _parseAndStructureData(String raw) {
           })
       .toList();
 
+  // 1. Ön Analiz: Tekrar eden başlıkları (dizi adlarını) bul.
+  final prefixCounts = <String, int>{};
+  for (final row in rowMaps) {
+    final title = row['title']!;
+    if (title.contains(':')) {
+      final prefix = title.split(':')[0].trim();
+      prefixCounts.update(prefix, (value) => value + 1, ifAbsent: () => 1);
+    }
+  }
+  final seriesPrefixes = prefixCounts.entries
+      .where((entry) => entry.value > 1)
+      .map((entry) => entry.key)
+      .toSet();
+
+  // 2. Sınıflandırma ve Yapılandırma
   List<NetflixItem> movies = [];
   Map<String, Map<int, List<EpisodeItem>>> seriesMap = {};
 
@@ -53,7 +98,7 @@ ParsedNetflixData _parseAndStructureData(String raw) {
     final title = row['title']!;
     final date = row['date']!;
 
-    if (_isSeriesTitle(title)) {
+    if (_isSeriesTitle(title, seriesPrefixes)) {
       final parts = title.split(":");
       final seriesName = _normalizeSeriesName(parts[0].trim());
 
@@ -105,33 +150,6 @@ ParsedNetflixData _parseAndStructureData(String raw) {
   });
 
   return ParsedNetflixData(movies: movies, series: seriesGroups);
-}
-
-/// Dizi başlığını tespit etmek için kullanılan yardımcı fonksiyon.
-bool _isSeriesTitle(String title) {
-  final t = title.toLowerCase();
-  if (t.contains("mini dizi") || t.contains("sezon")) return true;
-  if (":".allMatches(title).length >= 2) return true;
-
-  // "Film: Altyazı" ve "Dizi: Bölüm" formatlarını ayırt etme mantığı
-  if (title.contains(":")) {
-    final parts = title.split(":");
-    if (parts.length > 1) {
-      final subtitle = parts[1].trim();
-      // Altyazılar genellikle 3'ten fazla kelime içerir.
-      // Bölüm adları ise daha kısa olma eğilimindedir.
-      final wordCount = subtitle.split(" ").where((s) => s.isNotEmpty).length;
-      if (wordCount < 4) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-/// Dizi adından "mini dizi" gibi ekleri temizler.
-String _normalizeSeriesName(String name) {
-  return name.replaceAll(RegExp(r"\s*mini dizi\s*", caseSensitive: false), "").trim();
 }
 
 class CsvParser {
