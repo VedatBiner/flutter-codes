@@ -113,6 +113,14 @@ var drawerMenuTitleText = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+/// 📌 App Bar başlık text stili
+var appBarTitleText = TextStyle(
+  color: menuColor,
+  fontSize: 18,
+  fontWeight: FontWeight.bold,
+);
+
+
 /// 📌 Drawer Menü subtitle text stili
 var drawerMenuSubtitleText = const TextStyle(
   color: Colors.white54,

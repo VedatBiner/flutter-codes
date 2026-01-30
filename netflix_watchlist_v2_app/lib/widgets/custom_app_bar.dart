@@ -29,7 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       iconTheme: IconThemeData(color: drawerMenuTitleText.color),
-      title: Text("Netflix Watchlist", style: drawerMenuTitleText),
+      title: Text("Netflix Watchlist", style: appBarTitleText),
       actions: [
         // 🔍 ARAMA BUTONU
         IconButton(
