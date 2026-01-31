@@ -26,8 +26,6 @@ import '../widgets/show_notification_handler.dart';
 import 'fc_files/csv_helper.dart';
 import 'fc_files/excel_helper.dart';
 import 'fc_files/json_helper.dart';
-// import 'fc_files/sync_helper.dart';
-// import 'fc_files/fc_report.dart';
 
 const tag = "file_creator";
 
@@ -56,7 +54,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
   final csvTarget = join(backupDir.path, fileNameCsv);
   final jsonTarget = join(backupDir.path, fileNameJson);
   final excelTarget = join(backupDir.path, fileNameXlsx);
-  // final sqlTarget = join(backupDir.path, fileNameSql);
 
   if (!context.mounted) return;
 
@@ -72,11 +69,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     final csvPath = await exportCsvFromDatabase();
 
     // ----------------------------------------------------------
-    // 2️⃣ CSV ↔ SQL Incremental Sync
-    // ----------------------------------------------------------
-    // await syncCsvWithDatabase();
-
-    // ----------------------------------------------------------
     // 3️⃣ CSV → JSON
     // ----------------------------------------------------------
     await createJsonFromAssetCsv();
@@ -85,16 +77,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     // 4️⃣ CSV → Excel (formatlı)
     // ----------------------------------------------------------
     await createExcelFromAssetCsvSyncfusion();
-
-    // ----------------------------------------------------------
-    // 5️⃣ RAPOR
-    // ----------------------------------------------------------
-    // await runFullDataReport(
-    //   csvToJsonMs: 0,
-    //   jsonToSqlMs: 0,
-    //   totalPipelineMs: 0,
-    //   insertDurations: const [],
-    // );
 
     // ----------------------------------------------------------
     // 6️⃣ DOSYALARI netflix_watch_list_v2_backups DİZİNİNE KOPYALA
@@ -110,7 +92,6 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
     await copyIfExists(csvPath, csvTarget);
     await copyIfExists(join(appDir.path, fileNameJson), jsonTarget);
     await copyIfExists(join(appDir.path, fileNameXlsx), excelTarget);
-    // await copyIfExists(join(appDir.path, fileNameSql), sqlTarget);
 
     // ----------------------------------------------------------
     // 7️⃣ Notification
@@ -119,11 +100,9 @@ Future<void> initializeAppDataFlow(BuildContext context) async {
 
     showCreateDbNotification(
       context,
-     // sqlTarget,
       csvTarget,
       excelTarget,
       jsonTarget,
-     // "", // ZIP YOK
     );
 
     sw.stop();
