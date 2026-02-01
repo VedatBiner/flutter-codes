@@ -90,7 +90,7 @@ class _CustomBodyState extends State<CustomBody> {
         ),
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.55,
             child: ListView.separated(
               itemCount: widget.series.length,
               separatorBuilder: (context, index) =>

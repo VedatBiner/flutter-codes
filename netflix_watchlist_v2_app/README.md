@@ -61,7 +61,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 54. `filter_chips.dart` dosyası güncellendi. - 30.01.2026
 55. `csv_parser.dart` dosyası güncellendi. - 30.01.2026
 56. `file_creator.dart` dosyası güncellendi - 30.01.2026
-57. 
+57. `custom_body.dart` dosyası güncellendi. - 01.02.2026
 
 
 
@@ -75,3 +75,4 @@ Yapılacaklar:
 - CSV dosyası sadece : Kelime,Anlam,Tarih başlığında kalıyor.
 - json dosyası da bomboş.
 - excel dosyası oluşmuyor.
+- yarım bıraktığım dizileri veya filmleri bulan bir yöntem ?
