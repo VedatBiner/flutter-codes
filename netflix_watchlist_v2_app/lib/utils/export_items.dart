@@ -4,6 +4,11 @@
 // • Dosyalar önce Documents/{subfolder} içine yazılır (geçici).
 // • Ardından Download/{appName} içine kopyalanır (kalıcı / paylaşılabilir).
 //
+// Not:
+// ✅ CSV/JSON içinde Date formatı: dd/MM/yyyy
+// ✅ XLSX: DateTime hücresi + dd/MM/yyyy numberFormat (excel_helper)
+//
+//
 
 import 'dart:convert';
 import 'dart:developer';
@@ -13,18 +18,18 @@ import 'package:csv/csv.dart';
 import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart' as xlsio;
 
 import '../constants/file_info.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/storage_permission_helper.dart';
+import '../utils/excel_helper.dart';
 
 class ExportItems {
   final int count;
 
-  /// ✅ Download içindeki kesin path’ler (share için bunları kullanacağız)
+  /// ✅ Download içindeki kesin path ’ler (share için bunları kullanacağız)
   final String csvPath;
   final String jsonPath;
   final String excelPath;
@@ -35,6 +40,17 @@ class ExportItems {
     required this.jsonPath,
     required this.excelPath,
   });
+}
+
+/// MM/DD/YY (Netflix) → dd/MM/yyyy
+/// Bozuk gelirse orijinali döndürür.
+String _toDdMmYyyy(String rawNetflixDate) {
+  try {
+    final dt = parseDate(rawNetflixDate); // utils/csv_parser.dart
+    return formatDate(dt); // dd/MM/yyyy
+  } catch (_) {
+    return rawNetflixDate;
+  }
 }
 
 Future<ExportItems> exportItemsToFileFormats({
@@ -56,7 +72,7 @@ Future<ExportItems> exportItemsToFileFormats({
 
   try {
     // ----------------------------------------------------------
-    // 1) Asset CSV’den verileri oku (compute ile)
+    // 1) CSV’den verileri oku (compute ile)
     // ----------------------------------------------------------
     final parsed = await CsvParser.parseCsvFast();
     final List<NetflixItem> allMovies = parsed.movies;
@@ -77,58 +93,53 @@ Future<ExportItems> exportItemsToFileFormats({
     log("📌 Export edilecek kayıt: $count", name: tag);
 
     // ----------------------------------------------------------
-    // 2) CSV oluştur (TEMP)
+    // 2) CSV oluştur (TEMP)  -> Date: dd/MM/yyyy
     // ----------------------------------------------------------
     final List<List<String>> csvData = [
       ['Title', 'Date'],
     ];
+
     for (final item in allItems) {
-      csvData.add([item.title, item.date]);
+      final formattedDate = _toDdMmYyyy(item.date);
+      csvData.add([item.title, formattedDate]);
     }
 
     final csvString = const ListToCsvConverter().convert(csvData);
     await File(tempCsvPath).writeAsString(csvString);
-    log("📄 TEMP CSV: $tempCsvPath", name: tag);
+    log("📄 TEMP CSV (dd/MM/yyyy): $tempCsvPath", name: tag);
 
     // ----------------------------------------------------------
-    // 3) JSON oluştur (TEMP)
+    // 3) JSON oluştur (TEMP) -> Date: dd/MM/yyyy
     // ----------------------------------------------------------
     final jsonList = allItems
-        .map((e) => {
-      'title': e.title,
-      'date': e.date,
-    })
+        .map((e) => {'title': e.title, 'date': _toDdMmYyyy(e.date)})
         .toList();
 
     final jsonStr = const JsonEncoder.withIndent('  ').convert(jsonList);
     await File(tempJsonPath).writeAsString(jsonStr);
-    log("📄 TEMP JSON: $tempJsonPath", name: tag);
+    log("📄 TEMP JSON (dd/MM/yyyy): $tempJsonPath", name: tag);
 
     // ----------------------------------------------------------
-    // 4) XLSX oluştur (TEMP)
+    // 4) XLSX oluştur (TEMP) - STİLLİ + GERÇEK TARİH
+    //    (Excel hücreleri DateTime, görüntü dd/MM/yyyy)
+    //
+    // NOT: Excel helper item.date'i MM/DD/YY olarak parse ediyor.
+    // Bu yüzden allItems'i MUTATE ETMİYORUZ.
     // ----------------------------------------------------------
-    final workbook = xlsio.Workbook();
-    final sheet = workbook.worksheets[0];
-
-    sheet.getRangeByIndex(1, 1).setText('Title');
-    sheet.getRangeByIndex(1, 2).setText('Date');
-
-    for (int i = 0; i < allItems.length; i++) {
-      sheet.getRangeByIndex(i + 2, 1).setText(allItems[i].title);
-      sheet.getRangeByIndex(i + 2, 2).setText(allItems[i].date);
-    }
-
-    final bytes = workbook.saveAsStream();
-    await File(tempExcelPath).writeAsBytes(bytes);
-    workbook.dispose();
-    log("📊 TEMP XLSX: $tempExcelPath", name: tag);
+    await createStyledExcelFromItemsSyncfusion(
+      items: allItems,
+      outputPath: tempExcelPath,
+    );
+    log("📊 TEMP XLSX (stilli): $tempExcelPath", name: tag);
 
     // ----------------------------------------------------------
     // 5) Download/{appName} içine kopyala (izin kontrolü dahil)
     // ----------------------------------------------------------
     final ok = await ensureStoragePermission();
     if (!ok) {
-      throw Exception("Depolama izni verilmedi (Download kopyalama yapılamadı).");
+      throw Exception(
+        "Depolama izni verilmedi (Download kopyalama yapılamadı).",
+      );
     }
 
     final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(

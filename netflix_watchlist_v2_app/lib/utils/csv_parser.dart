@@ -15,13 +15,28 @@ class ParsedNetflixData {
   ParsedNetflixData({required this.movies, required this.series});
 }
 
-/// Tarih parse (MM/DD/YY → DateTime)
+/// Güvenli min tarih (invalid tarihleri en sona atmak için)
+DateTime _minDate() => DateTime.fromMillisecondsSinceEpoch(0);
+
+/// Tarih parse (MM/DD/YY veya MM/DD/YYYY → DateTime)
 DateTime parseDate(String date) {
-  final p = date.split("/");
-  if (p.length != 3) return DateTime.now();
+  final raw = date.trim();
+  final p = raw.split("/");
+
+  if (p.length != 3) return _minDate();
+
   final month = int.tryParse(p[0]) ?? 0;
   final day = int.tryParse(p[1]) ?? 0;
-  final year = (int.tryParse(p[2]) ?? 0) + 2000;
+
+  // YY veya YYYY olabilir
+  final yRaw = int.tryParse(p[2]) ?? 0;
+  final year = (yRaw < 100) ? (2000 + yRaw) : yRaw;
+
+  // Basit validasyon (0 olursa DateTime exception olmasın)
+  if (month < 1 || month > 12) return _minDate();
+  if (day < 1 || day > 31) return _minDate();
+  if (year < 1900 || year > 2100) return _minDate();
+
   return DateTime(year, month, day);
 }
 
@@ -63,6 +78,19 @@ bool _isSeriesTitle(String title, Set<String> seriesPrefixes) {
   return false;
 }
 
+/// Bir SeriesGroup içindeki en güncel episode tarihini güvenli şekilde bulur.
+DateTime _latestEpisodeDate(SeriesGroup g) {
+  final allEpisodes = g.seasons.expand((s) => s.episodes);
+  if (allEpisodes.isEmpty) return _minDate();
+
+  DateTime latest = _minDate();
+  for (final ep in allEpisodes) {
+    final d = parseDate(ep.date);
+    if (d.isAfter(latest)) latest = d;
+  }
+  return latest;
+}
+
 /// Performans için tüm CSV işleme mantığını içeren üst düzey fonksiyon.
 /// Bu fonksiyon `compute` tarafından ayrı bir isolate 'te çalıştırılır.
 ParsedNetflixData _parseAndStructureData(String raw) {
@@ -71,9 +99,9 @@ ParsedNetflixData _parseAndStructureData(String raw) {
 
   final List<Map<String, String>> rowMaps = rows
       .map((r) => {
-            'title': r[0].toString().trim(),
-            'date': r[1].toString().trim(),
-          })
+    'title': r[0].toString().trim(),
+    'date': r[1].toString().trim(),
+  })
       .toList();
 
   // 1. Ön Analiz: Tekrar eden başlıkları (dizi adlarını) bul.
@@ -91,8 +119,8 @@ ParsedNetflixData _parseAndStructureData(String raw) {
       .toSet();
 
   // 2. Sınıflandırma ve Yapılandırma
-  List<NetflixItem> movies = [];
-  Map<String, Map<int, List<EpisodeItem>>> seriesMap = {};
+  final List<NetflixItem> movies = [];
+  final Map<String, Map<int, List<EpisodeItem>>> seriesMap = {};
 
   for (final row in rowMaps) {
     final title = row['title']!;
@@ -130,11 +158,13 @@ ParsedNetflixData _parseAndStructureData(String raw) {
     }
   }
 
+  // Filmleri en yeni -> en eski sırala
   movies.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
 
-  List<SeriesGroup> seriesGroups = [];
+  // Series map -> model list
+  final List<SeriesGroup> seriesGroups = [];
   seriesMap.forEach((seriesName, seasonMap) {
-    List<SeasonGroup> seasons = [];
+    final List<SeasonGroup> seasons = [];
     seasonMap.forEach((seasonNumber, episodes) {
       episodes.sort((a, b) => parseDate(b.date).compareTo(parseDate(a.date)));
       seasons.add(SeasonGroup(seasonNumber: seasonNumber, episodes: episodes));
@@ -143,11 +173,8 @@ ParsedNetflixData _parseAndStructureData(String raw) {
     seriesGroups.add(SeriesGroup(seriesName: seriesName, seasons: seasons));
   });
 
-  seriesGroups.sort((a, b) {
-    final lastA = a.seasons.expand((s) => s.episodes).map((e) => parseDate(e.date)).reduce((x, y) => x.isAfter(y) ? x : y);
-    final lastB = b.seasons.expand((s) => s.episodes).map((e) => parseDate(e.date)).reduce((x, y) => x.isAfter(y) ? x : y);
-    return lastB.compareTo(lastA);
-  });
+  // Dizileri en güncel izlenen -> daha eski sırala (güvenli)
+  seriesGroups.sort((a, b) => _latestEpisodeDate(b).compareTo(_latestEpisodeDate(a)));
 
   return ParsedNetflixData(movies: movies, series: seriesGroups);
 }

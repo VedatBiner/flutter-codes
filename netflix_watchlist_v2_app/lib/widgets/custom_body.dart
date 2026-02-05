@@ -32,8 +32,9 @@ class CustomBody extends StatefulWidget {
 }
 
 class _CustomBodyState extends State<CustomBody> {
-  final _seriesController = ExpansibleController();
-  final _moviesController = ExpansibleController();
+  // ✅ Material controller: Flutter 3.13+ (ExpansionTile controller)
+  final _seriesController = ExpansionTileController();
+  final _moviesController = ExpansionTileController();
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +114,9 @@ class _CustomBodyState extends State<CustomBody> {
       title: Text(
         group.seriesName,
         style: TextStyle(
-            color: isLightTheme ? Colors.black : null,
-            fontWeight: FontWeight.bold),
+          color: isLightTheme ? Colors.black : null,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       children: group.seasons.map((season) {
         return ExpansionTile(
@@ -190,11 +192,16 @@ class _CustomBodyState extends State<CustomBody> {
         textColor: isLightTheme ? Colors.black : null,
         leading: movie.poster == null
             ? const Icon(Icons.movie)
-            : Image.network(movie.poster!, width: 50, fit: BoxFit.cover),
+            : Image.network(
+          movie.poster!,
+          width: 50,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => const Icon(Icons.movie),
+        ),
         title: Text(movie.title),
         subtitle: Text(
           "${formatDate(parseDate(movie.date))}\n"
-          "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
+              "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
         ),
         onTap: () => widget.onMovieTap(movie),
       ),

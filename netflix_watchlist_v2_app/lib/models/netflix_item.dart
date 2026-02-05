@@ -1,3 +1,5 @@
+// <----- lib/models/netflix_item.dart ----->
+
 class NetflixItem {
   String title;
   String date;

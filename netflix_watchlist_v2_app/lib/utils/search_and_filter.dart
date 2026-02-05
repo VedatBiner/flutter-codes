@@ -19,7 +19,7 @@ Map<String, dynamic> applySearchAndFilter({
   List<SeriesGroup> filteredSeries = allSeries.where((s) {
     final seriesMatch = s.seriesName.toLowerCase().contains(q);
     final episodeMatch = s.seasons.any(
-      (season) => season.episodes.any((ep) => ep.title.toLowerCase().contains(q)),
+          (season) => season.episodes.any((ep) => ep.title.toLowerCase().contains(q)),
     );
     return q.isEmpty ? true : (seriesMatch || episodeMatch);
   }).toList();
@@ -32,13 +32,24 @@ Map<String, dynamic> applySearchAndFilter({
   } else if (filter == FilterOption.series) {
     filteredMovies = [];
   } else if (filter == FilterOption.last30days) {
-    filteredMovies = filteredMovies.where((m) => parseDate(m.date).isAfter(last30)).toList();
+    filteredMovies = filteredMovies
+        .where((m) => parseDate(m.date).isAfter(last30))
+        .toList();
 
     filteredSeries = filteredSeries.where((s) {
-      final latest = s.seasons
-          .expand((e) => e.episodes)
-          .map((e) => parseDate(e.date))
-          .reduce((x, y) => x.isAfter(y) ? x : y);
+      // Tüm episode 'ları düzleştir
+      final allEpisodes = s.seasons.expand((season) => season.episodes);
+
+      // Hiç episode yoksa bu diziyi ele
+      if (allEpisodes.isEmpty) return false;
+
+      // En güncel episode tarihini bul (güvenli)
+      DateTime latest = DateTime.fromMillisecondsSinceEpoch(0);
+      for (final ep in allEpisodes) {
+        final d = parseDate(ep.date);
+        if (d.isAfter(latest)) latest = d;
+      }
+
       return latest.isAfter(last30);
     }).toList();
   }

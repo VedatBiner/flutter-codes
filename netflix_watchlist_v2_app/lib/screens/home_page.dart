@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../constants/color_constants.dart';
@@ -13,13 +14,11 @@ import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
-import '../utils/file_creator.dart';
 import '../utils/omdb_lazy_loader.dart';
 import '../utils/search_and_filter.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';
-import 'stats_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   String searchQuery = "";
   FilterOption filter = FilterOption.all;
 
-  /// ℹ️  Uygulama versiyonu
+  /// ℹ️ Uygulama versiyonu
   String appVersion = '';
 
   static const tag = "home_page";
@@ -51,20 +50,16 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    /// 🔹 Cihaz bilgisi
     _logDeviceInfo();
-
-    /// 🔹 Versiyon bilgisi
     _getAppVersion();
-
-    /// 🔹 Download klasörü hazırlığı (1 kez)
     _prepareDownloadDirectory();
-
-    /// 🔹 Listeyi oluştur
     loadData();
 
-    /// 🔹 CSV/JSON/XLSX oluştur
-    initializeAppDataFlow(context);
+    // ✅ context kullanan işleri ilk frame sonrasına al
+    // Şimdilik iptal
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   initializeAppDataFlow(context);
+    // });
   }
 
   @override
@@ -74,8 +69,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 📌 Versiyonu al
-  void _getAppVersion() async {
+  Future<void> _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
+    if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
@@ -105,6 +101,8 @@ class _HomePageState extends State<HomePage> {
     final parsed = await CsvParser.parseCsvFast();
     log("📜 CSV dosyası yüklendi.", name: tag);
     log(logLine, name: tag);
+
+    if (!mounted) return;
     setState(() {
       allMovies = parsed.movies;
       allSeries = parsed.series;
@@ -121,14 +119,16 @@ class _HomePageState extends State<HomePage> {
       allMovies: allMovies,
       allSeries: allSeries,
     );
+
     setState(() {
-      movies = results['movies'] as List<NetflixItem>;
-      series = results['series'] as List<SeriesGroup>;
+      movies = (results['movies'] as List).cast<NetflixItem>();
+      series = (results['series'] as List).cast<SeriesGroup>();
     });
   }
 
   Future<void> loadOmdb(NetflixItem movie) async {
     await OmdbLazyLoader.loadOmdbIfNeeded(movie);
+    if (!mounted) return;
     setState(() {});
   }
 
@@ -140,7 +140,6 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: isLightTheme ? cardLightColor : null,
 
-        /// 🔵 appBar
         appBar: CustomAppBar(
           isSearchVisible: _isSearchVisible,
           onSearchPressed: () {
@@ -154,12 +153,10 @@ class _HomePageState extends State<HomePage> {
             });
           },
           onStatsPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => StatsPage(movies: allMovies, series: allSeries),
-              ),
-            );
+            Get.toNamed('/stats', arguments: {
+              'movies': allMovies,
+              'series': allSeries,
+            });
           },
           searchController: _searchController,
           onSearchChanged: (value) {
@@ -170,14 +167,12 @@ class _HomePageState extends State<HomePage> {
           },
         ),
 
-        /// 🔵 drawer
         drawer: CustomDrawer(
           appVersion: appVersion,
           allMovies: allMovies,
           allSeries: allSeries,
         ),
 
-        /// 🔵 body
         body: CustomBody(
           loading: loading,
           movies: movies,

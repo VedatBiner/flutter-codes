@@ -32,8 +32,8 @@ class DrawerBackupTile extends StatelessWidget {
             onSuccessNotify: (ctx, res) {
               showBackupNotification(
                 ctx,
-                res.jsonPath,
                 res.csvPath,
+                res.jsonPath,
                 res.excelPath,
               );
             },

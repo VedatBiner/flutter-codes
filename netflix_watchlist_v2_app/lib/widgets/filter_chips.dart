@@ -6,7 +6,7 @@ import '../models/filter_option.dart';
 
 class FilterChips extends StatelessWidget {
   final FilterOption filter;
-  final Function(FilterOption) onSelected;
+  final ValueChanged<FilterOption> onSelected;
 
   const FilterChips({
     super.key,
@@ -16,17 +16,14 @@ class FilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // `ChipTheme.of(context).copyWith` yerine yeni bir `ChipThemeData`
-    // oluşturarak, butonların görünümünün tema değişikliklerinden
-    // etkilenmemesini sağlıyoruz.
     return ChipTheme(
       data: ChipThemeData(
         backgroundColor: drawerColor,
         selectedColor: editButtonColor,
-        labelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
-        secondaryLabelStyle: TextStyle(color: menuColor, fontFamily: 'Oswald'),
+        labelStyle: const TextStyle(fontFamily: 'Oswald').copyWith(color: menuColor),
+        secondaryLabelStyle: const TextStyle(fontFamily: 'Oswald').copyWith(color: menuColor),
         shape: const StadiumBorder(),
-        showCheckmark: false, // Onay (tick) işaretini kaldırır.
+        showCheckmark: false,
       ),
       child: Padding(
         padding: const EdgeInsets.all(6),

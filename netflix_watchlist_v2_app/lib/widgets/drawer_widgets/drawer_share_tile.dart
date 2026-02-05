@@ -1,24 +1,4 @@
 // 📁 lib/widgets/drawer_widgets/drawer_share_tile.dart
-//
-// Netflix Watchlist v2 App
-// -----------------------------------------------------------
-// Bu widget, Drawer menüsünde yer alan “Yedekleri Paylaş” seçeneğini
-// tek başına yönetir.
-//
-// Görevleri:
-//  • Download/{appName} klasöründeki CSV, JSON, Excel, SQL dosyalarını paylaşır.
-//  • share_helper.dart dosyasındaki shareBackupFolder() metodunu çağırır.
-//  • Başarılı veya başarısız durumlarda log üretir.
-//
-// Kullanım:
-//   import 'drawer_widgets/drawer_share_tile.dart';
-//   ...
-//   const DrawerShareTile();
-//
-// Gereken dosyalar:
-//   - lib/utils/fc_files/share_helper.dart  → shareBackupFolder()
-//   - permission_handler / share_plus paketleri
-// -----------------------------------------------------------
 
 import 'package:flutter/material.dart';
 
@@ -40,10 +20,18 @@ class DrawerShareTile extends StatelessWidget {
         style: drawerMenuSubtitleText,
       ),
       onTap: () async {
-        await shareBackupFolder(); // 📤 paylaşım işlemi başlatılıyor
-        if (!context.mounted) return;
-        if (context.mounted) Navigator.pop(context);
-        showShareFilesNotification(context);
+        // Drawer context’i kapanacağı için rootCtx’yi yakala
+        final rootCtx = context;
+
+        // Drawer’ı önce kapat (UX daha iyi)
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        }
+
+        await shareBackupFolder();
+
+        if (!rootCtx.mounted) return;
+        showShareFilesNotification(rootCtx);
       },
     );
   }

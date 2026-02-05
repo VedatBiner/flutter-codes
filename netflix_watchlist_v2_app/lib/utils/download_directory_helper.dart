@@ -1,4 +1,4 @@
-// <----- lib/utils/fc_files/download_directory_helper.dart ----->
+// <----- lib/utils/download_directory_helper.dart ----->
 
 import 'dart:developer';
 import 'dart:io';
@@ -6,8 +6,8 @@ import 'dart:io';
 import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 
-import '../../constants/file_info.dart';
-import '../utils/storage_permission_helper.dart';
+import '../constants/file_info.dart';
+import 'storage_permission_helper.dart';
 
 /// Download/{appName} klasörünü hazırlar:
 ///  • Depolama izni ister
@@ -35,6 +35,8 @@ Future<Directory?> prepareDownloadDirectory({
   if (!await targetDir.exists()) {
     await targetDir.create(recursive: true);
     log("📁 Download klasörü oluşturuldu: ${targetDir.path}", name: tag);
+  } else {
+    log("📁 Download klasörü hazır: ${targetDir.path}", name: tag);
   }
 
   return targetDir;

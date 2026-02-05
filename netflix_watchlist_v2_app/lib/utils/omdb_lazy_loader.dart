@@ -15,12 +15,10 @@ class OmdbLazyLoader {
 
   /// Bir filme ait OMDb bilgileri henüz yoksa API ’den yükler.
   static Future<void> loadOmdbIfNeeded(NetflixItem item) async {
-    /// Eğer daha önce yüklenmişse API çağrısı yapma
-    if (item.originalTitle != null ||
-        item.year != null ||
-        item.genre != null ||
-        item.rating != null ||
-        item.poster != null) {
+    // ✅ Daha doğru cache kriteri:
+    // imdbId veya originalTitle varsa bu öğeyi "yüklenmiş" kabul et.
+    if ((item.imdbId != null && item.imdbId!.isNotEmpty) ||
+        (item.originalTitle != null && item.originalTitle!.isNotEmpty)) {
       log("⏭ OMDb zaten yüklü: ${item.title}", name: tag);
       return;
     }
@@ -49,13 +47,15 @@ class OmdbLazyLoader {
       // -----------------------------
       // 🔥 OMDb VERİLERİNİ FİLME YAZ
       // -----------------------------
-      item.originalTitle = data["Title"]; // 🎬 Orijinal isim
+      item.originalTitle = data["Title"];
       item.year = data["Year"];
       item.genre = data["Genre"];
       item.rating = data["imdbRating"];
-      item.poster = data["Poster"];
-      item.type = data["Type"]; // movie / series
-      item.imdbId = data["imdbID"]; // ⭐ IMDB ID
+      item.type = data["Type"];
+      item.imdbId = data["imdbID"];
+
+      final poster = data["Poster"];
+      item.poster = (poster is String && poster != "N/A") ? poster : null;
 
       log("✅ OMDb yüklendi: ${item.originalTitle}", name: tag);
     } catch (e, st) {

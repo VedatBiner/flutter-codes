@@ -1,24 +1,22 @@
 // <📜 ----- lib/utils/backup_notification_helper.dart ----->
 //
-//  Yedekleme (Export) sürecini UI ’dan bağımsız yöneten yardımcı dosya.
-//  SQL → CSV → JSON → XLSX pipeline ’ını çalıştırır.
-//  ❌ ZIP şu an devre dışıdır.
+// Yedekleme (Export) sürecini UI’dan bağımsız yöneten yardımcı.
+// -----------------------------------------------------------
+// • Alt bant (LoadingBottomBanner) tek satır ile açılır
+// • Export sürecini durumlara göre onStatusChange ile bildirir
+// • Export tamamlanınca onSuccessNotify ile UI tarafına path’ler gönderilir
+// • Hata durumunda SnackBar ile kullanıcı bilgilendirilir
 //
-//  • Alt bant (LoadingBottomBanner) tek satır ile açılır
-//  • Export sürecini duruma göre onStatusChange ile bildirir
-//  • Export tamamlanınca onSuccessNotify ile UI tarafına path ’ler gönderilir
-//  • Hata durumunda SnackBar ile kullanıcı bilgilendirilir
-//
+// Not:
+// ✅ Temp klasör temizliği export_items.dart içinde yapılır.
+// ❌ Burada ekstra klasör silme yapılmaz (çifte silme riski yok).
 // ---------------------------------------------------------------------------
 
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 
-import '../services/export_items.dart';
+import 'export_items.dart';
 import '../widgets/bottom_banner_helper.dart';
 
 Future<void> backupNotificationHelper({
@@ -30,35 +28,27 @@ Future<void> backupNotificationHelper({
   /// Export başladı / bitti bilgisi için
   required void Function(bool exporting) onExportingChange,
 
-  /// Export tamamlanınca sonuç UI ’ya iletilir
+  /// Export tamamlanınca sonuç UI’ya iletilir
   void Function(BuildContext ctx, ExportItems res)? onSuccessNotify,
 }) async {
-  const tag = "BackupNotificationHelper";
+  const tag = "backup_notification_helper";
 
   // İlk durum bildirimi
   onExportingChange(true);
   onStatusChange("Yedek hazırlanıyor...");
 
-  // ----------------------------------------------------------
-  // 🔥 Alt bant banner → Tek satırlık helper ile açılır
-  // ----------------------------------------------------------
+  // Banner aç
   final bannerCtrl = showLoadingBanner(
     context,
     message: "Lütfen bekleyiniz,\nyedek hazırlanıyor...",
   );
 
   try {
-    // ----------------------------------------------------------
-    // 🚀 Export işlemleri
-    // • Dosyalar GEÇİCİ olarak:
-    //   app_flutter/netflix_watch_list_backups
-    //   dizinine üretilir
-    // • Download kopyalama işlemi
-    //   export_items.dart içinde yapılır
-    // ----------------------------------------------------------
-    final res = await exportItemsToFileFormats(subfolder: 'netflix_watch_list_backups');
+    // Export (CSV + JSON + XLSX) -> Download/{appName} içine kopyalar
+    final res = await exportItemsToFileFormats(
+      subfolder: 'netflix_watch_list_backups',
+    );
 
-    // Kullanıcıya bilgi ver
     onStatusChange("Tamamlandı: ${res.count} kayıt.");
 
     // UI tarafında başarı bildirimi
@@ -67,35 +57,19 @@ Future<void> backupNotificationHelper({
     }
 
     log("✅ Yedekleme tamamlandı.", name: tag);
-
-    // ----------------------------------------------------------
-    // 🧹 SADECE geçici netflix_watch_list_backups klasörünü sil
-    // ❗ appName (netflix_watch_list_v2_app) ASLA silinmez
-    // ----------------------------------------------------------
-    final docsDir = await getApplicationDocumentsDirectory();
-    final tempBackupsDir = Directory(join(docsDir.path, 'netflix_watch_list_backups'));
-
-    if (await tempBackupsDir.exists()) {
-      await tempBackupsDir.delete(recursive: true);
-      log("🧹 Geçici klasör silindi: ${tempBackupsDir.path}", name: tag);
-    } else {
-      log("ℹ️ Geçici klasör bulunamadı, silme atlandı.", name: tag);
-    }
   } catch (e, st) {
-    // ----------------------------------------------------------
-    // ❌ Hata yakalandı
-    // ----------------------------------------------------------
     log("❌ Yedekleme hatası: $e", name: tag, stackTrace: st);
 
+    final msg = "Hata: $e";
+    onStatusChange(msg);
+
     if (context.mounted) {
-      final msg = "Hata: $e";
-      onStatusChange(msg);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg)),
+      );
     }
   } finally {
-    // ----------------------------------------------------------
-    // 🔥 HER DURUMDA banner kapanır
-    // ----------------------------------------------------------
+    // Banner kapanır
     bannerCtrl.close();
 
     if (context.mounted) {
