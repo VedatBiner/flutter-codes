@@ -33,8 +33,8 @@ class CustomBody extends StatefulWidget {
 
 class _CustomBodyState extends State<CustomBody> {
   // ✅ Material controller: Flutter 3.13+ (ExpansionTile controller)
-  final _seriesController = ExpansionTileController();
-  final _moviesController = ExpansionTileController();
+  final _seriesController = ExpansibleController();
+  final _moviesController = ExpansibleController();
 
   @override
   Widget build(BuildContext context) {

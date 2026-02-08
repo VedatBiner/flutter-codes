@@ -1,11 +1,9 @@
 // 📃 <----- lib/widgets/show_notification_handler.dart ----->
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 
-import '../constants/file_info.dart';
 import '../constants/text_constants.dart';
 import '../services/notification_service.dart';
 
