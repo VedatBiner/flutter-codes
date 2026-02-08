@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 // ✔ Virgüllü değerlerde bile bozulmaz
 // ✔ 2 veya 3 sütunlu CSV ile çalışır
-// ✔ Tarih sütunu varsa JSON'a otomatik ekler
+// ✔ Tarih sütunu varsa JSON 'a otomatik ekler
 // ✔ Bozuk satırları loglar ama uygulamayı bozmaz
 // ✔ JSON çıktısı %100 eksiksiz olur
 // ------------------------------------------------------------

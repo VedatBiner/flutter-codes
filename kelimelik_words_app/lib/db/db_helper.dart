@@ -36,7 +36,7 @@ class DbHelper {
   }
 
   /// --------------------------------------------------------------------------
-  /// 🚀 VERİTABANI BAŞLATMA + ASSET'TEN OTOMATİK KOPYALAMA
+  /// 🚀 VERİTABANI BAŞLATMA + ASSET 'TEN OTOMATİK KOPYALAMA
   /// --------------------------------------------------------------------------
   Future<Database> _initDB(String fileName) async {
     final dbDir = await getApplicationDocumentsDirectory();

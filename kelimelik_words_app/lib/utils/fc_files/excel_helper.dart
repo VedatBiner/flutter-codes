@@ -4,7 +4,7 @@
 // -----------------------------------------------------------
 // • Excel HER ZAMAN yeniden oluşturulur
 // • CSV ile %100 uyumludur (Kelime, Anlam, Tarih)
-// • Tarih CSV’den okunur (sabit değil)
+// • Tarih CSV ’den okunur (sabit değil)
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -99,7 +99,7 @@ Future<void> createExcelFromAssetCsvSyncfusion() async {
         sheet.getRangeByIndex(rowIndex, 2).setText(parts[1].trim());
       }
 
-      // 📅 Tarih (CSV’den)
+      // 📅 Tarih (CSV ’den)
       if (parts.length >= 3) {
         sheet.getRangeByIndex(rowIndex, 3).setText(parts[2].trim());
       }

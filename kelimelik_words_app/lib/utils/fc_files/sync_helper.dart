@@ -4,7 +4,7 @@
 // -----------------------------------------------------------
 // • Device CSV (Documents/fileNameCsv) ile SQLite veritabanını
 //   karşılaştırır.
-// • Eksik kelimeler SQL'e EKLENİR.
+// • Eksik kelimeler SQL 'e EKLENİR.
 // • Varsa, anlamı değişmiş kelimelerin anlamı GÜNCELLENİR.
 // • Kullanıcının sonradan eklediği kelimeler SİLİNMEZ.
 // -----------------------------------------------------------
@@ -15,7 +15,7 @@
 // Bu nedenle sync sırasında:
 //   - Kelime = 1. sütun
 //   - Anlam  = 2. sütun
-//   - Tarih  = 3. sütun (VARSA) okunur ama DB’ye meaning olarak yazılmaz
+//   - Tarih  = 3. sütun (VARSA) okunur ama DB ’ye meaning olarak yazılmaz
 // -----------------------------------------------------------
 
 import 'dart:developer';
@@ -81,7 +81,7 @@ Future<CsvDbSyncResult> syncCsvWithDatabase() async {
 
   // 3️⃣ CSV → Word list
   // CSV formatı: Kelime,Anlam,Tarih
-  // Bu sync işlemi için Tarih (3. sütun) DB’ye meaning olarak yazılmaz.
+  // Bu sync işlemi için Tarih (3. sütun) DB ’ye meaning olarak yazılmaz.
   final List<Word> csvWords = [];
   for (final line in dataLines) {
     final parts = line.split(',');
