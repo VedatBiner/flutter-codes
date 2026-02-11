@@ -11,7 +11,7 @@
 //   3️⃣ CSV → JSON
 //   4️⃣ CSV → Excel (formatlı)
 //   5️⃣ Dosyaları kelimelik_backups dizinine kopyala
-//   6️⃣ Download’a kopyala
+//   6️⃣ Download ’a kopyala
 //   7️⃣ Geçici dizini sil
 // -----------------------------------------------------------
 

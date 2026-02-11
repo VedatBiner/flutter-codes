@@ -31,13 +31,6 @@ Future<bool> ensureStoragePermission({bool requestIfDenied = true}) async {
     return true;
   }
 
-  // 🔍 2️⃣ Eski izin (Android 10 ve öncesi)
-  // status = await Permission.storage.status;
-  // if (status.isGranted) {
-  //   log('✅ storage izni zaten verilmiş', name: tag);
-  //   return true;
-  // }
-
   // ⚠️ Eğer kullanıcıdan istemek gerekirse (isteğe bağlı)
   if (requestIfDenied) {
     final requested = await Permission.manageExternalStorage.request();

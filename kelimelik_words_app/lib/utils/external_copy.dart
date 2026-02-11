@@ -1,6 +1,6 @@
 // 📃 <----- lib/utils/external_copy.dart ----->
 //
-// Tüm yedek dosyalarını (CSV, JSON, XLSX, SQL, ZIP)
+// Tüm yedek dosyalarını (CSV, JSON, XLSX, SQL)
 // cihazın DOWNLOAD/{appName} klasörüne kopyalar.
 //
 // Android 10- için storage izni gerekir.
@@ -82,3 +82,8 @@ Future<void> deleteTempBackupFolderIfSafe({
   await tempDir.delete(recursive: true);
   log("🧹 Geçici klasör silindi: $tempDirPath", name: tag);
 }
+
+
+
+
+

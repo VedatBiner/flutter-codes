@@ -1,4 +1,4 @@
-// 📃 <----- show_word_dialog_handler.dart ----->
+// 📃 <----- show_notification_handler.dart ----->
 // Kelime varsa mesaj verip uyarıyor
 // Kelime yoksa listeye ekliyor.
 
