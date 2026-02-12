@@ -2960,6 +2960,11 @@
     "Tarih": "01.02.2026"
   },
   {
+    "Kelime": "Başka",
+    "Anlam": "Değişik / Farklı / Özge",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "Başlık",
     "Anlam": "Başı korumak için giyilen şapka / Serpuş",
     "Tarih": "15.12.2025"
@@ -5710,6 +5715,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Dalma",
+    "Anlam": "Dalmak işi",
+    "Tarih": "11.02.2026"
+  },
+  {
     "Kelime": "Dalmak",
     "Anlam": "Bir yerin içine girmek / Uyumak",
     "Tarih": "15.12.2025"
@@ -5768,6 +5778,16 @@
     "Kelime": "Daral",
     "Anlam": "Sıkılmak",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Daralma",
+    "Anlam": "Daralmak işi",
+    "Tarih": "09.02.2026"
+  },
+  {
+    "Kelime": "Daralmak",
+    "Anlam": "Sıkışmak / Güç duruma düşmek",
+    "Tarih": "10.02.2026"
   },
   {
     "Kelime": "Darı",
@@ -7175,6 +7195,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Emmi",
+    "Anlam": "Amca",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "En",
     "Anlam": "Genişlik / Damga",
     "Tarih": "15.12.2025"
@@ -7378,6 +7403,11 @@
     "Kelime": "Eruh",
     "Anlam": "Siirt ilçesi",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Erzak",
+    "Anlam": "Uzun süre saklanabilen yiyeceklerin genel adı",
+    "Tarih": "12.02.2026"
   },
   {
     "Kelime": "Erzin",
@@ -9177,6 +9207,11 @@
   {
     "Kelime": "Hal",
     "Anlam": "Sebze meyve toptancısı",
+    "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Hala",
+    "Anlam": "Babanın kız kardeşi / Bibi",
     "Tarih": "15.12.2025"
   },
   {
@@ -11686,7 +11721,7 @@
   },
   {
     "Kelime": "Kanon",
-    "Anlam": "Ard arda duyulan bir yada birden fazla sesin bşrbşrini taklit etmesi ile oluşan bütün",
+    "Anlam": "Ard arda duyulan bir yada birden fazla sesin birbirini taklit etmesi ile oluşan bütün",
     "Tarih": "15.12.2025"
   },
   {
@@ -12165,6 +12200,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kaynar",
+    "Anlam": "Kaynamakta olan",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "Kaz",
     "Anlam": "Budala / Kuş türü",
     "Tarih": "15.12.2025"
@@ -12183,6 +12223,11 @@
     "Kelime": "Kazan",
     "Anlam": "Ankara ilçesi",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kazanç",
+    "Anlam": "Yarar / Çıkar / Kar",
+    "Tarih": "10.02.2026"
   },
   {
     "Kelime": "Kazara",
@@ -13765,6 +13810,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kufi",
+    "Anlam": "Arap yazısı türü",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "Kuğu",
     "Anlam": "Perde ayaklı bir su kuşu",
     "Tarih": "15.12.2025"
@@ -14713,6 +14763,11 @@
     "Kelime": "Loca",
     "Anlam": "Masonluk bölümleri",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Loda",
+    "Anlam": "Küme / Yığın / Demet",
+    "Tarih": "11.02.2026"
   },
   {
     "Kelime": "Lodos",
@@ -18385,6 +18440,11 @@
     "Tarih": "30.12.2025"
   },
   {
+    "Kelime": "Plan",
+    "Anlam": "Çizim / Niyet / Maksat",
+    "Tarih": "09.02.2026"
+  },
+  {
     "Kelime": "Planör",
     "Anlam": "Uçağa benzer motorsuz hava taşıtı",
     "Tarih": "15.12.2025"
@@ -20355,6 +20415,11 @@
     "Tarih": "06.01.2026"
   },
   {
+    "Kelime": "Silah",
+    "Anlam": "Savunma veya saldırı amaçlı kullanılan araç",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "Silaj",
     "Anlam": "Taze bitkilerin siloda sıkıştırılarak korumaya alınması yöntemi",
     "Tarih": "25.01.2026"
@@ -20506,8 +20571,8 @@
   },
   {
     "Kelime": "Sisli",
-    "Anlam": "Üzerine sis inmiş olan",
-    "Tarih": "17.12.2025"
+    "Anlam": "Üzerine sis inmiş olan / Sislenmiş / Bulanık",
+    "Tarih": "15.12.2025"
   },
   {
     "Kelime": "Sistit",
@@ -20540,6 +20605,16 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Siyak",
+    "Anlam": "Sözün gelişi",
+    "Tarih": "10.02.2026"
+  },
+  {
+    "Kelime": "Siyek",
+    "Anlam": "Didik yolunun son bölümü / Üretra",
+    "Tarih": "10.02.2026"
+  },
+  {
     "Kelime": "Siz",
     "Anlam": "Şahıs zamiri",
     "Tarih": "15.12.2025"
@@ -20548,6 +20623,11 @@
     "Kelime": "Sizce",
     "Anlam": "Size göre",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Slip",
+    "Anlam": "Ödeme belgesi",
+    "Tarih": "08.02.2026"
   },
   {
     "Kelime": "Smaç",
@@ -23011,7 +23091,7 @@
   },
   {
     "Kelime": "Tos",
-    "Anlam": "Akın veya boynuzla vuruş",
+    "Anlam": "Alın veya boynuzla vuruş",
     "Tarih": "15.12.2025"
   },
   {
@@ -23675,6 +23755,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Usçu",
+    "Anlam": "Akılcı",
+    "Tarih": "09.02.2026"
+  },
+  {
     "Kelime": "Usta",
     "Anlam": "Becerikli / Mahir",
     "Tarih": "15.12.2025"
@@ -24003,6 +24088,11 @@
     "Kelime": "Vaka",
     "Anlam": "Olay / Hadise",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Vakar",
+    "Anlam": "Ağıbaşlılık",
+    "Tarih": "09.02.2026"
   },
   {
     "Kelime": "Vakıf",

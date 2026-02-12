@@ -591,6 +591,7 @@ Başarı,Başarma işi / Muvaffakiyet,15.12.2025
 Başçı,İşçi başı / Koyun kuzu başı satan kimse,17.01.2026
 Başçık,Çiçeklern erkek orgsnlarında çiçek tozu tsşıyan torbacık / Haşefer,15.12.2025
 Başçıl,Başla ilgili,01.02.2026
+Başka,Değişik / Farklı / Özge,10.02.2026
 Başlık,Başı korumak için giyilen şapka / Serpuş,15.12.2025
 Bat,Boru ağzı açmaya yarar takoz,15.12.2025
 Batak,İçinden çıkılmaz iş / Basılınca çöken çamurlaşmış toprak,15.12.2025
@@ -1141,6 +1142,7 @@ Dalak,Bir organ,15.12.2025
 Dalamak,Köpek kurt ısırması,15.12.2025
 Dalan,Lobi / Biçim / Şekil,15.12.2025
 Dalıcı,Dalma özelliği olan,15.12.2025
+Dalma,Dalmak işi,11.02.2026
 Dalmak,Bir yerin içine girmek / Uyumak,15.12.2025
 Dam,Kiremit ile örtülü yer / Cezaevi,15.12.2025
 Dama,Kareli zeminde oynanan bir oyun,15.12.2025
@@ -1153,6 +1155,8 @@ Dans,Müzik temposuna uyularak yapılan estetik hareketler / Raks,15.12.2025
 Dar,Az / Sınırlı,15.12.2025
 Dara,Yük taşıyan aracın boş ağırlığı,15.12.2025
 Daral,Sıkılmak,15.12.2025
+Daralma,Daralmak işi,09.02.2026
+Daralmak,Sıkışmak / Güç duruma düşmek,10.02.2026
 Darı,Mısır / Akdarı,15.12.2025
 Darıca,Kocaeli ikçesi,15.12.2025
 Dart,Dart / minyatür oklarla yapılan bir spor,15.12.2025
@@ -1434,6 +1438,7 @@ Emet,Kütahya ilçesi,15.12.2025
 Emici,Emme özelliği olan,15.12.2025
 Emin,Güvenli / Tehlikesiz,15.12.2025
 Emir,Buyruk / Talimat / İstek,15.12.2025
+Emmi,Amca,10.02.2026
 En,Genişlik / Damga,15.12.2025
 Enam,Yaratılmış bütün canlılar,15.12.2025
 Encam,Gelecek,15.12.2025
@@ -1475,6 +1480,7 @@ Ermeni,Ermenistan halkından olan,15.12.2025
 Ermiş,Evliya / Eren,15.12.2025
 Erotik,Cinsel duyumlarla ilgili olan / Kösnül / Şehvani / Şehevi / Erosal,15.12.2025
 Eruh,Siirt ilçesi,15.12.2025
+Erzak,Uzun süre saklanabilen yiyeceklerin genel adı,12.02.2026
 Erzin,Hatay ilçesi,16.01.2026
 Es,Notada duraklama,15.12.2025
 Esami,Esame,15.12.2025
@@ -1835,6 +1841,7 @@ Hakem,Seçme ve karar yetkisi olan kimse,15.12.2025
 Haki,Yeşile çalan toprak rengi,15.12.2025
 Hakir,Değersiz / Aşağı görülen,15.12.2025
 Hal,Sebze meyve toptancısı,15.12.2025
+Hala,Babanın kız kardeşi / Bibi,15.12.2025
 Halaç,İran'ın güneydoğusunda Türk topluluğu,15.12.2025
 Halas,Kurtulma / Kurtuluş,15.12.2025
 Hale,Bazı yıldızlar ve azizlerin çevresindeki ışıklı daire,28.01.2026
@@ -2336,7 +2343,7 @@ Kaniş,Köpek cinsi,23.12.2025
 Kanka,Kardeş kadar yakın olan kimse,15.12.2025
 Kanlı,Kan davasınfa taraf olan kişi / Kan bulaşmış,15.12.2025
 Kano,Kürekle yürütülen hafif tekne,15.12.2025
-Kanon,Ard arda duyulan bir yada birden fazla sesin bşrbşrini taklit etmesi ile oluşan bütün,15.12.2025
+Kanon,Ard arda duyulan bir yada birden fazla sesin birbirini taklit etmesi ile oluşan bütün,15.12.2025
 Kant,Şeker ve limonla içilen sıcak su,15.12.2025
 Kantar,Ağırlık tartma aracı / Baskül,15.12.2025
 Kanuni,Yasal,16.01.2026
@@ -2432,10 +2439,12 @@ Kayır,İnce kum / Kalın kum,15.12.2025
 Kayış,Kayma işi,15.12.2025
 Kaymak,Krema,15.12.2025
 Kayme,Kağıt para / Kayime,15.12.2025
+Kaynar,Kaynamakta olan,10.02.2026
 Kaz,Budala / Kuş türü,15.12.2025
 Kaza,İlçe/ Kaymakamlık,15.12.2025
 Kazak,Kazakistan halkından olan,15.12.2025
 Kazan,Ankara ilçesi,15.12.2025
+Kazanç,Yarar / Çıkar / Kar,10.02.2026
 Kazara,Rasgele / Tesadüfen,15.12.2025
 Kazı,Hafriyat,15.12.2025
 Kazık,Direk / Sopa / Aldatma,15.12.2025
@@ -2752,6 +2761,7 @@ Kros,Kır koşusu,15.12.2025
 Kubat,Kaba / Biçimsiz,15.12.2025
 Kucak,Ortam / Ocak,15.12.2025
 Kudret,Güç / Erk / İktidar,15.12.2025
+Kufi,Arap yazısı türü,10.02.2026
 Kuğu,Perde ayaklı bir su kuşu,15.12.2025
 Kuka,Dantel ipi yumağı,15.12.2025
 Kukla,İçine el sokularak oynatılan bebekler,15.12.2025
@@ -2942,6 +2952,7 @@ Liyan,Parazit sarmaşık,15.12.2025
 Lobi,Otel,15.12.2025
 Lobut,Kalın kısa sopa,15.01.2026
 Loca,Masonluk bölümleri,15.12.2025
+Loda,Küme / Yığın / Demet,11.02.2026
 Lodos,Güney,15.12.2025
 Logo,İmlek,15.12.2025
 Loğ,Silindir biçimli ağır taş / Yuvgu / Yuvak,15.12.2025
@@ -3676,6 +3687,7 @@ Piyano,Klavyeli bir çalgı,15.12.2025
 Piyaz,Kurufasuleyli salata türü,15.12.2025
 Piyon,Bir çıkar sağlamak için yararlanılan kimse,15.12.2025
 Plaj,Kumsal,30.12.2025
+Plan,Çizim / Niyet / Maksat,09.02.2026
 Planör,Uçağa benzer motorsuz hava taşıtı,15.12.2025
 Plase,Voleybol ve futbolda bir top hareketi,15.12.2025
 Pog,Gür ve uzun bıyık,15.12.2025
@@ -4070,6 +4082,7 @@ Siğil,Deride oluşan küçük ur,15.12.2025
 Sih,Hindistan 'fa bir topluluk,15.12.2025
 Sik,Erkeklik organı,15.12.2025
 Sikke,Madeni para / Mevlevi dervişlerinin külahı,06.01.2026
+Silah,Savunma veya saldırı amaçlı kullanılan araç,10.02.2026
 Silaj,Taze bitkilerin siloda sıkıştırılarak korumaya alınması yöntemi,25.01.2026
 Silgi,Tebeşirle yazılanları silmeye yarayan araç,15.12.2025
 Sili,İffetli / Temiz / Kilim,15.12.2025
@@ -4100,15 +4113,18 @@ Siret,Özgeçmiş,15.12.2025
 Sirk,Canbazlar ve hayvanların gösteri yaptığı büyük çadır,15.12.2025
 Sirto,Bir oyun havası,03.02.2026
 Sis,Hava olayı,15.12.2025
-Sisli,Üzerine sis inmiş olan,17.12.2025
+Sisli,Üzerine sis inmiş olan / Sislenmiş / Bulanık,15.12.2025
 Sistit,Sidik torbası yangısı,15.12.2025
 Sit,Tarihi eser,15.12.2025
 Site,Şehir,15.12.2025
 Sitem,Alınganlık kırgınlık üzüntü belirtme,14.01.2026
 Sivil,Askeri olmayan,15.12.2025
 Siya,Kürekleri ters çekerek sandalı geri götürme,15.12.2025
+Siyak,Sözün gelişi,10.02.2026
+Siyek,Didik yolunun son bölümü / Üretra,10.02.2026
 Siz,Şahıs zamiri,15.12.2025
 Sizce,Size göre,15.12.2025
+Slip,Ödeme belgesi,08.02.2026
 Smaç,Voleybolda vuruş stili,15.12.2025
 Soba,Isınma aracı,15.12.2025
 Sobe,Saklambaç sözü,15.12.2025
@@ -4601,7 +4617,7 @@ Torpil,Kayırıcı / Torpido / Sualtı silahı,15.12.2025
 Tortu,Çökelti,03.01.2026
 Torul,Gümüşhane ilçesi,28.12.2025
 Torun,Çocuğunun çocuğu,15.12.2025
-Tos,Akın veya boynuzla vuruş,15.12.2025
+Tos,Alın veya boynuzla vuruş,15.12.2025
 Tost,Içine peynir vs. konan kızartılmış ekmek,15.12.2025
 Tosun,Danalıkyan yeni çıkan genç boğa,15.12.2025
 Tosya,Kastamonu ilçesi,15.12.2025
@@ -4734,6 +4750,7 @@ Urup,Arşının sekizde biri / bir şeyin dörtte biri,15.12.2025
 Us,Akıl,15.12.2025
 Usare,Öz su,18.01.2026
 Usat,Asiler/ İsyancılar / Başkaldıranlar,15.12.2025
+Usçu,Akılcı,09.02.2026
 Usta,Becerikli / Mahir,15.12.2025
 Usul,Yöntem / Tarz / Metot,15.12.2025
 Uşak,Çocuk / Erkek hizmetçi,15.12.2025
@@ -4800,6 +4817,7 @@ Vaha,Çöllerde bulunan tarım bölgesi,15.12.2025
 Vahi,Boş / Saçma,15.12.2025
 Vaiz,Dini konuşmalar yapan / Öğütçü,15.12.2025
 Vaka,Olay / Hadise,15.12.2025
+Vakar,Ağıbaşlılık,09.02.2026
 Vakıf,Toplum yararına çalışan kuruluş,15.12.2025
 Vaki,Olan / Olmuş,15.12.2025
 Vakit,Zaman / Çağ,15.12.2025
