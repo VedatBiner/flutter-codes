@@ -44,7 +44,7 @@ class DrawerRenewDbTile extends StatelessWidget {
           if (!context.mounted) return;
           await onLoadJsonData(
             ctx: rootCtx,
-            onStatus: (_, __, ___, ____) {}, // Drawer 'da ilerleme yok
+            onStatus: (_, _, _, _) {}, // Drawer 'da ilerleme yok
           );
         },
       ),
