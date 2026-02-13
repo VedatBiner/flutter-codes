@@ -12,35 +12,62 @@ class StatsPage extends StatelessWidget {
   final List<NetflixItem> movies;
   final List<SeriesGroup> series;
 
-  const StatsPage({
-    super.key,
-    required this.movies,
-    required this.series,
-  });
+  const StatsPage({super.key, required this.movies, required this.series});
 
   int get totalEpisodes {
     return series.expand((g) => g.seasons).expand((s) => s.episodes).length;
   }
 
+  Color _labelColorForSlice(Color sliceColor) {
+    final lum = sliceColor.computeLuminance();
+    return lum > 0.55 ? Colors.black : Colors.white;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final fg = isDark ? Colors.white : Colors.black;
+    final sub = isDark ? Colors.white70 : Colors.black87;
+
+    // ✅ Light mode başlıklar mavi, Dark mode sarı
+    final titleColor = isDark ? menuColor : drawerColor;
+
+    // Karanlık modda kart arka planını belirgin yap
+    final cardBg = isDark ? const Color(0xFF1E1E24) : Colors.white;
+
     final totalMovies = movies.length;
     final totalSeries = series.length;
-    final isLightTheme = Theme.of(context).brightness == Brightness.light;
 
     return Scaffold(
-      backgroundColor: isLightTheme ? cardLightColor : null,
       appBar: AppBar(
         title: Text("İzleme İstatistikleri", style: appBarTitleText),
+        iconTheme: IconThemeData(color: drawerMenuTitleText.color),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _buildSummaryCard(totalMovies, totalSeries, totalEpisodes),
+          _buildSummaryCard(
+            cardBg: cardBg,
+            fg: fg,
+            sub: sub,
+            movieCount: totalMovies,
+            seriesCount: totalSeries,
+            episodeCount: totalEpisodes,
+          ),
           const SizedBox(height: 20),
-          _buildPieChart(totalMovies, totalSeries),
+          _buildPieChart(
+            titleColor: titleColor,
+            fg: fg,
+            movieCount: totalMovies,
+            seriesCount: totalSeries,
+          ),
           const SizedBox(height: 30),
-          _buildBarChart(),
+          _buildBarChart(
+            titleColor: titleColor,
+            isDark: isDark,
+            fg: fg,
+          ),
         ],
       ),
     );
@@ -49,22 +76,42 @@ class StatsPage extends StatelessWidget {
   // ----------------------------------------------------------------
   // 🎯 Özet Kartı
   // ----------------------------------------------------------------
-  Widget _buildSummaryCard(int movieCount, int seriesCount, int episodeCount) {
+  Widget _buildSummaryCard({
+    required Color cardBg,
+    required Color fg,
+    required Color sub,
+    required int movieCount,
+    required int seriesCount,
+    required int episodeCount,
+  }) {
     return Card(
       elevation: 1,
+      color: cardBg,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Genel Özet", style: drawerMenuTitleText.copyWith(fontSize: 18)),
-            const SizedBox(height: 10),
-            Text("🎬 Filmler: $movieCount", style: normalBlackText),
-            const SizedBox(height: 4),
-            Text("📺 Diziler: $seriesCount", style: normalBlackText),
-            const SizedBox(height: 4),
-            Text("🎞 Bölümler: $episodeCount", style: normalBlackText),
-          ],
+        child: DefaultTextStyle(
+          style: TextStyle(
+            color: sub,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Genel Özet",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: fg,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text("🎬 Filmler: $movieCount"),
+              Text("📺 Diziler: $seriesCount"),
+              Text("🎞 Bölümler: $episodeCount"),
+            ],
+          ),
         ),
       ),
     );
@@ -73,42 +120,64 @@ class StatsPage extends StatelessWidget {
   // ----------------------------------------------------------------
   // 🥧 Pie Chart: Film vs Dizi
   // ----------------------------------------------------------------
-  Widget _buildPieChart(int movieCount, int seriesCount) {
+  Widget _buildPieChart({
+    required Color titleColor,
+    required Color fg,
+    required int movieCount,
+    required int seriesCount,
+  }) {
     final total = movieCount + seriesCount;
+    if (total == 0) {
+      return Text(
+        "Film / Dizi Dağılımı\n(Veri yok)",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: fg, fontWeight: FontWeight.bold, fontSize: 18),
+      );
+    }
 
-    // total = 0 ise (CSV boş vs.) yüzde hesapları patlamasın
-    final moviePct = total == 0 ? 0.0 : (movieCount / total) * 100;
-    final seriesPct = total == 0 ? 0.0 : (seriesCount / total) * 100;
+    final movieColor = Colors.blue;
+    final seriesColor = menuColor; // dilim rengi aynı kalsın
 
     return Column(
       children: [
-        Text("Film / Dizi Dağılımı", style: drawerMenuTitleText.copyWith(fontSize: 18)),
+        Text(
+          "Film / Dizi Dağılımı",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: titleColor, // ✅ Light mode’da mavi
+          ),
+        ),
         const SizedBox(height: 10),
         SizedBox(
           height: 220,
           child: PieChart(
             PieChartData(
-              sectionsSpace: 2,
               centerSpaceRadius: 0,
+              sectionsSpace: 2,
               sections: [
                 PieChartSectionData(
                   value: movieCount.toDouble(),
-                  color: drawerColor, // 🔵 sabit renk
-                  title: "Filmler\n${moviePct.toStringAsFixed(1)}%",
-                  radius: 80,
-                  titleStyle: const TextStyle(
-                    color: Colors.white,
+                  color: movieColor,
+                  title:
+                  "Filmler\n${((movieCount / total) * 100).toStringAsFixed(1)}%",
+                  radius: 85,
+                  titleStyle: TextStyle(
+                    color: _labelColorForSlice(movieColor),
                     fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
                 PieChartSectionData(
                   value: seriesCount.toDouble(),
-                  color: menuColor, // 🟡 sabit renk
-                  title: "Diziler\n${seriesPct.toStringAsFixed(1)}%",
-                  radius: 80,
-                  titleStyle: const TextStyle(
-                    color: Colors.black,
+                  color: seriesColor,
+                  title:
+                  "Diziler\n${((seriesCount / total) * 100).toStringAsFixed(1)}%",
+                  radius: 85,
+                  titleStyle: TextStyle(
+                    color: _labelColorForSlice(seriesColor),
                     fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
                 ),
               ],
@@ -122,38 +191,66 @@ class StatsPage extends StatelessWidget {
   // ----------------------------------------------------------------
   // 📊 Bar Chart: Dizi başına sezon sayısı
   // ----------------------------------------------------------------
-  Widget _buildBarChart() {
-    final barData = <BarChartGroupData>[];
-
-    for (var i = 0; i < series.length; i++) {
-      final g = series[i];
-      barData.add(
-        BarChartGroupData(
-          x: i,
-          barRods: [
-            BarChartRodData(
-              toY: g.seasons.length.toDouble(),
-              color: filmLightColor, // 🎨 sabit renk
-              width: 14,
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ],
-        ),
+  Widget _buildBarChart({
+    required Color titleColor,
+    required bool isDark,
+    required Color fg,
+  }) {
+    if (series.isEmpty) {
+      return Text(
+        "Dizi → Sezon Sayısı\n(Veri yok)",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: fg, fontWeight: FontWeight.bold, fontSize: 18),
       );
     }
 
+    final barData = series
+        .map(
+          (s) => BarChartGroupData(
+        x: series.indexOf(s),
+        barRods: [
+          BarChartRodData(
+            toY: s.seasons.length.toDouble(),
+            color: isDark ? Colors.lightBlueAccent : Colors.blue,
+            width: 10,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ],
+      ),
+    )
+        .toList();
+
     return Column(
       children: [
-        Text("Dizi → Sezon Sayısı", style: drawerMenuTitleText.copyWith(fontSize: 18)),
+        Text(
+          "Dizi  →  Sezon Sayısı",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: titleColor, // ✅ Light mode’da mavi
+          ),
+        ),
         const SizedBox(height: 10),
         SizedBox(
           height: 260,
           child: BarChart(
             BarChartData(
               barGroups: barData,
-              titlesData: const FlTitlesData(show: false),
-              gridData: const FlGridData(show: true),
+              titlesData: FlTitlesData(show: false),
               borderData: FlBorderData(show: false),
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: true,
+                getDrawingHorizontalLine: (_) => FlLine(
+                  color: isDark ? Colors.white12 : Colors.black12,
+                  strokeWidth: 1,
+                ),
+                getDrawingVerticalLine: (_) => FlLine(
+                  color: isDark ? Colors.white12 : Colors.black12,
+                  strokeWidth: 1,
+                ),
+              ),
+              backgroundColor: Colors.transparent,
             ),
           ),
         ),

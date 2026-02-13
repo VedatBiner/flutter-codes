@@ -62,7 +62,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 55. `csv_parser.dart` dosyası güncellendi. - 30.01.2026
 56. `file_creator.dart` dosyası güncellendi - 30.01.2026
 57. `custom_body.dart` dosyası güncellendi. - 01.02.2026
-58. ***** chatgpt il gözden geçirmeler - 04.02.2026
+58. ***** chatgpt ile gözden geçirmeler - 04.02.2026
 59. `main.dart`, `home_page.dart` ve `stats_page.dart` güncellendi. - 04.02.2026
 60. `custom_body.dart`, `filter_chips.dart`, `search_and_filer.dart` güncellendi. - 04.02.2026
 61. `csv_parser.dart`, `omdb_lazy_loader.dart` ve `export_items.dart` güncellendi. - 04.02.2026
@@ -73,6 +73,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 66. `file_creator.dart` dosyası silindi.  - 05.02.2026
 67. `export_itms.dart` ve `excel_helper.dart` dosyaları `utils` altına taşındı. - 05.02.2026
 68. `fc_files` dizini silindi. - 05.02.2026
+69. `stats_page.dart` dosyasında renkler düzeltildi. - 13.02.2026
+70. 
 
 
 
