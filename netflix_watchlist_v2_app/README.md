@@ -74,7 +74,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 67. `export_itms.dart` ve `excel_helper.dart` dosyaları `utils` altına taşındı. - 05.02.2026
 68. `fc_files` dizini silindi. - 05.02.2026
 69. `stats_page.dart` dosyasında renkler düzeltildi. - 13.02.2026
-70. 
+70. `custom_body.dart` dosyasında dizilere ikon eklendi.
 
 
 

@@ -107,10 +107,17 @@ class _CustomBodyState extends State<CustomBody> {
 
   Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
     return ExpansionTile(
+      // ✅ SADECE DİZİ ADI SATIRINDA İKON
+      leading: Icon(
+        Icons.movie, // filmde kullandığın ikonla aynı
+        color: isLightTheme ? Colors.black : null,
+      ),
+
       backgroundColor: isLightTheme ? cardLightColor : null,
       collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
       iconColor: isLightTheme ? Colors.black : null,
       collapsedIconColor: isLightTheme ? Colors.black : null,
+
       title: Text(
         group.seriesName,
         style: TextStyle(
@@ -118,6 +125,7 @@ class _CustomBodyState extends State<CustomBody> {
           fontWeight: FontWeight.bold,
         ),
       ),
+
       children: group.seasons.map((season) {
         return ExpansionTile(
           backgroundColor: isLightTheme ? cardLightColor : null,
@@ -132,6 +140,10 @@ class _CustomBodyState extends State<CustomBody> {
             return ListTile(
               tileColor: isLightTheme ? cardLightColor : null,
               textColor: isLightTheme ? Colors.black : null,
+
+              // ❌ Bölümlere ikon eklemiyoruz
+              // leading: ...
+
               title: Text(ep.title),
               subtitle: Text(formatDate(parseDate(ep.date))),
             );
@@ -140,6 +152,7 @@ class _CustomBodyState extends State<CustomBody> {
       }).toList(),
     );
   }
+
 
   Widget _buildMovieSection(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
