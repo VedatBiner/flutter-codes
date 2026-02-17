@@ -209,7 +209,7 @@ class _CustomBodyState extends State<CustomBody> {
           movie.poster!,
           width: 50,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => const Icon(Icons.movie),
+          errorBuilder: (_, _, _) => const Icon(Icons.movie),
         ),
         title: Text(movie.title),
         subtitle: Text(
