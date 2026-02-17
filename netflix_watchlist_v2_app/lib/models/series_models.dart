@@ -18,5 +18,24 @@ class SeriesGroup {
   final String seriesName;
   final List<SeasonGroup> seasons;
 
-  SeriesGroup({required this.seriesName, required this.seasons});
+  // ✅ OMDb alanları (dizi için)
+  String? year;
+  String? genre;
+  String? rating;
+  String? poster;
+  String? type;
+  String? originalTitle;
+  String? imdbId;
+
+  SeriesGroup({
+    required this.seriesName,
+    required this.seasons,
+    this.year,
+    this.genre,
+    this.rating,
+    this.poster,
+    this.type,
+    this.originalTitle,
+    this.imdbId,
+  });
 }

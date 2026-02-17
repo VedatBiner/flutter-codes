@@ -15,6 +15,7 @@ import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
 import '../utils/omdb_lazy_loader.dart';
+import '../utils/omdb_series_loader.dart';
 import '../utils/search_and_filter.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_body.dart';
@@ -185,6 +186,12 @@ class _HomePageState extends State<HomePage> {
             });
           },
           onMovieTap: (movie) => loadOmdb(movie),
+          onSeriesTap: (group) async {
+            // yeni loader
+            await OmdbSeriesLoader.loadSeriesIfNeeded(group);
+            setState(() {}); // HomePage de refresh etsin
+          },
+
         ),
       ),
     );

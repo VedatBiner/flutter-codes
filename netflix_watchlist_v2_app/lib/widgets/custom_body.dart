@@ -15,8 +15,12 @@ class CustomBody extends StatefulWidget {
   final List<NetflixItem> movies;
   final List<SeriesGroup> series;
   final FilterOption filter;
+
   final ValueChanged<FilterOption> onFilterSelected;
   final ValueChanged<NetflixItem> onMovieTap;
+
+  /// ✅ Yeni: Diziye tıklanınca OMDb yüklemek için callback
+  final Future<void> Function(SeriesGroup group) onSeriesTap;
 
   const CustomBody({
     super.key,
@@ -26,6 +30,7 @@ class CustomBody extends StatefulWidget {
     required this.filter,
     required this.onFilterSelected,
     required this.onMovieTap,
+    required this.onSeriesTap,
   });
 
   @override
@@ -100,7 +105,7 @@ class _CustomBodyState extends State<CustomBody> {
               separatorBuilder: (context, index) =>
                   Divider(color: Colors.grey.shade300, height: 1),
               itemBuilder: (context, index) =>
-                  _buildSeriesTile(widget.series[index], isLightTheme),
+                  _buildSeriesTile(context, widget.series[index], isLightTheme),
             ),
           )
         ],
@@ -108,44 +113,88 @@ class _CustomBodyState extends State<CustomBody> {
     );
   }
 
-  Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
-    return ExpansionTile(
-      // ✅ Dizi adında ikon (sadece burada)
-      leading: Icon(
-        Icons.tv,
-        color: isLightTheme ? Colors.black : null,
-      ),
-      backgroundColor: isLightTheme ? cardLightColor : null,
-      collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
-      iconColor: isLightTheme ? Colors.black : null,
-      collapsedIconColor: isLightTheme ? Colors.black : null,
-      title: Text(
-        group.seriesName,
-        style: TextStyle(
-          color: isLightTheme ? Colors.black : null,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      children: group.seasons.map((season) {
-        return ExpansionTile(
-          backgroundColor: isLightTheme ? cardLightColor : null,
-          collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
-          iconColor: isLightTheme ? Colors.black : null,
-          collapsedIconColor: isLightTheme ? Colors.black : null,
-          title: Text(
-            "Sezon ${season.seasonNumber}",
-            style: TextStyle(color: isLightTheme ? Colors.black : null),
+  Widget _buildSeriesTile(BuildContext context, SeriesGroup group, bool isLightTheme) {
+    final heroTag = (group.imdbId != null && group.imdbId!.isNotEmpty)
+        ? "series_poster_${group.imdbId}"
+        : "series_poster_${group.seriesName}";
+
+    final subtitleText =
+    (group.year == null && group.genre == null && group.rating == null)
+        ? null
+        : "${group.year ?? ''} ${group.genre ?? ''}  IMDB: ${group.rating ?? '...'}";
+
+    return GestureDetector(
+      onLongPress: () {
+        if (group.poster == null) return;
+
+        Navigator.of(context).push(
+          PageRouteBuilder(
+            opaque: false,
+            barrierColor: Colors.transparent,
+            pageBuilder: (_, __, ___) => PosterViewerPage(
+              heroTag: heroTag,
+              posterUrl: group.poster!,
+            ),
+            transitionsBuilder: (_, animation, __, child) {
+              return FadeTransition(opacity: animation, child: child);
+            },
           ),
-          children: season.episodes.map((ep) {
-            return ListTile(
-              tileColor: isLightTheme ? cardLightColor : null,
-              textColor: isLightTheme ? Colors.black : null,
-              title: Text(ep.title),
-              subtitle: Text(formatDate(parseDate(ep.date))),
-            );
-          }).toList(),
         );
-      }).toList(),
+      },
+      child: ExpansionTile(
+        leading: group.poster == null
+            ? Icon(Icons.tv, color: isLightTheme ? Colors.black : null)
+            : Hero(
+          tag: heroTag,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.network(
+              group.poster!,
+              width: 50,
+              height: 72,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+
+        backgroundColor: isLightTheme ? cardLightColor : null,
+        collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
+
+        title: Text(
+          group.seriesName,
+          style: TextStyle(
+            color: isLightTheme ? Colors.black : null,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        subtitle: subtitleText == null
+            ? null
+            : Text(
+          subtitleText,
+          style: TextStyle(color: isLightTheme ? Colors.black87 : null),
+        ),
+
+        onExpansionChanged: (isExpanding) async {
+          if (!isExpanding) return;
+
+          await widget.onSeriesTap(group);
+          if (!mounted) return;
+          setState(() {});
+        },
+
+        children: group.seasons.map((season) {
+          return ExpansionTile(
+            title: Text("Sezon ${season.seasonNumber}"),
+            children: season.episodes.map((ep) {
+              return ListTile(
+                title: Text(ep.title),
+                subtitle: Text(formatDate(parseDate(ep.date))),
+              );
+            }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
@@ -196,7 +245,6 @@ class _CustomBodyState extends State<CustomBody> {
   }
 
   Widget _buildMovieTile(BuildContext context, NetflixItem movie, bool isLightTheme) {
-    // ✅ Hero tag (benzersiz)
     final heroTag = (movie.imdbId != null && movie.imdbId!.isNotEmpty)
         ? "poster_${movie.imdbId}"
         : "poster_${movie.title}_${movie.date}";
@@ -206,7 +254,6 @@ class _CustomBodyState extends State<CustomBody> {
       child: ListTile(
         iconColor: isLightTheme ? Colors.black : null,
         textColor: isLightTheme ? Colors.black : null,
-
         leading: movie.poster == null
             ? const Icon(Icons.movie)
             : Hero(
@@ -222,16 +269,12 @@ class _CustomBodyState extends State<CustomBody> {
             ),
           ),
         ),
-
         title: Text(movie.title),
         subtitle: Text(
           "${formatDate(parseDate(movie.date))}\n"
               "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
         ),
-
         onTap: () => widget.onMovieTap(movie),
-
-        // ✅ Uzun basınca poster büyük aç (Hero + swipe-to-close)
         onLongPress: () {
           if (movie.poster == null) return;
 
