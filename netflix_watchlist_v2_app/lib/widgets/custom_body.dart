@@ -6,6 +6,7 @@ import '../constants/color_constants.dart';
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
 import '../models/series_models.dart';
+import '../screens/poster_viewer_page.dart';
 import '../utils/csv_parser.dart';
 import 'filter_chips.dart';
 
@@ -32,7 +33,6 @@ class CustomBody extends StatefulWidget {
 }
 
 class _CustomBodyState extends State<CustomBody> {
-  // ✅ Material controller: Flutter 3.13+ (ExpansionTile controller)
   final _seriesController = ExpansibleController();
   final _moviesController = ExpansibleController();
 
@@ -62,6 +62,9 @@ class _CustomBodyState extends State<CustomBody> {
     );
   }
 
+  // ----------------------------------------------------------------
+  // 📺 DİZİLER
+  // ----------------------------------------------------------------
   Widget _buildSeriesSection(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
 
@@ -107,17 +110,15 @@ class _CustomBodyState extends State<CustomBody> {
 
   Widget _buildSeriesTile(SeriesGroup group, bool isLightTheme) {
     return ExpansionTile(
-      // ✅ SADECE DİZİ ADI SATIRINDA İKON
+      // ✅ Dizi adında ikon (sadece burada)
       leading: Icon(
-        Icons.movie, // filmde kullandığın ikonla aynı
+        Icons.movie,
         color: isLightTheme ? Colors.black : null,
       ),
-
       backgroundColor: isLightTheme ? cardLightColor : null,
       collapsedBackgroundColor: isLightTheme ? cardLightColor : null,
       iconColor: isLightTheme ? Colors.black : null,
       collapsedIconColor: isLightTheme ? Colors.black : null,
-
       title: Text(
         group.seriesName,
         style: TextStyle(
@@ -125,7 +126,6 @@ class _CustomBodyState extends State<CustomBody> {
           fontWeight: FontWeight.bold,
         ),
       ),
-
       children: group.seasons.map((season) {
         return ExpansionTile(
           backgroundColor: isLightTheme ? cardLightColor : null,
@@ -140,10 +140,6 @@ class _CustomBodyState extends State<CustomBody> {
             return ListTile(
               tileColor: isLightTheme ? cardLightColor : null,
               textColor: isLightTheme ? Colors.black : null,
-
-              // ❌ Bölümlere ikon eklemiyoruz
-              // leading: ...
-
               title: Text(ep.title),
               subtitle: Text(formatDate(parseDate(ep.date))),
             );
@@ -153,7 +149,9 @@ class _CustomBodyState extends State<CustomBody> {
     );
   }
 
-
+  // ----------------------------------------------------------------
+  // 🎬 FİLMLER
+  // ----------------------------------------------------------------
   Widget _buildMovieSection(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
 
@@ -189,7 +187,7 @@ class _CustomBodyState extends State<CustomBody> {
               separatorBuilder: (context, index) =>
                   Divider(color: Colors.grey.shade300, height: 1),
               itemBuilder: (context, index) =>
-                  _buildMovieTile(widget.movies[index], isLightTheme),
+                  _buildMovieTile(context, widget.movies[index], isLightTheme),
             ),
           )
         ],
@@ -197,68 +195,61 @@ class _CustomBodyState extends State<CustomBody> {
     );
   }
 
-  Widget _buildMovieTile(NetflixItem movie, bool isLightTheme) {
+  Widget _buildMovieTile(BuildContext context, NetflixItem movie, bool isLightTheme) {
+    // ✅ Hero tag (benzersiz)
+    final heroTag = (movie.imdbId != null && movie.imdbId!.isNotEmpty)
+        ? "poster_${movie.imdbId}"
+        : "poster_${movie.title}_${movie.date}";
+
     return Container(
       color: isLightTheme ? cardLightColor : null,
       child: ListTile(
         iconColor: isLightTheme ? Colors.black : null,
         textColor: isLightTheme ? Colors.black : null,
+
         leading: movie.poster == null
             ? const Icon(Icons.movie)
-            : Image.network(
-          movie.poster!,
-          width: 50,
-          fit: BoxFit.cover,
-          errorBuilder: (_, _, _) => const Icon(Icons.movie),
+            : Hero(
+          tag: heroTag,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.network(
+              movie.poster!,
+              width: 50,
+              height: 72,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const Icon(Icons.movie),
+            ),
+          ),
         ),
+
         title: Text(movie.title),
         subtitle: Text(
           "${formatDate(parseDate(movie.date))}\n"
               "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
         ),
+
         onTap: () => widget.onMovieTap(movie),
+
+        // ✅ Uzun basınca poster büyük aç (Hero + swipe-to-close)
         onLongPress: () {
-          if (movie.poster != null) {
-            _showPosterDialog(context, movie.poster!);
-          }
+          if (movie.poster == null) return;
+
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false,
+              barrierColor: Colors.transparent,
+              pageBuilder: (_, __, ___) => PosterViewerPage(
+                heroTag: heroTag,
+                posterUrl: movie.poster!,
+              ),
+              transitionsBuilder: (_, animation, __, child) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+            ),
+          );
         },
       ),
     );
   }
-}
-
-void _showPosterDialog(BuildContext context, String posterUrl) {
-  showDialog(
-    context: context,
-    barrierColor: Colors.black87, // arka plan karartma
-    builder: (_) {
-      return Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(16),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.85,
-                maxWidth: MediaQuery.of(context).size.width * 0.95,
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: InteractiveViewer(
-                  minScale: 1,
-                  maxScale: 4,
-                  child: Image.network(
-                    posterUrl,
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) =>
-                    const Center(child: Icon(Icons.broken_image, size: 80, color: Colors.white)),
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    },
-  );
 }
