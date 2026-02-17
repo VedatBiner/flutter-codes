@@ -112,7 +112,7 @@ class _CustomBodyState extends State<CustomBody> {
     return ExpansionTile(
       // ✅ Dizi adında ikon (sadece burada)
       leading: Icon(
-        Icons.movie,
+        Icons.tv,
         color: isLightTheme ? Colors.black : null,
       ),
       backgroundColor: isLightTheme ? cardLightColor : null,
