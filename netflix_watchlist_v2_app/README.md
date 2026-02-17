@@ -77,7 +77,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 70. `custom_body.dart` dosyasında dizilere ikon eklendi. - 13.02.2026
 71. `omdb_lazy_loader.dart` dosyasında düzeltme yapıldı. - 13.02.2026
 72. `androidManifest.xml` dosyası düzenlendi. - 17.02.2026
-73. 
+73. `custom_body.dart` dosyasında poster görünümü düzeltildi. - 17.02.2026
+74. 
 
 
 

@@ -217,7 +217,48 @@ class _CustomBodyState extends State<CustomBody> {
               "${movie.year ?? ''} ${movie.genre ?? ''} IMDB: ${movie.rating ?? '...'}",
         ),
         onTap: () => widget.onMovieTap(movie),
+        onLongPress: () {
+          if (movie.poster != null) {
+            _showPosterDialog(context, movie.poster!);
+          }
+        },
       ),
     );
   }
+}
+
+void _showPosterDialog(BuildContext context, String posterUrl) {
+  showDialog(
+    context: context,
+    barrierColor: Colors.black87, // arka plan karartma
+    builder: (_) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.all(16),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.85,
+                maxWidth: MediaQuery.of(context).size.width * 0.95,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: InteractiveViewer(
+                  minScale: 1,
+                  maxScale: 4,
+                  child: Image.network(
+                    posterUrl,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) =>
+                    const Center(child: Icon(Icons.broken_image, size: 80, color: Colors.white)),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    },
+  );
 }
