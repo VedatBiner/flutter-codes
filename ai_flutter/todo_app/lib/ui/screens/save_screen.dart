@@ -21,6 +21,10 @@ class _SaveScreenState extends State<SaveScreen> {
     super.dispose();
   }
 
+  Future<void> save(String name, String image) async {
+    print("Saving ToDo with name: $name and image: $image");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +98,7 @@ class _SaveScreenState extends State<SaveScreen> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Form is valid, handle saving the data here
+                      save(_taskNameController.text, widget.imageName);
                       Navigator.pop(context);
                     }
                   },

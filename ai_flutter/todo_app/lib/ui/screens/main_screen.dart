@@ -16,14 +16,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // The complete list of Todo items
-  final List<Todos> _todoItems = [
-    Todos(id: 1, name: 'Buy a plane ticket', image: 'agac.png'),
-    Todos(id: 2, name: 'Join the meeting', image: 'araba.png'),
-    Todos(id: 3, name: 'Go to gym', image: 'cicek.png'),
-    Todos(id: 4, name: 'Edit files', image: 'damla.png'),
-    Todos(id: 5, name: 'Attend English class', image: 'gunes.png'),
-  ];
+  List<Todos> _todoItems = [];
 
   final List<String> _imageAssets = [
     'agac.png',
@@ -38,33 +31,68 @@ class _MainScreenState extends State<MainScreen> {
     'yildiz.png',
   ];
 
-  // The list displayed on the screen, which can be filtered
-  late List<Todos> _filteredTodoItems;
-
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Initially, the filtered list contains all items
-    _filteredTodoItems = _todoItems;
-    _searchController.addListener(_filterList);
-  }
-
-  void _filterList() {
-    final query = _searchController.text.toLowerCase();
-    setState(() {
-      _filteredTodoItems = _todoItems
-          .where((item) => item.name.toLowerCase().contains(query))
-          .toList();
-    });
+    loadToDos();
   }
 
   @override
   void dispose() {
-    _searchController.removeListener(_filterList);
     _searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> loadToDos() async {
+    var todoList = [
+      Todos(id: 1, name: 'Buy a plane ticket', image: 'agac.png'),
+      Todos(id: 2, name: 'Join the meeting', image: 'araba.png'),
+      Todos(id: 3, name: 'Go to gym', image: 'cicek.png'),
+      Todos(id: 4, name: 'Edit files', image: 'damla.png'),
+      Todos(id: 5, name: 'Attend English class', image: 'gunes.png'),
+    ];
+    setState(() {
+      _todoItems = todoList;
+    });
+  }
+
+  Future<void> search(String searchText) async {
+    print("Searching for: $searchText");
+  }
+
+  Future<void> delete(int id) async {
+    print("Deleting ToDo with ID: $id");
+  }
+
+  Widget _buildTodoList() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: _todoItems.length,
+        itemBuilder: (context, index) {
+          final item = _todoItems[index];
+          return TodoItem(
+            todo: item,
+            onDelete: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      "'${item.name}' isimli görevi silmek istediğinize emin misiniz?"),
+                  action: SnackBarAction(
+                    label: 'SİL',
+                    onPressed: () {
+                      delete(item.id);
+                    },
+                  ),
+                ),
+              );
+            },
+            onReturn: loadToDos,
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -82,6 +110,9 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             TextField(
               controller: _searchController,
+              onChanged: (value) {
+                search(value);
+              },
               decoration: const InputDecoration(
                 hintText: 'Search',
                 filled: true,
@@ -94,15 +125,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _filteredTodoItems.length,
-                itemBuilder: (context, index) {
-                  final item = _filteredTodoItems[index];
-                  return TodoItem(todo: item);
-                },
-              ),
-            ),
+            _buildTodoList(),
           ],
         ),
       ),
@@ -119,6 +142,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ).then((_) {
             print("Returned from SaveScreen");
+            loadToDos();
           });
         },
         child: const Icon(Icons.add),
@@ -128,9 +152,15 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class TodoItem extends StatelessWidget {
-  const TodoItem({super.key, required this.todo});
+  const TodoItem(
+      {super.key,
+      required this.todo,
+      required this.onDelete,
+      required this.onReturn});
 
   final Todos todo;
+  final VoidCallback onDelete;
+  final VoidCallback onReturn;
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +174,7 @@ class TodoItem extends StatelessWidget {
             MaterialPageRoute(builder: (context) => UpdateScreen(todo: todo)),
           ).then((_) {
             print("Returned from UpdateScreen");
+            onReturn();
           });
         },
         leading: Image.asset(
@@ -160,7 +191,10 @@ class TodoItem extends StatelessWidget {
           todo.name,
           style: const TextStyle(color: AppColors.darkGray),
         ),
-        trailing: const Icon(Icons.close, color: AppColors.darkGray),
+        trailing: IconButton(
+          icon: const Icon(Icons.close, color: AppColors.darkGray),
+          onPressed: onDelete,
+        ),
       ),
     );
   }

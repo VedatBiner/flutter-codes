@@ -30,6 +30,10 @@ class _UpdateScreenState extends State<UpdateScreen> {
     super.dispose();
   }
 
+  Future<void> update(int id, String name) async {
+    print("Updating ToDo with ID: $id and name: $name");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +107,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Form is valid, handle updating the data here
+                      update(widget.todo.id, _taskNameController.text);
                       Navigator.pop(context);
                     }
                   },
