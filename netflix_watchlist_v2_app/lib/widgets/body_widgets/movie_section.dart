@@ -1,3 +1,25 @@
+// ============================================================================
+// 🎬 MovieSection – Filmler Bölümü
+// ============================================================================
+//
+// Bu widget Filmler ExpansionTile kartını oluşturur.
+// İçerisinde film listesi ve MovieTile öğeleri yer alır.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Sorumlulukları
+// ---------------------------------------------------------------------------
+// 1️⃣ Filmler başlığını gösterir.
+// 2️⃣ Film sayısını dinamik olarak yazar.
+// 3️⃣ MovieTile öğelerini liste halinde render eder.
+// 4️⃣ Expansion controller ile diğer section'ı kapatır.
+//
+// ---------------------------------------------------------------------------
+// UI Özellikleri:
+// • Light mode'da indigo renkli başlık.
+// • Hero animasyon destekli poster thumbnail.
+// • Uzun basınca tam ekran poster açılır.
+//
+// ============================================================================
 import 'package:flutter/material.dart';
 
 import '../../models/netflix_item.dart';

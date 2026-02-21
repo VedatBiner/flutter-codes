@@ -1,3 +1,23 @@
+// ============================================================================
+// 🌐 OMDbSeriesLoader – Dizi Metadata Servisi
+// ============================================================================
+//
+// Bu yardımcı servis OMDb API üzerinden dizi bilgilerini çeker.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Çalışma Mantığı
+// ---------------------------------------------------------------------------
+// 1️⃣ Önce title (t=) ile doğrudan sorgu yapar.
+// 2️⃣ Bulamazsa search (s=) ile arar.
+// 3️⃣ İlk sonucu imdbID ile detay (i=) çağrısı yapar.
+// 4️⃣ Poster "N/A" ise null döndürür.
+// 5️⃣ Map verisini OmdbSeriesInfo modeline dönüştürür.
+//
+// ---------------------------------------------------------------------------
+// Amaç:
+// Film ve dizi metadata yükleme mantığını UI’dan ayırmak.
+//
+// ============================================================================
 import 'dart:convert';
 import 'dart:developer';
 

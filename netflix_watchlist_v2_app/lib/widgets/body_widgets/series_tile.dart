@@ -1,3 +1,26 @@
+// ============================================================================
+// 📺 SeriesTile – Tekil Dizi Satırı
+// ============================================================================
+//
+// Bu widget tek bir diziyi temsil eder.
+// OMDb bilgileri (poster, yıl, tür, rating) lazy-load edilir.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Özellikleri
+// ---------------------------------------------------------------------------
+// • Küçük poster thumbnail (varsa).
+// • Dizi adı altında yıl / tür / IMDB rating.
+// • Dizi satırına dokununca OMDb yüklenir.
+// • Uzun basınca Hero animasyonlu tam ekran poster açılır.
+// • Swipe-to-close desteklidir.
+// • Sezon ve bölüm ExpansionTile’ları içerir.
+//
+// ---------------------------------------------------------------------------
+// Mimari Avantaj:
+// OMDb yükleme mantığı SeriesGroup modelini kirletmeden
+// widget state içinde tutulur.
+//
+// ============================================================================
 import 'dart:developer';
 
 import 'package:flutter/material.dart';

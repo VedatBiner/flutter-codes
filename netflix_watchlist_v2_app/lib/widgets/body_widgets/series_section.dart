@@ -1,3 +1,19 @@
+// ============================================================================
+// 📺 SeriesSection – Diziler Bölümü
+// ============================================================================
+//
+// Bu widget Diziler ExpansionTile kartını oluşturur.
+// İçerisinde her dizi için SeriesTile öğeleri bulunur.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Sorumlulukları
+// ---------------------------------------------------------------------------
+// 1️⃣ Dizi başlığını ve toplam sayıyı gösterir.
+// 2️⃣ SeriesTile öğelerini listeler.
+// 3️⃣ Expansion controller yönetimi yapar.
+// 4️⃣ Filmler bölümü ile karşılıklı aç/kapa kontrolü sağlar.
+//
+// ============================================================================
 import 'package:flutter/material.dart';
 
 import '../../models/series_models.dart';

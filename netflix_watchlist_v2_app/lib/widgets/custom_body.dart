@@ -1,3 +1,29 @@
+// ============================================================================
+// 📦 CustomBody – Film & Dizi Listeleme Alanı
+// ============================================================================
+//
+// Bu widget ana ekranın gövdesini (body) oluşturur.
+// Film ve dizileri iki ayrı bölüm (ExpansionTile) halinde gösterir.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Sorumlulukları
+// ---------------------------------------------------------------------------
+// 1️⃣ Diziler ve Filmler bölümlerini ayrı ayrı render eder.
+// 2️⃣ Expansion controller’ları yönetir (biri açılınca diğeri kapanır).
+// 3️⃣ Filtre chip’lerini gösterir.
+// 4️⃣ MovieSection ve SeriesSection widget’larını çağırır.
+//
+// ---------------------------------------------------------------------------
+// 🧠 Mimari Not
+// ---------------------------------------------------------------------------
+// Bu dosya sadece layout orchestration yapar.
+// Film/dizi detay mantığı ilgili alt widget’lara taşınmıştır.
+//
+// ---------------------------------------------------------------------------
+// Amaç:
+// Kod karmaşıklığını azaltmak ve modüler yapıyı korumaktır.
+// ============================================================================
+
 import 'package:flutter/material.dart';
 
 import '../models/filter_option.dart';

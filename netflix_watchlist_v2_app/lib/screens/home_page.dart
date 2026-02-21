@@ -1,4 +1,45 @@
 // <----- lib/screens/home_page.dart ----->
+//
+// ============================================================================
+// 📺 HomePage – Ana Ekran (Film & Dizi Listeleme Merkezi)
+// ============================================================================
+//
+// Bu dosya uygulamanın ana ekranıdır.
+// Netflix izleme geçmişinden oluşturulan film ve dizi listelerini
+// yükler, filtreler, arama yapar ve kullanıcıya sunar.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Sorumlulukları
+// ---------------------------------------------------------------------------
+// 1️⃣ CSV verisini parse ederek film ve dizileri oluşturur.
+// 2️⃣ Film ve dizileri ayrı listelerde tutar (movies / series).
+// 3️⃣ Arama (search) ve filtre (FilterOption) işlemlerini yönetir.
+// 4️⃣ OMDb bilgilerini lazy-loading mantığıyla yükler.
+// 5️⃣ Stats sayfasına verileri Get.arguments ile gönderir.
+// 6️⃣ Download klasörü hazırlığını başlatır.
+// 7️⃣ Uygulama versiyon ve cihaz bilgilerini loglar.
+//
+// ---------------------------------------------------------------------------
+// 🧠 Mimari Rolü
+// ---------------------------------------------------------------------------
+// • UI container görevi görür.
+// • Veri işleme (parse, filtreleme) burada başlatılır.
+// • Görsel bileşenler CustomBody, CustomAppBar, CustomDrawer ile ayrılmıştır.
+// • İş mantığı yardımcı utils dosyalarına dağıtılmıştır.
+//
+// ---------------------------------------------------------------------------
+// ⚙️ Önemli Akış
+// ---------------------------------------------------------------------------
+// initState() içinde:
+//   - Cihaz bilgisi loglanır
+//   - Versiyon bilgisi alınır
+//   - Download klasörü hazırlanır
+//   - CSV parse edilir
+//   - Export dosyaları oluşturulur (varsa)
+//
+// ---------------------------------------------------------------------------
+// Bu dosya uygulamanın ana koordinasyon merkezidir.
+// ============================================================================
 
 import 'dart:developer';
 

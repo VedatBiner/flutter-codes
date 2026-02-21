@@ -86,7 +86,10 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 79. `series_section.dart` dosyası oluşturuldu. - 17.02.2026
 80. `series_tile.dart` dosyası oluşturuldu. - 19.02.2026
 81. `custom_body.dart`, `ombdb_series_loader.dart`, `poster_viewer.dart` ve `home_page.dart` dosyaları güncellendi. - 19.02.2026
-82. 
+82. `main.dart`, `custom_body.dart` için detaylı açıklama yazıldı. - 21.02.2026
+83. `movie_section.dart`, `movie_tile.dart` için detaylı açıklama yazıldı. - 21.02.2026
+84. `series_section.dart`, `series_tile.dart`,  için detaylı açıklama yazıldı. - 21.02.2026
+83. `omdb_series_loader.dart`, `poster_viewer_page.dart` için detaylı açıklama yazıldı. - 21.02.2026
 
 
 

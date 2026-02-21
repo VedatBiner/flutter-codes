@@ -1,3 +1,23 @@
+// ============================================================================
+// 🎞 MovieTile – Tekil Film Satırı
+// ============================================================================
+//
+// Bu widget tek bir filmi temsil eder.
+// Poster, başlık, tarih ve OMDb bilgilerini gösterir.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Özellikleri
+// ---------------------------------------------------------------------------
+// • Küçük poster thumbnail (varsa).
+// • Yıl, Tür, IMDB rating alt satırda.
+// • onTap → OMDb lazy load tetikler.
+// • onLongPress → Hero + tam ekran poster viewer.
+// • Swipe-to-close desteklidir.
+//
+// ---------------------------------------------------------------------------
+// Amaç:
+// Film UI mantığını CustomBody’den ayırarak modüler yapı sağlamak.
+// ============================================================================
 import 'package:flutter/material.dart';
 
 import '../../constants/color_constants.dart';

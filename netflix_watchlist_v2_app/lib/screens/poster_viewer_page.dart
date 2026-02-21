@@ -1,4 +1,28 @@
 // <----- lib/screens/poster_viewer_page.dart ----->
+//
+// ============================================================================
+// 🖼 PosterViewerPage – Tam Ekran Poster Görüntüleyici
+// ============================================================================
+//
+// Bu ekran film ve diziler için ortak kullanılan
+// tam ekran poster görüntüleme sayfasıdır.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Özellikler
+// ---------------------------------------------------------------------------
+// • Hero animasyon ile yumuşak geçiş.
+// • Swipe-to-close (vertical dismiss).
+// • Tap-to-close.
+// • InteractiveViewer ile pinch zoom.
+// • Ekranı taşmayan responsive yapı.
+//
+// ---------------------------------------------------------------------------
+// Amaç:
+// Film ve diziler için ortak, tekrar kullanılabilir
+// poster görüntüleme deneyimi sunmak.
+//
+// ============================================================================
+//
 import 'package:flutter/material.dart';
 
 class PosterViewerPage extends StatelessWidget {
