@@ -1,3 +1,4 @@
+// <----- lib/screens/poster_viewer_page.dart ----->
 import 'package:flutter/material.dart';
 
 class PosterViewerPage extends StatelessWidget {

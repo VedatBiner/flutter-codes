@@ -1,4 +1,66 @@
 // 📁 lib/main.dart
+//
+
+// ============================================================================
+// 🎬 Netflix Watchlist Uygulaması – Ana Giriş Noktası
+// ============================================================================
+//
+// Bu dosya uygulamanın başlangıç noktasıdır (entry point).
+// Flutter uygulaması burada başlatılır ve tüm global yapılandırmalar
+// bu dosya üzerinden yapılır.
+//
+// ---------------------------------------------------------------------------
+// 🔹 Sorumlulukları
+// ---------------------------------------------------------------------------
+// 1️⃣ Uygulamayı başlatmak (runApp).
+// 2️⃣ Tema yönetimini merkezi olarak kontrol etmek (Light / Dark Mode).
+// 3️⃣ GetX ile route (sayfa yönlendirme) sistemini tanımlamak.
+// 4️⃣ Stats sayfasına film ve dizi listelerini parametre olarak aktarmak.
+//
+// ---------------------------------------------------------------------------
+// 🧠 Mimari Yapı
+// ---------------------------------------------------------------------------
+// • GetX kullanılır (GetMaterialApp).
+// • ThemeController → Light/Dark mod kontrolünü sağlar.
+// • CustomTheme → uygulamanın açık ve koyu temalarını içerir.
+// • Route yönetimi getPages listesi ile merkezi olarak tanımlanır.
+// • Stats sayfasına veri aktarımı Get.arguments ile yapılır.
+//
+// ---------------------------------------------------------------------------
+// 📌 Route Akışı
+// ---------------------------------------------------------------------------
+// '/'       → HomePage (ana ekran)
+// '/stats'  → StatsPage (film + dizi istatistik ekranı)
+//
+// Stats route ’u parametreli çalışır:
+//   Get.toNamed('/stats', arguments: {
+//      'movies': movies,
+//      'series': series,
+//   });
+//
+// Bu parametreler burada alınır ve StatsPage’e aktarılır.
+//
+// ---------------------------------------------------------------------------
+// 🎨 Tema Yönetimi
+// ---------------------------------------------------------------------------
+// ThemeController (GetX) üzerinden anlık tema değişimi yapılır.
+// Obx widget sayesinde tema değiştiğinde tüm uygulama otomatik
+// olarak yeniden render edilir.
+//
+// ---------------------------------------------------------------------------
+// ⚙️ Teknik Notlar
+// ---------------------------------------------------------------------------
+// • debugShowCheckedModeBanner kapalıdır.
+// • GetMaterialApp kullanıldığı için klasik Navigator yerine
+//   GetX navigation tercih edilmiştir.
+// • Uygulamanın global yapılandırması burada tutulur.
+// • Bu dosya iş mantığı içermez, sadece uygulama iskeletini kurar.
+//
+// ============================================================================
+// Bu dosya uygulamanın "beyni" değil,
+// uygulamanın "iskeletini ve yönlendirme sistemini" kuran merkezdir.
+// ============================================================================
+//
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

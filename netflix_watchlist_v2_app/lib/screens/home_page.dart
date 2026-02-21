@@ -54,12 +54,6 @@ class _HomePageState extends State<HomePage> {
     _getAppVersion();
     _prepareDownloadDirectory();
     loadData();
-
-    // ✅ context kullanan işleri ilk frame sonrasına al
-    // Şimdilik iptal
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   initializeAppDataFlow(context);
-    // });
   }
 
   @override
@@ -153,10 +147,10 @@ class _HomePageState extends State<HomePage> {
             });
           },
           onStatsPressed: () {
-            Get.toNamed('/stats', arguments: {
-              'movies': allMovies,
-              'series': allSeries,
-            });
+            Get.toNamed(
+              '/stats',
+              arguments: {'movies': allMovies, 'series': allSeries},
+            );
           },
           searchController: _searchController,
           onSearchChanged: (value) {
@@ -186,7 +180,6 @@ class _HomePageState extends State<HomePage> {
           },
           onMovieTap: (movie) => loadOmdb(movie),
         ),
-
       ),
     );
   }
