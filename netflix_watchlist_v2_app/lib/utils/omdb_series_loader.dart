@@ -15,117 +15,84 @@
 //
 // ---------------------------------------------------------------------------
 // Amaç:
-// Film ve dizi metadata yükleme mantığını UI’dan ayırmak.
+// Film ve dizi metadata yükleme mantığını UI ’dan ayırmak.
 //
 // ============================================================================
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:http/http.dart' as http;
 
 import '../constants/file_info.dart';
+import '../models/series_models.dart';
 
-class OmdbSeriesInfo {
-  final String? originalTitle;
-  final String? year;
-  final String? genre;
-  final String? rating;
-  final String? poster;
-  final String? type;
-  final String? imdbId;
-
-  const OmdbSeriesInfo({
-    this.originalTitle,
-    this.year,
-    this.genre,
-    this.rating,
-    this.poster,
-    this.type,
-    this.imdbId,
-  });
-}
-
-/// Diziler için OMDb loader (title → detail, gerekirse search fallback).
 class OmdbSeriesLoader {
   static const tag = "omdb_series";
 
-  /// Dizi adına göre OMDb’den metadata döndürür.
-  static Future<OmdbSeriesInfo?> loadSeries(String seriesName) async {
-    final name = seriesName.trim();
-    if (name.isEmpty) return null;
+  static Future<void> loadIfNeeded(SeriesGroup group) async {
+    // Zaten yüklüyse çık
+    if (group.imdbId != null && group.imdbId!.isNotEmpty) {
+      log("⏭ Dizi zaten yüklü: ${group.seriesName}", name: tag);
+      return;
+    }
 
     try {
-      // 1) Direkt title ile dene
-      final byTitleUrl = Uri.parse(
-        "https://www.omdbapi.com/?t=${Uri.encodeQueryComponent(name)}&type=series&apikey=$apiKey",
+      final title = Uri.encodeQueryComponent(group.seriesName);
+
+      // 1️⃣ Direkt arama (type=series önemli!)
+      final url = Uri.parse(
+        "https://www.omdbapi.com/?t=$title&type=series&apikey=$apiKey",
       );
 
-      log("🌐 OMDb (series, t=) çağrılıyor: $byTitleUrl", name: tag);
-      final res = await http.get(byTitleUrl);
+      final response = await http.get(url);
+      final data = jsonDecode(response.body);
 
-      if (res.statusCode == 200) {
-        final data = jsonDecode(res.body);
-        if (data is Map && data["Response"] == "True") {
-          return _mapToInfo(data);
+      if (data["Response"] == "False") {
+        // 2️⃣ Fallback search
+        final searchUrl = Uri.parse(
+          "https://www.omdbapi.com/?s=$title&type=series&apikey=$apiKey",
+        );
+
+        final searchRes = await http.get(searchUrl);
+        final searchData = jsonDecode(searchRes.body);
+
+        if (searchData["Search"] == null) {
+          log("❌ OMDb bulamadı: ${group.seriesName}", name: tag);
+          return;
         }
+
+        final firstSeries = searchData["Search"]
+            .firstWhere((e) => e["Type"] == "series");
+
+        final imdbId = firstSeries["imdbID"];
+
+        final detailUrl = Uri.parse(
+          "https://www.omdbapi.com/?i=$imdbId&apikey=$apiKey",
+        );
+
+        final detailRes = await http.get(detailUrl);
+        final detailData = jsonDecode(detailRes.body);
+
+        _applyData(group, detailData);
+        return;
       }
 
-      // 2) Fallback: s= ile ara → ilk sonucu imdbId ile çek
-      final searchUrl = Uri.parse(
-        "https://www.omdbapi.com/?s=${Uri.encodeQueryComponent(name)}&type=series&apikey=$apiKey",
-      );
-
-      log("🌐 OMDb (series, s=) fallback: $searchUrl", name: tag);
-      final searchRes = await http.get(searchUrl);
-
-      if (searchRes.statusCode != 200) return null;
-
-      final searchData = jsonDecode(searchRes.body);
-      if (searchData is! Map) return null;
-
-      final list = searchData["Search"];
-      if (list is! List || list.isEmpty) {
-        log("⚠️ s= ile de bulunamadı: $name", name: tag);
-        return null;
-      }
-
-      final first = list.first;
-      final imdbId = (first is Map) ? first["imdbID"]?.toString() : null;
-      if (imdbId == null || imdbId.isEmpty) return null;
-
-      final byIdUrl = Uri.parse(
-        "https://www.omdbapi.com/?i=${Uri.encodeQueryComponent(imdbId)}&plot=short&apikey=$apiKey",
-      );
-
-      log("🌐 OMDb (i=) detay: $byIdUrl", name: tag);
-      final detailRes = await http.get(byIdUrl);
-
-      if (detailRes.statusCode != 200) return null;
-
-      final detailData = jsonDecode(detailRes.body);
-      if (detailData is Map && detailData["Response"] == "True") {
-        return _mapToInfo(detailData);
-      }
-
-      return null;
-    } catch (e, st) {
-      log("🚨 OMDb series yükleme hatası: $e", name: tag, error: e, stackTrace: st);
-      return null;
+      _applyData(group, data);
+    } catch (e) {
+      log("🚨 OMDb series error: $e", name: tag);
     }
   }
 
-  static OmdbSeriesInfo _mapToInfo(Map data) {
-    final poster = data["Poster"];
-    final posterUrl = (poster is String && poster.isNotEmpty && poster != "N/A") ? poster : null;
+  static void _applyData(SeriesGroup group, Map<String, dynamic> data) {
+    group.originalTitle = data["Title"];
+    group.year = data["Year"];
+    group.genre = data["Genre"];
+    group.rating = data["imdbRating"];
+    group.type = data["Type"];
+    group.imdbId = data["imdbID"];
 
-    return OmdbSeriesInfo(
-      originalTitle: data["Title"]?.toString(),
-      year: data["Year"]?.toString(),
-      genre: data["Genre"]?.toString(),
-      rating: data["imdbRating"]?.toString(),
-      poster: posterUrl,
-      type: data["Type"]?.toString(),
-      imdbId: data["imdbID"]?.toString(),
-    );
+    final poster = data["Poster"];
+    group.poster = (poster != null && poster != "N/A") ? poster : null;
+
+    log("✅ Dizi yüklendi: ${group.originalTitle}", name: tag);
   }
 }
