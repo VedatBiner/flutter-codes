@@ -9,15 +9,15 @@
 // 🔹 Sorumlulukları
 // ---------------------------------------------------------------------------
 // 1️⃣ Diziler ve Filmler bölümlerini ayrı ayrı render eder.
-// 2️⃣ Expansion controller’ları yönetir (biri açılınca diğeri kapanır).
-// 3️⃣ Filtre chip’lerini gösterir.
-// 4️⃣ MovieSection ve SeriesSection widget’larını çağırır.
+// 2️⃣ Expansion controller ’ları yönetir (biri açılınca diğeri kapanır).
+// 3️⃣ Filtre chip ’lerini gösterir.
+// 4️⃣ MovieSection ve SeriesSection widget ’larını çağırır.
 //
 // ---------------------------------------------------------------------------
 // 🧠 Mimari Not
 // ---------------------------------------------------------------------------
 // Bu dosya sadece layout orchestration yapar.
-// Film/dizi detay mantığı ilgili alt widget’lara taşınmıştır.
+// Film/dizi detay mantığı ilgili alt widget ’lara taşınmıştır.
 //
 // ---------------------------------------------------------------------------
 // Amaç:
@@ -57,9 +57,32 @@ class CustomBody extends StatefulWidget {
   State<CustomBody> createState() => _CustomBodyState();
 }
 
+/// =========================================================================
+/// 🎛 Expansion Controllers
+/// =========================================================================
+/// Diziler ve Filmler bölümlerinin aç/kapa durumunu kontrol eder.
+///
+/// Amaç:
+/// Kullanıcı “Diziler”i açınca “Filmler” kapansın (ve tersi) davranışını
+/// tek noktadan yönetmek.
+/// =========================================================================
 class _CustomBodyState extends State<CustomBody> {
   final _seriesController = ExpansibleController();
   final _moviesController = ExpansibleController();
+
+  /// =========================================================================
+  /// 🏗 build
+  /// =========================================================================
+  /// CustomBody’nin UI ağacını üretir.
+  ///
+  /// Akış:
+  ///  • loading true → spinner göster
+  ///  • chip filtreleri göster
+  ///  • SeriesSection + MovieSection’ı liste içinde render et
+  ///
+  /// Burada:
+  ///  • Section açılınca diğer controller collapse edilir
+  /// =========================================================================
 
   @override
   Widget build(BuildContext context) {

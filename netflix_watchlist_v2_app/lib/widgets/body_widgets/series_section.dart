@@ -19,6 +19,20 @@ import 'package:flutter/material.dart';
 import '../../models/series_models.dart';
 import 'series_tile.dart';
 
+/// =========================================================================
+/// 📺 SeriesSection
+/// =========================================================================
+/// “Diziler” bölümünün kartını ve üst ExpansionTile’ını üretir.
+///
+/// İçerik:
+///  • Diziler başlığı + toplam dizi sayısı
+///  • Her dizi için SeriesTile listesi
+///
+/// Sorumluluk:
+///  • Section seviyesinde layout & tema renkleri
+///  • Listeyi üretmek
+///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+/// =========================================================================
 class SeriesSection extends StatelessWidget {
   final List<SeriesGroup> series;
   final ExpansibleController seriesController;
@@ -33,6 +47,15 @@ class SeriesSection extends StatelessWidget {
     required this.onExpand,
   });
 
+  /// =========================================================================
+  /// 🏗 build
+  /// =========================================================================
+  /// Diziler kartını ve ExpansionTile içeriğini oluşturur.
+  ///
+  /// Not:
+  /// Detay mantığı (OMDb yükleme, poster, long-press viewer vb.)
+  /// SeriesTile içinde çözülür.
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;

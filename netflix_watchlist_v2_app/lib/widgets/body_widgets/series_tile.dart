@@ -30,6 +30,20 @@ import '../../models/series_models.dart';
 import '../../screens/poster_viewer_page.dart';
 import '../../utils/omdb_series_loader.dart';
 
+/// =========================================================================
+/// 📺 SeriesTile
+/// =========================================================================
+/// Tek bir diziyi temsil eden satır widget ’ıdır.
+///
+/// Özellikler:
+///  • Dizi adına tıklanınca OMDb ’den dizi bilgilerini lazy-load eder
+///  • Poster küçük thumbnail olarak görünür (varsa)
+///  • Dizi adı altında: yıl / tür / IMDb rating gösterir
+///  • Uzun basınca Hero animasyonlu tam ekran poster görüntüleyici açar
+///  • İçeride sezon/bölüm ExpansionTile’larını üretir
+///
+/// Bu yapı sayesinde HomePage veya CustomBody dizi OMDb işine karışmaz.
+/// =========================================================================
 class SeriesTile extends StatefulWidget {
   final SeriesGroup group;
   final bool isLightTheme;
@@ -44,6 +58,14 @@ class SeriesTile extends StatefulWidget {
   State<SeriesTile> createState() => _SeriesTileState();
 }
 
+/// =========================================================================
+/// 🧠 Yerel cache (UI state)
+/// =========================================================================
+/// Diziye ait OMDb verisi widget state içinde saklanır.
+/// Böylece:
+///  • Aynı dizide tekrar tekrar API çağrısı yapmayız
+///  • UI güncellemesi lokal kalır
+/// =========================================================================
 class _SeriesTileState extends State<SeriesTile> {
   OmdbSeriesInfo? _info;
   bool _loading = false;
@@ -138,6 +160,17 @@ class _SeriesTileState extends State<SeriesTile> {
     return "$meta  IMDB: $rating";
   }
 
+  /// =========================================================================
+  /// 🏗 build
+  /// =========================================================================
+  /// Dizi satırını üretir:
+  ///  • leading: poster veya tv ikonu
+  ///  • title: dizi adı
+  ///  • subtitle: yıl / tür / imdb rating (varsa)
+  ///  • onTap: OMDb yükle
+  ///  • onLongPress: poster viewer
+  ///  • children: sezon/bölüm ExpansionTile’ları
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final textColor = widget.isLightTheme ? Colors.black : null;

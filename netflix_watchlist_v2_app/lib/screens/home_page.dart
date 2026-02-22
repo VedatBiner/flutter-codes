@@ -103,14 +103,33 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  /// 📌 Versiyonu al
+  /// =========================================================================
+  /// 📦 _getAppVersion
+  /// =========================================================================
+  /// PackageInfo kullanarak uygulamanın versiyon bilgisini alır.
+  ///
+  /// Bu bilgi Drawer içinde veya UI üzerinde gösterilebilir.
+  ///
+  /// Amaç:
+  /// Kullanıcının hangi sürümü kullandığını görünür kılmak.
+  /// =========================================================================
   Future<void> _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
-  /// 📌 Cihaz bilgilerini log 'a yazar
+  /// =========================================================================
+  /// 📱 _logDeviceInfo
+  /// =========================================================================
+  /// device_info_plus paketi ile cihaz modelini ve Android sürümünü loglar.
+  ///
+  /// Debug amaçlıdır.
+  /// Özellikle gerçek cihaz / emülatör farklarını anlamak için kullanılır.
+  ///
+  /// Amaç:
+  /// OMDb, internet veya dosya erişim sorunlarını cihaz bazında analiz etmek.
+  /// =========================================================================
   Future<void> _logDeviceInfo() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
@@ -121,7 +140,19 @@ class _HomePageState extends State<HomePage> {
     log(logLine, name: tag);
   }
 
-  /// 📌 Download dizini kontrol et
+  /// =========================================================================
+  /// 📂 _prepareDownloadDirectory
+  /// =========================================================================
+  /// Download/{appName} klasörünü hazırlar.
+  ///
+  ///  • Gerekirse depolama izni ister.
+  ///  • Download klasörünü oluşturur.
+  ///  • Log çıktısı üretir.
+  ///
+  /// Amaç:
+  /// Export edilen CSV / JSON / XLSX dosyalarının paylaşılabilir
+  /// konuma yazılmasını garanti altına almak.
+  /// =========================================================================
   Future<void> _prepareDownloadDirectory() async {
     final dir = await prepareDownloadDirectory(tag: tag);
     if (dir != null) {
@@ -132,6 +163,18 @@ class _HomePageState extends State<HomePage> {
     log(logLine, name: tag);
   }
 
+  /// =========================================================================
+  /// 📜 loadData
+  /// =========================================================================
+  /// CSV dosyasını parse ederek film ve dizi listelerini oluşturur.
+  ///
+  ///  • CsvParser.parseCsvFast() çağrılır.
+  ///  • Filmler ve diziler ayrı listelere ayrılır.
+  ///  • loading state false yapılır.
+  ///
+  /// Amaç:
+  /// Uygulamanın ana verisini belleğe yüklemek.
+  /// =========================================================================
   Future<void> loadData() async {
     final parsed = await CsvParser.parseCsvFast();
     log("📜 CSV dosyası yüklendi.", name: tag);
@@ -147,6 +190,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  /// =========================================================================
+  /// 🔍 _updateFilteredResults
+  /// =========================================================================
+  /// Arama metni (searchQuery) ve seçili filtreye göre
+  /// film ve dizi listelerini yeniden hesaplar.
+  ///
+  /// applySearchAndFilter() yardımcı fonksiyonunu kullanır.
+  ///
+  /// Amaç:
+  /// Gerçek zamanlı filtreleme ve arama deneyimi sağlamak.
+  /// =========================================================================
   void _updateFilteredResults() {
     final results = applySearchAndFilter(
       searchQuery: searchQuery,
@@ -161,12 +215,39 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  /// =========================================================================
+  /// 🌐 loadOmdb
+  /// =========================================================================
+  /// Bir filme ait OMDb bilgilerini lazy-loading yöntemiyle yükler.
+  ///
+  ///  • Eğer filmde imdbId veya originalTitle yoksa API çağrısı yapılır.
+  ///  • Poster, yıl, tür ve rating bilgileri doldurulur.
+  ///  • setState() ile UI güncellenir.
+  ///
+  /// Amaç:
+  /// Gereksiz API çağrılarından kaçınarak performansı korumak.
+  /// =========================================================================
   Future<void> loadOmdb(NetflixItem movie) async {
     await OmdbLazyLoader.loadOmdbIfNeeded(movie);
     if (!mounted) return;
     setState(() {});
   }
 
+  /// =========================================================================
+  /// 🏗 build
+  /// =========================================================================
+  /// Ana ekranın UI ağacını oluşturur.
+  ///
+  /// Bileşenler:
+  ///  • CustomAppBar
+  ///  • CustomDrawer
+  ///  • CustomBody (Film & Dizi listeleri)
+  ///
+  /// Tema (Light/Dark) kontrolü burada dinamik olarak uygulanır.
+  ///
+  /// Amaç:
+  /// Tüm ana ekran layout ’unu tek merkezden üretmek.
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;

@@ -11,11 +11,11 @@
 // 1️⃣ Filmler başlığını gösterir.
 // 2️⃣ Film sayısını dinamik olarak yazar.
 // 3️⃣ MovieTile öğelerini liste halinde render eder.
-// 4️⃣ Expansion controller ile diğer section'ı kapatır.
+// 4️⃣ Expansion controller ile diğer section 'ı kapatır.
 //
 // ---------------------------------------------------------------------------
 // UI Özellikleri:
-// • Light mode'da indigo renkli başlık.
+// • Light mode 'da indigo renkli başlık.
 // • Hero animasyon destekli poster thumbnail.
 // • Uzun basınca tam ekran poster açılır.
 //
@@ -25,6 +25,20 @@ import 'package:flutter/material.dart';
 import '../../models/netflix_item.dart';
 import 'movie_tile.dart';
 
+/// =========================================================================
+/// 🎬 MovieSection
+/// =========================================================================
+/// “Filmler” bölümünün kartını ve üst ExpansionTile’ını üretir.
+///
+/// İçerik:
+///  • Filmler başlığı + toplam film sayısı
+///  • Her film için MovieTile listesi
+///
+/// Sorumluluk:
+///  • Section seviyesinde tema renkleri ve layout
+///  • Listeyi üretmek
+///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+/// =========================================================================
 class MovieSection extends StatelessWidget {
   final List<NetflixItem> movies;
   final ExpansibleController moviesController;
@@ -39,6 +53,20 @@ class MovieSection extends StatelessWidget {
     required this.onMovieTap,
   });
 
+  /// =========================================================================
+  /// 🎬 MovieSection
+  /// =========================================================================
+  /// “Filmler” bölümünün kartını ve üst ExpansionTile’ını üretir.
+  ///
+  /// İçerik:
+  ///  • Filmler başlığı + toplam film sayısı
+  ///  • Her film için MovieTile listesi
+  ///
+  /// Sorumluluk:
+  ///  • Section seviyesinde tema renkleri ve layout
+  ///  • Listeyi üretmek
+  ///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;

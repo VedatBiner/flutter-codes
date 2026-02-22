@@ -1,4 +1,4 @@
-// <----- lib/screens/poster_viewer_page.dart ----->
+// <----- 📁 lib/screens/poster_viewer_page.dart ----->
 //
 // ============================================================================
 // 🖼 PosterViewerPage – Tam Ekran Poster Görüntüleyici

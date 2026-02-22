@@ -1,6 +1,5 @@
 // 📁 lib/main.dart
 //
-
 // ============================================================================
 // 🎬 Netflix Watchlist Uygulaması – Ana Giriş Noktası
 // ============================================================================
@@ -89,7 +88,9 @@ class MyApp extends StatelessWidget {
         title: 'Netflix Watchlist',
         theme: CustomTheme.theme,
         darkTheme: CustomTheme.darkTheme,
-        themeMode: themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+        themeMode: themeController.isDarkMode.value
+            ? ThemeMode.dark
+            : ThemeMode.light,
 
         initialRoute: '/',
         getPages: [
@@ -102,9 +103,11 @@ class MyApp extends StatelessWidget {
               final args = (Get.arguments as Map<String, dynamic>? ?? {});
 
               final movies =
-                  (args['movies'] as List<NetflixItem>?) ?? const <NetflixItem>[];
+                  (args['movies'] as List<NetflixItem>?) ??
+                  const <NetflixItem>[];
               final series =
-                  (args['series'] as List<SeriesGroup>?) ?? const <SeriesGroup>[];
+                  (args['series'] as List<SeriesGroup>?) ??
+                  const <SeriesGroup>[];
 
               return StatsPage(movies: movies, series: series);
             },

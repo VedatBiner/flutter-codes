@@ -37,6 +37,16 @@ class MovieTile extends StatelessWidget {
     required this.onMovieTap,
   });
 
+  /// =========================================================================
+  /// 🏗 build
+  /// =========================================================================
+  /// Film satırını üretir:
+  ///  • leading: poster veya movie ikonu
+  ///  • title: film adı
+  ///  • subtitle: tarih + (yıl / tür / rating)
+  ///  • onTap: OMDb yükleme callback ’i
+  ///  • onLongPress: poster viewer
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final heroTag = (movie.imdbId != null && movie.imdbId!.isNotEmpty)
