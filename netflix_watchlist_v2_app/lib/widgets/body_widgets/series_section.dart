@@ -13,6 +13,10 @@
 // 3️⃣ Expansion controller yönetimi yapar.
 // 4️⃣ Filmler bölümü ile karşılıklı aç/kapa kontrolü sağlar.
 //
+// Not:
+//  • OMDb yükleme, poster gösterimi, long-press poster viewer vb. detaylar
+//    SeriesTile içinde çözülür. Bu dosya sadece “section layout” sorumludur.
+//
 // ============================================================================
 import 'package:flutter/material.dart';
 
@@ -30,8 +34,9 @@ import 'series_tile.dart';
 ///
 /// Sorumluluk:
 ///  • Section seviyesinde layout & tema renkleri
-///  • Listeyi üretmek
-///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+///  • Series listesi için ListView üretmek
+///  • Expansion controller ’ı dışarıdan alıp kullanmak
+///  • Diziler açılınca diğer section ’ı kapatacak callback ’i tetiklemek
 /// =========================================================================
 class SeriesSection extends StatelessWidget {
   final List<SeriesGroup> series;
@@ -52,9 +57,19 @@ class SeriesSection extends StatelessWidget {
   /// =========================================================================
   /// Diziler kartını ve ExpansionTile içeriğini oluşturur.
   ///
+  /// • Light theme ’de kırmızı tonlu bir başlık arka planı kullanılır.
+  /// • Dark theme ’de varsayılan tema renkleri korunur.
+  ///
+  /// Expansion davranışı:
+  /// • Diziler section açılırken (isExpanding==true) → onExpand() çağrılır.
+  ///   Böylece Filmler bölümü otomatik kapanır.
+  ///
+  /// Liste alanı:
+  /// • İçteki ListView, ekran yüksekliğinin %55’i ile sınırlandırılır.
+  ///   (Aksi halde ExpansionTile içeriği sonsuz yükseklik isteyebilir.)
+  ///
   /// Not:
-  /// Detay mantığı (OMDb yükleme, poster, long-press viewer vb.)
-  /// SeriesTile içinde çözülür.
+  /// • Dizi detayları (poster/OMDb/long press) SeriesTile içinde yönetilir.
   /// =========================================================================
   @override
   Widget build(BuildContext context) {
@@ -71,13 +86,18 @@ class SeriesSection extends StatelessWidget {
         },
         collapsedBackgroundColor: isLightTheme ? Colors.red : null,
         backgroundColor: isLightTheme ? Colors.red.shade700 : null,
-        childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
+        childrenPadding: isLightTheme
+            ? const EdgeInsets.all(2)
+            : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
         title: Text(
           "Diziler (${series.length})",
           style: isLightTheme
-              ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+              ? const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )
               : null,
         ),
         children: [
@@ -85,11 +105,10 @@ class SeriesSection extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.55,
             child: ListView.separated(
               itemCount: series.length,
-              separatorBuilder: (_, _) => Divider(color: Colors.grey.shade300, height: 1),
-              itemBuilder: (context, index) => SeriesTile(
-                group: series[index],
-                isLightTheme: isLightTheme,
-              ),
+              separatorBuilder: (_, _) =>
+                  Divider(color: Colors.grey.shade300, height: 1),
+              itemBuilder: (context, index) =>
+                  SeriesTile(group: series[index], isLightTheme: isLightTheme),
             ),
           ),
         ],
