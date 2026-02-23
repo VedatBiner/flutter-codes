@@ -59,6 +59,7 @@ Ada,Deniz ile çevrili küçük kara parçası,15.12.2025
 Adak,Adanılan şey / Nezir,15.12.2025
 Adaklık,Adak olarak ayrılan hayvan,15.12.2025
 Adale,Kas,15.12.2025
+Adalet,Hak ve hukuka uygunluk / hakkı gözetme,22.02.2026
 Adalı,ada halkından olan,15.12.2025
 Adam,İnsan / Erkek kişi,15.12.2025
 Adama,Adamak işi,15.12.2025
@@ -254,6 +255,7 @@ Angut,Bir kuşu türü,15.12.2025
 Anı,Hatıra,15.12.2025
 Anırma,Anırmak işi,15.12.2025
 Anıt,Önemli eser,15.12.2025
+Anız,Ekin biçildikten sonra tarlada kalan sapı,21.02.2026
 Ani,Ansızın yapılan,15.12.2025
 Anide,Ansızın,23.01.2026
 Aniden,Ansızın,24.01.2026
@@ -616,6 +618,7 @@ Baton,Kayakta denge sağlayan sopa,15.12.2025
 Batur,Bahadır,31.01.2026
 Bav,Avcılığa alıştırma,15.12.2025
 Bavlı,Sva sıkıştırılmış hayvan,15.12.2025
+Bavul,Yolculukta kullanılan büyük çanta,21.02.2026
 Bay,Erkek,15.12.2025
 Bayatı,Azeri ve Türkmen şiirinde mani türü,15.12.2025
 Bayır,Küçük yokuş,15.12.2025
@@ -877,6 +880,7 @@ Cazlı,Cazı olan,15.12.2025
 Ce,Harf,15.12.2025
 Cebe,Zırh / Silah,15.12.2025
 Cebel,Sahipsiz / boş toprak,15.12.2025
+Cedel,Tartışma / Çekişme,21.02.2026
 Cedi,Oğlak,15.12.2025
 Cedit,Yeni,15.12.2025
 Cefa,Zulüm,15.12.2025
@@ -1162,7 +1166,9 @@ Dalmak,Bir yerin içine girmek / Uyumak,15.12.2025
 Dam,Kiremit ile örtülü yer / Cezaevi,15.12.2025
 Dama,Kareli zeminde oynanan bir oyun,15.12.2025
 Damak,Ağız boşluğunun tavanı,15.12.2025
+Damal,Ardahan ilçesi,22.02.2026
 Damalı,Kareli,16.01.2026
+Damar,Kaan vb. sıvıların dolaştığı kanal / Soy / Yaradılış,21.02.2026
 Damla,Damlalıkla kullanılan ilaç,15.12.2025
 Dane,Kuş yemi,15.12.2025
 Dank,Birden ayılmak,15.12.2025
@@ -1237,6 +1243,7 @@ Develi,Kayseri ilçesi,15.12.2025
 Develik,Develerin bağlandığı ve korunduğu bölüm,15.02.2026
 Dış,İç karşıtı / Kişinin görünümü,15.12.2025
 Dışık,Cüruf,11.01.2026
+Diba,Altın ve gümüş işlemeli bir ipek kumaş,21.02.2026
 Dibek,Taştan veya tahtadan yapılmış büyük havan,15.12.2025
 Dicle,Diyarbakır ilçesi,15.12.2025
 Dide,Göz,15.12.2025
@@ -1455,6 +1462,8 @@ Emet,Kütahya ilçesi,15.12.2025
 Emici,Emme özelliği olan,15.12.2025
 Emin,Güvenli / Tehlikesiz,15.12.2025
 Emir,Buyruk / Talimat / İstek,15.12.2025
+Emiş,Emme işi,21.02.2026
+Emişme,Emişmek işi,22.02.2026
 Emmi,Amca,10.02.2026
 En,Genişlik / Damga,15.12.2025
 Enam,Yaratılmış bütün canlılar,15.12.2025
@@ -1476,6 +1485,7 @@ Epey,Az denemeyevek kadar / Oldukça / Hayli,15.12.2025
 Epik,Destansı,18.01.2026
 Er,Erkek,15.12.2025
 Erat,Erler,15.12.2025
+Erdek,Balıkesir ilçesi,22.02.2026
 Erek,Amaç / Gaye / Maksat / Hedef,21.12.2025
 Eren,Ermiş,15.12.2025
 Erg,Büyük Sahra 'da kumullarla örtülü bölge,15.12.2025
@@ -1638,6 +1648,7 @@ Fiğ,Baklagillerden bir bitki,15.12.2025
 Fiji,Bir ülke adı,15.12.2025
 Fil,Satranç taşı,15.12.2025
 Filar,Hafif terlik,15.12.2025
+Filato,Bir kaplama türü,23.02.2026
 File,Ağ,15.12.2025
 Filet,Derinliği her yerde aynı olan su,15.12.2025
 Film,Fotoğraf ve sinemada kullanılan selüloz,15.12.2025
@@ -1793,12 +1804,14 @@ Gonk,Bir tür zil düzeneği,15.12.2025
 Gotik,Ortaçağs ait,15.12.2025
 Göç,Nakil / Taşınma,15.12.2025
 Göçer,Göçebe,15.12.2025
+Göçü,Toprak kayması,22.02.2026
 Gök,Yeryüzünü saran mavi renkli kubbe,15.12.2025
 Göl,Yapay su birikintisi,15.12.2025
 Göle,Ardahan ilçesi,15.12.2025
 Gölet,Küçük göl / Gölcük / Büvet,31.12.2025
 Gömü,Define,15.12.2025
 Gön,Işlenmiş deri / Kösele,15.12.2025
+Gör,Bir tür tehdit sözü,21.02.2026
 Göre,Gereğince / Nazaran,15.12.2025
 Görü,Görme yetisi,15.12.2025
 Göt,Popo / Kıç / Anüs,15.12.2025
@@ -1828,6 +1841,7 @@ Güneş,Gezegenlere ısı ve ışık veren büyük gök cismi,15.12.2025
 Günü,Haset / Zamanından önce doğan yavru,15.12.2025
 Gür,Bol / Verimli / Feyyaz,15.12.2025
 Güre,Çekingen / Korkak / Kuvvetli / Dinç,17.12.2025
+Gürlek,Çağlayan,22.02.2026
 Gürsu,Bursa ilçesi,15.12.2025
 Güve,Yün yiyen kanatlı böcek türü,15.12.2025
 Güya,Sözde / Sanki,25.01.2026
@@ -2233,6 +2247,7 @@ Itri,İtırlı / Kokulu,15.12.2025
 İvme,Hız değişiminin zamana oranı,15.12.2025
 İvmek,Çabuk davranmak / Acele etmek,15.12.2025
 İye,Veli,15.12.2025
+İyice,İyiye yakın,21.02.2026
 İyot,Element,15.12.2025
 İz,Geri kalan belirti,15.12.2025
 İzaç,Bunaltma / Tedirgin etme,15.12.2025
@@ -2599,6 +2614,7 @@ Kırklı,Kırk parçadan oluşmuş,15.12.2025
 Kırlık,Kır olan yer,15.12.2025
 Kırma,Kırmak işi,15.12.2025
 Kırmız,Kırmız böceğinden çıkan boya,15.12.2025
+Kısaç,Kıskaç,23.02.2026
 Kısas,Kıssalar / Hikayeler / Öyküler,15.12.2025
 Kısık,Kısılmış olan,15.12.2025
 Kısır,Verimsiz / Yararsız / Sonuçsuz,17.02.2026
@@ -3172,6 +3188,7 @@ Meni,Sperm / Sperma,15.12.2025
 Mentol,Nane kokusu,03.01.2026
 Mera,Otlak,15.12.2025
 Merak,Bir şeyi anlama öğrenme isteği,15.12.2025
+Meraklı,Araştırıcı / Müteessis,22.02.2026
 Meram,Konya ilçesi,15.12.2025
 Merci,Başvurulacak yer veya makam,15.12.2025
 Meret,Uğursuz,15.12.2025
@@ -3366,6 +3383,7 @@ Necat,Kurtuluş,07.01.2026
 Nece,Hangi dilde,15.12.2025
 Neci,Ne iş yapar anlamında soru,15.12.2025
 Necip,Soylu / Soyu temiz,15.12.2025
+Nedim,Arkadaş / Yakın dost,22.02.2026
 Nefer,Er / Kişi,15.12.2025
 Nefes,Soluk / Canlılık,15.12.2025
 Nefesli,Üflemeli / Nefesi güçlü olan,15.12.2025
@@ -3483,6 +3501,7 @@ Omuz,Boynun iki yanındaki bölüm,15.12.2025
 On,Sayı,15.12.2025
 Ona,O zamirinin yönelme durumu almış hali,15.12.2025
 Onam,Rıza,15.12.2025
+Onama,Tasvip / Onamak işi,23.02.2026
 Onar,On sayının üleştirme dayı sıfatı,15.12.2025
 Onarma,Onarmak işi,15.12.2025
 Onarmak,Tamir etmek / Restore etmek,15.12.2025
@@ -4050,6 +4069,7 @@ Sem,Zehir / İşitme,15.12.2025
 Sema,Gök,15.12.2025
 Semah,Alevi Bektaşi müzikli töreni,04.01.2026
 Semai,Türk müziğinde bir usul,15.12.2025
+Seman,Diş köklerini kaplayan sert madde,21.02.2026
 Seme,Sersem / Ahmak / Alık,15.12.2025
 Semt,Şehirlerde yerleşim birimi,15.12.2025
 Sena,Övme,15.12.2025
@@ -4196,6 +4216,7 @@ Sonar,Denizaltılarda kullanılan bir cihaz,15.12.2025
 Sonat,Bir tür müzik eseri,15.12.2025
 Sone,Batılı şiir türü,15.12.2025
 Sonlu,Bitimli / Sonu olan,18.12.2025
+Sonuç,Netice,21.02.2026
 Soru,Sual / Karşılık gerektiren söz,15.12.2025
 Sorun,Sıkıntı veren durum / Dert,15.12.2025
 Sorunlu,Sorunu olan,15.12.2025
@@ -4358,6 +4379,7 @@ Süyek,Cebire,19.02.2026
 Şık,Güzel / Zarif / Uygun,15.12.2025
 Şıp,Su damlası sesi,15.12.2025
 Şıra,Mayalanmamış üzüm suyu,15.12.2025
+Şıracı,Şıra yapıp satan kimse,21.02.2026
 Şırak,Sert çarpma sesi,15.12.2025
 Şia,Şiilik,15.12.2025
 Şiar,Ülkü / Düstur / Deyiş,15.12.2025
@@ -4556,6 +4578,7 @@ Tel,ince metal ip,15.12.2025
 Tela,Kolalı kumaş,15.12.2025
 Telaş,Acelecilik,15.12.2025
 Telefon,Uzak mesafe konuşma aracı,15.12.2025
+Telek,Kuşların kanat ve kuyruğunda bulunan kalın eksenli tüy,22.02.2026
 Teleme,Peynir çeşidi,15.12.2025
 Telif,Uzlaştırma / Telif hakkı,15.12.2025
 Telin,Lanetleme / Kargış / Kargıma,15.12.2025
@@ -5208,6 +5231,7 @@ Zoka,Tuzak / Hile / Ucu iğneli balık şeklinde kurşun parça,15.12.2025
 Zom,Çok sarhoş,15.12.2025
 Zon,Bölge,15.12.2025
 Zona,Hastalık çeşidi,15.12.2025
+Zonal,Bölgesel,23.02.2026
 Zonk,Zonklamak,15.12.2025
 Zor,Sıkıntı / Güçlük / Baskı,15.12.2025
 Zorla,İsteksiz yapılan / Zoraki,15.12.2025
