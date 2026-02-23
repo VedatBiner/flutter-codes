@@ -121,11 +121,11 @@ class _SeriesTileState extends State<SeriesTile> {
       PageRouteBuilder(
         opaque: false,
         barrierColor: Colors.transparent,
-        pageBuilder: (_, __, ___) => PosterViewerPage(
+        pageBuilder: (_, _, _) => PosterViewerPage(
           heroTag: _heroTag,
           posterUrl: poster,
         ),
-        transitionsBuilder: (_, anim, __, child) =>
+        transitionsBuilder: (_, anim, _, child) =>
             FadeTransition(opacity: anim, child: child),
       ),
     );
@@ -159,7 +159,7 @@ class _SeriesTileState extends State<SeriesTile> {
             width: 50,
             height: 72,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => const Icon(Icons.tv),
+            errorBuilder: (_, _, _) => const Icon(Icons.tv),
           ),
         ),
       ),

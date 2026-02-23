@@ -157,7 +157,7 @@ class _PosterViewerPageState extends State<PosterViewerPage>
                     child: Image.network(
                       widget.posterUrl,
                       fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const Icon(
+                      errorBuilder: (_, _, _) => const Icon(
                         Icons.broken_image,
                         color: Colors.white,
                         size: 64,
