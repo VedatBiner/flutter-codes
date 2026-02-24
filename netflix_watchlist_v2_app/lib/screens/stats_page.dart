@@ -145,7 +145,7 @@ class StatsPage extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: titleColor, // ✅ Light mode’da mavi
+            color: titleColor, // ✅ Light mode ’da mavi
           ),
         ),
         const SizedBox(height: 10),
