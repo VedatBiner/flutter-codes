@@ -1,24 +1,30 @@
 // ============================================================================
-// 🎬 MovieSection – Filmler Bölümü
+// 🎬 MovieSection – Filmler Bölümü (ExpansionTile Kartı)
 // ============================================================================
 //
-// Bu widget Filmler ExpansionTile kartını oluşturur.
-// İçerisinde film listesi ve MovieTile öğeleri yer alır.
+// Bu widget, ana ekrandaki “Filmler” bölümünün tamamını (kart + ExpansionTile)
+// oluşturmaktan sorumludur.
 //
 // ---------------------------------------------------------------------------
-// 🔹 Sorumlulukları
+// Neden ayrı dosya?
 // ---------------------------------------------------------------------------
-// 1️⃣ Filmler başlığını gösterir.
-// 2️⃣ Film sayısını dinamik olarak yazar.
-// 3️⃣ MovieTile öğelerini liste halinde render eder.
-// 4️⃣ Expansion controller ile diğer section 'ı kapatır.
+// MovieSection, sadece “section-level” (bölüm seviyesinde) sorumlulukları taşır:
+//  ✅ Başlık + film sayısı
+//  ✅ ExpansionTile görünümü (light/dark tema renkleri, padding, ikon rengi)
+//  ✅ Film listesini üretmek (ListView.separated)
+//  ✅ Açılınca diğer bölümü kapatmak için dışarıdan gelen onExpand callback ’ini çağırmak
+//
+// Filmin detayları (OMDb yükleme, poster thumbnail, long press Hero viewer vb.)
+// bu dosyada değil, MovieTile içinde yönetilir.
 //
 // ---------------------------------------------------------------------------
-// UI Özellikleri:
-// • Light mode 'da indigo renkli başlık.
-// • Hero animasyon destekli poster thumbnail.
-// • Uzun basınca tam ekran poster açılır.
+// Veri akışı (kısaca)
+// ---------------------------------------------------------------------------
+// HomePage/CustomBody  →  MovieSection(movies, controller, onExpand, onMovieTap)
+// MovieSection         →  MovieTile(movie, onMovieTap)
 //
+// onMovieTap: Film satırına dokunulduğunda OMDb lazy-load başlatmak için
+// üst katmana sinyal taşır (MovieTile içinden çağrılır).
 // ============================================================================
 import 'package:flutter/material.dart';
 
@@ -28,16 +34,13 @@ import 'movie_tile.dart';
 /// =========================================================================
 /// 🎬 MovieSection
 /// =========================================================================
-/// “Filmler” bölümünün kartını ve üst ExpansionTile’ını üretir.
+/// “Filmler” bölüm kartını oluşturur.
+/// - ExpansionTile başlığı: “Filmler (N)”
+/// - İçerik: MovieTile listesi
 ///
-/// İçerik:
-///  • Filmler başlığı + toplam film sayısı
-///  • Her film için MovieTile listesi
-///
-/// Sorumluluk:
-///  • Section seviyesinde tema renkleri ve layout
-///  • Listeyi üretmek
-///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+/// Bu widget stateless’tir; çünkü:
+/// - Liste verisi (movies) üst katmandan gelir.
+/// - Aç/kapa yönetimi controller + callback ile dışarıda yapılır.
 /// =========================================================================
 class MovieSection extends StatelessWidget {
   final List<NetflixItem> movies;
@@ -54,18 +57,24 @@ class MovieSection extends StatelessWidget {
   });
 
   /// =========================================================================
-  /// 🎬 MovieSection
+  /// 🏗 build
   /// =========================================================================
-  /// “Filmler” bölümünün kartını ve üst ExpansionTile’ını üretir.
+  /// Filmler bölümünü Card içinde bir ExpansionTile olarak üretir.
   ///
-  /// İçerik:
-  ///  • Filmler başlığı + toplam film sayısı
-  ///  • Her film için MovieTile listesi
+  /// Light mode davranışı:
+  /// - Başlık arka planı indigo tonlarında
+  /// - İkonlar ve başlık yazısı beyaz
   ///
-  /// Sorumluluk:
-  ///  • Section seviyesinde tema renkleri ve layout
-  ///  • Listeyi üretmek
-  ///  • Controller üzerinden aç/kapa kontrolünü dışarıdan almak
+  /// Dark mode davranışı:
+  /// - Renkleri temanın varsayılanlarına bırakır (null verilir)
+  ///
+  /// Expansion akışı:
+  /// - Kullanıcı “Filmler”i açarsa onExpand() çağrılır.
+  ///   (Bu sayede üst katman Diziler bölümünü collapse edebilir.)
+  ///
+  /// İçerik alanı:
+  /// - ListView.separated ile MovieTile listesi
+  /// - Yüksekliği ekranın %55’i (kayan içerik için sabit bir alan)
   /// =========================================================================
   @override
   Widget build(BuildContext context) {
@@ -79,20 +88,28 @@ class MovieSection extends StatelessWidget {
       ),
       child: ExpansionTile(
         controller: moviesController,
+
+        /// Section açılınca diğer section ’ı kapat.
         onExpansionChanged: (isExpanding) {
           if (isExpanding) onExpand();
         },
+
+        /// Light theme ’de belirgin görünüm veriyoruz.
         backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
         childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
+
+        /// Başlık (film sayısı dinamik)
         title: Text(
           "Filmler (${movies.length})",
           style: isLightTheme
               ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
               : null,
         ),
+
+        /// İçerik: MovieTile listesi
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.55,
