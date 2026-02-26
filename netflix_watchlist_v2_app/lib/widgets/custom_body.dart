@@ -17,7 +17,7 @@
 // ---------------------------------------------------------------------------
 // 1) Ana sayfanın gövde düzenini (layout) tek yerden yönetmek.
 // 2) Film/dizi içerik mantığını (OMDb, poster, long-press viewer vb.) BURAYA
-//    taşımamak; ilgili alt widget’lara dağıtmak.
+//    taşımamak; ilgili alt widget ’lara dağıtmak.
 // 3) ExpansionTile kontrolünü tek noktada tutmak:
 //    Diziler açılınca Filmler kapansın (ve tersi).
 //
@@ -26,11 +26,11 @@
 // ---------------------------------------------------------------------------
 // ✅ Yapılanlar:
 //   • Loading durumuna göre spinner gösterme
-//   • FilterChips ile filtre seçimi UI’ı
+//   • FilterChips ile filtre seçimi UI ’ı
 //   • SeriesSection ve MovieSection’ı ekrana yerleştirme
 //   • Bölümler arası aç/kapa davranışını controller ile yönetme
 //
-// ❌ Yapılmayanlar (Alt widget’lara devredildi):
+// ❌ Yapılmayanlar (Alt widget ’lara devredildi):
 //   • OMDb API çağrıları / lazy-load
 //   • Poster thumbnail / hero viewer / swipe-to-close
 //   • Satır render detayları (ListTile subtitle formatları vb.)
@@ -41,7 +41,7 @@
 // CustomBody “orchestrator” gibi davranır.
 // Yani:
 //   - Ana ekran düzenini kurar,
-//   - Alt widget’lara gerekli veriyi ve callback’leri verir,
+//   - Alt widget ’lara gerekli veriyi ve callback ’leri verir,
 //   - Bölümler arası UI koordinasyonunu yapar.
 //
 // Böylece dosya büyümez, bakımı kolay kalır.
@@ -62,11 +62,11 @@ class CustomBody extends StatefulWidget {
   /// true iken liste yerine spinner gösterilir.
   final bool loading;
 
-  /// Filtre uygulanmış film listesi (UI’da gösterilecek liste).
+  /// Filtre uygulanmış film listesi (UI ’da gösterilecek liste).
   /// Not: Bu liste HomePage tarafında search + filter sonrası gelir.
   final List<NetflixItem> movies;
 
-  /// Filtre uygulanmış dizi listesi (UI’da gösterilecek liste).
+  /// Filtre uygulanmış dizi listesi (UI ’da gösterilecek liste).
   /// Not: Bu liste HomePage tarafında search + filter sonrası gelir.
   final List<SeriesGroup> series;
 
@@ -104,7 +104,7 @@ class CustomBody extends StatefulWidget {
 /// 🎛 _CustomBodyState – Expansion Controller Yönetimi
 /// ============================================================================
 ///
-/// Bu state sınıfı iki ExpansionTile’ın controller’larını yönetir:
+/// Bu state sınıfı iki ExpansionTile’ın controller ’larını yönetir:
 ///
 ///   • _seriesController → Diziler bölümünün ExpansionTile kontrolü
 ///   • _moviesController → Filmler bölümünün ExpansionTile kontrolü
@@ -120,10 +120,10 @@ class CustomBody extends StatefulWidget {
 /// ============================================================================
 
 class _CustomBodyState extends State<CustomBody> {
-  /// Diziler bölümünün ExpansionTile controller’ı
+  /// Diziler bölümünün ExpansionTile controller ’ı
   final _seriesController = ExpansibleController();
 
-  /// Filmler bölümünün ExpansionTile controller’ı
+  /// Filmler bölümünün ExpansionTile controller ’ı
   final _moviesController = ExpansibleController();
 
   /// =========================================================================
