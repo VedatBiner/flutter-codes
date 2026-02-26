@@ -1,27 +1,51 @@
+// 📁 lib/widgets/custom_body.dart
+//
 // ============================================================================
-// 📦 CustomBody – Film & Dizi Listeleme Alanı
+// 📦 CustomBody – Ana Liste Gövdesi (Filmler + Diziler)
 // ============================================================================
 //
-// Bu widget ana ekranın gövdesini (body) oluşturur.
-// Film ve dizileri iki ayrı bölüm (ExpansionTile) halinde gösterir.
+// Bu dosya, HomePage ekranının “body” kısmını oluşturur.
+// Uygulamanın ana işlevi olan Netflix izleme geçmişini:
+//
+//   • Diziler (SeriesSection)  →  ExpansionTile tabanlı grup yapı
+//   • Filmler (MovieSection)   →  ExpansionTile tabanlı düz liste
+//
+// şeklinde iki ayrı bölüm halinde kullanıcıya sunar.
 //
 // ---------------------------------------------------------------------------
-// 🔹 Sorumlulukları
+// 🎯 Bu dosyanın ana amacı
 // ---------------------------------------------------------------------------
-// 1️⃣ Diziler ve Filmler bölümlerini ayrı ayrı render eder.
-// 2️⃣ Expansion controller ’ları yönetir (biri açılınca diğeri kapanır).
-// 3️⃣ Filtre chip ’lerini gösterir.
-// 4️⃣ MovieSection ve SeriesSection widget ’larını çağırır.
+// 1) Ana sayfanın gövde düzenini (layout) tek yerden yönetmek.
+// 2) Film/dizi içerik mantığını (OMDb, poster, long-press viewer vb.) BURAYA
+//    taşımamak; ilgili alt widget’lara dağıtmak.
+// 3) ExpansionTile kontrolünü tek noktada tutmak:
+//    Diziler açılınca Filmler kapansın (ve tersi).
 //
 // ---------------------------------------------------------------------------
-// 🧠 Mimari Not
+// 🔹 Sorumluluklar (Scope)
 // ---------------------------------------------------------------------------
-// Bu dosya sadece layout orchestration yapar.
-// Film/dizi detay mantığı ilgili alt widget ’lara taşınmıştır.
+// ✅ Yapılanlar:
+//   • Loading durumuna göre spinner gösterme
+//   • FilterChips ile filtre seçimi UI’ı
+//   • SeriesSection ve MovieSection’ı ekrana yerleştirme
+//   • Bölümler arası aç/kapa davranışını controller ile yönetme
+//
+// ❌ Yapılmayanlar (Alt widget’lara devredildi):
+//   • OMDb API çağrıları / lazy-load
+//   • Poster thumbnail / hero viewer / swipe-to-close
+//   • Satır render detayları (ListTile subtitle formatları vb.)
 //
 // ---------------------------------------------------------------------------
-// Amaç:
-// Kod karmaşıklığını azaltmak ve modüler yapıyı korumaktır.
+// 🧠 Mimari Not (Neden böyle?)
+// ---------------------------------------------------------------------------
+// CustomBody “orchestrator” gibi davranır.
+// Yani:
+//   - Ana ekran düzenini kurar,
+//   - Alt widget’lara gerekli veriyi ve callback’leri verir,
+//   - Bölümler arası UI koordinasyonunu yapar.
+//
+// Böylece dosya büyümez, bakımı kolay kalır.
+//
 // ============================================================================
 
 import 'package:flutter/material.dart';
@@ -34,14 +58,28 @@ import 'body_widgets/movie_section.dart';
 import 'body_widgets/series_section.dart';
 
 class CustomBody extends StatefulWidget {
+  /// HomePage yükleme durumunu buraya gönderir.
+  /// true iken liste yerine spinner gösterilir.
   final bool loading;
+
+  /// Filtre uygulanmış film listesi (UI’da gösterilecek liste).
+  /// Not: Bu liste HomePage tarafında search + filter sonrası gelir.
   final List<NetflixItem> movies;
+
+  /// Filtre uygulanmış dizi listesi (UI’da gösterilecek liste).
+  /// Not: Bu liste HomePage tarafında search + filter sonrası gelir.
   final List<SeriesGroup> series;
+
+  /// Aktif filtre seçeneği (chip seçiminde işaretli görünen).
   final FilterOption filter;
 
+  /// FilterChips içinde kullanıcı yeni bir filtre seçince tetiklenir.
+  /// HomePage bu callback ile filter state ’ini günceller ve listeyi yeniden üretir.
   final ValueChanged<FilterOption> onFilterSelected;
+
+  /// Film satırına tıklanınca çalışır.
+  /// Genelde: OMDb lazy-load başlatmak veya detay güncellemek için kullanılır.
   final ValueChanged<NetflixItem> onMovieTap;
-  //final Future<void> Function(SeriesGroup group)? onSeriesTap;
 
   const CustomBody({
     super.key,
@@ -53,66 +91,111 @@ class CustomBody extends StatefulWidget {
     required this.onMovieTap,
   });
 
+  /// =========================================================================
+  /// 🧬 createState()
+  /// =========================================================================
+  /// CustomBody stateful olduğu için Expansion controller gibi “durum” tutar.
+  /// Bu method, widget ’ın state objesini üretir.
   @override
   State<CustomBody> createState() => _CustomBodyState();
 }
 
-/// =========================================================================
-/// 🎛 Expansion Controllers
-/// =========================================================================
-/// Diziler ve Filmler bölümlerinin aç/kapa durumunu kontrol eder.
+/// ============================================================================
+/// 🎛 _CustomBodyState – Expansion Controller Yönetimi
+/// ============================================================================
+///
+/// Bu state sınıfı iki ExpansionTile’ın controller’larını yönetir:
+///
+///   • _seriesController → Diziler bölümünün ExpansionTile kontrolü
+///   • _moviesController → Filmler bölümünün ExpansionTile kontrolü
 ///
 /// Amaç:
-/// Kullanıcı “Diziler”i açınca “Filmler” kapansın (ve tersi) davranışını
-/// tek noktadan yönetmek.
-/// =========================================================================
+/// Kullanıcı bir bölümü açtığında diğerini otomatik kapatmak.
+///
+/// Örnek davranış:
+///   - Diziler açıldı → Filmler collapse
+///   - Filmler açıldı → Diziler collapse
+///
+/// Böylece ekranda gereksiz uzun scroll oluşmaz ve UI daha kontrollü kalır.
+/// ============================================================================
+
 class _CustomBodyState extends State<CustomBody> {
+  /// Diziler bölümünün ExpansionTile controller’ı
   final _seriesController = ExpansibleController();
+
+  /// Filmler bölümünün ExpansionTile controller’ı
   final _moviesController = ExpansibleController();
 
   /// =========================================================================
-  /// 🏗 build
+  /// 🏗 build()
   /// =========================================================================
-  /// CustomBody’nin UI ağacını üretir.
+  /// CustomBody’nin tüm UI ağacını üretir.
   ///
   /// Akış:
-  ///  • loading true → spinner göster
-  ///  • chip filtreleri göster
-  ///  • SeriesSection + MovieSection’ı liste içinde render et
+  /// 1) loading == true ise:
+  ///    • Veri henüz hazır değildir → ortada spinner gösterilir.
   ///
-  /// Burada:
-  ///  • Section açılınca diğer controller collapse edilir
+  /// 2) loading == false ise:
+  ///    • Üstte FilterChips gösterilir
+  ///    • Altta ListView içinde iki bölüm yer alır:
+  ///       a) SeriesSection (Diziler)
+  ///       b) MovieSection  (Filmler)
+  ///
+  /// Bölümler arası koordinasyon:
+  ///  • SeriesSection açılırsa → _moviesController.collapse()
+  ///  • MovieSection açılırsa  → _seriesController.collapse()
+  ///
+  /// Not:
+  /// Burada “dizi/film satır detayları” yoktur. O işler:
+  ///  • series_section.dart / series_tile.dart
+  ///  • movie_section.dart / movie_tile.dart
+  /// dosyalarında çözülür.
   /// =========================================================================
-
   @override
   Widget build(BuildContext context) {
+    // 1) Loading ekranı
     if (widget.loading) {
       return const Center(child: CircularProgressIndicator());
     }
 
+    // 2) Normal ekran
     return Column(
       children: [
-        FilterChips(
-          filter: widget.filter,
-          onSelected: widget.onFilterSelected,
-        ),
+        // ------------------------------------------------------------
+        // 🔘 Üst Filtre Chip ’leri
+        // ------------------------------------------------------------
+        // Kullanıcı burada filtre seçer; seçilen filtre HomePage’e callback ile gider.
+        FilterChips(filter: widget.filter, onSelected: widget.onFilterSelected),
+
+        // ------------------------------------------------------------
+        // 📜 Liste Alanı
+        // ------------------------------------------------------------
+        // Expanded: Column içinde ListView’in ekrana yayılmasını sağlar.
         Expanded(
           child: ListView(
             padding: const EdgeInsets.all(10),
             children: [
+              // ------------------------------------------------------
+              // 📺 Diziler Bölümü
+              // ------------------------------------------------------
+              // Diziler açılınca filmleri kapatır.
               SeriesSection(
                 series: widget.series,
                 seriesController: _seriesController,
                 onExpand: () => _moviesController.collapse(),
               ),
               const SizedBox(height: 20),
+
+              // ------------------------------------------------------
+              // 🎬 Filmler Bölümü
+              // ------------------------------------------------------
+              // Filmler açılınca dizileri kapatır.
               MovieSection(
                 movies: widget.movies,
                 moviesController: _moviesController,
                 onExpand: () => _seriesController.collapse(),
                 onMovieTap: widget.onMovieTap,
               ),
-
             ],
           ),
         ),
