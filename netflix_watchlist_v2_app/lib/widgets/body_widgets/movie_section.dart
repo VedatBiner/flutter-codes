@@ -38,7 +38,7 @@ import 'movie_tile.dart';
 /// - ExpansionTile başlığı: “Filmler (N)”
 /// - İçerik: MovieTile listesi
 ///
-/// Bu widget stateless’tir; çünkü:
+/// Bu widget stateless ’tir; çünkü:
 /// - Liste verisi (movies) üst katmandan gelir.
 /// - Aç/kapa yönetimi controller + callback ile dışarıda yapılır.
 /// =========================================================================

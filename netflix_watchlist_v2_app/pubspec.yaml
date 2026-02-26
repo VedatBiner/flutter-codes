@@ -2,7 +2,7 @@ name: netflix_watchlist_v2_app
 description: "Netflix watch list App v2"
 publish_to: 'none'
 
-version: 2.4.3+1
+version: 2.4.4+1
 
 environment:
   sdk: ">=3.9.0 <4.0.0"

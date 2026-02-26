@@ -45,7 +45,7 @@ class MovieTile extends StatelessWidget {
   final NetflixItem movie;
 
   /// Light/Dark tema ayrımı için üst katmandan gelir.
-  /// Light theme’de kart arka planı/ikon/text rengi belirgin olsun diye kullanılır.
+  /// Light theme ’de kart arka planı/ikon/text rengi belirgin olsun diye kullanılır.
   final bool isLightTheme;
 
   /// Kullanıcı filme dokunduğunda tetiklenir.
@@ -82,11 +82,11 @@ class MovieTile extends StatelessWidget {
   /// =========================================================================
   /// 🖼 Poster Thumbnail (leading)
   /// =========================================================================
-  /// Film poster’i varsa küçük bir thumbnail gösterir.
+  /// Film poster ’i varsa küçük bir thumbnail gösterir.
   /// Yoksa standart movie ikonu gösterilir.
   ///
   /// errorBuilder:
-  /// - URL bozuksa veya yükleme başarısız olursa icon’a düşer
+  /// - URL bozuksa veya yükleme başarısız olursa icon ’a düşer
   /// =========================================================================
   Widget _buildLeading() {
     final poster = movie.poster;
@@ -172,7 +172,7 @@ class MovieTile extends StatelessWidget {
   ///  • leading: poster veya movie ikonu
   ///  • title: film adı
   ///  • subtitle: tarih + (yıl / tür / rating)
-  ///  • onTap: OMDb yükleme callback’i
+  ///  • onTap: OMDb yükleme callback ’i
   ///  • onLongPress: poster viewer (Hero + swipe-to-close)
   /// =========================================================================
   @override
