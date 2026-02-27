@@ -83,9 +83,7 @@ class MovieSection extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: ExpansionTile(
         controller: moviesController,
 
@@ -97,7 +95,9 @@ class MovieSection extends StatelessWidget {
         /// Light theme ’de belirgin görünüm veriyoruz.
         backgroundColor: isLightTheme ? Colors.indigo.shade700 : null,
         collapsedBackgroundColor: isLightTheme ? Colors.indigo : null,
-        childrenPadding: isLightTheme ? const EdgeInsets.all(2) : EdgeInsets.zero,
+        childrenPadding: isLightTheme
+            ? const EdgeInsets.all(2)
+            : EdgeInsets.zero,
         iconColor: isLightTheme ? Colors.white : null,
         collapsedIconColor: isLightTheme ? Colors.white : null,
 
@@ -105,7 +105,10 @@ class MovieSection extends StatelessWidget {
         title: Text(
           "Filmler (${movies.length})",
           style: isLightTheme
-              ? const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+              ? const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )
               : null,
         ),
 

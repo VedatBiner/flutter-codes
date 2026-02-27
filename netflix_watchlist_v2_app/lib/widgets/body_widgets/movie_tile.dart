@@ -104,7 +104,7 @@ class MovieTile extends StatelessWidget {
           width: 50,
           height: 72,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => const Icon(Icons.movie),
+          errorBuilder: (_, _, _) => const Icon(Icons.movie),
         ),
       ),
     );
@@ -133,7 +133,9 @@ class MovieTile extends StatelessWidget {
     final meta = metaParts.join(' ');
     final imdbLine = "IMDB: $rating";
 
-    return meta.isEmpty ? "$watchDate\n$imdbLine" : "$watchDate\n$meta  $imdbLine";
+    return meta.isEmpty
+        ? "$watchDate\n$imdbLine"
+        : "$watchDate\n$meta  $imdbLine";
   }
 
   /// =========================================================================
@@ -154,11 +156,9 @@ class MovieTile extends StatelessWidget {
       PageRouteBuilder(
         opaque: false,
         barrierColor: Colors.transparent,
-        pageBuilder: (_, __, ___) => PosterViewerPage(
-          heroTag: _heroTag,
-          posterUrl: poster,
-        ),
-        transitionsBuilder: (_, animation, __, child) {
+        pageBuilder: (_, _, _) =>
+            PosterViewerPage(heroTag: _heroTag, posterUrl: poster),
+        transitionsBuilder: (_, animation, _, child) {
           return FadeTransition(opacity: animation, child: child);
         },
       ),
