@@ -93,7 +93,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 86. `drawer_backup_tile.dart` için detaylı açıklama yazıldı. - 23.02.2026
 87. `custom_app_bar.dart` için detaylı açıklama yazıldı. - 25.02.2026
 88. `custom_drawer.dart`, `custom_body.dart` için detaylı açıklama yazıldı. - 26.02.2026
-89. 
+89. `drawer_info_padding_tile`, `drawer_title.dart` ve `drawer_share_tile.dart` için detaylı açıklama yazıldı. - 02.03.2026
+
 
 
 
