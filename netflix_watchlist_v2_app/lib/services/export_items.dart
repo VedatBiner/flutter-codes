@@ -1,9 +1,56 @@
 // 📃 <----- lib/services/export_items.dart ----->
 //
-// CSV → JSON → XLSX üretir.
-// • Dosyalar önce Documents/{subfolder} içine yazılır (geçici).
-// • Ardından Download/{appName} içine kopyalanır (kalıcı / paylaşılabilir).
+// ============================================================================
+// 📦 ExportItems Service – Veri Dışa Aktarma Servisi
+// ============================================================================
 //
+// Bu servis, uygulamadaki film ve dizi verilerini üç farklı dosya formatına
+// dönüştürerek cihazın Download klasörüne kaydeder.
+//
+// Desteklenen formatlar:
+//   • CSV
+//   • JSON
+//   • XLSX (Excel)
+//
+// ---------------------------------------------------------------------------
+// 📌 Genel Çalışma Akışı
+// ---------------------------------------------------------------------------
+//
+// 1️⃣ Asset içindeki CSV verisi okunur.
+// 2️⃣ Film ve dizi bölümleri tek bir listeye dönüştürülür.
+// 3️⃣ Bu liste:
+//
+//      → CSV dosyasına
+//      → JSON dosyasına
+//      → XLSX (Excel) dosyasına
+//
+//    dönüştürülür.
+//
+// 4️⃣ Dosyalar önce geçici olarak:
+//
+//      Documents/{subfolder}
+//
+//    klasörüne yazılır.
+//
+// 5️⃣ Daha sonra kullanıcı erişimi için:
+//
+//      Download/{appName}
+//
+//    klasörüne kopyalanır.
+//
+// 6️⃣ Son olarak geçici klasör temizlenir.
+//
+// ---------------------------------------------------------------------------
+// 📌 Neden geçici klasör kullanıyoruz?
+// ---------------------------------------------------------------------------
+//
+// Çünkü:
+//
+// • Documents dizini uygulama tarafından güvenli yazma alanıdır.
+// • Download dizini için ek izin gerekir.
+// • Önce güvenli ortamda üretip sonra kopyalamak daha stabil çalışır.
+//
+// ============================================================================
 
 import 'dart:convert';
 import 'dart:developer';
@@ -21,10 +68,33 @@ import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/storage_permission_helper.dart';
 
+
+// ============================================================================
+// 📦 ExportItems Model
+// ============================================================================
+//
+// Bu model export işleminin sonucunu temsil eder.
+//
+// İçerdiği bilgiler:
+//
+//   • count      → kaç kayıt export edildi
+//   • csvPath    → Download içindeki CSV dosyası
+//   • jsonPath   → Download içindeki JSON dosyası
+//   • excelPath  → Download içindeki XLSX dosyası
+//
+// Bu path 'ler özellikle:
+//
+//   • paylaşım (share)
+//   • bildirim
+//   • dosya açma
+//
+// işlemleri için kullanılır.
+//
+// ============================================================================
 class ExportItems {
   final int count;
 
-  /// ✅ Download içindeki kesin path’ler (share için bunları kullanacağız)
+  /// Download içindeki kesin dosya yolları
   final String csvPath;
   final String jsonPath;
   final String excelPath;
@@ -37,62 +107,116 @@ class ExportItems {
   });
 }
 
+
+// ============================================================================
+// 🚀 exportItemsToFileFormats()
+// ============================================================================
+//
+// Uygulamadaki tüm film ve dizi verilerini:
+//
+//   • CSV
+//   • JSON
+//   • XLSX
+//
+// formatlarında export eder.
+//
+// Parametre:
+//
+//   subfolder → Documents dizini altında kullanılacak geçici klasör adı
+//
+// Örnek:
+//   Documents/netflix_exports/
+//
+// ============================================================================
 Future<ExportItems> exportItemsToFileFormats({
   required String subfolder,
 }) async {
   const tag = "export_items";
 
-  // ----------------------------------------------------------
-  // 0) Geçici export dizini (Documents/{subfolder})
-  // ----------------------------------------------------------
+  // --------------------------------------------------------------------------
+  // 0️⃣ Geçici export dizini oluştur
+  // --------------------------------------------------------------------------
+  //
+  // Documents klasörü uygulamanın güvenli yazma alanıdır.
+  // Burada geçici dosyalar oluşturulur.
+  //
   final docs = await getApplicationDocumentsDirectory();
+
   final tempDir = Directory(join(docs.path, subfolder));
   await tempDir.create(recursive: true);
+
   log("📂 Temp export klasörü: ${tempDir.path}", name: tag);
 
   final tempCsvPath = join(tempDir.path, fileNameCsv);
   final tempJsonPath = join(tempDir.path, fileNameJson);
   final tempExcelPath = join(tempDir.path, fileNameXlsx);
 
+
   try {
-    // ----------------------------------------------------------
-    // 1) Asset CSV’den verileri oku (compute ile)
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
+    // 1️⃣ Asset CSV verisini oku
+    // ------------------------------------------------------------------------
+    //
+    // CsvParser.parseCsvFast()
+    // compute() kullanarak CSV parsing işlemini ayrı isolate içinde yapar.
+    //
     final parsed = await CsvParser.parseCsvFast();
+
     final List<NetflixItem> allMovies = parsed.movies;
     final List<SeriesGroup> allSeries = parsed.series;
 
+
+    // ------------------------------------------------------------------------
+    // 2️⃣ Dizi bölümlerini film listesine ekle
+    // ------------------------------------------------------------------------
+    //
+    // Diziler sezon/bölüm yapısında tutulur.
+    // Export sırasında tüm kayıtları tek listeye çeviriyoruz.
+    //
     final allItems = <NetflixItem>[];
+
     allItems.addAll(allMovies);
 
     for (final seriesGroup in allSeries) {
       for (final season in seriesGroup.seasons) {
         for (final episode in season.episodes) {
-          allItems.add(NetflixItem(title: episode.title, date: episode.date));
+          allItems.add(
+            NetflixItem(
+              title: episode.title,
+              date: episode.date,
+            ),
+          );
         }
       }
     }
 
     final count = allItems.length;
+
     log("📌 Export edilecek kayıt: $count", name: tag);
 
-    // ----------------------------------------------------------
-    // 2) CSV oluştur (TEMP)
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
+    // 3️⃣ CSV dosyası oluştur
+    // ------------------------------------------------------------------------
     final List<List<String>> csvData = [
       ['Title', 'Date'],
     ];
+
     for (final item in allItems) {
       csvData.add([item.title, item.date]);
     }
 
     final csvString = const ListToCsvConverter().convert(csvData);
+
     await File(tempCsvPath).writeAsString(csvString);
+
     log("📄 TEMP CSV: $tempCsvPath", name: tag);
 
-    // ----------------------------------------------------------
-    // 3) JSON oluştur (TEMP)
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
+    // 4️⃣ JSON dosyası oluştur
+    // ------------------------------------------------------------------------
     final jsonList = allItems
         .map((e) => {
       'title': e.title,
@@ -101,12 +225,15 @@ Future<ExportItems> exportItemsToFileFormats({
         .toList();
 
     final jsonStr = const JsonEncoder.withIndent('  ').convert(jsonList);
+
     await File(tempJsonPath).writeAsString(jsonStr);
+
     log("📄 TEMP JSON: $tempJsonPath", name: tag);
 
-    // ----------------------------------------------------------
-    // 4) XLSX oluştur (TEMP)
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
+    // 5️⃣ XLSX (Excel) dosyası oluştur
+    // ------------------------------------------------------------------------
     final workbook = xlsio.Workbook();
     final sheet = workbook.worksheets[0];
 
@@ -119,28 +246,47 @@ Future<ExportItems> exportItemsToFileFormats({
     }
 
     final bytes = workbook.saveAsStream();
+
     await File(tempExcelPath).writeAsBytes(bytes);
+
     workbook.dispose();
+
     log("📊 TEMP XLSX: $tempExcelPath", name: tag);
 
-    // ----------------------------------------------------------
-    // 5) Download/{appName} içine kopyala (izin kontrolü dahil)
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
+    // 6️⃣ Storage izni kontrolü
+    // ------------------------------------------------------------------------
     final ok = await ensureStoragePermission();
+
     if (!ok) {
-      throw Exception("Depolama izni verilmedi (Download kopyalama yapılamadı).");
+      throw Exception(
+        "Depolama izni verilmedi (Download kopyalama yapılamadı).",
+      );
     }
 
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
+
+    // ------------------------------------------------------------------------
+    // 7️⃣ Download klasörünü bul
+    // ------------------------------------------------------------------------
+    final downloadDir =
+    await ExternalPath.getExternalStoragePublicDirectory(
       ExternalPath.DIRECTORY_DOWNLOAD,
     );
+
     final downloadAppDir = Directory(join(downloadDir, appName));
+
     await downloadAppDir.create(recursive: true);
+
 
     final outCsvPath = join(downloadAppDir.path, fileNameCsv);
     final outJsonPath = join(downloadAppDir.path, fileNameJson);
     final outExcelPath = join(downloadAppDir.path, fileNameXlsx);
 
+
+    // ------------------------------------------------------------------------
+    // 8️⃣ Dosyaları Download klasörüne kopyala
+    // ------------------------------------------------------------------------
     await File(tempCsvPath).copy(outCsvPath);
     await File(tempJsonPath).copy(outJsonPath);
     await File(tempExcelPath).copy(outExcelPath);
@@ -151,16 +297,23 @@ Future<ExportItems> exportItemsToFileFormats({
     log("✅ XLSX: $outExcelPath", name: tag);
     log("✅ Export tamamlandı", name: tag);
 
+
+    // ------------------------------------------------------------------------
+    // 9️⃣ Sonuç nesnesini döndür
+    // ------------------------------------------------------------------------
     return ExportItems(
       count: count,
       csvPath: outCsvPath,
       jsonPath: outJsonPath,
       excelPath: outExcelPath,
     );
+
+
   } finally {
-    // ----------------------------------------------------------
+
+    // ------------------------------------------------------------------------
     // 🧹 Temp klasörü temizle
-    // ----------------------------------------------------------
+    // ------------------------------------------------------------------------
     if (await tempDir.exists()) {
       await tempDir.delete(recursive: true);
       log("🧹 Temp export klasörü silindi: ${tempDir.path}", name: tag);
