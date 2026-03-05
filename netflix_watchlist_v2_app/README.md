@@ -96,7 +96,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 89. `drawer_info_padding_tile`, `drawer_title.dart` ve `drawer_share_tile.dart` için detaylı açıklama yazıldı. - 02.03.2026
 90. `bottom_banner_helper.dart`, `show_notification_handler.dart` ve `filter_chips.dart` için detaylı açıklama yazıldı. - 03.03.2026
 91. `export_items.dart` için detaylı açıklama yazıldı. - 05.03.2026
-92. 
+92. `export_items.dart` dosyası güncellendi. - 05.03.2026
+93. 
 
 
 
