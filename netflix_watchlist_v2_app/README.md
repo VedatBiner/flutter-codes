@@ -100,9 +100,10 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 93. `export_items.dart` dosyası silindi. Mimari değişikliği yapıldı. - 05.03.2026
 94. `export_items.dart` dosyası `models` altında oluşturuldu. - 05.03.2026
 95. `reprositories` dizini açıldı. - 05.03.2026
-96. `reprositories` dizininde `export_reprository.dart`dosyası oluşturuldu. - 05.03.2026
-97. `services`dizininde `xport_file_service.dart` dosyası oluşturuldu. - 05.03.2026
-98. 
+96. `reprositories` dizininde `export_reprository.dart` dosyası oluşturuldu. - 05.03.2026
+97. `services`dizininde `export_file_service.dart` dosyası oluşturuldu. - 05.03.2026
+98. `export_items.dart`, `export_reprository.dart`, `export_file_service.dart` ve `export_notification_helper.dart` dosyaları güncellendi. - 06.03.2026
+
 
 
 

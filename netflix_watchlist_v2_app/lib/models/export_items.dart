@@ -1,23 +1,19 @@
+// 📁 lib/models/export_items.dart
+//
 // ============================================================================
-// 📦 ExportItems Model
+// 📦 ExportItems – Export Sonuç Modeli
 // ============================================================================
 //
-// Export işlemi tamamlandıktan sonra UI katmanına döndürülen veri modelidir.
+// Bu model, export işlemi tamamlandıktan sonra UI katmanına döndürülen
+// sonucu temsil eder.
 //
 // İçerdiği bilgiler:
+// • count     → toplam export edilen kayıt sayısı
+// • csvPath   → Download klasöründeki CSV dosya yolu
+// • jsonPath  → Download klasöründeki JSON dosya yolu
+// • excelPath → Download klasöründeki XLSX dosya yolu
 //
-//   • count      → export edilen toplam kayıt sayısı
-//   • csvPath    → Download klasöründeki CSV dosyasının yolu
-//   • jsonPath   → Download klasöründeki JSON dosyasının yolu
-//   • excelPath  → Download klasöründeki XLSX dosyasının yolu
-//
-// UI bu verileri:
-//
-//   • bildirim gösterme
-//   • dosya paylaşma
-//   • loglama
-//
-// işlemleri için kullanır.
+// Bu model bildirim, paylaşım ve loglama işlemlerinde kullanılır.
 // ============================================================================
 
 class ExportItems {

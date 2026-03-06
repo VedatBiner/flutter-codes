@@ -1,19 +1,25 @@
+// 📁 lib/repositories/export_repository.dart
+//
 // ============================================================================
-// 📦 ExportRepository
+// 📦 ExportRepository – Export İş Akışı Yöneticisi
 // ============================================================================
 //
-// Repository Pattern içinde en üst veri katmanıdır.
+// Bu repository export sürecinin tamamını yönetir.
 //
-// Görevleri:
+// Sorumlulukları:
+// • Verileri okumak
+// • Film + dizi bölümlerini tek listeye dönüştürmek
+// • Tarihleri dd/MM/yyyy formatına çevirmek
+// • Temp klasör hazırlamak
+// • ExportFileService ile dosyaları üretmek
+// • Storage izni kontrol etmek
+// • Download/{appName} klasörüne dosyaları kopyalamak
+// • Temp klasörü temizlemek
 //
-//   1️⃣ CSV parser ile veriyi okumak
-//   2️⃣ ExportFileService kullanarak dosyaları üretmek
-//   3️⃣ Download klasörüne kopyalamak
-//   4️⃣ UI 'a ExportItems sonucu döndürmek
-//
-// Repository UI ile Service arasında köprü görevi görür.
+// Bu yapı sayesinde UI sadece repository çağırır.
 // ============================================================================
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:external_path/external_path.dart';
@@ -29,95 +35,219 @@ import '../utils/csv_parser.dart';
 import '../utils/storage_permission_helper.dart';
 
 class ExportRepository {
+  final ExportFileService _fileService = ExportFileService();
 
-  final ExportFileService _service = ExportFileService();
+  // ==========================================================================
+  // 🚀 exportAll()
+  // ==========================================================================
+  // Export işleminin ana giriş noktasıdır.
+  //
+  // Parametre:
+  // • subfolder → Documents altında kullanılacak geçici klasör adı
+  //
+  // Dönen değer:
+  // • ExportItems → UI bildirim ve paylaşım için kullanılır
+  //
+  Future<ExportItems> exportAll({
+    String subfolder = 'netflix_watchlist_temp_export',
+  }) async {
+    const tag = "export_repository";
 
-  Future<ExportItems> exportAll() async {
+    // ----------------------------------------------------------
+    // 1️⃣ Temp klasörü hazırla
+    // ----------------------------------------------------------
+    final docs = await getApplicationDocumentsDirectory();
+    final tempDir = Directory(join(docs.path, subfolder));
+    await tempDir.create(recursive: true);
 
-    // ------------------------------------------------------------------------
-    // 1️⃣ CSV parser ile veriyi oku
-    // ------------------------------------------------------------------------
-    final parsed = await CsvParser.parseCsvFast();
+    log("📂 Temp export klasörü: ${tempDir.path}", name: tag);
 
-    final List<NetflixItem> movies = parsed.movies;
-    final List<SeriesGroup> series = parsed.series;
+    final tempCsvPath = join(tempDir.path, fileNameCsv);
+    final tempJsonPath = join(tempDir.path, fileNameJson);
+    final tempExcelPath = join(tempDir.path, fileNameXlsx);
 
-    final items = <NetflixItem>[];
+    try {
+      // --------------------------------------------------------
+      // 2️⃣ Kaynak veriyi oku
+      // --------------------------------------------------------
+      final parsed = await CsvParser.parseCsvFast();
 
-    items.addAll(movies);
+      // --------------------------------------------------------
+      // 3️⃣ Tüm kayıtları tek listeye çevir
+      // --------------------------------------------------------
+      final allItems = _collectAllItems(parsed.movies, parsed.series);
+      final count = allItems.length;
 
-    for (final s in series) {
-      for (final season in s.seasons) {
-        for (final ep in season.episodes) {
-          items.add(
+      log("📌 Export edilecek kayıt: $count", name: tag);
+
+      // --------------------------------------------------------
+      // 4️⃣ Dosyaları temp klasörde üret
+      // --------------------------------------------------------
+      await _fileService.exportCsv(allItems, tempCsvPath);
+      log("📄 TEMP CSV: $tempCsvPath", name: tag);
+
+      await _fileService.exportJson(allItems, tempJsonPath);
+      log("📄 TEMP JSON: $tempJsonPath", name: tag);
+
+      await _fileService.exportExcel(allItems, tempExcelPath);
+      log("📊 TEMP XLSX: $tempExcelPath", name: tag);
+
+      // --------------------------------------------------------
+      // 5️⃣ Download klasörüne kopyala
+      // --------------------------------------------------------
+      final outputPaths = await _copyToDownload(
+        tempCsvPath: tempCsvPath,
+        tempJsonPath: tempJsonPath,
+        tempExcelPath: tempExcelPath,
+      );
+
+      log("✅ Export tamamlandı", name: tag);
+
+      return ExportItems(
+        count: count,
+        csvPath: outputPaths.csvPath,
+        jsonPath: outputPaths.jsonPath,
+        excelPath: outputPaths.excelPath,
+      );
+    } finally {
+      // --------------------------------------------------------
+      // 6️⃣ Temp klasörü temizle
+      // --------------------------------------------------------
+      if (await tempDir.exists()) {
+        await tempDir.delete(recursive: true);
+        log("🧹 Temp export klasörü silindi: ${tempDir.path}", name: tag);
+      }
+    }
+  }
+
+  // ==========================================================================
+  // 📥 _collectAllItems()
+  // ==========================================================================
+  // Film ve dizi bölümlerini tek bir NetflixItem listesine çevirir.
+  //
+  // Önemli:
+  // • Tarih burada dd/MM/yyyy formatına çevrilir
+  //
+  List<NetflixItem> _collectAllItems(
+      List<NetflixItem> movies,
+      List<SeriesGroup> series,
+      ) {
+    final allItems = <NetflixItem>[];
+
+    // Filmleri ekle
+    for (final movie in movies) {
+      allItems.add(
+        NetflixItem(
+          title: movie.title,
+          date: _normalizeDate(movie.date),
+          year: movie.year,
+          genre: movie.genre,
+          rating: movie.rating,
+          poster: movie.poster,
+          type: movie.type,
+          originalTitle: movie.originalTitle,
+          imdbId: movie.imdbId,
+        ),
+      );
+    }
+
+    // Dizi bölümlerini ekle
+    for (final seriesGroup in series) {
+      for (final season in seriesGroup.seasons) {
+        for (final episode in season.episodes) {
+          allItems.add(
             NetflixItem(
-              title: ep.title,
-              date: ep.date,
+              title: episode.title,
+              date: _normalizeDate(episode.date),
             ),
           );
         }
       }
     }
 
-    final count = items.length;
+    return allItems;
+  }
 
-    // ------------------------------------------------------------------------
-    // 2️⃣ TEMP klasör oluştur
-    // ------------------------------------------------------------------------
-    final docs = await getApplicationDocumentsDirectory();
-    final tempDir = Directory(join(docs.path, "export_temp"));
+  // ==========================================================================
+  // 📅 _normalizeDate()
+  // ==========================================================================
+  // CSV parser içindeki parseDate + formatDate yardımıyla tarihi
+  // dd/MM/yyyy formatına çevirir.
+  //
+  // Örnek:
+  // 03/04/24  ->  04/03/2024
+  //
+  String _normalizeDate(String rawDate) {
+    return formatDate(parseDate(rawDate));
+  }
 
-    await tempDir.create(recursive: true);
+  // ==========================================================================
+  // 📂 _copyToDownload()
+  // ==========================================================================
+  // Temp klasörde üretilen dosyaları Download/{appName} içine kopyalar.
+  //
+  // Önce storage izni kontrol edilir.
+  //
+  Future<_ExportOutputPaths> _copyToDownload({
+    required String tempCsvPath,
+    required String tempJsonPath,
+    required String tempExcelPath,
+  }) async {
+    const tag = "export_repository";
 
-    final tempCsv = join(tempDir.path, fileNameCsv);
-    final tempJson = join(tempDir.path, fileNameJson);
-    final tempExcel = join(tempDir.path, fileNameXlsx);
-
-    // ------------------------------------------------------------------------
-    // 3️⃣ Dosyaları üret
-    // ------------------------------------------------------------------------
-    await _service.exportCsv(items, tempCsv);
-    await _service.exportJson(items, tempJson);
-    await _service.exportExcel(items, tempExcel);
-
-    // ------------------------------------------------------------------------
-    // 4️⃣ Download klasörüne kopyala
-    // ------------------------------------------------------------------------
     final ok = await ensureStoragePermission();
-
     if (!ok) {
-      throw Exception("Storage izni verilmedi");
+      throw Exception(
+        "Depolama izni verilmedi (Download kopyalama yapılamadı).",
+      );
     }
 
-    final downloadDir =
-    await ExternalPath.getExternalStoragePublicDirectory(
+    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
       ExternalPath.DIRECTORY_DOWNLOAD,
     );
 
-    final appDir = Directory(join(downloadDir, appName));
-
-    await appDir.create(recursive: true);
-
-    final outCsv = join(appDir.path, fileNameCsv);
-    final outJson = join(appDir.path, fileNameJson);
-    final outExcel = join(appDir.path, fileNameXlsx);
-
-    await File(tempCsv).copy(outCsv);
-    await File(tempJson).copy(outJson);
-    await File(tempExcel).copy(outExcel);
-
-    // ------------------------------------------------------------------------
-    // 5️⃣ TEMP klasörü sil
-    // ------------------------------------------------------------------------
-    if (await tempDir.exists()) {
-      await tempDir.delete(recursive: true);
+    if (downloadDir.isEmpty) {
+      throw Exception("Download klasörü bulunamadı.");
     }
 
-    return ExportItems(
-      count: count,
-      csvPath: outCsv,
-      jsonPath: outJson,
-      excelPath: outExcel,
+    final downloadAppDir = Directory(join(downloadDir, appName));
+    await downloadAppDir.create(recursive: true);
+
+    final outCsvPath = join(downloadAppDir.path, fileNameCsv);
+    final outJsonPath = join(downloadAppDir.path, fileNameJson);
+    final outExcelPath = join(downloadAppDir.path, fileNameXlsx);
+
+    await File(tempCsvPath).copy(outCsvPath);
+    await File(tempJsonPath).copy(outJsonPath);
+    await File(tempExcelPath).copy(outExcelPath);
+
+    log("📥 Download kopyaları hazır:", name: tag);
+    log("✅ CSV: $outCsvPath", name: tag);
+    log("✅ JSON: $outJsonPath", name: tag);
+    log("✅ XLSX: $outExcelPath", name: tag);
+
+    return _ExportOutputPaths(
+      csvPath: outCsvPath,
+      jsonPath: outJsonPath,
+      excelPath: outExcelPath,
     );
   }
+}
+
+// ============================================================================
+// 📎 _ExportOutputPaths
+// ============================================================================
+// Repository iç kullanımına özel yardımcı model.
+// ============================================================================
+
+class _ExportOutputPaths {
+  final String csvPath;
+  final String jsonPath;
+  final String excelPath;
+
+  _ExportOutputPaths({
+    required this.csvPath,
+    required this.jsonPath,
+    required this.excelPath,
+  });
 }
