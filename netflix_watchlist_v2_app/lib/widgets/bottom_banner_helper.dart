@@ -25,7 +25,6 @@
 //
 // ============================================================================
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
 
 // ============================================================================
@@ -152,22 +151,6 @@ LoadingBannerController showLoadingBanner(
   String tag = "bottom_banner_helper",
 }) {
   final overlay = Overlay.of(context, rootOverlay: true);
-
-  // --------------------------------------------------------------------------
-  // 🛡 Overlay null fallback
-  // --------------------------------------------------------------------------
-  if (overlay == null) {
-    log("⚠️ Overlay bulunamadı. Fallback SnackBar çalıştı.", name: tag);
-
-    // UI bozulmasın diye SnackBar fallback (en azından kullanıcı mesajı görsün)
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
-    );
-
-    // close() çağrılabilsin diye boş entry ile controller döndür
-    final dummyEntry = OverlayEntry(builder: (_) => const SizedBox.shrink());
-    return LoadingBannerController(dummyEntry);
-  }
 
   late OverlayEntry entry;
 
