@@ -4,33 +4,53 @@
 // 💾 DrawerBackupTile – “Yedek Oluştur” Menü Öğesi
 // ============================================================================
 //
-// Bu dosya Drawer menüsündeki “Yedek Oluştur” satırını tek başına yöneten,
-// yeniden kullanılabilir bir widget içerir.
+// Bu widget, Drawer menüsü içinde yer alan “Yedek Oluştur” satırını
+// tek başına yöneten yeniden kullanılabilir bir bileşendir.
 //
-// Amaç:
-// - custom_drawer.dart dosyasını sadeleştirmek (kod tekrarını azaltmak)
-// - Yedekleme (export) akışını tek bir noktadan tetiklemek
-// - Export tamamlanınca kullanıcıya bildirim (notification) göstermek
+// ---------------------------------------------------------------------------
+// 🎯 Amaç
+// ---------------------------------------------------------------------------
+// • custom_drawer.dart dosyasını sadeleştirmek
+// • Export (yedekleme) akışını tek yerden başlatmak
+// • Kullanıcıya süreç boyunca ve işlem sonunda doğru geri bildirim vermek
 //
-// ----------------------------------------------------------------------------
-// 🔹 Kullanıcı Akışı
-// ----------------------------------------------------------------------------
-// 1) Kullanıcı Drawer ’da “Yedek Oluştur” satırına dokunur.
-// 2) backupNotificationHelper(...) çağrılır.
-//    - Export sürecini başlatır (CSV / JSON / XLSX üretimi)
-//    - Gerekirse alt bant (loading banner) gösterir
-//    - İş bitince export path ’lerini geri döndürür
-// 3) Export tamamlanınca showBackupNotification(...) çağrılır.
-//    - Kullanıcıya hangi dosyaların üretildiğini ve path ’lerini gösterir
-// 4) Drawer kapatılır (Navigator.of(context).maybePop())
+// ---------------------------------------------------------------------------
+// 🧠 Mimari Rol
+// ---------------------------------------------------------------------------
+// Bu widget export işlemini kendisi yapmaz.
 //
-// ----------------------------------------------------------------------------
-// 🔹 Bağımlılıklar
-// ----------------------------------------------------------------------------
-// - color_constants.dart   → ikon rengi vb.
-// - text_constants.dart    → drawer yazı stilleri
-// - backup_notification_helper.dart → export akışını başlatır ve yönetir
-// - show_notification_handler.dart  → kullanıcıya bildirim gösterir
+// Gerçek akış:
+//
+//   DrawerBackupTile
+//        ↓
+//   backupNotificationHelper()
+//        ↓
+//   ExportRepository
+//        ↓
+//   ExportFileService
+//
+// Yani bu widget ’ın görevi:
+// • sadece kullanıcı etkileşimini almak
+// • helper fonksiyonunu çağırmak
+// • export sonrası notification göstermektir
+//
+// Böylece:
+// ✅ UI ile iş mantığı ayrılır
+// ✅ widget sade kalır
+// ✅ export akışı tek noktadan yönetilir
+//
+// ---------------------------------------------------------------------------
+// 📌 Kullanıcı Akışı
+// ---------------------------------------------------------------------------
+// 1️⃣ Kullanıcı Drawer içinde “Yedek Oluştur” satırına dokunur
+// 2️⃣ backupNotificationHelper(...) çağrılır
+// 3️⃣ Helper:
+//     • loading banner gösterir
+//     • export sürecini başlatır
+//     • bitince sonucu callback ile döndürür
+// 4️⃣ showBackupNotification(...) ile kullanıcıya
+//    oluşturulan dosyalar gösterilir
+// 5️⃣ Drawer güvenli şekilde kapatılır
 //
 // ============================================================================
 
@@ -41,66 +61,118 @@ import '../../constants/text_constants.dart';
 import '../../utils/backup_notification_helper.dart';
 import '../show_notification_handler.dart';
 
+/// ============================================================================
+/// 💾 DrawerBackupTile
+/// ============================================================================
+/// Drawer menüsünde görünen “Yedek Oluştur” satırını üretir.
+///
+/// Stateless olarak tasarlanmıştır çünkü:
+/// • kendi içinde state tutmaz
+/// • export sürecinin state ’i helper/repository katmanında yönetilir
+/// • bu widget yalnızca aksiyon tetikler
+///
+/// Bu widget ’ın görevi:
+/// • ListTile UI üretmek
+/// • onTap ile export helper ’ı çağırmak
+/// • success sonrası notification göstermek
+/// ============================================================================
 class DrawerBackupTile extends StatelessWidget {
   const DrawerBackupTile({super.key});
 
-  /// ==========================================================================
-  /// 🏗 build
-  /// ==========================================================================
-  /// Drawer içinde görünen ListTile’ı üretir:
-  /// - leading: download ikonu
-  /// - title/subtitle: kullanıcıya açıklama
-  /// - onTap: yedekleme akışını başlatır
+  /// =========================================================================
+  /// 🏗 build()
+  /// =========================================================================
+  /// Drawer içinde görünen ListTile’ı oluşturur.
   ///
-  /// Bu widget stateless ’tir; çünkü state yönetimi (yükleniyor vb.)
-  /// backupNotificationHelper tarafında yapılır.
-  /// ==========================================================================
+  /// UI yapısı:
+  /// • leading  → download ikonu
+  /// • title    → “Yedek Oluştur”
+  /// • subtitle → hangi formatların üretileceğini anlatan metin
+  ///
+  /// Davranış:
+  /// • Kullanıcı satıra dokunduğunda export süreci başlar
+  /// • backupNotificationHelper export akışını yürütür
+  /// • İşlem başarılıysa showBackupNotification çağrılır
+  /// • En son Drawer güvenli biçimde kapatılır
+  ///
+  /// Neden Tooltip var?
+  /// • Özellikle masaüstü / web benzeri kullanımda kullanıcıya
+  ///   kısa açıklama göstermek için
+  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     return Tooltip(
       message: 'JSON/CSV/XLSX\nyedeği oluştur',
       child: ListTile(
-        leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
-        title: Text('Yedek Oluştur', style: drawerMenuText),
+        // --------------------------------------------------------------------
+        // 🎨 Sol ikon
+        // --------------------------------------------------------------------
+        leading: Icon(
+          Icons.download,
+          color: downLoadButtonColor,
+          size: 32,
+        ),
+
+        // --------------------------------------------------------------------
+        // 📝 Başlık
+        // --------------------------------------------------------------------
+        title: Text(
+          'Yedek Oluştur',
+          style: drawerMenuText,
+        ),
+
+        // --------------------------------------------------------------------
+        // 📝 Alt açıklama
+        // --------------------------------------------------------------------
         subtitle: Text(
           "Aşağıdaki formatlarda \nyedek oluşturur: \n(JSON / CSV / XLSX)",
           style: drawerMenuSubtitleText,
         ),
-        // ------------------------------------------------------------
+
+        // --------------------------------------------------------------------
         // ▶️ Kullanıcı dokununca export akışı başlar
-        // ------------------------------------------------------------
+        // --------------------------------------------------------------------
         onTap: () async {
-          /// ==========================================================
-          /// 🚀 backupNotificationHelper çağrısı
-          /// ==========================================================
-          /// Bu helper:
-          /// - Export sürecini başlatır
-          /// - UI ’da “yükleniyor” banner gösterebilir
-          /// - İş tamamlanınca onSuccessNotify ile ExportItems döndürür
-          ///
-          /// Buradaki callback ’ler:
-          /// - onStatusChange: export aşamalarını UI ’ya iletmek için (şimdilik boş)
-          /// - onExportingChange: export başladı/bitti bilgisini UI ’ya iletmek için (şimdilik boş)
-          /// - onSuccessNotify: export bitince notification basmak için kullanıyoruz
-          /// ==========================================================
+          // ==========================================================
+          // 🚀 backupNotificationHelper çağrısı
+          // ==========================================================
+          //
+          // Bu helper:
+          // • loading banner gösterir
+          // • ExportRepository üzerinden export işlemini başlatır
+          // • işlem bitince sonucu callback ile döndürür
+          // • hata olursa SnackBar gösterir
+          //
+          // Buradaki callback ’ler:
+          // • onStatusChange:
+          //   Şu anda dışarıya yazmıyoruz, ama ileride progress text göstermek
+          //   istersek burada kullanabiliriz.
+          //
+          // • onExportingChange:
+          //   Şu an kullanılmıyor. İleride bir loading state bağlamak istersek
+          //   parent widget bunu dinleyebilir.
+          //
+          // • onSuccessNotify:
+          //   Export tamamlanınca kullanıcıya özel notification gösteriyoruz.
+          //
           await backupNotificationHelper(
             context: context,
-            // Bu projede şimdilik dışarıya status basmıyoruz.
+
+            // Şimdilik dışarıya status metni basmıyoruz.
             onStatusChange: (_) {},
-            // Bu projede şimdilik dışarıya status basmıyoruz.
+
+            // Şimdilik export başladı/bitti durumunu da dışarı bağlamıyoruz.
             onExportingChange: (_) {},
-            // Export tamamlanınca kullanıcıya dosya bilgilerini göster
+
+            // --------------------------------------------------------
+            // ✅ Export başarılıysa kullanıcıya dosya bilgilerini göster
+            // --------------------------------------------------------
             onSuccessNotify: (ctx, res) {
-              /// --------------------------------------------------------
-              /// ✅ showBackupNotification
-              /// --------------------------------------------------------
-              /// res içinde Download klasöründeki kesin path ’ler bulunur.
-              /// Kullanıcıya hangi dosyaların üretildiğini göstermek için
-              /// notification basıyoruz.
-              ///
-              /// DİKKAT: Parametre sırası doğru olmalı:
-              /// showBackupNotification(ctx, csvPath, jsonPath, excelPath)
-              /// --------------------------------------------------------
+              // res içinde Download klasöründeki kesin dosya yolları vardır.
+              //
+              // showBackupNotification parametre sırası:
+              //   csvPath, jsonPath, excelPath
+              //
               showBackupNotification(
                 ctx,
                 res.csvPath,
@@ -110,14 +182,18 @@ class DrawerBackupTile extends StatelessWidget {
             },
           );
 
-          /// ==========================================================
-          /// 🧭 Drawer kapatma (güvenli)
-          /// ==========================================================
-          /// Export uzun sürebilir; işlem bitince context hâlâ geçerli mi
-          /// kontrol ediyoruz. Sonra Drawer ’ı kapatmayı deniyoruz.
-          /// maybePop(): Eğer Navigator stack ’inde pop yapılabilecek bir şey yoksa
-          /// patlamadan “false” döner.
-          /// ==========================================================
+          // ==========================================================
+          // 🧭 Drawer ’ı güvenli şekilde kapat
+          // ==========================================================
+          //
+          // Export süreci async olduğu için işlem bitene kadar context değişmiş
+          // olabilir. Bu yüzden önce mounted kontrolü yapıyoruz.
+          //
+          // maybePop() kullanımı:
+          // • Drawer açıksa kapanır
+          // • pop edilecek bir şey yoksa sessizce false döner
+          // • Navigator hatası üretmez
+          //
           if (!context.mounted) return;
           Navigator.of(context).maybePop();
         },

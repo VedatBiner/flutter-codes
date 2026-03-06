@@ -102,7 +102,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 95. `reprositories` dizini açıldı. - 05.03.2026
 96. `reprositories` dizininde `export_reprository.dart` dosyası oluşturuldu. - 05.03.2026
 97. `services`dizininde `export_file_service.dart` dosyası oluşturuldu. - 05.03.2026
-98. `export_items.dart`, `export_reprository.dart`, `export_file_service.dart` ve `export_notification_helper.dart` dosyaları güncellendi. - 06.03.2026
+98. `export_items.dart`, `export_reprository.dart`, ve `export_file_service.dart` dosyaları güncellendi. - 06.03.2026
+99. `export_notification_helper.dart` ve `drawer_backup_tile.dart` dosyaları güncellendi. - 06.03.2026
+
 
 
 
