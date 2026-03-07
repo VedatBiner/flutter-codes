@@ -107,19 +107,12 @@ class DrawerBackupTile extends StatelessWidget {
         // --------------------------------------------------------------------
         // 🎨 Sol ikon
         // --------------------------------------------------------------------
-        leading: Icon(
-          Icons.download,
-          color: downLoadButtonColor,
-          size: 32,
-        ),
+        leading: Icon(Icons.download, color: downLoadButtonColor, size: 32),
 
         // --------------------------------------------------------------------
         // 📝 Başlık
         // --------------------------------------------------------------------
-        title: Text(
-          'Yedek Oluştur',
-          style: drawerMenuText,
-        ),
+        title: Text('Yedek Oluştur', style: drawerMenuText),
 
         // --------------------------------------------------------------------
         // 📝 Alt açıklama

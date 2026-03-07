@@ -60,10 +60,7 @@ class ExportFileService {
   //
   Future<void> exportJson(List<NetflixItem> items, String path) async {
     final jsonList = items
-        .map((e) => {
-      'title': e.title,
-      'date': e.date,
-    })
+        .map((e) => {'title': e.title, 'date': e.date})
         .toList();
 
     final jsonStr = const JsonEncoder.withIndent('  ').convert(jsonList);
@@ -125,7 +122,12 @@ class ExportFileService {
           sheet
               .getRangeByIndex(rowIndex, 1, rowIndex, 2)
               .cellStyle
-              .backColorRgb = const Color.fromARGB(255, 220, 235, 255);
+              .backColorRgb = const Color.fromARGB(
+            255,
+            220,
+            235,
+            255,
+          );
         }
       }
 

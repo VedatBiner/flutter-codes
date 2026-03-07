@@ -104,6 +104,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 97. `services`dizininde `export_file_service.dart` dosyası oluşturuldu. - 05.03.2026
 98. `export_items.dart`, `export_reprository.dart`, ve `export_file_service.dart` dosyaları güncellendi. - 06.03.2026
 99. `export_notification_helper.dart` ve `drawer_backup_tile.dart` dosyaları güncellendi. - 06.03.2026
+100. 
 
 
 
