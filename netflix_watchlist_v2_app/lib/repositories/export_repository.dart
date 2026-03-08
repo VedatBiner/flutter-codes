@@ -129,9 +129,9 @@ class ExportRepository {
   // • Tarih burada dd/MM/yyyy formatına çevrilir
   //
   List<NetflixItem> _collectAllItems(
-      List<NetflixItem> movies,
-      List<SeriesGroup> series,
-      ) {
+    List<NetflixItem> movies,
+    List<SeriesGroup> series,
+  ) {
     final allItems = <NetflixItem>[];
 
     // Filmleri ekle
