@@ -1,32 +1,59 @@
-// 📁 lib/widgets/filter_chips.dart
+// 📁 <----- lib/widgets/filter_chips.dart ----->
 //
 // ============================================================================
-// 🎛 FilterChips – Liste Filtreleme Bileşeni
+// 🎛 FilterChips – İçerik Filtreleme Chip Bileşeni
 // ============================================================================
 //
-// Bu widget, ana ekranda film/dizi listesini filtrelemek için kullanılan
-// ChoiceChip tabanlı filtre çubuklarını üretir.
+// Bu widget, kullanıcıya içerikleri farklı kriterlere göre filtreleyebilmesi
+// için ChoiceChip tabanlı bir filtre menüsü sunar.
 //
 // ---------------------------------------------------------------------------
 // 🎯 Amaç
 // ---------------------------------------------------------------------------
-// • Kullanıcıya listeyi kategori bazlı filtreleme imkânı sunmak.
-// • Filtre seçimini parent widget ’a callback ile iletmek.
-// • Stil/tema ayarlarını tek noktadan yönetmek.
+// Kullanıcının içerikleri şu kategorilere göre filtreleyebilmesini sağlamak:
+//
+// • Tümü
+// • Filmler
+// • Diziler
+// • Son 30 gün
 //
 // ---------------------------------------------------------------------------
-// 🧠 Mimari Rol
+// 🧠 Mimari Yapı
 // ---------------------------------------------------------------------------
-// Bu widget SADECE UI üretir.
-// Filtreleme mantığı burada yapılmaz.
+// Filtre seçenekleri `FilterOption` enum içinde tanımlıdır.
 //
-// Seçim değiştiğinde:
-//    onSelected(option)
-// çağrılır ve asıl filtreleme işlemi parent widget içinde yapılır.
+// enum FilterOption {
+//   all,
+//   movies,
+//   series,
+//   last30days
+// }
 //
-// Böylece:
-// ✅ Tek sorumluluk prensibi korunur.
-// ✅ UI ile iş mantığı ayrılmış olur.
+// Ayrıca enum içinde bir extension vardır:
+//
+// extension FilterOptionLabel on FilterOption
+//
+// Bu extension sayesinde enum değerleri UI metnine çevrilir.
+//
+// Örnek:
+//
+// FilterOption.movies.label → "Filmler"
+//
+// Böylece UI içinde string sabitleri kullanılmaz.
+//
+// ---------------------------------------------------------------------------
+// 📌 Kullanım Örneği
+// ---------------------------------------------------------------------------
+//
+// FilterChips(
+//   filter: selectedFilter,
+//   onSelected: (newFilter) {
+//     setState(() {
+//       selectedFilter = newFilter;
+//     });
+//   },
+// )
+//
 // ============================================================================
 
 import 'package:flutter/material.dart';
@@ -34,13 +61,28 @@ import 'package:flutter/material.dart';
 import '../constants/color_constants.dart';
 import '../models/filter_option.dart';
 
+/// ============================================================================
+/// 🎛 FilterChips
+/// ============================================================================
+///
+/// Filtre seçeneklerini ChoiceChip şeklinde gösteren widget.
+///
+/// Parametreler:
+///
+/// [filter]
+///   Şu anda aktif olan filtre.
+///
+/// [onSelected]
+///   Kullanıcı yeni filtre seçtiğinde çağrılan callback.
+///
+/// Bu widget stateless 'tir.
+/// Çünkü filtre state 'i parent widget tarafından yönetilir.
+/// ============================================================================
 class FilterChips extends StatelessWidget {
-  /// 🔎 Şu an aktif olan filtre.
-  /// Parent widget tarafından belirlenir.
+  /// Aktif filtre
   final FilterOption filter;
 
-  /// 🎯 Kullanıcı bir chip seçtiğinde tetiklenecek callback.
-  /// Filtre değişimini yukarı bildirir.
+  /// Filtre değiştiğinde çağrılır
   final ValueChanged<FilterOption> onSelected;
 
   const FilterChips({
@@ -52,50 +94,49 @@ class FilterChips extends StatelessWidget {
   // ==========================================================================
   // 🏗 build()
   // ==========================================================================
-  /// FilterChips bileşeninin UI ağacını üretir.
-  ///
-  /// İçerik:
-  ///  • ChipTheme: Chip ’lerin genel görsel stilini belirler (renk, font, şekil)
-  ///  • Wrap: Chip ’leri yatay akışta dizer, ekrana sığmazsa alt satıra geçirir
-  ///
-  /// Not:
-  ///  • ChipThemeData içindeki labelStyle / selectedColor gibi ayarlar sayesinde
-  ///    her ChoiceChip’i tek tek özelleştirmek zorunda kalmayız.
+  //
+  // ChipTheme kullanılarak ChoiceChip bileşenlerinin görünümü
+  // merkezi şekilde ayarlanır.
+  //
+  // Wrap widget ise chip 'lerin satır kırarak yerleşmesini sağlar.
+  //
+  // ==========================================================================
   @override
   Widget build(BuildContext context) {
     return ChipTheme(
       data: ChipThemeData(
-        /// Chip ’in seçili değilken arka plan rengi
         backgroundColor: drawerColor,
-
-        /// Chip seçili olduğunda arka plan rengi
         selectedColor: editButtonColor,
 
-        /// Seçili değilken label stili
         labelStyle: const TextStyle(
           fontFamily: 'Oswald',
         ).copyWith(color: menuColor),
 
-        /// Seçiliyken label stili (secondaryLabelStyle)
         secondaryLabelStyle: const TextStyle(
           fontFamily: 'Oswald',
         ).copyWith(color: menuColor),
 
-        /// Chip şekli (oval/stadium)
         shape: const StadiumBorder(),
 
-        /// Material default checkmark ’i kapatıyoruz
+        // Seçildiğinde tik işareti gösterilmez
         showCheckmark: false,
       ),
+
       child: Padding(
         padding: const EdgeInsets.all(6),
+
+        // Wrap sayesinde chip 'ler taşınca alt satıra iner
         child: Wrap(
           spacing: 8,
+
           children: [
-            _filterChip("Tümü", FilterOption.all),
-            _filterChip("Filmler", FilterOption.movies),
-            _filterChip("Diziler", FilterOption.series),
-            _filterChip("Son 30 Gün", FilterOption.last30days),
+            /// ------------------------------------------------------
+            /// Filtre seçenekleri
+            /// ------------------------------------------------------
+            /// Enum üzerinden üretilir.
+            /// Böylece UI içinde string yazılmaz.
+            ///
+            ...FilterOption.values.map((option) => _filterChip(option)),
           ],
         ),
       ),
@@ -103,26 +144,29 @@ class FilterChips extends StatelessWidget {
   }
 
   // ==========================================================================
-  // 🧩 _filterChip()
+  // 🔘 _filterChip()
   // ==========================================================================
-  /// Tek bir filtre seçeneği için ChoiceChip üretir.
-  ///
-  /// Parametreler:
-  ///  • label  : Kullanıcıya görünen yazı
-  ///  • option : Bu chip ’in temsil ettiği FilterOption değeri
-  ///
-  /// Çalışma:
-  ///  • selected = (filter == option) ile seçili durum hesaplanır.
-  ///  • Kullanıcı chip ’e tıklayınca onSelected(option) çağrılır.
-  ///
-  /// Not:
-  ///  • Burada doğrudan filtreleme yapılmaz; sadece seçim değişimi bildirilir.
-  Widget _filterChip(String label, FilterOption option) {
+  //
+  // Tek bir filtre chip 'i üretir.
+  //
+  // Parametre:
+  // [option] → ilgili FilterOption enum değeri
+  //
+  // İşleyiş:
+  //
+  // 1️⃣ option == filter ise chip selected olur
+  // 2️⃣ label enum extension üzerinden alınır
+  // 3️⃣ onSelected callback tetiklenir
+  //
+  // ==========================================================================
+  Widget _filterChip(FilterOption option) {
     final selected = filter == option;
 
     return ChoiceChip(
-      label: Text(label),
+      label: Text(option.label),
+
       selected: selected,
+
       onSelected: (_) => onSelected(option),
     );
   }
