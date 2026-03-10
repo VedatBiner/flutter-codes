@@ -4,46 +4,39 @@
 // 🔎 FilterOption – İçerik Filtreleme Seçenekleri
 // ============================================================================
 //
-// Bu enum uygulamada kullanılacak filtre seçeneklerini temsil eder.
+// Bu enum, uygulamada kullanılacak filtre seçeneklerini temsil eder.
 //
-// Kullanıldığı yerler:
-//
-// • FilterChips widget
-// • Liste filtreleme fonksiyonları
-// • Arama sonuçlarını sınırlamak
+// Neden enum?
+// • Tip güvenliği sağlar
+// • String yazım hatalarını önler
+// • UI ve filtre motoru arasında ortak dil oluşturur
 //
 // ============================================================================
 
-enum FilterOption { all, movies, series, last30days }
+enum FilterOption {
+  all,
+  movies,
+  series,
+  last30days,
+}
 
 /// ============================================================================
 /// 🧩 FilterOptionLabel Extension
 /// ============================================================================
 ///
-/// Bu extension FilterOption enum 'una ek davranış kazandırır.
+/// Enum değerlerini kullanıcıya gösterilecek metne çevirir.
 ///
-/// Amaç:
-/// Enum değerlerini UI ’da gösterilecek metinlere çevirmek.
-///
-/// Örnek:
-///
-/// FilterOption.movies.label  -> "Filmler"
-///
-/// Bu sayede UI tarafında switch-case yazmaya gerek kalmaz.
+/// Böylece UI tarafında sabit string yazmaya gerek kalmaz.
 /// ============================================================================
 extension FilterOptionLabel on FilterOption {
-  /// UI 'da gösterilecek metni döndürür
   String get label {
     switch (this) {
       case FilterOption.all:
         return "Tümü";
-
       case FilterOption.movies:
         return "Filmler";
-
       case FilterOption.series:
         return "Diziler";
-
       case FilterOption.last30days:
         return "Son 30 Gün";
     }

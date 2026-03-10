@@ -60,6 +60,7 @@ import '../utils/search_and_filter.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';
+import '../utils/watchlist_filter_engine.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -202,7 +203,7 @@ class _HomePageState extends State<HomePage> {
   /// Gerçek zamanlı filtreleme ve arama deneyimi sağlamak.
   /// =========================================================================
   void _updateFilteredResults() {
-    final results = applySearchAndFilter(
+    final result = WatchlistFilterEngine.apply(
       searchQuery: searchQuery,
       filter: filter,
       allMovies: allMovies,
@@ -210,8 +211,8 @@ class _HomePageState extends State<HomePage> {
     );
 
     setState(() {
-      movies = (results['movies'] as List).cast<NetflixItem>();
-      series = (results['series'] as List).cast<SeriesGroup>();
+      movies = result.movies;
+      series = result.series;
     });
   }
 
