@@ -13,12 +13,7 @@
 //
 // ============================================================================
 
-enum FilterOption {
-  all,
-  movies,
-  series,
-  last30days,
-}
+enum FilterOption { all, movies, series, last30days }
 
 /// ============================================================================
 /// 🧩 FilterOptionLabel Extension

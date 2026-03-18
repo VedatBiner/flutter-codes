@@ -44,10 +44,12 @@ class FilterChips extends StatelessWidget {
       data: ChipThemeData(
         backgroundColor: drawerColor,
         selectedColor: editButtonColor,
-        labelStyle: const TextStyle(fontFamily: 'Oswald')
-            .copyWith(color: menuColor),
-        secondaryLabelStyle: const TextStyle(fontFamily: 'Oswald')
-            .copyWith(color: menuColor),
+        labelStyle: const TextStyle(
+          fontFamily: 'Oswald',
+        ).copyWith(color: menuColor),
+        secondaryLabelStyle: const TextStyle(
+          fontFamily: 'Oswald',
+        ).copyWith(color: menuColor),
         shape: const StadiumBorder(),
         showCheckmark: false,
       ),

@@ -1,7 +1,7 @@
 // <----- lib/screens/home_page.dart ----->
 //
 // ============================================================================
-// 📺 HomePage – Ana Ekran (Film & Dizi Listeleme Merkezi)
+// 🏠 HomePage – Ana Ekran (Film & Dizi Listeleme Merkezi)
 // ============================================================================
 //
 // Bu dosya uygulamanın ana ekranıdır.
@@ -35,10 +35,10 @@
 //   - Versiyon bilgisi alınır
 //   - Download klasörü hazırlanır
 //   - CSV parse edilir
-//   - Export dosyaları oluşturulur (varsa)
 //
-// ---------------------------------------------------------------------------
-// Bu dosya uygulamanın ana koordinasyon merkezidir.
+// Filtreleme mantığı artık HomePage içinde yazılmaz.
+// Bunun yerine WatchlistFilterEngine kullanılır.
+//
 // ============================================================================
 
 import 'dart:developer';
@@ -56,11 +56,10 @@ import '../models/series_models.dart';
 import '../utils/csv_parser.dart';
 import '../utils/download_directory_helper.dart';
 import '../utils/omdb_lazy_loader.dart';
-import '../utils/search_and_filter.dart';
+import '../utils/watchlist_filter_engine.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_body.dart';
 import '../widgets/custom_drawer.dart';
-import '../utils/watchlist_filter_engine.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -70,24 +69,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // ==========================================================================
+  // 🔎 Arama kontrolcüsü
+  // ==========================================================================
+  // AppBar içindeki arama TextField’ını kontrol eder.
   final _searchController = TextEditingController();
 
+  // ==========================================================================
+  // 📦 Ham veri listeleri
+  // ==========================================================================
+  // CSV ’den parse edilen tüm veriler burada tutulur.
   List<NetflixItem> allMovies = [];
   List<SeriesGroup> allSeries = [];
 
+  // ==========================================================================
+  // 🎯 Filtrelenmiş veri listeleri
+  // ==========================================================================
+  // Arama ve filtre sonrası ekrana gösterilecek listeler burada tutulur.
   List<NetflixItem> movies = [];
   List<SeriesGroup> series = [];
 
+  // ==========================================================================
+  // ⏳ UI state
+  // ==========================================================================
   bool loading = true;
   bool _isSearchVisible = false;
   String searchQuery = "";
   FilterOption filter = FilterOption.all;
 
-  /// ℹ️ Uygulama versiyonu
+  /// ℹ️ Uygulama versiyon bilgisi
   String appVersion = '';
 
   static const tag = "home_page";
 
+  // ==========================================================================
+  // 🚀 initState()
+  // ==========================================================================
+  // Sayfa ilk oluşturulduğunda:
+  // • cihaz bilgisi loglanır
+  // • uygulama versiyonu alınır
+  // • download klasörü hazırlanır
+  // • CSV verisi yüklenir
   @override
   void initState() {
     super.initState();
@@ -98,42 +120,36 @@ class _HomePageState extends State<HomePage> {
     loadData();
   }
 
+  // ==========================================================================
+  // 🧹 dispose()
+  // ==========================================================================
+  // TextEditingController bellekten temizlenir.
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
   }
 
-  /// =========================================================================
-  /// 📦 _getAppVersion
-  /// =========================================================================
-  /// PackageInfo kullanarak uygulamanın versiyon bilgisini alır.
-  ///
-  /// Bu bilgi Drawer içinde veya UI üzerinde gösterilebilir.
-  ///
-  /// Amaç:
-  /// Kullanıcının hangi sürümü kullandığını görünür kılmak.
-  /// =========================================================================
-  Future<void> _getAppVersion() async {
+  // ==========================================================================
+  // 📦 _getAppVersion()
+  // ==========================================================================
+  // package_info_plus ile uygulama versiyonunu alır.
+  // Drawer alt bölümünde kullanıcıya gösterilir.
+  void _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     if (!mounted) return;
     setState(() => appVersion = 'Versiyon: ${info.version}');
   }
 
-  /// =========================================================================
-  /// 📱 _logDeviceInfo
-  /// =========================================================================
-  /// device_info_plus paketi ile cihaz modelini ve Android sürümünü loglar.
-  ///
-  /// Debug amaçlıdır.
-  /// Özellikle gerçek cihaz / emülatör farklarını anlamak için kullanılır.
-  ///
-  /// Amaç:
-  /// OMDb, internet veya dosya erişim sorunlarını cihaz bazında analiz etmek.
-  /// =========================================================================
+  // ==========================================================================
+  // 📱 _logDeviceInfo()
+  // ==========================================================================
+  // Android cihaz modelini ve sürüm bilgilerini log ’a yazar.
+  // Gerçek cihaz / emülatör farklarını izlemek için faydalıdır.
   Future<void> _logDeviceInfo() async {
     final plugin = DeviceInfoPlugin();
     final android = await plugin.androidInfo;
+
     log(logLine, name: tag);
     log("📱 Cihaz: ${android.model}", name: tag);
     log("🧩 Android Sürüm: ${android.version.release}", name: tag);
@@ -141,67 +157,62 @@ class _HomePageState extends State<HomePage> {
     log(logLine, name: tag);
   }
 
-  /// =========================================================================
-  /// 📂 _prepareDownloadDirectory
-  /// =========================================================================
-  /// Download/{appName} klasörünü hazırlar.
-  ///
-  ///  • Gerekirse depolama izni ister.
-  ///  • Download klasörünü oluşturur.
-  ///  • Log çıktısı üretir.
-  ///
-  /// Amaç:
-  /// Export edilen CSV / JSON / XLSX dosyalarının paylaşılabilir
-  /// konuma yazılmasını garanti altına almak.
-  /// =========================================================================
+  // ==========================================================================
+  // 📂 _prepareDownloadDirectory()
+  // ==========================================================================
+  // Download/{appName} klasörünü hazırlamaya çalışır.
+  // Export ve paylaşım işlemlerinin sorunsuz çalışması için ön hazırlıktır.
   Future<void> _prepareDownloadDirectory() async {
     final dir = await prepareDownloadDirectory(tag: tag);
+
     if (dir != null) {
       log("📂 Download klasörü hazır: ${dir.path}", name: tag);
     } else {
       log("⚠️ Download klasörü hazırlanamadı.", name: tag);
     }
+
     log(logLine, name: tag);
   }
 
-  /// =========================================================================
-  /// 📜 loadData
-  /// =========================================================================
-  /// CSV dosyasını parse ederek film ve dizi listelerini oluşturur.
-  ///
-  ///  • CsvParser.parseCsvFast() çağrılır.
-  ///  • Filmler ve diziler ayrı listelere ayrılır.
-  ///  • loading state false yapılır.
-  ///
-  /// Amaç:
-  /// Uygulamanın ana verisini belleğe yüklemek.
-  /// =========================================================================
+  // ==========================================================================
+  // 📜 loadData()
+  // ==========================================================================
+  // CSV verisini parse eder ve:
+  // • allMovies / allSeries listelerine yazar
+  // • ilk filtreleme sonucunu üretir
+  // • loading state ’i kapatır
   Future<void> loadData() async {
     final parsed = await CsvParser.parseCsvFast();
+
     log("📜 CSV dosyası yüklendi.", name: tag);
     log(logLine, name: tag);
 
+    allMovies = parsed.movies;
+    allSeries = parsed.series;
+
+    final result = WatchlistFilterEngine.apply(
+      searchQuery: searchQuery,
+      filter: filter,
+      allMovies: allMovies,
+      allSeries: allSeries,
+    );
+
     if (!mounted) return;
+
     setState(() {
-      allMovies = parsed.movies;
-      allSeries = parsed.series;
-      movies = parsed.movies;
-      series = parsed.series;
+      movies = result.movies;
+      series = result.series;
       loading = false;
     });
   }
 
-  /// =========================================================================
-  /// 🔍 _updateFilteredResults
-  /// =========================================================================
-  /// Arama metni (searchQuery) ve seçili filtreye göre
-  /// film ve dizi listelerini yeniden hesaplar.
-  ///
-  /// applySearchAndFilter() yardımcı fonksiyonunu kullanır.
-  ///
-  /// Amaç:
-  /// Gerçek zamanlı filtreleme ve arama deneyimi sağlamak.
-  /// =========================================================================
+  // ==========================================================================
+  // 🔄 _updateFilteredResults()
+  // ==========================================================================
+  // Arama metni ve aktif filtreye göre film/dizi listelerini yeniden hesaplar.
+  //
+  // Bu mantık artık doğrudan burada yazılmaz.
+  // WatchlistFilterEngine.apply(...) çağrılır.
   void _updateFilteredResults() {
     final result = WatchlistFilterEngine.apply(
       searchQuery: searchQuery,
@@ -216,39 +227,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  /// =========================================================================
-  /// 🌐 loadOmdb
-  /// =========================================================================
-  /// Bir filme ait OMDb bilgilerini lazy-loading yöntemiyle yükler.
-  ///
-  ///  • Eğer filmde imdbId veya originalTitle yoksa API çağrısı yapılır.
-  ///  • Poster, yıl, tür ve rating bilgileri doldurulur.
-  ///  • setState() ile UI güncellenir.
-  ///
-  /// Amaç:
-  /// Gereksiz API çağrılarından kaçınarak performansı korumak.
-  /// =========================================================================
+  // ==========================================================================
+  // 🌐 loadOmdb()
+  // ==========================================================================
+  // Filme ait OMDb bilgisini ihtiyaç halinde yükler.
+  // Poster, yıl, tür ve rating bilgileri burada doldurulur.
   Future<void> loadOmdb(NetflixItem movie) async {
     await OmdbLazyLoader.loadOmdbIfNeeded(movie);
     if (!mounted) return;
     setState(() {});
   }
 
-  /// =========================================================================
-  /// 🏗 build
-  /// =========================================================================
-  /// Ana ekranın UI ağacını oluşturur.
-  ///
-  /// Bileşenler:
-  ///  • CustomAppBar
-  ///  • CustomDrawer
-  ///  • CustomBody (Film & Dizi listeleri)
-  ///
-  /// Tema (Light/Dark) kontrolü burada dinamik olarak uygulanır.
-  ///
-  /// Amaç:
-  /// Tüm ana ekran layout ’unu tek merkezden üretmek.
-  /// =========================================================================
+  // ==========================================================================
+  // 🏗 build()
+  // ==========================================================================
+  // Ana sayfanın UI ağacını üretir:
+  // • CustomAppBar
+  // • CustomDrawer
+  // • CustomBody
   @override
   Widget build(BuildContext context) {
     final isLightTheme = Theme.of(context).brightness == Brightness.light;
@@ -257,11 +253,14 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: isLightTheme ? cardLightColor : null,
 
+        // 🔵 AppBar
         appBar: CustomAppBar(
           isSearchVisible: _isSearchVisible,
+
           onSearchPressed: () {
             setState(() {
               _isSearchVisible = !_isSearchVisible;
+
               if (!_isSearchVisible) {
                 _searchController.clear();
                 searchQuery = "";
@@ -269,38 +268,44 @@ class _HomePageState extends State<HomePage> {
               }
             });
           },
+
           onStatsPressed: () {
             Get.toNamed(
               '/stats',
-              arguments: {'movies': allMovies, 'series': allSeries},
+              arguments: {
+                'movies': allMovies,
+                'series': allSeries,
+              },
             );
           },
+
           searchController: _searchController,
+
           onSearchChanged: (value) {
-            setState(() {
-              searchQuery = value;
-              _updateFilteredResults();
-            });
+            searchQuery = value;
+            _updateFilteredResults();
           },
         ),
 
+        // 🔵 Drawer
         drawer: CustomDrawer(
           appVersion: appVersion,
           allMovies: allMovies,
           allSeries: allSeries,
         ),
 
+        // 🔵 Body
         body: CustomBody(
           loading: loading,
           movies: movies,
           series: series,
           filter: filter,
+
           onFilterSelected: (newFilter) {
-            setState(() {
-              filter = newFilter;
-              _updateFilteredResults();
-            });
+            filter = newFilter;
+            _updateFilteredResults();
           },
+
           onMovieTap: (movie) => loadOmdb(movie),
         ),
       ),

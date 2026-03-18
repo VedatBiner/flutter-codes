@@ -1,25 +1,40 @@
 // 📁 <----- lib/utils/watchlist_filter_engine.dart ----->
 //
 // ============================================================================
-// 🧠 WatchlistFilterEngine – Arama ve Filtreleme Motoru
+// 🧠 WatchlistFilterEngine – Film & Dizi Filtreleme Motoru
 // ============================================================================
 //
-// Bu yardımcı yapı, film ve dizi listelerini:
+// Bu yardımcı sınıf Netflix izleme listesindeki:
 //
-// • arama metni
-// • seçili filtre
+// • film listesi
+// • dizi listesi
 //
-// bilgilerine göre yeniden hesaplar.
-//
-// ---------------------------------------------------------------------------
-// 🎯 Amaç
-// ---------------------------------------------------------------------------
-// Filtreleme mantığını HomePage içinden çıkarıp tek bir yerde toplamak.
+// üzerinde arama ve filtreleme işlemlerini merkezi olarak yapar.
 //
 // Böylece:
-// • HomePage sadeleşir
-// • test etmek kolaylaşır
-// • yeni filtre eklemek kolaylaşır
+//
+// ❌ HomePage içinde uzun filtre kodları olmaz
+// ❌ filtreleme mantığı UI içine karışmaz
+//
+// Bunun yerine:
+//
+// ✅ filtre mantığı tek dosyada olur
+// ✅ test etmek kolaylaşır
+// ✅ yeni filtre eklemek kolay olur
+//
+// ---------------------------------------------------------------------------
+// 📌 Kullanım
+// ---------------------------------------------------------------------------
+//
+// final result = WatchlistFilterEngine.apply(
+//   searchQuery: searchQuery,
+//   filter: filter,
+//   allMovies: allMovies,
+//   allSeries: allSeries,
+// );
+//
+// movies = result.movies;
+// series = result.series;
 //
 // ============================================================================
 
@@ -28,16 +43,21 @@ import '../models/netflix_item.dart';
 import '../models/series_models.dart';
 import 'csv_parser.dart';
 
+
 /// ============================================================================
 /// 📦 WatchlistFilterResult
 /// ============================================================================
 ///
-/// Filtreleme sonrası dönen sonucu temsil eder.
+/// Filtreleme sonucunda dönen modeldir.
+///
+/// İçerir:
 ///
 /// • movies → filtrelenmiş film listesi
 /// • series → filtrelenmiş dizi listesi
+///
 /// ============================================================================
 class WatchlistFilterResult {
+
   final List<NetflixItem> movies;
   final List<SeriesGroup> series;
 
@@ -45,144 +65,190 @@ class WatchlistFilterResult {
     required this.movies,
     required this.series,
   });
+
 }
+
+
 
 /// ============================================================================
 /// 🧠 WatchlistFilterEngine
 /// ============================================================================
 ///
-/// Film ve dizi listeleri üzerinde arama + filtre uygular.
+/// Film ve diziler için arama + filtre işlemlerini yapan motor.
+///
+/// Bu sınıf statik metotlardan oluşur.
+/// State tutmaz.
+///
 /// ============================================================================
 class WatchlistFilterEngine {
+
   /// =========================================================================
-  /// 🔍 apply()
+  /// 🚀 apply()
   /// =========================================================================
   ///
-  /// Girilen arama metni ve filtre seçeneğine göre
-  /// film ve dizi listelerini yeniden hesaplar.
+  /// Tüm filtreleme işlemini başlatan ana fonksiyondur.
+  ///
+  /// Parametreler:
+  ///
+  /// • searchQuery → kullanıcı arama metni
+  /// • filter → aktif filtre
+  /// • allMovies → tüm film listesi
+  /// • allSeries → tüm dizi listesi
   ///
   /// İşleyiş:
-  /// 1) Önce arama metni uygulanır
-  /// 2) Sonra seçili filtre uygulanır
-  /// 3) Sonuç WatchlistFilterResult olarak döner
   ///
-  /// Arama mantığı:
-  /// • Filmler → sadece title içinde arar
-  /// • Diziler  → dizi adında veya bölüm adlarında arar
+  /// 1️⃣ arama uygulanır
+  /// 2️⃣ filtre uygulanır
   ///
-  /// Filtre mantığı:
-  /// • all        → her şeyi göster
-  /// • movies     → sadece filmler
-  /// • series     → sadece diziler
-  /// • last30days → son 30 gün içindeki içerikler
   /// =========================================================================
   static WatchlistFilterResult apply({
+
     required String searchQuery,
     required FilterOption filter,
     required List<NetflixItem> allMovies,
     required List<SeriesGroup> allSeries,
+
   }) {
+
     final query = searchQuery.toLowerCase().trim();
 
-    List<NetflixItem> filteredMovies = _applyMovieSearch(
-      allMovies: allMovies,
+    final searchedMovies = _applyMovieSearch(
+      movies: allMovies,
       query: query,
     );
 
-    List<SeriesGroup> filteredSeries = _applySeriesSearch(
-      allSeries: allSeries,
+    final searchedSeries = _applySeriesSearch(
+      series: allSeries,
       query: query,
     );
 
-    final filtered = _applyFilterOption(
+    return _applyFilterOption(
       filter: filter,
-      movies: filteredMovies,
-      series: filteredSeries,
-    );
-
-    return WatchlistFilterResult(
-      movies: filtered.movies,
-      series: filtered.series,
+      movies: searchedMovies,
+      series: searchedSeries,
     );
   }
 
+
+
   /// =========================================================================
-  /// 🎬 _applyMovieSearch()
+  /// 🎬 Film Araması
   /// =========================================================================
   ///
-  /// Film listesinde başlığa göre arama yapar.
+  /// Film başlığı üzerinden arama yapar.
+  ///
   /// =========================================================================
   static List<NetflixItem> _applyMovieSearch({
-    required List<NetflixItem> allMovies,
-    required String query,
-  }) {
-    if (query.isEmpty) return List<NetflixItem>.from(allMovies);
 
-    return allMovies.where((movie) {
-      return movie.title.toLowerCase().contains(query);
+    required List<NetflixItem> movies,
+    required String query,
+
+  }) {
+
+    if (query.isEmpty) {
+      return List.from(movies);
+    }
+
+    return movies.where((movie) {
+
+      return movie.title
+          .toLowerCase()
+          .contains(query);
+
     }).toList();
   }
 
   /// =========================================================================
-  /// 📺 _applySeriesSearch()
+  /// 📺 Dizi Araması
   /// =========================================================================
   ///
-  /// Dizi listesinde:
+  /// Arama alanları:
+  ///
   /// • dizi adı
   /// • bölüm adı
   ///
-  /// alanlarında arama yapar.
   /// =========================================================================
   static List<SeriesGroup> _applySeriesSearch({
-    required List<SeriesGroup> allSeries,
-    required String query,
-  }) {
-    if (query.isEmpty) return List<SeriesGroup>.from(allSeries);
 
-    return allSeries.where((group) {
-      final seriesMatch = group.seriesName.toLowerCase().contains(query);
+    required List<SeriesGroup> series,
+    required String query,
+
+  }) {
+
+    if (query.isEmpty) {
+      return List.from(series);
+    }
+
+    return series.where((group) {
+
+      final seriesMatch =
+      group.seriesName
+          .toLowerCase()
+          .contains(query);
 
       final episodeMatch = group.seasons.any(
+
             (season) => season.episodes.any(
-              (episode) => episode.title.toLowerCase().contains(query),
+
+              (ep) => ep.title
+              .toLowerCase()
+              .contains(query),
+
         ),
+
       );
 
       return seriesMatch || episodeMatch;
+
     }).toList();
   }
 
+
+
   /// =========================================================================
-  /// 🎛 _applyFilterOption()
+  /// 🎛 Filtre Seçeneği Uygulama
   /// =========================================================================
   ///
-  /// Seçili filtre seçeneğine göre film ve dizi listelerini sınırlar.
+  /// Kullanıcının seçtiği FilterOption değerine göre
+  /// listeyi sınırlar.
+  ///
   /// =========================================================================
   static WatchlistFilterResult _applyFilterOption({
+
     required FilterOption filter,
     required List<NetflixItem> movies,
     required List<SeriesGroup> series,
+
   }) {
+
     switch (filter) {
+
       case FilterOption.all:
+
         return WatchlistFilterResult(
           movies: movies,
           series: series,
         );
 
+
       case FilterOption.movies:
+
         return WatchlistFilterResult(
           movies: movies,
           series: const [],
         );
 
+
       case FilterOption.series:
+
         return WatchlistFilterResult(
           movies: const [],
           series: series,
         );
 
+
       case FilterOption.last30days:
+
         return _filterLast30Days(
           movies: movies,
           series: series,
@@ -190,39 +256,64 @@ class WatchlistFilterEngine {
     }
   }
 
+
+
   /// =========================================================================
-  /// 🕒 _filterLast30Days()
+  /// 🕒 Son 30 Gün Filtresi
   /// =========================================================================
   ///
-  /// Son 30 gün içindeki:
-  /// • filmleri
-  /// • en az bir bölümü son 30 günde izlenmiş dizileri
+  /// Son 30 gün içinde izlenen içerikleri döndürür.
   ///
-  /// döndürür.
+  /// Filmler:
+  /// movie.date
+  ///
+  /// Diziler:
+  /// en son izlenen bölüm tarihi
+  ///
   /// =========================================================================
   static WatchlistFilterResult _filterLast30Days({
+
     required List<NetflixItem> movies,
     required List<SeriesGroup> series,
+
   }) {
+
     final now = DateTime.now();
-    final last30 = now.subtract(const Duration(days: 30));
+
+    final last30Days =
+    now.subtract(
+      const Duration(days: 30),
+    );
+
 
     final filteredMovies = movies.where((movie) {
-      return parseDate(movie.date).isAfter(last30);
+
+      final date = parseDate(movie.date);
+
+      return date.isAfter(last30Days);
+
     }).toList();
+
+
 
     final filteredSeries = series.where((group) {
-      final latestEpisodeDate = group.seasons
-          .expand((season) => season.episodes)
-          .map((episode) => parseDate(episode.date))
+
+      final latestDate = group.seasons
+          .expand((s) => s.episodes)
+          .map((ep) => parseDate(ep.date))
           .reduce((a, b) => a.isAfter(b) ? a : b);
 
-      return latestEpisodeDate.isAfter(last30);
+      return latestDate.isAfter(last30Days);
+
     }).toList();
 
+
     return WatchlistFilterResult(
+
       movies: filteredMovies,
       series: filteredSeries,
+
     );
   }
+
 }
