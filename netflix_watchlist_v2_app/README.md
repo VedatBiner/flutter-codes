@@ -108,6 +108,11 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 101. `theme_controllers.dart` ve `filter_options.dart` için detaylı açıklama yazıldı. - 08.03.2026
 102. `filter_chips.dart` ve `home_page.dart` dosyaları güncellendi. - 08.03.2026
 103. `watchlist_filter_engine.dart` dosyası oluşturuldu. - 08.03.2026
+104. `watchlist_controller.dart` ve `watchlisr_repository.dart` dosyaları oluşturuldu. - 27.03.2026
+105. `filer_option.dart`, `filter_chips.dart` ve `watchlist_filter_engine.dart` dosyaları güncellendi. - 28.03.2026
+106. `csv_parser.dart` dosyası güncellendi. - 28.03.2026
+107. `csv` paketi 6.0.0 yapıldı. - 28.03.2026
+
 
 
 

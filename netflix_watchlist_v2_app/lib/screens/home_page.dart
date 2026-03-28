@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
   // 🔎 Arama kontrolcüsü
   // ==========================================================================
   // AppBar içindeki arama TextField’ını kontrol eder.
-  final _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   // ==========================================================================
   // 📦 Ham veri listeleri
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
   /// ℹ️ Uygulama versiyon bilgisi
   String appVersion = '';
 
-  static const tag = "home_page";
+  static const String tag = "home_page";
 
   // ==========================================================================
   // 🚀 initState()
@@ -135,10 +135,13 @@ class _HomePageState extends State<HomePage> {
   // ==========================================================================
   // package_info_plus ile uygulama versiyonunu alır.
   // Drawer alt bölümünde kullanıcıya gösterilir.
-  void _getAppVersion() async {
+  Future<void> _getAppVersion() async {
     final info = await PackageInfo.fromPlatform();
     if (!mounted) return;
-    setState(() => appVersion = 'Versiyon: ${info.version}');
+
+    setState(() {
+      appVersion = 'Versiyon: ${info.version}';
+    });
   }
 
   // ==========================================================================
@@ -221,6 +224,8 @@ class _HomePageState extends State<HomePage> {
       allSeries: allSeries,
     );
 
+    if (!mounted) return;
+
     setState(() {
       movies = result.movies;
       series = result.series;
@@ -256,7 +261,6 @@ class _HomePageState extends State<HomePage> {
         // 🔵 AppBar
         appBar: CustomAppBar(
           isSearchVisible: _isSearchVisible,
-
           onSearchPressed: () {
             setState(() {
               _isSearchVisible = !_isSearchVisible;
@@ -268,7 +272,6 @@ class _HomePageState extends State<HomePage> {
               }
             });
           },
-
           onStatsPressed: () {
             Get.toNamed(
               '/stats',
@@ -278,9 +281,7 @@ class _HomePageState extends State<HomePage> {
               },
             );
           },
-
           searchController: _searchController,
-
           onSearchChanged: (value) {
             searchQuery = value;
             _updateFilteredResults();
@@ -300,12 +301,10 @@ class _HomePageState extends State<HomePage> {
           movies: movies,
           series: series,
           filter: filter,
-
           onFilterSelected: (newFilter) {
             filter = newFilter;
             _updateFilteredResults();
           },
-
           onMovieTap: (movie) => loadOmdb(movie),
         ),
       ),
