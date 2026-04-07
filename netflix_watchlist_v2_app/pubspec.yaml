@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.8          # iOS stilinde ikonlar
 
   csv: ^6.0.0                      # CSV dosyalarını okuma/yazma
+
   http:                            # HTTP istekleri (GET/POST)
   fl_chart:                        # Grafik ve şema oluşturma
   elegant_notification:            # Başarılı/hata bildirimleri
