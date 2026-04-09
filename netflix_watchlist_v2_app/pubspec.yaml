@@ -55,7 +55,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/database/NetflixFilmHistory.csv
+    - assets/database/NetflixFilmHistory-ENG.csv
     - assets/images/
 
   fonts:

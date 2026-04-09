@@ -112,6 +112,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 105. `filer_option.dart`, `filter_chips.dart` ve `watchlist_filter_engine.dart` dosyaları güncellendi. - 28.03.2026
 106. `csv_parser.dart` dosyası güncellendi. - 28.03.2026
 107. `csv` paketi 6.0.0 yapıldı. - 28.03.2026
+108. `NetflixFilmHistory.csv` dosyası, `NetflixFilmHistory-ENG.csv` ve `NetflixFilmHistory-TR.csv` olarak iki ayrı dosya olarak alındı. - 09.04.2026
+109. `File_info.dart` dosyası düzeltildi. - 09.04.2026
 
 
 
