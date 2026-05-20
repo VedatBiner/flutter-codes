@@ -114,6 +114,9 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 107. `csv` paketi 6.0.0 yapıldı. - 28.03.2026
 108. `NetflixFilmHistory.csv` dosyası, `NetflixFilmHistory-ENG.csv` ve `NetflixFilmHistory-TR.csv` olarak iki ayrı dosya olarak alındı. - 09.04.2026
 109. `File_info.dart` dosyası düzeltildi. - 09.04.2026
+110. `movie_tile.dart` ve `series_tile.dart` dosyalarında düzeltme yapıldı. - 20.05.2026
+111. `settings.gradle.kts` dosyası güncellendi. - 20.05.2026
+112. 
 
 
 

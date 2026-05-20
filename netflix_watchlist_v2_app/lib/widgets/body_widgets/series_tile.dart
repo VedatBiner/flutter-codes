@@ -56,16 +56,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🏷 Hero Tag
   // ==========================================================================
-  /// Bu getter Hero animasyonunda kullanılan benzersiz etiketi üretir.
-  ///
-  /// Neden gerekli?
-  /// - Hero animasyonunda aynı tag ’e sahip iki widget çakışırsa animasyon bozulur.
-  /// - imdbId varsa onu kullanmak en güvenilir yöntemdir (global unique).
-  /// - imdbId yoksa fallback olarak seriesName kullanırız.
-  ///
-  /// Kullanıldığı yerler:
-  /// - Listede küçük poster thumbnail (Hero source)
-  /// - PosterViewerPage içinde büyük poster (Hero destination)
   String get _heroTag {
     final id = widget.group.imdbId;
     if (id != null && id.isNotEmpty) {
@@ -77,15 +67,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🔎 OMDb Verisi Yüklü mü?
   // ==========================================================================
-  /// Bu getter, ilgili dizi için OMDb verisinin “yüklenmiş” kabul edilip
-  /// edilmeyeceğini belirler.
-  ///
-  /// Buradaki kriter:
-  /// - imdbId doluysa: OMDb başarılı bir şekilde bulunmuş / çekilmiş demektir.
-  ///
-  /// Not:
-  /// - poster, year, genre gibi alanlar bazen OMDb ’de "N/A" dönebilir.
-  /// - Yine de imdbId dolu ise “bu dizi OMDb ’de eşleşti” demek yeterli.
   bool get _isLoaded {
     final id = widget.group.imdbId;
     return id != null && id.isNotEmpty;
@@ -94,24 +75,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🔄 OMDb Lazy Load
   // ==========================================================================
-  /// Dizinin OMDb bilgilerini "lazily" yükler.
-  ///
-  /// Ne zaman çağrılır?
-  /// - Dizi satırına tıklanınca (title/subtitle/leading)
-  /// - ExpansionTile açılınca (kullanıcı ok ’a basarsa)
-  /// - Long press ile poster açılmak istendiğinde
-  ///
-  /// Neden bu yöntem?
-  /// - Tüm diziler için OMDb’yi açılışta çekmek pahalı (yavaş + quota riski).
-  /// - Kullanıcı sadece ilgilendiği dizinin detaylarını görmek ister.
-  ///
-  /// Nasıl çalışır?
-  /// 1) Zaten _loading true ise yeni istek başlatmaz.
-  /// 2) Zaten _isLoaded ise tekrar API çağrısı yapmaz.
-  /// 3) OmdbSeriesLoader.loadIfNeeded(widget.group) çağrılır:
-  ///    - Eğer group içinde imdbId yoksa OMDb ’ye gider
-  ///    - Bulduğu verileri group.year/genre/rating/poster/imdbId alanlarına yazar
-  /// 4) UI state güncellenir (_loading false)
   Future<void> _ensureLoaded() async {
     if (_loading) return;
     if (_isLoaded) return;
@@ -132,18 +95,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🖼 Poster Fullscreen Viewer (Hero + Swipe-to-close)
   // ==========================================================================
-  /// Dizinin posterini tam ekranda açar.
-  ///
-  /// Akış:
-  /// 1) Önce _ensureLoaded() çağrılır → poster bilgisi gelmiş olabilir.
-  /// 2) Poster hala yoksa kullanıcıya SnackBar ile bilgi verilir.
-  /// 3) Poster varsa PosterViewerPage açılır:
-  ///    - Hero animasyon ile yumuşak geçiş
-  ///    - PosterViewerPage içinde swipe-to-close / tap-to-close destekli
-  ///
-  /// Neden PageRouteBuilder?
-  /// - opaque:false ile arka planı “yarı saydam” yapabiliyoruz.
-  /// - FadeTransition ile daha sinematik bir geçiş elde edilir.
   Future<void> _openPosterFullScreen() async {
     await _ensureLoaded();
     if (!mounted) return;
@@ -172,18 +123,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🎬 Leading (Poster Thumbnail veya TV ikonu)
   // ==========================================================================
-  /// Listede satırın sol tarafında görünen “leading” alanını üretir.
-  ///
-  /// İki durum var:
-  /// - Poster yoksa: Icons.tv gösterilir (placeholder)
-  /// - Poster varsa: küçük thumbnail gösterilir (Hero ile sarılı)
-  ///
-  /// Ayrıca kullanıcı deneyimi için:
-  /// - Leading ’e tap → OMDb yükleme tetiklenir (poster hemen gelmeyebilir)
-  /// - Leading ’e long press → poster tam ekran açılır
-  ///
-  /// Böylece kullanıcı sadece dizi adına değil, görsele basarak da
-  /// aynı etkileşimi yapabilir.
   Widget _buildLeading() {
     final poster = widget.group.poster;
 
@@ -217,16 +156,6 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🧾 Subtitle (Yıl / Tür / IMDB)
   // ==========================================================================
-  /// Dizi adının altında görünen açıklama satırını üretir.
-  ///
-  /// 3 durum yönetir:
-  /// 1) _loading true → “Bilgiler yükleniyor...”
-  /// 2) OMDb henüz yüklenmediyse → kullanıcıya yönlendirme metni
-  /// 3) OMDb yüklüyse → yıl / tür / IMDb rating tek satırda gösterilir
-  ///
-  /// Format:
-  ///   "{Yıl} {Tür}  IMDB: {Rating}"
-  /// Boş gelen alanlar varsa (örn. genre yok) otomatik atlanır.
   String _subtitleText() {
     if (_loading) return "Bilgiler yükleniyor...";
     if (!_isLoaded) return "Dokun → poster / IMDB / tür";
@@ -248,36 +177,19 @@ class _SeriesTileState extends State<SeriesTile> {
   // ==========================================================================
   // 🏗 build
   // ==========================================================================
-  /// Widget ağacını üretir.
-  ///
-  /// Yapı:
-  /// - Container: light mode ’da arka planı cardLightColor yapar
-  /// - ExpansionTile:
-  ///   • leading: _buildLeading()
-  ///   • title: dizi adı (GestureDetector ile tap/long press)
-  ///   • subtitle: _subtitleText() (GestureDetector ile tap/long press)
-  ///   • onExpansionChanged: açıldığında _ensureLoaded()
-  ///   • children: sezon ve bölüm listesi (nested ExpansionTile + ListTile)
-  ///
-  /// Kritik not:
-  /// ExpansionTile’ın kendi üzerinde onLongPress yok.
-  /// Bu yüzden title / subtitle / leading üzerine GestureDetector koyuyoruz.
   @override
   Widget build(BuildContext context) {
     final textColor = widget.isLightTheme ? Colors.black : null;
+    final bgColor = widget.isLightTheme ? cardLightColor : Colors.transparent;
 
-    return Container(
-      color: widget.isLightTheme ? cardLightColor : null,
+    return Material(
+      color: bgColor,
       child: ExpansionTile(
         maintainState: true,
-        backgroundColor: widget.isLightTheme ? cardLightColor : null,
-        collapsedBackgroundColor: widget.isLightTheme ? cardLightColor : null,
         iconColor: widget.isLightTheme ? Colors.black : null,
         collapsedIconColor: widget.isLightTheme ? Colors.black : null,
-
         leading: _buildLeading(),
 
-        // ✅ Title üstünden tap/longPress yönetimi
         title: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: _ensureLoaded,
@@ -288,7 +200,6 @@ class _SeriesTileState extends State<SeriesTile> {
           ),
         ),
 
-        // ✅ Yıl / tür / IMDB sadece dizi adı altında
         subtitle: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: _ensureLoaded,
@@ -296,7 +207,6 @@ class _SeriesTileState extends State<SeriesTile> {
           child: Text(_subtitleText(), style: TextStyle(color: textColor)),
         ),
 
-        // Expansion açılınca da yükleyelim (kullanıcı ok ’a basarsa)
         onExpansionChanged: (open) async {
           if (open) {
             await _ensureLoaded();
@@ -304,27 +214,28 @@ class _SeriesTileState extends State<SeriesTile> {
           }
         },
 
-        // Sezonlar + bölümler
         children: widget.group.seasons.map((season) {
-          return ExpansionTile(
-            backgroundColor: widget.isLightTheme ? cardLightColor : null,
-            collapsedBackgroundColor: widget.isLightTheme
-                ? cardLightColor
-                : null,
-            iconColor: widget.isLightTheme ? Colors.black : null,
-            collapsedIconColor: widget.isLightTheme ? Colors.black : null,
-            title: Text(
-              "Sezon ${season.seasonNumber}",
-              style: TextStyle(color: textColor),
+          return Material(
+            color: bgColor,
+            child: ExpansionTile(
+              iconColor: widget.isLightTheme ? Colors.black : null,
+              collapsedIconColor: widget.isLightTheme ? Colors.black : null,
+              title: Text(
+                "Sezon ${season.seasonNumber}",
+                style: TextStyle(color: textColor),
+              ),
+              children: season.episodes.map((ep) {
+                return Material(
+                  color: bgColor,
+                  child: ListTile(
+                    textColor: textColor,
+                    iconColor: textColor,
+                    title: Text(ep.title),
+                    subtitle: Text(formatDate(parseDate(ep.date))),
+                  ),
+                );
+              }).toList(),
             ),
-            children: season.episodes.map((ep) {
-              return ListTile(
-                tileColor: widget.isLightTheme ? cardLightColor : null,
-                textColor: textColor,
-                title: Text(ep.title),
-                subtitle: Text(formatDate(parseDate(ep.date))),
-              );
-            }).toList(),
           );
         }).toList(),
       ),

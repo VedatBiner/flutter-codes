@@ -62,17 +62,6 @@ class MovieTile extends StatelessWidget {
   /// =========================================================================
   /// 🏷 Hero Tag (benzersiz anahtar)
   /// =========================================================================
-  /// Poster büyütme ekranına geçerken Hero animasyonunun doğru çalışması için
-  /// benzersiz bir tag gerekir.
-  ///
-  /// Öncelik:
-  /// 1) imdbId varsa (en güvenilir benzersiz id)
-  /// 2) yoksa title + date kombinasyonu
-  ///
-  /// Böylece:
-  /// - Aynı isimli filmler çakışmaz
-  /// - Aynı film farklı tarihlerde izlendiyse ayrı kayıtlar da çakışmaz
-  /// =========================================================================
   String get _heroTag {
     final id = movie.imdbId;
     if (id != null && id.isNotEmpty) return "poster_$id";
@@ -81,12 +70,6 @@ class MovieTile extends StatelessWidget {
 
   /// =========================================================================
   /// 🖼 Poster Thumbnail (leading)
-  /// =========================================================================
-  /// Film poster ’i varsa küçük bir thumbnail gösterir.
-  /// Yoksa standart movie ikonu gösterilir.
-  ///
-  /// errorBuilder:
-  /// - URL bozuksa veya yükleme başarısız olursa icon ’a düşer
   /// =========================================================================
   Widget _buildLeading() {
     final poster = movie.poster;
@@ -113,11 +96,6 @@ class MovieTile extends StatelessWidget {
   /// =========================================================================
   /// 🧾 Alt metin (subtitle) üretimi
   /// =========================================================================
-  /// 1. satır: Tarih (Netflix CSV formatı → DD/MM/YYYY)
-  /// 2. satır: Yıl + Tür + IMDb rating
-  ///
-  /// rating boşsa "..." gösterir (kullanıcı dokununca yüklenebilir).
-  /// =========================================================================
   String _buildSubtitle() {
     final watchDate = formatDate(parseDate(movie.date));
 
@@ -125,7 +103,6 @@ class MovieTile extends StatelessWidget {
     final genre = (movie.genre ?? '').trim();
     final rating = (movie.rating ?? '...').trim();
 
-    // Boşlukları daha temiz birleştirelim
     final metaParts = <String>[];
     if (year.isNotEmpty) metaParts.add(year);
     if (genre.isNotEmpty) metaParts.add(genre);
@@ -140,13 +117,6 @@ class MovieTile extends StatelessWidget {
 
   /// =========================================================================
   /// 🖼 Poster tam ekran aç (long press)
-  /// =========================================================================
-  /// Poster varsa PosterViewerPage’e gider.
-  /// Poster yoksa hiçbir şey yapmaz (sessizce return).
-  ///
-  /// Route:
-  /// - PageRouteBuilder ile transparan/opaque:false
-  /// - FadeTransition ile yumuşak açılış
   /// =========================================================================
   void _openPosterViewer(BuildContext context) {
     final poster = movie.poster;
@@ -168,32 +138,19 @@ class MovieTile extends StatelessWidget {
   /// =========================================================================
   /// 🏗 build
   /// =========================================================================
-  /// Film satırını üretir:
-  ///  • leading: poster veya movie ikonu
-  ///  • title: film adı
-  ///  • subtitle: tarih + (yıl / tür / rating)
-  ///  • onTap: OMDb yükleme callback ’i
-  ///  • onLongPress: poster viewer (Hero + swipe-to-close)
-  /// =========================================================================
   @override
   Widget build(BuildContext context) {
     final tileTextColor = isLightTheme ? Colors.black : null;
 
-    return Container(
-      color: isLightTheme ? cardLightColor : null,
+    return Material(
+      color: isLightTheme ? cardLightColor : Colors.transparent,
       child: ListTile(
         iconColor: tileTextColor,
         textColor: tileTextColor,
-
         leading: _buildLeading(),
         title: Text(movie.title),
         subtitle: Text(_buildSubtitle()),
-
-        /// Film satırına dokununca üst katmana sinyal gönder:
-        /// (ör. OMDb lazy load tetiklenecek)
         onTap: () => onMovieTap(movie),
-
-        /// Uzun basınca poster büyütme
         onLongPress: () => _openPosterViewer(context),
       ),
     );
