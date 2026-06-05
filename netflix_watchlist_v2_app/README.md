@@ -116,7 +116,10 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 109. `File_info.dart` dosyası düzeltildi. - 09.04.2026
 110. `movie_tile.dart` ve `series_tile.dart` dosyalarında düzeltme yapıldı. - 20.05.2026
 111. `settings.gradle.kts` dosyası güncellendi. - 20.05.2026
-112. 
+112. `settings.gradle.kts` ve `gradle-wrapper.properties` dosyası güncellendi. - 05.06.2026
+113. `build.gradle.kts` dosyası güncellendi. - 05.06.2026
+114. `csv_parser.dart`, `export_items.dart` ve `export_file_service.dart` dosyası güncellendi. - 05.06.2026
+115. 
 
 
 

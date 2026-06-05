@@ -104,7 +104,7 @@ class LoadingBottomBanner extends StatelessWidget {
     return SafeArea(
       bottom: true,
       child: Material(
-        color: Colors.black.withOpacity(0.88),
+        color: Colors.black.withValues(alpha: 0.88),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
           child: Text(

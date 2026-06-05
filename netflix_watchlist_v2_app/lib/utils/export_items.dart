@@ -104,7 +104,7 @@ Future<ExportItems> exportItemsToFileFormats({
       csvData.add([item.title, formattedDate]);
     }
 
-    final csvString = const ListToCsvConverter().convert(csvData);
+    final csvString = csv.encode(csvData);
     await File(tempCsvPath).writeAsString(csvString);
     log("📄 TEMP CSV (dd/MM/yyyy): $tempCsvPath", name: tag);
 

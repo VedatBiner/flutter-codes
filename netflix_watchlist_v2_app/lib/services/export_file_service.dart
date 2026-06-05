@@ -44,8 +44,8 @@ class ExportFileService {
       ...items.map((e) => [e.title, e.date]),
     ];
 
-    final csv = const ListToCsvConverter().convert(data);
-    await File(path).writeAsString(csv);
+    final csvText = csv.encode(data);
+    await File(path).writeAsString(csvText);
   }
 
   // ==========================================================================

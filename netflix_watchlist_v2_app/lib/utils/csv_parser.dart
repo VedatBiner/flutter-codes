@@ -288,7 +288,7 @@ DateTime _latestEpisodeDate(SeriesGroup g) {
 //
 // ============================================================================
 ParsedNetflixData _parseAndStructureData(String raw) {
-  final rows = CsvToListConverter().convert(raw, eol: "\n");
+  final rows = csv.decode(raw);
 
   // Başlık satırını kaldır
   if (rows.isNotEmpty) {

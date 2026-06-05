@@ -235,7 +235,7 @@ class _PosterViewerPageState extends State<PosterViewerPage>
     return Scaffold(
       // Drag ile değişen arka plan opaklığı:
       // - Sürükleme arttıkça arka plan daha şeffaf olur.
-      backgroundColor: Colors.black.withOpacity(_backgroundOpacity(size)),
+      backgroundColor: Colors.black.withValues(alpha: _backgroundOpacity(size)),
       body: GestureDetector(
         // Boş alanlara da tıklayınca kapanması için:
         behavior: HitTestBehavior.opaque,
