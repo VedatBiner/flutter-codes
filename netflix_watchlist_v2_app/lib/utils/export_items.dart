@@ -8,6 +8,12 @@
 // ✅ CSV/JSON içinde Date formatı: dd/MM/yyyy
 // ✅ XLSX: DateTime hücresi + dd/MM/yyyy numberFormat (excel_helper)
 //
+// Not:
+// external_path paketi kaldırıldığı için Download klasörü artık doğrudan
+// Android standart yolu üzerinden kullanılır:
+//
+//   /storage/emulated/0/Download
+//
 //
 
 import 'dart:convert';
@@ -15,7 +21,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
-import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -142,10 +147,15 @@ Future<ExportItems> exportItemsToFileFormats({
       );
     }
 
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
-    final downloadAppDir = Directory(join(downloadDir, appName));
+    // external_path kaldırıldığı için Android Download dizinini
+    // doğrudan kullanıyoruz.
+    final downloadDir = Directory('/storage/emulated/0/Download');
+
+    if (!await downloadDir.exists()) {
+      throw Exception("Download klasörü bulunamadı: ${downloadDir.path}");
+    }
+
+    final downloadAppDir = Directory(join(downloadDir.path, appName));
     await downloadAppDir.create(recursive: true);
 
     final outCsvPath = join(downloadAppDir.path, fileNameCsv);

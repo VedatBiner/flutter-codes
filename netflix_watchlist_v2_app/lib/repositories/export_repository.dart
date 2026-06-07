@@ -17,12 +17,19 @@
 // • Temp klasörü temizlemek
 //
 // Bu yapı sayesinde UI sadece repository çağırır.
+//
+// ---------------------------------------------------------------------------
+// Not:
+// external_path paketi kaldırıldığı için Download klasörü artık doğrudan
+// Android standart yolu üzerinden kullanılır:
+//
+//   /storage/emulated/0/Download
+//
 // ============================================================================
 
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -126,12 +133,16 @@ class ExportRepository {
   // Film ve dizi bölümlerini tek bir NetflixItem listesine çevirir.
   //
   // Önemli:
-  // • Tarih burada dd/MM/yyyy formatına çevrilir
+  // • Tarih burada dd/MM/yyyy formatına çevrilir.
+  //
+  // Neden burada yapılıyor?
+  // • Export edilen tüm formatlarda tarih aynı görünsün diye.
+  // • CSV / JSON / XLSX ayrı ayrı tarih dönüştürmek zorunda kalmasın.
   //
   List<NetflixItem> _collectAllItems(
-    List<NetflixItem> movies,
-    List<SeriesGroup> series,
-  ) {
+      List<NetflixItem> movies,
+      List<SeriesGroup> series,
+      ) {
     final allItems = <NetflixItem>[];
 
     // Filmleri ekle
@@ -159,6 +170,7 @@ class ExportRepository {
             NetflixItem(
               title: episode.title,
               date: _normalizeDate(episode.date),
+              type: "series",
             ),
           );
         }
@@ -188,6 +200,12 @@ class ExportRepository {
   //
   // Önce storage izni kontrol edilir.
   //
+  // external_path kaldırıldığı için burada doğrudan Android Download dizini:
+  //
+  //   /storage/emulated/0/Download
+  //
+  // kullanılır.
+  //
   Future<_ExportOutputPaths> _copyToDownload({
     required String tempCsvPath,
     required String tempJsonPath,
@@ -202,15 +220,16 @@ class ExportRepository {
       );
     }
 
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
+    // ----------------------------------------------------------
+    // Android Download klasörü
+    // ----------------------------------------------------------
+    final downloadDir = Directory('/storage/emulated/0/Download');
 
-    if (downloadDir.isEmpty) {
-      throw Exception("Download klasörü bulunamadı.");
+    if (!await downloadDir.exists()) {
+      throw Exception("Download klasörü bulunamadı: ${downloadDir.path}");
     }
 
-    final downloadAppDir = Directory(join(downloadDir, appName));
+    final downloadAppDir = Directory(join(downloadDir.path, appName));
     await downloadAppDir.create(recursive: true);
 
     final outCsvPath = join(downloadAppDir.path, fileNameCsv);

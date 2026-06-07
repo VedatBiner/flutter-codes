@@ -119,7 +119,10 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 112. `settings.gradle.kts` ve `gradle-wrapper.properties` dosyası güncellendi. - 05.06.2026
 113. `build.gradle.kts` dosyası güncellendi. - 05.06.2026
 114. `csv_parser.dart`, `export_items.dart` ve `export_file_service.dart` dosyası güncellendi. - 05.06.2026
-115. 
+115. `external_path` paketi çıkarıldı. -  07.06.2026
+116. `external_path.dart` ve `download_directory_helper.dart` dosyaları güncellendi. - 07.06.2026
+117. `share_helper.dart`, `export_repository.dart` ve `export_items.dart` dosyaları güncellendi. - 07.06.2026
+118. 
 
 
 
