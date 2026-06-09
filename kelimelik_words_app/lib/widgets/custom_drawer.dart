@@ -40,9 +40,8 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
+      child: Material(
         color: drawerColor,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [

@@ -24,7 +24,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -47,9 +46,9 @@ Future<void> shareBackupFolder() async {
 
   try {
     // 📁 Download dizinini bul
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
+    // ExternalPath artık kullanılmıyor.
+    // Android Download klasörü doğrudan hedeflenir.
+    const downloadDir = '/storage/emulated/0/Download';
 
     // Hedef klasör (örnek: /storage/emulated/0/Download/kelimelik_words_app)
     final folderPath = join(downloadDir, appName);
@@ -74,7 +73,7 @@ Future<void> shareBackupFolder() async {
 
     // 📤 share_plus kullanarak sistem paylaşım penceresini aç
     await Share.shareXFiles(
-      files.map((f) => XFile(f.path)).toList(),
+      xFiles,
       text: '📂 $appName yedek dosyaları',
     );
 

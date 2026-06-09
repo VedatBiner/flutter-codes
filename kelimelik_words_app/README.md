@@ -210,7 +210,13 @@ bir chatGPT ortak çalışması :)
 205. `alphabet_item_list.dart` dosyasından, `AlphabetWordListView` metodu ayrı bir dosyaya çıkarıldı. - 28.12.2025
 206. yeni dosya `alphabet_word_list.view_dart` oldu. - 28.12.2025
 207. `drawer_info_padding.dart` dosyası güncellendi. - 03.01.2026
-208. 
+208. `external_path` paketi kaldırıldı. - 07.06.2026
+209. `settings.gradle.kts` ve `gradle-wrapper.properties` dosyası güncellendi. - 07.06.2026
+210. `build.gradle.kts` dosyası güncellendi. - 07.06.2026
+211. `download_directory_helper.dart` dosyası güncellendi. - 07.06.2026
+212. `external_copy.dart` ve `share_helper.dart` dosyası güncellendi. - 09.06.2026
+213. `custom_drawer.dart` ve `alpahbet_word_list_view.dart` dosyası güncellendi. - 09.06.2026
+214. `custom_banner_helper.dart` dosyası güncellendi. 09.06.2026
 
 
 

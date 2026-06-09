@@ -10,7 +10,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:external_path/external_path.dart';
 import 'package:path/path.dart';
 
 Future<String> copyBackupToDownload({
@@ -20,9 +19,8 @@ Future<String> copyBackupToDownload({
   const tag = "external_copy";
 
   // 📁 Download kök yolu
-  final downloadRoot = await ExternalPath.getExternalStoragePublicDirectory(
-    ExternalPath.DIRECTORY_DOWNLOAD,
-  );
+  // ExternalPath artık kullanılmıyor.
+  const downloadRoot = '/storage/emulated/0/Download';
 
   // 📁 Download/{appName}
   final targetDir = Directory(join(downloadRoot, folderName));
@@ -39,6 +37,7 @@ Future<String> copyBackupToDownload({
     }
 
     final destPath = join(targetDir.path, basename(srcPath));
+
     await srcFile.copy(destPath);
 
     log("✅ Kopyalandı → $destPath", name: tag);
@@ -56,6 +55,7 @@ Future<void> deleteTempBackupFolderIfSafe({
   const tag = "external_copy_cleanup";
 
   final tempDir = Directory(tempDirPath);
+
   if (!await tempDir.exists()) {
     log("ℹ️ Geçici klasör zaten yok: $tempDirPath", name: tag);
     return;
@@ -66,8 +66,9 @@ Future<void> deleteTempBackupFolderIfSafe({
 
   for (final fileName in expectedFileNames) {
     final downloadFile = File(join(downloadDirPath, fileName));
+
     if (!await downloadFile.exists()) {
-      log("❌ Download 'da eksik dosya: ${downloadFile.path}", name: tag);
+      log("❌ Download' da eksik dosya: ${downloadFile.path}", name: tag);
       allFilesExist = false;
       break;
     }
@@ -80,10 +81,6 @@ Future<void> deleteTempBackupFolderIfSafe({
 
   // 🧹 GÜVENLİ SİLME
   await tempDir.delete(recursive: true);
+
   log("🧹 Geçici klasör silindi: $tempDirPath", name: tag);
 }
-
-
-
-
-
