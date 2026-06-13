@@ -114,7 +114,7 @@ class _AlphabetMalzemeListState extends State<AlphabetMalzemeList> {
                     left: Radius.circular(100),
                   ),
                   color: state == AlphabetScrollbarItemState.active
-                      ? Theme.of(context).colorScheme.secondary.withOpacity(0.6)
+                      ? Theme.of(context).colorScheme.secondary.withValues(alpha: 0.6)
                       : null,
                 ),
                 child: Center(

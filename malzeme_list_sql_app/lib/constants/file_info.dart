@@ -12,3 +12,5 @@ const String fileNameJson = "malzeme_backup.json";
 const String fileNameCsv = "malzeme_backup.csv";
 const String fileNameXlsx = "malzeme_backup.xlsx";
 const String fileNameSql = "malzeme.db";
+
+const String androidDownloadPath = '/storage/emulated/0/Download';

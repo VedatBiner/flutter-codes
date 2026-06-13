@@ -148,7 +148,7 @@ void showMalzemeUpdatedNotification({
     icon: icon,
     iconColor: color,
     progressIndicatorColor: color,
-    progressIndicatorBackground: color.withOpacity(0.15),
+    progressIndicatorBackground: color.withValues(alpha: 0.15),
     width: 260,
     height: 200,
   );

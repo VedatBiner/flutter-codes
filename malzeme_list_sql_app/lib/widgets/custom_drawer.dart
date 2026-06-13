@@ -1,10 +1,8 @@
 // 📃 <----- custom_drawer.dart ----->
 // Drawer menüye buradan erişiliyor.
 
-// 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
 
-/// 📌 Yardımcı yüklemeler burada
 import '../constants/color_constants.dart';
 import 'drawer_widgets/drawer_backup_tile.dart';
 import 'drawer_widgets/drawer_change_view_tile.dart';
@@ -21,8 +19,8 @@ class CustomDrawer extends StatelessWidget {
   /// 📌 JSON ’dan veri yüklemek için üst bileşenden gelen fonksiyon
   ///    İmza → ({ctx, onStatus})
   final Future<void> Function({
-    required BuildContext ctx,
-    required void Function(bool, double, String?, Duration) onStatus,
+  required BuildContext ctx,
+  required void Function(bool, double, String?, Duration) onStatus,
   })
   onLoadJsonData;
 
@@ -38,39 +36,41 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
+      child: Material(
         color: drawerColor,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            /// 📌 Drawer menü başlığı burada oluşturuluyor
-            const DrawerTitleWidget(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              /// 📌 Drawer menü başlığı burada oluşturuluyor
+              const DrawerTitleWidget(),
 
-            Divider(thickness: 2, color: menuColor, height: 0),
+              Divider(thickness: 2, color: menuColor, height: 0),
 
-            /// 📌 Görünüm değiştirme
-            DrawerChangeViewTile(
-              isFihristMode: isFihristMode,
-              onToggleViewMode: onToggleViewMode,
-            ),
+              /// 📌 Görünüm değiştirme
+              DrawerChangeViewTile(
+                isFihristMode: isFihristMode,
+                onToggleViewMode: onToggleViewMode,
+              ),
 
-            /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
-            const DrawerBackupTile(),
+              /// 📌 Yedek oluştur (JSON/CSV/XLSX/SQL)
+              const DrawerBackupTile(),
 
-            // 📌 Yedekleri paylaşma butonu
-            const DrawerShareTile(),
+              // 📌 Yedekleri paylaşma butonu
+              const DrawerShareTile(),
 
-            /// 📌 Veritabanını Yenile (SQL)
-            /// DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
+              /// 📌 Veritabanını Yenile (SQL)
+              /// DrawerRenewDbTile(onLoadJsonData: onLoadJsonData),
 
-            /// 📌 Veritabanını Sıfırla
-            /// DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
-            Divider(color: menuColor, thickness: 2),
+              /// 📌 Veritabanını Sıfırla
+              /// DrawerResetDbTile(onAfterReset: onDatabaseUpdated),
+              Divider(color: menuColor, thickness: 2),
 
-            /// 📌 Versiyon ve yazılım bilgisi
-            InfoPaddingTile(appVersion: appVersion),
-          ],
+              /// 📌 Versiyon ve yazılım bilgisi
+              InfoPaddingTile(appVersion: appVersion),
+            ],
+          ),
         ),
       ),
     );

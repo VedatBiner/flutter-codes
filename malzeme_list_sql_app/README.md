@@ -107,7 +107,13 @@
 95. `device_info_helper.dart` dosyası eklendi. - 15.11.2025
 96. `home_page.dart` dosyası düzenlendi. - 15.11.2025
 97. `db_helper.dart` ve `pubspec.yaml`dart dosyaları güncellenerek karşılaşılan hatalar giderildi. - 13.01.2026
-98. 
+98. external_path paketi kaldırıldı. - 11.06.2026
+99. `settings.gradle.kts` ve `gradle-wrapper.properties` dosyası güncellendi. - 11.06.2026
+100. `build.gradle.kts` dosyası güncellendi. - 11.06.2026
+101. `share_helper.dart` dosyası güncellendi. - 13.06.2026
+102. `json_saver_io.dart` dosyası güncellendi. - 13.06.2026
+103. `file_info.dart` ve `custom_drawer.dart`dosyaları güncellendi. - 13.06.2026
+104. 
 
 
 

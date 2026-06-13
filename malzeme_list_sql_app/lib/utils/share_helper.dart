@@ -16,42 +16,37 @@
 //     import '../utils/share_helper.dart';
 //     await shareBackupFolder();
 //
-// 🔹 Gereken izinler:
-//   • Android 11+  : MANAGE_EXTERNAL_STORAGE (storage_permission_helper.dart kullanın)
-//   • Android 10-  : STORAGE izni
 // ---------------------------------------------------------------------------
 
+// 📌 Dart hazır paketleri
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:external_path/external_path.dart';
+/// 📌 Flutter hazır paketleri
 import 'package:path/path.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../constants/file_info.dart';
+/// 📌 Yardımcı yüklemeler burada
+import '../constants/file_info.dart';
 
 /// 📤 Download/{appName} klasöründeki yedek dosyaları paylaşır.
 ///
-/// Fonksiyon, `Download/appName` klasörünü kontrol eder:
+/// Fonksiyon, uygulamanın kullandığı yedek klasörünü kontrol eder:
 ///  - Dizin yoksa uyarı verir.
 ///  - Dizin varsa içindeki dosyaları (CSV, JSON, XLSX, SQL vb.) listeler.
 ///  - Dosya varsa sistemin paylaşım menüsünü açar.
 ///
-/// Log çıktıları konsolda `[External Share]` etiketiyle görünür.
-///
-/// ⚠️ Not: Dosya paylaşımı için depolama izni (`ensureStoragePermission()`)
-///        önceden verilmiş olmalıdır.
-///
+/// Log çıktıları konsolda `[share_helper]` etiketiyle görünür.
 Future<void> shareBackupFolder() async {
   const tag = 'share_helper';
-  try {
-    // 📁 Download dizinini bul
-    final downloadDir = await ExternalPath.getExternalStoragePublicDirectory(
-      ExternalPath.DIRECTORY_DOWNLOAD,
-    );
 
-    // Hedef klasör (örnek: /storage/emulated/0/Download/netflix_film_list_app)
+  try {
+    // 📁 Android Download dizini
+    const downloadDir = '/storage/emulated/0/Download';
+
+    // 📁 Yedek klasörü
     final folderPath = join(downloadDir, appName);
+
     final dir = Directory(folderPath);
 
     // 📂 Dizin mevcut mu?
@@ -60,7 +55,7 @@ Future<void> shareBackupFolder() async {
       return;
     }
 
-    // 📜 Dizin içindeki tüm dosyaları al (yalnızca File türündekiler)
+    // 📜 Dizin içindeki tüm dosyaları al
     final files = dir.listSync().whereType<File>().toList();
 
     if (files.isEmpty) {
@@ -68,14 +63,21 @@ Future<void> shareBackupFolder() async {
       return;
     }
 
-    // 📤 share_plus kullanarak sistem paylaşım penceresini aç
+    log('📂 ${files.length} dosya bulundu.', name: tag);
+
+    // 📤 Sistem paylaşım ekranı
     await Share.shareXFiles(
       files.map((f) => XFile(f.path)).toList(),
       text: '📂 $appName yedek dosyaları',
     );
 
     log('✅ Paylaşım ekranı başarıyla açıldı.', name: tag);
-  } catch (e) {
-    log('🚨 Paylaşım hatası: $e', name: tag);
+  } catch (e, st) {
+    log(
+      '🚨 Paylaşım hatası: $e',
+      name: tag,
+      error: e,
+      stackTrace: st,
+    );
   }
 }
