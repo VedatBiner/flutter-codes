@@ -242,6 +242,7 @@ Am,Dişilik organı,15.12.2025
 Ama,Lakin,15.12.2025
 Amaç,Gaye / Hedef,15.12.2025
 Amal,İşler / İşlemler,15.12.2025
+Amalık,Görme engellilik,17.06.2026
 Aman,Yardım isteği,15.12.2025
 Amasra,Bartın ilçesi,15.12.2025
 Amber,Amber balığından çıkan güzel kokulu madde,15.12.2025
@@ -337,6 +338,7 @@ Arıtım,Petrol arıtma işi / Rafinaj,15.12.2025
 Arıtma,Arıtmak işi,14.03.2026
 Arız,Sonradan ortaya çıkan / Musallat olmuş,15.12.2025
 Arıza,Aksama / Aksaklık / Engebe,15.12.2025
+Arızalık,Engebelik,17.06.2026
 Arızi,Dıştan gelen,15.12.2025
 Ari,Çıplak / Arınmış / Soyutlanmış,15.12.2025
 Arif,Çok anlayışlı ve sezgili,15.12.2025
@@ -1039,7 +1041,7 @@ Cüzi,Çok az,15.12.2025
 Çağdaş,Aynı çağda yaşayan / Muasır,15.12.2025
 Çağırılış,Çağrılma işi,04.06.2026
 Çağırma,Çağırmak işi,16.05.2026
-Çağla,Badem,15.12.2025
+Çağla,Badem kayısı gibi meyvelerin yenilebilir ham hali,15.12.2025
 Çağlar,Çağlayan,15.12.2025
 Çağrı,Davet,15.12.2025
 Çak,Yırtık / Yarık,15.12.2025
@@ -1344,6 +1346,7 @@ Deve,Hörgüçlü bir hayvan,15.12.2025
 Develi,Kayseri ilçesi,15.12.2025
 Develik,Develerin bağlandığı ve korunduğu bölüm,15.02.2026
 Devrik,Devrilmiş olan / Darbe ile makamından indirilen,21.04.2026
+Deyi,Logos / Dil söz gibi anlatım araçlarının tümü,11.06.2026
 Dış,İç karşıtı / Kişinin görünümü,15.12.2025
 Dışık,Cüruf,11.01.2026
 Diba,Altın ve gümüş işlemeli bir ipek kumaş,21.02.2026
@@ -1688,6 +1691,7 @@ Ey,Usanç ifadesi,15.12.2025
 Eyer,Binek hayvanlarının sırtına konulan binmeye yarar nesne,15.12.2025
 Eyerli,Sırtına eyer vurulmuş,15.12.2025
 Eylem,Hareket / Aksiyon,15.12.2025
+Eylül,Yılın dokuzuncu ayı,16.06.2026
 Eyvah,Acınma üzülme sözü,15.12.2025
 Eza,Üzme / Üzgü,15.12.2025
 Ezan,Namaz çağrısı,15.12.2025
@@ -1778,12 +1782,14 @@ Fıtık,Kavlıç / Yarımlık,25.01.2026
 Fidan,Yeni yetişen ağaç veya ağaççık,15.12.2025
 Fide,Başka yere dikmek için hazırlanan çiçek veya sebze,15.12.2025
 Fiğ,Baklagillerden bir bitki,15.12.2025
+Fiilen,Gerçekten,11.06.2026
 Fiji,Bir ülke adı,15.12.2025
 Fil,Satranç taşı,15.12.2025
 Filar,Hafif terlik,15.12.2025
 Filato,Bir kaplama türü,23.02.2026
 File,Ağ,15.12.2025
 Filet,Derinliği her yerde aynı olan su,15.12.2025
+Fileto,Hayvanların sırtındaki et,11.06.2026
 Film,Fotoğraf ve sinemada kullanılan selüloz,15.12.2025
 Filo,Bir arada bulunan uçak veya gemi topluluğu,15.12.2025
 Fin,Finlandiyalı,15.12.2025
@@ -1893,6 +1899,7 @@ Gececi,Çalışma sırası geceye rastlayan görevli,17.02.2026
 Geceki,gece olan / Gece yapılan,15.12.2025
 Geç,Belli zamandan sonra olan,15.12.2025
 Geçit,Geçecek yer / Derbent,15.12.2025
+Geda,Dilenci / Yoksul / Fakir,13.06.2026
 Gedik,Dağ geçidi / Rahne / Çatlak,15.12.2025
 Gele,Tavla terimi,15.12.2025
 Geleni,Tarla faresi,15.12.2025
@@ -2149,6 +2156,7 @@ His,Duygu / Duyu,15.12.2025
 Hisset,Cimrlik,16.03.2026
 Hiş,Hişt,15.12.2025
 Hit,Liste başı,15.12.2025
+Hitam,Son / Bitim,16.06.2026
 Hiza,Doğru bir çizgi üzerinde bulunma durumu,15.12.2025
 Hizan,Bitlis ilçesi,14.01.2026
 Hoca,Öğretmen / Din görevlisi,15.12.2025
@@ -2920,6 +2928,7 @@ Kof,Boş / Güçsüz / Dermansız,15.12.2025
 Kofa,Hasır otu,15.12.2025
 Kofti,Sahtekar / Dolandırıcı,15.12.2025
 Koful,Bitki hücreleri yaşlandıkça içi dolan boşluk,15.12.2025
+Koğuş,Bir çok kişinin yattığı büyük oda,15.06.2026
 Kok,Maden kömürünün damıtılması ile elde edilen kömür,15.12.2025
 Kokain,Koka yapraklarından yapılan uyuşturucu,15.12.2025
 Kokak,Kötü / Pis kokan,15.12.2025
@@ -3005,6 +3014,7 @@ Köre,Karınca yuvası,15.12.2025
 Körebe,Bir çocuk oyunu,15.12.2025
 Köri,Baharat çeşidi,15.12.2025
 Körük,Bazı araçların açılır kapanır katlanmış bölümü/ Ateş canlandırmak için kullanılan hava üfleyen araç,06.03.2026
+Körüklü,Körüğü olan,13.06.2026
 Kös,Büyük davul,15.12.2025
 Köse,Gümüşhane ilçesi / Bıyığı sakalı çıkmayan,15.12.2025
 Kösem,Kösemen,15.12.2025
@@ -3062,6 +3072,7 @@ Kura,Çekilişle sonuç belirleme,15.12.2025
 Kuracı,Askerde kura çektiren subay,21.05.2026
 Kuraklık,Kurak olma durumu / Yağışsızlık,15.12.2025
 Kural,Uyulması gereken ilke,15.12.2025
+Kurallı,Kuralı olan,15.06.2026
 Kuram,Soyut bilgi,15.12.2025
 Kurca,Karıştırma / Kaşıma,15.12.2025
 Kurgu,Telkin / Uygulamaya geçmeyen açıklayıcı düşünce,17.12.2025
@@ -3815,6 +3826,7 @@ Oyuk,Oyulmuş / İçi boş yer,24.12.2025
 Oyum,Oyma işi,15.12.2025
 Oyun,Vakit geçirmeye yarayan eğlence,15.12.2025
 Ozan,Şair,15.12.2025
+Öbek,Küme,16.06.2026
 Öcü,Umacı / Hayali masal yaratığı,15.12.2025
 Öç,İntikam,15.12.2025
 Öçlü,Kin ve intikam dolu,15.12.2025
@@ -3962,6 +3974,7 @@ Pena,Mızrap,15.12.2025
 Pençe,Yırtıcı hayvanların parmak ve tırnakları,15.12.2025
 Peni,Sterlinin yüzde biri,15.12.2025
 Pense,Pens / Bir el aleti,24.12.2025
+Penye,Bir tür üst giysi,13.06.2026
 Per,Bazı iskambil oyunlarında iki benzer kartın bir arada olması,15.12.2025
 Perçem,Kakül,18.02.2026
 Peri,Doğa üstü güçleri olan varlık,15.12.2025
@@ -4407,6 +4420,7 @@ Set,Masa tenisi voleybol gibi oyunlarda maç bölümleri,15.12.2025
 Seter,Uzun tüylü İngiliz köpeği,15.12.2025
 Setik,İnce bulgur,15.12.2025
 Setir,Örtme gizleme,25.04.2026
+Setre,Bir ceket türü,15.06.2026
 Sevgi,Yakın ilgi bağlılık duygusu,23.04.2026
 Sevi,Aşk,15.12.2025
 Sevinç,Istenen bir şeyin olması ile duyulan coşku,15.12.2025
@@ -4571,6 +4585,7 @@ Sudoku,Bir zeka oyunu,17.12.2025
 Sufi,Mutasavvıf,15.12.2025
 Sukut,Düşme,15.12.2025
 Sulak,Suyu olan yer,15.12.2025
+Sulama,Sulamak işi,11.06.2026
 Sulh,Barış,15.12.2025
 Sulta,Yetki / Otorite,09.03.2026
 Sulu,Suyu çok olan,15.12.2025
@@ -4761,6 +4776,8 @@ Taba,Tütün rengi,15.12.2025
 Tabak,Yiyecek koymaya yarayan kap,15.12.2025
 Tabaka,Katman / Derece,19.01.2026
 Taban,Ayağın alt yüzü,15.12.2025
+Tabanlı,Tabanı olan,16.06.2026
+Tabanlık,Ayakkabı içine yerleştirilen parça,16.06.2026
 Tabi,Bağımlı,15.12.2025
 Tabii,Doğada bulunan,15.12.2025
 Tabip,Hekim,15.12.2025
@@ -4957,6 +4974,7 @@ Tepişmek,Itilip kakışmak,15.12.2025
 Ter,Vücut sıvısı,15.12.2025
 Terane,Ezgi / Makam / Usanç veren durum,15.12.2025
 Tere,Salatalık bitki,15.12.2025
+Tereci,Tere yetiştiren veya satan kimse,14.06.2026
 Terek,Yüksekçe yerde bulunan raf,15.12.2025
 Terim,Bilimsel,15.12.2025
 Terkip,Tamlama / Bileşim,04.05.2026
@@ -5337,8 +5355,10 @@ Viyak,Bebrğin ağlarken çıkardığı ses,15.12.2025
 Volan,Kadın giysisi süsü,15.12.2025
 Vole,Futbol terimi,15.12.2025
 Voli,Vurgun / Kazanç,15.12.2025
+Volt,Gerilim birimi,15.06.2026
 Vuku,Olma / Meydana gelme,15.12.2025
 Vukuat,Polisi ilgilendiren olay,15.12.2025
+Vurma,Vurmak işi,14.06.2026
 Vuru,Kalbin atım hareketi,15.12.2025
 Vuruş,Vurma işi,02.04.2026
 Ya,Şaşkınlık,15.12.2025
@@ -5576,6 +5596,7 @@ Zanlı,Şüpheli,15.12.2025
 Zar,Ince perde veya örtü / tavla oyun aracı,15.12.2025
 Zara,Sivas ilçesi,08.01.2026
 Zarar,Dokunca / Ziyan / Mazarrat,12.01.2026
+Zarcı,Zar oyunu oynayan kimse,11.06.2026
 Zat,Kişi,15.12.2025
 Zaten,Zati / Esasen / Doğrusu,10.01.2026
 Zati,Zaten,15.12.2025

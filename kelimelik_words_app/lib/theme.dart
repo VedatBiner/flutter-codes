@@ -6,6 +6,7 @@ class CustomTheme {
   const CustomTheme._();
 
   static final theme = ThemeData(
+    fontFamily: 'Oswald',
     useMaterial3: false,
     colorScheme: ColorScheme.fromSeed(
       seedColor: _blue,

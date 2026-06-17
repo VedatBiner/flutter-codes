@@ -217,6 +217,10 @@ bir chatGPT ortak çalışması :)
 212. `external_copy.dart` ve `share_helper.dart` dosyası güncellendi. - 09.06.2026
 213. `custom_drawer.dart` ve `alpahbet_word_list_view.dart` dosyası güncellendi. - 09.06.2026
 214. `custom_banner_helper.dart` dosyası güncellendi. 09.06.2026
+215. `oswald.ttf`font eklendi. - 17.06.2026
+216. `theme.dart` dosyası güncellendi. - 17.06.2026
+217. `app/build.gradle.kts` dosyası güncellendi. - 17.06.2026
+218. 
 
 
 
