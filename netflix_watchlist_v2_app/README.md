@@ -122,7 +122,8 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 115. `external_path` paketi çıkarıldı. -  07.06.2026
 116. `external_path.dart` ve `download_directory_helper.dart` dosyaları güncellendi. - 07.06.2026
 117. `share_helper.dart`, `export_repository.dart` ve `export_items.dart` dosyaları güncellendi. - 07.06.2026
-118. 
+118. `app/build.gradle.kts`dosyası güncellendi. - 17.06.2026
+119. 
 
 
 
