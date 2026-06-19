@@ -135,23 +135,57 @@ class AlphabetWordListView extends StatelessWidget {
                     ),
                     color: Theme.of(context).colorScheme.primary,
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Text(
-                    symbol,
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                      color: menuColor,
-                      /// Ana başlık harfler
-                      fontSize: 26, // 30
-                      fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                      top: 8,
+                      right: 16,
+                      bottom: 8,
+                    ),
+                    child: Text(
+                      symbol,
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        color: menuColor, // 📌 liste başı harf rengi
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
+          ),
+
+
+          /// 📌 Ortadaki büyük harf overlay için ayarlar
+          overlayOptions: OverlayOptions(
+            alignment: Alignment.centerRight,
+            overlayBuilder: (context, symbol) {
+              return Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(100),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: FittedBox(
+                    child: Text(
+                      symbol,
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
