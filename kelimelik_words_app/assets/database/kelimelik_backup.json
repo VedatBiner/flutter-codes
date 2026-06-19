@@ -7660,6 +7660,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Ekinci",
+    "Anlam": "Tahıl yetiştirip satan kimse",
+    "Tarih": "18.06.2026"
+  },
+  {
     "Kelime": "Ekinli",
     "Anlam": "Ekini olan",
     "Tarih": "15.12.2025"
@@ -12190,6 +12195,11 @@
     "Tarih": "26.01.2026"
   },
   {
+    "Kelime": "İtme",
+    "Anlam": "İtmek işi",
+    "Tarih": "18.06.2026"
+  },
+  {
     "Kelime": "İtmek",
     "Anlam": "Bir şeyi güç uygulayarak ileri götürmek",
     "Tarih": "15.12.2025"
@@ -14385,6 +14395,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kinci",
+    "Anlam": "Kindar",
+    "Tarih": "18.06.2026"
+  },
+  {
     "Kelime": "Kinik",
     "Anlam": "Sinik",
     "Tarih": "15.12.2025"
@@ -15428,6 +15443,11 @@
     "Kelime": "Kurun",
     "Anlam": "Çağ",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kurut",
+    "Anlam": "Kurutulmuş süt ürünü",
+    "Tarih": "19.06.2026"
   },
   {
     "Kelime": "Kuş",
@@ -16998,6 +17018,11 @@
     "Kelime": "Mayalı",
     "Anlam": "İçine maya karıştırılmış",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Mayalık",
+    "Anlam": "Maya olmak için ayrılmış olan",
+    "Tarih": "19.06.2026"
   },
   {
     "Kelime": "Mayın",
@@ -20755,6 +20780,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Rıza",
+    "Anlam": "Razı olma / İstek",
+    "Tarih": "19.06.2026"
+  },
+  {
     "Kelime": "Rica",
     "Anlam": "Dileyiş / Dileme",
     "Tarih": "15.12.2025"
@@ -23620,6 +23650,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Şıpka",
+    "Anlam": "Torpillere karşı örülmüş ağ",
+    "Tarih": "19.06.2026"
+  },
+  {
     "Kelime": "Şıra",
     "Anlam": "Mayalanmamış üzüm suyu",
     "Tarih": "15.12.2025"
@@ -24253,6 +24288,11 @@
     "Kelime": "Tank",
     "Anlam": "Savaş aracı",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Tanker",
+    "Anlam": "Petrol benzin gibi ürünleri taşıyan araç",
+    "Tarih": "19.06.2026"
   },
   {
     "Kelime": "Tanrı",
@@ -26730,6 +26770,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Viral",
+    "Anlam": "Virüslerle ilgili",
+    "Tarih": "17.06.2026"
+  },
+  {
     "Kelime": "Virane",
     "Anlam": "Yıkıntı / Harap olmuş yapı",
     "Tarih": "15.12.2025"
@@ -27695,6 +27740,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Yolluk",
+    "Anlam": "Yol azığı/ Harcırah",
+    "Tarih": "18.06.2026"
+  },
+  {
     "Kelime": "Yolma",
     "Anlam": "Yolmak işi",
     "Tarih": "27.12.2025"
@@ -28296,7 +28346,7 @@
   },
   {
     "Kelime": "Zorla",
-    "Anlam": "İsteksiz yapılan / Zoraki",
+    "Anlam": "İsteksiz yapılan / Zoraki / Zecren / Cebren",
     "Tarih": "15.12.2025"
   },
   {

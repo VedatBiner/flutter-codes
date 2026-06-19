@@ -1531,6 +1531,7 @@ Ekili,Ekilmiş olan mezru,15.12.2025
 Ekilme,Ekilme işi,18.05.2026
 Ekim,Ekme işi,15.12.2025
 Ekin,Tahılın harman olana kadar aldığı durum / Kültür / Hars,15.12.2025
+Ekinci,Tahıl yetiştirip satan kimse,18.06.2026
 Ekinli,Ekini olan,15.12.2025
 Ekinlik,Ekin ekilmiş yer,15.12.2025
 Ekit,Vücuda yerleştirilen doku parçası,15.12.2025
@@ -2437,6 +2438,7 @@ Itri,İtırlı / Kokulu,15.12.2025
 İtiş,İtme işi,15.12.2025
 İtlaf,Öldürme / Telef etme,15.12.2025
 İtlik,İtçe davranış,26.01.2026
+İtme,İtmek işi,18.06.2026
 İtmek,Bir şeyi güç uygulayarak ileri götürmek,15.12.2025
 İvme,Hız değişiminin zamana oranı,15.12.2025
 İvmek,Çabuk davranmak / Acele etmek,15.12.2025
@@ -2876,6 +2878,7 @@ Kimi,Bazı / Birtakımı,15.12.2025
 Kimlik,Kişinin kim olduğunu tanıtan belge / Hüviyet,15.12.2025
 Kimya,Madde yapısını inceleyen bilim,15.12.2025
 Kin,Garaz,15.12.2025
+Kinci,Kindar,18.06.2026
 Kinik,Sinik,15.12.2025
 Kinin,Sıtma tedavisinde kullanılır,15.12.2025
 Kininli,Içinde kinin bulunan,15.12.2025
@@ -3085,6 +3088,7 @@ Kurul,Heyet / Konsey / Asamble,11.01.2026
 Kurum,Bacada biriken is,15.12.2025
 Kuruma,Kurumak işi,15.12.2025
 Kurun,Çağ,15.12.2025
+Kurut,Kurutulmuş süt ürünü,19.06.2026
 Kuş,Uçucu hayvanların ortak adı,15.12.2025
 Kuşak,Bele satılan uzun ve enli kumaş,15.12.2025
 Kuşe,Kaygan kağıt,15.12.2025
@@ -3399,6 +3403,7 @@ Maviş,Ak tenli,15.12.2025
 Mavna,büyük yük teknesi,15.12.2025
 Maya,Yaradılış / Öznitelik,15.12.2025
 Mayalı,İçine maya karıştırılmış,15.12.2025
+Mayalık,Maya olmak için ayrılmış olan,19.06.2026
 Mayın,Bir tür patlayıcı,15.12.2025
 Mayi,Sıvı,15.12.2025
 Mayo,Deniz kıyafeti,15.12.2025
@@ -4150,6 +4155,7 @@ Reyon,Mağaza bölümleri,15.12.2025
 Reze,Menteşe,15.12.2025
 Rezil,Alçak / Aşağılık,15.12.2025
 Rıh,Mürekkep kurutmak için kullanılan ince kum,15.12.2025
+Rıza,Razı olma / İstek,19.06.2026
 Rica,Dileyiş / Dileme,15.12.2025
 Ricat,Vaz geçme / Gerileme,15.12.2025
 Rika,Arap harfi elyazısı biçimi,15.12.2025
@@ -4723,6 +4729,7 @@ Süyek,Cebire,19.02.2026
 Şık,Güzel / Zarif / Uygun,15.12.2025
 Şıklık,Şık olma durumu,17.05.2026
 Şıp,Su damlası sesi,15.12.2025
+Şıpka,Torpillere karşı örülmüş ağ,19.06.2026
 Şıra,Mayalanmamış üzüm suyu,15.12.2025
 Şıracı,Şıra yapıp satan kimse,21.02.2026
 Şırak,Sert çarpma sesi,15.12.2025
@@ -4850,6 +4857,7 @@ Tanış,Tanıdık,15.12.2025
 Tanışık,Birbirini tanıyor olanlardan her biri,15.02.2026
 Tanin,Tınlama,01.04.2026
 Tank,Savaş aracı,15.12.2025
+Tanker,Petrol benzin gibi ürünleri taşıyan araç,19.06.2026
 Tanrı,Allah / Hüda / Rab / Oğan,25.01.2026
 Tanrıcı,Tanrının varlığına inanan / Teist,15.12.2025
 Tapan,Tarladaki tohumu örtmek için sürülen geniş araç,15.12.2025
@@ -5345,6 +5353,7 @@ Vida,Döndürülerek bir yere sokulan burmalı çivi,15.12.2025
 Vinç,Ağır yük kaldırmaya ve taşımaya yarar araç,15.12.2025
 Vira,Arasız / Maçına makinesi çevrilmesi için verilen komut,15.12.2025
 Viraj,Dönemeç,15.12.2025
+Viral,Virüslerle ilgili,17.06.2026
 Virane,Yıkıntı / Harap olmuş yapı,15.12.2025
 Vire,Bir kalenin teslimi / Vere,15.12.2025
 Virt,Diline dolama,05.01.2026
@@ -5538,6 +5547,7 @@ Yol,Kara,15.12.2025
 Yolak,Patika,15.12.2025
 Yolcu,Yolculuğa çıkmış kimse,15.12.2025
 Yollu,Çizgili,15.12.2025
+Yolluk,Yol azığı/ Harcırah,18.06.2026
 Yolma,Yolmak işi,27.12.2025
 Yoluk,Yolunmuş olan,14.04.2026
 Yom,Iyi talih / İyi haber,15.12.2025
@@ -5658,7 +5668,7 @@ Zona,Hastalık çeşidi,15.12.2025
 Zonal,Bölgesel,23.02.2026
 Zonk,Zonklamak,15.12.2025
 Zor,Sıkıntı / Güçlük / Baskı,15.12.2025
-Zorla,İsteksiz yapılan / Zoraki,15.12.2025
+Zorla,İsteksiz yapılan / Zoraki / Zecren / Cebren,15.12.2025
 Zorlu,Güçlü / Kuvvetli,15.12.2025
 Zorluk,Güçlük / Zahmet,15.12.2025
 Zula,Kaçak ve yasak şeylerin saklandığı yer,15.12.2025
