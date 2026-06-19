@@ -2,16 +2,24 @@
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-import 'package:kelimelik_words_app/providers/active_word_card_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../providers/item_count_provider.dart';
+import '../providers/active_word_card_provider.dart';
 import '../theme.dart';
 import 'screens/home_page.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// fontların daha hızlı gelmesi için önerilen yöntem
+  await GoogleFonts.pendingFonts([
+    GoogleFonts.inter(),
+    GoogleFonts.roboto(),
+  ]);
+
   runApp(
     MultiProvider(
       providers: [

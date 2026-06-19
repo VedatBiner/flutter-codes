@@ -84,6 +84,8 @@ class AlphabetWordListView extends StatelessWidget {
       child: AlphabetListView(
         items: _buildGroupedItems(context, activeIndex),
         options: AlphabetListViewOptions(
+
+          /// 📌 Fihrist harfleri için ayarlar
           scrollbarOptions: ScrollbarOptions(
             symbols: turkishAlphabet,
             jumpToSymbolsWithNoEntries: true,
@@ -104,7 +106,7 @@ class AlphabetWordListView extends StatelessWidget {
                     child: Text(
                       symbol,
                       style: TextStyle(
-                        color: menuColor,
+                        color: menuColor, /// Fihrist harf rengi
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
                       ),
@@ -114,10 +116,13 @@ class AlphabetWordListView extends StatelessWidget {
               );
             },
           ),
+
+          /// 📌 Liste görünümü ayarları
           listOptions: ListOptions(
             backgroundColor: cardPageColor,
             stickySectionHeader: false,
             showSectionHeaderForEmptySections: true,
+            /// 📌 Baş harf görseli ayarları
             listHeaderBuilder: (context, symbol) => Padding(
               padding: const EdgeInsets.only(right: 18, top: 4, bottom: 4),
               child: Align(
@@ -139,7 +144,8 @@ class AlphabetWordListView extends StatelessWidget {
                     textScaler: TextScaler.noScaling,
                     style: TextStyle(
                       color: menuColor,
-                      fontSize: 30,
+                      /// Ana başlık harfler
+                      fontSize: 26, // 30
                       fontWeight: FontWeight.bold,
                     ),
                   ),

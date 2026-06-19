@@ -220,7 +220,10 @@ bir chatGPT ortak çalışması :)
 215. `oswald.ttf`font eklendi. - 17.06.2026
 216. `theme.dart` dosyası güncellendi. - 17.06.2026
 217. `app/build.gradle.kts` dosyası güncellendi. - 17.06.2026
-218. 
+218. `google fonts` paketi yüklendi. - 19.06.2026
+219. `main.dart` dosyası güncellendi. - 19.06.2026
+220. `alphabet_word_list_view.dart` dosyası güncellendi. - 19.06.2026
+221. 
 
 
 

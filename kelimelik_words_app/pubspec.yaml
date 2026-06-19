@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 2.5.1+1
+version: 2.5.2+1
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
@@ -32,7 +32,6 @@ dependencies:
   sqflite:                         # Cihaz içi SQLite (CRUD)
   path_provider:                   # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
   path:                            # Dosya yolu işlemleri (join/dirname/extension)
-  # external_path:                   # Android harici depolama (Downloads/DCIM) yolu erişimi
 
   # -----------------------------
   # İhracat / Paylaşım / Excel
@@ -68,6 +67,8 @@ dependencies:
   # -----------------------------
   fl_chart:
   intl:
+
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
