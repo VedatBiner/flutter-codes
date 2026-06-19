@@ -143,11 +143,12 @@ class AlphabetWordListView extends StatelessWidget {
                       bottom: 8,
                     ),
                     child: Text(
+                      textAlign: TextAlign.center,
                       symbol,
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
                         color: menuColor, // 📌 liste başı harf rengi
-                        fontSize: 24,
+                        fontSize: 24, // 📌 liste başı harf boyu
                         fontWeight: FontWeight.bold,
                       ),
                     ),
