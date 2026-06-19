@@ -147,7 +147,7 @@ class AlphabetWordListView extends StatelessWidget {
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
                         color: menuColor, // 📌 liste başı harf rengi
-                        fontSize: 30,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
