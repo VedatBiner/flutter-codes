@@ -223,7 +223,8 @@ bir chatGPT ortak çalışması :)
 218. `google fonts` paketi yüklendi. - 19.06.2026
 219. `main.dart` dosyası güncellendi. - 19.06.2026
 220. `alphabet_word_list_view.dart` dosyası güncellendi. - 19.06.2026
-221. 
+221. `google fonts` paketi kaldırıldı. - 20.06.2026
+222. `main.dart` dosyası güncellendi. - 20.06.2026
 
 
 

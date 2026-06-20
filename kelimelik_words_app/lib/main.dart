@@ -2,7 +2,6 @@
 
 // 📌 Flutter hazır paketleri
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 /// 📌 Yardımcı yüklemeler burada
@@ -13,12 +12,6 @@ import 'screens/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  /// fontların daha hızlı gelmesi için önerilen yöntem
-  await GoogleFonts.pendingFonts([
-    GoogleFonts.inter(),
-    GoogleFonts.roboto(),
-  ]);
 
   runApp(
     MultiProvider(
