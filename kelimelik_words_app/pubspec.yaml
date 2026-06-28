@@ -33,7 +33,7 @@ dependencies:
   path_provider:                   # Belgeler/Geçici/İndirilenler dizinleri (platforma özel)
   path:                            # Dosya yolu işlemleri (join/dirname/extension)
 
-  # -----------------------------
+  # -----------------------------flutter pub get
   # İhracat / Paylaşım / Excel
   # -----------------------------
   syncfusion_flutter_xlsio:        # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
