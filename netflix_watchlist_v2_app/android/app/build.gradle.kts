@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "aa.vb.netflix_watchlist_v2_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
