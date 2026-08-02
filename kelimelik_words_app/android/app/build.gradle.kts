@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "aa.vb.kelimelik_words_app"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
