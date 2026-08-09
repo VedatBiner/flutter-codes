@@ -540,9 +540,19 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Ağartı",
+    "Anlam": "Belli belirsiz aklık",
+    "Tarih": "06.08.2026"
+  },
+  {
     "Kelime": "Ağca",
     "Anlam": "Akça",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Ağcı",
+    "Anlam": "Ağ ile balık tutarak geçinen kimse",
+    "Tarih": "07.08.2026"
   },
   {
     "Kelime": "Ağcık",
@@ -598,6 +608,11 @@
     "Kelime": "Ağıt",
     "Anlam": "Ölümden duyulan acıyı ifade eden ezgi",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Ağıtçı",
+    "Anlam": "Sağlayıcı / Mersiyehan / Sagucu",
+    "Tarih": "04.08.2026"
   },
   {
     "Kelime": "Ağız",
@@ -693,6 +708,11 @@
     "Kelime": "Aile",
     "Anlam": "Topluluk içindeki en küçük birlik",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Ailelik",
+    "Anlam": "Aileyle ilgili olan",
+    "Tarih": "09.08.2026"
   },
   {
     "Kelime": "Ajan",
@@ -883,6 +903,11 @@
     "Kelime": "Akor",
     "Anlam": "Üç veya daha fazla sesin tınlaması",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Akort",
+    "Anlam": "Uyum / Uyumluluk",
+    "Tarih": "05.08.2026"
   },
   {
     "Kelime": "Akpas",
@@ -2515,6 +2540,11 @@
     "Tarih": "10.06.2026"
   },
   {
+    "Kelime": "Aynen",
+    "Anlam": "Aynıyla",
+    "Tarih": "03.08.2026"
+  },
+  {
     "Kelime": "Aynı",
     "Anlam": "Benzer",
     "Tarih": "15.12.2025"
@@ -2783,6 +2813,11 @@
     "Kelime": "Bağan",
     "Anlam": "Ölü doğan kuzu derisi",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Bağcı",
+    "Anlam": "Bağ yetiştirip ürününü satan kimse",
+    "Tarih": "04.08.2026"
   },
   {
     "Kelime": "Bağı",
@@ -10870,6 +10905,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Hedik",
+    "Anlam": "Kaynatılmış mısır buğday",
+    "Tarih": "03.08.2026"
+  },
+  {
     "Kelime": "Hela",
     "Anlam": "Tuvalet",
     "Tarih": "15.12.2025"
@@ -10903,6 +10943,11 @@
     "Kelime": "Hep",
     "Anlam": "Her zaman / Daima",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Herek",
+    "Anlam": "İspanya / Bir tür sırık",
+    "Tarih": "03.08.2026"
   },
   {
     "Kelime": "Herif",
@@ -11425,6 +11470,11 @@
     "Tarih": "03.05.2026"
   },
   {
+    "Kelime": "İbda",
+    "Anlam": "Yaratma / Yoktan var etme",
+    "Tarih": "08.08.2026"
+  },
+  {
     "Kelime": "İbik",
     "Anlam": "Horoz",
     "Tarih": "15.12.2025"
@@ -11703,6 +11753,11 @@
     "Kelime": "İkbal",
     "Anlam": "Odalık / İstek / Arzu",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "İkici",
+    "Anlam": "İkicilik felsefesini kabul eden",
+    "Tarih": "06.08.2026"
   },
   {
     "Kelime": "İkile",
@@ -13055,6 +13110,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kalevi",
+    "Anlam": "Alkalik",
+    "Tarih": "03.08.2026"
+  },
+  {
     "Kelime": "Kalfa",
     "Anlam": "Aşaması çırak ile usta olan zanaatkar",
     "Tarih": "22.01.2026"
@@ -13740,6 +13800,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kayalık",
+    "Anlam": "Kayası çok olan yer",
+    "Tarih": "04.08.2026"
+  },
+  {
     "Kelime": "Kayar",
     "Anlam": "Eskiyen malların çivisini değiştirme işi",
     "Tarih": "15.12.2025"
@@ -13973,6 +14038,11 @@
     "Kelime": "Kelep",
     "Anlam": "Büyük iplik demeti",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Keler",
+    "Anlam": "Bir tür köpekbalığı",
+    "Tarih": "05.08.2026"
   },
   {
     "Kelime": "Keleş",
@@ -14218,6 +14288,11 @@
     "Kelime": "Kesir",
     "Anlam": "Bir birimin bölündüğü parçalar",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Kesiş",
+    "Anlam": "Kesme işi",
+    "Tarih": "05.08.2026"
   },
   {
     "Kelime": "Kesit",
@@ -15015,6 +15090,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Kokma",
+    "Anlam": "Kokmak işi",
+    "Tarih": "05.08.2026"
+  },
+  {
     "Kelime": "Koku",
     "Anlam": "Güzel kokmak için sürülen esans",
     "Tarih": "15.12.2025"
@@ -15218,6 +15298,11 @@
     "Kelime": "Koro",
     "Anlam": "Müzik eseri seslendiren topluluk",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Korsan",
+    "Anlam": "Deniz haydudu",
+    "Tarih": "03.08.2026"
   },
   {
     "Kelime": "Korse",
@@ -18770,6 +18855,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Nesir",
+    "Anlam": "Düz yazı",
+    "Tarih": "02.08.2026"
+  },
+  {
     "Kelime": "Nesnel",
     "Anlam": "Nesne ile ilgili",
     "Tarih": "15.12.2025"
@@ -19440,6 +19530,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Ortak",
+    "Anlam": "Şerik / Kuma / Hissedar",
+    "Tarih": "03.08.2026"
+  },
+  {
     "Kelime": "Oruç",
     "Anlam": "İbadet türü",
     "Tarih": "15.12.2025"
@@ -19990,6 +20085,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Pahalı",
+    "Anlam": "Fiyatı yüksek olan",
+    "Tarih": "09.08.2026"
+  },
+  {
     "Kelime": "Pak",
     "Anlam": "Temiz",
     "Tarih": "15.12.2025"
@@ -19998,6 +20098,11 @@
     "Kelime": "Paket",
     "Anlam": "Sarılarak kutuya konulup taşınacak eşya",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Paklık",
+    "Anlam": "Temizlik",
+    "Tarih": "04.08.2026"
   },
   {
     "Kelime": "Pakt",
@@ -23055,6 +23160,11 @@
     "Tarih": "15.12.2025"
   },
   {
+    "Kelime": "Skala",
+    "Anlam": "Çeşitlilik / Gam",
+    "Tarih": "07.08.2026"
+  },
+  {
     "Kelime": "Slip",
     "Anlam": "Ödeme belgesi",
     "Tarih": "08.02.2026"
@@ -25415,6 +25525,11 @@
     "Tarih": "23.06.2026"
   },
   {
+    "Kelime": "Terfik",
+    "Anlam": "Arkadaş olarak yanına alma",
+    "Tarih": "06.08.2026"
+  },
+  {
     "Kelime": "Terim",
     "Anlam": "Bilimsel",
     "Tarih": "15.12.2025"
@@ -25968,6 +26083,11 @@
     "Kelime": "Trans",
     "Anlam": "Medyumların hipnoz durumu",
     "Tarih": "15.12.2025"
+  },
+  {
+    "Kelime": "Trap",
+    "Anlam": "Hendek / Tuzak",
+    "Tarih": "04.08.2026"
   },
   {
     "Kelime": "Trapez",
