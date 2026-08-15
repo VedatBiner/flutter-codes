@@ -123,7 +123,11 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
 116. `external_path.dart` ve `download_directory_helper.dart` dosyaları güncellendi. - 07.06.2026
 117. `share_helper.dart`, `export_repository.dart` ve `export_items.dart` dosyaları güncellendi. - 07.06.2026
 118. `app/build.gradle.kts`dosyası güncellendi. - 17.06.2026
-119. 
+119. `gradle.properties`dosyasına `org.gradle.jvmargs=-Xmx8G -XX:MaxMetaspaceSize=4G -XX:ReservedCodeCacheSize=512m -XX:+HeapDumpOnOutOfMemoryError --enable-native-access=ALL-UNNAMED` düzeltmesi yapıldı. - 15.06.2026
+120. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.7.0-bin.zip` değişikliği yapıldı. - 15.08.2026
+121. `setting.gradle.kts` dosyası değiştirildi. Bu iki satır değişti: - 15.08.2026
+     id("com.android.application") version "9.0.1" apply false
+     id("org.jetbrains.kotlin.android") version "2.3.20" apply false
 
 
 
