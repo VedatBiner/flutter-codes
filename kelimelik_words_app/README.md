@@ -225,6 +225,10 @@ bir chatGPT ortak çalışması :)
 220. `alphabet_word_list_view.dart` dosyası güncellendi. - 19.06.2026
 221. `google fonts` paketi kaldırıldı. - 20.06.2026
 222. `main.dart` dosyası güncellendi. - 20.06.2026
+223. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.7.0-bin.zip` değişikliği yapıldı. - 15.08.2026
+224. `setting.gradle.kts` dosyası değiştirildi. Bu iki satır değişti: - 15.08.2026
+     id("com.android.application") version "9.0.1" apply false
+     id("org.jetbrains.kotlin.android") version "2.3.20" apply false
 
 
 
