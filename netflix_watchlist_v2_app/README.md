@@ -130,7 +130,7 @@ Netflix 'de izlediğimiz filmler ve dizileri listeleyen sıralayan bir uygulama
      id("org.jetbrains.kotlin.android") version "2.3.20" apply false
 122. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.8.0-bin.zip` değişikliği yapıldı. - 02.10.2026
 123. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.8.2-all.zip` değişikliği yapıldı. - 27.10.2026
-124. `android/settings.gradle.kts` içinde düzeltem e yapıldı. - 07.11.2026
+124. `android/settings.gradle.kts` içinde düzeltme yapıldı. - 07.11.2026
 125. 
 
 
