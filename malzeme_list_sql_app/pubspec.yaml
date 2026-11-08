@@ -2,7 +2,7 @@ name: malzeme_list_sql_app
 description: "Malzeme Listesi (SQLite, mobil) — stok ve liste yönetimi"
 publish_to: "none"
 
-version: 1.6.7+1
+version: 1.6.9+1
 
 environment:
   sdk: ">=3.1.10 <4.0.0"
@@ -54,6 +54,10 @@ dependencies:
   # -----------------------------
   elegant_notification:        # Ekran içi modern bildirim/toast
   alphabet_list_view:          # A–Z hızlı gezinmeli listeleme
+
+dependency_overrides:
+  share_plus:
+    path: third_party/share_plus
 
 dev_dependencies:
   flutter_test:

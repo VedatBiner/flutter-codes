@@ -113,7 +113,10 @@
 101. `share_helper.dart` dosyası güncellendi. - 13.06.2026
 102. `json_saver_io.dart` dosyası güncellendi. - 13.06.2026
 103. `file_info.dart` ve `custom_drawer.dart`dosyaları güncellendi. - 13.06.2026
-104. 
+104. `android/app/build.gradle.kts` dosyası değiştirildi. - 08.11.2026
+105. `android/settings.gradle.kts` dosyası değiştirildi. - 08.11.2026
+106. `gradle-wrapper.properties` dosyası güncellendi. - 08.11.2026
+107. 
 
 
 
