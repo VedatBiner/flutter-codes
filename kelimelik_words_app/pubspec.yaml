@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 2.5.5+1
+version: 2.5.7+1
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
@@ -67,6 +67,10 @@ dependencies:
   # -----------------------------
   fl_chart:
   intl:
+
+dependency_overrides:
+  share_plus:
+    path: third_party/share_plus
 
 dev_dependencies:
   flutter_test:

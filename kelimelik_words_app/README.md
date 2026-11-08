@@ -230,6 +230,10 @@ bir chatGPT ortak çalışması :)
      id("com.android.application") version "9.0.1" apply false
      id("org.jetbrains.kotlin.android") version "2.3.20" apply false
 225. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.8.0-bin.zip` değişikliği yapıldı. - 03.10.2026
+226. `android/settings.gradle.kts` dosyası değiştirildi. - 08.11.2026
+227. `gradle-wrapper.properties` dosyası güncellendi. - 08.11.2026
+228. `pubspec.yaml` dosyası değiştirildi. - 08.11.2026
+229. 
 
 
 
