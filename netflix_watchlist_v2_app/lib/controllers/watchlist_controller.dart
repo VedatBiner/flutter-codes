@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+// ignore: depend_on_referenced_packages
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 import '../models/filter_option.dart';
 import '../models/netflix_item.dart';
