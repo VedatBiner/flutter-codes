@@ -6,7 +6,7 @@
 // tarafından kullanılıyor.
 //
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 sabitler burada
 import '../constants/button_constants.dart';

@@ -233,7 +233,8 @@ bir chatGPT ortak çalışması :)
 226. `android/settings.gradle.kts` dosyası değiştirildi. - 08.11.2026
 227. `gradle-wrapper.properties` dosyası güncellendi. - 08.11.2026
 228. `pubspec.yaml` dosyası değiştirildi. - 08.11.2026
-229. 
+229. `gradle-wrapper.properties` içinde `distributionUrl=https\://services.gradle.org/distributions/gradle-9.9.1-bin.zip` değişikliği yapıldı. - 18.11.2026
+230. `android/settings.gradle.kts` dosyası değiştirildi. - 18.11.2026
 
 
 

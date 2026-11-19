@@ -5,7 +5,7 @@ name: kelimelik_words_app
 description: "Kelimelik uygulaması kelime listesi"
 publish_to: 'none'
 
-version: 2.5.7+1
+version: 2.5.8+1
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
@@ -37,7 +37,7 @@ dependencies:
   # İhracat / Paylaşım / Excel
   # -----------------------------
   syncfusion_flutter_xlsio:        # XLSX üretimi (hücre biçimlendirme, AutoFilter, auto-fit)
-  share_plus:                      # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
+  share_plus: ^13.3.1              # Metin/dosya/link paylaşımı (sistem paylaşım menüsü)
 
   # -----------------------------
   # İzinler
@@ -68,6 +68,7 @@ dependencies:
   fl_chart:
   intl:
 
+  material_ui: any
 dependency_overrides:
   share_plus:
     path: third_party/share_plus

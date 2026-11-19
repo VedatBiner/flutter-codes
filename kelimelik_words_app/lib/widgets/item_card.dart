@@ -1,7 +1,7 @@
 // 📃 <----- item_card.dart ----->
 // Kelimelerin Card Widget olarak gösterilmesi burada sağlanıyor.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 sabitler burada
 import '../constants/color_constants.dart';

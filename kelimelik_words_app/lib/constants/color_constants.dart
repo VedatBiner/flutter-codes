@@ -2,7 +2,7 @@
 // kullanılan renkleri sabitleştirerek, değişimi tek
 // noktadan yapabilmeyi sağlıyoruz.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 Tüm menü arka plan rengi burada belirleniyor.
 Color drawerColor = const Color(0xFF0277BD);

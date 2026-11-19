@@ -9,7 +9,7 @@
 //
 
 // Flutter
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 // Proje içi bağımlılıklar
 import '../constants/color_constants.dart';

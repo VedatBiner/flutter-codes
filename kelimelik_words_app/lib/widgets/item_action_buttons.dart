@@ -4,7 +4,7 @@
 // Bu dosya alphabet_item_list.dart ve item_list.dart
 // dosyaları tarafından kullanılıyor.
 //
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../constants/button_constants.dart';

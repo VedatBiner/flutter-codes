@@ -3,7 +3,7 @@
 //
 
 // 📌 Flutter paketleri
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import '../../constants/color_constants.dart';

@@ -4,7 +4,7 @@
 // SafeTextField entegrasyonu ile cihaz klavye hataları tamamen çözülür.
 // ---------------------------------------------------------------------
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:kelimelik_words_app/widgets/safe_text_field.dart';
 
 /// 📌 Yardımcı yüklemeler burada

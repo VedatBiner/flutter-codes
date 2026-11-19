@@ -1,7 +1,7 @@
 // 📃 <----- word_stats_page.dart ----->
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:kelimelik_words_app/constants/color_constants.dart';
 
 import '../constants/chart_colors.dart';

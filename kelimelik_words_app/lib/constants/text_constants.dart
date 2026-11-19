@@ -2,7 +2,7 @@
 // Sık kullanılan text formatlarını burada belirliyoruz.
 // böylece tek noktadan tüm formata müdahale etme şansımız var.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// 📌 Yardımcı yüklemeler burada
 import 'color_constants.dart';

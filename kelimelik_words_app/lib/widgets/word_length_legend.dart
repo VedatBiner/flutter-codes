@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../constants/chart_colors.dart';
 import '../constants/text_constants.dart';

@@ -20,7 +20,7 @@
 //   - permission_handler / share_plus paketleri
 // -----------------------------------------------------------
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../constants/color_constants.dart';
 import '../../constants/text_constants.dart';
